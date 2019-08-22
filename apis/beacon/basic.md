@@ -28,14 +28,14 @@ port is not part of the specification.
 
 Table of endpoints:
 
-| Title | HTTP Path |
-| --- | --- |
-[Beacon Head](#beacon-head) | `/beacon/head`
-[Beacon Block](#beacon-block) | `/beacon/block`
-[Beacon State](#beacon-state) | `/beacon/state`
-[Network Peer Id](#network-peerid) | `/network/peer_id`
-[Network Peers](#network-peers) | `/network/peers`
-[Network ENR Address](#network-enr-address) | `/network/enr`
+| Title | HTTP Path | Description |
+| --- | --- | -- |
+[Beacon Head](#beacon-head) | `/beacon/head` | Get the head slot, block root and state root of the canonical chain.
+[Beacon Block](#beacon-block) | `/beacon/block` | Get a `BeaconBlock` by slot or root.
+[Beacon State](#beacon-state) | `/beacon/state` | Get a `BeaconState` by slot or root
+[Network Peer Id](#network-peerid) | `/network/peer_id` | Get a node's libp2p `PeerId`.
+[Network Peers](#network-peers) | `/network/peers` | List a node's libp2p peers (as `PeerIds`).
+[Network ENR Address](#network-enr-address) | `/network/enr` | Get a node's discovery `ENR` address.
 
 ## Beacon Head
 
@@ -65,7 +65,7 @@ Typical Responses | 200
 #### HTTP Example
 
 ```
-$ curl "localhost:5051/node/head"
+$ curl "localhost:5051/beacon/head"
 {"slot":546,"block_root":"0xee0973130905bfdf1deeed88ac0c09623c2cc071b03db68097f2e3b496258c17","state_root":"0xc87889ad8c760b1ec14746271372f9fb53d9f16463dcd224f86a6207799ad702"}
 ```
 
@@ -175,7 +175,7 @@ Typical Responses | 200, 404
 #### HTTP Example
 
 ```
-$ curl localhost:5051/beacon/state?slot=0
+$ curl "localhost:5051/beacon/state?slot=0"
 {"root":"0x3c06d45011320bc5a340811898e27c427547ee79e1e0f29892b4c5235d0c8c8e","beacon_state":{"genesis_time":1566448200,"slot":0,
 ```
 
