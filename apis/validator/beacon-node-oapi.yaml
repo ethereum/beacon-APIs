@@ -165,13 +165,13 @@ paths:
         - MinimalSet
       summary: "Publish a signed block."
       description: "Instructs the beacon node to broadcast a newly signed beacon block to the beacon network, to be included in the beacon chain. The beacon node is not required to validate the signed `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new block into its state, and therefore validate the block internally, however blocks which fail the validation are still broadcast but a different status code is returned (202)"
-      parameters:
-      - name: beacon_block
-        in: query
+      requestBody:
+        description: "The `BeaconBlock` object, as sent from the beacon node originally, but now with the signature field completed. Must be sent in JSON format in the body of the request."
         required: true
-        description: "The `BeaconBlock` object, as sent from the beacon node originally, but now with the signature field completed."
-        schema:
-          $ref: '#/components/schemas/BeaconBlock'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeaconBlock'
       responses:
         200:
           description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
@@ -189,7 +189,7 @@ paths:
       tags:
         - MinimalSet
       summary: "Produce an attestation, without signature."
-      description: "Requests that the beacon node produce an IndexedAttestation, with a blank signature field, which the validator will then sign."
+      description: "Requests that the beacon node produce an Attestation, with a blank signature field, which the validator will then sign."
       parameters:
       - name: validator_pubkey
         in: query
@@ -200,7 +200,7 @@ paths:
       - name: poc_bit
         in: query
         required: true
-        description: "The proof-of-custody bit that is to be reported by the requesting validator. This bit will be inserted into the appropriate location in the returned `IndexedAttestation`."
+        description: "The proof-of-custody bit that is to be reported by the requesting validator. This bit will be inserted into the appropriate location in the returned `Attestation`."
         schema:
             type: integer
             format: uint32
@@ -224,7 +224,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IndexedAttestation'
+                $ref: '#/components/schemas/Attestation'
         400:
           $ref: '#/components/responses/InvalidRequest'
         500:
@@ -235,14 +235,14 @@ paths:
       tags:
         - MinimalSet
       summary: "Publish a signed attestation."
-      description: "Instructs the beacon node to broadcast a newly signed IndexedAttestation object to the intended shard subnet. The beacon node is not required to validate the signed IndexedAttestation, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new attestation into its state, and therefore validate the attestation internally, however attestations which fail the validation are still broadcast but a different status code is returned (202)"
-      parameters:
-      - name: attestation
-        in: query
+      description: "Instructs the beacon node to broadcast a newly signed Attestation object to the intended shard subnet. The beacon node is not required to validate the signed Attestation, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new attestation into its state, and therefore validate the attestation internally, however attestations which fail the validation are still broadcast but a different status code is returned (202)"
+      requestBody:
+        description: "An `Attestation` structure, as originally provided by the beacon node, but now with the signature field completed. Must be sent in JSON format in the body of the request."
         required: true
-        description: "An `IndexedAttestation` structure, as originally provided by the beacon node, but now with the signature field completed."
-        schema:
-          $ref: '#/components/schemas/IndexedAttestation'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Attestation'
       responses:
         200:
           description: "The attestation was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
@@ -549,6 +549,27 @@ components:
           type: integer
           format: uint64
           description: "Fork epoch number."
+    Attestation:
+      type: object
+      description: "The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#attestation) object from the Eth2.0 spec."
+      properties:
+        aggregation_bitfield:
+          type: string
+          format: byte
+          pattern: "^0x[a-fA-F0-9]+$"
+          description: "Attester aggregation bitfield."
+        custody_bitfield:
+          type: string
+          format: byte
+          pattern: "^0x[a-fA-F0-9]+$"
+          description: "Custody bitfield."
+        signature:
+          type: string
+          format: byte
+          pattern: "^0x[a-fA-F0-9]{192}$"
+          description: "BLS aggregate signature."
+        data:
+          $ref: '#/components/schemas/AttestationData'
     IndexedAttestation:
       type: object
       description: "The [`IndexedAttestation`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#indexedattestation) object from the Eth2.0 spec."
