@@ -87,15 +87,15 @@ paths:
         500:
           $ref: '#/components/responses/InternalError'
 
-  /validator:
+  /validator/{pubkey}:
     get:
       tags:
         - MinimalSet
       summary: "Get validator details."
       description: "Requests the beacon node to provide details about validator or 404 if validator is not present in validator registry"
       parameters:
-        - name: validator_pubkey
-          in: query
+        - name: pubkey
+          in: path
           required: true
           schema:
             $ref: '#/components/schemas/pubkey'
