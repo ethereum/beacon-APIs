@@ -87,6 +87,32 @@ paths:
         500:
           $ref: '#/components/responses/InternalError'
 
+  /validator/{pubkey}:
+    get:
+      tags:
+        - MinimalSet
+      summary: "Get validator details."
+      description: "Requests the beacon node to provide details about validator or 404 if validator is not present in validator registry"
+      parameters:
+        - name: pubkey
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/pubkey'
+      responses:
+        200:
+          description: Success response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Validator'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        404:
+          description: "Validator not found in registry"
+        500:
+          $ref: '#/components/responses/InternalError'
+
   /validator/duties:
     get:
       tags:
@@ -290,6 +316,40 @@ components:
           format: uint64
           nullable: true
           description: "The slot in which a validator must propose a block, or `null` if block production is not required."
+    Validator:
+      type: object
+      properties:
+        validator_pubkey:
+          $ref: '#/components/schemas/pubkey'
+        withrawal_credentials:
+          type: string
+          format: bytes
+          pattern: "^0x[a-fA-F0-9]{64}$"
+          description: "Hash of withdrawal credentials"
+        effective_balance:
+          type: integer
+          format: int64
+          example: 32000000000
+          description: "Balance at stake in Gwei."
+        slashed:
+          type: boolean
+          description: "Was validator slashed (not longer active)."
+        activation_eligibility_epoch:
+          type: integer
+          format: uint64
+          description: "When criteria for activation were met."
+        activation_epoch:
+          type: integer
+          format: uint64
+          description: "Epoch when validator activated. Null if not activated"
+        exit_epoch:
+          type: integer
+          format: uint64
+          description: "Epoch when validator exited. Null if not exited."
+        withdrawable_epoch:
+          type: integer
+          format: uint64
+          description: "When validator can withdraw or transfer funds. Null if not activated"
     SyncingStatus:
       type: object
       nullable: true
