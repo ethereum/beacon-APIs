@@ -16,11 +16,9 @@ schemas:
           type: integer
           format: uint64
       signature:
-        type: string
-        format: bytes
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        example: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"
-        description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Signature'
+          - description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
       data:
         $ref: '#/schemas/AttestationData'
 
@@ -39,10 +37,9 @@ schemas:
         pattern: "^0x[a-fA-F0-9]+$"
         description: "Custody bits."
       signature:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        description: "BLS aggregate signature."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Signature'
+          - description: "BLS aggregate signature."
       data:
         $ref: '#/schemas/AttestationData'
 
@@ -51,28 +48,25 @@ schemas:
     description: "The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#attestationdata) object from the Eth2.0 spec."
     properties:
       beacon_block_root:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{64}$"
-        description: "LMD GHOST vote."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Hash'
+          - description: "LMD GHOST vote."
       source_epoch:
         type: integer
         format: uint64
         description: "Source epoch from FFG vote."
       source_root:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{64}$"
-        description: "Source root from FFG vote."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Hash'
+          - description: "Source root from FFG vote."
       target_epoch:
         type: integer
         format: uint64
         description: "Target epoch from FFG vote."
       target_root:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{64}$"
-        description: "Target root from FFG vote."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Hash'
+          - description: "Target root from FFG vote."
       crosslink:
         title: CrossLink
         type: object
@@ -91,12 +85,10 @@ schemas:
             format: uint64
             description: "The 'end' epoch referred to by the crosslinking data; no data in this Crosslink should refer to the `end_epoch` since it is not included in the crosslinking data interval."
           parent_root:
-            type: string
-            format: byte
-            pattern: "^0x[a-fA-F0-9]{64}$"
-            description: "Root of the previous crosslink."
+            allOf:
+              - $ref: '../misc.yaml#/schemas/Hash'
+              - description: "Root of the previous crosslink."
           data_root:
-            type: string
-            format: byte
-            pattern: "^0x[a-fA-F0-9]{64}$"
-            description: "Root of the crosslinked shard data since the previous crosslink."
+            allOf:
+              - $ref: '../misc.yaml#/schemas/Hash'
+              - description: "Root of the crosslinked shard data since the previous crosslink."

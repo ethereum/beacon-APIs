@@ -12,7 +12,6 @@ schemas:
         format: uint64
         description: "Index of the exiting validator."
       signature:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        description: "Validator signature."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Signature'
+          - description: "Validator signature."

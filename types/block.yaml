@@ -14,10 +14,9 @@ schemas:
       - type: object
         properties:
           body_root:
-            type: string
-            format: bytes
-            pattern: "^0x[a-fA-F0-9]{64}$"
-            description: "The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`"
+            allOf:
+              - $ref: './misc.yaml#/schemas/Hash'
+              - description: "The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`"
   BeaconBlockCommon:
     # An abstract object to collect the common fields between the BeaconBlockHeader and the BeaconBlock objects
     type: object
@@ -27,30 +26,25 @@ schemas:
         format: uint64
         description: "The slot to which this block corresponds."
       parent_root:
-        type: string
-        format: bytes
-        pattern: "^0x[a-fA-F0-9]{64}$"
-        description: "The signing merkle root of the parent `BeaconBlock`."
+        allOf:
+          - $ref: './misc.yaml#/schemas/Hash'
+          - description: "The signing merkle root of the parent `BeaconBlock`."
       state_root:
-        type: string
-        format: bytes
-        pattern: "^0x[a-fA-F0-9]{64}$"
-        description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
+        allOf:
+          - $ref: './misc.yaml#/schemas/Hash'
+          - description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
       signature:
-        type: string
-        format: bytes
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        example: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"
-        description: "The BLS signature of the `BeaconBlock` made by the validator of the block."
+        allOf:
+          - $ref: './misc.yaml#/schemas/Signature'
+          - description: "The BLS signature of the `BeaconBlock` made by the validator of the block."
   BeaconBlockBody:
     type: object
     description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#beaconblockbody) object from the Eth2.0 spec."
     properties:
       randao_reveal:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        description: "The RanDAO reveal value provided by the validator."
+        allOf:
+          - $ref: './misc.yaml#/schemas/Signature'
+          - description: "The RanDAO reveal value provided by the validator."
       eth1_data:
         $ref: 'eth1.yaml#/schemas/Eth1Data'
       graffiti:

@@ -29,7 +29,6 @@ schemas:
         pattern: "^0x[a-fA-F0-9]{96}$"
         description: "Sender withdrawal public key."
       signature:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        description: "Sender signature."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Signature'
+          - description: "Sender signature."

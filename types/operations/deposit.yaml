@@ -7,9 +7,8 @@ schemas:
         type: array
         description: "Branch in the deposit tree."
         items:
-          type: string
-          format: byte
-          pattern: "^0x[a-fA-F0-9]{64}$"
+          allOf:
+            - $ref: '../misc.yaml#/schemas/Hash'
         minItems: 32
         maxItems: 32
       index:
@@ -25,16 +24,14 @@ schemas:
       pubkey:
         $ref: '../misc.yaml#/schemas/PublicKey'
       withdrawal_credentials:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{64}$"
-        description: "The withdrawal credentials."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Hash'
+          - description: "The withdrawal credentials."
       amount:
         type: integer
         format: uint64
         description: "Amount in Gwei."
       signature:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]{192}$"
-        description: "Container self-signature."
+        allOf:
+          - $ref: '../misc.yaml#/schemas/Signature'
+          - description: "Container self-signature."

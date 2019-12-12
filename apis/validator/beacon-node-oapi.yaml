@@ -145,8 +145,7 @@ paths:
         required: true
         description: "The validator's randao reveal value."
         schema:
-          type: string
-          format: byte
+          $ref: '#/components/schemas/Signature'
       responses:
         200:
           description: Success response
@@ -273,6 +272,8 @@ components:
       $ref: '../../types/misc.yaml#/schemas/GenesisTime'
     Version:
       $ref: '../../types/misc.yaml#/schemas/Version'
+    Signature:
+      $ref: '../../types/misc.yaml#/schemas/Signature'
   responses:
     InvalidRequest:
       $ref: '../../types/http.yaml#/responses/InvalidRequest'
