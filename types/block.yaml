@@ -52,24 +52,7 @@ schemas:
         pattern: "^0x[a-fA-F0-9]{192}$"
         description: "The RanDAO reveal value provided by the validator."
       eth1_data:
-        title: Eth1Data
-        type: object
-        description: "The [`Eth1Data`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#eth1data) object from the Eth2.0 spec."
-        properties:
-          deposit_root:
-            type: string
-            format: byte
-            pattern: "^0x[a-fA-F0-9]{64}$"
-            description: "Root of the deposit tree."
-          deposit_count:
-            type: integer
-            format: uint64
-            description: "Total number of deposits."
-          block_hash:
-            type: string
-            format: byte
-            pattern: "^0x[a-fA-F0-9]{64}$"
-            description: "Ethereum 1.x block hash."
+        $ref: 'eth1.yaml#/schemas/Eth1Data'
       graffiti:
         type: string
         format: byte
@@ -77,148 +60,24 @@ schemas:
       proposer_slashings:
         type: array
         items:
-          title: ProposerSlashings
-          type: object
-          description: "The [`ProposerSlashing`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#proposerslashing) object from the Eth2.0 spec."
-          properties:
-            proposer_index:
-              type: integer
-              format: uint64
-              description: "The index of the proposer to be slashed."
-            header_1:
-              $ref: '#/schemas/BeaconBlockHeader'
-            header_2:
-              $ref: '#/schemas/BeaconBlockHeader'
+          $ref: 'operations/proposer_slashing.yaml#/schemas/ProposerSlashing'
       attester_slashings:
         type: array
         items:
-          title: AttesterSlashings
-          type: object
-          description: "The [`AttesterSlashing`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#attesterslashing) object from the Eth2.0 spec."
-          properties:
-            attestation_1:
-              $ref: './attestation.yaml#/schemas/IndexedAttestation'
-            attestation_2:
-              $ref: './attestation.yaml#/schemas/IndexedAttestation'
+          $ref: 'operations/attester_slashing.yaml#/schemas/AttesterSlashing'
       attestations:
         type: array
         items:
-          title: Attestation
-          type: object
-          description: "The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#attestation) object from the Eth2.0 spec."
-          properties:
-            aggregation_bits:
-              type: string
-              format: byte
-              pattern: "^0x[a-fA-F0-9]+$"
-              description: "Attester aggregation bits."
-            custody_bits:
-              type: string
-              format: byte
-              pattern: "^0x[a-fA-F0-9]+$"
-              description: "Custody bits."
-            signature:
-              type: string
-              format: byte
-              pattern: "^0x[a-fA-F0-9]{192}$"
-              description: "BLS aggregate signature."
-            data:
-              $ref: './attestation.yaml#/schemas/AttestationData'
+          $ref: 'operations/attestation.yaml#/schemas/Attestation'
       deposits:
         type: array
         items:
-          title: Deposit
-          type: object
-          description: "The [`Deposit`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#deposit) object from the Eth2.0 spec."
-          properties:
-            proof:
-              type: array
-              description: "Branch in the deposit tree."
-              items:
-                type: string
-                format: byte
-                pattern: "^0x[a-fA-F0-9]{64}$"
-              minItems: 32
-              maxItems: 32
-            index:
-              type: integer
-              format: uint64
-              description: "Index in the deposit tree."
-            data:
-              title: DepositData
-              type: object
-              description: "The [`DepositData`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#depositdata) object from the Eth2.0 spec."
-              properties:
-                pubkey:
-                  $ref: './misc.yaml#/schemas/PublicKey'
-                withdrawal_credentials:
-                  type: string
-                  format: byte
-                  pattern: "^0x[a-fA-F0-9]{64}$"
-                  description: "The withdrawal credentials."
-                amount:
-                  type: integer
-                  format: uint64
-                  description: "Amount in Gwei."
-                signature:
-                  type: string
-                  format: byte
-                  pattern: "^0x[a-fA-F0-9]{192}$"
-                  description: "Container self-signature."
+          $ref: 'operations/deposit.yaml#/schemas/Deposit'
       voluntary_exits:
         type: array
         items:
-          title: VoluntaryExit
-          type: object
-          description: "The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#voluntaryexit) object from the Eth2.0 spec."
-          properties:
-            epoch:
-              type: integer
-              format: uint64
-              description: "Minimum epoch for processing exit."
-            validator_index:
-              type: integer
-              format: uint64
-              description: "Index of the exiting validator."
-            signature:
-              type: string
-              format: byte
-              pattern: "^0x[a-fA-F0-9]{192}$"
-              description: "Validator signature."
+          $ref: 'operations/voluntary_exit.yaml#/schemas/VoluntaryExit'
       transfers:
         type: array
         items:
-          title: Transfer
-          type: object
-          description: "The [`Transfer`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#transfer) object from the Eth2.0 spec."
-          properties:
-            sender:
-              type: integer
-              format: uint64
-              description: "Sender index."
-            recipient:
-              type: integer
-              format: uint64
-              description: "Recipient index."
-            amount:
-              type: integer
-              format: uint64
-              description: "Amount in Gwei."
-            fee:
-              type: integer
-              format: uint64
-              description: "Fee in Gwei for block producer."
-            slot:
-              type: integer
-              format: uint64
-              description: "Inclusion slot."
-            pubkey:
-              type: string
-              format: byte
-              pattern: "^0x[a-fA-F0-9]{96}$"
-              description: "Sender withdrawal public key."
-            signature:
-              type: string
-              format: byte
-              pattern: "^0x[a-fA-F0-9]{192}$"
-              description: "Sender signature."
+          $ref: 'operations/transfer.yaml#/schemas/Transfer'

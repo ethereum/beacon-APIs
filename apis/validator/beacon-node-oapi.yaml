@@ -260,7 +260,7 @@ components:
     BeaconBlock:
       $ref: '../../types/block.yaml#/schemas/BeaconBlock'
     IndexedAttestation:
-      $ref: '../../types/attestation.yaml#/schemas/IndexedAttestation'
+      $ref: '../../types/operations/attestation.yaml#/schemas/IndexedAttestation'
     ValidatorDuty:
       $ref: '../../types/validator.yaml#/schemas/ValidatorDuty'
     Fork:

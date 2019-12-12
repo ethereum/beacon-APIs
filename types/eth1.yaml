@@ -1,0 +1,19 @@
+schemas:
+  Eth1Data:
+    type: object
+    description: "The [`Eth1Data`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#eth1data) object from the Eth2.0 spec."
+    properties:
+      deposit_root:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]{64}$"
+        description: "Root of the deposit tree."
+      deposit_count:
+        type: integer
+        format: uint64
+        description: "Total number of deposits."
+      block_hash:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]{64}$"
+        description: "Ethereum 1.x block hash."
