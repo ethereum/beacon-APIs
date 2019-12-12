@@ -1,0 +1,80 @@
+schemas:
+  IndexedAttestation:
+    type: object
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#indexedattestation) object from the Eth2.0 spec."
+    properties:
+      custody_bit_0_indices:
+        type: array
+        description: "Validator indices for 0 bits."
+        items:
+          type: integer
+          format: uint64
+      custody_bit_1_indices:
+        type: array
+        description: "Validator indices for 1 bits."
+        items:
+          type: integer
+          format: uint64
+      signature:
+        type: string
+        format: bytes
+        pattern: "^0x[a-fA-F0-9]{192}$"
+        example: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"
+        description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
+      data:
+        $ref: '#/schemas/AttestationData'
+
+  AttestationData:
+    type: object
+    description: "The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#attestationdata) object from the Eth2.0 spec."
+    properties:
+      beacon_block_root:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]{64}$"
+        description: "LMD GHOST vote."
+      source_epoch:
+        type: integer
+        format: uint64
+        description: "Source epoch from FFG vote."
+      source_root:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]{64}$"
+        description: "Source root from FFG vote."
+      target_epoch:
+        type: integer
+        format: uint64
+        description: "Target epoch from FFG vote."
+      target_root:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]{64}$"
+        description: "Target root from FFG vote."
+      crosslink:
+        title: CrossLink
+        type: object
+        description: "The [`Crosslink`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#crosslink) object from the Eth2.0 spec, contains data from epochs [`start_epoch`, `end_epoch`)."
+        properties:
+          shard:
+            type: integer
+            format: uint64
+            description: "The shard number."
+          start_epoch:
+            type: integer
+            format: uint64
+            description: "The first epoch which the crosslinking data references."
+          end_epoch:
+            type: integer
+            format: uint64
+            description: "The 'end' epoch referred to by the crosslinking data; no data in this Crosslink should refer to the `end_epoch` since it is not included in the crosslinking data interval."
+          parent_root:
+            type: string
+            format: byte
+            pattern: "^0x[a-fA-F0-9]{64}$"
+            description: "Root of the previous crosslink."
+          data_root:
+            type: string
+            format: byte
+            pattern: "^0x[a-fA-F0-9]{64}$"
+            description: "Root of the crosslinked shard data since the previous crosslink."

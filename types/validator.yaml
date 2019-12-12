@@ -1,0 +1,19 @@
+schemas:
+  ValidatorDuty:
+    type: object
+    properties:
+      validator_pubkey:
+        $ref: './misc.yaml#/schemas/PublicKey'
+      attestation_slot:
+        type: integer
+        format: uint64
+        description: "The slot at which the validator must attest."
+      attestation_shard:
+        type: integer
+        format: uint64
+        description: "The shard in which the validator must attest."
+      block_proposal_slot:
+        type: integer
+        format: uint64
+        nullable: true
+        description: "The slot in which a validator must propose a block, or `null` if block production is not required."
