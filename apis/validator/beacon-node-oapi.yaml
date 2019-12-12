@@ -98,7 +98,7 @@ paths:
           in: path
           required: true
           schema:
-            $ref: '#/components/schemas/pubkey'
+            $ref: '#/components/schemas/PublicKey'
       responses:
         200:
           description: Success response
@@ -284,8 +284,10 @@ components:
   schemas:
     BeaconBlock:
       $ref: '../../types/block.yaml#/schemas/BeaconBlock'
-    IndexedAttestation:
-      $ref: '../../types/operations/attestation.yaml#/schemas/IndexedAttestation'
+    Validator:
+      $ref: '../../types/validator.yaml#/schemas/Validator'
+    Attestation:
+      $ref: '../../types/operations/attestation.yaml#/schemas/Attestation'
     ValidatorDuty:
       $ref: '../../types/validator.yaml#/schemas/ValidatorDuty'
     Fork:
