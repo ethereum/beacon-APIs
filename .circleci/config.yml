@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      image: circleci/node:lts
+    working_directory: ~/repo
+    steps:
+        - checkout
+        - run: yarn global add swagger-cli
+        - run: swagger-cli validate ./apis/validator/beacon-node-oapi.yaml
