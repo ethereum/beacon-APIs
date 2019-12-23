@@ -24,4 +24,4 @@ This specification is derived from a proposal and discussion on Issues [#1011](h
 
 The API specification has been written in [OpenAPI 3.0](https://swagger.io/docs/specification/about/) and is provided in the [beacon_node_oapi.yaml](beacon-node-oapi.yaml) file alongside this document.
 
-For convenience, this specification has been uploaded to SwaggerHub [here](https://app.swaggerhub.com/apis/spble/beacon_node_api_for_validator).
+For convenience, this specification has been uploaded to SwaggerHub [here](https://ethereum.github.io/eth2.0-APIs/).
