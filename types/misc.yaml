@@ -38,6 +38,6 @@ schemas:
       epoch:
         $ref: '#/schemas/Uint64'
       root:
-        - allOf:
+        allOf:
           - $ref: '#/schemas/Hash'
           - description: "Block root"
