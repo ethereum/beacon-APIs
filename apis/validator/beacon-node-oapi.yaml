@@ -69,7 +69,7 @@ paths:
   /node/fork:
     get:
       tags:
-        - OptionalSet
+        - MinimalSet
       summary: "Get fork information from running beacon node."
       description: "Requests the beacon node to provide which fork version it is currently on."
       responses:
@@ -86,6 +86,33 @@ paths:
                     type: integer
                     format: uint64
                     description: "Sometimes called the network id, this number discerns the active chain for the beacon node. Analogous to Eth1.0 JSON-RPC net_version."
+        500:
+          $ref: '#/components/responses/InternalError'
+
+  /node/fork/stream:
+    get:
+      tags:
+        - OptionalSet
+      summary: "Get fork information from running beacon node."
+      description: "Requests the beacon node to provide which fork version it is currently on."
+      responses:
+        200:
+          description: Request successful
+          content:
+            text/event-stream:
+              schema:
+                type: array
+                format: text
+                items:
+                  type: object
+                  format: json
+                  properties:
+                    fork:
+                      $ref: '#/components/schemas/Fork'
+                    chain_id:
+                      type: integer
+                      format: uint64
+                      description: "Sometimes called the network id, this number discerns the active chain for the beacon node. Analogous to Eth1.0 JSON-RPC net_version."
         500:
           $ref: '#/components/responses/InternalError'
 
