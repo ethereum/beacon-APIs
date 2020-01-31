@@ -6,6 +6,14 @@ info:
   license:
     name: "Apache 2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+
+servers:
+  - url: "{server_url}"
+    variables:
+      server_url:
+        description: "Beacon node api url"
+        default: "http://public-mainnet-node.ethereum.org/api"
+
 tags:
   - name: MinimalSet
     description: The minimal set of endpoints to enable a working validator implementation.
