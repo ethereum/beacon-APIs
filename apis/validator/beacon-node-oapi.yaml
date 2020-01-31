@@ -320,20 +320,22 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                committee_index:
-                  $ref: '#/components/schemas/Uint64'
-                slot:
-                  allOf:
-                    - $ref: '#/components/schemas/Uint64'
-                    - description: "Should be slot at which validator is assigned to attest"
-                slot_signature:
-                  allOf:
-                    - $ref: '#/components/schemas/Signature'
-                    - description: "Should be valid against given slot and validator pubkey."
-                aggregator_pubkey:
-                  $ref: '#/components/schemas/PublicKey'
+              type: array
+              items:
+                type: object
+                properties:
+                  committee_index:
+                    $ref: '#/components/schemas/Uint64'
+                  slot:
+                    allOf:
+                      - $ref: '#/components/schemas/Uint64'
+                      - description: "Should be slot at which validator is assigned to attest"
+                  slot_signature:
+                    allOf:
+                      - $ref: '#/components/schemas/Signature'
+                      - description: "Should be valid against given slot and validator pubkey."
+                  aggregator_pubkey:
+                    $ref: '#/components/schemas/PublicKey'
       responses:
         200:
           description: "Slot signature is valid and beacon node is subscribed to given committee attestation subnet."
