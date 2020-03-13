@@ -1,6 +1,6 @@
 schemas:
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#beaconblock) object from the Eth2.0 spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.0/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
     allOf:
       - $ref: '#/schemas/BeaconBlockCommon'
       - type: object
@@ -8,7 +8,7 @@ schemas:
           body:
             $ref: '#/schemas/BeaconBlockBody'
   BeaconBlockHeader:
-    description: "The [`BeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#beaconblockheader) object from the Eth2.0 spec."
+    description: "The [`BeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.0/specs/phase0/beacon-chain.md#beaconblockheader) object from the Eth2.0 spec."
     allOf:
       - $ref: '#/schemas/BeaconBlockCommon'
       - type: object
@@ -39,7 +39,7 @@ schemas:
           - description: "The BLS signature of the `BeaconBlock` made by the validator of the block."
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#beaconblockbody) object from the Eth2.0 spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.0/specs/phase0/beacon-chain.md#beaconblockbody) object from the Eth2.0 spec."
     properties:
       randao_reveal:
         allOf:
