@@ -6,8 +6,8 @@ schemas:
         $ref: './misc.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
-          - $ref: "./misc.yaml#/schemas/Hash"
-          - description: "Hash of withdrawal credentials"
+          - $ref: "./misc.yaml#/schemas/Root"
+          - description: "Root of withdrawal credentials"
       effective_balance:
         type: integer
         format: uint64

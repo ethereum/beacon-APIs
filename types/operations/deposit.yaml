@@ -8,7 +8,7 @@ schemas:
         description: "Branch in the deposit tree."
         items:
           allOf:
-            - $ref: '../misc.yaml#/schemas/Hash'
+            - $ref: '../misc.yaml#/schemas/Root'
         minItems: 32
         maxItems: 32
       index:
@@ -25,7 +25,7 @@ schemas:
         $ref: '../misc.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Hash'
+          - $ref: '../misc.yaml#/schemas/Root'
           - description: "The withdrawal credentials."
       amount:
         type: integer

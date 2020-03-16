@@ -5,7 +5,7 @@ schemas:
     properties:
       deposit_root:
         allOf:
-          - $ref: './misc.yaml#/schemas/Hash'
+          - $ref: './misc.yaml#/schemas/Root'
           - description: "Root of the deposit tree."
       deposit_count:
         type: integer
@@ -13,5 +13,5 @@ schemas:
         description: "Total number of deposits."
       block_hash:
         allOf:
-          - $ref: './misc.yaml#/schemas/Hash'
+          - $ref: './misc.yaml#/schemas/Root'
           - description: "Ethereum 1.x block hash."
