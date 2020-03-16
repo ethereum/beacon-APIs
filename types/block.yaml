@@ -25,6 +25,15 @@ schemas:
           body:
             $ref: '#/schemas/BeaconBlockBody'
 
+  SignedBeaconBlock:
+    type: object
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 spec."
+    properties:
+      message:
+        $ref: "#/schemas/BeaconBlock"
+      signature:
+        $ref: "./primitive.yaml#/schemas/Signature"
+
   BeaconBlockHeader:
     description: "The [`BeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the Eth2.0 spec."
     allOf:
@@ -35,6 +44,15 @@ schemas:
             allOf:
               - $ref: './primitive.yaml#/schemas/Root'
               - description: "The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`"
+
+  SignedBeaconBlockHeader:
+    type: object
+    description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the Eth2.0 spec."
+    properties:
+      message:
+        $ref: "#/schemas/BeaconBlockHeader"
+      signature:
+        $ref: "./primitive.yaml#/schemas/Signature"
 
   BeaconBlockBody:
     type: object
