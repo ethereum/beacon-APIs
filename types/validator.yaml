@@ -3,10 +3,10 @@ schemas:
     type: object
     properties:
       validator_pubkey:
-        $ref: './misc.yaml#/schemas/PublicKey'
+        $ref: './primitive.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
-          - $ref: "./misc.yaml#/schemas/Root"
+          - $ref: "./primitive.yaml#/schemas/Root"
           - description: "Root of withdrawal credentials"
       effective_balance:
         type: integer
@@ -37,7 +37,7 @@ schemas:
     type: object
     properties:
       validator_pubkey:
-        $ref: './misc.yaml#/schemas/PublicKey'
+        $ref: './primitive.yaml#/schemas/PublicKey'
       attestation_slot:
         type: integer
         format: uint64

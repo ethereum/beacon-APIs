@@ -15,7 +15,7 @@ schemas:
         properties:
           body_root:
             allOf:
-              - $ref: './misc.yaml#/schemas/Root'
+              - $ref: './primitive.yaml#/schemas/Root'
               - description: "The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`"
   BeaconBlockCommon:
     # An abstract object to collect the common fields between the BeaconBlockHeader and the BeaconBlock objects

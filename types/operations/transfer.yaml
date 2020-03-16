@@ -30,5 +30,5 @@ schemas:
         description: "Sender withdrawal public key."
       signature:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Signature'
+          - $ref: '../primitive.yaml#/schemas/Signature'
           - description: "Sender signature."

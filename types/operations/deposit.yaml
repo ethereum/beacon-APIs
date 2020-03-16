@@ -8,7 +8,7 @@ schemas:
         description: "Branch in the deposit tree."
         items:
           allOf:
-            - $ref: '../misc.yaml#/schemas/Root'
+            - $ref: '../primitive.yaml#/schemas/Root'
         minItems: 32
         maxItems: 32
       index:
@@ -22,10 +22,10 @@ schemas:
     description: "The [`DepositData`](https://github.com/ethereum/eth2.0-specs/blob/master/specs/core/0_beacon-chain.md#depositdata) object from the Eth2.0 spec."
     properties:
       pubkey:
-        $ref: '../misc.yaml#/schemas/PublicKey'
+        $ref: '../primitive.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Root'
+          - $ref: '../primitive.yaml#/schemas/Root'
           - description: "The withdrawal credentials."
       amount:
         type: integer
@@ -33,5 +33,5 @@ schemas:
         description: "Amount in Gwei."
       signature:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Signature'
+          - $ref: '../primitive.yaml#/schemas/Signature'
           - description: "Container self-signature."

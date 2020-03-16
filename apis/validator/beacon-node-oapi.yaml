@@ -299,7 +299,7 @@ components:
     ValidatorDuty:
       $ref: '../../types/validator.yaml#/schemas/ValidatorDuty'
     Fork:
-      $ref: '../../types/network.yaml#/schemas/Fork'
+      $ref: '../../types/node.yaml#/schemas/Fork'
     PublicKey:
       $ref: '../../types/misc.yaml#/schemas/PublicKey'
     SyncingStatus:

@@ -17,7 +17,7 @@ schemas:
           format: uint64
       signature:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Signature'
+          - $ref: '../primitive.yaml#/schemas/Signature'
           - description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
       data:
         $ref: '#/schemas/AttestationData'
@@ -38,7 +38,7 @@ schemas:
         description: "Custody bits."
       signature:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Signature'
+          - $ref: '../primitive.yaml#/schemas/Signature'
           - description: "BLS aggregate signature."
       data:
         $ref: '#/schemas/AttestationData'
@@ -49,7 +49,7 @@ schemas:
     properties:
       beacon_block_root:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Root'
+          - $ref: '../primitive.yaml#/schemas/Root'
           - description: "LMD GHOST vote."
       source_epoch:
         type: integer
@@ -57,7 +57,7 @@ schemas:
         description: "Source epoch from FFG vote."
       source_root:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Root'
+          - $ref: '../primitive.yaml#/schemas/Root'
           - description: "Source root from FFG vote."
       target_epoch:
         type: integer
@@ -65,7 +65,7 @@ schemas:
         description: "Target epoch from FFG vote."
       target_root:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Root'
+          - $ref: '../primitive.yaml#/schemas/Root'
           - description: "Target root from FFG vote."
       crosslink:
         title: CrossLink
@@ -86,9 +86,9 @@ schemas:
             description: "The 'end' epoch referred to by the crosslinking data; no data in this Crosslink should refer to the `end_epoch` since it is not included in the crosslinking data interval."
           parent_root:
             allOf:
-              - $ref: '../misc.yaml#/schemas/Root'
+              - $ref: '../primitive.yaml#/schemas/Root'
               - description: "Root of the previous crosslink."
           data_root:
             allOf:
-              - $ref: '../misc.yaml#/schemas/Root'
+              - $ref: '../primitive.yaml#/schemas/Root'
               - description: "Root of the crosslinked shard data since the previous crosslink."

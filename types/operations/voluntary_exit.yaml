@@ -13,5 +13,5 @@ schemas:
         description: "Index of the exiting validator."
       signature:
         allOf:
-          - $ref: '../misc.yaml#/schemas/Signature'
+          - $ref: '../primitive.yaml#/schemas/Signature'
           - description: "Validator signature."
