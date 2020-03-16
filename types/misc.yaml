@@ -1,4 +1,4 @@
-scehmas:
+schemas:
   Fork:
     type: object
     description: "The [`Fork`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#fork) object from the Eth2.0 spec."
@@ -9,3 +9,11 @@ scehmas:
         $ref: "./primitive.yaml#/schemas/ForkVersion"
       epoch:
         $ref: "./primitive.yaml#/schemas/Uint64"
+  Checkpoint:
+    type: object
+    description: "The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#checkpoint"
+    properties:
+      epoch:
+        $ref: "./primitive.yaml#/schemas/Uint64"
+      root:
+        $ref: "./primitive.yaml#/schemas/Root"
