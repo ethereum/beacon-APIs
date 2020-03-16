@@ -292,6 +292,8 @@ components:
   schemas:
     BeaconBlock:
       $ref: '../../types/block.yaml#/schemas/BeaconBlock'
+    BeaconState:
+      $ref: '../../types/state.yaml#/schemas/BeaconState'
     Validator:
       $ref: '../../types/validator.yaml#/schemas/Validator'
     Attestation:

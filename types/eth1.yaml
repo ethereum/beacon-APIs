@@ -9,7 +9,7 @@ schemas:
           - description: "Root of the deposit tree."
       deposit_count:
         allOf:
-          - $ref: "./primitve.yaml#/schemas/Uint64"
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "Total number of deposits."
       block_hash:
         allOf:
