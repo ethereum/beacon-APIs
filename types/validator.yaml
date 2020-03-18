@@ -38,6 +38,10 @@ schemas:
     properties:
       validator_pubkey:
         $ref: './misc.yaml#/schemas/PublicKey'
+      aggregator_modulo:
+        allOf:
+          - $ref: './misc.yaml#/schemas/Uint64'
+          - description: "Modulo used in [spec](https://github.com/ethereum/eth2.0-specs/blob/v0.9.4/specs/validator/0_beacon-chain-validator.md#aggregation-selection) to determine if validator is aggregator"
       attestation_slot:
         $ref: './misc.yaml#/schemas/Uint64'
       committee_index:
