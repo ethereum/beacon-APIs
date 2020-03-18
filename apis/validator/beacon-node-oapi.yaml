@@ -100,7 +100,7 @@ paths:
   /node/fork/stream:
     get:
       tags:
-        - OptionalSet
+        - MinimalSet
       summary: "Get fork information from running beacon node."
       description: "Requests the beacon node to provide which fork version it is currently on."
       responses:
@@ -332,7 +332,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Attestation'
+              type: array
+              items:
+                $ref: '#/components/schemas/Attestation'
       responses:
         200:
           description: "The attestation was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
@@ -359,7 +361,7 @@ paths:
               items:
                 type: object
                 properties:
-                  committee_index:
+                  attestation_committee_index:
                     $ref: '#/components/schemas/Uint64'
                   slot:
                     allOf:
@@ -388,7 +390,7 @@ paths:
       summary: "Get unaggregated wire attestations"
       description: "Endpoint should aggregate all collected attestations and produce AggregateAndProof without proof. Validator running on weak hardware is expected to add proof and publish"
       tags:
-        - MinimalSet
+        - OptionalSet
       parameters:
         - name: slot
           in: query
@@ -422,7 +424,7 @@ paths:
       summary: "get aggregated attestations"
       description: "Aggregates all attestations in current slot"
       tags:
-        - OptionalSet
+        - MinimalSet
       parameters:
         - name: attestation_data_root
           in: query
@@ -436,11 +438,11 @@ paths:
           schema:
             type: integer
             minimum: 0
-        - name: aggreator_pubkey
+        - name: committee_index
           in: query
           required: true
           schema:
-            $ref: '#/components/schemas/PublicKey'
+            $ref: '#/components/schemas/Uint64'
       responses:
         200:
           description: "Returns only unaggregated attestations for given committee."
@@ -465,7 +467,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AggregateAndProof'
+              type: array
+              items:
+                $ref: '#/components/schemas/AggregateAndProof'
       responses:
         200:
           description: "Successful response"
