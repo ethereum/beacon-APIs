@@ -3,34 +3,33 @@ schemas:
     type: object
     properties:
       validator_pubkey:
-        $ref: './misc.yaml#/schemas/PublicKey'
+        $ref: './primitive.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
-          - $ref: "./misc.yaml#/schemas/Hash"
-          - description: "Hash of withdrawal credentials"
+          - $ref: "./primitive.yaml#/schemas/Root"
+          - description: "Root of withdrawal credentials"
       effective_balance:
         allOf:
-          - $ref: './misc.yaml#/schemas/Uint64'
-          - example: 32000000000
+          - $ref: "./primitive.yaml#/schemas/Gwei"
           - description: "Balance at stake in Gwei."
       slashed:
         type: boolean
         description: "Was validator slashed (not longer active)."
       activation_eligibility_epoch:
         allOf:
-          - $ref: './misc.yaml#/schemas/Uint64'
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "When criteria for activation were met."
       activation_epoch:
         allOf:
-          - $ref: './misc.yaml#/schemas/Uint64'
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
       exit_epoch:
         allOf:
-          - $ref: './misc.yaml#/schemas/Uint64'
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
       withdrawable_epoch:
         allOf:
-          - $ref: './misc.yaml#/schemas/Uint64'
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
 
   AttesterDuty:
@@ -43,9 +42,18 @@ schemas:
           - $ref: './misc.yaml#/schemas/Uint64'
           - description: "Modulo used in [spec](https://github.com/ethereum/eth2.0-specs/blob/v0.9.4/specs/validator/0_beacon-chain-validator.md#aggregation-selection) to determine if validator is aggregator"
       attestation_slot:
-        $ref: './misc.yaml#/schemas/Uint64'
+        allOf:
+          - $ref: "./primitive.yaml#/schemas/Uint64"
+          - description: "The slot at which the validator must attest."
       committee_index:
-        $ref: './misc.yaml#/schemas/Uint64'
+        allOf:
+          - $ref: "./primitive.yaml#/schemas/Uint64"
+          - description: "The committee index"
+      block_proposal_slot:
+        allOf:
+          - $ref: "./primitive.yaml#/schemas/Uint64"
+          - nullable: true
+          - description: "The slot in which a validator must propose a block, or `null` if block production is not required."
 
   AggregateAndProof:
     allOf:
@@ -53,13 +61,13 @@ schemas:
       - type: object
         properties:
           slection_proof:
-            $ref: './misc.yaml#/schemas/Signature'
+            $ref: './primitive.yaml#/schemas/Signature'
 
   Aggregate:
     type: object
     description: "The [`AggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.9.2/specs/validator/0_beacon-chain-validator.md#aggregateandproof) without selection_proof"
     properties:
       aggregator_index:
-        $ref: './misc.yaml#/schemas/Uint64'
+        $ref: './primitive.yaml#/schemas/Uint64'
       attestation:
         $ref: './operations/attestation.yaml#/schemas/Attestation'

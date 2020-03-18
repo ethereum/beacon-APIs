@@ -91,9 +91,9 @@ paths:
                   fork:
                     $ref: '#/components/schemas/Fork'
                   chain_id:
-                    type: integer
-                    format: uint64
-                    description: "Sometimes called the network id, this number discerns the active chain for the beacon node. Analogous to Eth1.0 JSON-RPC net_version."
+                    allOf:
+                      - $ref: "#/components/schemas/Uint64"
+                      - description: "Sometimes called the network id, this number discerns the active chain for the beacon node. Analogous to Eth1.0 JSON-RPC net_version."
         500:
           $ref: '#/components/responses/InternalError'
 
@@ -204,8 +204,7 @@ paths:
         in: path
         required: true
         schema:
-          type: integer
-          minimum: 0
+            $ref: "#/components/schemas/Uint64"
       responses:
         200:
           description: Success response
@@ -236,8 +235,7 @@ paths:
         required: true
         description: "The slot for which the block should be proposed."
         schema:
-          type: integer
-          minimum: 0
+          $ref: "#/components/schemas/Uint64"
       - name: randao_reveal
         in: query
         required: true
@@ -302,12 +300,10 @@ paths:
           type: integer
           minimum: 0
       - name: committee_index
-        in: query
-        required: true
-        description: "The shard number for which the attestation is to be proposed."
-        schema:
-          type: integer
-          minimum: 0
+          $ref: "#/components/schemas/Uint64"
+          in: query
+          description: "The committee index for which the attestation should be proposed."
+          required: true
       responses:
         200:
           description: Success response
@@ -482,6 +478,8 @@ components:
   schemas:
     BeaconBlock:
       $ref: '../../types/block.yaml#/schemas/BeaconBlock'
+    BeaconState:
+      $ref: '../../types/state.yaml#/schemas/BeaconState'
     Validator:
       $ref: '../../types/validator.yaml#/schemas/Validator'
     AttesterDuty:
@@ -493,21 +491,21 @@ components:
     Attestation:
       $ref: '../../types/operations/attestation.yaml#/schemas/Attestation'
     Fork:
-      $ref: '../../types/network.yaml#/schemas/Fork'
+      $ref: '../../types/misc.yaml#/schemas/Fork'
     PublicKey:
-      $ref: '../../types/misc.yaml#/schemas/PublicKey'
+      $ref: '../../types/primitive.yaml#/schemas/PublicKey'
     Uint64:
-      $ref: '../../types/misc.yaml#/schemas/Uint64'
+      $ref: '../../types/primitive.yaml#/schemas/Uint64'
     SyncingStatus:
-      $ref: '../../types/network.yaml#/schemas/SyncingStatus'
+      $ref: '../../types/node.yaml#/schemas/SyncingStatus'
     GenesisTime:
-      $ref: '../../types/misc.yaml#/schemas/GenesisTime'
+      $ref: '../../types/primitive.yaml#/schemas/GenesisTime'
     Version:
-      $ref: '../../types/misc.yaml#/schemas/Version'
+      $ref: '../../types/primitive.yaml#/schemas/Version'
     Hash:
       $ref: '../../types/misc.yaml#/schemas/Hash'
     Signature:
-      $ref: '../../types/misc.yaml#/schemas/Signature'
+      $ref: '../../types/primitive.yaml#/schemas/Signature'
   responses:
     InvalidRequest:
       $ref: '../../types/http.yaml#/responses/InvalidRequest'
