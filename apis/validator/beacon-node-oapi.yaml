@@ -171,6 +171,9 @@ paths:
               schema:
                 type: object
                 description: Map where key is 'slot' and value is public key of validator that is suppose to produce block
+                example:
+                  1: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
+                  2: "0x2b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
                 additionalProperties:
                   $ref: '#/components/schemas/PublicKey'
         400:
@@ -266,7 +269,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BeaconBlock'
+              $ref: '#/components/schemas/SignedBeaconBlock'
       responses:
         200:
           description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
@@ -300,10 +303,11 @@ paths:
           type: integer
           minimum: 0
       - name: committee_index
+        in: query
+        description: "The committee index for which the attestation should be proposed."
+        required: true
+        schema:
           $ref: "#/components/schemas/Uint64"
-          in: query
-          description: "The committee index for which the attestation should be proposed."
-          required: true
       responses:
         200:
           description: Success response
@@ -425,8 +429,9 @@ paths:
         - name: attestation_data_root
           in: query
           required: true
+          description: "Hash tree root of AttestationData validator want's aggregated"
           schema:
-            $ref: '#/components/schemas/Hash'
+            $ref: '#/components/schemas/Root'
         - name: slot
           in: query
           description: "If not sent, assume current slot"
@@ -478,6 +483,10 @@ components:
   schemas:
     BeaconBlock:
       $ref: '../../types/block.yaml#/schemas/BeaconBlock'
+    BeaconBlockHeader:
+      $ref: '../../types/block.yaml#/schemas/BeaconBlockHeader'
+    SignedBeaconBlock:
+      $ref: '../../types/block.yaml#/schemas/SignedBeaconBlock'
     BeaconState:
       $ref: '../../types/state.yaml#/schemas/BeaconState'
     Validator:
@@ -502,8 +511,8 @@ components:
       $ref: '../../types/primitive.yaml#/schemas/GenesisTime'
     Version:
       $ref: '../../types/primitive.yaml#/schemas/Version'
-    Hash:
-      $ref: '../../types/misc.yaml#/schemas/Hash'
+    Root:
+      $ref: '../../types/primitive.yaml#/schemas/Root'
     Signature:
       $ref: '../../types/primitive.yaml#/schemas/Signature'
   responses:
