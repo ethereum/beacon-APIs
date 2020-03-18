@@ -26,7 +26,7 @@ schemas:
           - description: "The withdrawal credentials."
       amount:
         allOf:
-          - $ref: "../primitive.yaml#/schemas/Uint64"
+          - $ref: "../primitive.yaml#/schemas/Gwei"
           - description: "Amount in Gwei."
       signature:
         allOf:

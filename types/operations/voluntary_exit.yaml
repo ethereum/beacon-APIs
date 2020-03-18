@@ -4,13 +4,13 @@ schemas:
     description: "The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec."
     properties:
       epoch:
-        type: integer
-        format: uint64
-        description: "Minimum epoch for processing exit."
+        allOf:
+          - $ref: "../primitive.yaml#/schemas/Uint64"
+          - description: "Minimum epoch for processing exit."
       validator_index:
-        type: integer
-        format: uint64
-        description: "Index of the exiting validator."
+        allOf:
+          - $ref: "../primitive.yaml#/schemas/Uint64"
+          - description: "Index of the exiting validator."
 
   SignedVoluntaryExit:
     type: object

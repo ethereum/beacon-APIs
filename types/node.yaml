@@ -4,14 +4,14 @@ schemas:
     nullable: true
     properties:
       starting_slot:
-        type: integer
-        format: uint64
-        description: "The slot at which syncing started (will only be reset after the sync reached its head)"
+        allOf:
+          - $ref: "./primitive.yaml#/schemas/Uint64"
+          - description: "The slot at which syncing started (will only be reset after the sync reached its head)"
       current_slot:
-        type: integer
-        format: uint64
-        description: "The most recent slot sync'd by the beacon node."
+        allOf:
+          - $ref: "./primitive.yaml#/schemas/Uint64"
+          - description: "The most recent slot sync'd by the beacon node."
       highest_slot:
-        type: integer
-        format: uint64
-        description: "Globally, the estimated most recent slot number, or current target slot number."
+        allOf:
+          - $ref: "./primitive.yaml#/schemas/Uint64"
+          - description: "Globally, the estimated most recent slot number, or current target slot number."

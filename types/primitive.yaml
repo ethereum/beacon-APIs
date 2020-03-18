@@ -18,10 +18,12 @@ schemas:
     example: "Lighthouse / v0.1.5 (Linux x86_64)"
 
   GenesisTime:
-    type: integer
-    format: uint64
-    description: "The genesis_time configured for the beacon node, which is the unix time at which the Eth2.0 chain began."
-    example: 1557716289
+    allOf:
+      - $ref: "#/schemas/Uint64"
+      - description: "The genesis_time configured for the beacon node, which is the unix time in seconds at which the Eth2.0 chain began."
+
+  Gwei:
+    $ref: "#/schemas/Uint64"
 
   Uint64:
     type: string
