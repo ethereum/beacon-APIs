@@ -426,12 +426,12 @@ paths:
       tags:
         - MinimalSet
       parameters:
-        - name: attestation_data_root
+        - name: attestation_data
           in: query
           required: true
-          description: "Hash tree root of AttestationData validator want's aggregated"
+          description: "SSZ serialized AttestationData that validator want's aggregated"
           schema:
-            $ref: '#/components/schemas/Root'
+            $ref: '#/components/schemas/Hex'
         - name: slot
           in: query
           description: "If not sent, assume current slot"
@@ -512,6 +512,8 @@ components:
     Version:
       $ref: '../../types/primitive.yaml#/schemas/Version'
     Root:
+      $ref: '../../types/primitive.yaml#/schemas/Root'
+    Hex:
       $ref: '../../types/primitive.yaml#/schemas/Root'
     Signature:
       $ref: '../../types/primitive.yaml#/schemas/Signature'
