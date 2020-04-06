@@ -64,7 +64,7 @@ schemas:
       - $ref: '#/schemas/Aggregate'
       - type: object
         properties:
-          slection_proof:
+          selection_proof:
             $ref: './primitive.yaml#/schemas/Signature'
 
   Aggregate:

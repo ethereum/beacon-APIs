@@ -392,18 +392,12 @@ paths:
       tags:
         - OptionalSet
       parameters:
-        - name: slot
+        - name: attestation_data
           in: query
           required: true
+          description: "SSZ serialized AttestationData that validator want's aggregated"
           schema:
-            type: integer
-            minimum: 0
-        - name: committee_index
-          in: path
-          required: true
-          schema:
-            type: integer
-            minimum: 0
+            $ref: '#/components/schemas/Hex'
       responses:
         200:
           description: "Returns only unaggregated attestations for given committee."
@@ -412,7 +406,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Aggregate'
+                  $ref: '#/components/schemas/Attestation'
         400:
           $ref: '#/components/responses/InvalidRequest'
         500:
@@ -432,27 +426,13 @@ paths:
           description: "SSZ serialized AttestationData that validator want's aggregated"
           schema:
             $ref: '#/components/schemas/Hex'
-        - name: slot
-          in: query
-          description: "If not sent, assume current slot"
-          required: false
-          schema:
-            type: integer
-            minimum: 0
-        - name: committee_index
-          in: query
-          required: true
-          schema:
-            $ref: '#/components/schemas/Uint64'
       responses:
         200:
-          description: "Returns only unaggregated attestations for given committee."
+          description: "Returns aggregated attestations for attestation_data."
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Aggregate'
+                $ref: '#/components/schemas/Attestation'
         400:
           $ref: '#/components/responses/InvalidRequest'
         403:
@@ -493,8 +473,6 @@ components:
       $ref: '../../types/validator.yaml#/schemas/Validator'
     AttesterDuty:
       $ref: '../../types/validator.yaml#/schemas/AttesterDuty'
-    Aggregate:
-      $ref: '../../types/validator.yaml#/schemas/Aggregate'
     AggregateAndProof:
       $ref: '../../types/validator.yaml#/schemas/AggregateAndProof'
     Attestation:
