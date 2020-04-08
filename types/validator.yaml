@@ -2,6 +2,10 @@ schemas:
   Validator:
     type: object
     properties:
+      index:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Uint64'
+          - description: "Index of validator in validator registry."
       validator_pubkey:
         $ref: './primitive.yaml#/schemas/PublicKey'
       withdrawal_credentials:
@@ -32,21 +36,42 @@ schemas:
           - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
 
-  ValidatorDuty:
+  AttesterDuty:
     type: object
     properties:
       validator_pubkey:
         $ref: './primitive.yaml#/schemas/PublicKey'
+      aggregator_modulo:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Uint64'
+          - description: "Value which validator can use to calculate is_aggregator (aka bytes_to_int(hash(slot_signature)[0:8]) % aggregator_modulo == 0)"
       attestation_slot:
         allOf:
           - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "The slot at which the validator must attest."
-      attestation_shard:
+      committee_index:
         allOf:
           - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "The shard in which the validator must attest."
+          - description: "The committee index"
       block_proposal_slot:
         allOf:
           - $ref: "./primitive.yaml#/schemas/Uint64"
           - nullable: true
           - description: "The slot in which a validator must propose a block, or `null` if block production is not required."
+
+  AggregateAndProof:
+    allOf:
+      - $ref: '#/schemas/Aggregate'
+      - type: object
+        properties:
+          selection_proof:
+            $ref: './primitive.yaml#/schemas/Signature'
+
+  Aggregate:
+    type: object
+    description: "The [`AggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.9.2/specs/validator/0_beacon-chain-validator.md#aggregateandproof) without selection_proof"
+    properties:
+      aggregator_index:
+        $ref: './primitive.yaml#/schemas/Uint64'
+      attestation:
+        $ref: './operations/attestation.yaml#/schemas/Attestation'

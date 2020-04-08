@@ -35,6 +35,7 @@ paths:
                 $ref: '#/components/schemas/Version'
         500:
           $ref: '#/components/responses/InternalError'
+
   /node/genesis_time:
     get:
       tags:
@@ -72,10 +73,11 @@ paths:
                     $ref: '#/components/schemas/SyncingStatus'
         500:
           $ref: '#/components/responses/InternalError'
+
   /node/fork:
     get:
       tags:
-        - OptionalSet
+        - MinimalSet
       summary: "Get fork information from running beacon node."
       description: "Requests the beacon node to provide which fork version it is currently on."
       responses:
@@ -92,6 +94,33 @@ paths:
                     allOf:
                       - $ref: "#/components/schemas/Uint64"
                       - description: "Sometimes called the network id, this number discerns the active chain for the beacon node. Analogous to Eth1.0 JSON-RPC net_version."
+        500:
+          $ref: '#/components/responses/InternalError'
+
+  /node/fork/stream:
+    get:
+      tags:
+        - MinimalSet
+      summary: "Get fork information from running beacon node."
+      description: "Requests the beacon node to provide which fork version it is currently on."
+      responses:
+        200:
+          description: Request successful
+          content:
+            text/event-stream:
+              schema:
+                type: array
+                format: text
+                items:
+                  type: object
+                  format: json
+                  properties:
+                    fork:
+                      $ref: '#/components/schemas/Fork'
+                    chain_id:
+                      type: integer
+                      format: uint64
+                      description: "Sometimes called the network id, this number discerns the active chain for the beacon node. Analogous to Eth1.0 JSON-RPC net_version."
         500:
           $ref: '#/components/responses/InternalError'
 
@@ -121,11 +150,46 @@ paths:
         500:
           $ref: '#/components/responses/InternalError'
 
-  /validator/duties:
+  /validator/duties/{epoch}/proposer:
     get:
       tags:
         - MinimalSet
-      summary: "Get validator duties for the requested validators."
+      summary: "Get block proposers duties"
+      description: "Request beacon node to provide all validators that are suppose to propose block in given epoch"
+      parameters:
+        - name: epoch
+          in: path
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        200:
+          description: Success response
+          content:
+            application/json:
+              schema:
+                type: object
+                description: Map where key is 'slot' and value is public key of validator that is suppose to produce block
+                example:
+                  1: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
+                  2: "0x2b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
+                additionalProperties:
+                  $ref: '#/components/schemas/PublicKey'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        406:
+          description: "Duties cannot be provided for the requested epoch."
+        500:
+          $ref: '#/components/responses/InternalError'
+        503:
+          $ref: '#/components/responses/CurrentlySyncing'
+
+  /validator/duties/{epoch}/attester:
+    get:
+      tags:
+        - MinimalSet
+      summary: "Get attester duties"
       description: "Requests the beacon node to provide a set of _duties_, which are actions that should be performed by validators, for a particular epoch. Duties should only need to be checked once per epoch, however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur, resulting in a change of duties. For full safety, this API call should be polled at every slot to ensure that chain reorganizations are recognized, and to ensure that the beacon node is properly synchronized."
       parameters:
       - name: validator_pubkeys
@@ -137,9 +201,11 @@ paths:
           items:
             $ref: '#/components/schemas/PublicKey'
           minItems: 1
+          maxItems: 10
       - name: epoch
-        in: query
-        required: false
+        description: "Should only be allowed 1 epoch"
+        in: path
+        required: true
         schema:
             $ref: "#/components/schemas/Uint64"
       responses:
@@ -150,7 +216,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/ValidatorDuty'
+                  $ref: '#/components/schemas/AttesterDuty'
         400:
           $ref: '#/components/responses/InvalidRequest'
         406:
@@ -203,7 +269,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BeaconBlock'
+              $ref: '#/components/schemas/SignedBeaconBlock'
       responses:
         200:
           description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
@@ -229,25 +295,17 @@ paths:
         description: "Uniquely identifying which validator this attestation is to be produced for."
         schema:
           $ref: '#/components/schemas/PublicKey'
-      - name: poc_bit
-        in: query
-        required: true
-        description: "The proof-of-custody bit that is to be reported by the requesting validator. This bit will be inserted into the appropriate location in the returned `Attestation`."
-        schema:
-            type: integer
-            format: uint32
-            minimum: 0
-            maximum: 1
       - name: slot
         in: query
         required: true
         description: "The slot for which the attestation should be proposed."
         schema:
-          $ref: "#/components/schemas/Uint64"
-      - name: shard
+          type: integer
+          minimum: 0
+      - name: committee_index
         in: query
+        description: "The committee index for which the attestation should be proposed."
         required: true
-        description: "The shard number for which the attestation is to be proposed."
         schema:
           $ref: "#/components/schemas/Uint64"
       responses:
@@ -274,7 +332,9 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Attestation'
+              type: array
+              items:
+                $ref: '#/components/schemas/Attestation'
       responses:
         200:
           description: "The attestation was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
@@ -287,32 +347,154 @@ paths:
         503:
           $ref: '#/components/responses/CurrentlySyncing'
 
+  /validator/beacon_committee_subscription:
+    post:
+      summary: Subscribe beacon node to commitee attestation subnet
+      description: "If validator is connected to multiple nodes, it should send this request to all of them to insure subnet network stability."
+      tags:
+        - MinimalSet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  attestation_committee_index:
+                    $ref: '#/components/schemas/Uint64'
+                  slot:
+                    allOf:
+                      - $ref: '#/components/schemas/Uint64'
+                      - description: "Should be slot at which validator is assigned to attest"
+                  slot_signature:
+                    allOf:
+                      - $ref: '#/components/schemas/Signature'
+                      - description: "Should be valid against given slot and validator pubkey."
+                  aggregator_pubkey:
+                    $ref: '#/components/schemas/PublicKey'
+      responses:
+        200:
+          description: "Slot signature is valid and beacon node is subscribed to given committee attestation subnet."
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          description: "Validator is not aggregator"
+        500:
+          $ref: '#/components/responses/InternalError'
+        503:
+          $ref: '#/components/responses/CurrentlySyncing'
+
+  /validator/beacon_committee_subscription/{committee_index}/attestations:
+    get:
+      summary: "Get unaggregated wire attestations"
+      description: "Endpoint should aggregate all collected attestations and produce AggregateAndProof without proof. Validator running on weak hardware is expected to add proof and publish"
+      tags:
+        - OptionalSet
+      parameters:
+        - name: attestation_data
+          in: query
+          required: true
+          description: "SSZ serialized AttestationData that validator want's aggregated"
+          schema:
+            $ref: '#/components/schemas/Hex'
+      responses:
+        200:
+          description: "Returns only unaggregated attestations for given committee."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Attestation'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        500:
+          $ref: '#/components/responses/InternalError'
+
+
+  /validator/aggregate_and_proof:
+    get:
+      summary: "get aggregated attestations"
+      description: "Aggregates all attestations in current slot"
+      tags:
+        - MinimalSet
+      parameters:
+        - name: attestation_data
+          in: query
+          required: true
+          description: "SSZ serialized AttestationData that validator want's aggregated"
+          schema:
+            $ref: '#/components/schemas/Hex'
+      responses:
+        200:
+          description: "Returns aggregated attestations for attestation_data."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attestation'
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        403:
+          description: "Validator is not aggregator"
+        500:
+          $ref: '#/components/responses/InternalError'
+    post:
+      summary: "Publish aggregated attestations"
+      description: "Verifies given aggregated attestations and publishes it on appropriate gossipsub topic."
+      tags:
+        - MinimalSet
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AggregateAndProof'
+      responses:
+        200:
+          description: "Successful response"
+        400:
+          $ref: '#/components/responses/InvalidRequest'
+        500:
+          $ref: '#/components/responses/InternalError'
+
 components:
   schemas:
     BeaconBlock:
       $ref: '../../types/block.yaml#/schemas/BeaconBlock'
+    BeaconBlockHeader:
+      $ref: '../../types/block.yaml#/schemas/BeaconBlockHeader'
+    SignedBeaconBlock:
+      $ref: '../../types/block.yaml#/schemas/SignedBeaconBlock'
     BeaconState:
       $ref: '../../types/state.yaml#/schemas/BeaconState'
     Validator:
       $ref: '../../types/validator.yaml#/schemas/Validator'
+    AttesterDuty:
+      $ref: '../../types/validator.yaml#/schemas/AttesterDuty'
+    AggregateAndProof:
+      $ref: '../../types/validator.yaml#/schemas/AggregateAndProof'
     Attestation:
       $ref: '../../types/operations/attestation.yaml#/schemas/Attestation'
-    ValidatorDuty:
-      $ref: '../../types/validator.yaml#/schemas/ValidatorDuty'
     Fork:
       $ref: '../../types/misc.yaml#/schemas/Fork'
     PublicKey:
       $ref: '../../types/primitive.yaml#/schemas/PublicKey'
+    Uint64:
+      $ref: '../../types/primitive.yaml#/schemas/Uint64'
     SyncingStatus:
       $ref: '../../types/node.yaml#/schemas/SyncingStatus'
     GenesisTime:
       $ref: '../../types/primitive.yaml#/schemas/GenesisTime'
     Version:
       $ref: '../../types/primitive.yaml#/schemas/Version'
+    Root:
+      $ref: '../../types/primitive.yaml#/schemas/Root'
+    Hex:
+      $ref: '../../types/primitive.yaml#/schemas/Root'
     Signature:
       $ref: '../../types/primitive.yaml#/schemas/Signature'
-    Uint64:
-      $ref: '../../types/primitive.yaml#/schemas/Uint64'
   responses:
     InvalidRequest:
       $ref: '../../types/http.yaml#/responses/InvalidRequest'

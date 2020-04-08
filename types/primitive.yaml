@@ -34,6 +34,11 @@ schemas:
     format: hex
     pattern: "^0x[a-fA-F0-9]{64}$"
 
+  Hex:
+    type: string
+    format: hex
+    pattern: "^0x[a-fA-F0-9]{2,}$"
+
   Signature:
     type: string
     format: bytes
