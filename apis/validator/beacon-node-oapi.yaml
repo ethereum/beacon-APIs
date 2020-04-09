@@ -11,7 +11,7 @@ servers:
   - url: "{server_url}"
     variables:
       server_url:
-        description: "Beacon node api url"
+        description: "Beacon node API url"
         default: "http://public-mainnet-node.ethereum.org/api"
 
 tags:
