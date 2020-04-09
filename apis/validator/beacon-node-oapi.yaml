@@ -36,7 +36,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalError'
 
-  /node/genesis_time:
+  /node/genesis:
     get:
       tags:
         - MinimalSet
@@ -48,7 +48,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GenesisTime'
+                type: object
+                properties:
+                  genesis_time:
+                    $ref: '#/components/schemas/GenesisTime'
+                  genesis_validators_root:
+                    $ref: '#/components/schemas/Root'
         500:
           $ref: '#/components/responses/InternalError'
 
