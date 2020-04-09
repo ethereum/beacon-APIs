@@ -1,7 +1,7 @@
 schemas:
   IndexedAttestation:
     type: object
-    description: "The [`IndexedAttestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#indexedattestation) object from the Eth2.0 spec."
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#indexedattestation) object from the Eth2.0 spec."
     properties:
       attesting_indices:
         type: array
@@ -18,7 +18,7 @@ schemas:
 
   Attestation:
     type: object
-    description: "The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#attestation) object from the Eth2.0 spec."
+    description: "The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#attestation) object from the Eth2.0 spec."
     properties:
       aggregation_bits:
         type: string
@@ -34,7 +34,7 @@ schemas:
 
   PendingAttestation:
     type: object
-    description: "The [`PendingAttestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#pendingattestation) object from the Eth2.0 spec."
+    description: "The [`PendingAttestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#pendingattestation) object from the Eth2.0 spec."
     properties:
       aggregation_bits:
         type: string
@@ -50,7 +50,7 @@ schemas:
 
   AttestationData:
     type: object
-    description: "The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#attestationdata) object from the Eth2.0 spec."
+    description: "The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#attestationdata) object from the Eth2.0 spec."
     properties:
       slot:
         $ref: "../primitive.yaml#/schemas/Uint64"

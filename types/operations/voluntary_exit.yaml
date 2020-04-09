@@ -1,7 +1,7 @@
 schemas:
   VoluntaryExit:
     type: object
-    description: "The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec."
+    description: "The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec."
     properties:
       epoch:
         allOf:
@@ -14,7 +14,7 @@ schemas:
 
   SignedVoluntaryExit:
     type: object
-    description: "The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec."
+    description: "The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec."
     properties:
       message:
         $ref: "#/schemas/VoluntaryExit"

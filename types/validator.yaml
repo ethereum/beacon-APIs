@@ -6,7 +6,7 @@ schemas:
         allOf:
           - $ref: './primitive.yaml#/schemas/Uint64'
           - description: "Index of validator in validator registry."
-      validator_pubkey:
+      pubkey:
         $ref: './primitive.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
