@@ -1,6 +1,7 @@
   get:
     tags:
-      - MinimalSet
+      - Beacon
+      - MinimalValidatorApi
     summary: "Get the genesis_time parameter from beacon node configuration."
     description: "Requests the genesis_time parameter from the beacon node, which should be consistent across all beacon nodes that follow the same beacon chain."
     responses:

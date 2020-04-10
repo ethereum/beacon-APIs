@@ -1,6 +1,7 @@
   get:
     tags:
-      - MinimalSet
+      - MinimalValidatorApi
+      - Validator
     summary: "Get validator details."
     description: "Requests the beacon node to provide details about validator or 404 if validator is not present in validator registry"
     parameters:

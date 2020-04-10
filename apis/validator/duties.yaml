@@ -1,7 +1,8 @@
 attester:
   get:
     tags:
-      - MinimalSet
+      - MinimalValidatorApi
+      - Validator
     summary: "Get attester duties"
     description: "Requests the beacon node to provide a set of _duties_, which are actions that should be performed by validators, for a particular epoch. Duties should only need to be checked once per epoch, however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur, resulting in a change of duties. For full safety, this API call should be polled at every slot to ensure that chain reorganizations are recognized, and to ensure that the beacon node is properly synchronized."
     parameters:
@@ -42,7 +43,8 @@ attester:
 proposer:
   get:
     tags:
-      - MinimalSet
+      - MinimalValidatorApi
+      - Validator
     summary: "Get block proposers duties"
     description: "Request beacon node to provide all validators that are suppose to propose block in given epoch"
     parameters:

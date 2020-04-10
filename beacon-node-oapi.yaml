@@ -16,10 +16,14 @@ servers:
         default: "http://public-mainnet-node.ethereum.org/api"
 
 tags:
-  - name: MinimalSet
+  - name: Beacon
+    description: Set of endpoints to query beacon chain.
+  - name: Node
+    description: APIs to query node related informations
+  - name: Validator
+    description: APIs intended for validator clients
+  - name: MinimalValidatorApi
     description: The minimal set of endpoints to enable a working validator implementation.
-  - name: OptionalSet
-    description: Extra endpoints which are nice-to-haves.
 paths:
 
   /beacon/genesis:

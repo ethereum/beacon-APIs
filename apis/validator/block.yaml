@@ -1,6 +1,7 @@
 get:
   tags:
-    - MinimalSet
+    - MinimalValidatorApi
+    - Validator
   summary: "Produce a new block, without signature."
   description: "Requests a beacon node to produce a valid block, which can then be signed by a validator."
   parameters:
@@ -32,7 +33,8 @@ get:
 
 post:
   tags:
-    - MinimalSet
+    - Validator
+    - MinimalValidatorApi
   summary: "Publish a signed block."
   description: "Instructs the beacon node to broadcast a newly signed beacon block to the beacon network, to be included in the beacon chain. The beacon node is not required to validate the signed `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new block into its state, and therefore validate the block internally, however blocks which fail the validation are still broadcast but a different status code is returned (202)"
   requestBody:

@@ -1,6 +1,7 @@
 get:
   tags:
-    - MinimalSet
+    - MinimalValidatorApi
+    - Validator
   summary: "Produce an attestation, without signature."
   description: "Requests that the beacon node produce an Attestation, with a blank signature field, which the validator will then sign."
   parameters:
@@ -38,7 +39,8 @@ get:
       $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
 post:
   tags:
-    - MinimalSet
+    - MinimalValidatorApi
+    - Validator
   summary: "Publish a signed attestation."
   description: "Instructs the beacon node to broadcast a newly signed Attestation object to the intended shard subnet. The beacon node is not required to validate the signed Attestation, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new attestation into its state, and therefore validate the attestation internally, however attestations which fail the validation are still broadcast but a different status code is returned (202)"
   requestBody:

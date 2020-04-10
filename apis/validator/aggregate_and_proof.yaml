@@ -2,7 +2,8 @@ get:
   summary: "get aggregated attestations"
   description: "Aggregates all attestations in current slot"
   tags:
-    - MinimalSet
+    - MinimalValidatorApi
+    - Validator
   parameters:
     - name: attestation_data
       in: query
@@ -27,7 +28,8 @@ post:
   summary: "Publish aggregated attestations"
   description: "Verifies given aggregated attestations and publishes it on appropriate gossipsub topic."
   tags:
-    - MinimalSet
+    - MinimalValidatorApi
+    - Validator
   requestBody:
     content:
       application/json:

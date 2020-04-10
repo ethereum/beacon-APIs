@@ -1,6 +1,6 @@
 get:
   tags:
-    - MinimalSet
+    - Node
   summary: "Get version string of the running beacon node."
   description: "Requests that the beacon node identify information about its implementation in a format similar to a  [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3) field."
   responses:

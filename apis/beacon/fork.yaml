@@ -1,7 +1,8 @@
 single:
   get:
     tags:
-      - MinimalSet
+      - Beacon
+      - MinimalValidatorApi
     summary: "Get fork information from running beacon node."
     description: "Requests the beacon node to provide which fork version it is currently on."
     responses:
@@ -19,7 +20,8 @@ single:
 stream:
   get:
     tags:
-      - MinimalSet
+      - Beacon
+      - MinimalValidatorApi
     summary: "Get fork information from running beacon node."
     description: "Requests the beacon node to provide which fork version it is currently on."
     responses:

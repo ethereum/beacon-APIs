@@ -3,7 +3,8 @@ create:
     summary: Subscribe beacon node to commitee attestation subnet
     description: "If validator is connected to multiple nodes, it should send this request to all of them to insure subnet network stability."
     tags:
-      - MinimalSet
+      - MinimalValidatorApi
+      - Validator
     requestBody:
       content:
         application/json:
@@ -41,7 +42,7 @@ attestations:
     summary: "Get unaggregated wire attestations"
     description: "Endpoint should aggregate all collected attestations and produce AggregateAndProof without proof. Validator running on weak hardware is expected to add proof and publish"
     tags:
-      - OptionalSet
+      - Validator
     parameters:
       - name: attestation_data
         in: query
