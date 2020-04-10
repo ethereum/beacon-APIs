@@ -6,4 +6,4 @@ schemas:
       attestation_1:
         $ref: './attestation.yaml#/schemas/IndexedAttestation'
       attestation_2:
-        $ref: 'attestation.yaml#/schemas/IndexedAttestation'
+        $ref: './attestation.yaml#/schemas/IndexedAttestation'

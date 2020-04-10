@@ -1,0 +1,55 @@
+get:
+  tags:
+    - MinimalSet
+  summary: "Produce a new block, without signature."
+  description: "Requests a beacon node to produce a valid block, which can then be signed by a validator."
+  parameters:
+    - name: slot
+      in: query
+      required: true
+      description: "The slot for which the block should be proposed."
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: randao_reveal
+      in: query
+      required: true
+      description: "The validator's randao reveal value."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+    400:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    500:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    503:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
+
+post:
+  tags:
+    - MinimalSet
+  summary: "Publish a signed block."
+  description: "Instructs the beacon node to broadcast a newly signed beacon block to the beacon network, to be included in the beacon chain. The beacon node is not required to validate the signed `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new block into its state, and therefore validate the block internally, however blocks which fail the validation are still broadcast but a different status code is returned (202)"
+  requestBody:
+    description: "The `BeaconBlock` object, as sent from the beacon node originally, but now with the signature field completed. Must be sent in JSON format in the body of the request."
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
+  responses:
+    200:
+      description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
+    202:
+      description: "The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
+    400:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    500:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    503:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

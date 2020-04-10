@@ -1,0 +1,63 @@
+get:
+  tags:
+    - MinimalSet
+  summary: "Produce an attestation, without signature."
+  description: "Requests that the beacon node produce an Attestation, with a blank signature field, which the validator will then sign."
+  parameters:
+    - name: validator_pubkey
+      in: query
+      required: true
+      description: "Uniquely identifying which validator this attestation is to be produced for."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
+    - name: slot
+      in: query
+      required: true
+      description: "The slot for which the attestation should be proposed."
+      schema:
+        type: integer
+        minimum: 0
+    - name: committee_index
+      in: query
+      description: "The committee index for which the attestation should be proposed."
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  responses:
+    200:
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+    400:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    500:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    503:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
+post:
+  tags:
+    - MinimalSet
+  summary: "Publish a signed attestation."
+  description: "Instructs the beacon node to broadcast a newly signed Attestation object to the intended shard subnet. The beacon node is not required to validate the signed Attestation, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new attestation into its state, and therefore validate the attestation internally, however attestations which fail the validation are still broadcast but a different status code is returned (202)"
+  requestBody:
+    description: "An `Attestation` structure, as originally provided by the beacon node, but now with the signature field completed. Must be sent in JSON format in the body of the request."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+  responses:
+    200:
+      description: "The attestation was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
+    202:
+      description: "The attestation failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
+    400:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    500:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    503:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

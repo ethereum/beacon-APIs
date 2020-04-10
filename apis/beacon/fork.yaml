@@ -1,0 +1,36 @@
+single:
+  get:
+    tags:
+      - MinimalSet
+    summary: "Get fork information from running beacon node."
+    description: "Requests the beacon node to provide which fork version it is currently on."
+    responses:
+      200:
+        description: Request successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                fork:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Fork'
+      500:
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+stream:
+  get:
+    tags:
+      - MinimalSet
+    summary: "Get fork information from running beacon node."
+    description: "Requests the beacon node to provide which fork version it is currently on."
+    responses:
+      200:
+        description: Request successful
+        content:
+          text/event-stream:
+            schema:
+              type: array
+              format: text
+              example:
+                "data: JSON.stringify(fork1)\n\\n\\n\ndata: JSON.stringify(fork2)"
+      500:
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

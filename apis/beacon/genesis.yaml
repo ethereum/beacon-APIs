@@ -1,0 +1,19 @@
+  get:
+    tags:
+      - MinimalSet
+    summary: "Get the genesis_time parameter from beacon node configuration."
+    description: "Requests the genesis_time parameter from the beacon node, which should be consistent across all beacon nodes that follow the same beacon chain."
+    responses:
+      200:
+        description: Request successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                genesis_time:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/GenesisTime'
+                genesis_validators_root:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Root'
+      500:
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

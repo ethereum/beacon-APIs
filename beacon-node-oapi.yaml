@@ -1,0 +1,96 @@
+openapi: "3.0.2"
+
+info:
+  title: "Beacon Node API"
+  description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
+  version: "0.11.1"
+  license:
+    name: "Apache 2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+
+servers:
+  - url: "{server_url}"
+    variables:
+      server_url:
+        description: "Beacon node API url"
+        default: "http://public-mainnet-node.ethereum.org/api"
+
+tags:
+  - name: MinimalSet
+    description: The minimal set of endpoints to enable a working validator implementation.
+  - name: OptionalSet
+    description: Extra endpoints which are nice-to-haves.
+paths:
+
+  /beacon/genesis:
+    $ref: "./apis/beacon/genesis.yaml"
+  /beacon/fork:
+    $ref: "./apis/beacon/fork.yaml#/single"
+  /beacon/fork/stream:
+    $ref: "./apis/beacon/fork.yaml#/stream"
+
+  /node/version:
+    $ref: "./apis/node/version.yaml"
+  /node/syncing:
+    $ref: "./apis/node/syncing.yaml"
+
+  /validator/{pubkey}:
+    $ref: "./apis/validator/validators.yaml"
+  /validator/duties/{epoch}/attester:
+    $ref: "./apis/validator/duties.yaml#/attester"
+  /validator/duties/{epoch}/proposer:
+    $ref: "./apis/validator/duties.yaml#/proposer"
+  /validator/beacon_committee_subscriptions:
+    $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/create"
+  /validator/beacon_committee_subscription/{committee_index}/attestations:
+    $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/attestations"
+  /validator/aggregate_and_proof:
+    $ref: "./apis/validator/aggregate_and_proof.yaml"
+  /validator/attestation:
+    $ref: "./apis/validator/attestation.yaml"
+  /validator/block:
+    $ref: "./apis/validator/block.yaml"
+
+components:
+  schemas:
+    BeaconBlock:
+      $ref: './types/block.yaml#/schemas/BeaconBlock'
+    BeaconBlockHeader:
+      $ref: './types/block.yaml#/schemas/BeaconBlockHeader'
+    SignedBeaconBlock:
+      $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
+    BeaconState:
+      $ref: './types/state.yaml#/schemas/BeaconState'
+    Validator:
+      $ref: './types/validator.yaml#/schemas/Validator'
+    AttesterDuty:
+      $ref: './types/validator.yaml#/schemas/AttesterDuty'
+    AggregateAndProof:
+      $ref: './types/validator.yaml#/schemas/AggregateAndProof'
+    Attestation:
+      $ref: './types/attestation.yaml#/schemas/Attestation'
+    Fork:
+      $ref: './types/misc.yaml#/schemas/Fork'
+    PublicKey:
+      $ref: './types/primitive.yaml#/schemas/PublicKey'
+    Uint64:
+      $ref: './types/primitive.yaml#/schemas/Uint64'
+    SyncingStatus:
+      $ref: './types/node.yaml#/schemas/SyncingStatus'
+    GenesisTime:
+      $ref: './types/primitive.yaml#/schemas/GenesisTime'
+    Version:
+      $ref: './types/primitive.yaml#/schemas/Version'
+    Root:
+      $ref: './types/primitive.yaml#/schemas/Root'
+    Hex:
+      $ref: './types/primitive.yaml#/schemas/Root'
+    Signature:
+      $ref: './types/primitive.yaml#/schemas/Signature'
+  responses:
+    InvalidRequest:
+      $ref: './types/http.yaml#/responses/InvalidRequest'
+    InternalError:
+      $ref: './types/http.yaml#/responses/InternalError'
+    CurrentlySyncing:
+      $ref: './types/http.yaml#/responses/CurrentlySyncing'

@@ -69,4 +69,4 @@ schemas:
       aggregator_index:
         $ref: './primitive.yaml#/schemas/Uint64'
       attestation:
-        $ref: './operations/attestation.yaml#/schemas/Attestation'
+        $ref: './attestation.yaml#/schemas/Attestation'

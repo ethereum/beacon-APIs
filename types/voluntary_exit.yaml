@@ -5,11 +5,11 @@ schemas:
     properties:
       epoch:
         allOf:
-          - $ref: "../primitive.yaml#/schemas/Uint64"
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "Minimum epoch for processing exit."
       validator_index:
         allOf:
-          - $ref: "../primitive.yaml#/schemas/Uint64"
+          - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "Index of the exiting validator."
 
   SignedVoluntaryExit:
@@ -19,5 +19,5 @@ schemas:
       message:
         $ref: "#/schemas/VoluntaryExit"
       signature:
-        $ref: '../primitive.yaml#/schemas/Signature'
+        $ref: './primitive.yaml#/schemas/Signature'
 
