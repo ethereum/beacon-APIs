@@ -6,7 +6,7 @@ schemas:
         allOf:
           - $ref: './primitive.yaml#/schemas/Uint64'
           - description: "Index of validator in validator registry."
-      validator_pubkey:
+      pubkey:
         $ref: './primitive.yaml#/schemas/PublicKey'
       withdrawal_credentials:
         allOf:
@@ -53,11 +53,6 @@ schemas:
         allOf:
           - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "The committee index"
-      block_proposal_slot:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - nullable: true
-          - description: "The slot in which a validator must propose a block, or `null` if block production is not required."
 
   AggregateAndProof:
     allOf:

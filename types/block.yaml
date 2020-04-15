@@ -7,6 +7,10 @@ schemas:
         allOf:
           - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "The slot to which this block corresponds."
+      proposer_index:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Uint64'
+          - description: "Index of validator in validator registry."
       parent_root:
         allOf:
           - $ref: './primitive.yaml#/schemas/Root'
@@ -18,7 +22,7 @@ schemas:
 
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#beaconblockbody) object from the Eth2.0 spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#beaconblockbody) object from the Eth2.0 spec."
     properties:
       randao_reveal:
         allOf:
@@ -53,7 +57,7 @@ schemas:
 
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
     allOf:
       - $ref: '#/schemas/BeaconBlockCommon'
       - type: object
@@ -71,7 +75,7 @@ schemas:
         $ref: "./primitive.yaml#/schemas/Signature"
 
   BeaconBlockHeader:
-    description: "The [`BeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the Eth2.0 spec."
+    description: "The [`BeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the Eth2.0 spec."
     allOf:
       - $ref: '#/schemas/BeaconBlockCommon'
       - type: object
@@ -83,7 +87,7 @@ schemas:
 
   SignedBeaconBlockHeader:
     type: object
-    description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.10.1/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the Eth2.0 spec."
+    description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the Eth2.0 spec."
     properties:
       message:
         $ref: "#/schemas/BeaconBlockHeader"
