@@ -1,0 +1,14 @@
+get:
+  tags:
+    - Node
+  summary: "Get version string of the running beacon node."
+  description: "Requests that the beacon node identify information about its implementation in a format similar to a  [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3) field."
+  responses:
+    200:
+      description: Request successful
+      content:
+        application/json:
+          schema:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Version'
+    500:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

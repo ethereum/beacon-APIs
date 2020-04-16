@@ -1,0 +1,21 @@
+  get:
+    tags:
+      - Node
+      - MinimalValidatorApi
+    summary: "Poll to see if the the beacon node is syncing."
+    description: "Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to. This is modelled after the Eth1.0 JSON-RPC eth_syncing call.."
+    responses:
+      200:
+        description: Request successful
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                is_syncing:
+                  type: boolean
+                  description: "A boolean of whether the node is currently syncing or not."
+                sync_status:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/SyncingStatus'
+      500:
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

@@ -73,12 +73,12 @@ schemas:
         type: array
         items:
           allOf:
-            - $ref: './operations/attestation.yaml#/schemas/PendingAttestation'
+            - $ref: './attestation.yaml#/schemas/PendingAttestation'
       current_epoch_attestations:
         type: array
         items:
           allOf:
-            - $ref: './operations/attestation.yaml#/schemas/PendingAttestation'
+            - $ref: './attestation.yaml#/schemas/PendingAttestation'
       justification_bits:
         type: string
         format: byte

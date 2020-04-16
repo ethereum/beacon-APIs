@@ -1,9 +1,0 @@
-schemas:
-  ProposerSlashing:
-    type: object
-    description: "The [`ProposerSlashing`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#proposerslashing) object from the Eth2.0 spec."
-    properties:
-      signed_header_1:
-        $ref: '../block.yaml#/schemas/SignedBeaconBlockHeader'
-      signed_header_2:
-        $ref: '../block.yaml#/schemas/SignedBeaconBlockHeader'

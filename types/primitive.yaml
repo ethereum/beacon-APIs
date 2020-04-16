@@ -19,11 +19,11 @@ schemas:
 
   GenesisTime:
     allOf:
-      - $ref: "#/schemas/Uint64"
+      - $ref: "./primitive.yaml#/schemas/Uint64"
       - description: "The genesis_time configured for the beacon node, which is the unix time in seconds at which the Eth2.0 chain began."
 
   Gwei:
-    $ref: "#/schemas/Uint64"
+    $ref: "./primitive.yaml#/schemas/Uint64"
 
   Uint64:
     type: string

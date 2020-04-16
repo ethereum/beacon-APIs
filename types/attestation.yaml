@@ -1,0 +1,66 @@
+schemas:
+  IndexedAttestation:
+    type: object
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#indexedattestation) object from the Eth2.0 spec."
+    properties:
+      attesting_indices:
+        type: array
+        maxItems: 2048
+        description: "Attesting validator indices"
+        items:
+          $ref: "./primitive.yaml#/schemas/Uint64"
+      signature:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Signature'
+          - description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
+      data:
+        $ref: './attestation.yaml#/schemas/AttestationData'
+
+  Attestation:
+    type: object
+    description: "The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#attestation) object from the Eth2.0 spec."
+    properties:
+      aggregation_bits:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]+$"
+        description: "Attester aggregation bits."
+      signature:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Signature'
+          - description: "BLS aggregate signature."
+      data:
+        $ref: './attestation.yaml#/schemas/AttestationData'
+
+  PendingAttestation:
+    type: object
+    description: "The [`PendingAttestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#pendingattestation) object from the Eth2.0 spec."
+    properties:
+      aggregation_bits:
+        type: string
+        format: byte
+        pattern: "^0x[a-fA-F0-9]+$"
+        description: "Attester aggregation bits."
+      data:
+        $ref: '#/schemas/AttestationData'
+      inclusion_delay:
+        $ref: "./primitive.yaml#/schemas/Uint64"
+      proposer_index:
+        $ref: "./primitive.yaml#/schemas/Uint64"
+
+  AttestationData:
+    type: object
+    description: "The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#attestationdata) object from the Eth2.0 spec."
+    properties:
+      slot:
+        $ref: "./primitive.yaml#/schemas/Uint64"
+      index:
+        $ref: "./primitive.yaml#/schemas/Uint64"
+      beacon_block_root:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Root'
+          - description: "LMD GHOST vote."
+      source:
+        $ref: "./misc.yaml#/schemas/Checkpoint"
+      target:
+        $ref: "./misc.yaml#/schemas/Checkpoint"
