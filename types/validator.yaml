@@ -54,6 +54,14 @@ schemas:
           - $ref: "./primitive.yaml#/schemas/Uint64"
           - description: "The committee index"
 
+  ProposerDuty:
+    type: object
+    properties:
+      slot:
+        $ref: './primitive.yaml#/schemas/Uint64'
+      proposer_pubkey:
+        $ref: './primitive.yaml#/schemas/PublicKey'
+
   AggregateAndProof:
     allOf:
       - $ref: '#/schemas/Aggregate'

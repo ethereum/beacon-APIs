@@ -60,13 +60,9 @@ proposer:
         content:
           application/json:
             schema:
-              type: object
-              description: Map where key is 'slot' and value is public key of validator that is suppose to produce block
-              example:
-                1: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
-                2: "0x2b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
-              additionalProperties:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
+              type: array
+              items:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ProposerDuty"
       400:
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
       406:

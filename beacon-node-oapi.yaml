@@ -69,6 +69,8 @@ components:
       $ref: './types/validator.yaml#/schemas/Validator'
     AttesterDuty:
       $ref: './types/validator.yaml#/schemas/AttesterDuty'
+    ProposerDuty:
+      $ref: './types/validator.yaml#/schemas/ProposerDuty'
     AggregateAndProof:
       $ref: './types/validator.yaml#/schemas/AggregateAndProof'
     Attestation:
