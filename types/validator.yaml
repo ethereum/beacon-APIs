@@ -70,3 +70,11 @@ schemas:
         $ref: './primitive.yaml#/schemas/Uint64'
       attestation:
         $ref: './attestation.yaml#/schemas/Attestation'
+
+
+  SignedAggregateAndProod:
+    properties:
+      message:
+        $ref: "#/schemas/AggregateAndProof"
+      signature:
+        $ref: "./primitive.yaml#/schemas/Signature"
