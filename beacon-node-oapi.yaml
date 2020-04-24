@@ -71,8 +71,8 @@ components:
       $ref: './types/validator.yaml#/schemas/AttesterDuty'
     AggregateAndProof:
       $ref: './types/validator.yaml#/schemas/AggregateAndProof'
-    SignedAggregateAndProod:
-      $ref: './types/validator.yaml#/schemas/SignedAggregateAndProod'
+    SignedAggregateAndProof:
+      $ref: './types/validator.yaml#/schemas/SignedAggregateAndProof'
     Attestation:
       $ref: './types/attestation.yaml#/schemas/Attestation'
     Fork:
