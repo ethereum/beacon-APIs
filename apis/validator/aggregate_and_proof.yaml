@@ -1,6 +1,6 @@
 get:
-  summary: "get aggregated attestations"
-  description: "Aggregates all attestations in current slot"
+  summary: "Get aggregated attestations"
+  description: "Aggregates all attestations matching given attestation data"
   tags:
     - MinimalValidatorApi
     - Validator
@@ -25,8 +25,8 @@ get:
     500:
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 post:
-  summary: "Publish aggregated attestations"
-  description: "Verifies given aggregated attestations and publishes it on appropriate gossipsub topic."
+  summary: "Publish aggregate and proof"
+  description: "Verifies given aggregate and proof and publishes it on appropriate gossipsub topic."
   tags:
     - MinimalValidatorApi
     - Validator
@@ -36,7 +36,7 @@ post:
         schema:
           type: array
           items:
-            $ref: '../../beacon-node-oapi.yaml#/components/schemas/AggregateAndProof'
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedAggregateAndProof'
   responses:
     200:
       description: "Successful response"
