@@ -19,6 +19,6 @@ jobs:
 
     # Runs a single command using the runners shell
     - name: swagger-cli
-      uses: vaibhav-jain/swagger-cli-action/@v1.2
+      uses: vaibhav-jain/swagger-cli-action/@v2.6
       with:
         file_path: beacon-node-oapi.yaml
