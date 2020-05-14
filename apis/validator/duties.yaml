@@ -65,8 +65,6 @@ proposer:
               example:
                 1: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
                 2: "0x2b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc"
-              additionalProperties:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
       400:
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
       406:
