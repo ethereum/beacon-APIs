@@ -30,7 +30,7 @@ stream:
         content:
           text/event-stream:
             schema:
-              type: array
+              type: string
               format: text
               example:
                 "data: JSON.stringify(fork1)\n\\n\\n\ndata: JSON.stringify(fork2)"

@@ -44,6 +44,12 @@ attestations:
     tags:
       - Validator
     parameters:
+      - name: committee_index
+        in: path
+        required: true
+        description: Index of validator committee
+        schema:
+          type: number
       - name: attestation_data
         in: query
         required: true
@@ -62,4 +68,4 @@ attestations:
       400:
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
       500:
-        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'  
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
