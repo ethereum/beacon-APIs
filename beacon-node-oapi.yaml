@@ -87,8 +87,6 @@ components:
       $ref: './types/primitive.yaml#/schemas/PublicKey'
     Uint64:
       $ref: './types/primitive.yaml#/schemas/Uint64'
-    SyncingStatus:
-      $ref: './types/node.yaml#/schemas/SyncingStatus'
     NetworkIdentity:
       $ref: './types/p2p.yaml#/NetworkIdentity'
     Peer:
