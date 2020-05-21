@@ -33,6 +33,8 @@ paths:
   /beacon/fork/stream:
     $ref: "./apis/beacon/fork.yaml#/stream"
 
+  /v1/node/identity:
+    $ref: "./apis/node/identity.yaml"
   /node/version:
     $ref: "./apis/node/version.yaml"
   /node/syncing:
@@ -83,6 +85,8 @@ components:
       $ref: './types/primitive.yaml#/schemas/Uint64'
     SyncingStatus:
       $ref: './types/node.yaml#/schemas/SyncingStatus'
+    NetworkIdentity:
+      $ref: './types/p2p.yaml#/NetworkIdentity'
     GenesisTime:
       $ref: './types/primitive.yaml#/schemas/GenesisTime'
     Version:
