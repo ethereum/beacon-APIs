@@ -37,6 +37,8 @@ paths:
     $ref: "./apis/node/identity.yaml"
   /v1/node/peers:
     $ref: "./apis/node/peers.yaml"
+  /v1/node/peers/{peer_id}:
+    $ref: "./apis/node/peer.yaml"
   /v1/node/version:
     $ref: "./apis/node/version.yaml"
   /v1/node/syncing:
@@ -91,6 +93,8 @@ components:
       $ref: './types/p2p.yaml#/NetworkIdentity'
     Peer:
       $ref: './types/p2p.yaml#/Peer'
+    PeerId:
+      $ref: './types/p2p.yaml#/PeerId'
     GenesisTime:
       $ref: './types/primitive.yaml#/schemas/GenesisTime'
     Version:
