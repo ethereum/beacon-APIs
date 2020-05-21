@@ -43,6 +43,8 @@ paths:
     $ref: "./apis/node/version.yaml"
   /v1/node/syncing:
     $ref: "./apis/node/syncing.yaml"
+  /v1/node/health:
+    $ref: "./apis/node/health.yaml"
 
   /validator/{pubkey}:
     $ref: "./apis/validator/validators.yaml"
