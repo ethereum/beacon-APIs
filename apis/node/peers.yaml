@@ -1,0 +1,20 @@
+get:
+  tags:
+    - Node
+  summary: "Get node network peers"
+  description: "Retrieves data about the node's network peers"
+  responses:
+    200:
+      description: Request successful
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
+    500:
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
