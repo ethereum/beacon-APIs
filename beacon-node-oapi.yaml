@@ -4,6 +4,8 @@ info:
   title: "Beacon Node API"
   description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
   version: "0.11.1"
+  contact:
+    email: "dont-contact@ethereum.org"
   license:
     name: "Apache 2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -59,18 +61,12 @@ components:
   schemas:
     BeaconBlock:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
-    BeaconBlockHeader:
-      $ref: './types/block.yaml#/schemas/BeaconBlockHeader'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
-    BeaconState:
-      $ref: './types/state.yaml#/schemas/BeaconState'
     Validator:
       $ref: './types/validator.yaml#/schemas/Validator'
     AttesterDuty:
       $ref: './types/validator.yaml#/schemas/AttesterDuty'
-    AggregateAndProof:
-      $ref: './types/validator.yaml#/schemas/AggregateAndProof'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/schemas/SignedAggregateAndProof'
     Attestation:

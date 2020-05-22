@@ -2,6 +2,7 @@ get:
   tags:
     - MinimalValidatorApi
     - Validator
+  operationId: "produceAttestation"
   summary: "Produce an attestation, without signature."
   description: "Requests that the beacon node produce an Attestation, with a blank signature field, which the validator will then sign."
   parameters:
@@ -25,22 +26,23 @@ get:
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
-    200:
+    "200":
       description: Success response
       content:
         application/json:
           schema:
             $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
-    400:
+    "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-    500:
+    "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-    503:
+    "503":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
 post:
   tags:
     - MinimalValidatorApi
     - Validator
+  operationId: "publishAttestation"
   summary: "Publish a signed attestation."
   description: "Instructs the beacon node to broadcast a newly signed Attestation object to the intended shard subnet. The beacon node is not required to validate the signed Attestation, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new attestation into its state, and therefore validate the attestation internally, however attestations which fail the validation are still broadcast but a different status code is returned (202)"
   requestBody:
@@ -53,13 +55,13 @@ post:
           items:
             $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
   responses:
-    200:
+    "200":
       description: "The attestation was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
-    202:
+    "202":
       description: "The attestation failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
-    400:
+    "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-    500:
+    "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-    503:
+    "503":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

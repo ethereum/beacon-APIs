@@ -2,6 +2,7 @@
     tags:
       - MinimalValidatorApi
       - Validator
+    operationId: "getValidator"
     summary: "Get validator details."
     description: "Requests the beacon node to provide details about validator or 404 if validator is not present in validator registry"
     parameters:
@@ -11,15 +12,15 @@
         schema:
           $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
     responses:
-      200:
+      "200":
         description: Success response
         content:
           application/json:
             schema:
               $ref: '../../beacon-node-oapi.yaml#/components/schemas/Validator'
-      400:
+      "400":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-      404:
+      "404":
         description: "Validator not found in registry"
-      500:
+      "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
