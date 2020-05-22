@@ -5,6 +5,8 @@ info:
   description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
   version: "0.11.1"
   contact:
+    name: EF
+    url: https://ethereum.org
     email: "dont-contact@ethereum.org"
   license:
     name: "Apache 2.0"
@@ -20,12 +22,12 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: MinimalValidatorApi
+    description: The minimal set of endpoints to enable a working validator implementation.
   - name: Node
     description: APIs to query node related informations
   - name: Validator
     description: APIs intended for validator clients
-  - name: MinimalValidatorApi
-    description: The minimal set of endpoints to enable a working validator implementation.
 paths:
 
   /beacon/genesis:
