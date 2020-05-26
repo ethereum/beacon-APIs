@@ -65,7 +65,7 @@ proposer:
               type: array
               items:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ProposerDuty"
-      400:
+      "400":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
       "406":
         description: "Duties cannot be provided for the requested epoch."
