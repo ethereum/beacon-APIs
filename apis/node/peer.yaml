@@ -1,0 +1,21 @@
+get:
+  operationId: getPeer
+  tags:
+    - Node
+  summary: Get peer
+  description: Retrieves data about the given peer
+  parameters:
+    - name: peer_id
+      in: path
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/PeerId"
+  responses:
+    "200":
+      description: Request successful
+      content:
+        application/json:
+          schema:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

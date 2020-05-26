@@ -37,10 +37,18 @@ paths:
   /beacon/fork/stream:
     $ref: "./apis/beacon/fork.yaml#/stream"
 
-  /node/version:
+  /v1/node/identity:
+    $ref: "./apis/node/identity.yaml"
+  /v1/node/peers:
+    $ref: "./apis/node/peers.yaml"
+  /v1/node/peers/{peer_id}:
+    $ref: "./apis/node/peer.yaml"
+  /v1/node/version:
     $ref: "./apis/node/version.yaml"
-  /node/syncing:
+  /v1/node/syncing:
     $ref: "./apis/node/syncing.yaml"
+  /v1/node/health:
+    $ref: "./apis/node/health.yaml"
 
   /validator/{pubkey}:
     $ref: "./apis/validator/validators.yaml"
@@ -79,8 +87,12 @@ components:
       $ref: './types/primitive.yaml#/schemas/PublicKey'
     Uint64:
       $ref: './types/primitive.yaml#/schemas/Uint64'
-    SyncingStatus:
-      $ref: './types/node.yaml#/schemas/SyncingStatus'
+    NetworkIdentity:
+      $ref: './types/p2p.yaml#/NetworkIdentity'
+    Peer:
+      $ref: './types/p2p.yaml#/Peer'
+    PeerId:
+      $ref: './types/p2p.yaml#/PeerId'
     GenesisTime:
       $ref: './types/primitive.yaml#/schemas/GenesisTime'
     Version:
