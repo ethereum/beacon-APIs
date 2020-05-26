@@ -1,12 +1,13 @@
 get:
+  operationId: health
   tags:
     - Node
   summary: Get health check
   description: Returns node health status in http status codes. Useful for load balancers.
   responses:
-    200:
+    "200":
       description: Node is ready
-    206:
+    "206":
       description: Node is syncing but can serve incomplete data
-    503:
+    "503":
       description: Node not initialized or having issues

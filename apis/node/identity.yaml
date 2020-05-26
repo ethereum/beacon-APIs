@@ -1,14 +1,15 @@
 get:
+  operationId: getNetworkIdentity
   tags:
     - Node
   summary: Get node network identity
   description: Retrieves data about the node's network presence
   responses:
-    200:
+    "200":
       description: Request successful
       content:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/NetworkIdentity"
-    500:
+    "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

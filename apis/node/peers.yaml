@@ -1,10 +1,11 @@
 get:
+  operationId: getPeers
   tags:
     - Node
   summary: "Get node network peers"
   description: "Retrieves data about the node's network peers"
   responses:
-    200:
+    "200":
       description: Request successful
       content:
         application/json:
@@ -15,6 +16,6 @@ get:
                 type: array
                 items:
                   $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
-    500:
+    "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
