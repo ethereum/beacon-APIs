@@ -1,5 +1,7 @@
 # Ethereum 2.0 APIs
 
+![CI](https://github.com/ethereum/eth2.0-APIs/workflows/CI/badge.svg)
+
 Collection of RESTful APIs provided by Ethereum 2.0 clients
 
 API browser: [https://ethereum.github.io/eth2.0-APIs/](https://ethereum.github.io/eth2.0-APIs/)
