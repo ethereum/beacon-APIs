@@ -1,11 +1,12 @@
   get:
+    operationId: "getSyncingStatus"
     tags:
       - Node
       - MinimalValidatorApi
     summary: "Get node syncing status"
     description: "Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to."
     responses:
-      200:
+      "200":
         description: Request successful
         content:
           application/json:
@@ -20,5 +21,5 @@
                   allOf:
                     - description: "How much slots node needs to process to reach head. 0 if synced."
                     - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-      500:
+      "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
