@@ -1,4 +1,5 @@
 get:
+  operationId: "getAggregatedAttestation"
   summary: "Get aggregated attestations"
   description: "Aggregates all attestations matching given attestation data"
   tags:
@@ -12,19 +13,20 @@ get:
       schema:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Hex'
   responses:
-    200:
+    "200":
       description: "Returns aggregated attestations for attestation_data."
       content:
         application/json:
           schema:
             $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
-    400:
+    "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-    403:
+    "403":
       description: "Validator is not aggregator"
-    500:
+    "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 post:
+  operationId: "publishAggregateAndProof"
   summary: "Publish aggregate and proof"
   description: "Verifies given aggregate and proof and publishes it on appropriate gossipsub topic."
   tags:
@@ -38,9 +40,9 @@ post:
           items:
             $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedAggregateAndProof'
   responses:
-    200:
+    "200":
       description: "Successful response"
-    400:
+    "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-    500:
+    "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

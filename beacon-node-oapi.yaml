@@ -4,6 +4,10 @@ info:
   title: "Beacon Node API"
   description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
   version: "0.11.1"
+  contact:
+    name: EF
+    url: https://ethereum.org
+    email: "dont-contact@ethereum.org"
   license:
     name: "Apache 2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -18,12 +22,12 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: MinimalValidatorApi
+    description: The minimal set of endpoints to enable a working validator implementation.
   - name: Node
     description: APIs to query node related informations
   - name: Validator
     description: APIs intended for validator clients
-  - name: MinimalValidatorApi
-    description: The minimal set of endpoints to enable a working validator implementation.
 paths:
 
   /beacon/genesis:
@@ -59,18 +63,12 @@ components:
   schemas:
     BeaconBlock:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
-    BeaconBlockHeader:
-      $ref: './types/block.yaml#/schemas/BeaconBlockHeader'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
-    BeaconState:
-      $ref: './types/state.yaml#/schemas/BeaconState'
     Validator:
       $ref: './types/validator.yaml#/schemas/Validator'
     AttesterDuty:
       $ref: './types/validator.yaml#/schemas/AttesterDuty'
-    AggregateAndProof:
-      $ref: './types/validator.yaml#/schemas/AggregateAndProof'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/schemas/SignedAggregateAndProof'
     Attestation:
