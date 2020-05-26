@@ -17,7 +17,7 @@ API facilitating communication between a Validator Client and a Beacon Node
 ## Contributing
 Api spec is checked for lint errors before merge. 
 
-To ran lint locally install linter with
+To run lint locally, install linter with
 ```
 npm install -g @stoplight/spectral
 
