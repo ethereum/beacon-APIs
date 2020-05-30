@@ -1,0 +1,43 @@
+get:
+  operationId: "getEpochCommittees"
+  summary: "Get all committees for epoch"
+  description: "Retrieves the committees for the given state at the given epoch."
+  tags:
+    - Beacon
+  parameters:
+    - name: stateId
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: epoch
+      description: "Epoch for which to calculate committees"
+      in: path
+      required: true
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: index
+      description: "Committee index"
+      in: query
+      required: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: slot
+      in: query
+      required: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+
+
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Committee'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

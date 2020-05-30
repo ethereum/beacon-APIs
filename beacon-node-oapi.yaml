@@ -42,6 +42,8 @@ paths:
     $ref: "./apis/beacon/states/validators.yaml"
   /v1/beacon/states/{stateId}/validators/{validatorId}:
     $ref: "./apis/beacon/states/validator.yaml"
+  /v1/beacon/states/{stateId}/committees/{epoch}:
+    $ref: "./apis/beacon/states/committee.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -73,16 +75,16 @@ paths:
 
 components:
   schemas:
-    BeaconState:
-      $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
     ValidatorResponse:
-      $ref: './types/validator.yaml#/ValidatorResponse'
+      $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorStatus:
-      $ref: './types/validator.yaml#/ValidatorStatus'
+      $ref: './types/api.yaml#/ValidatorStatus'
+    Committee:
+      $ref: './types/api.yaml#/Committee'
     AttesterDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
     SignedAggregateAndProof:
