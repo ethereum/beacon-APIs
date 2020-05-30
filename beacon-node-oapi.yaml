@@ -32,6 +32,9 @@ paths:
 
   /v1/beacon/genesis:
     $ref: "./apis/beacon/genesis.yaml"
+  /v1/beacon/states/{stateId}/root:
+    $ref: "./apis/beacon/states/root.yaml"
+
 #  /v1/beacon/fork:
 #    $ref: "./apis/beacon/fork.yaml#/single"
 #  /v1/beacon/fork/stream:
@@ -69,6 +72,8 @@ paths:
 
 components:
   schemas:
+    BeaconState:
+      $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
@@ -105,6 +110,11 @@ components:
       $ref: './types/primitive.yaml#/schemas/Root'
     Signature:
       $ref: './types/primitive.yaml#/schemas/Signature'
+
+  parameters:
+    StateId:
+      $ref: './params/index.yaml#/StateId'
+
   responses:
     InvalidRequest:
       $ref: './types/http.yaml#/responses/InvalidRequest'
