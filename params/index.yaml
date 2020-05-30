@@ -1,5 +1,5 @@
 StateId:
-  name: stateId
+  name: state_id
   in: path
   required: true
   schema:

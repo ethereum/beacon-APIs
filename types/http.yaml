@@ -7,3 +7,4 @@ InternalError:
 CurrentlySyncing:
   description: "Beacon node is currently syncing, try again later."
 NotFound:
+  description: "Not found"

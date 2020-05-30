@@ -20,8 +20,6 @@
                 genesis_fork_version:
                   $ref: '../../beacon-node-oapi.yaml#/components/schemas/ForkVersion'
       "404":
-        allOf:
-          - $ref: '../../beacon-node-oapi.yaml#/components/responses/NotFound'
-          - description: "Chain genesis has not yet occurred"
+        description: "Chain genesis has not yet occurred"
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

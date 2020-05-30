@@ -6,7 +6,7 @@ get:
     - Beacon
     - MinimalValidatorApi
   parameters:
-    - name: stateId
+    - name: state_id
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   responses:
     "200":

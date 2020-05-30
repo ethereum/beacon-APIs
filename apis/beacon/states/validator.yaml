@@ -6,9 +6,9 @@ get:
     - Beacon
     - MinimalValidatorApi
   parameters:
-    - name: stateId
+    - name: state_id
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
-    - name: validatorId
+    - name: validator_id
       description: "Either public key or validator index"
       in: path
       required: true
@@ -24,9 +24,7 @@ get:
             $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
 
     "404":
-      allOf:
-        - description: "Validator doesn't exist."
-        - $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+      description: "Validator doesn't exist."
 
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
