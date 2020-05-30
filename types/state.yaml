@@ -46,7 +46,7 @@ BeaconState:
       type: array
       items:
         allOf:
-          - $ref: './validator.yaml#/schemas/Validator'
+          - $ref: './validator.yaml#/Validator'
     balances:
       type: array
       description: "Validator balances in gwei"

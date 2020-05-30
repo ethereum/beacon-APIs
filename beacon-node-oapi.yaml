@@ -38,11 +38,8 @@ paths:
     $ref: "./apis/beacon/states/fork.yaml"
   /v1/beacon/states/{stateId}/finality_checkpoints:
     $ref: "./apis/beacon/states/finality_checkpoints.yaml"
-
-#  /v1/beacon/fork:
-#    $ref: "./apis/beacon/fork.yaml#/single"
-#  /v1/beacon/fork/stream:
-#    $ref: "./apis/beacon/fork.yaml#/stream"
+  /v1/beacon/states/{stateId}/validators:
+    $ref: "./apis/beacon/states/validators.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -82,12 +79,14 @@ components:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
-    Validator:
-      $ref: './types/validator.yaml#/schemas/Validator'
+    ValidatorResponse:
+      $ref: './types/validator.yaml#/ValidatorResponse'
+    ValidatorStatus:
+      $ref: './types/validator.yaml#/ValidatorStatus'
     AttesterDuty:
-      $ref: './types/validator.yaml#/schemas/AttesterDuty'
+      $ref: './types/validator.yaml#/AttesterDuty'
     SignedAggregateAndProof:
-      $ref: './types/validator.yaml#/schemas/SignedAggregateAndProof'
+      $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:
       $ref: './types/attestation.yaml#/schemas/Attestation'
     Fork:

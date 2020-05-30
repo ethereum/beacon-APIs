@@ -1,80 +1,109 @@
-schemas:
-  Validator:
-    type: object
-    properties:
-      index:
-        allOf:
-          - $ref: './primitive.yaml#/schemas/Uint64'
-          - description: "Index of validator in validator registry."
-      pubkey:
-        $ref: './primitive.yaml#/schemas/PublicKey'
-      withdrawal_credentials:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Root"
-          - description: "Root of withdrawal credentials"
-      effective_balance:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Gwei"
-          - description: "Balance at stake in Gwei."
-      slashed:
-        type: boolean
-        description: "Was validator slashed (not longer active)."
-      activation_eligibility_epoch:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "When criteria for activation were met."
-      activation_epoch:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
-      exit_epoch:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
-      withdrawable_epoch:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
+ValidatorResponse:
+  type: object
+  properties:
+    index:
+      allOf:
+        - $ref: './primitive.yaml#/schemas/Uint64'
+        - description: "Index of validator in validator registry."
+    balance:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Gwei"
+        - description: "Current validator balance in gwei."
+    status:
+      $ref: "#/ValidatorStatus"
+    validator:
+      $ref: "#/Validator"
 
-  AttesterDuty:
-    type: object
-    properties:
-      validator_pubkey:
-        $ref: './primitive.yaml#/schemas/PublicKey'
-      aggregator_modulo:
-        allOf:
-          - $ref: './primitive.yaml#/schemas/Uint64'
-          - description: "Value which validator can use to calculate is_aggregator (aka bytes_to_int(hash(slot_signature)[0:8]) % aggregator_modulo == 0)"
-      attestation_slot:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "The slot at which the validator must attest."
-      committee_index:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "The committee index"
+Validator:
+  type: object
+  properties:
+    pubkey:
+      $ref: './primitive.yaml#/schemas/PublicKey'
+    withdrawal_credentials:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Root"
+        - description: "Root of withdrawal credentials"
+    effective_balance:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Gwei"
+        - description: "Balance at stake in Gwei."
+    slashed:
+      type: boolean
+      example: false
+      description: "Was validator slashed (not longer active)."
+    activation_eligibility_epoch:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "When criteria for activation were met."
+    activation_epoch:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
+    exit_epoch:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
+    withdrawable_epoch:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
 
-  AggregateAndProof:
-    allOf:
-      - $ref: '#/schemas/Aggregate'
-      - type: object
-        properties:
-          selection_proof:
-            $ref: './primitive.yaml#/schemas/Signature'
+ValidatorStatus:
+  description: |
+    Possible statuses:
+    - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
+    - **pending_queued** - When validator is waiting to get activated, and have enough funds etc. while in the queue, validator activation epoch keeps changing until it gets to the front and make it through (finalization is a requirement here too).
+    - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
+    - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
+    - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
+    - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+    - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+    - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
+    - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
-  Aggregate:
-    type: object
-    description: "The [`AggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.9.2/specs/validator/0_beacon-chain-validator.md#aggregateandproof) without selection_proof"
-    properties:
-      aggregator_index:
-        $ref: './primitive.yaml#/schemas/Uint64'
-      attestation:
-        $ref: './attestation.yaml#/schemas/Attestation'
+    [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
+  enum: ["pending_initialized", "pending_queued", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
+  example: "active_ongoing"
+
+AttesterDuty:
+  type: object
+  properties:
+    validator_pubkey:
+      $ref: './primitive.yaml#/schemas/PublicKey'
+    aggregator_modulo:
+      allOf:
+        - $ref: './primitive.yaml#/schemas/Uint64'
+        - description: "Value which validator can use to calculate is_aggregator (aka bytes_to_int(hash(slot_signature)[0:8]) % aggregator_modulo == 0)"
+    attestation_slot:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "The slot at which the validator must attest."
+    committee_index:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "The committee index"
+
+AggregateAndProof:
+  allOf:
+    - $ref: '#/Aggregate'
+    - type: object
+      properties:
+        selection_proof:
+          $ref: './primitive.yaml#/schemas/Signature'
+
+Aggregate:
+  type: object
+  description: "The [`AggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.9.2/specs/validator/0_beacon-chain-validator.md#aggregateandproof) without selection_proof"
+  properties:
+    aggregator_index:
+      $ref: './primitive.yaml#/schemas/Uint64'
+    attestation:
+      $ref: './attestation.yaml#/schemas/Attestation'
 
 
-  SignedAggregateAndProof:
-    properties:
-      message:
-        $ref: "#/schemas/AggregateAndProof"
-      signature:
-        $ref: "./primitive.yaml#/schemas/Signature"
+SignedAggregateAndProof:
+  properties:
+    message:
+      $ref: "#/AggregateAndProof"
+    signature:
+      $ref: "./primitive.yaml#/schemas/Signature"

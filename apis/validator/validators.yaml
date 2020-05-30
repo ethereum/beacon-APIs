@@ -17,7 +17,8 @@
         content:
           application/json:
             schema:
-              $ref: '../../beacon-node-oapi.yaml#/components/schemas/Validator'
+              $ref: '../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
+
       "400":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
       "404":
