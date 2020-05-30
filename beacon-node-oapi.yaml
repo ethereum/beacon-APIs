@@ -30,12 +30,12 @@ tags:
     description: APIs intended for validator clients
 paths:
 
-  /beacon/genesis:
+  /v1/beacon/genesis:
     $ref: "./apis/beacon/genesis.yaml"
-  /beacon/fork:
-    $ref: "./apis/beacon/fork.yaml#/single"
-  /beacon/fork/stream:
-    $ref: "./apis/beacon/fork.yaml#/stream"
+#  /v1/beacon/fork:
+#    $ref: "./apis/beacon/fork.yaml#/single"
+#  /v1/beacon/fork/stream:
+#    $ref: "./apis/beacon/fork.yaml#/stream"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -97,6 +97,8 @@ components:
       $ref: './types/primitive.yaml#/schemas/GenesisTime'
     Version:
       $ref: './types/primitive.yaml#/schemas/Version'
+    ForkVersion:
+      $ref: './types/primitive.yaml#/schemas/ForkVersion'
     Root:
       $ref: './types/primitive.yaml#/schemas/Root'
     Hex:
@@ -108,5 +110,7 @@ components:
       $ref: './types/http.yaml#/responses/InvalidRequest'
     InternalError:
       $ref: './types/http.yaml#/responses/InternalError'
+    NotFound:
+      $ref: './types/http.yaml#/responses/NotFound'
     CurrentlySyncing:
       $ref: './types/http.yaml#/responses/CurrentlySyncing'

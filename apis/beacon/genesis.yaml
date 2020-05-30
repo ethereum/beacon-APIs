@@ -3,8 +3,8 @@
     tags:
       - Beacon
       - MinimalValidatorApi
-    summary: "Get the genesis_time parameter from beacon node configuration."
-    description: "Requests the genesis_time parameter from the beacon node, which should be consistent across all beacon nodes that follow the same beacon chain."
+    summary: "Retrieve details of the chain's genesis."
+    description: "Retrieve details of the chain's genesis which can be used to identify chain."
     responses:
       "200":
         description: Request successful
@@ -17,5 +17,11 @@
                   $ref: '../../beacon-node-oapi.yaml#/components/schemas/GenesisTime'
                 genesis_validators_root:
                   $ref: '../../beacon-node-oapi.yaml#/components/schemas/Root'
+                genesis_fork_version:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/ForkVersion'
+      "404":
+        allOf:
+          - $ref: '../../beacon-node-oapi.yaml#/components/responses/NotFound'
+          - description: "Chain genesis has not yet occurred"
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
