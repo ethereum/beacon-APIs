@@ -34,6 +34,8 @@ paths:
     $ref: "./apis/beacon/genesis.yaml"
   /v1/beacon/states/{stateId}/root:
     $ref: "./apis/beacon/states/root.yaml"
+  /v1/beacon/states/{stateId}/fork:
+    $ref: "./apis/beacon/states/fork.yaml"
 
 #  /v1/beacon/fork:
 #    $ref: "./apis/beacon/fork.yaml#/single"

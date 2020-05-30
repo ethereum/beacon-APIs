@@ -15,3 +15,6 @@ get:
           schema:
             $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
 
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
