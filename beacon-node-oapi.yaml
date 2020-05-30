@@ -40,6 +40,8 @@ paths:
     $ref: "./apis/beacon/states/finality_checkpoints.yaml"
   /v1/beacon/states/{stateId}/validators:
     $ref: "./apis/beacon/states/validators.yaml"
+  /v1/beacon/states/{stateId}/validators/{validatorId}:
+    $ref: "./apis/beacon/states/validator.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -54,8 +56,6 @@ paths:
   /v1/node/health:
     $ref: "./apis/node/health.yaml"
 
-  /validator/{pubkey}:
-    $ref: "./apis/validator/validators.yaml"
   /validator/duties/{epoch}/attester:
     $ref: "./apis/validator/duties.yaml#/attester"
   /validator/duties/{epoch}/proposer:
@@ -122,10 +122,10 @@ components:
 
   responses:
     InvalidRequest:
-      $ref: './types/http.yaml#/responses/InvalidRequest'
+      $ref: './types/http.yaml#/InvalidRequest'
     InternalError:
-      $ref: './types/http.yaml#/responses/InternalError'
+      $ref: './types/http.yaml#/InternalError'
     NotFound:
-      $ref: './types/http.yaml#/responses/NotFound'
+      $ref: './types/http.yaml#/NotFound'
     CurrentlySyncing:
-      $ref: './types/http.yaml#/responses/CurrentlySyncing'
+      $ref: './types/http.yaml#/CurrentlySyncing'
