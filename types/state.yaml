@@ -44,12 +44,14 @@ BeaconState:
       $ref: "./primitive.yaml#/schemas/Uint64"
     validators:
       type: array
+      maxItems: 1099511627776
       items:
         allOf:
           - $ref: './validator.yaml#/Validator'
     balances:
       type: array
       description: "Validator balances in gwei"
+      maxItems: 1099511627776
       items:
         allOf:
           - $ref: './primitive.yaml#/schemas/Uint64'
