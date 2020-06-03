@@ -1,0 +1,40 @@
+get:
+  operationId: getPoolProposerSlashings
+  summary: Get ProposerSlashings from operations pool
+  description: Retrieves proposer slashings known by the node but not necessarily incorporated into any block
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ProposerSlashing'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
+post:
+  operationId: submitPoolProposerSlashings
+  summary: Submit ProposerSlashing object to node's pool
+  description: Submits ProposerSlashing object to node's pool so it can be incorporated in block
+  tags:
+    - Beacon
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ProposerSlashing'
+  responses:
+    "200":
+      description: Success
+    "400":
+      description: Invalid proposer slashing. [See proposer_slashing topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

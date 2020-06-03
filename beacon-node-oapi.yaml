@@ -39,6 +39,8 @@ paths:
 
   /v1/beacon/pool/atttester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
+  /v1/beacon/pool/proposer_slashings:
+    $ref: "./apis/beacon/pool/proposer_slashings.yaml"
   /v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
@@ -80,6 +82,8 @@ components:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
     AttesterSlashing:
       $ref: './types/attester_slashing.yaml#/AttesterSlashing'
+    ProposerSlashing:
+      $ref: './types/proposer_slashing.yaml#/ProposerSlashing'
     SignedVoluntaryExit:
       $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
     Validator:

@@ -37,7 +37,7 @@ schemas:
       proposer_slashings:
         type: array
         items:
-          $ref: './proposer_slashing.yaml#/schemas/ProposerSlashing'
+          $ref: './proposer_slashing.yaml#/ProposerSlashing'
       attester_slashings:
         type: array
         items:
