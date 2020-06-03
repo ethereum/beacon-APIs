@@ -41,7 +41,7 @@ schemas:
       attester_slashings:
         type: array
         items:
-          $ref: './attester_slashing.yaml#/schemas/AttesterSlashing'
+          $ref: './attester_slashing.yaml#/AttesterSlashing'
       attestations:
         type: array
         items:

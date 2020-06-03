@@ -37,6 +37,9 @@ paths:
   /beacon/fork/stream:
     $ref: "./apis/beacon/fork.yaml#/stream"
 
+  /v1/beacon/pool/atttester_slashings:
+    $ref: "./apis/beacon/pool/attester_slashings.yaml"
+
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
   /v1/node/peers:
@@ -73,6 +76,8 @@ components:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
+    AttesterSlashing:
+      $ref: './types/attester_slashing.yaml#/AttesterSlashing'
     Validator:
       $ref: './types/validator.yaml#/schemas/Validator'
     AttesterDuty:
