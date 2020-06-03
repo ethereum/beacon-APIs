@@ -22,7 +22,7 @@ get:
 post:
   operationId: submitPoolProposerSlashings
   summary: Submit ProposerSlashing object to node's pool
-  description: Submits ProposerSlashing object to node's pool so it can be incorporated in block
+  description: Submits ProposerSlashing object to node's pool and node MUST broadcast it to network.
   tags:
     - Beacon
   requestBody:

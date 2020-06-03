@@ -22,7 +22,7 @@ get:
 post:
   operationId: submitPoolVoluntaryExit
   summary: Submit SignedVoluntaryExit object to node's pool
-  description: Submits SignedVoluntaryExit object to node's pool so it can be incorporated in block
+  description: Submits SignedVoluntaryExit object to node's pool, if all requirements are fulfilled node MUST broadcast it to network.
   tags:
     - Beacon
   requestBody:
@@ -33,8 +33,10 @@ post:
           $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedVoluntaryExit'
   responses:
     "200":
-      description: Success
+      description: Voluntary exit is stored in node and broadcasted to network
+    "204":
+      description: Voluntary exit is stored in node and it will be broadcast once all requirements are fulfilled. [See voluntary_exit topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)
     "400":
-      description: Invalid voluntary exit. [See voluntary_exit topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)
+      description: Invalid voluntary exit.
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
