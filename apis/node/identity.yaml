@@ -10,6 +10,9 @@ get:
       content:
         application/json:
           schema:
-            $ref: "../../beacon-node-oapi.yaml#/components/schemas/NetworkIdentity"
+            type: object
+            properties:
+              data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/NetworkIdentity"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
