@@ -13,12 +13,15 @@
             schema:
               type: object
               properties:
-                genesis_time:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/GenesisTime'
-                genesis_validators_root:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Root'
-                genesis_fork_version:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/ForkVersion'
+                data:
+                  type: object
+                  properties:
+                    genesis_time:
+                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/GenesisTime'
+                    genesis_validators_root:
+                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/Root'
+                    genesis_fork_version:
+                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/ForkVersion'
       "404":
         description: "Chain genesis has not yet occurred"
       "500":

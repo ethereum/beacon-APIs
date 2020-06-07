@@ -17,12 +17,15 @@ get:
           schema:
             type: object
             properties:
-              previous_justified:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
-              current_justified:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
-              finalized:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+              data:
+                type: object
+                properties:
+                  previous_justified:
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  current_justified:
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  finalized:
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
 
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

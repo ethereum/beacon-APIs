@@ -21,7 +21,10 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
+            type: object
+            properties:
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
 
     "404":
       description: "Validator doesn't exist."

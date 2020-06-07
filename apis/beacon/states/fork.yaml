@@ -14,7 +14,10 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Fork'
+            type: object
+            properties:
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Fork'
 
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

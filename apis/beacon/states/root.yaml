@@ -13,7 +13,12 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+            type: object
+            properties:
+              data:
+                allOf:
+                  - description: HashTreeRoot of BeaconState object
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
 
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
