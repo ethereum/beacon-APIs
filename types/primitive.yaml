@@ -26,7 +26,7 @@ schemas:
 
   Uint64:
     type: string
-    example: "1213123123123123123123123122"
+    example: "1"
 
   Root:
     type: string
