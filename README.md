@@ -34,7 +34,7 @@ yarn global add simplehttpserver
 
 simplehttpserver
 ```
-And api spec will render on [http://localhost:8080](http://localhost:8000).
+And api spec will render on [http://localhost:8000](http://localhost:8000).
 
 ## Contributing
 Api spec is checked for lint errors before merge. 
