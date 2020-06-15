@@ -10,7 +10,7 @@ get:
     - name: epoch
       description: "Epoch for which to calculate committees. Defaults to beacon state epoch."
       in: path
-      required: false
+      required: true
       allowEmptyValue: true
       schema:
         allOf:
