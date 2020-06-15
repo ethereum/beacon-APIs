@@ -1,0 +1,32 @@
+get:
+  operationId: "getStateFinalityCheckpoints"
+  summary: "Get state finality checkpoints"
+  description: |
+    Returns finality checkpoints for state with given 'stateId'.
+    In case finality is not yet achieved, checkpoint should return epoch 0 and ZERO_HASH as root.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  previous_justified:
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  current_justified:
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  finalized:
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

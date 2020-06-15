@@ -1,92 +1,93 @@
-schemas:
-  BeaconState:
-    type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
-    properties:
-      genesis_time:
-        $ref: "./primitive.yaml#/schemas/Uint64"
-      genesis_validators_root:
-        $ref: "./primitive.yaml#/schemas/Root"
-      slot:
-        $ref: "./primitive.yaml#/schemas/Uint64"
-      fork:
-        $ref: "./misc.yaml#/schemas/Fork"
-      latest_block_header:
-        $ref: "./block.yaml#/schemas/BeaconBlockHeader"
-      block_roots:
-        type: array
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Root'
-        minItems: 8192
-        maxItems: 8192
-      state_roots:
-        type: array
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Root'
-        minItems: 8192
-        maxItems: 8192
-      historical_roots:
-        type: array
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Root'
-        maxItems: 16777216
-      eth1_data:
-        $ref: "./eth1.yaml#/schemas/Eth1Data"
-      eth1_data_votes:
-        type: array
-        items:
-          allOf:
-            - $ref: './eth1.yaml#/schemas/Eth1Data'
-        maxItems: 1024
-      eth1_deposit_index:
-        $ref: "./primitive.yaml#/schemas/Uint64"
-      validators:
-        type: array
-        items:
-          allOf:
-            - $ref: './validator.yaml#/schemas/Validator'
-      balances:
-        type: array
-        description: "Validator balances in gwei"
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Uint64'
-      randao_mixes:
-        type: array
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Root'
-        minItems: 65536
-        maxItems: 65536
-      slashings:
-        type: array
-        description: "Per-epoch sums of slashed effective balances"
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Uint64'
-        minItems: 8192
-        maxItems: 8192
-      previous_epoch_attestations:
-        type: array
-        items:
-          allOf:
-            - $ref: './attestation.yaml#/schemas/PendingAttestation'
-      current_epoch_attestations:
-        type: array
-        items:
-          allOf:
-            - $ref: './attestation.yaml#/schemas/PendingAttestation'
-      justification_bits:
-        type: string
-        format: byte
-        pattern: "^0x[a-fA-F0-9]+$"
-        description: "Bit set for every recent justified epoch"
-      previous_justified_checkpoint:
-        $ref: "./misc.yaml#/schemas/Checkpoint"
-      current_justified_checkpoint:
-        $ref: "./misc.yaml#/schemas/Checkpoint"
-      finalized_checkpoint:
-        $ref: "./misc.yaml#/schemas/Checkpoint"
+BeaconState:
+  type: object
+  description: "The [`BeaconState`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
+  properties:
+    genesis_time:
+      $ref: "./primitive.yaml#/schemas/Uint64"
+    genesis_validators_root:
+      $ref: "./primitive.yaml#/schemas/Root"
+    slot:
+      $ref: "./primitive.yaml#/schemas/Uint64"
+    fork:
+      $ref: "./misc.yaml#/schemas/Fork"
+    latest_block_header:
+      $ref: "./block.yaml#/schemas/BeaconBlockHeader"
+    block_roots:
+      type: array
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Root'
+      minItems: 8192
+      maxItems: 8192
+    state_roots:
+      type: array
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Root'
+      minItems: 8192
+      maxItems: 8192
+    historical_roots:
+      type: array
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Root'
+      maxItems: 16777216
+    eth1_data:
+      $ref: "./eth1.yaml#/schemas/Eth1Data"
+    eth1_data_votes:
+      type: array
+      items:
+        allOf:
+          - $ref: './eth1.yaml#/schemas/Eth1Data'
+      maxItems: 1024
+    eth1_deposit_index:
+      $ref: "./primitive.yaml#/schemas/Uint64"
+    validators:
+      type: array
+      maxItems: 1099511627776
+      items:
+        allOf:
+          - $ref: './validator.yaml#/Validator'
+    balances:
+      type: array
+      description: "Validator balances in gwei"
+      maxItems: 1099511627776
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Uint64'
+    randao_mixes:
+      type: array
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Root'
+      minItems: 65536
+      maxItems: 65536
+    slashings:
+      type: array
+      description: "Per-epoch sums of slashed effective balances"
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/schemas/Uint64'
+      minItems: 8192
+      maxItems: 8192
+    previous_epoch_attestations:
+      type: array
+      items:
+        allOf:
+          - $ref: './attestation.yaml#/schemas/PendingAttestation'
+    current_epoch_attestations:
+      type: array
+      items:
+        allOf:
+          - $ref: './attestation.yaml#/schemas/PendingAttestation'
+    justification_bits:
+      type: string
+      format: byte
+      pattern: "^0x[a-fA-F0-9]+$"
+      description: "Bit set for every recent justified epoch"
+    previous_justified_checkpoint:
+      $ref: "./misc.yaml#/schemas/Checkpoint"
+    current_justified_checkpoint:
+      $ref: "./misc.yaml#/schemas/Checkpoint"
+    finalized_checkpoint:
+      $ref: "./misc.yaml#/schemas/Checkpoint"

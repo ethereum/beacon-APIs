@@ -1,0 +1,24 @@
+get:
+  operationId: "getStateFork"
+  summary: "Get Fork object for requested state"
+  description: "Returns [Fork](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#fork) object for state with given 'stateId'."
+  tags:
+    - Beacon
+    - MinimalValidatorApi
+  parameters:
+    - name: state_id
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Fork'
+
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
