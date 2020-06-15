@@ -14,6 +14,28 @@ API facilitating communication between a Validator Client and a Beacon Node
 * [OpenAPI Specification](apis/validator/beacon-node-oapi.yaml)
    * [APIs Documentation viewer](https://ethereum.github.io/eth2.0-APIs/)
 
+## Render 
+To render spec in browser you will need any http server to load `index.html` file
+in root of the repo.
+
+##### Python
+```
+python -m SimpleHTTPServer 8080
+```
+And api spec will render on [http://localhost:8080](http://localhost:8080).
+
+##### NodeJs
+```
+npm install simplehttpserver -g
+
+# OR
+
+yarn global add simplehttpserver
+
+simplehttpserver
+```
+And api spec will render on [http://localhost:8080](http://localhost:8000).
+
 ## Contributing
 Api spec is checked for lint errors before merge. 
 
