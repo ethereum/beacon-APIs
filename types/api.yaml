@@ -36,7 +36,7 @@ ValidatorStatus:
 
 
 Committee:
-  description: Group of validators assigned to attest at specific slot
+  description: Group of validators assigned to attest at specific slot and that have the same committee index (shard in phase 1)
   type: object
   properties:
     index:

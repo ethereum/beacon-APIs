@@ -8,22 +8,29 @@ get:
     - name: state_id
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: epoch
-      description: "Epoch for which to calculate committees"
+      description: "Epoch for which to calculate committees. Defaults to beacon state epoch."
       in: path
-      required: true
+      required: false
+      allowEmptyValue: true
       schema:
-        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        allOf:
+          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          - example: ""
     - name: index
       description: "Committee index"
       in: query
       required: false
       schema:
-        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        allOf:
+          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          - example: ""
     - name: slot
       in: query
       required: false
       schema:
-        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        allOf:
+          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          - example: ""
 
 
   responses:
@@ -38,6 +45,8 @@ get:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Committee'
+    "400":
+      description: If slot doesn't belong in given epoch.
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
