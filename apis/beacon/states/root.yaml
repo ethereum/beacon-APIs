@@ -1,0 +1,25 @@
+get:
+  operationId: "getStateRoot"
+  summary: "Get state SSZ HashTreeRoot"
+  description: "Calculates HashTreeRoot for state with given 'stateId'. If stateId is root, same value will be returned."
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                allOf:
+                  - description: HashTreeRoot of BeaconState object
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

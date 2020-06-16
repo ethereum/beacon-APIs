@@ -1,0 +1,53 @@
+# API specific types
+
+ValidatorResponse:
+  type: object
+  properties:
+    index:
+      allOf:
+        - $ref: './primitive.yaml#/schemas/Uint64'
+        - description: "Index of validator in validator registry."
+    balance:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Gwei"
+        - description: "Current validator balance in gwei."
+    status:
+      $ref: "#/ValidatorStatus"
+    validator:
+      $ref: "./validator.yaml#/Validator"
+
+
+ValidatorStatus:
+  description: |
+    Possible statuses:
+    - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
+    - **pending_queued** - When validator is waiting to get activated, and have enough funds etc. while in the queue, validator activation epoch keeps changing until it gets to the front and make it through (finalization is a requirement here too).
+    - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
+    - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
+    - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
+    - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+    - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+    - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
+    - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
+
+    [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
+  enum: ["pending_initialized", "pending_queued", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
+  example: "active_ongoing"
+
+
+Committee:
+  description: Group of validators assigned to attest at specific slot and that have the same committee index (shard in phase 1)
+  type: object
+  properties:
+    index:
+      allOf:
+        - $ref: './primitive.yaml#/schemas/Uint64'
+        - description: Committee index at a slot
+    slot:
+      $ref: './primitive.yaml#/schemas/Uint64'
+
+    validators:
+      type: array
+      description: "List of validator indices assigned to this committee"
+      items:
+        $ref: './primitive.yaml#/schemas/Uint64'
