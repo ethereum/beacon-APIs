@@ -48,6 +48,8 @@ paths:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
+  /v1/beacon/blocks/{block_id}:
+    $ref: "./apis/beacon/blocks/block.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
