@@ -45,6 +45,15 @@ paths:
   /v1/beacon/states/{state_id}/committees/{epoch}:
     $ref: "./apis/beacon/states/committee.yaml"
 
+  /v1/beacon/pool/attestations:
+    $ref: "./apis/beacon/pool/attestations.yaml"
+  /v1/beacon/pool/atttester_slashings:
+    $ref: "./apis/beacon/pool/attester_slashings.yaml"
+  /v1/beacon/pool/proposer_slashings:
+    $ref: "./apis/beacon/pool/proposer_slashings.yaml"
+  /v1/beacon/pool/voluntary_exits:
+    $ref: "./apis/beacon/pool/voluntary_exists.yaml"
+
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
   /v1/node/peers:
@@ -85,6 +94,12 @@ components:
       $ref: './types/api.yaml#/ValidatorStatus'
     Committee:
       $ref: './types/api.yaml#/Committee'
+    AttesterSlashing:
+      $ref: './types/attester_slashing.yaml#/AttesterSlashing'
+    ProposerSlashing:
+      $ref: './types/proposer_slashing.yaml#/ProposerSlashing'
+    SignedVoluntaryExit:
+      $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
     AttesterDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
     SignedAggregateAndProof:

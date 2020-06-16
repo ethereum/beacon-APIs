@@ -1,0 +1,40 @@
+get:
+  operationId: getPoolVoluntaryExits
+  summary: Get SignedVoluntaryExit from operations pool
+  description: Retrieves voluntary exits known by the node but not necessarily incorporated into any block
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedVoluntaryExit'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
+post:
+  operationId: submitPoolVoluntaryExit
+  summary: Submit SignedVoluntaryExit object to node's pool
+  description: Submits SignedVoluntaryExit object to node's pool and if passes validation node MUST broadcast it to network.
+  tags:
+    - Beacon
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedVoluntaryExit'
+  responses:
+    "200":
+      description: Voluntary exit is stored in node and broadcasted to network
+    "400":
+      description: Invalid voluntary exit.
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

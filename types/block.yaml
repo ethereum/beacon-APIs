@@ -37,11 +37,11 @@ schemas:
       proposer_slashings:
         type: array
         items:
-          $ref: './proposer_slashing.yaml#/schemas/ProposerSlashing'
+          $ref: './proposer_slashing.yaml#/ProposerSlashing'
       attester_slashings:
         type: array
         items:
-          $ref: './attester_slashing.yaml#/schemas/AttesterSlashing'
+          $ref: './attester_slashing.yaml#/AttesterSlashing'
       attestations:
         type: array
         items:
@@ -53,7 +53,7 @@ schemas:
       voluntary_exits:
         type: array
         items:
-          $ref: './voluntary_exit.yaml#/schemas/VoluntaryExit'
+          $ref: './voluntary_exit.yaml#/VoluntaryExit'
 
 
   BeaconBlock:
