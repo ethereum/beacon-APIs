@@ -16,7 +16,12 @@ get:
             type: object
             properties:
               data:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
+                type: object
+                properties:
+                  canonical:
+                    type: boolean
+                  header:
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
     "404":
       description: "Block not found!"
     "500":
