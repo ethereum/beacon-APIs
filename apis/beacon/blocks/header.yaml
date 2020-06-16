@@ -1,0 +1,23 @@
+get:
+  operationId: getBlockHeader
+  summary: Get block header
+  description: Retrieves block header for given block id.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_id
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
+    "404":
+      description: "Block not found!"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

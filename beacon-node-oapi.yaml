@@ -46,6 +46,8 @@ paths:
     $ref: "./apis/beacon/states/committee.yaml"
   /v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
+  /v1/beacon/headers/{block_id}:
+    $ref: "./apis/beacon/blocks/header.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -125,6 +127,8 @@ components:
   parameters:
     StateId:
       $ref: './params/index.yaml#/StateId'
+    BlockId:
+      $ref: './params/index.yaml#/BlockId'
 
   responses:
     InvalidRequest:
