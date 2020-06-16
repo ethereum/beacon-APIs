@@ -22,7 +22,7 @@
                         - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
                     sync_distance:
                       allOf:
-                        - description: "How much slots node needs to process to reach head. 0 if synced."
+                        - description: "How many slots node needs to process to reach head. 0 if synced."
                         - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

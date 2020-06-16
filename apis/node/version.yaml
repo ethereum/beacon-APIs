@@ -13,6 +13,10 @@ get:
             type: object
             properties:
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Version'
+                type: object
+                properties:
+                  version:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Version'
+
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
