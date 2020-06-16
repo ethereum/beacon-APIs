@@ -16,9 +16,12 @@ get:
             type: object
             properties:
               data:
-                allOf:
-                  - description: HashTreeRoot of BeaconState object
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+                type: object
+                properties:
+                  root:
+                    allOf:
+                      - description: HashTreeRoot of BeaconState object
+                      - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
 
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
