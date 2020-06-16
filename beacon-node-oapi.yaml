@@ -52,6 +52,8 @@ paths:
     $ref: "./apis/beacon/blocks/block.yaml"
   /v1/beacon/blocks/{block_id}/root:
     $ref: "./apis/beacon/blocks/root.yaml"
+  /v1/beacon/blocks/{block_id}/attestations:
+    $ref: "./apis/beacon/blocks/attestations.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
