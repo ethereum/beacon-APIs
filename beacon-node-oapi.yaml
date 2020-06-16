@@ -44,6 +44,8 @@ paths:
     $ref: "./apis/beacon/states/validator.yaml"
   /v1/beacon/states/{state_id}/committees/{epoch}:
     $ref: "./apis/beacon/states/committee.yaml"
+  /v1/beacon/headers:
+    $ref: "./apis/beacon/blocks/headers.yaml"
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -79,6 +81,8 @@ components:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
+    SignedBeaconBlockHeader:
+      $ref: './types/block.yaml#/schemas/SignedBeaconBlockHeader'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorStatus:

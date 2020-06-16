@@ -1,0 +1,43 @@
+get:
+  operationId: getBlockHeaders
+  summary: Get block headers
+  description: Retrieves block headers matching given query. By default it will fetch current head slot blocks.
+  tags:
+    - Beacon
+  parameters:
+    - name: slot
+      in: query
+      required: false
+      schema:
+        allOf:
+          - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+          - example: ""
+    - name: parent_root
+      in: query
+      required: false
+      schema:
+        allOf:
+          - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
+          - example: ""
+  
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    root:
+                      $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
+                    canonical:
+                      type: boolean
+                    header:
+                      $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
