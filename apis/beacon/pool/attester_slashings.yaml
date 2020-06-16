@@ -22,7 +22,7 @@ get:
 post:
   operationId: submitPoolAttesterSlashings
   summary: Submit AttesterSlashing object to node's pool
-  description: Submits AttesterSlashing object to node's pool and node MUST broadcast it to network.
+  description: Submits AttesterSlashing object to node's pool and if passes validation node MUST broadcast it to network.
   tags:
     - Beacon
   requestBody:

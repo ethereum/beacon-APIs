@@ -33,7 +33,7 @@ get:
 post:
   operationId: submitPoolAttestations
   summary: Submit Attestation object to node
-  description: Submits Attestation object to node. If attestation passes all validation constraint, node MUST publish attestation on appropriate subnet.
+  description: Submits Attestation object to node. If attestation passes all validation constraints, node MUST publish attestation on appropriate subnet.
   tags:
     - Beacon
     - MinimalValidatorApi
@@ -46,8 +46,6 @@ post:
   responses:
     "200":
       description: Attestation is stored in pool and broadcast on appropriate subnet
-    "204":
-      description: Attestation is stored in pool and it will be broadcast once all requirements are fulfilled.
     "400":
       description: Invalid attestation, it will never pass validation so it's rejected
     "500":
