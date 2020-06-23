@@ -1,5 +1,5 @@
 get:
-  operationId: health
+  operationId: getHealth
   tags:
     - Node
   summary: Get health check
