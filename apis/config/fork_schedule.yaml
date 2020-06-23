@@ -17,4 +17,4 @@ get:
                 items:
                   $ref: ../../beacon-node-oapi.yaml#/components/schemas/Fork
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: ../../beacon-node-oapi.yaml#/components/responses/InternalError
