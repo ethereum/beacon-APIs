@@ -22,12 +22,12 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Config
+    description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: MinimalValidatorApi
     description: The minimal set of endpoints to enable a working validator implementation.
   - name: Node
     description: Endpoints to query node related informations
-  - name: Config
-    description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Validator
     description: Endpoints intended for validator clients
 paths:
