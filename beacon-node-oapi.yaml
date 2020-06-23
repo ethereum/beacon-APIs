@@ -81,6 +81,8 @@ paths:
 
   /v1/config/fork_schedule:
     $ref: "./apis/config/fork_schedule.yaml"
+  /v1/config/spec:
+    $ref: "./apis/config/spec.yaml"
   /v1/config/deposit_contract:
     $ref: "./apis/config/deposit_contract.yaml"
 
