@@ -44,6 +44,16 @@ paths:
     $ref: "./apis/beacon/states/validator.yaml"
   /v1/beacon/states/{state_id}/committees/{epoch}:
     $ref: "./apis/beacon/states/committee.yaml"
+  /v1/beacon/headers:
+    $ref: "./apis/beacon/blocks/headers.yaml"
+  /v1/beacon/headers/{block_id}:
+    $ref: "./apis/beacon/blocks/header.yaml"
+  /v1/beacon/blocks/{block_id}:
+    $ref: "./apis/beacon/blocks/block.yaml"
+  /v1/beacon/blocks/{block_id}/root:
+    $ref: "./apis/beacon/blocks/root.yaml"
+  /v1/beacon/blocks/{block_id}/attestations:
+    $ref: "./apis/beacon/blocks/attestations.yaml"
 
   /v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
@@ -88,6 +98,8 @@ components:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
+    SignedBeaconBlockHeader:
+      $ref: './types/block.yaml#/schemas/SignedBeaconBlockHeader'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorStatus:
@@ -136,6 +148,8 @@ components:
   parameters:
     StateId:
       $ref: './params/index.yaml#/StateId'
+    BlockId:
+      $ref: './params/index.yaml#/BlockId'
 
   responses:
     InvalidRequest:

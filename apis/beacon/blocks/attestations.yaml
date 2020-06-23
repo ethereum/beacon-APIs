@@ -1,0 +1,24 @@
+get:
+  operationId: getBlockAttestations
+  summary: Get block attestations
+  description: Retrieves attestation included in requested block.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_id
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
