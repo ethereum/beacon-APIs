@@ -15,8 +15,12 @@ get:
               data:
                 type: object
                 properties:
-                  genesis_fork_version:
-                    $ref: ../../beacon-node-oapi.yaml#/components/schemas/ForkVersion
+                  chain_id:
+                    description: Id of Eth1 chain on which contract is deployed.
+                    type: integer
+                    format: int32
+                    example: 1
+                    minimum: 1
                   address:
                     allOf:
                       - $ref: ../../beacon-node-oapi.yaml#/components/schemas/Hex
