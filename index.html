@@ -40,7 +40,7 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "./beacon-node-oapi.yaml",
+        urls: [{url: "./beacon-node-oapi.yaml", name: "dev"}],
         basePath: "/",
         dom_id: '#swagger-ui',
         deepLinking: true,
