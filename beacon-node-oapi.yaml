@@ -91,11 +91,8 @@ paths:
     $ref: "./apis/validator/aggregate_attestation.yaml"
   /v1/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proof.yaml"
-
-  /validator/beacon_committee_subscriptions:
-    $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/create"
-  /validator/beacon_committee_subscription/{committee_index}/attestations:
-    $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/attestations"
+  /v1/validator/beacon_committee_subscriptions:
+    $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
 
 
 
