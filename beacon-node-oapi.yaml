@@ -1,11 +1,11 @@
-openapi: "3.0.2"
+openapi: "3.0.3"
 
 info:
   title: "Beacon Node API"
   description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
   version: "0.11.1"
   contact:
-    name: EF
+    name: Ethereum Foundation
     url: https://ethereum.org
     email: "dont-contact@ethereum.org"
   license:
@@ -24,12 +24,14 @@ tags:
     description: Set of endpoints to query beacon chain.
   - name: Debug
     description: Set of endpoints to debug chain and shouldn't be exposed publicly.
+  - name: Config
+    description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: MinimalValidatorApi
     description: The minimal set of endpoints to enable a working validator implementation.
   - name: Node
-    description: APIs to query node related informations
+    description: Endpoints to query node related informations
   - name: Validator
-    description: APIs intended for validator clients
+    description: Endpoints intended for validator clients
 paths:
 
   /v1/beacon/genesis:
@@ -83,6 +85,13 @@ paths:
     $ref: "./apis/node/syncing.yaml"
   /v1/node/health:
     $ref: "./apis/node/health.yaml"
+
+  /v1/config/fork_schedule:
+    $ref: "./apis/config/fork_schedule.yaml"
+  /v1/config/spec:
+    $ref: "./apis/config/spec.yaml"
+  /v1/config/deposit_contract:
+    $ref: "./apis/config/deposit_contract.yaml"
 
   /validator/duties/{epoch}/attester:
     $ref: "./apis/validator/duties.yaml#/attester"

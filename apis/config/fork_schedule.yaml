@@ -1,0 +1,20 @@
+get:
+  operationId: getForkSchedule
+  summary: Get scheduled upcoming forks.
+  description: Retrieve all scheduled upcoming forks this node is aware of.
+  tags:
+    - Config
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../beacon-node-oapi.yaml#/components/schemas/Fork
+    "500":
+      $ref: ../../beacon-node-oapi.yaml#/components/responses/InternalError
