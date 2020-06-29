@@ -68,6 +68,8 @@ paths:
 
   /v1/debug/beacon/states/{stateId}:
     $ref: './apis/debug/state.yaml'
+  /v1/debug/beacon/heads:
+    $ref: './apis/debug/heads.yaml'
 
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
