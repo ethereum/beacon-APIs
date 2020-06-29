@@ -158,6 +158,8 @@ components:
       $ref: './types/primitive.yaml#/schemas/ForkVersion'
     Root:
       $ref: './types/primitive.yaml#/schemas/Root'
+    Hex:
+      $ref: './types/primitive.yaml#/schemas/Hex'
     Graffiti:
       $ref: './types/primitive.yaml#/schemas/Graffiti'
     Signature:
