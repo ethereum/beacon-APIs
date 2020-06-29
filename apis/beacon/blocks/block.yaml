@@ -21,3 +21,4 @@ get:
       description: "Block not found!"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
+

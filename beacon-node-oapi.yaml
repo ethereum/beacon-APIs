@@ -48,6 +48,8 @@ paths:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
+  /v1/beacon/blocks:
+    $ref: "./apis/beacon/blocks/blocks.yaml"
   /v1/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.yaml"
   /v1/beacon/blocks/{block_id}/root:
@@ -77,6 +79,9 @@ paths:
   /v1/node/health:
     $ref: "./apis/node/health.yaml"
 
+  /v1/validator/blocks/{slot}:
+    $ref: "./apis/validator/block.yaml"
+
   /validator/duties/{epoch}/attester:
     $ref: "./apis/validator/duties.yaml#/attester"
   /validator/duties/{epoch}/proposer:
@@ -89,8 +94,7 @@ paths:
     $ref: "./apis/validator/aggregate_and_proof.yaml"
   /validator/attestation:
     $ref: "./apis/validator/attestation.yaml"
-  /validator/block:
-    $ref: "./apis/validator/block.yaml"
+
 
 components:
   schemas:
@@ -140,8 +144,10 @@ components:
       $ref: './types/primitive.yaml#/schemas/ForkVersion'
     Root:
       $ref: './types/primitive.yaml#/schemas/Root'
+    Graffiti:
+      $ref: './types/primitive.yaml#/schemas/Graffiti'
     Hex:
-      $ref: './types/primitive.yaml#/schemas/Root'
+      $ref: './types/primitive.yaml#/schemas/Hex'
     Signature:
       $ref: './types/primitive.yaml#/schemas/Signature'
 
