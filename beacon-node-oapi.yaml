@@ -151,8 +151,6 @@ components:
       $ref: './types/primitive.yaml#/schemas/Root'
     Graffiti:
       $ref: './types/primitive.yaml#/schemas/Graffiti'
-    Hex:
-      $ref: './types/primitive.yaml#/schemas/Hex'
     Signature:
       $ref: './types/primitive.yaml#/schemas/Signature'
 
