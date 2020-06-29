@@ -22,6 +22,8 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Debug
+    description: Set of endpoints to debug chain and shouldn't be exposed publicly.
   - name: MinimalValidatorApi
     description: The minimal set of endpoints to enable a working validator implementation.
   - name: Node
@@ -64,6 +66,9 @@ paths:
   /v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
+  /v1/debug/beacon/states/{stateId}:
+    $ref: './apis/debug/state.yaml'
+
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
   /v1/node/peers:
@@ -94,6 +99,8 @@ paths:
 
 components:
   schemas:
+    BeaconState:
+      $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
