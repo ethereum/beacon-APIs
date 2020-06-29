@@ -1,0 +1,35 @@
+get:
+  operationId: "getAggregatedAttestation"
+  summary: "Get aggregated attestation"
+  description: "Aggregates all attestations matching given attestation data root and slot"
+  tags:
+    - MinimalValidatorApi
+    - Validator
+  parameters:
+    - name: attestation_data_root
+      in: query
+      required: true
+      description: "HashTreeRoot of AttestationData that validator want's aggregated"
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Root'
+    - name: slot
+      in: query
+      required: true
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: "Returns aggregated attestations for attestation_data."
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "403":
+      description: "Validator is not aggregator"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
