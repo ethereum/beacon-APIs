@@ -18,8 +18,8 @@ get:
                   type: object
                   properties:
                     root:
-                      $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
+                      $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
                     slot:
-                      $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+                      $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     "500":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
