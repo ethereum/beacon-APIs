@@ -1,0 +1,33 @@
+get:
+  tags:
+    - MinimalValidatorApi
+    - Validator
+  operationId: "produceAttestationData"
+  summary: "Produce an attestation data"
+  description: "Requests that the beacon node produce an AttestationData."
+  parameters:
+    - name: slot
+      in: query
+      required: true
+      description: "The slot for which an attestation data should be created."
+      schema:
+        $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
+    - name: committee_index
+      in: query
+      description: "The committee index for which an attestation data should be created."
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/AttestationData'
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

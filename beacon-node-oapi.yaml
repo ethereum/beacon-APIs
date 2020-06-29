@@ -81,6 +81,8 @@ paths:
 
   /v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
+  /v1/validator/attestation_data:
+    $ref: "./apis/validator/attestation_data.yaml"
 
   /validator/duties/{epoch}/attester:
     $ref: "./apis/validator/duties.yaml#/attester"
@@ -92,8 +94,7 @@ paths:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/attestations"
   /validator/aggregate_and_proof:
     $ref: "./apis/validator/aggregate_and_proof.yaml"
-  /validator/attestation:
-    $ref: "./apis/validator/attestation.yaml"
+
 
 
 components:
@@ -122,6 +123,8 @@ components:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:
       $ref: './types/attestation.yaml#/schemas/Attestation'
+    AttestationData:
+      $ref: './types/attestation.yaml#/schemas/AttestationData'
     Fork:
       $ref: './types/misc.yaml#/schemas/Fork'
     Checkpoint:
