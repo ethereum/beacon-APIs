@@ -1,0 +1,30 @@
+get:
+  operationId: getDepositContract
+  summary: Get deposit contract address.
+  description: Retrieve deposit contract address and genesis fork version.
+  tags:
+    - Config
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  chain_id:
+                    description: Id of Eth1 chain on which contract is deployed.
+                    type: integer
+                    format: int32
+                    example: 1
+                    minimum: 1
+                  address:
+                    allOf:
+                      - $ref: ../../beacon-node-oapi.yaml#/components/schemas/Hex
+                      - description: Hex encoded deposit contract address with 0x prefix
+                      - example: "0x1Db3439a222C519ab44bb1144fC28167b4Fa6EE6"
+    "500":
+      $ref: ../../beacon-node-oapi.yaml#/components/responses/InternalError
