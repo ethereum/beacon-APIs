@@ -4,8 +4,10 @@ rules:
   operation-singular-tag: off
   operation-default-response: off
   oas3-parameter-description: off
+  contact-properties: off
   operation-tags: error
   openapi-tags-alphabetical: error
+  operation-tag-defined: error
   paths-snake-case:
     description: All YAML paths MUST follow snake-case
     severity: error

@@ -1,7 +1,7 @@
 attester:
   get:
     tags:
-      - MinimalValidatorApi
+      - ValidatorRequiredApi
       - Validator
     summary: "Get attester duties"
     operationId: "getAttesterDuties"
@@ -44,7 +44,7 @@ attester:
 proposer:
   get:
     tags:
-      - MinimalValidatorApi
+      - ValidatorRequiredApi
       - Validator
     summary: "Get block proposers duties"
     operationId: "getProposerDuties"

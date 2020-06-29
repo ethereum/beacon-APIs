@@ -1,12 +1,12 @@
 openapi: "3.0.3"
 
 info:
-  title: "Beacon Node API"
+  title: "Eth2 Beacon Node API"
   description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
   version: "Dev - Eth2Spec v0.11.1"
   contact:
-    name: Ethereum Foundation
-    url: https://ethereum.org
+    name: Ethereum Github
+    url: https://github.com/ethereum/eth2.0-apis/issues
   license:
     name: "Apache 2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -23,12 +23,12 @@ tags:
     description: Set of endpoints to query beacon chain.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
-  - name: MinimalValidatorApi
-    description: The minimal set of endpoints to enable a working validator implementation.
   - name: Node
     description: Endpoints to query node related informations
   - name: Validator
     description: Endpoints intended for validator clients
+  - name: ValidatorRequiredApi
+    description: The minimal set of endpoints to enable a working validator implementation.
 paths:
 
   /v1/beacon/genesis:
