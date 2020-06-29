@@ -81,6 +81,8 @@ paths:
 
   /v1/validator/duties/attester/{epoch}:
     $ref: "./apis/validator/duties/attester.yaml"
+  /v1/validator/duties/proposer/{epoch}:
+    $ref: "./apis/validator/duties/proposer.yaml"
   /v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
   /v1/validator/attestation_data:
@@ -90,8 +92,6 @@ paths:
   /v1/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proof.yaml"
 
-  /validator/duties/{epoch}/proposer:
-    $ref: "./apis/validator/duties.yaml"
   /validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/create"
   /validator/beacon_committee_subscription/{committee_index}/attestations:
@@ -121,6 +121,8 @@ components:
     SignedVoluntaryExit:
       $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
     AttesterDuty:
+      $ref: './types/validator.yaml#/AttesterDuty'
+    ProposerDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'

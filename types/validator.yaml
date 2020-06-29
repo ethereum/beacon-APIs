@@ -35,20 +35,34 @@ Validator:
 AttesterDuty:
   type: object
   properties:
-    validator_pubkey:
+    public_key:
       $ref: './primitive.yaml#/schemas/PublicKey'
-    aggregator_modulo:
-      allOf:
-        - $ref: './primitive.yaml#/schemas/Uint64'
-        - description: "Value which validator can use to calculate is_aggregator (aka bytes_to_int(hash(slot_signature)[0:8]) % aggregator_modulo == 0)"
-    attestation_slot:
-      allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
-        - description: "The slot at which the validator must attest."
     committee_index:
       allOf:
         - $ref: "./primitive.yaml#/schemas/Uint64"
         - description: "The committee index"
+    committee_length:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "Number of validators in committee"
+    validator_committee_index:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "Index of validator in committee"
+    slot:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "The slot at which the validator must attest."
+
+ProposerDuty:
+  type: object
+  properties:
+    public_key:
+      $ref: './primitive.yaml#/schemas/PublicKey'
+  slot:
+    allOf:
+      - $ref: "./primitive.yaml#/schemas/Uint64"
+      - description: "The slot at which the validator must propose block."
 
 AggregateAndProof:
   allOf:
