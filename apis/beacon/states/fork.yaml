@@ -4,7 +4,7 @@ get:
   description: "Returns [Fork](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#fork) object for state with given 'stateId'."
   tags:
     - Beacon
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
   parameters:
     - name: state_id
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'

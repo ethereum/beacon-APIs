@@ -2,7 +2,7 @@
     operationId: "getSyncingStatus"
     tags:
       - Node
-      - MinimalValidatorApi
+      - ValidatorRequiredApi
     summary: "Get node syncing status"
     description: "Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to."
     responses:
