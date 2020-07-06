@@ -36,7 +36,7 @@ post:
   description: Submits Attestation object to node. If attestation passes all validation constraints, node MUST publish attestation on appropriate subnet.
   tags:
     - Beacon
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
   requestBody:
     required: true
     content:

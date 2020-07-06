@@ -1,6 +1,6 @@
 get:
   tags:
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
     - Validator
   operationId: "produceAttestationData"
   summary: "Produce an attestation data"

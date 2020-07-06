@@ -8,7 +8,7 @@ post:
     - search using discv5 for peers related to this subnet and replace current peers with those ones if neccessary
     - aggregate attestations received on that subnet
   tags:
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
     - Validator
   requestBody:
     content:
