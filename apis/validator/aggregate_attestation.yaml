@@ -19,7 +19,7 @@ get:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
-      description: "Returns aggregated attestations for attestation_data."
+      description: "Returns aggregated `Attestation` object with same `AttestationData` root."
       content:
         application/json:
           schema:
@@ -30,6 +30,6 @@ get:
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "403":
-      description: "Validator is not aggregator"
+      description: "Beacon node was not assigned to aggregate on that subnet."
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

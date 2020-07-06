@@ -1,7 +1,12 @@
 post:
   operationId: "subscribeToBeaconCommitteeSubnet"
   summary: Subscribe beacon node to committee attestation subnet
-  description: "If validator is connected to multiple nodes, it should send this request to all of them to insure subnet network stability."
+  description: |
+    After Beacon node receives this request it has to:
+    - add subnet to ENR
+    - announce subnet topic subscription on gossipsub
+    - search using discv5 for peers related to this subnet and replace current peers with those ones if neccessary
+    - aggregate attestations received on that subnet
   tags:
     - MinimalValidatorApi
     - Validator
@@ -27,7 +32,10 @@ post:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
   responses:
     "200":
-      description: "Slot signature is valid and beacon node is subscribed to given committee attestation subnet."
+      description: |
+        Slot signature is valid and beacon node is subscribed to given committee attestation subnet.
+
+        Note that, we cannot be certain Beacon node will find peers for that subnet for various reasons,"
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "500":
