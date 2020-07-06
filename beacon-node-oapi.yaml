@@ -129,7 +129,7 @@ components:
     AttesterDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
     ProposerDuty:
-      $ref: './types/validator.yaml#/AttesterDuty'
+      $ref: './types/validator.yaml#/ProposerDuty'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:
@@ -141,7 +141,7 @@ components:
     Checkpoint:
       $ref: './types/misc.yaml#/schemas/Checkpoint'
     PublicKey:
-      $ref: './types/primitive.yaml#/schemas/PublicKey'
+      $ref: './types/primitive.yaml#/schemas/Pubkey'
     Uint64:
       $ref: './types/primitive.yaml#/schemas/Uint64'
     NetworkIdentity:

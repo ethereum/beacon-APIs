@@ -2,7 +2,7 @@ Validator:
   type: object
   properties:
     pubkey:
-      $ref: './primitive.yaml#/schemas/PublicKey'
+      $ref: './primitive.yaml#/schemas/Pubkey'
     withdrawal_credentials:
       allOf:
         - $ref: "./primitive.yaml#/schemas/Root"
@@ -35,8 +35,8 @@ Validator:
 AttesterDuty:
   type: object
   properties:
-    public_key:
-      $ref: './primitive.yaml#/schemas/PublicKey'
+    pubkey:
+      $ref: './primitive.yaml#/schemas/Pubkey'
     committee_index:
       allOf:
         - $ref: "./primitive.yaml#/schemas/Uint64"
@@ -57,8 +57,8 @@ AttesterDuty:
 ProposerDuty:
   type: object
   properties:
-    public_key:
-      $ref: './primitive.yaml#/schemas/PublicKey'
+    pubkey:
+      $ref: './primitive.yaml#/schemas/Pubkey'
   slot:
     allOf:
       - $ref: "./primitive.yaml#/schemas/Uint64"

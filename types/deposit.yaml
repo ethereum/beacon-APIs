@@ -18,7 +18,7 @@ schemas:
     description: "The [`DepositData`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#depositdata) object from the Eth2.0 spec."
     properties:
       pubkey:
-        $ref: './primitive.yaml#/schemas/PublicKey'
+        $ref: './primitive.yaml#/schemas/Pubkey'
       withdrawal_credentials:
         allOf:
           - $ref: './primitive.yaml#/schemas/Root'
