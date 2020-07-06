@@ -3,7 +3,7 @@ get:
   summary: "Get aggregated attestation"
   description: "Aggregates all attestations matching given attestation data root and slot"
   tags:
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
     - Validator
   parameters:
     - name: attestation_data_root

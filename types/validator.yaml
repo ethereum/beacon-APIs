@@ -59,10 +59,10 @@ ProposerDuty:
   properties:
     pubkey:
       $ref: './primitive.yaml#/schemas/Pubkey'
-  slot:
-    allOf:
-      - $ref: "./primitive.yaml#/schemas/Uint64"
-      - description: "The slot at which the validator must propose block."
+    slot:
+      allOf:
+        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - description: "The slot at which the validator must propose block."
 
 AggregateAndProof:
   allOf:

@@ -1,7 +1,7 @@
 post:
   tags:
     - Beacon
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
   summary: "Publish a signed block."
   operationId: "publishBlock"
   description: "Instructs the beacon node to broadcast a newly signed beacon block to the beacon network, to be included in the beacon chain. The beacon node is not required to validate the signed `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been successful. The beacon node is expected to integrate the new block into its state, and therefore validate the block internally, however blocks which fail the validation are still broadcast but a different status code is returned (202)"

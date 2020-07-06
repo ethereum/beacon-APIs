@@ -1,6 +1,6 @@
 get:
   tags:
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
     - Validator
   summary: "Get attester duties"
   operationId: "getAttesterDuties"
