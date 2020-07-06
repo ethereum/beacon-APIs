@@ -9,7 +9,7 @@ get:
 
     Duties should only need to be checked once per epoch,
     however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur,
-    resulting in a change of duties. For full safety, you should subscribe to chain reorganizations events."
+    resulting in a change of duties. For full safety, you should monitor chain reorganizations events."
   parameters:
     - name: epoch
       description: "Should only be allowed 1 epoch ahead"

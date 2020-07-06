@@ -28,7 +28,10 @@ tags:
   - name: Validator
     description: Endpoints intended for validator clients
   - name: ValidatorRequiredApi
-    description: The minimal set of endpoints to enable a working validator implementation.
+    description: |
+      Minimal set of endpoints to enable a working validator implementation.
+
+      [Checkout validator flow](./validator-flow.md) to learn how to use this api.
 paths:
 
   /v1/beacon/genesis:
