@@ -6,7 +6,7 @@ on:
       - "v*"
 
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -55,7 +55,7 @@ jobs:
           # Using a known release ID
           id: ${{ steps.create_release.id }}
           # Using a tag name
-          tag: '${{ github.ref }}
+          tag: ${{ github.ref }}
           # Always delete} the tag, even if a release is not associated with it.
           always_delete_tag: true
         env:
