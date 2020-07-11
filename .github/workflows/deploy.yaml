@@ -22,7 +22,7 @@ jobs:
           command: "bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/bundle.yaml"
       - name: Publish to Github Pages
         uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./deploy
-            publish_branch: gh-pages
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./deploy
+          publish_branch: gh-pages
