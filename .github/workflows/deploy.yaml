@@ -19,7 +19,7 @@ jobs:
       - name: Bundle spec
         uses: mpetrunic/swagger-cli-action@v1.0.0
         with:
-          command: "bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/bundle.yaml"
+          command: "bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Publish to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
