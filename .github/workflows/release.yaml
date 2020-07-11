@@ -29,7 +29,6 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Yaml Bundle
-        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,7 +38,6 @@ jobs:
           asset_name: beacon-node-oapi.yaml
           asset_content_type: text/x-yaml
       - name: Upload Json Bundle
-        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
