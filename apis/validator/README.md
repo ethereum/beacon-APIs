@@ -1,6 +1,6 @@
 # Ethereum 2.0 Phase 0 -- Beacon Node API for Validator
 
-**Notice**: This document is a work-in-progress for researchers and implementers. This is an accompanying document to [Ethereum 2.0 Phase 0 -- Honest Validator](https://github.com/ethereum/eth2.0-specs/blob/master/specs/validator/0_beacon-chain-validator.md) that describes an API exposed by the beacon node, which enables the validator client to participate in the Ethereum 2.0 protocol.
+**Notice**: This document is a work-in-progress for researchers and implementers. This is an accompanying document to [Ethereum 2.0 Phase 0 -- Honest Validator](https://github.com/ethereum/eth2.0-specs/blob/master/specs/phase0/validator.md) that describes an API exposed by the beacon node, which enables the validator client to participate in the Ethereum 2.0 protocol.
 
 ## Outline
 
