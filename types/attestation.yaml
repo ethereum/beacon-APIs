@@ -22,7 +22,6 @@ schemas:
     properties:
       aggregation_bits:
         type: string
-        format: byte
         pattern: "^0x[a-fA-F0-9]+$"
         description: "Attester aggregation bits."
       signature:
@@ -38,7 +37,6 @@ schemas:
     properties:
       aggregation_bits:
         type: string
-        format: byte
         pattern: "^0x[a-fA-F0-9]+$"
         description: "Attester aggregation bits."
       data:
