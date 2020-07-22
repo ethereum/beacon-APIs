@@ -32,7 +32,6 @@ schemas:
         $ref: './eth1.yaml#/schemas/Eth1Data'
       graffiti:
         type: string
-        format: byte
         pattern: "^0x[a-fA-F0-9]{64}$"
       proposer_slashings:
         type: array
