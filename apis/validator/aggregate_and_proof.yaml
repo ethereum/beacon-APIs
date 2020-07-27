@@ -3,7 +3,7 @@ get:
   summary: "Get aggregated attestations"
   description: "Aggregates all attestations matching given attestation data"
   tags:
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
     - Validator
   parameters:
     - name: attestation_data
@@ -30,7 +30,7 @@ post:
   summary: "Publish aggregate and proof"
   description: "Verifies given aggregate and proof and publishes it on appropriate gossipsub topic."
   tags:
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
     - Validator
   requestBody:
     content:

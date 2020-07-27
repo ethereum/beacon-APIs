@@ -2,7 +2,7 @@
     operationId: getGenesis
     tags:
       - Beacon
-      - MinimalValidatorApi
+      - ValidatorRequiredApi
     summary: "Retrieve details of the chain's genesis."
     description: "Retrieve details of the chain's genesis which can be used to identify chain."
     responses:

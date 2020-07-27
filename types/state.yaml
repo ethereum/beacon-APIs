@@ -82,7 +82,6 @@ BeaconState:
           - $ref: './attestation.yaml#/schemas/PendingAttestation'
     justification_bits:
       type: string
-      format: byte
       pattern: "^0x[a-fA-F0-9]+$"
       example: "0x01"
       description: "Bit set for every recent justified epoch"

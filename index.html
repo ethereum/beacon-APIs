@@ -5,6 +5,13 @@
     <meta charset="UTF-8">
     <title>Eth2.0-API</title>
     <link rel="stylesheet" type="text/css" href="./dist/swagger-ui.css" >
+    <link rel="stylesheet" type="text/css" href="./dist/theme-material.css" >
+    <style>
+      .topbar-wrapper img[alt="Swagger UI"] {
+        content: url("./assets/ethereum_logo.png");
+        height: 68px; /* Width of new image */
+      }
+    </style>
     <link rel="icon" type="image/png" href="./dist/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="./dist/favicon-16x16.png" sizes="16x16" />
     <style>
@@ -39,10 +46,14 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "./beacon-node-oapi.yaml",
+        urls: [
+          {url: "./beacon-node-oapi.yaml", name: "dev"}
+        ],
         basePath: "/",
         dom_id: '#swagger-ui',
+        displayRequestDuration: true,
         deepLinking: true,
+        docExpansion: "none",
         presets: [
           SwaggerUIBundle.presets.apis,
           SwaggerUIStandalonePreset

@@ -4,7 +4,7 @@ get:
   description: "Returns validator specified by state and id or public key along with status and balance."
   tags:
     - Beacon
-    - MinimalValidatorApi
+    - ValidatorRequiredApi
   parameters:
     - name: state_id
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'

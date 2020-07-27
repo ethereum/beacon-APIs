@@ -4,7 +4,7 @@ create:
     summary: Subscribe beacon node to commitee attestation subnet
     description: "If validator is connected to multiple nodes, it should send this request to all of them to insure subnet network stability."
     tags:
-      - MinimalValidatorApi
+      - ValidatorRequiredApi
       - Validator
     requestBody:
       content:
