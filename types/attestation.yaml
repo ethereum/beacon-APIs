@@ -22,6 +22,7 @@ schemas:
     properties:
       aggregation_bits:
         type: string
+        example: "0x01"
         pattern: "^0x[a-fA-F0-9]+$"
         description: "Attester aggregation bits."
       signature:

@@ -83,6 +83,7 @@ BeaconState:
     justification_bits:
       type: string
       pattern: "^0x[a-fA-F0-9]+$"
+      example: "0x01"
       description: "Bit set for every recent justified epoch"
     previous_justified_checkpoint:
       $ref: "./misc.yaml#/schemas/Checkpoint"

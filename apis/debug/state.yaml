@@ -1,0 +1,23 @@
+get:
+  operationId: "getState"
+  summary: "Get full BeaconState object"
+  description: "Returns full BeaconState object for given stateId."
+  tags:
+    - Debug
+  parameters:
+    - name: state_id
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

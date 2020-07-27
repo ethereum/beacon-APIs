@@ -23,6 +23,8 @@ tags:
     description: Set of endpoints to query beacon chain.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
+  - name: Debug
+    description: Set of endpoints to debug chain and shouldn't be exposed publicly.
   - name: Node
     description: Endpoints to query node related informations
   - name: Validator
@@ -65,6 +67,11 @@ paths:
   /v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
+  /v1/debug/beacon/states/{state_id}:
+    $ref: './apis/debug/state.yaml'
+  /v1/debug/beacon/heads:
+    $ref: './apis/debug/heads.yaml'
+
   /v1/node/identity:
     $ref: "./apis/node/identity.yaml"
   /v1/node/peers:
@@ -102,6 +109,8 @@ paths:
 
 components:
   schemas:
+    BeaconState:
+      $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/schemas/BeaconBlock'
     SignedBeaconBlock:
