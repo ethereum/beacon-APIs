@@ -46,7 +46,9 @@
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        urls: [{url: "./beacon-node-oapi.yaml", name: "dev"}],
+        urls: [
+          {url: "./beacon-node-oapi.yaml", name: "dev"}
+        ],
         basePath: "/",
         dom_id: '#swagger-ui',
         displayRequestDuration: true,
