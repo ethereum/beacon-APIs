@@ -1,73 +1,44 @@
-create:
-  post:
-    operationId: "subscribeToBeaconCommitteeSubnet"
-    summary: Subscribe beacon node to commitee attestation subnet
-    description: "If validator is connected to multiple nodes, it should send this request to all of them to insure subnet network stability."
-    tags:
-      - ValidatorRequiredApi
-      - Validator
-    requestBody:
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              type: object
-              properties:
-                attestation_committee_index:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                slot:
-                  allOf:
-                    - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                    - description: "Should be slot at which validator is assigned to attest"
-                slot_signature:
-                  allOf:
-                    - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
-                    - description: "Should be valid against given slot and validator pubkey."
-                aggregator_pubkey:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
-    responses:
-      "200":
-        description: "Slot signature is valid and beacon node is subscribed to given committee attestation subnet."
-      "400":
-        $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-      "403":
-        description: "Validator is not aggregator"
-      "500":
-        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-      "503":
-        $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
+post:
+  operationId: "subscribeToBeaconCommitteeSubnet"
+  summary: Subscribe beacon node to committee attestation subnet
+  description: |
+    After Beacon node receives this request it has to:
+    - add subnet to ENR
+    - announce subnet topic subscription on gossipsub
+    - search using discv5 for peers related to this subnet and replace current peers with those ones if neccessary
+    - aggregate attestations received on that subnet
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              committee_index:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+              slot:
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                  - description: "Should be slot at which validator is assigned to attest"
+              slot_signature:
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+                  - description: "Should be valid against given slot and validator pubkey."
+              aggregator_pubkey:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
+  responses:
+    "200":
+      description: |
+        Slot signature is valid and beacon node is subscribed to given committee attestation subnet.
 
-attestations:
-  get:
-    summary: "Get unaggregated wire attestations"
-    operationId: "getWireAttestations"
-    description: "Endpoint should aggregate all collected attestations and produce AggregateAndProof without proof. Validator running on weak hardware is expected to add proof and publish"
-    tags:
-      - Validator
-    parameters:
-      - name: committee_index
-        in: path
-        required: true
-        description: Index of validator committee
-        schema:
-          type: number
-      - name: attestation_data
-        in: query
-        required: true
-        description: "SSZ serialized AttestationData that validator want's aggregated"
-        schema:
-          $ref: '../../beacon-node-oapi.yaml#/components/schemas/Hex'
-    responses:
-      "200":
-        description: "Returns only unaggregated attestations for given committee."
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
-      "400":
-        $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-      "500":
-        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+        Note that, we cannot be certain Beacon node will find peers for that subnet for various reasons,"
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

@@ -1,0 +1,47 @@
+get:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  summary: "Get attester duties"
+  operationId: "getAttesterDuties"
+  description: "Requests the beacon node to provide a set of attestation duties,
+    which should be performed by validators, for a particular epoch.
+
+    Duties should only need to be checked once per epoch,
+    however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur,
+    resulting in a change of duties. For full safety, you should monitor chain reorganizations events."
+  parameters:
+    - name: epoch
+      description: "Should only be allowed 1 epoch ahead"
+      in: path
+      required: true
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: index
+      in: query
+      required: true
+      description: "Validator index"
+      schema:
+        type: array
+        items:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        minItems: 1
+        maxItems: 100
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterDuty'
+    "400":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

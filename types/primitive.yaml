@@ -1,5 +1,5 @@
 schemas:
-  PublicKey:
+  Pubkey:
     type: string
     pattern: "^0x[a-fA-F0-9]{96}$"
     description: "The validator's BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._"
@@ -31,6 +31,12 @@ schemas:
 
   Root:
     type: string
+    example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
+    pattern: "^0x[a-fA-F0-9]{64}$"
+
+  Graffiti:
+    type: string
+    format: hex
     example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
     pattern: "^0x[a-fA-F0-9]{64}$"
 

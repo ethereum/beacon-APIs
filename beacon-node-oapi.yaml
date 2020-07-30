@@ -30,7 +30,10 @@ tags:
   - name: Validator
     description: Endpoints intended for validator clients
   - name: ValidatorRequiredApi
-    description: The minimal set of endpoints to enable a working validator implementation.
+    description: |
+      Minimal set of endpoints to enable a working validator implementation.
+
+      [Checkout validator flow](./validator-flow.md) to learn how to use this api.
 paths:
 
   /v1/beacon/genesis:
@@ -51,6 +54,8 @@ paths:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
+  /v1/beacon/blocks:
+    $ref: "./apis/beacon/blocks/blocks.yaml"
   /v1/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.yaml"
   /v1/beacon/blocks/{block_id}/root:
@@ -91,21 +96,24 @@ paths:
     $ref: "./apis/config/spec.yaml"
   /v1/config/deposit_contract:
     $ref: "./apis/config/deposit_contract.yaml"
-
-  /validator/duties/{epoch}/attester:
-    $ref: "./apis/validator/duties.yaml#/attester"
-  /validator/duties/{epoch}/proposer:
-    $ref: "./apis/validator/duties.yaml#/proposer"
-  /validator/beacon_committee_subscriptions:
-    $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/create"
-  /validator/beacon_committee_subscription/{committee_index}/attestations:
-    $ref: "./apis/validator/beacon_committee_subscriptions.yaml#/attestations"
-  /validator/aggregate_and_proof:
-    $ref: "./apis/validator/aggregate_and_proof.yaml"
-  /validator/attestation:
-    $ref: "./apis/validator/attestation.yaml"
-  /validator/block:
+    
+  /v1/validator/duties/attester/{epoch}:
+    $ref: "./apis/validator/duties/attester.yaml"
+  /v1/validator/duties/proposer/{epoch}:
+    $ref: "./apis/validator/duties/proposer.yaml"
+  /v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
+  /v1/validator/attestation_data:
+    $ref: "./apis/validator/attestation_data.yaml"
+  /v1/validator/aggregate_attestation:
+    $ref: "./apis/validator/aggregate_attestation.yaml"
+  /v1/validator/aggregate_and_proofs:
+    $ref: "./apis/validator/aggregate_and_proof.yaml"
+  /v1/validator/beacon_committee_subscriptions:
+    $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
+
+
+
 
 components:
   schemas:
@@ -131,16 +139,20 @@ components:
       $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
     AttesterDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
+    ProposerDuty:
+      $ref: './types/validator.yaml#/ProposerDuty'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:
       $ref: './types/attestation.yaml#/schemas/Attestation'
+    AttestationData:
+      $ref: './types/attestation.yaml#/schemas/AttestationData'
     Fork:
       $ref: './types/misc.yaml#/schemas/Fork'
     Checkpoint:
       $ref: './types/misc.yaml#/schemas/Checkpoint'
     PublicKey:
-      $ref: './types/primitive.yaml#/schemas/PublicKey'
+      $ref: './types/primitive.yaml#/schemas/Pubkey'
     Uint64:
       $ref: './types/primitive.yaml#/schemas/Uint64'
     NetworkIdentity:
@@ -158,7 +170,9 @@ components:
     Root:
       $ref: './types/primitive.yaml#/schemas/Root'
     Hex:
-      $ref: './types/primitive.yaml#/schemas/Root'
+      $ref: './types/primitive.yaml#/schemas/Hex'
+    Graffiti:
+      $ref: './types/primitive.yaml#/schemas/Graffiti'
     Signature:
       $ref: './types/primitive.yaml#/schemas/Signature'
 
