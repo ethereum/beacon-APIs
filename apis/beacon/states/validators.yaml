@@ -36,6 +36,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetStateValidatorsResponse
             type: object
             properties:
               data:

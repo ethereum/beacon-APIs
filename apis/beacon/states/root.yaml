@@ -13,6 +13,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetStateRootResponse
             type: object
             properties:
               data:

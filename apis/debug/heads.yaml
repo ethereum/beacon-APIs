@@ -10,6 +10,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetDebugChainHeadsResponse
             type: object
             properties:
               data:

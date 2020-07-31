@@ -21,6 +21,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetStateValidatorResponse
             type: object
             properties:
               data:

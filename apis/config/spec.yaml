@@ -16,6 +16,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetSpecResponse
             type: object
             properties:
               data:

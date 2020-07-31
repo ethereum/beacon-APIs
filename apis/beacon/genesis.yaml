@@ -12,6 +12,7 @@
           application/json:
             schema:
               type: object
+              title: GetGenesisResponse
               properties:
                 data:
                   type: object

@@ -14,6 +14,7 @@ get:
         application/json:
           schema:
             type: object
+            title: GetBlockRootResponse
             properties:
               data:
                 type: object

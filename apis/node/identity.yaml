@@ -10,6 +10,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetNetworkIdentityResponse
             type: object
             properties:
               data:
