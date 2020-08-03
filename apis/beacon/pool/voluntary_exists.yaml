@@ -10,6 +10,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetPoolVoluntaryExitsResponse
             type: object
             properties:
               data:

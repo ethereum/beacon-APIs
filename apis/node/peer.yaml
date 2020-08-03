@@ -16,6 +16,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetPeerResponse
             type: object
             properties:
               data:

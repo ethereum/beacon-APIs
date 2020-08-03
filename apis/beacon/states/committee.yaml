@@ -39,6 +39,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetEpochCommitteesResponse
             type: object
             properties:
               data:

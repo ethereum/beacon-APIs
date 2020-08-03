@@ -10,6 +10,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetForkScheduleResponse
             type: object
             properties:
               data:

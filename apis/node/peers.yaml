@@ -10,6 +10,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetPeersResponse
             type: object
             properties:
               data:

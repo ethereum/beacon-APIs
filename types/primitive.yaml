@@ -14,7 +14,7 @@ schemas:
   Version:
     type: string
     description: "A string which uniquely identifies the client implementation and its version; similar to [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)."
-    example: "Lighthouse / v0.1.5 (Linux x86_64)"
+    example: "Lighthouse/v0.1.5 (Linux x86_64)"
 
   GenesisTime:
     allOf:

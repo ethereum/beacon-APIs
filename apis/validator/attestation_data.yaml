@@ -24,6 +24,7 @@ get:
       content:
         application/json:
           schema:
+            title: ProduceAttestationDataResponse
             type: object
             properties:
               data:

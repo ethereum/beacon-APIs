@@ -23,6 +23,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetAggregatedAttestationResponse
             type: object
             properties:
               data:

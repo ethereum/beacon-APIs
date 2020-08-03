@@ -36,80 +36,80 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
 paths:
 
-  /v1/beacon/genesis:
+  /eth/v1/beacon/genesis:
     $ref: "./apis/beacon/genesis.yaml"
-  /v1/beacon/states/{state_id}/root:
+  /eth/v1/beacon/states/{state_id}/root:
     $ref: "./apis/beacon/states/root.yaml"
-  /v1/beacon/states/{state_id}/fork:
+  /eth/v1/beacon/states/{state_id}/fork:
     $ref: "./apis/beacon/states/fork.yaml"
-  /v1/beacon/states/{state_id}/finality_checkpoints:
+  /eth/v1/beacon/states/{state_id}/finality_checkpoints:
     $ref: "./apis/beacon/states/finality_checkpoints.yaml"
-  /v1/beacon/states/{state_id}/validators:
+  /eth/v1/beacon/states/{state_id}/validators:
     $ref: "./apis/beacon/states/validators.yaml"
-  /v1/beacon/states/{state_id}/validators/{validator_id}:
+  /eth/v1/beacon/states/{state_id}/validators/{validator_id}:
     $ref: "./apis/beacon/states/validator.yaml"
-  /v1/beacon/states/{state_id}/committees/{epoch}:
+  /eth/v1/beacon/states/{state_id}/committees/{epoch}:
     $ref: "./apis/beacon/states/committee.yaml"
-  /v1/beacon/headers:
+  /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
-  /v1/beacon/headers/{block_id}:
+  /eth/v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
-  /v1/beacon/blocks:
+  /eth/v1/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.yaml"
-  /v1/beacon/blocks/{block_id}:
+  /eth/v1/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.yaml"
-  /v1/beacon/blocks/{block_id}/root:
+  /eth/v1/beacon/blocks/{block_id}/root:
     $ref: "./apis/beacon/blocks/root.yaml"
-  /v1/beacon/blocks/{block_id}/attestations:
+  /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
 
-  /v1/beacon/pool/attestations:
+  /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
-  /v1/beacon/pool/atttester_slashings:
+  /eth/v1/beacon/pool/atttester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
-  /v1/beacon/pool/proposer_slashings:
+  /eth/v1/beacon/pool/proposer_slashings:
     $ref: "./apis/beacon/pool/proposer_slashings.yaml"
-  /v1/beacon/pool/voluntary_exits:
+  /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
-  /v1/debug/beacon/states/{state_id}:
+  /eth/v1/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.yaml'
-  /v1/debug/beacon/heads:
+  /eth/v1/debug/beacon/heads:
     $ref: './apis/debug/heads.yaml'
 
-  /v1/node/identity:
+  /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
-  /v1/node/peers:
+  /eth/v1/node/peers:
     $ref: "./apis/node/peers.yaml"
-  /v1/node/peers/{peer_id}:
+  /eth/v1/node/peers/{peer_id}:
     $ref: "./apis/node/peer.yaml"
-  /v1/node/version:
+  /eth/v1/node/version:
     $ref: "./apis/node/version.yaml"
-  /v1/node/syncing:
+  /eth/v1/node/syncing:
     $ref: "./apis/node/syncing.yaml"
-  /v1/node/health:
+  /eth/v1/node/health:
     $ref: "./apis/node/health.yaml"
 
-  /v1/config/fork_schedule:
+  /eth/v1/config/fork_schedule:
     $ref: "./apis/config/fork_schedule.yaml"
-  /v1/config/spec:
+  /eth/v1/config/spec:
     $ref: "./apis/config/spec.yaml"
-  /v1/config/deposit_contract:
+  /eth/v1/config/deposit_contract:
     $ref: "./apis/config/deposit_contract.yaml"
     
-  /v1/validator/duties/attester/{epoch}:
+  /eth/v1/validator/duties/attester/{epoch}:
     $ref: "./apis/validator/duties/attester.yaml"
-  /v1/validator/duties/proposer/{epoch}:
+  /eth/v1/validator/duties/proposer/{epoch}:
     $ref: "./apis/validator/duties/proposer.yaml"
-  /v1/validator/blocks/{slot}:
+  /eth/v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
-  /v1/validator/attestation_data:
+  /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
-  /v1/validator/aggregate_attestation:
+  /eth/v1/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.yaml"
-  /v1/validator/aggregate_and_proofs:
+  /eth/v1/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proof.yaml"
-  /v1/validator/beacon_committee_subscriptions:
+  /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
 
 

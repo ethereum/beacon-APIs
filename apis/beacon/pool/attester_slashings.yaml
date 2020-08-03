@@ -10,6 +10,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetPoolAttesterSlashingsResponse
             type: object
             properties:
               data:

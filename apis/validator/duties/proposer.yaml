@@ -17,6 +17,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetProposerDutiesResponse
             type: object
             properties:
               data:

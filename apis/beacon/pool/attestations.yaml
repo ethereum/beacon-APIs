@@ -21,6 +21,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetPoolAttestationsResponse
             type: object
             properties:
               data:

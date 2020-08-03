@@ -15,6 +15,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetStateFinalityCheckpointsResponse
             type: object
             properties:
               data:

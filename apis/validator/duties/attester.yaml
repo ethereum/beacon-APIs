@@ -33,6 +33,7 @@ get:
       content:
         application/json:
           schema:
+            title: GetAttesterDutiesResponse
             type: object
             properties:
               data:

@@ -30,6 +30,7 @@ get:
       content:
         application/json:
           schema:
+            title: ProduceBlockResponse
             type: object
             properties:
               data:
