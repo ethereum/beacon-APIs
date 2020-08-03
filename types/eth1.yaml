@@ -1,17 +1,16 @@
-schemas:
-  Eth1Data:
-    type: object
-    description: "The [`Eth1Data`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#eth1data) object from the Eth2.0 spec."
-    properties:
-      deposit_root:
-        allOf:
-          - $ref: './primitive.yaml#/schemas/Root'
-          - description: "Root of the deposit tree."
-      deposit_count:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Uint64"
-          - description: "Total number of deposits."
-      block_hash:
-        allOf:
-          - $ref: './primitive.yaml#/schemas/Root'
-          - description: "Ethereum 1.x block hash."
+Eth1Data:
+  type: object
+  description: "The [`Eth1Data`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#eth1data) object from the Eth2.0 spec."
+  properties:
+    deposit_root:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "Root of the deposit tree."
+    deposit_count:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Total number of deposits."
+    block_hash:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "Ethereum 1.x block hash."

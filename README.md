@@ -6,13 +6,22 @@ Collection of RESTful APIs provided by Ethereum 2.0 clients
 
 API browser: [https://ethereum.github.io/eth2.0-APIs/](https://ethereum.github.io/eth2.0-APIs/)
 
-## Validator
+## Outline
 
-API facilitating communication between a Validator Client and a Beacon Node
+This document outlines an application programming interface (API) which is exposed by a beacon node implementation
+ which aims to facilitate [Phase 0](https://github.com/ethereum/eth2.0-specs#phase-0) of Ethereum 2.0.
 
-* [Beacon Node API for Validator](apis/validator/README.md)
-* [OpenAPI Specification](apis/validator/beacon-node-oapi.yaml)
-   * [APIs Documentation viewer](https://ethereum.github.io/eth2.0-APIs/)
+The API is a REST interface, accessed via HTTP, designed for use as a public communications protocol.
+ Currently, the only supported return data type is JSON.
+
+The beacon node (BN) maintains the state of the beacon chain by communicating with other beacon nodes in the Ethereum 2.0 network.
+Conceptually, it does not maintain keypairs that participate with the beacon chain.
+
+The validator client (VC) is a conceptually separate entity which utilizes private keys 
+to perform validator related tasks, called "duties", on the beacon chain.
+ These duties include the production of beacon blocks and signing of attestations.
+
+The goal of this specification is to promote interoperability between various beacon node implementations.
 
 ## Render 
 To render spec in browser you will need any http server to load `index.html` file

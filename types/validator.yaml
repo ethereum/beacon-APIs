@@ -2,14 +2,14 @@ Validator:
   type: object
   properties:
     pubkey:
-      $ref: './primitive.yaml#/schemas/Pubkey'
+      $ref: './primitive.yaml#/Pubkey'
     withdrawal_credentials:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Root"
+        - $ref: "./primitive.yaml#/Root"
         - description: "Root of withdrawal credentials"
     effective_balance:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Gwei"
+        - $ref: "./primitive.yaml#/Gwei"
         - description: "Balance at stake in Gwei."
     slashed:
       type: boolean
@@ -17,51 +17,51 @@ Validator:
       description: "Was validator slashed (not longer active)."
     activation_eligibility_epoch:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "When criteria for activation were met."
     activation_epoch:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
     exit_epoch:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
     withdrawable_epoch:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
 
 AttesterDuty:
   type: object
   properties:
     pubkey:
-      $ref: './primitive.yaml#/schemas/Pubkey'
+      $ref: './primitive.yaml#/Pubkey'
     committee_index:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "The committee index"
     committee_length:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "Number of validators in committee"
     validator_committee_index:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "Index of validator in committee"
     slot:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "The slot at which the validator must attest."
 
 ProposerDuty:
   type: object
   properties:
     pubkey:
-      $ref: './primitive.yaml#/schemas/Pubkey'
+      $ref: './primitive.yaml#/Pubkey'
     slot:
       allOf:
-        - $ref: "./primitive.yaml#/schemas/Uint64"
+        - $ref: "./primitive.yaml#/Uint64"
         - description: "The slot at which the validator must propose block."
 
 AggregateAndProof:
@@ -70,22 +70,22 @@ AggregateAndProof:
     - type: object
       properties:
         selection_proof:
-          $ref: './primitive.yaml#/schemas/Signature'
+          $ref: './primitive.yaml#/Signature'
 
 Aggregate:
   type: object
-  description: "The [`AggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/validator.md#aggregateandproof) without selection_proof"
+  description: "The [`AggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/validator.md#aggregateandproof) without selection_proof"
   properties:
     aggregator_index:
-      $ref: './primitive.yaml#/schemas/Uint64'
+      $ref: './primitive.yaml#/Uint64'
     attestation:
-      $ref: './attestation.yaml#/schemas/Attestation'
+      $ref: './attestation.yaml#/Attestation'
 
 
 SignedAggregateAndProof:
-  description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/validator.md#signedaggregateandproof) object"
+  description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/validator.md#signedaggregateandproof) object"
   properties:
     message:
       $ref: "#/AggregateAndProof"
     signature:
-      $ref: "./primitive.yaml#/schemas/Signature"
+      $ref: "./primitive.yaml#/Signature"

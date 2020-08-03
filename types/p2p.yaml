@@ -22,16 +22,16 @@
 
   MetaData:
     type: object
-    description: "Based on eth2 [Metadata object](https://github.com/ethereum/eth2.0-specs/blob/v0.12.0/specs/phase0/p2p-interface.md#metadata)"
+    description: "Based on eth2 [Metadata object](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/p2p-interface.md#metadata)"
     properties:
       seq_number:
         allOf:
           - description: "Uint64 starting at 0 used to version the node's metadata. If any other field in the local MetaData changes, the node MUST increment seq_number by 1."
-          - $ref: './primitive.yaml#/schemas/Uint64'
+          - $ref: './primitive.yaml#/Uint64'
       attnets:
         allOf:
           - description: "Bitvector representing the node's persistent attestation subnet subscriptions."
-          - $ref: "./primitive.yaml#/schemas/Hex"
+          - $ref: "./primitive.yaml#/Hex"
 
   Peer:
     type: object

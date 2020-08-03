@@ -1,33 +1,32 @@
-schemas:
-  Deposit:
-    type: object
-    description: "The [`Deposit`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#deposit) object from the Eth2.0 spec."
-    properties:
-      proof:
-        type: array
-        description: "Branch in the deposit tree."
-        items:
-          allOf:
-            - $ref: './primitive.yaml#/schemas/Root'
-        minItems: 32
-        maxItems: 32
-      data:
-        $ref: './deposit.yaml#/schemas/DepositData'
-  DepositData:
-    type: object
-    description: "The [`DepositData`](https://github.com/ethereum/eth2.0-specs/blob/v0.11.1/specs/phase0/beacon-chain.md#depositdata) object from the Eth2.0 spec."
-    properties:
-      pubkey:
-        $ref: './primitive.yaml#/schemas/Pubkey'
-      withdrawal_credentials:
+Deposit:
+  type: object
+  description: "The [`Deposit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#deposit) object from the Eth2.0 spec."
+  properties:
+    proof:
+      type: array
+      description: "Branch in the deposit tree."
+      items:
         allOf:
-          - $ref: './primitive.yaml#/schemas/Root'
-          - description: "The withdrawal credentials."
-      amount:
-        allOf:
-          - $ref: "./primitive.yaml#/schemas/Gwei"
-          - description: "Amount in Gwei."
-      signature:
-        allOf:
-          - $ref: './primitive.yaml#/schemas/Signature'
-          - description: "Container self-signature."
+          - $ref: './primitive.yaml#/Root'
+      minItems: 32
+      maxItems: 32
+    data:
+      $ref: './deposit.yaml#/DepositData'
+DepositData:
+  type: object
+  description: "The [`DepositData`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#depositdata) object from the Eth2.0 spec."
+  properties:
+    pubkey:
+      $ref: './primitive.yaml#/Pubkey'
+    withdrawal_credentials:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "The withdrawal credentials."
+    amount:
+      allOf:
+        - $ref: "./primitive.yaml#/Gwei"
+        - description: "Amount in Gwei."
+    signature:
+      allOf:
+        - $ref: './primitive.yaml#/Signature'
+        - description: "Container self-signature."

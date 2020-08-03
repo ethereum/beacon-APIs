@@ -6,6 +6,7 @@ get:
     - Debug
   parameters:
     - name: state_id
+      in: path
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
   responses:
     "200":
