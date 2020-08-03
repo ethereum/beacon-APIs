@@ -1,11 +1,12 @@
 post:
-  operationId: "subscribeToBeaconCommitteeSubnet"
-  summary: Subscribe beacon node to committee attestation subnet
+  operationId: "prepareBeaconCommitteeSubnet"
+  summary: Signal beacon node to prepare for a committee subnet
   description: |
-    After Beacon node receives this request it has to:
+    After beacon node receives this request, and `slot_signature` is valid it must:
+    - search using discv5 for peers related to this subnet and replace current peers with those ones if necessary
+    If validator is aggregator based on `slot_signature`, beacon node must:
     - add subnet to ENR
     - announce subnet topic subscription on gossipsub
-    - search using discv5 for peers related to this subnet and replace current peers with those ones if neccessary
     - aggregate attestations received on that subnet
   tags:
     - ValidatorRequiredApi
@@ -34,7 +35,7 @@ post:
   responses:
     "200":
       description: |
-        Slot signature is valid and beacon node is subscribed to given committee attestation subnet.
+        Slot signature is valid and beacon node has prepared the attestation subnet.
 
         Note that, we cannot be certain Beacon node will find peers for that subnet for various reasons,"
     "400":
