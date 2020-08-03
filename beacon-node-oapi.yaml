@@ -32,7 +32,7 @@ tags:
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
 paths:
-  /v1/beacon/genesis:
+  /eth/v1/beacon/genesis:
     get:
       operationId: getGenesis
       tags:
@@ -47,6 +47,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: GetGenesisResponse
                 properties:
                   data:
                     type: object
@@ -70,7 +71,7 @@ paths:
           description: Chain genesis info is not yet known
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/states/{state_id}/root':
+  '/eth/v1/beacon/states/{state_id}/root':
     get:
       operationId: getStateRoot
       summary: Get state SSZ HashTreeRoot
@@ -93,6 +94,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetStateRootResponse
                 type: object
                 properties:
                   data:
@@ -106,7 +108,7 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/states/{state_id}/fork':
+  '/eth/v1/beacon/states/{state_id}/fork':
     get:
       operationId: getStateFork
       summary: Get Fork object for requested state
@@ -130,6 +132,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetStateForkResponse
                 type: object
                 properties:
                   data:
@@ -151,7 +154,7 @@ paths:
                         example: '1'
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/states/{state_id}/finality_checkpoints':
+  '/eth/v1/beacon/states/{state_id}/finality_checkpoints':
     get:
       operationId: getStateFinalityCheckpoints
       summary: Get state finality checkpoints
@@ -176,6 +179,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetStateFinalityCheckpointsResponse
                 type: object
                 properties:
                   data:
@@ -216,7 +220,7 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/states/{state_id}/validators':
+  '/eth/v1/beacon/states/{state_id}/validators':
     get:
       operationId: getStateValidators
       summary: Get validators from state
@@ -288,6 +292,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetStateValidatorsResponse
                 type: object
                 properties:
                   data:
@@ -375,7 +380,7 @@ paths:
                                 - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/states/{state_id}/validators/{validator_id}':
+  '/eth/v1/beacon/states/{state_id}/validators/{validator_id}':
     get:
       operationId: getStateValidator
       summary: Get validator from state by id
@@ -405,6 +410,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetStateValidatorResponse
                 type: object
                 properties:
                   data:
@@ -492,7 +498,7 @@ paths:
           description: Validator doesn't exist.
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/states/{state_id}/committees/{epoch}':
+  '/eth/v1/beacon/states/{state_id}/committees/{epoch}':
     get:
       operationId: getEpochCommittees
       summary: Get all committees for epoch
@@ -542,6 +548,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetEpochCommitteesResponse
                 type: object
                 properties:
                   data:
@@ -568,7 +575,7 @@ paths:
           description: If slot doesn't belong in given epoch.
         '500':
           description: Beacon node internal error.
-  /v1/beacon/headers:
+  /eth/v1/beacon/headers:
     get:
       operationId: getBlockHeaders
       summary: Get block headers
@@ -599,6 +606,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetBlockHeadersResponse
                 type: object
                 properties:
                   data:
@@ -657,7 +665,7 @@ paths:
                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/headers/{block_id}':
+  '/eth/v1/beacon/headers/{block_id}':
     get:
       operationId: getBlockHeader
       summary: Get block header
@@ -680,6 +688,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetBlockHeaderResponse
                 type: object
                 properties:
                   data:
@@ -734,7 +743,7 @@ paths:
           description: Block not found!
         '500':
           description: Beacon node internal error.
-  /v1/beacon/blocks:
+  /eth/v1/beacon/blocks:
     post:
       tags:
         - Beacon
@@ -1150,7 +1159,7 @@ paths:
           description: Beacon node internal error.
         '503':
           description: 'Beacon node is currently syncing, try again later.'
-  '/v1/beacon/blocks/{block_id}':
+  '/eth/v1/beacon/blocks/{block_id}':
     get:
       operationId: getBlock
       summary: Get block
@@ -1173,6 +1182,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetBlockResponse
                 type: object
                 properties:
                   data:
@@ -1571,7 +1581,7 @@ paths:
           description: Block not found!
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/blocks/{block_id}/root':
+  '/eth/v1/beacon/blocks/{block_id}/root':
     get:
       operationId: getBlockRoot
       summary: Get block root
@@ -1595,6 +1605,7 @@ paths:
             application/json:
               schema:
                 type: object
+                title: GetBlockRootResponse
                 properties:
                   data:
                     type: object
@@ -1609,7 +1620,7 @@ paths:
           description: Block not found!
         '500':
           description: Beacon node internal error.
-  '/v1/beacon/blocks/{block_id}/attestations':
+  '/eth/v1/beacon/blocks/{block_id}/attestations':
     get:
       operationId: getBlockAttestations
       summary: Get block attestations
@@ -1632,6 +1643,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetBlockAttestationsResponse
                 type: object
                 properties:
                   data:
@@ -1691,7 +1703,7 @@ paths:
                                   pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
-  /v1/beacon/pool/attestations:
+  /eth/v1/beacon/pool/attestations:
     get:
       operationId: getPoolAttestations
       summary: Get Attestations from operations pool
@@ -1717,6 +1729,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetPoolAttestationsResponse
                 type: object
                 properties:
                   data:
@@ -1847,7 +1860,7 @@ paths:
           description: 'Invalid attestation, it will never pass validation so it''s rejected'
         '500':
           description: Beacon node internal error.
-  /v1/beacon/pool/atttester_slashings:
+  /eth/v1/beacon/pool/atttester_slashings:
     get:
       operationId: getPoolAttesterSlashings
       summary: Get AttesterSlashings from operations pool
@@ -1860,6 +1873,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetPoolAttesterSlashingsResponse
                 type: object
                 properties:
                   data:
@@ -2111,7 +2125,7 @@ paths:
           description: 'Invalid attester slashing. [See attester_slashing topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)'
         '500':
           description: Beacon node internal error.
-  /v1/beacon/pool/proposer_slashings:
+  /eth/v1/beacon/pool/proposer_slashings:
     get:
       operationId: getPoolProposerSlashings
       summary: Get ProposerSlashings from operations pool
@@ -2124,6 +2138,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetPoolProposerSlashingsResponse
                 type: object
                 properties:
                   data:
@@ -2327,7 +2342,7 @@ paths:
           description: 'Invalid proposer slashing. [See proposer_slashing topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)'
         '500':
           description: Beacon node internal error.
-  /v1/beacon/pool/voluntary_exits:
+  /eth/v1/beacon/pool/voluntary_exits:
     get:
       operationId: getPoolVoluntaryExits
       summary: Get SignedVoluntaryExit from operations pool
@@ -2340,6 +2355,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetPoolVoluntaryExitsResponse
                 type: object
                 properties:
                   data:
@@ -2407,7 +2423,7 @@ paths:
           description: Invalid voluntary exit.
         '500':
           description: Beacon node internal error.
-  '/v1/debug/beacon/states/{state_id}':
+  '/eth/v1/debug/beacon/states/{state_id}':
     get:
       operationId: getState
       summary: Get full BeaconState object
@@ -2430,6 +2446,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetStateResponse
                 type: object
                 properties:
                   data:
@@ -2796,7 +2813,7 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
-  /v1/debug/beacon/heads:
+  /eth/v1/debug/beacon/heads:
     get:
       operationId: getDebugChainHeads
       summary: Get fork choice leaves
@@ -2809,6 +2826,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetDebugChainHeadsResponse
                 type: object
                 properties:
                   data:
@@ -2825,7 +2843,7 @@ paths:
                           example: '1'
         '500':
           description: Beacon node internal error.
-  /v1/node/identity:
+  /eth/v1/node/identity:
     get:
       operationId: getNetworkIdentity
       tags:
@@ -2838,6 +2856,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetNetworkIdentityResponse
                 type: object
                 properties:
                   data:
@@ -2883,7 +2902,7 @@ paths:
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
         '500':
           description: Beacon node internal error.
-  /v1/node/peers:
+  /eth/v1/node/peers:
     get:
       operationId: getPeers
       tags:
@@ -2896,6 +2915,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetPeersResponse
                 type: object
                 properties:
                   data:
@@ -2929,7 +2949,7 @@ paths:
                             - outbound
         '500':
           description: Beacon node internal error.
-  '/v1/node/peers/{peer_id}':
+  '/eth/v1/node/peers/{peer_id}':
     get:
       operationId: getPeer
       tags:
@@ -2950,6 +2970,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetPeerResponse
                 type: object
                 properties:
                   data:
@@ -2981,7 +3002,7 @@ paths:
                           - outbound
         '500':
           description: Beacon node internal error.
-  /v1/node/version:
+  /eth/v1/node/version:
     get:
       operationId: getNodeVersion
       tags:
@@ -2994,6 +3015,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetVersionResponse
                 type: object
                 properties:
                   data:
@@ -3002,10 +3024,10 @@ paths:
                       version:
                         type: string
                         description: 'A string which uniquely identifies the client implementation and its version; similar to [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3).'
-                        example: Lighthouse / v0.1.5 (Linux x86_64)
+                        example: Lighthouse/v0.1.5 (Linux x86_64)
         '500':
           description: Beacon node internal error.
-  /v1/node/syncing:
+  /eth/v1/node/syncing:
     get:
       operationId: getSyncingStatus
       tags:
@@ -3019,6 +3041,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetSyncingStatusResponse
                 type: object
                 properties:
                   data:
@@ -3036,7 +3059,7 @@ paths:
                             example: '1'
         '500':
           description: Beacon node internal error.
-  /v1/node/health:
+  /eth/v1/node/health:
     get:
       operationId: getHealth
       tags:
@@ -3050,7 +3073,7 @@ paths:
           description: Node is syncing but can serve incomplete data
         '503':
           description: Node not initialized or having issues
-  /v1/config/fork_schedule:
+  /eth/v1/config/fork_schedule:
     get:
       operationId: getForkSchedule
       summary: Get scheduled upcoming forks.
@@ -3063,6 +3086,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetForkScheduleResponse
                 type: object
                 properties:
                   data:
@@ -3086,7 +3110,7 @@ paths:
                           example: '1'
         '500':
           description: Beacon node internal error.
-  /v1/config/spec:
+  /eth/v1/config/spec:
     get:
       operationId: getSpec
       summary: Get spec params.
@@ -3105,6 +3129,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetSpecResponse
                 type: object
                 properties:
                   data:
@@ -3116,7 +3141,7 @@ paths:
                     type: object
         '500':
           description: Beacon node internal error.
-  /v1/config/deposit_contract:
+  /eth/v1/config/deposit_contract:
     get:
       operationId: getDepositContract
       summary: Get deposit contract address.
@@ -3129,6 +3154,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetDepositContractResponse
                 type: object
                 properties:
                   data:
@@ -3148,7 +3174,7 @@ paths:
                           - example: '0x1Db3439a222C519ab44bb1144fC28167b4Fa6EE6'
         '500':
           description: Beacon node internal error.
-  '/v1/validator/duties/attester/{epoch}':
+  '/eth/v1/validator/duties/attester/{epoch}':
     get:
       tags:
         - ValidatorRequiredApi
@@ -3183,6 +3209,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetAttesterDutiesResponse
                 type: object
                 properties:
                   data:
@@ -3221,7 +3248,7 @@ paths:
           description: Beacon node internal error.
         '503':
           description: 'Beacon node is currently syncing, try again later.'
-  '/v1/validator/duties/proposer/{epoch}':
+  '/eth/v1/validator/duties/proposer/{epoch}':
     get:
       tags:
         - ValidatorRequiredApi
@@ -3242,6 +3269,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetProposerDutiesResponse
                 type: object
                 properties:
                   data:
@@ -3265,7 +3293,7 @@ paths:
           description: Beacon node internal error.
         '503':
           description: 'Beacon node is currently syncing, try again later.'
-  '/v1/validator/blocks/{slot}':
+  '/eth/v1/validator/blocks/{slot}':
     get:
       tags:
         - ValidatorRequiredApi
@@ -3304,6 +3332,7 @@ paths:
           content:
             application/json:
               schema:
+                title: ProduceBlockResponse
                 type: object
                 properties:
                   data:
@@ -3696,7 +3725,7 @@ paths:
           description: Beacon node internal error.
         '503':
           description: 'Beacon node is currently syncing, try again later.'
-  /v1/validator/attestation_data:
+  /eth/v1/validator/attestation_data:
     get:
       tags:
         - ValidatorRequiredApi
@@ -3725,6 +3754,7 @@ paths:
           content:
             application/json:
               schema:
+                title: ProduceAttestationDataResponse
                 type: object
                 properties:
                   data:
@@ -3771,7 +3801,7 @@ paths:
           description: Beacon node internal error.
         '503':
           description: 'Beacon node is currently syncing, try again later.'
-  /v1/validator/aggregate_attestation:
+  /eth/v1/validator/aggregate_attestation:
     get:
       operationId: getAggregatedAttestation
       summary: Get aggregated attestation
@@ -3800,6 +3830,7 @@ paths:
           content:
             application/json:
               schema:
+                title: GetAggregatedAttestationResponse
                 type: object
                 properties:
                   data:
@@ -3861,7 +3892,7 @@ paths:
           description: Beacon node was not assigned to aggregate on that subnet.
         '500':
           description: Beacon node internal error.
-  /v1/validator/aggregate_and_proofs:
+  /eth/v1/validator/aggregate_and_proofs:
     post:
       operationId: publishAggregateAndProof
       summary: Publish aggregate and proof
@@ -3958,7 +3989,7 @@ paths:
           description: Invalid request syntax.
         '500':
           description: Beacon node internal error.
-  /v1/validator/beacon_committee_subscriptions:
+  /eth/v1/validator/beacon_committee_subscriptions:
     post:
       operationId: subscribeToBeaconCommitteeSubnet
       summary: Subscribe beacon node to committee attestation subnet
@@ -3975,6 +4006,7 @@ paths:
         content:
           application/json:
             schema:
+              title: SubscribeToBeaconCommitteeSubnetRequestBody
               type: array
               items:
                 type: object
@@ -5866,7 +5898,7 @@ components:
     Version:
       type: string
       description: 'A string which uniquely identifies the client implementation and its version; similar to [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3).'
-      example: Lighthouse / v0.1.5 (Linux x86_64)
+      example: Lighthouse/v0.1.5 (Linux x86_64)
     ForkVersion:
       type: string
       description: a fork version number
