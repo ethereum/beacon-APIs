@@ -3,7 +3,7 @@ openapi: "3.0.3"
 info:
   title: "Eth2 Beacon Node API"
   description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
-  version: "Dev - Eth2Spec v0.11.1"
+  version: "Dev - Eth2Spec v0.12.2"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/eth2.0-apis/issues
@@ -120,11 +120,11 @@ components:
     BeaconState:
       $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
-      $ref: './types/block.yaml#/schemas/BeaconBlock'
+      $ref: './types/block.yaml#/BeaconBlock'
     SignedBeaconBlock:
-      $ref: './types/block.yaml#/schemas/SignedBeaconBlock'
+      $ref: './types/block.yaml#/SignedBeaconBlock'
     SignedBeaconBlockHeader:
-      $ref: './types/block.yaml#/schemas/SignedBeaconBlockHeader'
+      $ref: './types/block.yaml#/SignedBeaconBlockHeader'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorStatus:
@@ -144,17 +144,17 @@ components:
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:
-      $ref: './types/attestation.yaml#/schemas/Attestation'
+      $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
-      $ref: './types/attestation.yaml#/schemas/AttestationData'
+      $ref: './types/attestation.yaml#/AttestationData'
     Fork:
-      $ref: './types/misc.yaml#/schemas/Fork'
+      $ref: './types/misc.yaml#/Fork'
     Checkpoint:
-      $ref: './types/misc.yaml#/schemas/Checkpoint'
+      $ref: './types/misc.yaml#/Checkpoint'
     PublicKey:
-      $ref: './types/primitive.yaml#/schemas/Pubkey'
+      $ref: './types/primitive.yaml#/Pubkey'
     Uint64:
-      $ref: './types/primitive.yaml#/schemas/Uint64'
+      $ref: './types/primitive.yaml#/Uint64'
     NetworkIdentity:
       $ref: './types/p2p.yaml#/NetworkIdentity'
     Peer:
@@ -162,19 +162,19 @@ components:
     PeerId:
       $ref: './types/p2p.yaml#/PeerId'
     GenesisTime:
-      $ref: './types/primitive.yaml#/schemas/GenesisTime'
+      $ref: './types/primitive.yaml#/GenesisTime'
     Version:
-      $ref: './types/primitive.yaml#/schemas/Version'
+      $ref: './types/primitive.yaml#/Version'
     ForkVersion:
-      $ref: './types/primitive.yaml#/schemas/ForkVersion'
+      $ref: './types/primitive.yaml#/ForkVersion'
     Root:
-      $ref: './types/primitive.yaml#/schemas/Root'
+      $ref: './types/primitive.yaml#/Root'
     Hex:
-      $ref: './types/primitive.yaml#/schemas/Hex'
+      $ref: './types/primitive.yaml#/Hex'
     Graffiti:
-      $ref: './types/primitive.yaml#/schemas/Graffiti'
+      $ref: './types/primitive.yaml#/Graffiti'
     Signature:
-      $ref: './types/primitive.yaml#/schemas/Signature'
+      $ref: './types/primitive.yaml#/Signature'
 
   parameters:
     StateId:
