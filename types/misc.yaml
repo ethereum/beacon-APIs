@@ -3,17 +3,17 @@ Fork:
   description: "The [`Fork`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#fork) object from the Eth2.0 spec."
   properties:
     previous_version:
-      $ref: "./primitive.yaml#/schemas/ForkVersion"
+      $ref: "./primitive.yaml#/ForkVersion"
     current_version:
-      $ref: "./primitive.yaml#/schemas/ForkVersion"
+      $ref: "./primitive.yaml#/ForkVersion"
     epoch:
-      $ref: "./primitive.yaml#/schemas/Uint64"
+      $ref: "./primitive.yaml#/Uint64"
 
 Checkpoint:
   type: object
   description: "The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#checkpoint"
   properties:
     epoch:
-      $ref: "./primitive.yaml#/schemas/Uint64"
+      $ref: "./primitive.yaml#/Uint64"
     root:
-      $ref: "./primitive.yaml#/schemas/Root"
+      $ref: "./primitive.yaml#/Root"

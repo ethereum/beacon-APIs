@@ -6,6 +6,7 @@ get:
     - Beacon
   parameters:
     - name: state_id
+      in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: epoch
       description: "Epoch for which to calculate committees. Defaults to beacon state epoch."
