@@ -11,7 +11,7 @@ API browser: [https://ethereum.github.io/eth2.0-APIs/](https://ethereum.github.i
 This document outlines an application programming interface (API) which is exposed by a beacon node implementation
  which aims to facilitate [Phase 0](https://github.com/ethereum/eth2.0-specs#phase-0) of Ethereum 2.0.
 
-The API is a REST interface, accessed via HTTP,designed for use as a public communications protocol.
+The API is a REST interface, accessed via HTTP, designed for use as a public communications protocol.
  Currently, the only supported return data type is JSON.
 
 The beacon node (BN) maintains the state of the beacon chain by communicating with other beacon nodes in the Ethereum 2.0 network.
