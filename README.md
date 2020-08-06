@@ -61,6 +61,11 @@ and run lint with
 spectral lint beacon-node-oapi.yaml 
 ```
 
+## Implementations
+
+- [TypeScript Wrapper](https://www.npmjs.com/package/@chainsafe/eth2.0-api-wrapper)
+
+https://www.npmjs.com/package/@chainsafe/eth2.0-api-wrapper
 ## Releasing
 
 1. Create and push tag
