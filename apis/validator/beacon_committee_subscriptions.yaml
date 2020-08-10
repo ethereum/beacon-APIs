@@ -5,7 +5,6 @@ post:
     After beacon node receives this request, and `slot_signature` is valid it must:
     - search using discv5 for peers related to this subnet and replace current peers with those ones if necessary
     If validator is aggregator based on `slot_signature`, beacon node must:
-    - add subnet to ENR
     - announce subnet topic subscription on gossipsub
     - aggregate attestations received on that subnet
   tags:

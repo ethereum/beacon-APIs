@@ -26,17 +26,17 @@ Attesting:
     - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/validator.md#attestation-aggregation)
     - [Ask beacon node to prepare your subnet](#/ValidatorRequiredApi/prepareBeaconCommitteeSubnet)
       -- Note, validator client only needs to submit one call to
-      `prepareBeaconCommitteeSubnet` per committee/slot it's validators have
+      `prepareBeaconCommitteeSubnet` per committee/slot its validators have
       been assigned to. If any validators are aggregators, be sure to use the aggregator's
       `slot_signature` to properly signal aggregation to the beacon node
 2. Wait for new BeaconBlock for the assigned slot (either stream updates or poll)
-    - Max wait: `SECONDS_PER_SLOT / 3 * 1000` into the assigned slot
-2. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)
+    - Max wait: `SECONDS_PER_SLOT / 3` seconds into the assigned slot
+3. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)
 4. [Submit Attestation](#/ValidatorRequiredApi/submitPoolAttestations) (AttestationData + aggregation bits)
     - Aggregation bits are `Bitlist` with length of committee (received in AttesterDuty)
     with bit on position `validator_committee_index` (see AttesterDuty) set to true
 5. If aggregator:
-    - Wait for `SECONDS_PER_SLOT * 2 / 3` into the assigned slot
+    - Wait for `SECONDS_PER_SLOT * 2 / 3` seconds into the assigned slot
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestation) from Beacon Node you've subscribed to your subnet
     - [Publish SignedAggregateAndProof](#/ValidatorRequiredApi/publishAggregateAndProof)
 
