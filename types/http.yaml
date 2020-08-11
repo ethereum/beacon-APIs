@@ -1,10 +1,101 @@
-Success:
-  description: "Request successful."
 InvalidRequest:
   description: "Invalid request syntax."
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 404
+          message:
+            description: "Message describing error"
+            type: string
+          stacktraces:
+            description: "Optional stacktraces, sent when node is in debug mode"
+            type: array
+            items:
+              type: string
 InternalError:
   description: "Beacon node internal error."
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 404
+          message:
+            description: "Message describing error"
+            type: string
+          stacktraces:
+            description: "Optional stacktraces, sent when node is in debug mode"
+            type: array
+            items:
+              type: string
+      example:
+        code: 500
+        message: "Internal server error"
 CurrentlySyncing:
   description: "Beacon node is currently syncing, try again later."
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 404
+          message:
+            description: "Message describing error"
+            type: string
+          stacktraces:
+            description: "Optional stacktraces, sent when node is in debug mode"
+            type: array
+            items:
+              type: string
+      example:
+        code: 503
+        message: "Beacon node is currently syncing and not serving request on that endpoint"
 NotFound:
   description: "Not found"
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 404
+          message:
+            description: "Message describing error"
+            type: string
+          stacktraces:
+            description: "Optional stacktraces, sent when node is in debug mode"
+            type: array
+            items:
+              type: string
+      example:
+        code: 404
+        message: "Requested item not found"
+
+ErrorMessage:
+  type: object
+  properties:
+    code:
+      description: "Either specific error code in case of invalid request or http status code"
+      type: number
+      example: 404
+    message:
+      description: "Message describing error"
+      type: string
+    stacktraces:
+      description: "Optional stacktraces, sent when node is in debug mode"
+      type: array
+      items:
+        type: string
