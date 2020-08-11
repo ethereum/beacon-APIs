@@ -48,6 +48,14 @@ post:
     "200":
       description: Attestation is stored in pool and broadcast on appropriate subnet
     "400":
-      description: Invalid attestation, it will never pass validation so it's rejected
+      description: "Invalid attestation"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid attestation, it will never pass validation so it's rejected"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

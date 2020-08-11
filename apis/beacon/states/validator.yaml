@@ -29,7 +29,20 @@ get:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
 
     "404":
-      description: "Validator doesn't exist."
+      description: "Not Found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            StateNotFound:
+              value:
+                code: 404
+                message: State not found
+            ValidatorNotFound:
+              value:
+                code: 404
+                message: Validator not found
 
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

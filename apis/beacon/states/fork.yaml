@@ -21,6 +21,16 @@ get:
               data:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Fork'
 
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "State not found"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
