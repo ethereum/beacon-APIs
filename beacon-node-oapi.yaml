@@ -25,6 +25,8 @@ tags:
     description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Debug
     description: Set of endpoints to debug chain and shouldn't be exposed publicly.
+  - name: Events
+    description: Set of endpoints to for event subscription.
   - name: Node
     description: Endpoints to query node related informations
   - name: Validator
@@ -112,7 +114,8 @@ paths:
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
 
-
+  /eth/v1/events:
+    $ref: "./apis/eventstream/index.yaml"
 
 
 components:
