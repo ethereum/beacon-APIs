@@ -41,7 +41,15 @@ get:
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterDuty'
     "400":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidEpoch:
+              value:
+                code: 400
+                message: Cannot get attester duties for X epoch ahead
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
