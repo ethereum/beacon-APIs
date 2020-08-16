@@ -29,8 +29,15 @@ get:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
     "400":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
-    "403":
-      description: "Beacon node was not assigned to aggregate on that subnet."
+      description: "Invalid request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            NotAggregator:
+              value:
+                code: 403
+                message: Beacon node was not assigned to aggregate on that subnet.
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
