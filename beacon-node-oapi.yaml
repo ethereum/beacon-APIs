@@ -189,7 +189,5 @@ components:
       $ref: './types/http.yaml#/InvalidRequest'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
-    NotFound:
-      $ref: './types/http.yaml#/NotFound'
     CurrentlySyncing:
       $ref: './types/http.yaml#/CurrentlySyncing'

@@ -25,6 +25,7 @@ get:
                 items:
                   $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ProposerDuty"
     "400":
+      description: Invalid request
       content:
         application/json:
           schema:

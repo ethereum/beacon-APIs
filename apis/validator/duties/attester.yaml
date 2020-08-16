@@ -41,6 +41,7 @@ get:
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterDuty'
     "400":
+      description: "Invalid request"
       content:
         application/json:
           schema:

@@ -40,12 +40,12 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - examples:
-                  InvalidRequest:
-                    code: 400
-                    message: "Invalid request to produce a block"
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to produce a block"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
