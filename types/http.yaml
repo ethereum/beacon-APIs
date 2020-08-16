@@ -8,7 +8,7 @@ InvalidRequest:
           code:
             description: "Either specific error code in case of invalid request or http status code"
             type: number
-            example: 404
+            example: 400
           message:
             description: "Message describing error"
             type: string
