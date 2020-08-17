@@ -27,8 +27,8 @@ Attesting:
     - [Ask beacon node to prepare your subnet](#/ValidatorRequiredApi/prepareBeaconCommitteeSubnet)
       -- Note, validator client only needs to submit one call to
       `prepareBeaconCommitteeSubnet` per committee/slot its validators have
-      been assigned to. If any validators are aggregators, be sure to use the aggregator's
-      `slot_signature` to properly signal aggregation to the beacon node
+      been assigned to. If any validators in the committee are aggregators,
+      set `is_aggregator` to `True`,
 2. Wait for new BeaconBlock for the assigned slot (either stream updates or poll)
     - Max wait: `SECONDS_PER_SLOT / 3` seconds into the assigned slot
 3. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)

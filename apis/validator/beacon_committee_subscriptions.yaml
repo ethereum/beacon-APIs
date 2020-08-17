@@ -2,9 +2,10 @@ post:
   operationId: "prepareBeaconCommitteeSubnet"
   summary: Signal beacon node to prepare for a committee subnet
   description: |
-    After beacon node receives this request, and `slot_signature` is valid it must:
-    - search using discv5 for peers related to this subnet and replace current peers with those ones if necessary
-    If validator is aggregator based on `slot_signature`, beacon node must:
+    After beacon node receives this request,
+    search using discv5 for peers related to this subnet
+    and replace current peers with those ones if necessary
+    If validator `is_aggregator`, beacon node must:
     - announce subnet topic subscription on gossipsub
     - aggregate attestations received on that subnet
   tags:
@@ -25,12 +26,10 @@ post:
                 allOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
                   - description: "Should be slot at which validator is assigned to attest"
-              slot_signature:
-                allOf:
-                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
-                  - description: "Should be valid against given slot and validator pubkey."
-              aggregator_pubkey:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/PublicKey'
+              is_aggregator:
+                type: boolean
+                  - description: "Signals to BN that a validator on the VC has been chosed for aggregator role."
+
   responses:
     "200":
       description: |
