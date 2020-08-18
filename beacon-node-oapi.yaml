@@ -151,8 +151,6 @@ components:
       $ref: './types/misc.yaml#/Fork'
     Checkpoint:
       $ref: './types/misc.yaml#/Checkpoint'
-    PublicKey:
-      $ref: './types/primitive.yaml#/Pubkey'
     Uint64:
       $ref: './types/primitive.yaml#/Uint64'
     NetworkIdentity:
