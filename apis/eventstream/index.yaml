@@ -71,3 +71,4 @@ get:
                 \n
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      
