@@ -1,0 +1,19 @@
+post:
+  tags:
+    - SSZ
+    - Validator
+  summary: "Approve an attestation for safe signing by SSV node."
+  operationId: "approveAttestation"
+  description: "This is for a validator node to report to the SSV node that an attestation requested through the streaming API is safe to sign."
+  requestBody:
+    description: "The `AttestationData` object"
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationData'
+  responses:
+    "200":
+      description: "Response acknowledged."
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

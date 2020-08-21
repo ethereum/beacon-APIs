@@ -1,0 +1,86 @@
+get:
+  operationId: "ssv_stream"
+  summary: Stream of attestations to sign from SSV node
+  tags:
+    - SSV
+  description: |
+    Provides endpoint to subscribe to attestations to sign from an SSV node. Only provided by SSV nodes.
+    Two types of events: 
+      "sign_*": Attestations/blocks should be signed and sent to the appropriate beacon node API for publication
+      "check_*": Message should be checked for conflicts with slashing protection; response to be sent to approve_* endpoint
+    Consumers should use [eventsource](https://html.spec.whatwg.org/multipage/server-sent-events.html#the-eventsource-interface)
+    implementation to listen on those events.
+  parameters:
+    - name: topics
+      in: query
+      required: true
+      description: Event types to subscribe to
+      schema:
+        type: array
+        items:
+          type: string
+          uniqueItems: true
+          enum:
+            - sign_block
+            - sign_attestation
+            - check_block
+            - check_attestation
+  responses:
+    "200":
+      description: Opened SSE stream.
+      content:
+        text/event-stream:
+          schema:
+            type: string
+            description: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format
+          examples:
+            sign_block:
+              description: Sign a block decided on by the SSV node
+              value:
+                event: sign_block
+                data: 
+                  application/json:
+                    schema:
+                      title: SignBlock
+                      type: object
+                      properties:
+                        data:
+                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'                
+            sign_attestation:
+              description: Sign an attestation decided on by the SSV node
+              value:
+                event: sign_attestation
+                data: 
+                  application/json:
+                    schema:
+                      title: SignAttestation
+                      type: object
+                      properties:
+                        data:
+                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/AttestationData'  
+            check_block:
+              description: Check whether a block is safe to sign, using local VC slashing protection.
+              value:
+                event: check_block\n
+                data: 
+                  application/json:
+                    schema:
+                      title: CheckBlock
+                      type: object
+                      properties:
+                        data:
+                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'  
+            check_attestation:
+              description: Check whether an attestation is safe to sign, using local VC slashing protection.
+              value:
+                event: check_attestation\n
+                data: 
+                  application/json:
+                    schema:
+                      title: CheckAttestation
+                      type: object
+                      properties:
+                        data:
+                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/AttestationData' 
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

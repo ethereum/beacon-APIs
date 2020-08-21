@@ -1,0 +1,19 @@
+post:
+  tags:
+    - SSZ
+    - Validator
+  summary: "Approve a block for safe signing by SSV node."
+  operationId: "approveBlock"
+  description: "This is for a validator node to report to the SSV node that a block requested through the streaming API is safe to sign."
+  requestBody:
+    description: "The `BeaconBlock` object"
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+  responses:
+    "200":
+      description: "Response acknowledged."
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
