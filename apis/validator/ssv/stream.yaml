@@ -45,7 +45,7 @@ get:
                       type: object
                       properties:
                         data:
-                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'                
+                          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
             sign_attestation:
               description: Sign an attestation decided on by the SSV node
               value:
@@ -57,7 +57,7 @@ get:
                       type: object
                       properties:
                         data:
-                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/AttestationData'  
+                          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationData'
             check_block:
               description: Check whether a block is safe to sign, using local VC slashing protection.
               value:
@@ -69,7 +69,7 @@ get:
                       type: object
                       properties:
                         data:
-                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'  
+                          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
             check_attestation:
               description: Check whether an attestation is safe to sign, using local VC slashing protection.
               value:
@@ -81,6 +81,6 @@ get:
                       type: object
                       properties:
                         data:
-                          $ref: '../../beacon-node-oapi.yaml#/components/schemas/AttestationData' 
+                          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationData'
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
