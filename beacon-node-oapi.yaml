@@ -34,6 +34,8 @@ tags:
       Minimal set of endpoints to enable a working validator implementation.
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
+  - name: SSV
+    description: Set of endpoints provided by SSV nodes to connect to validator clients
 paths:
 
   /eth/v1/beacon/genesis:
@@ -111,6 +113,13 @@ paths:
     $ref: "./apis/validator/aggregate_and_proof.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
+
+  /eth/v1/validator/ssv/stream:
+    $ref: "./apis/validator/ssv/stream.yaml"
+  /eth/v1/validator/ssv/approve_attestation:
+    $ref: "./apis/validator/ssv/approve_attestation.yaml"
+  /eth/v1/validator/ssv/approve_block:
+    $ref: "./apis/validator/ssv/approve_block.yaml"
 
 
 
