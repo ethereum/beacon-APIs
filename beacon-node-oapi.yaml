@@ -27,6 +27,8 @@ tags:
     description: Set of endpoints to debug chain and shouldn't be exposed publicly.
   - name: Node
     description: Endpoints to query node related informations
+  - name: SSV
+    description: Set of endpoints provided by SSV nodes to connect to validator clients
   - name: Validator
     description: Endpoints intended for validator clients
   - name: ValidatorRequiredApi
@@ -34,8 +36,6 @@ tags:
       Minimal set of endpoints to enable a working validator implementation.
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
-  - name: SSV
-    description: Set of endpoints provided by SSV nodes to connect to validator clients
 paths:
 
   /eth/v1/beacon/genesis:

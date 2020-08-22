@@ -1,6 +1,6 @@
 post:
   tags:
-    - SSZ
+    - SSV
     - Validator
   summary: "Approve a block for safe signing by SSV node."
   operationId: "approveBlock"
@@ -8,7 +8,8 @@ post:
     - name: approve
       in: query
       required: true
-      type: boolean
+      schema:
+        type: boolean
   description: "This is for a validator node to report to the SSV node that a block requested through the streaming API is safe to sign (approve=true) or unsafe to sign (approve=false)."
   requestBody:
     description: "The `BeaconBlock` object"
