@@ -71,8 +71,49 @@ paths:
                         pattern: '^0x[a-fA-F0-9]{8}$'
         '404':
           description: Chain genesis info is not yet known
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: Chain genesis info is not yet known
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/root':
     get:
       operationId: getStateRoot
@@ -104,12 +145,55 @@ paths:
                     properties:
                       root:
                         allOf:
-                          - description: HashTreeRoot of BeaconState object
                           - type: string
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
+                          - description: HashTreeRoot of BeaconState object
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+              example:
+                code: 404
+                message: State not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/fork':
     get:
       operationId: getStateFork
@@ -154,8 +238,51 @@ paths:
                       epoch:
                         type: string
                         example: '1'
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: State not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/finality_checkpoints':
     get:
       operationId: getStateFinalityCheckpoints
@@ -220,8 +347,51 @@ paths:
                             type: string
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: State not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/validators':
     get:
       operationId: getStateValidators
@@ -382,6 +552,26 @@ paths:
                                 - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/validators/{validator_id}':
     get:
       operationId: getStateValidator
@@ -497,9 +687,55 @@ paths:
                                 example: '1'
                               - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
         '404':
-          description: Validator doesn't exist.
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                StateNotFound:
+                  value:
+                    code: 404
+                    message: State not found
+                ValidatorNotFound:
+                  value:
+                    code: 404
+                    message: Validator not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/committees/{epoch}':
     get:
       operationId: getEpochCommittees
@@ -574,9 +810,73 @@ paths:
                             type: string
                             example: '1'
         '400':
-          description: If slot doesn't belong in given epoch.
+          description: Slot doesn't belong in epoch
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: Slot doesn't belong in epoch
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+              example:
+                code: 404
+                message: State not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/headers:
     get:
       operationId: getBlockHeaders
@@ -667,6 +967,26 @@ paths:
                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/headers/{block_id}':
     get:
       operationId: getBlockHeader
@@ -742,9 +1062,50 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '404':
-          description: Block not found!
+          description: Block not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: Block not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/blocks:
     post:
       tags:
@@ -1157,10 +1518,67 @@ paths:
           description: 'The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node''s database.'
         '400':
           description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
         '503':
           description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   '/eth/v1/beacon/blocks/{block_id}':
     get:
       operationId: getBlock
@@ -1580,9 +1998,50 @@ paths:
                         pattern: '^0x[a-fA-F0-9]{192}$'
                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '404':
-          description: Block not found!
+          description: Block not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: Block not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/blocks/{block_id}/root':
     get:
       operationId: getBlockRoot
@@ -1619,9 +2078,50 @@ paths:
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
         '404':
-          description: Block not found!
+          description: Block not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: Block not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/blocks/{block_id}/attestations':
     get:
       operationId: getBlockAttestations
@@ -1703,8 +2203,51 @@ paths:
                                   type: string
                                   example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                   pattern: '^0x[a-fA-F0-9]{64}$'
+        '404':
+          description: Block not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: Block not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/pool/attestations:
     get:
       operationId: getPoolAttestations
@@ -1791,6 +2334,26 @@ paths:
                                   pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
     post:
       operationId: submitPoolAttestations
       summary: Submit Attestation object to node
@@ -1859,9 +2422,50 @@ paths:
         '200':
           description: Attestation is stored in pool and broadcast on appropriate subnet
         '400':
-          description: 'Invalid attestation, it will never pass validation so it''s rejected'
+          description: Invalid attestation
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid attestation, it will never pass validation so it''s rejected'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/pool/atttester_slashings:
     get:
       operationId: getPoolAttesterSlashings
@@ -1996,6 +2600,26 @@ paths:
                                       pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
     post:
       operationId: submitPoolAttesterSlashings
       summary: Submit AttesterSlashing object to node's pool
@@ -2124,9 +2748,50 @@ paths:
         '200':
           description: Success
         '400':
-          description: 'Invalid attester slashing. [See attester_slashing topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)'
+          description: Invalid attester slashing
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid attester slashing, it will never pass validation so it''s rejected'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/pool/proposer_slashings:
     get:
       operationId: getPoolProposerSlashings
@@ -2237,6 +2902,26 @@ paths:
                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
     post:
       operationId: submitPoolProposerSlashings
       summary: Submit ProposerSlashing object to node's pool
@@ -2341,9 +3026,50 @@ paths:
         '200':
           description: Success
         '400':
-          description: 'Invalid proposer slashing. [See proposer_slashing topic validation](https://github.com/ethereum/eth2.0-specs/blob/v0.11.3/specs/phase0/p2p-interface.md#global-topics)'
+          description: Invalid proposer slashing
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid proposer slashing, it will never pass validation so it''s rejected'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/pool/voluntary_exits:
     get:
       operationId: getPoolVoluntaryExits
@@ -2386,6 +3112,26 @@ paths:
                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
     post:
       operationId: submitPoolVoluntaryExit
       summary: Submit SignedVoluntaryExit object to node's pool
@@ -2422,9 +3168,50 @@ paths:
         '200':
           description: Voluntary exit is stored in node and broadcasted to network
         '400':
-          description: Invalid voluntary exit.
+          description: Invalid voluntary exit
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid voluntary exit, it will never pass validation so it''s rejected'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/debug/beacon/states/{state_id}':
     get:
       operationId: getState
@@ -2815,6 +3602,26 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{64}$'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/debug/beacon/heads:
     get:
       operationId: getDebugChainHeads
@@ -2845,6 +3652,26 @@ paths:
                           example: '1'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/node/identity:
     get:
       operationId: getNetworkIdentity
@@ -2904,6 +3731,26 @@ paths:
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/node/peers:
     get:
       operationId: getPeers
@@ -2951,6 +3798,26 @@ paths:
                             - outbound
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/node/peers/{peer_id}':
     get:
       operationId: getPeer
@@ -3002,8 +3869,51 @@ paths:
                         enum:
                           - inbound
                           - outbound
+        '404':
+          description: Peer not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 404
+                      message: Peer not found
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/node/version:
     get:
       operationId: getNodeVersion
@@ -3029,6 +3939,26 @@ paths:
                         example: Lighthouse/v0.1.5 (Linux x86_64)
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/node/syncing:
     get:
       operationId: getSyncingStatus
@@ -3061,6 +3991,26 @@ paths:
                             example: '1'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/node/health:
     get:
       operationId: getHealth
@@ -3112,6 +4062,26 @@ paths:
                           example: '1'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/config/spec:
     get:
       operationId: getSpec
@@ -3143,6 +4113,26 @@ paths:
                     type: object
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/config/deposit_contract:
     get:
       operationId: getDepositContract
@@ -3176,6 +4166,26 @@ paths:
                           - example: '0x1Db3439a222C519ab44bb1144fC28167b4Fa6EE6'
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/validator/duties/attester/{epoch}':
     get:
       tags:
@@ -3245,11 +4255,73 @@ paths:
                               example: '1'
                             - description: The slot at which the validator must attest.
         '400':
-          description: Invalid request syntax.
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidEpoch:
+                  value:
+                    code: 400
+                    message: Cannot get attester duties for X epoch ahead
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
         '503':
           description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   '/eth/v1/validator/duties/proposer/{epoch}':
     get:
       tags:
@@ -3290,11 +4362,73 @@ paths:
                               example: '1'
                             - description: The slot at which the validator must propose block.
         '400':
-          description: Invalid request syntax.
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidEpoch:
+                  value:
+                    code: 400
+                    message: Cannot get attester duties for X epoch ahead
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
         '503':
           description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   '/eth/v1/validator/blocks/{slot}':
     get:
       tags:
@@ -3722,11 +4856,73 @@ paths:
                                           example: '1'
                                         - description: Index of the exiting validator.
         '400':
-          description: Invalid request syntax.
+          description: Invalid block production request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidRequest:
+                  value:
+                    code: 400
+                    message: Invalid request to produce a block
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
         '503':
           description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   /eth/v1/validator/attestation_data:
     get:
       tags:
@@ -3799,10 +4995,67 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{64}$'
         '400':
           description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
         '503':
           description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   /eth/v1/validator/aggregate_attestation:
     get:
       operationId: getAggregatedAttestation
@@ -3889,11 +5142,51 @@ paths:
                                 example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                 pattern: '^0x[a-fA-F0-9]{64}$'
         '400':
-          description: Invalid request syntax.
-        '403':
-          description: Beacon node was not assigned to aggregate on that subnet.
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                NotAggregator:
+                  value:
+                    code: 403
+                    message: Beacon node was not assigned to aggregate on that subnet.
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/validator/aggregate_and_proofs:
     post:
       operationId: publishAggregateAndProof
@@ -3989,8 +5282,45 @@ paths:
           description: Successful response
         '400':
           description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/validator/beacon_committee_subscriptions:
     post:
       operationId: prepareBeaconCommitteeSubnet
@@ -4033,10 +5363,67 @@ paths:
             Note that, we cannot be certain Beacon node will find peers for that subnet for various reasons,"
         '400':
           description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
         '503':
           description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   /eth/v1/events:
     get:
       operationId: eventstream
@@ -4111,6 +5498,26 @@ paths:
                     \n
         '500':
           description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
 components:
   schemas:
     BeaconState:
@@ -5984,6 +7391,21 @@ components:
       type: string
       pattern: '^0x[a-fA-F0-9]{192}$'
       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+    ErrorMessage:
+      type: object
+      properties:
+        code:
+          description: Either specific error code in case of invalid request or http status code
+          type: number
+          example: 404
+        message:
+          description: Message describing error
+          type: string
+        stacktraces:
+          description: 'Optional stacktraces, sent when node is in debug mode'
+          type: array
+          items:
+            type: string
   parameters:
     StateId:
       name: state_id
@@ -6008,9 +7430,64 @@ components:
   responses:
     InvalidRequest:
       description: Invalid request syntax.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                description: Either specific error code in case of invalid request or http status code
+                type: number
+                example: 400
+              message:
+                description: Message describing error
+                type: string
+              stacktraces:
+                description: 'Optional stacktraces, sent when node is in debug mode'
+                type: array
+                items:
+                  type: string
     InternalError:
       description: Beacon node internal error.
-    NotFound:
-      description: Not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                description: Either specific error code in case of invalid request or http status code
+                type: number
+                example: 404
+              message:
+                description: Message describing error
+                type: string
+              stacktraces:
+                description: 'Optional stacktraces, sent when node is in debug mode'
+                type: array
+                items:
+                  type: string
+          example:
+            code: 500
+            message: Internal server error
     CurrentlySyncing:
       description: 'Beacon node is currently syncing, try again later.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                description: Either specific error code in case of invalid request or http status code
+                type: number
+                example: 404
+              message:
+                description: Message describing error
+                type: string
+              stacktraces:
+                description: 'Optional stacktraces, sent when node is in debug mode'
+                type: array
+                items:
+                  type: string
+          example:
+            code: 503
+            message: Beacon node is currently syncing and not serving request on that endpoint
