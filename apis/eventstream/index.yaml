@@ -1,0 +1,74 @@
+get:
+  operationId: "eventstream"
+  summary: Subscribe to beacon node events
+  tags:
+    - Events
+  description: |
+    Provides endpoint to subscribe to beacon node Server-Sent-Events stream.
+    Consumers should use [eventsource](https://html.spec.whatwg.org/multipage/server-sent-events.html#the-eventsource-interface)
+    implementation to listen on those events.
+  parameters:
+    - name: topics
+      in: query
+      required: true
+      description: Event types to subscribe to
+      schema:
+        type: array
+        items:
+          type: string
+          uniqueItems: true
+          enum:
+            - head
+            - block
+            - attestation
+            - voluntary_exit
+            - finalized_checkpoint
+            - chain_reorg
+  responses:
+    "200":
+      description: Opened SSE stream.
+      content:
+        text/event-stream:
+          schema:
+            type: string
+            description: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format
+          examples:
+            head:
+              description: The node has finished processing, resulting in a new head
+              value: |
+                event: head\n
+                data: "{\"slot\": \"10\", \"block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"state\":\"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch_transition\": false}"\n
+                \n
+            block:
+              description: The node has received a block (from P2P or API)
+              value: |
+                event: block\n
+                data: "{\"slot\": \"10\", \"block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\"}"\n
+                \n
+            attestation:
+              description: The node has received an attestation (from P2P or API)
+              value: |
+                event: attestation\n
+                data: "{\n      \"aggregation_bits\": \"0x01\",\n      \"signature\": \"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505\",\n      \"data\": {\n        \"slot\": \"1\",\n        \"index\": \"1\",\n        \"beacon_block_root\": \"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2\",\n        \"source\": {\n          \"epoch\": \"1\",\n          \"root\": \"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2\"\n        },\n        \"target\": {\n          \"epoch\": \"1\",\n          \"root\": \"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2\"\n        }\n      }\n    }"\n
+                \n
+            voluntary_exit:
+              description: The node has received a voluntary exit (from P2P or API)
+              value: |
+                event: voluntary_exit\n
+                data: "{\n      \"message\": {\n        \"epoch\": \"1\",\n        \"validator_index\": \"1\"\n      },\n      \"signature\": \"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505\"\n    }"\n
+                \n
+            finalized_checkpoint:
+              description: Finalized checkpoint has been updated
+              value: |
+                event: finalized_checkpoint\n
+                data: "{\"block\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"state\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
+                \n
+            chain_reorg:
+              description: The node has reorganized its chain
+              value: |
+                event: chain_reorg\n
+                data: "{\"slot\":\"200\", \"depth\": \"50\", \"old_head_block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_block\": \"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76\", \"old_head_state\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_state_head\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
+                \n
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      
