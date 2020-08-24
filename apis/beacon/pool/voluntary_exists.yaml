@@ -36,6 +36,14 @@ post:
     "200":
       description: Voluntary exit is stored in node and broadcasted to network
     "400":
-      description: Invalid voluntary exit.
+      description: "Invalid voluntary exit"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid voluntary exit, it will never pass validation so it's rejected"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

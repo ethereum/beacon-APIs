@@ -98,7 +98,7 @@ paths:
     $ref: "./apis/config/spec.yaml"
   /eth/v1/config/deposit_contract:
     $ref: "./apis/config/deposit_contract.yaml"
-    
+
   /eth/v1/validator/duties/attester/{epoch}:
     $ref: "./apis/validator/duties/attester.yaml"
   /eth/v1/validator/duties/proposer/{epoch}:
@@ -176,6 +176,8 @@ components:
       $ref: './types/primitive.yaml#/Graffiti'
     Signature:
       $ref: './types/primitive.yaml#/Signature'
+    ErrorMessage:
+      $ref: './types/http.yaml#/ErrorMessage'
 
   parameters:
     StateId:
@@ -188,7 +190,5 @@ components:
       $ref: './types/http.yaml#/InvalidRequest'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
-    NotFound:
-      $ref: './types/http.yaml#/NotFound'
     CurrentlySyncing:
       $ref: './types/http.yaml#/CurrentlySyncing'

@@ -21,5 +21,15 @@ get:
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
+    "404":
+      description: "Peer not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Peer not found"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

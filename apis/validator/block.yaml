@@ -36,7 +36,16 @@ get:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
     "400":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+      description: "Invalid block production request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to produce a block"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

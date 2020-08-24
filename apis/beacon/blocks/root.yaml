@@ -25,6 +25,14 @@ get:
                       - description: HashTreeRoot of BeaconBlock/BeaconBlockHeader object
                       - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
     "404":
-      description: "Block not found!"
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Block not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

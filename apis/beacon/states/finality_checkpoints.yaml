@@ -28,7 +28,16 @@ get:
                     $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
                   finalized:
                     $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
-
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "State not found"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
