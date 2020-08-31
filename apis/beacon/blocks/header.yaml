@@ -20,6 +20,8 @@ get:
               data:
                 type: object
                 properties:
+                  root:
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
                   canonical:
                     type: boolean
                   header:
