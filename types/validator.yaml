@@ -37,6 +37,10 @@ AttesterDuty:
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Index of validator in validator registry"
     committee_index:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
