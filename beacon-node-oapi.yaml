@@ -1499,18 +1499,26 @@ paths:
                               type: array
                               items:
                                 type: object
-                                description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                                description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec.'
                                 properties:
-                                  epoch:
-                                    allOf:
-                                      - type: string
-                                        example: '1'
-                                      - description: Minimum epoch for processing exit.
-                                  validator_index:
-                                    allOf:
-                                      - type: string
-                                        example: '1'
-                                      - description: Index of the exiting validator.
+                                  message:
+                                    type: object
+                                    description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                                    properties:
+                                      epoch:
+                                        allOf:
+                                          - type: string
+                                            example: '1'
+                                          - description: Minimum epoch for processing exit.
+                                      validator_index:
+                                        allOf:
+                                          - type: string
+                                            example: '1'
+                                          - description: Index of the exiting validator.
+                                  signature:
+                                    type: string
+                                    pattern: '^0x[a-fA-F0-9]{192}$'
+                                    example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 signature:
                   type: string
                   pattern: '^0x[a-fA-F0-9]{192}$'
@@ -1985,18 +1993,26 @@ paths:
                                     type: array
                                     items:
                                       type: object
-                                      description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                                      description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec.'
                                       properties:
-                                        epoch:
-                                          allOf:
-                                            - type: string
-                                              example: '1'
-                                            - description: Minimum epoch for processing exit.
-                                        validator_index:
-                                          allOf:
-                                            - type: string
-                                              example: '1'
-                                            - description: Index of the exiting validator.
+                                        message:
+                                          type: object
+                                          description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                                          properties:
+                                            epoch:
+                                              allOf:
+                                                - type: string
+                                                  example: '1'
+                                                - description: Minimum epoch for processing exit.
+                                            validator_index:
+                                              allOf:
+                                                - type: string
+                                                  example: '1'
+                                                - description: Index of the exiting validator.
+                                        signature:
+                                          type: string
+                                          pattern: '^0x[a-fA-F0-9]{192}$'
+                                          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                       signature:
                         type: string
                         pattern: '^0x[a-fA-F0-9]{192}$'
@@ -4852,18 +4868,26 @@ paths:
                                 type: array
                                 items:
                                   type: object
-                                  description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                                  description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec.'
                                   properties:
-                                    epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Minimum epoch for processing exit.
-                                    validator_index:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Index of the exiting validator.
+                                    message:
+                                      type: object
+                                      description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                                      properties:
+                                        epoch:
+                                          allOf:
+                                            - type: string
+                                              example: '1'
+                                            - description: Minimum epoch for processing exit.
+                                        validator_index:
+                                          allOf:
+                                            - type: string
+                                              example: '1'
+                                            - description: Index of the exiting validator.
+                                    signature:
+                                      type: string
+                                      pattern: '^0x[a-fA-F0-9]{192}$'
+                                      example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '400':
           description: Invalid block production request
           content:
@@ -6263,18 +6287,26 @@ components:
                   type: array
                   items:
                     type: object
-                    description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                    description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec.'
                     properties:
-                      epoch:
-                        allOf:
-                          - type: string
-                            example: '1'
-                          - description: Minimum epoch for processing exit.
-                      validator_index:
-                        allOf:
-                          - type: string
-                            example: '1'
-                          - description: Index of the exiting validator.
+                      message:
+                        type: object
+                        description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                        properties:
+                          epoch:
+                            allOf:
+                              - type: string
+                                example: '1'
+                              - description: Minimum epoch for processing exit.
+                          validator_index:
+                            allOf:
+                              - type: string
+                                example: '1'
+                              - description: Index of the exiting validator.
+                      signature:
+                        type: string
+                        pattern: '^0x[a-fA-F0-9]{192}$'
+                        example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     SignedBeaconBlock:
       type: object
       description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 spec.'
@@ -6651,18 +6683,26 @@ components:
                       type: array
                       items:
                         type: object
-                        description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                        description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the Eth2.0 spec.'
                         properties:
-                          epoch:
-                            allOf:
-                              - type: string
-                                example: '1'
-                              - description: Minimum epoch for processing exit.
-                          validator_index:
-                            allOf:
-                              - type: string
-                                example: '1'
-                              - description: Index of the exiting validator.
+                          message:
+                            type: object
+                            description: 'The [`VoluntaryExit`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#voluntaryexit) object from the Eth2.0 spec.'
+                            properties:
+                              epoch:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - description: Minimum epoch for processing exit.
+                              validator_index:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - description: Index of the exiting validator.
+                          signature:
+                            type: string
+                            pattern: '^0x[a-fA-F0-9]{192}$'
+                            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         signature:
           type: string
           pattern: '^0x[a-fA-F0-9]{192}$'
