@@ -51,7 +51,7 @@ BeaconBlockBody:
     voluntary_exits:
       type: array
       items:
-        $ref: './voluntary_exit.yaml#/VoluntaryExit'
+        $ref: './voluntary_exit.yaml#/SignedVoluntaryExit'
 
 
 BeaconBlock:
