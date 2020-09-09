@@ -23,8 +23,9 @@ post:
               committee_index:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
               committees_at_slot:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                description: "Number of committees at the returned slot"
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                  - description: "Number of committees at the returned slot"
               slot:
                 allOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
