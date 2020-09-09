@@ -43,7 +43,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorBalancesResponse'
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorBalanceResponse'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

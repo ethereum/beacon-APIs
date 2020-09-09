@@ -48,10 +48,10 @@ paths:
     $ref: "./apis/beacon/states/finality_checkpoints.yaml"
   /eth/v1/beacon/states/{state_id}/validators:
     $ref: "./apis/beacon/states/validators.yaml"
-  /eth/v1/beacon/states/{state_id}/validator_balances:
-    $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/validators/{validator_id}:
     $ref: "./apis/beacon/states/validator.yaml"
+  /eth/v1/beacon/states/{state_id}/validator_balances:
+    $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/committees/{epoch}:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/headers:
@@ -132,8 +132,8 @@ components:
       $ref: './types/block.yaml#/SignedBeaconBlockHeader'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
-    ValidatorBalancesResponse:
-      $ref: './types/api.yaml#/ValidatorBalancesResponse'
+    ValidatorBalanceResponse:
+      $ref: './types/api.yaml#/ValidatorBalanceResponse'
     ValidatorStatus:
       $ref: './types/api.yaml#/ValidatorStatus'
     Committee:

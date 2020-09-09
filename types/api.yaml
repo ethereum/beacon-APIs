@@ -16,7 +16,7 @@ ValidatorResponse:
     validator:
       $ref: "./validator.yaml#/Validator"
 
-ValidatorBalancesResponse:
+ValidatorBalanceResponse:
   type: object
   properties:
     index:
@@ -27,10 +27,6 @@ ValidatorBalancesResponse:
       allOf:
         - $ref: "./primitive.yaml#/Gwei"
         - description: "Current validator balance in gwei."
-    effective_balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator effective balance in gwei."
 
 ValidatorStatus:
   description: |
