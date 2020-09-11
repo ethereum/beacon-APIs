@@ -2486,7 +2486,7 @@ paths:
               example:
                 code: 500
                 message: Internal server error
-  /eth/v1/beacon/pool/atttester_slashings:
+  /eth/v1/beacon/pool/attester_slashings:
     get:
       operationId: getPoolAttesterSlashings
       summary: Get AttesterSlashings from operations pool
