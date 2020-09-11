@@ -23,6 +23,7 @@ get:
           enum:
             - sign_block
             - sign_attestation
+            - sign_aggregation_proof
             - check_block
             - check_attestation
   responses:
@@ -58,6 +59,15 @@ get:
                       properties:
                         data:
                           $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationData'
+            sign_aggregation_proof:
+              description: Sign an aggregation proof
+              value:
+                event: sign_aggregation_proof
+                data: 
+                  application/json:
+                    schema:
+                      title: Slot
+                      type: UInt64
             check_block:
               description: Check whether a block is safe to sign, using local VC slashing protection.
               value:

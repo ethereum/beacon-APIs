@@ -120,7 +120,8 @@ paths:
     $ref: "./apis/validator/ssv/approve_attestation.yaml"
   /eth/v1/validator/ssv/approve_block:
     $ref: "./apis/validator/ssv/approve_block.yaml"
-
+  /eth/v1/validator/ssv/aggregation_proof:
+    $ref: "./apis/validator/ssv/aggregation_proof.yaml"
 
 
 

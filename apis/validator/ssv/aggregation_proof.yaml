@@ -1,0 +1,20 @@
+post:
+  tags:
+    - SSV
+    - Validator
+  summary: "(Partial) aggregation proof signature so that SSV node can determine if aggregate should be posted."
+  operationId: "aggregationProof"
+  parameters:
+  description: "This endpoint is for the validator node to post an aggregation proof."
+  requestBody:
+    description: "The signature"
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Signature'
+  responses:
+    "200":
+      description: "Response acknowledged."
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
