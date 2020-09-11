@@ -67,7 +67,7 @@ paths:
 
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
-  /eth/v1/beacon/pool/atttester_slashings:
+  /eth/v1/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
     $ref: "./apis/beacon/pool/proposer_slashings.yaml"
