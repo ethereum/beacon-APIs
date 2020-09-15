@@ -19,17 +19,6 @@ get:
         items:
           description: "Either hex encoded public key (with 0x prefix) or validator index"
           type: string
-    - name: status
-      description: "[Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)"
-      in: query
-      required: false
-      schema:
-        type: array
-        uniqueItems: true
-        items:
-          allOf:
-            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorStatus'
-            - enum: ["active", "pending", "exited", "withdrawal"]
 
   responses:
     "200":
