@@ -39,7 +39,9 @@
       peer_id:
         $ref: "./p2p.yaml#/PeerId"
       enr:
-        $ref: "./p2p.yaml#/ENR"
+        allOf:
+          - $ref: "./p2p.yaml#/ENR"
+          - nullable: true
       address:
         $ref: "./p2p.yaml#/Multiaddr"
       state:
