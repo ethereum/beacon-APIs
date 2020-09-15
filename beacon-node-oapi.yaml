@@ -4273,6 +4273,11 @@ paths:
                             - type: string
                               example: '1'
                             - description: Number of validators in committee
+                        committees_at_slot:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Number of committees at the provided slot
                         validator_committee_index:
                           allOf:
                             - type: string
@@ -5384,6 +5389,11 @@ paths:
                   committee_index:
                     type: string
                     example: '1'
+                  committees_at_slot:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: Number of committees at the returned slot
                   slot:
                     allOf:
                       - type: string
@@ -7127,6 +7137,11 @@ components:
             - type: string
               example: '1'
             - description: Number of validators in committee
+        committees_at_slot:
+          allOf:
+            - type: string
+              example: '1'
+            - description: Number of committees at the provided slot
         validator_committee_index:
           allOf:
             - type: string
