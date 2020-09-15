@@ -3797,9 +3797,11 @@ paths:
                           description: 'Cryptographic hash of a peer’s public key. [Read more](https://docs.libp2p.io/concepts/peer-id/)'
                           example: QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
                         enr:
-                          type: string
-                          description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
-                          example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
+                          allOf:
+                            - type: string
+                              description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
+                              example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
+                            - nullable: true
                         address:
                           type: string
                           description: '[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)'
@@ -3870,9 +3872,11 @@ paths:
                         description: 'Cryptographic hash of a peer’s public key. [Read more](https://docs.libp2p.io/concepts/peer-id/)'
                         example: QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
                       enr:
-                        type: string
-                        description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
-                        example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
+                        allOf:
+                          - type: string
+                            description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
+                            example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
+                          - nullable: true
                       address:
                         type: string
                         description: '[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)'
@@ -7391,9 +7395,11 @@ components:
           description: 'Cryptographic hash of a peer’s public key. [Read more](https://docs.libp2p.io/concepts/peer-id/)'
           example: QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
         enr:
-          type: string
-          description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
-          example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
+          allOf:
+            - type: string
+              description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
+              example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
+            - nullable: true
         address:
           type: string
           description: '[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)'
