@@ -38,7 +38,7 @@ Attesting:
 5. If aggregator:
     - Wait for `SECONDS_PER_SLOT * 2 / 3` seconds into the assigned slot
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestation) from Beacon Node you've subscribed to your subnet
-    - [Publish SignedAggregateAndProof](#/ValidatorRequiredApi/publishAggregateAndProof)
+    - [Publish SignedAggregateAndProofs](#/ValidatorRequiredApi/publishAggregateAndProofs)
 
 Monitor chain block reorganization events (TBD) as they could change attesters and aggregators. 
 If reorg is detected, ask for new attester duties and proceed from 1..

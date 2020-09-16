@@ -1,0 +1,21 @@
+post:
+  operationId: "publishAggregateAndProofs"
+  summary: "Publish multiple aggregate and proofs"
+  description: "Verifies given aggregate and proofs and publishes them on appropriate gossipsub topic."
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedAggregateAndProof'
+  responses:
+    "200":
+      description: "Successful response"
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
