@@ -1,0 +1,38 @@
+get:
+  operationId: "getStateValidatorBalances"
+  summary: "Get validator balances from state"
+  description: "Returns filterable list of validator balances."
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: id
+      description: "Either hex encoded public key (with 0x prefix) or validator index"
+      in: query
+      required: false
+      schema:
+        type: array
+        maxItems: 30
+        uniqueItems: true
+        items:
+          description: "Either hex encoded public key (with 0x prefix) or validator index"
+          type: string
+
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateValidatorBalancesResponse
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorBalanceResponse'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

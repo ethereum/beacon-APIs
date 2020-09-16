@@ -16,6 +16,17 @@ ValidatorResponse:
     validator:
       $ref: "./validator.yaml#/Validator"
 
+ValidatorBalanceResponse:
+  type: object
+  properties:
+    index:
+      allOf:
+        - $ref: './primitive.yaml#/Uint64'
+        - description: "Index of validator in validator registry."
+    balance:
+      allOf:
+        - $ref: "./primitive.yaml#/Gwei"
+        - description: "Current validator balance in gwei."
 
 ValidatorStatus:
   description: |
