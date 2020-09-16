@@ -67,6 +67,10 @@ ProposerDuty:
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Index of validator in validator registry."
     slot:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
