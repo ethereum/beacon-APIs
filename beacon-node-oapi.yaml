@@ -736,6 +736,80 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  '/eth/v1/beacon/states/{state_id}/validator_balances':
+    get:
+      operationId: getStateValidatorBalances
+      summary: Get validator balances from state
+      description: Returns filterable list of validator balances.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+        - name: id
+          description: Either hex encoded public key (with 0x prefix) or validator index
+          in: query
+          required: false
+          schema:
+            type: array
+            maxItems: 30
+            uniqueItems: true
+            items:
+              description: Either hex encoded public key (with 0x prefix) or validator index
+              type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetStateValidatorBalancesResponse
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Index of validator in validator registry.
+                        balance:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Current validator balance in gwei.
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/committees/{epoch}':
     get:
       operationId: getEpochCommittees
@@ -6847,6 +6921,19 @@ components:
                 - type: string
                   example: '1'
                 - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+    ValidatorBalanceResponse:
+      type: object
+      properties:
+        index:
+          allOf:
+            - type: string
+              example: '1'
+            - description: Index of validator in validator registry.
+        balance:
+          allOf:
+            - type: string
+              example: '1'
+            - description: Current validator balance in gwei.
     ValidatorStatus:
       description: |
         Possible statuses:
