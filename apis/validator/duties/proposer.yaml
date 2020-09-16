@@ -4,7 +4,7 @@ get:
     - Validator
   summary: "Get block proposers duties"
   operationId: "getProposerDuties"
-  description: "Request beacon node to provide all validators that are supposed to propose a block in the given epoch"
+  description: "Request beacon node to provide all validators that are scheduled to propose a block in the given epoch"
   parameters:
     - name: epoch
       in: path
