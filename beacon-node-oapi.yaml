@@ -110,7 +110,7 @@ paths:
   /eth/v1/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.yaml"
   /eth/v1/validator/aggregate_and_proofs:
-    $ref: "./apis/validator/aggregate_and_proof.yaml"
+    $ref: "./apis/validator/aggregate_and_proofs.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
 
