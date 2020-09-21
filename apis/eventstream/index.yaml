@@ -75,7 +75,7 @@ get:
         application/json:
           schema:
             allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/InvalidRequest"
+              - $ref: "../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
               - example:
                   code: 400
                   message: "Invalid topic: weather_forecast"

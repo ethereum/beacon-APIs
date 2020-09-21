@@ -23,7 +23,7 @@ post:
         application/json:
           schema:
             allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/InvalidRequest"
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
               - example:
                   code: 400
                   message: "Invalid block: missing signature"
