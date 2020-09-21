@@ -28,6 +28,16 @@ get:
                     $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
                   finalized:
                     $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:

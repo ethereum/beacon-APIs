@@ -21,6 +21,16 @@ get:
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
+    "400":
+      description: "The peer ID supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/InvalidRequest"
+              - example:
+                  code: 400
+                  message: "Invalid peer ID: localhost"
     "404":
       description: "Peer not found"
       content:

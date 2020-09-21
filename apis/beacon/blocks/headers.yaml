@@ -40,5 +40,15 @@ get:
                       type: boolean
                     header:
                       $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
+    "400":
+      description: "The slot or parent root supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/InvalidRequest"
+              - example:
+                  code: 400
+                  message: "Invalid slot: current"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
