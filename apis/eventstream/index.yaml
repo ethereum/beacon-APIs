@@ -67,7 +67,7 @@ get:
               description: The node has reorganized its chain
               value: |
                 event: chain_reorg\n
-                data: "{\"slot\":\"200\", \"depth\": \"50\", \"old_head_block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_block\": \"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76\", \"old_head_state\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_state_head\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
+                data: "{\"slot\":\"200\", \"depth\": \"50\", \"old_head_block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_block\": \"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76\", \"old_head_state\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_state\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
                 \n
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
