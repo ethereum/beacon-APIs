@@ -149,6 +149,29 @@ paths:
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
                           - description: HashTreeRoot of BeaconState object
+        '400':
+          description: Invalid state ID
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '404':
           description: State not found
           content:
@@ -238,6 +261,29 @@ paths:
                       epoch:
                         type: string
                         example: '1'
+        '400':
+          description: Invalid state ID
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '404':
           description: State not found
           content:
@@ -347,6 +393,29 @@ paths:
                             type: string
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
+        '400':
+          description: Invalid state ID
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '404':
           description: State not found
           content:
@@ -550,6 +619,29 @@ paths:
                                 - type: string
                                   example: '1'
                                 - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+        '400':
+          description: 'Invalid state or validator ID, or status'
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '500':
           description: Beacon node internal error.
           content:
@@ -686,6 +778,29 @@ paths:
                               - type: string
                                 example: '1'
                               - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+        '400':
+          description: Invalid state or validator ID
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '404':
           description: Not Found
           content:
@@ -788,6 +903,29 @@ paths:
                             - type: string
                               example: '1'
                             - description: Current validator balance in gwei.
+        '400':
+          description: Invalid state or validator ID
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '500':
           description: Beacon node internal error.
           content:
@@ -884,7 +1022,7 @@ paths:
                             type: string
                             example: '1'
         '400':
-          description: Slot doesn't belong in epoch
+          description: 'Invalid state ID, index, epoch, slot, or combination thereof'
           content:
             application/json:
               schema:
@@ -905,7 +1043,7 @@ paths:
                           type: string
                   - example:
                       code: 400
-                      message: Slot doesn't belong in epoch
+                      message: Slot does not belong in epoch
         '404':
           description: State not found
           content:
@@ -1039,6 +1177,29 @@ paths:
                               type: string
                               pattern: '^0x[a-fA-F0-9]{192}$'
                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+        '400':
+          description: The block ID supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid block ID: current'
         '500':
           description: Beacon node internal error.
           content:
@@ -1139,6 +1300,29 @@ paths:
                             type: string
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+        '400':
+          description: The block ID supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid block ID: current'
         '404':
           description: Block not found
           content:
@@ -1603,24 +1787,28 @@ paths:
         '202':
           description: 'The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node''s database.'
         '400':
-          description: Invalid request syntax.
+          description: The `SignedBeaconBlock` object is invalid
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    description: Either specific error code in case of invalid request or http status code
-                    type: number
-                    example: 400
-                  message:
-                    description: Message describing error
-                    type: string
-                  stacktraces:
-                    description: 'Optional stacktraces, sent when node is in debug mode'
-                    type: array
-                    items:
-                      type: string
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid block: missing signature'
         '500':
           description: Beacon node internal error.
           content:
@@ -2091,6 +2279,29 @@ paths:
                         type: string
                         pattern: '^0x[a-fA-F0-9]{192}$'
                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+        '400':
+          description: The block ID supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid block ID: current'
         '404':
           description: Block not found
           content:
@@ -2171,6 +2382,29 @@ paths:
                           - type: string
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
+        '400':
+          description: The block ID supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid block ID: current'
         '404':
           description: Block not found
           content:
@@ -2297,6 +2531,29 @@ paths:
                                   type: string
                                   example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                   pattern: '^0x[a-fA-F0-9]{64}$'
+        '400':
+          description: The block ID supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid block ID: current'
         '404':
           description: Block not found
           content:
@@ -2426,6 +2683,29 @@ paths:
                                   type: string
                                   example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                   pattern: '^0x[a-fA-F0-9]{64}$'
+        '400':
+          description: The slot or committee index could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid slot: current'
         '500':
           description: Beacon node internal error.
           content:
@@ -3694,6 +3974,29 @@ paths:
                             type: string
                             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                             pattern: '^0x[a-fA-F0-9]{64}$'
+        '400':
+          description: Invalid state ID
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid state ID: current'
         '500':
           description: Beacon node internal error.
           content:
@@ -3967,6 +4270,29 @@ paths:
                         enum:
                           - inbound
                           - outbound
+        '400':
+          description: The peer ID supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid peer ID: localhost'
         '404':
           description: Peer not found
           content:
@@ -4363,29 +4689,28 @@ paths:
                               example: '1'
                             - description: The slot at which the validator must attest.
         '400':
-          description: Invalid request
+          description: Invalid epoch or index
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    description: Either specific error code in case of invalid request or http status code
-                    type: number
-                    example: 404
-                  message:
-                    description: Message describing error
-                    type: string
-                  stacktraces:
-                    description: 'Optional stacktraces, sent when node is in debug mode'
-                    type: array
-                    items:
-                      type: string
-              examples:
-                InvalidEpoch:
-                  value:
-                    code: 400
-                    message: Cannot get attester duties for X epoch ahead
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid epoch: -2'
         '500':
           description: Beacon node internal error.
           content:
@@ -4475,29 +4800,28 @@ paths:
                               example: '1'
                             - description: The slot at which the validator must propose block.
         '400':
-          description: Invalid request
+          description: Invalid epoch
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  code:
-                    description: Either specific error code in case of invalid request or http status code
-                    type: number
-                    example: 404
-                  message:
-                    description: Message describing error
-                    type: string
-                  stacktraces:
-                    description: 'Optional stacktraces, sent when node is in debug mode'
-                    type: array
-                    items:
-                      type: string
-              examples:
-                InvalidEpoch:
-                  value:
-                    code: 400
-                    message: Cannot get attester duties for X epoch ahead
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid epoch: -2'
         '500':
           description: Beacon node internal error.
           content:
@@ -5620,6 +5944,29 @@ paths:
                     event: chain_reorg\n
                     data: "{\"slot\":\"200\", \"depth\": \"50\", \"old_head_block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_block\": \"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76\", \"old_head_state\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_state\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
                     \n
+        '400':
+          description: The topics supplied could not be parsed
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid topic: weather_forecast'
         '500':
           description: Beacon node internal error.
           content:
