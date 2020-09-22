@@ -22,6 +22,16 @@ get:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+    "400":
+      description: "The block ID supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block ID: current"
     "404":
       description: "Block not found"
       content:

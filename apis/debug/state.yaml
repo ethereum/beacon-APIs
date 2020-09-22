@@ -19,7 +19,16 @@ get:
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
-
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid state ID: current"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

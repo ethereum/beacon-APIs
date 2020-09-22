@@ -40,5 +40,15 @@ get:
                       type: boolean
                     header:
                       $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
+    "400":
+      description: "The block ID supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block ID: current"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

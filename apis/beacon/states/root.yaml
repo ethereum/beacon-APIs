@@ -24,6 +24,16 @@ get:
                     allOf:
                       - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
                       - description: HashTreeRoot of BeaconState object
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:

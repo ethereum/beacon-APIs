@@ -18,7 +18,15 @@ post:
     "202":
       description: "The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
     "400":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+      description: "The `SignedBeaconBlock` object is invalid"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block: missing signature"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

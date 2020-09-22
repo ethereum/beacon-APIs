@@ -48,7 +48,7 @@ get:
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Committee'
     "400":
-      description: "Slot doesn't belong in epoch"
+      description: "Invalid state ID, index, epoch, slot, or combination thereof"
       content:
         application/json:
           schema:
@@ -56,7 +56,7 @@ get:
               - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
               - example:
                   code: 400
-                  message: "Slot doesn't belong in epoch"
+                  message: "Slot does not belong in epoch"
     "404":
       description: "State not found"
       content:

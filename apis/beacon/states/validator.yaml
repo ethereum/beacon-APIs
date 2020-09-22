@@ -27,7 +27,16 @@ get:
             properties:
               data:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
-
+    "400":
+      description: "Invalid state or validator ID"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid state ID: current"
     "404":
       description: "Not Found"
       content:
