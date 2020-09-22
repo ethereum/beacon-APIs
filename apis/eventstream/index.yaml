@@ -3,6 +3,7 @@ get:
   summary: Subscribe to beacon node events
   tags:
     - Events
+    - ValidatorRequiredApi
   description: |
     Provides endpoint to subscribe to beacon node Server-Sent-Events stream.
     Consumers should use [eventsource](https://html.spec.whatwg.org/multipage/server-sent-events.html#the-eventsource-interface)
