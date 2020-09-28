@@ -1,4 +1,4 @@
-get:
+post:
   tags:
     - ValidatorRequiredApi
     - Validator
@@ -17,16 +17,17 @@ get:
       required: true
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-    - name: index
-      in: query
-      required: true
-      description: "Validator index"
-      schema:
-        type: array
-        items:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-        minItems: 1
-        maxItems: 100
+  requestBody:
+    description: "An array of the validator indices for which to obtain the duties."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: GetAttesterDutiesBody
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+            minItems: 1
   responses:
     "200":
       description: Success response
