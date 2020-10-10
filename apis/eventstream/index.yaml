@@ -20,12 +20,10 @@ get:
           uniqueItems: true
           enum:
             - state
-            - head
             - block
             - attestation
             - voluntary_exit
             - finalized_checkpoint
-            - chain_reorg
   responses:
     "200":
       description: Opened SSE stream.
