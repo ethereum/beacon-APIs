@@ -19,6 +19,7 @@ get:
           type: string
           uniqueItems: true
           enum:
+            - state
             - head
             - block
             - attestation
@@ -34,12 +35,30 @@ get:
             type: string
             description: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format
           examples:
-            head:
-              description: The node has finished processing, resulting in a new head
+            state:
+              description: |
+                The node has updated its state.  This event will be sent in three situations:
+
+                - a node has received a block, and updated state accordingly
+                - a node has _not_ received a block four seconds after the start of the slot, and updated state accordingly
+                - a node has carried out a chain reorganization, and updated state accordingly
+
+                The fields returned in the data for this event are:
+
+                  - **slot** the current slot as understood by the node
+                  - **block** the block root of the chain head as understood by the node
+                  - **state** the state root as understood by the node
+                  - **distance** the number of slots between the slot of the chain head and the current slot as understood by the node
+                  - **epoch_transition** _true_ if the slot marks the first slot in an epoch, otherwise _false_
+                  - **reorg** _true_ if the state has updated due to a reorganization, otherwise _false_
+                  - **reorg_distance** the number of slots between the slot of the block that caused a reorganization and the current slot as understood by the node
+
+                On receipt of this event a client can query the node for information about the given state using the provided state root.
+
+                Note that it is possible to receive multiple events for the same slot, when multiple situations as above occur within a single slot.  It is also possible to receive events for slots that are not the current slot, for example if the node is syncing.  The user should compare information about the slot returned by this event with the expected slot
               value: |
-                event: head\n
-                data: "{\"slot\": \"10\", \"block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"state\":\"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch_transition\": false}"\n
-                \n
+                event: state
+                data: {"slot": "10", "block": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "distance: "0", "epoch_transition": false, "reorg": false, "reorg_distance:" "0"}
             block:
               description: The node has received a block (from P2P or API)
               value: |
@@ -63,12 +82,6 @@ get:
               value: |
                 event: finalized_checkpoint\n
                 data: "{\"block\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"state\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
-                \n
-            chain_reorg:
-              description: The node has reorganized its chain
-              value: |
-                event: chain_reorg\n
-                data: "{\"slot\":\"200\", \"depth\": \"50\", \"old_head_block\": \"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_block\": \"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76\", \"old_head_state\":\"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf\", \"new_head_state\": \"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9\", \"epoch\": \"2\" }"\n
                 \n
     "400":
       description: "The topics supplied could not be parsed"
