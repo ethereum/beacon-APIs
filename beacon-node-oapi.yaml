@@ -4611,7 +4611,7 @@ paths:
                 code: 500
                 message: Internal server error
   '/eth/v1/validator/duties/attester/{epoch}':
-    get:
+    post:
       tags:
         - ValidatorRequiredApi
         - Validator
@@ -4628,17 +4628,18 @@ paths:
           schema:
             type: string
             example: '1'
-        - name: index
-          in: query
-          required: true
-          description: Validator index
-          schema:
-            type: array
-            items:
-              type: string
-              example: '1'
-            minItems: 1
-            maxItems: 100
+      requestBody:
+        description: An array of the validator indices for which to obtain the duties.
+        required: true
+        content:
+          application/json:
+            schema:
+              title: GetAttesterDutiesBody
+              type: array
+              items:
+                minItems: 1
+                type: string
+                example: '1'
       responses:
         '200':
           description: Success response
