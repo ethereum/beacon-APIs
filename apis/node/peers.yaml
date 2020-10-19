@@ -4,6 +4,23 @@ get:
     - Node
   summary: "Get node network peers"
   description: "Retrieves data about the node's network peers"
+  parameters:
+    - name: limit
+      in: query
+      required: false
+      schema:
+        description: "Max amount of items per page"
+        type: number
+        default: 10
+        minimum: 1
+    - name: page
+      in: query
+      required: false
+      schema:
+        description: "Current page"
+        type: number
+        default: 0
+        minimum: 0
   responses:
     "200":
       description: Request successful
@@ -17,6 +34,37 @@ get:
                 type: array
                 items:
                   $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
+              meta:
+                type: object
+                properties:
+                  count:
+                    description: "Total number of items"
+                    type: number
+                    example: 1
+                  items_per_page:
+                    type: number
+                    description: "Max amount of items per page"
+                    example: 10
+                  current_page:
+                    type: number
+                    example: 1
+              links:
+                type: object
+                properties:
+                  first:
+                    type: string
+                    example: "/eth/v1/node/peers?limit=10"
+                  previous: 
+                    type: string
+                    example: ""
+                  next: 
+                    type: string
+                    example: "/eth/v1/node/peers?page=1&limit=10"
+                  last: 
+                    type: string
+                    example: "/eth/v1/node/peers?page=3&limit=10"
+                
+              
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
