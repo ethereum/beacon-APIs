@@ -17,6 +17,7 @@
           allOf:
             - $ref: './p2p.yaml#/Multiaddr'
             - description: "Node's addresses on which is listening for discv5 requests. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
+            - example: "/ip4/7.7.7.7/udp/30303/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
       metadata:
         $ref: './p2p.yaml#/MetaData'
 
@@ -32,6 +33,7 @@
         allOf:
           - description: "Bitvector representing the node's persistent attestation subnet subscriptions."
           - $ref: "./primitive.yaml#/Hex"
+          - example: "0x0000000000000000"
 
   Peer:
     type: object
@@ -42,8 +44,10 @@
         allOf:
           - $ref: "./p2p.yaml#/ENR"
           - nullable: true
-      address:
-        $ref: "./p2p.yaml#/Multiaddr"
+      last_seen_p2p_address:
+        allOf:
+         - $ref: "./p2p.yaml#/Multiaddr"
+         - description: Multiaddrs used in last peer connection.
       state:
         type: string
         enum: ["disconnected", "connecting", "connected", "disconnecting"]
@@ -67,3 +71,6 @@
     type: string
     description: "[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
     example: "/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
+    examples: 
+      - "/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
+      - "/ip4/7.7.7.7/udp/34242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
