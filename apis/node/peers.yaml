@@ -3,7 +3,7 @@ get:
   tags:
     - Node
   summary: "Get node network peers"
-  description: "Retrieves data about the node's network peers"
+  description: "Retrieves data about the node's network peers. Peers should be sorted by their peer_id propery alphabetically."
   parameters:
     - name: limit
       in: query
