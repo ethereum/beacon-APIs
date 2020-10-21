@@ -43,8 +43,8 @@ get:
 
 post:
   operationId: submitPoolAttestations
-  summary: Submit Attestation object to node
-  description: Submits Attestation object to node. If attestation passes all validation constraints, node MUST publish attestation on appropriate subnet.
+  summary: Submit Attestation objects to node
+  description: Submits Attestation objects to node. If attestations pass all validation constraints, node MUST publish attestations on appropriate subnet.
   tags:
     - Beacon
     - ValidatorRequiredApi
@@ -53,10 +53,12 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
   responses:
     "200":
-      description: Attestation is stored in pool and broadcast on appropriate subnet
+      description: Attestations are stored in pool and broadcast on appropriate subnet
     "400":
       description: "Invalid attestation"
       content:
