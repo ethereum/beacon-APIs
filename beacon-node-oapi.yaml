@@ -182,6 +182,8 @@ components:
       $ref: './types/primitive.yaml#/Signature'
     ErrorMessage:
       $ref: './types/http.yaml#/ErrorMessage'
+    IndexedErrorMessage:
+      $ref: './types/http.yaml#/IndexedErrorMessage'
 
   parameters:
     StateId:

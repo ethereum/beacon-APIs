@@ -83,7 +83,6 @@ NotFound:
       example:
         code: 404
         message: "Requested item not found"
-
 ErrorMessage:
   type: object
   properties:
@@ -99,3 +98,28 @@ ErrorMessage:
       type: array
       items:
         type: string
+IndexedErrorMessage:
+  type: object
+  properties:
+    code:
+      description: "Either specific error code in case of invalid request or http status code"
+      type: number
+      example: 400
+    message:
+      description: "Message describing error"
+      type: string
+      example: "some failures"
+    failures:
+      description: "List of individual items that have failed"
+      type: array
+      items:
+        type: object
+        properties:
+          index:
+            description: "Index of item in the request list that caused the error"
+            type: number
+            example: 3
+          message:
+            description: "Message describing error"
+            type: string
+            example: "invalid signature"
