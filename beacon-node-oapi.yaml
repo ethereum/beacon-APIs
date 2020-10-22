@@ -166,6 +166,10 @@ components:
       $ref: './types/p2p.yaml#/Peer'
     PeerId:
       $ref: './types/p2p.yaml#/PeerId'
+    PeerConnectionState:
+      $ref: './types/p2p.yaml#/PeerConnectionState'
+    PeerConnectionDirection:
+      $ref: './types/p2p.yaml#/PeerConnectionDirection'
     GenesisTime:
       $ref: './types/primitive.yaml#/GenesisTime'
     Version:
