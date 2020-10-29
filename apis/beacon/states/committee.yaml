@@ -1,7 +1,7 @@
 get:
   operationId: "getEpochCommittees"
-  summary: "Get all committees for epoch"
-  description: "Retrieves the committees for the given state at the given epoch."
+  summary: "Get all committees for a state."
+  description: "Retrieves the committees for the given state."
   tags:
     - Beacon
   parameters:
@@ -9,16 +9,16 @@ get:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: epoch
-      description: "Epoch for which to calculate committees. Defaults to beacon state epoch."
-      in: path
-      required: true
-      allowEmptyValue: true
+      description: "Fetch committees for the given epoch.  If not present then the committees for the epoch of the state will be obtained."
+      in: query
+      required: false
+      allowEmptyValue: false
       schema:
         allOf:
           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
           - example: ""
     - name: index
-      description: "Committee index"
+      description: "Restrict returned values to those matching the supplied committee index."
       in: query
       required: false
       schema:
@@ -26,14 +26,13 @@ get:
           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
           - example: ""
     - name: slot
+      description: "Restrict returned values to those matching the supplied slot."
       in: query
       required: false
       schema:
         allOf:
           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
           - example: ""
-
-
   responses:
     "200":
       description: Success
