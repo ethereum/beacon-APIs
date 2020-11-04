@@ -3,10 +3,6 @@ NetworkIdentity:
   properties:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
-    peer_count:
-      type: number
-      description: Number of connected peers
-      example: 25
     enr:
       $ref: "./p2p.yaml#/ENR"
     p2p_addresses:

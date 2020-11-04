@@ -87,6 +87,8 @@ paths:
     $ref: "./apis/node/peers.yaml"
   /eth/v1/node/peers/{peer_id}:
     $ref: "./apis/node/peer.yaml"
+  /eth/v1/node/peer_count:
+    $ref: "./apis/node/peer_count.yaml"
   /eth/v1/node/version:
     $ref: "./apis/node/version.yaml"
   /eth/v1/node/syncing:

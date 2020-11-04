@@ -1,0 +1,32 @@
+get:
+  operationId: getPeerCount
+  tags:
+    - Node
+  summary: Get peer count
+  description: Retrieves number of known peers.
+  responses:
+    "200":
+      description: Request successful
+      content:
+        application/json:
+          schema:
+            title: GetPeerCountResponse
+            type: object
+            properties:
+              data:
+                type: object
+                properties: 
+                  disconnected:
+                    type: number
+                    example: 12
+                  connecting:
+                    type: number
+                    example: 34 
+                  connected:
+                    type: number 
+                    example: 56
+                  disconnecting:
+                    type: number
+                    example: 5
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
