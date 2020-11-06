@@ -90,7 +90,7 @@ Aggregate:
   properties:
     aggregator_index:
       $ref: './primitive.yaml#/Uint64'
-    attestation:
+    aggregate:
       $ref: './attestation.yaml#/Attestation'
 
 
