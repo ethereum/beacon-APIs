@@ -43,8 +43,13 @@ get:
 
 post:
   operationId: submitPoolAttestations
-  summary: Submit Attestation object to node
-  description: Submits Attestation object to node. If attestation passes all validation constraints, node MUST publish attestation on appropriate subnet.
+  summary: Submit Attestation objects to node
+  description: |
+    Submits Attestation objects to the node.  Each attestation in the request body is processed individually.
+    
+    If an attestation is validated successfully the node MUST publish that attestation on the appropriate subnet.
+
+    If one or more attestations fail validation the node MUST return a 400 error with details of which attestations have failed, and why.
   tags:
     - Beacon
     - ValidatorRequiredApi
@@ -53,19 +58,17 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
   responses:
     "200":
-      description: Attestation is stored in pool and broadcast on appropriate subnet
+      description: Attestations are stored in pool and broadcast on appropriate subnet
     "400":
-      description: "Invalid attestation"
+      description: "Errors with one or more attestations"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid attestation, it will never pass validation so it's rejected"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
