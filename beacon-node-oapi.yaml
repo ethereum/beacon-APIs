@@ -5789,6 +5789,9 @@ paths:
               items:
                 type: object
                 properties:
+                  validator_index:
+                    type: string
+                    example: '1'
                   committee_index:
                     type: string
                     example: '1'
