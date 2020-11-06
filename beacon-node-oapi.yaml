@@ -2731,8 +2731,13 @@ paths:
                 message: Internal server error
     post:
       operationId: submitPoolAttestations
-      summary: Submit Attestation object to node
-      description: 'Submits Attestation object to node. If attestation passes all validation constraints, node MUST publish attestation on appropriate subnet.'
+      summary: Submit Attestation objects to node
+      description: |
+        Submits Attestation objects to the node.  Each attestation in the request body is processed individually.
+
+        If an attestation is validated successfully the node MUST publish that attestation on the appropriate subnet.
+
+        If one or more attestations fail validation the node MUST return a 400 error with details of which attestations have failed, and why.
       tags:
         - Beacon
         - ValidatorRequiredApi
@@ -2741,84 +2746,92 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              description: 'The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#attestation) object from the Eth2.0 spec.'
-              properties:
-                aggregation_bits:
-                  type: string
-                  example: '0x01'
-                  pattern: '^0x[a-fA-F0-9]+$'
-                  description: Attester aggregation bits.
-                signature:
-                  allOf:
-                    - type: string
-                      pattern: '^0x[a-fA-F0-9]{192}$'
-                      example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                    - description: BLS aggregate signature.
-                data:
-                  type: object
-                  description: 'The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#attestationdata) object from the Eth2.0 spec.'
-                  properties:
-                    slot:
-                      type: string
-                      example: '1'
-                    index:
-                      type: string
-                      example: '1'
-                    beacon_block_root:
-                      allOf:
-                        - type: string
-                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                          pattern: '^0x[a-fA-F0-9]{64}$'
-                        - description: LMD GHOST vote.
-                    source:
-                      type: object
-                      description: 'The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#checkpoint'
-                      properties:
-                        epoch:
-                          type: string
-                          example: '1'
-                        root:
-                          type: string
-                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                          pattern: '^0x[a-fA-F0-9]{64}$'
-                    target:
-                      type: object
-                      description: 'The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#checkpoint'
-                      properties:
-                        epoch:
-                          type: string
-                          example: '1'
-                        root:
-                          type: string
-                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                          pattern: '^0x[a-fA-F0-9]{64}$'
+              type: array
+              items:
+                type: object
+                description: 'The [`Attestation`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#attestation) object from the Eth2.0 spec.'
+                properties:
+                  aggregation_bits:
+                    type: string
+                    example: '0x01'
+                    pattern: '^0x[a-fA-F0-9]+$'
+                    description: Attester aggregation bits.
+                  signature:
+                    allOf:
+                      - type: string
+                        pattern: '^0x[a-fA-F0-9]{192}$'
+                        example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                      - description: BLS aggregate signature.
+                  data:
+                    type: object
+                    description: 'The [`AttestationData`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#attestationdata) object from the Eth2.0 spec.'
+                    properties:
+                      slot:
+                        type: string
+                        example: '1'
+                      index:
+                        type: string
+                        example: '1'
+                      beacon_block_root:
+                        allOf:
+                          - type: string
+                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                            pattern: '^0x[a-fA-F0-9]{64}$'
+                          - description: LMD GHOST vote.
+                      source:
+                        type: object
+                        description: 'The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#checkpoint'
+                        properties:
+                          epoch:
+                            type: string
+                            example: '1'
+                          root:
+                            type: string
+                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                            pattern: '^0x[a-fA-F0-9]{64}$'
+                      target:
+                        type: object
+                        description: 'The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#checkpoint'
+                        properties:
+                          epoch:
+                            type: string
+                            example: '1'
+                          root:
+                            type: string
+                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                            pattern: '^0x[a-fA-F0-9]{64}$'
       responses:
         '200':
-          description: Attestation is stored in pool and broadcast on appropriate subnet
+          description: Attestations are stored in pool and broadcast on appropriate subnet
         '400':
-          description: Invalid attestation
+          description: Errors with one or more attestations
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                    example: some failures
+                  failures:
+                    description: List of individual items that have failed
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          description: Index of item in the request list that caused the error
+                          type: number
+                          example: 3
+                        message:
+                          description: Message describing error
                           type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid attestation, it will never pass validation so it''s rejected'
+                          example: invalid signature
         '500':
           description: Beacon node internal error.
           content:
@@ -7952,6 +7965,31 @@ components:
           type: array
           items:
             type: string
+    IndexedErrorMessage:
+      type: object
+      properties:
+        code:
+          description: Either specific error code in case of invalid request or http status code
+          type: number
+          example: 400
+        message:
+          description: Message describing error
+          type: string
+          example: some failures
+        failures:
+          description: List of individual items that have failed
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                description: Index of item in the request list that caused the error
+                type: number
+                example: 3
+              message:
+                description: Message describing error
+                type: string
+                example: invalid signature
   parameters:
     StateId:
       name: state_id
