@@ -17,11 +17,10 @@ get:
                 type: object
                 properties:
                   chain_id:
-                    description: Id of Eth1 chain on which contract is deployed.
-                    type: integer
-                    format: int32
-                    example: 1
-                    minimum: 1
+                    allOf:
+                      - $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
+                      - description: Id of Eth1 chain on which contract is deployed.
+                      - example: "1"
                   address:
                     allOf:
                       - $ref: ../../beacon-node-oapi.yaml#/components/schemas/Hex
