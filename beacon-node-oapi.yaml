@@ -4615,11 +4615,11 @@ paths:
                     type: object
                     properties:
                       chain_id:
-                        description: Id of Eth1 chain on which contract is deployed.
-                        type: integer
-                        format: int32
-                        example: 1
-                        minimum: 1
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - description: Id of Eth1 chain on which contract is deployed.
+                          - example: '1'
                       address:
                         allOf:
                           - type: string
