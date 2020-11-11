@@ -3,7 +3,24 @@ get:
   tags:
     - Node
   summary: "Get node network peers"
-  description: "Retrieves data about the node's network peers"
+  description: "Retrieves data about the node's network peers. By default this returns all peers. Multiple query params are combined using AND conditions"
+  parameters:
+    - name: state
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: "../../beacon-node-oapi.yaml#/components/schemas/PeerConnectionState"
+    - name: direction
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: "../../beacon-node-oapi.yaml#/components/schemas/PeerConnectionDirection"
   responses:
     "200":
       description: Request successful
@@ -16,7 +33,14 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
-    "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Peer"
+              meta:
+                type: object
+                properties:
+                  count:
+                    description: "Total number of items"
+                    type: number
+                    example: 1
 
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
