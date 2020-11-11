@@ -3,7 +3,7 @@ get:
   tags:
     - Node
   summary: "Get node network peers"
-  description: "Retrieves data about the node's network peers. By default it's gonna return all peers. Multiple query params are combined using AND conditions"
+  description: "Retrieves data about the node's network peers. By default this returns all peers. Multiple query params are combined using AND conditions"
   parameters:
     - name: state
       in: query

@@ -17,16 +17,20 @@ get:
                 type: object
                 properties: 
                   disconnected:
-                    type: number
-                    example: 12
+                    allOf:
+                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                      - example: "12"
                   connecting:
-                    type: number
-                    example: 34 
+                    allOf:
+                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                      - example: "34"
                   connected:
-                    type: number 
-                    example: 56
+                    allOf:
+                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                      - example: "56"
                   disconnecting:
-                    type: number
-                    example: 5
+                    allOf:
+                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                      - example: "5"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
