@@ -7,8 +7,13 @@ get:
   parameters:
     - name: state_id
       in: path
+      example: "head"
       required: true
-      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+      schema:
+        type: string
+      description: |
+        State identifier.
+        Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
   responses:
     "200":
       description: Success
