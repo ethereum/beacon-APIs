@@ -7,9 +7,8 @@ get:
   description: "Request beacon node to provide all validators that are scheduled to propose a block in the given epoch.
 
     Duties should only need to be checked once per epoch,
-    however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur,
-    resulting in a change of duties. For full safety, you should monitor head events and confirm the
-    dependent root in this response matches:
+    however a chain reorganization could occur that results in a change of duties. For full safety,
+    you should monitor head events and confirm the dependent root in this response matches:
 
      - event.current_duty_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
 
