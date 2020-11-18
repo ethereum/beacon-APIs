@@ -31,7 +31,7 @@ Uint64:
 DependentRoot:
   allOf:
     - $ref: "./primitive.yaml#/Root"
-    - description: "The block root that this response is dependent on. The data in this response is accurate only when the block with this root is on the canonical chain."
+    - description: "The block root that this response is dependent on."
 
 Root:
   type: string
