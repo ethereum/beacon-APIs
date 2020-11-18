@@ -178,6 +178,8 @@ components:
       $ref: './types/primitive.yaml#/Version'
     ForkVersion:
       $ref: './types/primitive.yaml#/ForkVersion'
+    DependentRoot:
+      $ref: './types/primitive.yaml#/DependentRoot'
     Root:
       $ref: './types/primitive.yaml#/Root'
     Hex:
