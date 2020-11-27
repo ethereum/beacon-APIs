@@ -28,6 +28,11 @@ Uint64:
   type: string
   example: "1"
 
+DependentRoot:
+  allOf:
+    - $ref: "./primitive.yaml#/Root"
+    - description: "The block root that this response is dependent on."
+
 Root:
   type: string
   example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
