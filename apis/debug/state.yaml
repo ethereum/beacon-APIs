@@ -28,7 +28,8 @@ get:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
         application/octet-stream:
-          description: "SSZ serialized state bytes. Use Accept header to choose this response type"
+          schema:
+            description: "SSZ serialized state bytes. Use Accept header to choose this response type"
     "400":
       description: "Invalid state ID"
       content:
