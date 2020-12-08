@@ -1,7 +1,9 @@
 get:
   operationId: "getState"
   summary: "Get full BeaconState object"
-  description: "Returns full BeaconState object for given stateId."
+  description: |
+     Returns full BeaconState object for given stateId.
+     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
   tags:
     - Debug
   parameters:
@@ -25,6 +27,8 @@ get:
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+        application/octet-stream:
+          description: "SSZ serialized state bytes. Use Accept header to choose this response type"
     "400":
       description: "Invalid state ID"
       content:
