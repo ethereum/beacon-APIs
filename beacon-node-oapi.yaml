@@ -2,7 +2,14 @@ openapi: "3.0.3"
 
 info:
   title: "Eth2 Beacon Node API"
-  description: "API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain."
+  description: |
+    API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
+
+    All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json" 
+    and "Accept: application/json" headers.
+    In addition, some request can return data in the SSZ format.
+    To indicate that SSZ data is required in response to a request the header "Accept: application/octet-stream" should be sent. 
+    Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
   version: "Dev - Eth2Spec v0.12.2"
   contact:
     name: Ethereum Github
