@@ -15,6 +15,10 @@ ValidatorResponse:
       $ref: "#/ValidatorStatus"
     validator:
       $ref: "./validator.yaml#/Validator"
+    epoch:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Data are referred to this epoch."
 
 ValidatorBalanceResponse:
   type: object
@@ -27,6 +31,10 @@ ValidatorBalanceResponse:
       allOf:
         - $ref: "./primitive.yaml#/Gwei"
         - description: "Current validator balance in gwei."
+    epoch:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "Data are referred to this epoch."
 
 ValidatorStatus:
   description: |
