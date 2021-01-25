@@ -1,7 +1,7 @@
 get:
   operationId: getDepositContract
   summary: Get deposit contract address.
-  description: Retrieve deposit contract address and genesis fork version.
+  description: Retrieve Eth1 deposit contract address and chain ID.
   tags:
     - Config
   responses:
