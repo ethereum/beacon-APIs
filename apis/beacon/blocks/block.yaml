@@ -1,7 +1,9 @@
 get:
   operationId: getBlock
   summary: Get block
-  description: Retrieves block details for given block id.
+  description: |
+    Returns the complete `SignedBeaconBlock` for a given block ID.
+    Depending on the `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
   tags:
     - Beacon
   parameters:
