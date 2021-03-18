@@ -1,0 +1,48 @@
+get:
+  operationId: getBlock
+  summary: Get block
+  description: Retrieves block details for given block id.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetBlockResponse
+            type: object
+            properties:
+              version:
+                type: string
+                enum: [phase0, altona]
+              data:
+                oneOf:
+                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
+                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/v2/SignedBeaconBlock"
+    "400":
+      description: "The block ID supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block ID: current"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Block not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
