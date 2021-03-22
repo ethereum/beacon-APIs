@@ -212,6 +212,9 @@ components:
       $ref: './params/index.yaml#/BlockId'
 
   responses:
+    v2:
+      GetBlockResponse:
+        $ref: './types/http.yaml#/V2/Beacon/GetBlockResponse'
     InvalidRequest:
       $ref: './types/http.yaml#/InvalidRequest'
     InternalError:

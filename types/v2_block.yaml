@@ -21,7 +21,7 @@ BeaconBlockCommon:
 
 BeaconBlockBody:
   type: object
-  description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#beaconblockbody) object from the Eth2.0 Altair spec."
+  description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#beaconblockbody) object from the Eth2.0 Altair spec."
   properties:
     randao_reveal:
       allOf:
@@ -56,7 +56,7 @@ BeaconBlockBody:
       $ref: './sync_aggregate.yaml#/SyncAggregate'
 
 BeaconBlock:
-  description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 Altair spec."
+  description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#beaconblock) object from the Eth2.0 Altair spec."
   allOf:
     - $ref: '#/BeaconBlockCommon'
     - type: object
@@ -66,7 +66,7 @@ BeaconBlock:
 
 SignedBeaconBlock:
   type: object
-  description: "The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 Altair spec."
+  description: "The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 Altair spec."
   properties:
     message:
       $ref: "#/BeaconBlock"

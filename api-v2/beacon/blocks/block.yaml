@@ -1,5 +1,5 @@
 get:
-  operationId: getBlock
+  operationId: getBlockV2
   summary: Get block
   description: Retrieves block details for given block id.
   tags:
