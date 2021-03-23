@@ -201,9 +201,9 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
-    altair:
+    Altair:
       SignedBeaconBlock:
-        $ref: './types/altair/block.yaml#/SignedBeaconBlock'
+        $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
 
   parameters:
     StateId:
