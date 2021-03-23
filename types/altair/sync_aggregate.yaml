@@ -8,4 +8,4 @@ SyncAggregate:
       example: "0x01"
       description: "Aggregation bits of sync"
     sync_committee_signature:
-      $ref: './primitive.yaml#/Signature'
+      $ref: '../primitive.yaml#/Signature'

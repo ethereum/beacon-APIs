@@ -4,19 +4,19 @@ BeaconBlockCommon:
   properties:
     slot:
       allOf:
-        - $ref: "./primitive.yaml#/Uint64"
+        - $ref: "../primitive.yaml#/Uint64"
         - description: "The slot to which this block corresponds."
     proposer_index:
       allOf:
-        - $ref: './primitive.yaml#/Uint64'
+        - $ref: '../primitive.yaml#/Uint64'
         - description: "Index of validator in validator registry."
     parent_root:
       allOf:
-        - $ref: './primitive.yaml#/Root'
+        - $ref: '../primitive.yaml#/Root'
         - description: "The signing merkle root of the parent `BeaconBlock`."
     state_root:
       allOf:
-        - $ref: './primitive.yaml#/Root'
+        - $ref: '../primitive.yaml#/Root'
         - description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
 
 BeaconBlockBody:
@@ -25,33 +25,33 @@ BeaconBlockBody:
   properties:
     randao_reveal:
       allOf:
-        - $ref: './primitive.yaml#/Signature'
+        - $ref: '../primitive.yaml#/Signature'
         - description: "The RanDAO reveal value provided by the validator."
     eth1_data:
-      $ref: './eth1.yaml#/Eth1Data'
+      $ref: '../eth1.yaml#/Eth1Data'
     graffiti:
       type: string
       pattern: "^0x[a-fA-F0-9]{64}$"
     proposer_slashings:
       type: array
       items:
-        $ref: './proposer_slashing.yaml#/ProposerSlashing'
+        $ref: '../proposer_slashing.yaml#/ProposerSlashing'
     attester_slashings:
       type: array
       items:
-        $ref: './attester_slashing.yaml#/AttesterSlashing'
+        $ref: '../attester_slashing.yaml#/AttesterSlashing'
     attestations:
       type: array
       items:
-        $ref: './attestation.yaml#/Attestation'
+        $ref: '../attestation.yaml#/Attestation'
     deposits:
       type: array
       items:
-        $ref: './deposit.yaml#/Deposit'
+        $ref: '../deposit.yaml#/Deposit'
     voluntary_exits:
       type: array
       items:
-        $ref: './voluntary_exit.yaml#/SignedVoluntaryExit'
+        $ref: '../voluntary_exit.yaml#/SignedVoluntaryExit'
     sync_aggregate:
       $ref: './sync_aggregate.yaml#/SyncAggregate'
 
@@ -71,4 +71,4 @@ SignedBeaconBlock:
     message:
       $ref: "#/BeaconBlock"
     signature:
-      $ref: "./primitive.yaml#/Signature"
+      $ref: "../primitive.yaml#/Signature"

@@ -139,4 +139,4 @@ V2:
               data:
                 oneOf:
                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
-                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/v2/SignedBeaconBlock"
+                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/altair/SignedBeaconBlock"
