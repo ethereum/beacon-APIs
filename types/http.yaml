@@ -123,20 +123,4 @@ IndexedErrorMessage:
             description: "Message describing error"
             type: string
             example: "invalid signature"
-V2:
-  Beacon:
-    GetBlockResponse:
-      description: Success
-      content:
-        application/json:
-          schema:
-            title: GetBlockResponse
-            type: object
-            properties:
-              version:
-                type: string
-                enum: [phase0, altair]
-              data:
-                oneOf:
-                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
-                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair/SignedBeaconBlock"
+

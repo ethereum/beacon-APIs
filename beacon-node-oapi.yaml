@@ -70,7 +70,7 @@ paths:
   /eth/v1/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.yaml"
   /eth/v2/beacon/blocks/{block_id}:
-    $ref: "./api-v2/beacon/blocks/block.yaml"
+    $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
@@ -201,9 +201,8 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
-    Altair:
-      SignedBeaconBlock:
-        $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
+    Altair.SignedBeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
 
   parameters:
     StateId:
@@ -212,9 +211,6 @@ components:
       $ref: './params/index.yaml#/BlockId'
 
   responses:
-    v2:
-      GetBlockResponse:
-        $ref: './types/http.yaml#/V2/Beacon/GetBlockResponse'
     InvalidRequest:
       $ref: './types/http.yaml#/InvalidRequest'
     InternalError:

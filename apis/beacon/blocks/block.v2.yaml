@@ -10,7 +10,21 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
   responses:
     "200":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/v2/GetBlockResponse'
+      description: "Successful response"
+      content:
+        application/json:
+          schema:
+            title: GetBlockV2Response
+            type: object
+            properties:
+              version:
+                type: string
+                enum: [phase0, altair]
+                example: "phase0"
+              data:
+                oneOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
     "400":
       description: "The block ID supplied could not be parsed"
       content:
