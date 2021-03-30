@@ -1,7 +1,9 @@
 get:
   operationId: getBlock
   summary: Get block
-  description: Retrieves block details for given block id.
+  description: |
+    Returns the complete `SignedBeaconBlock` for a given block ID.
+    Depending on the `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
   tags:
     - Beacon
   parameters:
@@ -19,6 +21,9 @@ get:
             properties:
               data:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized block bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:
