@@ -23,7 +23,7 @@ Result are array of objects with validator, his committee and attestation slot.
 
 Attesting:
 1. Upon receiving duty, have beacon node prepare committee subnet
-    - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/eth2.0-specs/blob/v0.12.2/specs/phase0/validator.md#attestation-aggregation)
+    - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/validator.md#attestation-aggregation)
     - [Ask beacon node to prepare your subnet](#/ValidatorRequiredApi/prepareBeaconCommitteeSubnet)
       -- Note, validator client only needs to submit one call to
       `prepareBeaconCommitteeSubnet` per committee/slot its validators have
