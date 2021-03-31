@@ -63,8 +63,10 @@
           SwaggerUIBundle.plugins.DownloadUrl
         ],
         layout: "StandaloneLayout",
-        requestInterceptor: function() {   
-          this.url = "https://thingproxy.freeboard.io/fetch/" + this.url; // will change the URL used.
+        requestInterceptor: function() {
+          if(this.url.startsWith("http")) {
+            this.url = "https://cors-anywhere.herokuapp.com/" + this.url; // will change the URL used.
+          }
           return this;
         }
    })
