@@ -62,8 +62,12 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        layout: "StandaloneLayout"
-      })
+        layout: "StandaloneLayout",
+        requestInterceptor: function() {   
+          this.url = "https://thingproxy.freeboard.io/fetch/" + this.url; // will change the URL used.
+          return this;
+        }
+   })
       // End Swagger UI call region
 
       window.ui = ui
