@@ -47,7 +47,8 @@
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
         urls: [
-          {url: "./beacon-node-oapi.yaml", name: "dev"}
+          {url: "./beacon-node-oapi.yaml", name: "dev"},
+          {url: "https://github.com/ethereum/eth2.0-APIs/releases/download/v1/beacon-node-oapi.yaml", name: "v1"}
         ],
         basePath: "/",
         dom_id: '#swagger-ui',
@@ -61,8 +62,12 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        layout: "StandaloneLayout"
-      })
+        layout: "StandaloneLayout",
+        requestInterceptor: function() {   
+          this.url = "https://thingproxy.freeboard.io/fetch/" + this.url; // will change the URL used.
+          return this;
+        }
+   })
       // End Swagger UI call region
 
       window.ui = ui
