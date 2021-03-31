@@ -9,7 +9,7 @@ info:
     In addition, some request can return data in the SSZ format.
     To indicate that SSZ data is required in response to a request the header "Accept: application/octet-stream" should be sent. 
     Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
-  version: V1 - Eth2Spec v1.0.1
+  version: Dev - Eth2Spec v1.0.1
   contact:
     name: Ethereum Github
     url: 'https://github.com/ethereum/eth2.0-apis/issues'
