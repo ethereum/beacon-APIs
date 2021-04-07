@@ -123,3 +123,4 @@ IndexedErrorMessage:
             description: "Message describing error"
             type: string
             example: "invalid signature"
+
