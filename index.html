@@ -65,7 +65,7 @@
         layout: "StandaloneLayout",
         requestInterceptor: function() {
           if(this.url.startsWith("http")) {
-            this.url = "https://cors-anywhere.herokuapp.com/" + this.url; // will change the URL used.
+            this.url = "https://api.allorigins.win/raw?url=" + this.url; // will change the URL used.
           }
           return this;
         }
