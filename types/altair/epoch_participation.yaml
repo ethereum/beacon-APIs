@@ -1,0 +1,7 @@
+Altair:
+  EpochParticipation:
+    type: array
+    items:
+      allOf:
+        - $ref: '../primitive.yaml#/Uint8'
+    maxItems: 1099511627776

@@ -87,6 +87,8 @@ paths:
 
   /eth/v1/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.yaml'
+  /eth/v2/debug/beacon/states/{state_id}:
+    $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
     $ref: './apis/debug/heads.yaml'
 
@@ -203,6 +205,8 @@ components:
       $ref: './types/http.yaml#/IndexedErrorMessage'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
+    Altair.BeaconState:
+      $ref: './types/altair/state.yaml#/Altair/BeaconState'
 
   parameters:
     StateId:

@@ -1,0 +1,61 @@
+get:
+  operationId: "getStateV2"
+  summary: "Get full BeaconState object"
+  description: |
+     Returns full BeaconState object for given stateId.
+     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+  tags:
+    - Debug
+  parameters:
+    - name: state_id
+      in: path
+      example: "head"
+      required: true
+      schema:
+        type: string
+      description: |
+        State identifier.
+        Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateV2Response
+            type: object
+            properties:
+              version:
+                type: string
+                enum: [ phase0, altair ]
+                example: "phase0"
+              data:
+                oneOf:
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized state bytes. Use Accept header to choose this response type"
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "State not found"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
