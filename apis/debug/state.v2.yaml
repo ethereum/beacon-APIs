@@ -9,7 +9,7 @@ get:
   parameters:
     - name: state_id
       in: path
-      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
   responses:
     "200":
       description: Success
