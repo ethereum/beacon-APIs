@@ -9,13 +9,6 @@ post:
     from its API or from any other source. It is important to note that the
     values returned by the beacon node are not canonical; they are best-effort
     and based upon a subjective view of the network."
-  parameters:
-    - name: epoch
-      description: "Should only be allowed 1 epoch ahead"
-      in: path
-      required: true
-      schema:
-        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   requestBody:
     description: "An array of the validator indices for which to detect liveness."
     required: true
@@ -23,10 +16,15 @@ post:
       application/json:
         schema:
           title: GetAttesterDutiesBody
-          type: array
-          items:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-            minItems: 1
+          type: object
+          properties:
+            epoch:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+            indices:
+              type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                minItems: 1
   responses:
     "200":
       description: Success response
