@@ -8,7 +8,7 @@ post:
     observing messages from the validator on the network, in the beacon chain,
     from its API or from any other source. It is important to note that the
     values returned by the beacon node are not canonical; they are best-effort
-    and based upon a subjective view of the network"
+    and based upon a subjective view of the network."
   parameters:
     - name: epoch
       description: "Should only be allowed 1 epoch ahead"
