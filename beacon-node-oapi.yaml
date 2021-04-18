@@ -126,6 +126,8 @@ paths:
     $ref: "./apis/validator/aggregate_and_proofs.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
+  /eth/v1/validator/liveness:
+    $ref: "./apis/validator/liveness.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"

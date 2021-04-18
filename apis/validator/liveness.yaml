@@ -1,0 +1,61 @@
+post:
+  tags:
+    - Validator
+  summary: "Indicates if a validator has been observed on the network"
+  operationId: "getLiveness"
+  description: "Requests the beacon node to indicate if a validator has been observed to produce signed messages for a given epoch.
+    These messages may have been observed on the network, on-chain, via the API
+    or any other source. The primary purpose of this endpoint is to detect if a
+    validator is actively participating in the network so that another,
+    conflicting instance is not started. It is important to note that the
+    values returned here are not canonical, subjective and best-effort"
+  parameters:
+    - name: epoch
+      description: "Should only be allowed 1 epoch ahead"
+      in: path
+      required: true
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  requestBody:
+    description: "An array of the validator indices for which to detect liveness."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: GetAttesterDutiesBody
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+            minItems: 1
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: GetAttesterDutiesBody
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    index:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    is_live:
+                      type: boolean
+    "400":
+      description: "Invalid epoch or index"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid epoch: -2"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
