@@ -4,12 +4,11 @@ post:
   summary: "Indicates if a validator has been observed on the network"
   operationId: "getLiveness"
   description: "Requests the beacon node to indicate if a validator has been
-    observed to be live (e.g., producing messages) a given epoch.  These
-    messages may have been observed on the network, on-chain, via the API or
-    any other source.  The primary purpose of this endpoint is to detect if a
-    validator is actively participating in the network so that another,
-    conflicting instance is not started. It is important to note that the
-    values returned here are not canonical, subjective and best-effort"
+    observed to be live a given epoch. The beacon node might detect liveness by
+    observing messages from the validator on the network, in the beacon chain,
+    from its API or from any other source. It is important to note that the
+    values returned by the beacon node are not canonical; they are best-effort
+    and based upon a subjective view of the network"
   parameters:
     - name: epoch
       description: "Should only be allowed 1 epoch ahead"
