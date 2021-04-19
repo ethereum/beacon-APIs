@@ -52,3 +52,9 @@ Signature:
   type: string
   pattern: "^0x[a-fA-F0-9]{192}$"
   example: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"
+
+Uint8:
+  type: string
+  description: "Unsigned 8 bit integer, max value 255"
+  pattern: "^[1-2]?[0-9]{1,2}$"
+  example: "0"

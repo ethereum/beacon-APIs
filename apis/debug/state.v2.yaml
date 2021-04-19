@@ -1,5 +1,5 @@
 get:
-  operationId: "getState"
+  operationId: "getStateV2"
   summary: "Get full BeaconState object"
   description: |
      Returns full BeaconState object for given stateId.
@@ -17,11 +17,17 @@ get:
       content:
         application/json:
           schema:
-            title: GetStateResponse
+            title: GetStateV2Response
             type: object
             properties:
+              version:
+                type: string
+                enum: [ phase0, altair ]
+                example: "phase0"
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                oneOf:
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"
