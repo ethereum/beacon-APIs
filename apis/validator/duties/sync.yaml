@@ -1,0 +1,68 @@
+post:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  summary: "Get sync committee duties"
+  operationId: "getSyncCommitteeDuties"
+  description: "Requests the beacon node to provide a set of sync committee duties for a particular epoch.
+
+    Duties should only need to be checked once per epoch,
+    however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur,
+    resulting in a change of duties. For full safety, you should monitor head events and confirm the
+    dependent root in this response matches:
+
+      - event.previous_duty_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
+
+      - event.current_duty_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
+
+      - event.block otherwise
+
+    The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
+    or the genesis block root in the case of underflow."
+  parameters:
+    - name: epoch
+      description: "Should only be allowed 1 epoch ahead"
+      in: path
+      required: true
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  requestBody:
+    description: "An array of the validator indices for which to obtain the duties."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: GetSyncCommitteeDutiesBody
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+            minItems: 1
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: GetSyncCommitteeDutiesResponse
+            type: object
+            properties:
+              dependent_root:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncDuty'
+    "400":
+      description: "Invalid epoch or index"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid epoch: -2"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
