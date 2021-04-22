@@ -86,10 +86,12 @@ Altair:
         allOf:
           - $ref: "./primitive.yaml#/Uint64"
           - description: "Index of validator in validator registry."
-      sync_committee_index:
-        allOf:
-          - $ref: "./primitive.yaml#/Uint64"
-          - description: "The index of the validator in the sync committee."
+      sync_committee_indices:
+        type: array
+        description: "The indices of the validator in the sync committee."
+        minItems: 1
+        items:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
 
 AggregateAndProof:
   allOf:
