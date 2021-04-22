@@ -91,7 +91,7 @@ Altair:
         description: "The indices of the validator in the sync committee."
         minItems: 1
         items:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          $ref: './primitive.yaml#/Uint64'
 
 AggregateAndProof:
   allOf:
