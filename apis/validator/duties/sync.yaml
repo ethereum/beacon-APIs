@@ -46,8 +46,6 @@ post:
             title: GetSyncCommitteeDutiesResponse
             type: object
             properties:
-              dependent_root:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
               data:
                 type: array
                 items:
