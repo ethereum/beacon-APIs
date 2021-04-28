@@ -8,7 +8,7 @@ post:
 
     If a sync committee signature is validated successfully the node MUST publish that sync committee signature on the appropriate subnet.
 
-    If one or more sync committee signatures fail validation the node MUST return a 400 error with details of which sync committee signature have failed, and why.
+    If one or more sync committee signatures fail validation the node MUST return a 400 error with details of which sync committee signatures have failed, and why.
 
   tags:
     - Beacon
