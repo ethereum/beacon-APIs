@@ -21,7 +21,7 @@ Altair:
     properties:
       validator_index:
         $ref: '../primitive.yaml#/Uint64'
-      sub_committees:
+      sync_committee_indices:
         type: array
         items:
           allOf:
