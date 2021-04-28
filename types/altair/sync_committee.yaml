@@ -16,3 +16,14 @@ Altair:
             - $ref: '../primitive.yaml#/Pubkey'
         minItems: 16
         maxItems: 16
+  SyncCommitteeSignature:
+      type: object
+      properties:
+        slot:
+          $ref: '../primitive.yaml#/Uint64'
+        beacon_block_root:
+          $ref: '../primitive.yaml#/Root'
+        validator_index:
+          $ref: '../primitive.yaml#/Uint64'
+        signature:
+          $ref: '../primitive.yaml#/Signature'
