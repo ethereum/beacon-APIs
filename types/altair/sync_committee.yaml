@@ -16,3 +16,15 @@ Altair:
             - $ref: '../primitive.yaml#/Pubkey'
         minItems: 16
         maxItems: 16
+  SyncCommitteeSubscription:
+    type: object
+    properties:
+      validator_index:
+        $ref: '../primitive.yaml#/Uint64'
+      sync_committee_indices:
+        type: array
+        items:
+          allOf:
+           - $ref: '../primitive.yaml#/Uint64'
+      until_epoch:
+        $ref: '../primitive.yaml#/Uint64'
