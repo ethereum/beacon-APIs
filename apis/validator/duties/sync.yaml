@@ -7,7 +7,7 @@ post:
   description: "Requests the beacon node to provide a set of sync committee duties for a particular epoch."
   parameters:
     - name: epoch
-      description: "Should only be allowed 1 epoch ahead"
+      description: "epoch // EPOCHS_PER_SYNC_COMMITTEE_PERIOD <= current_epoch // EPOCHS_PER_SYNC_COMMITTEE_PERIOD + 1"
       in: path
       required: true
       schema:
