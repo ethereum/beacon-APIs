@@ -86,7 +86,7 @@ Altair:
         allOf:
           - $ref: "./primitive.yaml#/Uint64"
           - description: "Index of validator in validator registry."
-      sync_committee_indices:
+      validator_sync_committee_indices:
         type: array
         description: "The indices of the validator in the sync committee."
         minItems: 1
