@@ -23,7 +23,7 @@ get:
       description: "the block root for which to produce the contribution."
       required: true
       schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/root"
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
   responses:
     "200":
       description: Success response
