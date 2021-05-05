@@ -28,3 +28,27 @@ Altair:
            - $ref: '../primitive.yaml#/Uint64'
       until_epoch:
         $ref: '../primitive.yaml#/Uint64'
+  SyncCommitteeContribution:
+    type: object
+    properties:
+      slot:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "The slot at which the validator is providing a sync committee contribution."
+      beacon_block_root:
+        allOf:
+          - $ref: '../primitive.yaml#/Root'
+          - description: "Block root for this contribution."
+      subcommittee_index:
+        allOf:
+          - $ref: '../primitive.yaml#/Uint64'
+          - description: 'The index of the subcommittee that the contribution pertains to.'
+      aggregation_bits:
+        allOf:
+          - description: 'A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.'
+          - $ref: "../primitive.yaml#/Hex"
+          - example: "0x01"
+      signature:
+        allOf:
+          - $ref: '../primitive.yaml#/Signature'
+          - description: 'Signature by the validator(s) over the block root of `slot`'
