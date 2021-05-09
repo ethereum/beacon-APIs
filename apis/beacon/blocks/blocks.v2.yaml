@@ -3,7 +3,7 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
-  operationId: "publishBlock"
+  operationId: "publishBlockV2"
   description: |
     Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,
     to be included in the beacon chain. The beacon node is not required to validate the signed
@@ -12,14 +12,25 @@ post:
     validate the block internally, however blocks which fail the validation are still broadcast
     but a different status code is returned (202)
 
-    __NOTE__: Only phase0 blocks are accepted.
+    Metadata in the request indicates the fork of the block, and the supported types of block will be added to as forks progress.
   requestBody:
-    description: "The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature."
+    description: |
+      The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature.
     required: true
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
+          title: PublishBlockV2Request
+          type: object
+          properties:
+            version:
+              type: string
+              enum: [phase0, altair]
+              example: "phase0"
+            data:
+              oneOf:
+                - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
+                - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
   responses:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
