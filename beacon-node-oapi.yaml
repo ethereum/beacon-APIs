@@ -122,6 +122,8 @@ paths:
     $ref: "./apis/validator/duties/sync.yaml"
   /eth/v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
+  /eth/v2/validator/blocks/{slot}:
+      $ref: "./apis/validator/block.v2.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/aggregate_attestation:
@@ -211,6 +213,8 @@ components:
       $ref: './types/http.yaml#/IndexedErrorMessage'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
+    Altair.BeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.BeaconState:
       $ref: './types/altair/state.yaml#/Altair/BeaconState'
     Altair.SyncCommitteeSubscription:
