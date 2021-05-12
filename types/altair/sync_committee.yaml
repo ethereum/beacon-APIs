@@ -52,3 +52,21 @@ Altair:
         allOf:
           - $ref: '../primitive.yaml#/Signature'
           - description: 'Signature by the validator(s) over the block root of `slot`'
+  ValidatorsByIndex:
+    type: array
+    items:
+      allOf:
+        - $ref: '../primitive.yaml#/Uint64'
+  SyncCommitteeByValidatorIndices:
+    type: object
+    properties:
+      validators:
+        allOf:
+         - $ref: '#/Altair/ValidatorsByIndex'
+         - description: 'all of the validator indices in the current sync committee'
+      validator_aggregates:
+        type: array
+        items:
+          allOf:
+            - $ref: '#/Altair/ValidatorsByIndex'
+            - description: 'Subcommittee slices of the current sync committee'

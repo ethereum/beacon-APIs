@@ -61,6 +61,8 @@ paths:
     $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
+  /eth/v1/beacon/states/{state_id}/sync_committees:
+    $ref: "./apis/beacon/states/sync_committees.yaml"
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
@@ -120,6 +122,8 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
+  /eth/v2/validator/blocks/{slot}:
+      $ref: "./apis/validator/block.v2.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/aggregate_attestation:
@@ -209,12 +213,16 @@ components:
       $ref: './types/http.yaml#/IndexedErrorMessage'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
+    Altair.BeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.BeaconState:
       $ref: './types/altair/state.yaml#/Altair/BeaconState'
     Altair.SyncCommitteeSubscription:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSubscription'
     Altair.SyncCommitteeContribution:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeContribution'
+    Altair.SyncCommittee:
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
 
   parameters:
     StateId:
