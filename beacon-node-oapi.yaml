@@ -1120,6 +1120,133 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  '/eth/v1/beacon/states/{state_id}/sync_committees':
+    get:
+      operationId: getEpochSyncCommittees
+      summary: Get sync committees for a state.
+      description: Retrieves the sync committees for the given state.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+        - name: epoch
+          description: Fetch sync committees for the given epoch.  If not present then the sync committees for the epoch of the state will be obtained.
+          in: query
+          required: false
+          allowEmptyValue: false
+          schema:
+            allOf:
+              - type: string
+                example: '1'
+              - example: ''
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetEpochSyncCommitteesResponse
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        validators:
+                          allOf:
+                            - type: array
+                              items:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                            - description: all of the validator indices in the current sync committee
+                        validator_aggregates:
+                          type: array
+                          items:
+                            allOf:
+                              - type: array
+                                items:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                              - description: Subcommittee slices of the current sync committee
+        '400':
+          description: Invalid state ID or epoch
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: Epoch is outside the sync committee period of the state
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+              example:
+                code: 404
+                message: State not found
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/headers:
     get:
       operationId: getBlockHeaders
@@ -12033,6 +12160,27 @@ components:
         until_epoch:
           type: string
           example: '1'
+    Altair.SyncCommittee:
+      type: object
+      properties:
+        validators:
+          allOf:
+            - type: array
+              items:
+                allOf:
+                  - type: string
+                    example: '1'
+            - description: all of the validator indices in the current sync committee
+        validator_aggregates:
+          type: array
+          items:
+            allOf:
+              - type: array
+                items:
+                  allOf:
+                    - type: string
+                      example: '1'
+              - description: Subcommittee slices of the current sync committee
   parameters:
     StateId:
       name: state_id
