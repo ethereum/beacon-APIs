@@ -61,6 +61,8 @@ paths:
     $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
+  /eth/v1/beacon/states/{state_id}/sync_committees:
+    $ref: "./apis/beacon/states/sync_committees.yaml"
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
@@ -215,6 +217,8 @@ components:
       $ref: './types/altair/state.yaml#/Altair/BeaconState'
     Altair.SyncCommitteeSubscription:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSubscription'
+    Altair.SyncCommittee:
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
 
   parameters:
     StateId:
