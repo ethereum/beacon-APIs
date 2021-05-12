@@ -1,5 +1,5 @@
 post:
-  operationId: submitSyncCommitteeSignatures
+  operationId: submitPoolSyncCommitteeSignatures
   summary: Submit sync committee signatures to node
   description: |
     Submits sync committee signature objects to the node.
