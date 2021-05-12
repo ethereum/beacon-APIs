@@ -1,0 +1,27 @@
+post:
+  operationId: "prepareSyncCommitteeSubnets"
+  summary: "Subscribe to sync committee subnets"
+  description: |
+    Subscribe to a number of sync committee subnets
+
+    Sync committees are not present in phase0, but are required for Altair networks.
+
+    Subscribing to sync committee subnets is an action performed by VC to enable network participation in Altair networks, and only required if the VC has an active validator in an active sync committee.
+
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeSubscription'
+  responses:
+    "200":
+      description: "Successful response"
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

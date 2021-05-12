@@ -34,7 +34,7 @@ post:
                   - description: "Should be slot at which validator is assigned to attest"
               is_aggregator:
                 type: boolean
-                description: "Signals to BN that a validator on the VC has been chosed for aggregator role."
+                description: "Signals to BN that a validator on the VC has been chosen for aggregator role."
 
   responses:
     "200":

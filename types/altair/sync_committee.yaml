@@ -27,3 +27,33 @@ Altair:
           $ref: '../primitive.yaml#/Uint64'
         signature:
           $ref: '../primitive.yaml#/Signature'
+  SyncCommitteeSubscription:
+    type: object
+    properties:
+      validator_index:
+        $ref: '../primitive.yaml#/Uint64'
+      sync_committee_indices:
+        type: array
+        items:
+          allOf:
+           - $ref: '../primitive.yaml#/Uint64'
+      until_epoch:
+        $ref: '../primitive.yaml#/Uint64'
+  ValidatorsByIndex:
+    type: array
+    items:
+      allOf:
+        - $ref: '../primitive.yaml#/Uint64'
+  SyncCommitteeByValidatorIndices:
+    type: object
+    properties:
+      validators:
+        allOf:
+         - $ref: '#/Altair/ValidatorsByIndex'
+         - description: 'all of the validator indices in the current sync committee'
+      validator_aggregates:
+        type: array
+        items:
+          allOf:
+            - $ref: '#/Altair/ValidatorsByIndex'
+            - description: 'Subcommittee slices of the current sync committee'
