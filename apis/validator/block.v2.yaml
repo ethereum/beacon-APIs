@@ -2,12 +2,13 @@ get:
   tags:
     - ValidatorRequiredApi
     - Validator
-  operationId: "produceBlock"
+  operationId: "produceBlockV2"
   summary: "Produce a new block, without signature."
   description: |
     Requests a beacon node to produce a valid block, which can then be signed by a validator.
 
-    __NOTE__: Supports only phase0 blocks.
+    Metadata in the response indicates the type of block produced, and the supported types of block
+    will be added to as forks progress.
   parameters:
     - name: slot
       in: path
@@ -33,11 +34,17 @@ get:
       content:
         application/json:
           schema:
-            title: ProduceBlockResponse
+            title: ProduceBlockV2Response
             type: object
             properties:
+              version:
+                type: string
+                enum: [ phase0, altair ]
+                example: "phase0"
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+                oneOf:
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
     "400":
       description: "Invalid block production request"
       content:
