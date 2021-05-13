@@ -27,7 +27,9 @@ Altair:
           allOf:
            - $ref: '../primitive.yaml#/Uint64'
       until_epoch:
-        $ref: '../primitive.yaml#/Uint64'
+        allOf:
+         - $ref: '../primitive.yaml#/Uint64'
+         - description: 'The final epoch that the specified validator requires the subscription for.'
   ValidatorsByIndex:
     type: array
     items:
