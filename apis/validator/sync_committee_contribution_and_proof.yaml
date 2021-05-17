@@ -1,0 +1,21 @@
+post:
+  operationId: "publishContributionAndProofs"
+  summary: "Publish multiple contribution and proofs"
+  description: "Publish multiple signed sync committee contribution and proofs"
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedContributionAndProof'
+  responses:
+    "200":
+      description: "Successful response"
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
