@@ -1157,28 +1157,26 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        validators:
+                    type: object
+                    properties:
+                      validators:
+                        allOf:
+                          - type: array
+                            items:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                          - description: all of the validator indices in the current sync committee
+                      validator_aggregates:
+                        type: array
+                        items:
                           allOf:
                             - type: array
                               items:
                                 allOf:
                                   - type: string
                                     example: '1'
-                            - description: all of the validator indices in the current sync committee
-                        validator_aggregates:
-                          type: array
-                          items:
-                            allOf:
-                              - type: array
-                                items:
-                                  allOf:
-                                    - type: string
-                                      example: '1'
-                              - description: Subcommittee slices of the current sync committee
+                            - description: Subcommittee slices of the current sync committee
         '400':
           description: Invalid state ID or epoch
           content:
