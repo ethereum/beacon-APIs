@@ -9275,8 +9275,10 @@ paths:
                         - type: string
                           example: '1'
                   until_epoch:
-                    type: string
-                    example: '1'
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: The final epoch that the specified validator requires the subscription for.
       responses:
         '200':
           description: Successful response
@@ -12682,8 +12684,10 @@ components:
               - type: string
                 example: '1'
         until_epoch:
-          type: string
-          example: '1'
+          allOf:
+            - type: string
+              example: '1'
+            - description: The final epoch that the specified validator requires the subscription for.
     Altair.ContributionAndProof:
       type: object
       properties:
