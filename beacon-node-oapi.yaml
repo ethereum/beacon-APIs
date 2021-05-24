@@ -136,6 +136,8 @@ paths:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
     $ref: "./apis/validator/sync_committee_subscriptions.yaml"
+  /eth/v1/validator/contribution_and_proofs:
+    $ref: "./apis/validator/sync_committee_contribution_and_proof.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -221,6 +223,12 @@ components:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSignature'
     Altair.SyncCommitteeSubscription:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSubscription'
+    Altair.ContributionAndProof:
+      $ref: './types/altair/sync_committee.yaml#/Altair/ContributionAndProof'
+    Altair.SignedContributionAndProof:
+      $ref: './types/altair/sync_committee.yaml#/Altair/SignedContributionAndProof'
+    Altair.SyncCommitteeContribution:
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeContribution'
     Altair.SyncCommittee:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
 
