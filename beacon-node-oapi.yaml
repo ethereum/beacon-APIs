@@ -84,6 +84,8 @@ paths:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
     $ref: "./apis/beacon/pool/proposer_slashings.yaml"
+  /eth/v1/beacon/pool/sync_committees:
+    $ref: "./apis/beacon/pool/sync_committees.yaml"
   /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
@@ -217,6 +219,8 @@ components:
       $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.BeaconState:
       $ref: './types/altair/state.yaml#/Altair/BeaconState'
+    Altair.SyncCommitteeSignature:
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSignature'
     Altair.SyncCommitteeSubscription:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSubscription'
     Altair.ContributionAndProof:
