@@ -27,9 +27,8 @@ get:
             type: object
             properties:
               data:
-                type: array
-                items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommittee'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommittee'
+
     "400":
       description: "Invalid state ID or epoch"
       content:
