@@ -1,0 +1,43 @@
+get:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  operationId: "produceSyncCommitteeContribution"
+  summary: "Produce a sync committee contribution"
+  description: "Requests that the beacon node produce a sync committee contribution."
+  parameters:
+    - name: slot
+      in: query
+      required: true
+      description: "The slot for which a sync committee contribution should be created."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: subcommittee_index
+      in: query
+      description: "the subcommittee index for which to produce the contribution."
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: beacon_block_root
+      in: query
+      description: "the block root for which to produce the contribution."
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: produceSyncCommitteeContributionResponse
+            type: object
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeContribution'
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

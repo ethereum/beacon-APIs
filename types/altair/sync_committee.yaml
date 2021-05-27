@@ -70,9 +70,9 @@ Altair:
           - $ref: "../primitive.yaml#/Uint64"
           - description: "The slot at which the validator is providing a sync committee contribution."
       beacon_block_root:
-         allOf:
-           - $ref: '../primitive.yaml#/Root'
-           - description: "Block root for this contribution."
+        allOf:
+          - $ref: '../primitive.yaml#/Root'
+          - description: "Block root for this contribution."
       subcommittee_index:
         allOf:
           - $ref: '../primitive.yaml#/Uint64'
@@ -84,9 +84,8 @@ Altair:
           - example: "0x01"
       signature:
         allOf:
-         - $ref: '../primitive.yaml#/Signature'
-         - description: 'Signature by the validator(s) over the block root of `slot`'
-
+          - $ref: '../primitive.yaml#/Signature'
+          - description: 'Signature by the validator(s) over the block root of `slot`'
   ValidatorsByIndex:
     type: array
     items:

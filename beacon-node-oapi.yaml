@@ -138,6 +138,8 @@ paths:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
     $ref: "./apis/validator/sync_committee_subscriptions.yaml"
+  /eth/v1/validator/sync_committee_contribution:
+    $ref: "./apis/validator/sync_committee_contribution.yaml"
   /eth/v1/validator/contribution_and_proofs:
     $ref: "./apis/validator/sync_committee_contribution_and_proof.yaml"
 
