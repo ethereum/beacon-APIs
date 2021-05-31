@@ -122,6 +122,8 @@ paths:
     $ref: "./apis/validator/duties/attester.yaml"
   /eth/v1/validator/duties/proposer/{epoch}:
     $ref: "./apis/validator/duties/proposer.yaml"
+  /eth/v1/validator/duties/sync/{epoch}:
+    $ref: "./apis/validator/duties/sync.yaml"
   /eth/v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
   /eth/v2/validator/blocks/{slot}:
@@ -173,6 +175,8 @@ components:
       $ref: './types/validator.yaml#/AttesterDuty'
     ProposerDuty:
       $ref: './types/validator.yaml#/ProposerDuty'
+    Altair.SyncDuty:
+      $ref: './types/validator.yaml#/Altair/SyncDuty'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:

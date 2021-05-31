@@ -76,6 +76,23 @@ ProposerDuty:
         - $ref: "./primitive.yaml#/Uint64"
         - description: "The slot at which the validator must propose block."
 
+Altair:
+  SyncDuty:
+    type: object
+    properties:
+      pubkey:
+        $ref: './primitive.yaml#/Pubkey'
+      validator_index:
+        allOf:
+          - $ref: "./primitive.yaml#/Uint64"
+          - description: "Index of validator in validator registry."
+      validator_sync_committee_indices:
+        type: array
+        description: "The indices of the validator in the sync committee."
+        minItems: 1
+        items:
+          $ref: './primitive.yaml#/Uint64'
+
 AggregateAndProof:
   allOf:
     - $ref: '#/Aggregate'
