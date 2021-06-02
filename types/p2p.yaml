@@ -38,7 +38,7 @@ MetaData:
       allOf:
         - description: "Bitvector representing the node's sync committee subnet subscriptions."
         - $ref: "./primitive.yaml#/Hex"
-        - example: "0xF"
+        - example: "0x0f"
         - required: false
 
 Peer:
