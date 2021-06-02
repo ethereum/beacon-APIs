@@ -34,6 +34,12 @@ MetaData:
         - description: "Bitvector representing the node's persistent attestation subnet subscriptions."
         - $ref: "./primitive.yaml#/Hex"
         - example: "0x0000000000000000"
+    syncnets:
+      allOf:
+        - description: "Bitvector representing the node's sync committee subnet subscriptions."
+        - $ref: "./primitive.yaml#/Hex"
+        - example: "0xF"
+        - required: false
 
 Peer:
   type: object
