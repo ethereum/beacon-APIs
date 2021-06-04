@@ -2931,7 +2931,9 @@ paths:
     get:
       operationId: getBlockV2
       summary: Get block
-      description: Retrieves block details for given block id.
+      description: |
+        Retrieves block details for given block id.
+        Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
       tags:
         - Beacon
       parameters:
@@ -3772,6 +3774,9 @@ paths:
                             type: string
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+            application/octet-stream:
+              schema:
+                description: SSZ serialized block bytes. Use Accept header to choose this response type
         '400':
           description: The block ID supplied could not be parsed
           content:
