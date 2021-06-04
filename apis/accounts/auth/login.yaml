@@ -1,0 +1,55 @@
+get:
+  tags:
+    - AccountAuth
+  operationId: "LoginStatus"
+  summary: "Check login status."
+  description: |
+    Convenience method to check if user has signed up, and their token is valid.
+  security:
+    - cookieAuth: []
+  responses:
+    "200":
+      content:
+        application/json:
+          schema:
+            title: LoginStatusResponse
+            type: object
+            properties:
+              has_signed_up:
+                type: boolean
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+
+post:
+  tags:
+    - AccountAuth
+  operationId: "Login"
+  summary: "Login"
+  description: |
+    MUST validate the provided passwords against a local “Record”. After successful validation MUST return a Set-Cookie header
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            password:
+              type: string
+            password_confirmation:
+              type: string
+  responses:
+    "200":
+      description: |
+        Successfully authenticated. The session ID is returned in a cookie named `SESSION`. You need to include this cookie in subsequent requests.
+        - HttpOnly: MUST be included
+        - SameSite: MUST be set to Strict
+        - Max-Age: MAY be included
+        - Secure: SHOULD not be included. Validator client servers may not have TLS/SSL certificates
+        - Domain: MAY be included
+      headers:
+        Set-Cookie:
+          schema:
+            type: string
+            example: SESSION=abcde12345; Path=/; HttpOnly; SameSite=Strict
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

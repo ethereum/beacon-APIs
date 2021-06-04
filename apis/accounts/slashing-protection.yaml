@@ -1,0 +1,70 @@
+get:
+  tags:
+    - SlashingProtection
+  operationId: "ExportSlashingProtection"
+  summary: "Export slashing protection data."
+  description: |
+    MUST return a file with the format defined in EIP-3076: Slashing Protection Interchange Format.
+    If pubkeys is not specified MUST return data for all pubkeys in the local slashing protection DB.
+  security:
+    - cookieAuth: []
+  parameters:
+    - name: id
+      description: "Hex encoded public key (with 0x prefix) array"
+      in: query
+      required: false
+      schema:
+        type: array
+        maxItems: 30
+        uniqueItems: true
+        items:
+          description: "Hex encoded public key (with 0x prefix)"
+          type: string
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: ExportSlashingProtectionResponse
+            type: object
+            properties:
+              file:
+                type: string
+                description: "JSON representation of the slash protection"
+    "401":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+    "403":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+
+post:
+  tags:
+    - SlashingProtection
+  operationId: "ImportSlashingProtection"
+  summary: "Import slashing protection data."
+  description: |
+    MUST accept a file with the format defined in EIP-3076: Slashing Protection Interchange Format.
+    Users are encouraged to use the slashing_protection_last_entry field to confirm that they successfully
+    added slashing protection data for their accounts.
+  security:
+    - cookieAuth: []
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            slashing_protection_json:
+              type: string
+              description: "JSON representation of the slash protection."
+  responses:
+    "200":
+      description: Success response
+    "401":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+    "403":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

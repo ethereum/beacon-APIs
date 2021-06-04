@@ -124,3 +124,38 @@ IndexedErrorMessage:
             type: string
             example: "invalid signature"
 
+Unauthorized:
+  description: "Unauthorized, no token is found"
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 401
+          message:
+            description: "Message describing error"
+            type: string
+      example:
+        code: 401
+        message: "Token not found"
+
+Forbidden:
+  description: "Forbidden, a token is found but is invalid"
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 403
+          message:
+            description: "Message describing error"
+            type: string
+      example:
+        code: 403
+        message: "Token invalid"

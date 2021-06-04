@@ -1,0 +1,12 @@
+post:
+  tags:
+    - AccountAuth
+  operationId: "Logout"
+  summary: "Logout."
+  description: |
+    MUST invalidate the token set by the Login route if found in the request headers.
+  responses:
+    "200":
+      description: Successfully logged out.
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
