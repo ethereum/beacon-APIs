@@ -33,11 +33,11 @@ get:
                 type: string
                 description: "JSON representation of the slash protection"
     "401":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+      $ref: "../../validator-oapi.yaml#/components/responses/Unauthorized"
     "403":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+      $ref: "../../validator-oapi.yaml#/components/responses/Forbidden"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../validator-oapi.yaml#/components/responses/InternalError"
 
 post:
   tags:
@@ -63,8 +63,8 @@ post:
     "200":
       description: Success response
     "401":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+      $ref: "../../validator-oapi.yaml#/components/responses/Unauthorized"
     "403":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+      $ref: "../../validator-oapi.yaml#/components/responses/Forbidden"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../validator-oapi.yaml#/components/responses/InternalError"

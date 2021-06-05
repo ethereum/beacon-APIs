@@ -18,7 +18,7 @@ get:
               has_signed_up:
                 type: boolean
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../../validator-oapi.yaml#/components/responses/InternalError"
 
 post:
   tags:
@@ -52,4 +52,4 @@ post:
             type: string
             example: SESSION=abcde12345; Path=/; HttpOnly; SameSite=Strict
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../../validator-oapi.yaml#/components/responses/InternalError"

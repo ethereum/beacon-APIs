@@ -13,13 +13,13 @@ get:
       required: false
       description: "The maximum number of accounts to return in the response."
       schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Number"
+        type: number
     - name: page_token
       in: query
       required: false
       description: "A pagination token returned from a previous call to `ListAccounts`. that indicates where this listing should continue from."
       schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/String"
+        type: string
   responses:
     "200":
       description: Success response
@@ -54,11 +54,11 @@ get:
                         Signal no slashing protection DB data with a value of TBD (0, null, "")
 
     "401":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+      $ref: "../../validator-oapi.yaml#/components/responses/Unauthorized"
     "403":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+      $ref: "../../validator-oapi.yaml#/components/responses/Forbidden"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../validator-oapi.yaml#/components/responses/InternalError"
 
 post:
   tags:
@@ -98,11 +98,11 @@ post:
                 items:
                   type: string
     "401":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+      $ref: "../../validator-oapi.yaml#/components/responses/Unauthorized"
     "403":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+      $ref: "../../validator-oapi.yaml#/components/responses/Forbidden"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../validator-oapi.yaml#/components/responses/InternalError"
 
 delete:
   tags:
@@ -141,8 +141,8 @@ delete:
                 items:
                   type: string
     "401":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Unauthorized"
+      $ref: "../../validator-oapi.yaml#/components/responses/Unauthorized"
     "403":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/Forbidden"
+      $ref: "../../validator-oapi.yaml#/components/responses/Forbidden"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../validator-oapi.yaml#/components/responses/InternalError"

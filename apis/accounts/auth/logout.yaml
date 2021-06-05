@@ -9,4 +9,4 @@ post:
     "200":
       description: Successfully logged out.
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../../validator-oapi.yaml#/components/responses/InternalError"
