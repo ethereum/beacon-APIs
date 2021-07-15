@@ -1,6 +1,7 @@
 get:
   operationId: "getState"
   summary: "Get full BeaconState object"
+  deprecated: true
   description: |
      Returns full BeaconState object for given stateId.
      Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
