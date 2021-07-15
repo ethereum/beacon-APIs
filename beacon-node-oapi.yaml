@@ -7163,6 +7163,7 @@ paths:
         - event.previous_duty_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
         - event.current_duty_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
         - event.block otherwise
+
         The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)` or the genesis block root in the case of underflow.
       parameters:
         - name: epoch
