@@ -7319,6 +7319,7 @@ paths:
         Duties should only need to be checked once per epoch, however a chain reorganization could occur that results in a change of duties. For full safety, you should monitor head events and confirm the dependent root in this response matches:
         - event.current_duty_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
         - event.block otherwise
+
         The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch) - 1)` or the genesis block root in the case of underflow.
       parameters:
         - name: epoch
