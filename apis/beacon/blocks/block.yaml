@@ -1,6 +1,7 @@
 get:
   operationId: getBlock
   summary: Get block
+  deprecated: true
   description: |
     Returns the complete `SignedBeaconBlock` for a given block ID.
     Depending on the `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
