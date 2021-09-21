@@ -11,7 +11,7 @@ API browser: [https://ethereum.github.io/beacon-APIs/](https://ethereum.github.i
 This document outlines an application programming interface (API) which is exposed by a beacon node implementation
  which aims to facilitate [Phase 0](https://github.com/ethereum/eth2.0-specs#phase-0) of the Etheruem consensus layer.
 
-The API is a REST interface, accessed via HTTP, designed for use as a public communications protocol.
+The API is a REST interface, accessed via HTTP. The API should not, unless protected by additional security layers, be exposed to the public Internet as the API includes multiple endpoints which could open your node to denial-of-service (DoS) attacks through endpoints triggering heavy processing.
  Currently, the only supported return data type is JSON.
 
 The beacon node (BN) maintains the state of the beacon chain by communicating with other beacon nodes in the Ethereum network.

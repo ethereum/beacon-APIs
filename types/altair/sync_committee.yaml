@@ -35,7 +35,7 @@ Altair:
       until_epoch:
         allOf:
          - $ref: '../primitive.yaml#/Uint64'
-         - description: 'The final epoch that the specified validator requires the subscription for.'
+         - description: 'The final epoch (exclusive value) that the specified validator requires the subscription for.'
          
   SignedContributionAndProof:
     type: object
