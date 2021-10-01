@@ -13,6 +13,13 @@ get:
   responses:
     "200":
       description: "Successful response"
+      headers:
+        Eth-Consensus-Version:
+          description: Required in ssz responses so client can deserialize returned data.
+          schema:
+            type: string
+            enum: [phase0, altair]
+            example: "phase0"
       content:
         application/json:
           schema:
@@ -29,6 +36,7 @@ get:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
         application/octet-stream:
           schema:
+            
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
