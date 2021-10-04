@@ -46,7 +46,7 @@ paths:
       operationId: "ListAccounts"
       summary: "List accounts."
       description: |
-        List all accounts known to and decrypted to this validator client
+        List all accounts known to and decrypted by this keymanager binary
       security:
         - cookieAuth: []
       responses:
@@ -100,18 +100,18 @@ paths:
             schema:
               type: object
               properties:
-                keystores_imported:
+                keystores:
                   type: array
-                  description: "JSON-encoded keystore files to import during wallet creation."
+                  description: "JSON-encoded keystore files generated with the Launchpad."
                   items:
                     type: object
                 keystores_password:
-                  description: "Password to unlock imported keystore files."
+                  description: "Password to unlock all imported keystore files."
                   type: string
                 slashing_protection:
                   type: object
                   required: false
-                  description: "JSON representation of the slash protection."
+                  description: "JSON representation of the slash protection for the imported keys."
       responses:
         "200":
           description: Success response
