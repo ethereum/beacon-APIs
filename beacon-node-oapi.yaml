@@ -251,3 +251,11 @@ components:
       $ref: './types/http.yaml#/InternalError'
     CurrentlySyncing:
       $ref: './types/http.yaml#/CurrentlySyncing'
+
+  headers:
+    Eth-Consensus-Version:
+      description: Required in response so client can deserialize returned json or ssz data more effectively.
+      schema:
+        type: string
+        enum: [phase0, altair]
+        example: "phase0"
