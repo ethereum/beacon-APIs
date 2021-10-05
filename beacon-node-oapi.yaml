@@ -1,7 +1,7 @@
 openapi: "3.0.3"
 
 info:
-  title: "Eth2 Beacon Node API"
+  title: "Eth Beacon Node API"
   description: |
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
@@ -10,10 +10,10 @@ info:
     In addition, some request can return data in the SSZ format.
     To indicate that SSZ data is required in response to a request the header "Accept: application/octet-stream" should be sent.
     Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
-  version: "Dev - Eth2Spec v1.0.1"
+  version: "2.0.0. - Eth2Spec v1.1.0"
   contact:
     name: Ethereum Github
-    url: https://github.com/ethereum/eth2.0-apis/issues
+    url: https://github.com/ethereum/beacon-apis/issues
   license:
     name: "Apache 2.0"
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
@@ -23,7 +23,7 @@ servers:
     variables:
       server_url:
         description: "Beacon node API url"
-        default: "http://public-mainnet-node.ethereum.org/api"
+        default: "http://public-mainnet-node.ethereum.org/"
 
 tags:
   - name: Beacon

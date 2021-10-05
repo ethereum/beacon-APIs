@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Eth2.0-API</title>
+    <title>Beacon-API</title>
     <link rel="stylesheet" type="text/css" href="./dist/swagger-ui.css" >
     <link rel="stylesheet" type="text/css" href="./dist/theme-material.css" >
     <style>
@@ -47,8 +47,9 @@
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
         urls: [
-          {url: "./beacon-node-oapi.yaml", name: "dev"},
-          {url: "https://github.com/ethereum/eth2.0-APIs/releases/download/v1/beacon-node-oapi.yaml", name: "v1"}
+          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v2.0.0/beacon-node-oapi.json", name: "v2.0.0"},
+          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v1/beacon-node-oapi.yaml", name: "v1"},
+          {url: "./beacon-node-oapi.yaml", name: "dev"}
         ],
         basePath: "/",
         dom_id: '#swagger-ui',

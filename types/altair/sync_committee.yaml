@@ -7,15 +7,10 @@ Altair:
         items:
           allOf:
             - $ref: '../primitive.yaml#/Pubkey'
-        minItems: 1024
-        maxItems: 1024
-      pubkey_aggregates:
-        type: array
-        items:
-          allOf:
-            - $ref: '../primitive.yaml#/Pubkey'
-        minItems: 16
-        maxItems: 16
+        minItems: 512
+        maxItems: 512
+      aggregate_pubkey:
+        $ref: '../primitive.yaml#/Pubkey'
   SyncCommitteeSignature:
       type: object
       properties:
@@ -40,7 +35,7 @@ Altair:
       until_epoch:
         allOf:
          - $ref: '../primitive.yaml#/Uint64'
-         - description: 'The final epoch that the specified validator requires the subscription for.'
+         - description: 'The final epoch (exclusive value) that the specified validator requires the subscription for.'
          
   SignedContributionAndProof:
     type: object

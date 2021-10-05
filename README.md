@@ -1,20 +1,20 @@
-# Ethereum 2.0 APIs
+# Ethereum Beacon APIs
 
-![CI](https://github.com/ethereum/eth2.0-APIs/workflows/CI/badge.svg)
+![CI](https://github.com/ethereum/beacon-APIs/workflows/CI/badge.svg)
 
-Collection of RESTful APIs provided by Ethereum 2.0 clients
+Collection of RESTful APIs provided by Ethereum Beacon nodes
 
-API browser: [https://ethereum.github.io/eth2.0-APIs/](https://ethereum.github.io/eth2.0-APIs/)
+API browser: [https://ethereum.github.io/beacon-APIs/](https://ethereum.github.io/beacon-APIs/)
 
 ## Outline
 
 This document outlines an application programming interface (API) which is exposed by a beacon node implementation
- which aims to facilitate [Phase 0](https://github.com/ethereum/eth2.0-specs#phase-0) of Ethereum 2.0.
+ which aims to facilitate [Phase 0](https://github.com/ethereum/eth2.0-specs#phase-0) of the Etheruem consensus layer.
 
-The API is a REST interface, accessed via HTTP, designed for use as a public communications protocol.
+The API is a REST interface, accessed via HTTP. The API should not, unless protected by additional security layers, be exposed to the public Internet as the API includes multiple endpoints which could open your node to denial-of-service (DoS) attacks through endpoints triggering heavy processing.
  Currently, the only supported return data type is JSON.
 
-The beacon node (BN) maintains the state of the beacon chain by communicating with other beacon nodes in the Ethereum 2.0 network.
+The beacon node (BN) maintains the state of the beacon chain by communicating with other beacon nodes in the Ethereum network.
 Conceptually, it does not maintain keypairs that participate with the beacon chain.
 
 The validator client (VC) is a conceptually separate entity which utilizes private keys 
@@ -78,5 +78,5 @@ https://www.npmjs.com/package/@chainsafe/eth2.0-api-wrapper
 In SwaggerUIBundle configuration (inside index.html file), add another entry in "urls" field (SwaggerUI will load first item as default).
 Entry should be in following format(replace `<tag>` with real tag name from step 1.):
 ```javascript
-         {url: "https://github.com/ethereum/eth2.0-APIs/releases/download/<tag>/beacon-node-oapi.yaml", name: "<tag>"},
+         {url: "https://github.com/ethereum/beacon-APIs/releases/download/<tag>/beacon-node-oapi.yaml", name: "<tag>"},
 ```
