@@ -67,11 +67,6 @@ paths:
                         derivation_path:
                           type: string
                           description: "The derivation path (if present in the imported keystore)."
-                        slashing_protection_last_entry:
-                          type: string
-                          description: |
-                            Latest slashing protection DB data item associated with this pubkey.
-                            Signal no slashing protection DB data with a value of TBD (0, null, "")
 
         "401":
           $ref: "../../validator-oapi.yaml#/components/responses/Unauthorized"
