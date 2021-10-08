@@ -2,7 +2,6 @@ extends: [["spectral:oas", "all"]]
 formats: ["oas3"]
 rules:
   operation-singular-tag: off
-  operation-default-response: off
   oas3-parameter-description: off
   contact-properties: off
   operation-tags: error

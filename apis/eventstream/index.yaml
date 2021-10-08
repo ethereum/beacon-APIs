@@ -8,6 +8,9 @@ get:
     Provides endpoint to subscribe to beacon node Server-Sent-Events stream.
     Consumers should use [eventsource](https://html.spec.whatwg.org/multipage/server-sent-events.html#the-eventsource-interface)
     implementation to listen on those events.
+
+    Servers _may_ send SSE comments beginning with `:` for any purpose, including to keep the
+    event stream connection alive in the presence of proxy servers.
   parameters:
     - name: topics
       in: query
