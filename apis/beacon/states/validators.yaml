@@ -1,7 +1,13 @@
 get:
   operationId: "getStateValidators"
   summary: "Get validators from state"
-  description: "Returns filterable list of validators with their balance, status and index."
+  description: |
+    Returns filterable list of validators with their balance, status and index.
+
+    Information will be returned for all indices or public key that match known validators.  If an index or public key does not
+    match any known validator, no information will be returned but this will not cause an error.  There are no guarantees for the
+    returned data in terms of ordering; both the index and public key are returned for each validator, and can be used to confirm
+    for which inputs a response has been returned.
   tags:
     - Beacon
   parameters:
