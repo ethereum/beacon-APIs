@@ -13,6 +13,9 @@ get:
   responses:
     "200":
       description: "Successful response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
@@ -29,6 +32,7 @@ get:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
         application/octet-stream:
           schema:
+            
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
