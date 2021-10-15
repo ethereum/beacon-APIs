@@ -28,7 +28,7 @@ servers:
     variables:
       server_url:
         description: "key manager API url"
-        default: "http://public-mainnet-node.ethereum.org/api"
+        default: "https://public-mainnet-node.ethereum.org"
 
 tags:
   - name: Keystores
