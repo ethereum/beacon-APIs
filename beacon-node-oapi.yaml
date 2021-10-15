@@ -2962,6 +2962,15 @@ paths:
       responses:
         '200':
           description: Successful response
+          headers:
+            Eth-Consensus-Version:
+              description: Required in response so client can deserialize returned json or ssz data more effectively.
+              schema:
+                type: string
+                enum:
+                  - phase0
+                  - altair
+                example: phase0
           content:
             application/json:
               schema:
@@ -5686,6 +5695,15 @@ paths:
       responses:
         '200':
           description: Success
+          headers:
+            Eth-Consensus-Version:
+              description: Required in response so client can deserialize returned json or ssz data more effectively.
+              schema:
+                type: string
+                enum:
+                  - phase0
+                  - altair
+                example: phase0
           content:
             application/json:
               schema:
@@ -13334,3 +13352,12 @@ components:
           example:
             code: 503
             message: Beacon node is currently syncing and not serving request on that endpoint
+  headers:
+    Eth-Consensus-Version:
+      description: Required in response so client can deserialize returned json or ssz data more effectively.
+      schema:
+        type: string
+        enum:
+          - phase0
+          - altair
+        example: phase0
