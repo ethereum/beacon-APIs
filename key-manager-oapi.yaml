@@ -87,9 +87,10 @@ paths:
                   description: JSON-encoded keystore files generated with the Launchpad.
                   items:
                     type: object
-                keystores_password:
-                  description: Password to unlock all imported keystore files.
-                  type: string
+                passwords:
+                  description: Passwords to unlock imported keystore files. `request.passwords[i]` must unlock `request.keystores[i]`.
+                  items:
+                    type: string
                 slashing_protection:
                   type: object
                   required: false
