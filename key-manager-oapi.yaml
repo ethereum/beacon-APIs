@@ -131,7 +131,7 @@ paths:
                           - error
                       message:
                         type: string
-                        description: error message if stats == error
+                        description: error message if status == error
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
