@@ -195,7 +195,7 @@ paths:
                           - error
                       message:
                         type: string
-                        description: error message if stats == error
+                        description: error message if status == error
                   slashing_protection:
                     type: object
                     description: |
