@@ -30,21 +30,13 @@ servers:
         description: "key manager API url"
         default: "https://public-mainnet-node.ethereum.org"
 
-tags:
-  - name: Keystores
-    description: Endpoints to manage key manager Keystores.
-  - name: SlashingProtection
-    description: Endpoints to import and export slashing protection db data.
-
 paths:
   /eth/v1/keystores:
     get:
-      tags:
-        - Keys
-      operationId: ListKeystores
-      summary: List Keystores.
+      operationId: ListKeys
+      summary: List Keys.
       description: |
-        List all keystores known to and decrypted by this keymanager binary
+        List all validating pubkeys known to and decrypted by this keymanager binary
       security:
         - cookieAuth: []
       responses:
@@ -53,10 +45,10 @@ paths:
           content:
             application/json:
               schema:
-                title: ListKeystoresResponse
+                title: ListKeysResponse
                 type: object
                 properties:
-                  keystores:
+                  keys:
                     type: array
                     items:
                       type: object
@@ -75,8 +67,6 @@ paths:
           $ref: "#/components/responses/InternalError"
 
     post:
-      tags:
-        - Keystores
       operationId: ImportKeystores
       summary: Import Keystores.
       description: |
@@ -139,12 +129,10 @@ paths:
           $ref: "#/components/responses/InternalError"
 
     delete:
-      tags:
-        - Keystores
-      operationId: DeleteKeystores
-      summary: Delete Keystores.
+      operationId: DeleteKeys
+      summary: Delete Keys.
       description: |
-        DELETE must delete all keystores from `request.pubkeys` that are known to the keymanager and exist in its
+        DELETE must delete all keys from `request.pubkeys` that are known to the keymanager and exist in its
         persistent storage. Additionally, DELETE must fetch the slashing protection data for the requested keys from
         persistent storage, which must be retained (and not deleted) after the response has been sent. Therefore in the
         case of two identical delete requests being made, both will have access to slashing protection data.
@@ -174,7 +162,7 @@ paths:
           content:
             application/json:
               schema:
-                title: DeleteKeystoresResponse
+                title: DeleteKeysResponse
                 type: object
                 properties:
                   statuses:
