@@ -12,7 +12,7 @@ info:
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
     and "Accept: application/json" headers.
 
-    All sensitive routes are be authenticated with a token. This token should be provided by the user via a secure channel:
+    All sensitive routes are to be authenticated with a token. This token should be provided by the user via a secure channel:
       - Log the token to stdout when running the binary with the key manager API enabled
       - Read the token from a file available to the binary
   version: "Dev - Eth2Spec v1.0.1"
