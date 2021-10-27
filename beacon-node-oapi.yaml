@@ -10,7 +10,7 @@ info:
     In addition, some request can return data in the SSZ format.
     To indicate that SSZ data is required in response to a request the header "Accept: application/octet-stream" should be sent.
     Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
-  version: "2.0.0. - Eth2Spec v1.1.0"
+  version: "Dev - Eth2Spec v1.1.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -251,3 +251,11 @@ components:
       $ref: './types/http.yaml#/InternalError'
     CurrentlySyncing:
       $ref: './types/http.yaml#/CurrentlySyncing'
+
+  headers:
+    Eth-Consensus-Version:
+      description: Required in response so client can deserialize returned json or ssz data more effectively.
+      schema:
+        type: string
+        enum: [phase0, altair]
+        example: "phase0"
