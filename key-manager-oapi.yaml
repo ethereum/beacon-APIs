@@ -107,21 +107,21 @@ paths:
                   statuses:
                     type: array
                     description: Status result of each `request.keystores` with same length and order of `request.keystores`
-                    type: object
-                    properties:
-                      status:
-                        type: string
-                        description: |
-                          - imported: Keystore successfully decrypted and imported to keymanager permanent storage
-                          - duplicate: Keystore's pubkey is already known to the keymanager
-                          - error: Any other status different to the above: decrypting error, I/O errors, etc.
-                        enum:
-                          - imported
-                          - duplicate
-                          - error
-                      message:
-                        type: string
-                        description: error message if status == error
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          description: |
+                            - imported: Keystore successfully decrypted and imported to keymanager permanent storage
+                            - duplicate: Keystore's pubkey is already known to the keymanager
+                            - error: Any other status different to the above: decrypting error, I/O errors, etc.
+                          enum:
+                            - imported
+                            - duplicate
+                            - error
+                        message:
+                          type: string
+                          description: error message if status == error
         "401":
           $ref: "#/components/responses/Unauthorized"
         "403":
@@ -169,21 +169,21 @@ paths:
                   statuses:
                     type: array
                     description: List of public keys successfully deleted.
-                    type: object
-                    properties:
-                      status:
-                        type: string
-                        description: |
-                          - deleted: Successfully deleted from persistent storage and not able to sign any messages
-                          - not-found: Pubkey not known to keymanager
-                          - error: Any other status different to the above: I/O errors, etc.
-                        enum:
-                          - deleted
-                          - not-found
-                          - error
-                      message:
-                        type: string
-                        description: error message if status == error
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          description: |
+                            - deleted: Successfully deleted from persistent storage and not able to sign any messages
+                            - not-found: Pubkey not known to keymanager
+                            - error: Any other status different to the above: I/O errors, etc.
+                          enum:
+                            - deleted
+                            - not-found
+                            - error
+                        message:
+                          type: string
+                          description: error message if status == error
                   slashing_protection:
                     type: object
                     description: |
