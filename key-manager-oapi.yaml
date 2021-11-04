@@ -171,7 +171,7 @@ paths:
                 properties:
                   statuses:
                     type: array
-                    description: List of public keys successfully deleted.
+                    description: Deletion status of all keys in `request.pubkeys` in the same order.
                       type: object
                       properties:
                         status:
