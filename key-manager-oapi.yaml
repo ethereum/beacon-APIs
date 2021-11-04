@@ -48,7 +48,7 @@ paths:
                 title: ListKeysResponse
                 type: object
                 properties:
-                  keys:
+                  data:
                     type: array
                     items:
                       type: object
@@ -108,7 +108,7 @@ paths:
                 title: ImportKeystoresResponse
                 type: object
                 properties:
-                  statuses:
+                  data:
                     type: array
                     description: Status result of each `request.keystores` with same length and order of `request.keystores`
                       type: object
@@ -170,7 +170,7 @@ paths:
                 title: DeleteKeysResponse
                 type: object
                 properties:
-                  statuses:
+                  data:
                     type: array
                     description: Deletion status of all keys in `request.pubkeys` in the same order.
                       type: object
