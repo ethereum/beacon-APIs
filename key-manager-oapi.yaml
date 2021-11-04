@@ -92,6 +92,7 @@ paths:
                   items:
                     type: object
                 passwords:
+                  type: array
                   description: Passwords to unlock imported keystore files. `request.passwords[i]` must unlock `request.keystores[i]`.
                   items:
                     type: string
