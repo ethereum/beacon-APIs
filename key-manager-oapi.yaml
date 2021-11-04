@@ -58,8 +58,9 @@ paths:
                         derivation_path:
                           type: string
                           description: The derivation path (if present in the imported keystore).
-                        not_deletable:
+                        readonly:
                           type: boolean
+                          required: false
                           description: The key associated with this pubkey cannot be deleted from the API
 
         "401":
