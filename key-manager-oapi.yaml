@@ -179,12 +179,14 @@ paths:
                         status:
                           type: string
                           description: |
-                            - deleted: Successfully deleted from persistent storage and not able to sign any messages
-                            - not-found: Pubkey not known to keymanager
-                            - error: Any other status different to the above: I/O errors, etc.
+                            - deleted: key was active and removed
+                            - not_active: slashing protection data returned but key was not active
+                            - not_found: key was not found to be removed, and no slashing data can be returned
+                            - error: unexpected condition meant the key could not be removed (the key was actually found, but we couldn't stop using it) - this would be a sign that making it active elsewhere would almost certainly cause you headaches / slashing conditions etc.
                           enum:
                             - deleted
-                            - not-found
+                            - not_active
+                            - not_found
                             - error
                         message:
                           type: string
