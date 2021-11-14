@@ -8,7 +8,7 @@ post:
     by new information for the given validator index, or until the beacon node
     restarts.
 
-    Note that bacause the information is not persistent across beacon node restarts
+    Note that because the information is not persistent across beacon node restarts
     it is recommended that either the beacon node is monitored for restarts or this
     information is refreshed by resending this request periodically (for example,
     each epoch).
