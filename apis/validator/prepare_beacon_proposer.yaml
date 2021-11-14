@@ -1,0 +1,40 @@
+post:
+  operationId: "prepareBeaconProposer"
+  summary: Provide beacon node with proposals for the given validators.
+  description: |
+    Prepares the beacon node for potential proposers by supplying information
+    required when proposing blocks for the given validators.  The information
+    supplied for each validator index is considered persistent until overwritten
+    by new information for the given validator index, or until the beacon node
+    restarts.
+
+    Note that bacause the information is not persistent across beacon node restarts
+    it is recommended that either the beacon node is monitored for restarts or this
+    information is refreshed by resending this request periodically (for example,
+    each epoch).
+
+    Also note that requests containing currently inactive or unknown validator
+    indices will be accepted, as they may become active at a later epoch.
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              validator_index:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+              fee_recipient:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/ExecutionAddress'
+  responses:
+    "200":
+      description: |
+        Preparation information has been received.
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

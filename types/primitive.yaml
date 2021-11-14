@@ -58,3 +58,9 @@ Uint8:
   description: "Unsigned 8 bit integer, max value 255"
   pattern: "^[1-2]?[0-9]{1,2}$"
   example: "0"
+
+ExecutionAddress:
+  type: string
+  description: "An address on the execution (Ethereum 1) network."
+  example: "0xabcf8e0d4e9587369b2301d0790347320302cc09"
+  pattern: "^0x[a-fA-F0-9]{40}$"
