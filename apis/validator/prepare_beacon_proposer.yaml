@@ -8,6 +8,11 @@ post:
     by new information for the given validator index, or until the beacon node
     restarts.
 
+    There is no guarantee that the beacon node will use the supplied fee recipient
+    when creating a block proposal, so on receipt of a proposed block the validator
+    should confirm that it finds the fee recipient within the block acceptable before
+    signing it.
+
     Note that because the information is not persistent across beacon node restarts
     it is recommended that either the beacon node is monitored for restarts or this
     information is refreshed by resending this request periodically (for example,
