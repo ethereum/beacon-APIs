@@ -1,0 +1,39 @@
+post:
+  tags:
+    - Beacon
+    - ValidatorRequiredApi
+  summary: "Publish a signed blinded block."
+  operationId: "publishBlindedBlock"
+  description: |
+    Instructs the beacon node to broadcast a newly signed blinded beacon block to the MEV-Boost,
+    to be included in the beacon chain. The beacon node is not required to validate the signed
+    `BlindedBeaconBlock`, and a successful response (20X) only indicates that the broadcast has been
+    successful. The beacon node is expected to integrate the new block into its state, and
+    therefore validate the block internally, however blocks which fail the validation are still
+    broadcast but a different status code is returned (202)
+  requestBody:
+    description: "The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature."
+    required: true
+    content:
+      application/json:
+        schema:
+           "../../../beacon-node-oapi.yaml#/components/schemas/Merge.SignedBlindedBeaconBlock"
+  responses:
+    "200":
+      description: "The blinded block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
+    "202":
+      description: "The blinded block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
+    "400":
+      description: "The `SignedBlindedBeaconBlock` object is invalid"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block: missing signature"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
