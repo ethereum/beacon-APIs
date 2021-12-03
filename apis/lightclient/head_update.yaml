@@ -1,0 +1,21 @@
+get:
+  operationId: getHeadUpdate
+  summary: Get latest best head update
+  description: |
+    Returns the latest best head update available. Clients should use the SSE type `lightclient_head_update`
+    unless to get the very first head update after syncing, or if SSE are not supported by the server.
+  tags:
+    - Lightclient
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetHeadUpdateResponse
+            type: object
+            properties:
+              data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/LightclientHeadUpdate"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

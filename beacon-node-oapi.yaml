@@ -34,6 +34,8 @@ tags:
     description: Set of endpoints to debug chain and shouldn't be exposed publicly.
   - name: Events
     description: Set of endpoints to for event subscription.
+  - name: Lightclient
+    description: Endpoints to support server-based lightclients
   - name: Node
     description: Endpoints to query node related informations
   - name: Validator
@@ -95,6 +97,15 @@ paths:
     $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
     $ref: './apis/debug/heads.yaml'
+
+  /eth/v1/lightclient/committee_updates:
+    $ref: "./apis/lightclient/committee_updates.yaml"
+  /eth/v1/lightclient/head_update:
+    $ref: "./apis/lightclient/head_update.yaml"
+  /eth/v1/lightclient/proof/{state_id}:
+    $ref: "./apis/lightclient/proof.yaml"
+  /eth/v1/lightclient/snapshot/{block_root}:
+    $ref: "./apis/lightclient/snapshot.yaml"
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -237,6 +248,12 @@ components:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeContribution'
     Altair.SyncCommittee:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
+    LightClientUpdate:
+      $ref: './types/altair/lightclient.yaml#/Altair/LightClientUpdate'
+    LightclientHeadUpdate:
+      $ref: './types/altair/lightclient.yaml#/Altair/LightclientHeadUpdate'
+    LightclientSnapshot:
+      $ref: './types/altair/lightclient.yaml#/Altair/LightclientSnapshot'
 
   parameters:
     StateId:

@@ -1,0 +1,50 @@
+get:
+  operationId: getSnapshot
+  summary: Fetch a snapshot with a proof to a trusted block root.
+  description: |
+    Fetch a snapshot with a proof to a trusted block root.
+    The trusted block root should be fetched with similar means to a weak subjectivity checkpoint.
+    Only block roots for checkpoints within the weak subjectivity period must be guaranteed to be available.
+    If the node started with a recent weak subjectivity checkpoint, the node may not backfill snapshots
+    for older checkpoints.
+  tags:
+    - Lightclient
+  parameters:
+    - name: block_root
+      in: path
+      required: true
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetSnapshotResponse
+            type: object
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/LightclientSnapshot'
+    "400":
+      description: "Invalid block root"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block root: head"
+    "404":
+      description: "Snapshot not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Snapshot not found for block root"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

@@ -73,10 +73,7 @@ Altair:
           - $ref: '../primitive.yaml#/Uint64'
           - description: 'The index of the subcommittee that the contribution pertains to.'
       aggregation_bits:
-        allOf:
-          - description: 'A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.'
-          - $ref: "../primitive.yaml#/Hex"
-          - example: "0x01"
+        $ref: './sync_aggregate.yaml#/Altair/SyncCommitteeBits'
       signature:
         allOf:
           - $ref: '../primitive.yaml#/Signature'
@@ -99,4 +96,3 @@ Altair:
           allOf:
             - $ref: '#/Altair/ValidatorsByIndex'
             - description: 'Subcommittee slices of the current sync committee'
-

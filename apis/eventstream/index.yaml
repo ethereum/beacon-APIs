@@ -29,6 +29,7 @@ get:
             - finalized_checkpoint
             - chain_reorg
             - contribution_and_proof
+            - lightclient_head_update
   responses:
     "200":
       description: Opened SSE stream.
@@ -73,6 +74,17 @@ get:
               value: |
                 event: contribution_and_proof
                 data: {"message": {"aggregator_index": "997", "contribution": {"slot": "168097", "beacon_block_root": "0x56f1fd4262c08fa81e27621c370e187e621a67fc80fe42340b07519f84b42ea1", "subcommittee_index": "0", "aggregation_bits": "0xffffffffffffffffffffffffffffffff", "signature": "0x85ab9018e14963026476fdf784cc674da144b3dbdb47516185438768774f077d882087b90ad642469902e782a8b43eed0cfc1b862aa9a473b54c98d860424a702297b4b648f3f30bdaae8a8b7627d10d04cb96a2cc8376af3e54a9aa0c8145e3"}, "selection_proof": "0x87c305f04bfe5db27c2b19fc23e00d7ac496ec7d3e759cbfdd1035cb8cf6caaa17a36a95a08ba78c282725e7b66a76820ca4eb333822bd399ceeb9807a0f2926c67ce67cfe06a0b0006838203b493505a8457eb79913ce1a3bcd1cc8e4ef30ed"}, "signature": "0xac118511474a94f857300b315c50585c32a713e4452e26a6bb98cdb619936370f126ed3b6bb64469259ee92e69791d9e12d324ce6fd90081680ce72f39d85d50b0ff977260a8667465e613362c6d6e6e745e1f9323ec1d6f16041c4e358839ac"}
+            lightclient_head_update:
+              description: |
+                The node has received a new or better lightclient head update. `header` is the block header signed by `sync_aggregate`.
+                Updates may be collected via
+                - Next block's syncAggregate field
+                - Aggregating messages from gossip topic `sync_committee_contribution_and_proof`
+                - Aggregating messages from gossip topics `sync_committee_{subnet_id}`
+                Nodes should throttle emitting updates unless a new update is sufficiently better, i.e. has 16 more participants.
+              value: |
+                event: lightclient_head_update
+                data: {"message": {"sync_aggregate": {"sync_committee_bits": "0xfffffffffbfffffffffffffffffffffffffffffffffffffffffffefffffffffffffffffffffffeffffffffffeffffffffffffffffffffdffffffffffffffffff", "sync_committee_signature": "0x8a5e838431917331c461f38ec0f6c0b2f29c6cd2c9c9b7ed970b4700a8bc66bdb4b11ca129dd9c72fc1bbb1959c4a7cc0a0d8d107267f3cc364951747ad5ddd757555358e5910cec387179996a6e698d813df723ae02a825b6034af062913b91"}, "header": {"slot": "2642381", "proposer_index": "189806", "parent_root": "0xa00016e7462de60629c9b81b10d1f79c29ae43d81972a3c0e1e92801e3599d9d", "state_root": "0xaec6a955ff0ff9c0081828bad99342b3e60c4744a65e8c7ef1fd01bb1162b4ca", "body_root": "0xeed126eddef983e1270cf72bea05f62195590576a7472a6ae1b43a7bd1aa6f23"}}}
     "400":
       description: "The topics supplied could not be parsed"
       content:

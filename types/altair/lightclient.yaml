@@ -1,0 +1,58 @@
+Altair:
+  LightClientUpdate:
+    type: object
+    properties:
+      header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      nextSyncCommittee:
+        $ref: './sync_committee.yaml#/SyncCommittee'
+      nextSyncCommitteeBranch:
+        $ref: '#/Altair/SyncCommitteeBranch'
+      finalityHeader:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      finalityBranch:
+        $ref: '#/Altair/FinalityBranch'
+      syncCommitteeBits:
+        $ref: './sync_aggregate.yaml#/Altair/SyncCommitteeBits'
+      syncCommitteeSignature:
+        allOf:
+          - $ref: '../primitive.yaml#/Signature'
+          - description: 'Signature by the validator(s) over the block root of `slot`'
+      forkVersion:
+        $ref: '../primitive.yaml#/ForkVersion'
+  
+  FinalityBranch:
+    type: array
+    description: "Branch to state.finalized_checkpoint.root"
+    items:
+      allOf:
+        - $ref: '../primitive.yaml#/Root'
+    minItems: 6
+    maxItems: 6
+
+  SyncCommitteeBranch:
+    type: array
+    description: "Branch to state.next_sync_committee or state.current_sync_committee"
+    items:
+      allOf:
+        - $ref: '../primitive.yaml#/Root'
+    minItems: 5
+    maxItems: 5
+  
+  LightclientHeadUpdate:
+    type: object
+    properties:
+      header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      syncAggregate:
+        $ref: './sync_aggregate.yaml#/SyncAggregate'
+
+  LightclientSnapshot:
+    type: object
+    properties:
+      header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      currentSyncCommittee:
+        $ref: './sync_committee.yaml#/SyncCommittee'
+      currentSyncCommitteeBranch:
+        $ref: '#/Altair/SyncCommitteeBranch'
