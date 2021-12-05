@@ -7,7 +7,7 @@ get:
     - Is finalized update + > 2/3 participations
     - Highest participation (bit count)
     - Oldest update
-    Tracks oldest instead of newest to reduce disk writes and the likelyhood of re-orgs. Clients may choose
+    Tracks oldest instead of newest to reduce disk writes and the likelihood of re-orgs. Clients may choose
     a different set of "best" criteria if necessary.
   tags:
     - Lightclient
@@ -17,13 +17,13 @@ get:
       required: true
       description: "Sync period start of requested range"
       schema:
-        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: to
       in: query
       required: true
       description: "Sync period end of requested range (inclusive)"
       schema:
-        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: Success
