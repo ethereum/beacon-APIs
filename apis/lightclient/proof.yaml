@@ -10,7 +10,7 @@ get:
     - name: state_id
       in: path
       required: true
-      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+      $ref: "../../beacon-node-oapi.yaml#/components/parameters/StateId"
     - name: paths
       in: query
       required: true
@@ -20,15 +20,17 @@ get:
         items:
           type: string
           description: |
-          example: "'[\"balances\", 0]'"
-           
+          example: '''["balances", 0]'''
+
   responses:
     "200":
       description: Success
       content:
         application/octet-stream:
           schema:
-            description: "Serialized TreeOffset multiproof"
+            description: |
+              Serialized TreeOffset multiproof.
+              Format reference https://github.com/ethereum/consensus-specs/blob/dev/ssz/merkle-proofs.md#merkle-multiproofs
     "400":
       description: "Invalid state ID"
       content:
@@ -50,5 +52,4 @@ get:
                   code: 404
                   message: "State not found"
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
