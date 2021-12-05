@@ -2,8 +2,9 @@ get:
   operationId: getHeadUpdate
   summary: Get latest best head update
   description: |
-    Returns the latest best head update available. Clients should use the SSE type `lightclient_head_update`
-    unless to get the very first head update after syncing, or if SSE are not supported by the server.
+    Returns the latest best head update available. Clients should use the events endpoint and subscribe
+    to `lightclient_head_update` unless to get the very first head update after syncing, or if the events
+    endpoint is not supported by the server.
   tags:
     - Lightclient
   responses:
