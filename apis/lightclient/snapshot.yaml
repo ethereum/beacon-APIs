@@ -13,7 +13,7 @@ get:
     - name: block_root
       in: path
       required: true
-      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+      $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
   responses:
     "200":
       description: Success
@@ -24,7 +24,7 @@ get:
             type: object
             properties:
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/LightclientSnapshot'
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/LightclientSnapshot"
     "400":
       description: "Invalid block root"
       content:
@@ -46,5 +46,4 @@ get:
                   code: 404
                   message: "Snapshot not found for block root"
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
