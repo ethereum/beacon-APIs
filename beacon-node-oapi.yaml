@@ -255,6 +255,8 @@ components:
   responses:
     InvalidRequest:
       $ref: './types/http.yaml#/InvalidRequest'
+    NotFound:
+      $ref: './types/http.yaml#/NotFound'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
     CurrentlySyncing:

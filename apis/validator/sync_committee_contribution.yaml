@@ -37,6 +37,8 @@ get:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeContribution'
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotFound'
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
