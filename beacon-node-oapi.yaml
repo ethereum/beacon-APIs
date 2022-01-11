@@ -492,7 +492,7 @@ paths:
             State identifier.
             Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
         - name: id
-          description: Either hex encoded public key (with 0x prefix) or validator index
+          description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
           in: query
           required: false
           schema:
@@ -500,7 +500,7 @@ paths:
             maxItems: 30
             uniqueItems: true
             items:
-              description: Either hex encoded public key (with 0x prefix) or validator index
+              description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
               type: string
         - name: status
           description: '[Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)'
@@ -719,7 +719,7 @@ paths:
             State identifier.
             Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
         - name: validator_id
-          description: Either hex encoded public key (with 0x prefix) or validator index
+          description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
           in: path
           required: true
           schema:
@@ -911,7 +911,7 @@ paths:
             State identifier.
             Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
         - name: id
-          description: Either hex encoded public key (with 0x prefix) or validator index
+          description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
           in: query
           required: false
           schema:
@@ -919,7 +919,7 @@ paths:
             maxItems: 30
             uniqueItems: true
             items:
-              description: Either hex encoded public key (with 0x prefix) or validator index
+              description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
               type: string
       responses:
         '200':
