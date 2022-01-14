@@ -5,7 +5,7 @@ Altair:
       attestedHeader:
         $ref: '../block.yaml#/BeaconBlockHeader'
       nextSyncCommittee:
-        $ref: './sync_committee.yaml#/SyncCommittee'
+        $ref: './sync_committee.yaml#/Altair/SyncCommittee'
       nextSyncCommitteeBranch:
         $ref: '#/Altair/SyncCommitteeBranch'
       finalizedHeader:
@@ -49,6 +49,6 @@ Altair:
       header:
         $ref: '../block.yaml#/BeaconBlockHeader'
       currentSyncCommittee:
-        $ref: './sync_committee.yaml#/SyncCommittee'
+        $ref: './sync_committee.yaml#/Altair/SyncCommittee'
       currentSyncCommitteeBranch:
         $ref: '#/Altair/SyncCommitteeBranch'
