@@ -2,22 +2,18 @@ Altair:
   LightClientUpdate:
     type: object
     properties:
-      header:
+      attestedHeader:
         $ref: '../block.yaml#/BeaconBlockHeader'
       nextSyncCommittee:
         $ref: './sync_committee.yaml#/SyncCommittee'
       nextSyncCommitteeBranch:
         $ref: '#/Altair/SyncCommitteeBranch'
-      finalityHeader:
+      finalizedHeader:
         $ref: '../block.yaml#/BeaconBlockHeader'
       finalityBranch:
         $ref: '#/Altair/FinalityBranch'
-      syncCommitteeBits:
-        $ref: './sync_aggregate.yaml#/Altair/SyncCommitteeBits'
-      syncCommitteeSignature:
-        allOf:
-          - $ref: '../primitive.yaml#/Signature'
-          - description: 'Signature by the validator(s) over the block root of `slot`'
+      syncCommitteeAggregate:
+        $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
       forkVersion:
         $ref: '../primitive.yaml#/ForkVersion'
   
@@ -42,7 +38,7 @@ Altair:
   LightclientHeadUpdate:
     type: object
     properties:
-      header:
+      attestedHeader:
         $ref: '../block.yaml#/BeaconBlockHeader'
       syncAggregate:
         $ref: './sync_aggregate.yaml#/SyncAggregate'
