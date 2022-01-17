@@ -28,6 +28,12 @@ get:
       description: "Arbitrary data validator wants to include in block."
       schema:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
+    - name: fee_recipient
+      in: query
+      required: false
+      description: "Address that will receive transaction fees collected in the block."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/FeeRecipient'
   responses:
     "200":
       description: Success response

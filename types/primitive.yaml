@@ -58,3 +58,8 @@ Uint8:
   description: "Unsigned 8 bit integer, max value 255"
   pattern: "^[1-2]?[0-9]{1,2}$"
   example: "0"
+
+FeeRecipient:
+  type: string
+  example: "0x00000000219ab540356cbb839cbe05303d7705fa"
+  pattern: "^0x[a-fA-F0-9]{40}$"
