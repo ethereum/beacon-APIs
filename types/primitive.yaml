@@ -36,7 +36,6 @@ DependentRoot:
 ExecutionOptimistic:
   allOf:
     - type: boolean
-    - required: false
     - example: false
     - description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
 
