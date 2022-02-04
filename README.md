@@ -45,6 +45,8 @@ simplehttpserver
 ```
 And api spec will render on [http://localhost:8000](http://localhost:8000).
 
+Users may need to tick the "Disable Cache" box in their browser's developer tools to see changes after modifying the source. 
+
 ## Contributing
 Api spec is checked for lint errors before merge. 
 
