@@ -8,13 +8,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - run: npm i -g @apidevtools/swagger-cli@4 @stoplight/spectral-cli@6
 
     - name: Lint spec
-      uses: vaibhav-jain/spectral-action/@v2.6.1
-      with:
-        file_path: beacon-node-oapi.yaml
+      run: spectral lint ./beacon-node-oapi.yaml
 
     - name: Bundle spec
-      uses: mpetrunic/swagger-cli-action@v1.0.0
-      with:
-        command: "bundle ./beacon-node-oapi.yaml -r -t yaml -o ./bundle.yaml"
+      run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
