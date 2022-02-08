@@ -142,6 +142,8 @@ paths:
     $ref: "./apis/validator/sync_committee_contribution.yaml"
   /eth/v1/validator/contribution_and_proofs:
     $ref: "./apis/validator/sync_committee_contribution_and_proof.yaml"
+  /eth/v1/validator/prepare_beacon_proposer:
+    $ref: "./apis/validator/prepare_beacon_proposer.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -237,6 +239,8 @@ components:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeContribution'
     Altair.SyncCommittee:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
+    ExecutionAddress:
+      $ref: './types/primitive.yaml#/ExecutionAddress'
 
   parameters:
     StateId:
