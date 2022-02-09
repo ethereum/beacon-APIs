@@ -43,7 +43,11 @@ yarn global add simplehttpserver
 
 simplehttpserver
 ```
-And api spec will render on [http://localhost:8000](http://localhost:8000). Local changes will be observable if "dev" is selected in the "Select a definition" drop-down in the web UI.
+And api spec will render on [http://localhost:8000](http://localhost:8000).
+
+### Usage
+
+Local changes will be observable if "dev" is selected in the "Select a definition" drop-down in the web UI.
 
 Users may need to tick the "Disable Cache" box in their browser's developer tools to see changes after modifying the source. 
 
