@@ -12,7 +12,7 @@ Altair:
         $ref: '../block.yaml#/BeaconBlockHeader'
       finalityBranch:
         $ref: '#/Altair/FinalityBranch'
-      syncCommitteeAggregate:
+      syncAggregate:
         $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
       forkVersion:
         $ref: '../primitive.yaml#/ForkVersion'
