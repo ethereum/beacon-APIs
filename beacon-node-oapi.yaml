@@ -7204,9 +7204,9 @@ paths:
               title: GetAttesterDutiesBody
               type: array
               items:
-                minItems: 1
                 type: string
                 example: '1'
+                minItems: 1
       responses:
         '200':
           description: Success response
@@ -7477,9 +7477,9 @@ paths:
               title: GetSyncCommitteeDutiesBody
               type: array
               items:
-                minItems: 1
                 type: string
                 example: '1'
+                minItems: 1
       responses:
         '200':
           description: Success response
@@ -13358,9 +13358,9 @@ components:
       pattern: '^0x[a-fA-F0-9]{40}$'
   parameters:
     StateId:
+      required: true
       name: state_id
       in: path
-      required: true
       example: head
       schema:
         type: string
@@ -13368,9 +13368,9 @@ components:
         State identifier.
         Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
     BlockId:
+      required: true
       name: block_id
       in: path
-      required: true
       example: head
       schema:
         type: string
