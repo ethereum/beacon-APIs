@@ -31,8 +31,8 @@ get:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 oneOf:
-                 - $ref: '../beacon-node-oapi.yaml#/components/schemas/BeaconState'
-                 - $ref: "../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"
@@ -42,7 +42,7 @@ get:
         application/json:
           schema:
             allOf:
-              - $ref: "../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
               - example:
                   code: 400
                   message: "Invalid state ID: current"
@@ -52,10 +52,10 @@ get:
         application/json:
           schema:
             allOf:
-              - $ref: "../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
               - example:
                   code: 404
                   message: "State not found"
     "500":
-      $ref: '../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

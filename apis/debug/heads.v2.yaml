@@ -23,6 +23,6 @@ get:
                     slot:
                       $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
                     execution_optimistic:
-                      $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+                      $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
     "500":
       $ref: "../beacon-node-oapi.yaml#/components/responses/InternalError"
