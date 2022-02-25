@@ -1,7 +1,7 @@
 Bellatrix:
   BeaconState:
     type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.3/specs/altair/beacon-chain.md#beaconstate) object from the Eth2.0 Altair spec."
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconstate) object from the Eth2.0 Bellatrix spec."
     properties:
       genesis_time:
         $ref: "../primitive.yaml#/Uint64"
