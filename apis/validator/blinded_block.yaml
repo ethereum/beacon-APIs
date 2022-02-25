@@ -2,10 +2,11 @@ get:
   tags:
     - ValidatorRequiredApi
     - Validator
-  operationId: "produceBlockV2"
-  summary: "Produce a new block, without signature."
+  operationId: "produceBlindedBlock"
+  summary: "Produce a new blinded block, without signature."
   description: |
-    Requests a beacon node to produce a valid block, which can then be signed by a validator.
+    Requests a beacon node to produce a valid blinded block, which can then be signed by a validator. 
+    A blinded block is a block with only a transactions root, rather than a full transactions list.
 
     Metadata in the response indicates the type of block produced, and the supported types of block
     will be added to as forks progress.
@@ -34,18 +35,16 @@ get:
       content:
         application/json:
           schema:
-            title: ProduceBlockV2Response
+            title: ProduceBlindedBlockResponse
             type: object
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix ]
-                example: "phase0"
+                enum: [ bellatrix ]
+                example: "bellatrix"
               data:
                 oneOf:
-                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
     "400":
       description: "Invalid block production request"
       content:

@@ -1,0 +1,49 @@
+Bellatrix:
+  ExecutionPayloadCommon:
+    # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
+    type: object
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.9/specs/bellatrix) object from the Eth2.0 Bellatrix spec."
+    properties:
+      parent_hash:
+        $ref: '../primitive.yaml#/Root'
+      fee_recipient:
+        $ref: '../primitive.yaml#/ExecutionAddress'
+      state_root:
+        $ref: '../primitive.yaml#/Root'
+      receipts_root:
+        $ref: '../primitive.yaml#/Root'
+      logs_bloom:
+        $ref: '../primitive.yaml#/LogsBloom'
+      prev_randao:
+        $ref: '../primitive.yaml#/Root'
+      block_number:
+        $ref: '../primitive.yaml#/Uint64'
+      gas_limit:
+        $ref: '../primitive.yaml#/Uint64'
+      gas_used:
+        $ref: '../primitive.yaml#/Uint64'
+      timestamp:
+        $ref: '../primitive.yaml#/Uint64'
+      extra_data:
+        $ref: '../primitive.yaml#/ExtraData'
+      base_fee_per_gas:
+        $ref: '../primitive.yaml#/Uint256'
+      block_hash:
+        $ref: '../primitive.yaml#/Root'
+
+
+  ExecutionPayload:
+    allOf:
+      - $ref: '#/Bellatrix/ExecutionPayloadCommon'
+      - type: object
+        properties:
+          transactions:
+            $ref: './transactions.yaml#/Bellatrix/Transactions'
+
+  ExecutionPayloadHeader:
+    allOf:
+      - $ref: '#/Bellatrix/ExecutionPayloadCommon'
+      - type: object
+        properties:
+          transactions_root:
+            $ref: '../primitive.yaml#/Root'

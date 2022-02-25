@@ -69,6 +69,8 @@ paths:
     $ref: "./apis/beacon/blocks/header.yaml"
   /eth/v1/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.yaml"
+  /eth/v1/beacon/blinded_blocks:
+    $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
   /eth/v1/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.yaml"
   /eth/v2/beacon/blocks/{block_id}:
@@ -127,7 +129,9 @@ paths:
   /eth/v1/validator/blocks/{slot}:
     $ref: "./apis/validator/block.yaml"
   /eth/v2/validator/blocks/{slot}:
-      $ref: "./apis/validator/block.v2.yaml"
+    $ref: "./apis/validator/block.v2.yaml"
+  /eth/v2/validator/blinded_blocks/{slot}:
+    $ref: "./apis/validator/blinded_block.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/aggregate_attestation:
@@ -241,6 +245,16 @@ components:
       $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
     ExecutionAddress:
       $ref: './types/primitive.yaml#/ExecutionAddress'
+    Bellatrix.BeaconState:
+      $ref: './types/bellatrix/state.yaml#/Bellatrix/BeaconState'
+    Bellatrix.BeaconBlock:
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/BeaconBlock'
+    Bellatrix.SignedBeaconBlock:
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBeaconBlock'
+    Bellatrix.BlindedBeaconBlock:
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/BeaconBlock'
+    Bellatrix.SignedBlindedBeaconBlock:
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
 
   parameters:
     StateId:
@@ -261,5 +275,5 @@ components:
       description: Required in response so client can deserialize returned json or ssz data more effectively.
       schema:
         type: string
-        enum: [phase0, altair]
+        enum: [phase0, altair, bellatrix]
         example: "phase0"

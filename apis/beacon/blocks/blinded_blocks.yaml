@@ -3,31 +3,32 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
-  operationId: "publishBlock"
+  operationId: "publishBlindedBlock"
   description: |
-    Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,
+    Instructs the beacon node to use the components of the `SignedBlindedBeaconBlock` to construct and publish a 
+    `SignedBeaconBlock` by swapping out the `transactions_root` for the corresponding full list of `transactions`
+    The beacon node should broadcast a newly constructed `SignedBeaconBlock` to the beacon network,
     to be included in the beacon chain. The beacon node is not required to validate the signed
     `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been
     successful. The beacon node is expected to integrate the new block into its state, and
     therefore validate the block internally, however blocks which fail the validation are still
     broadcast but a different status code is returned (202)
+
   requestBody:
-    description: "The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature."
+    description: "The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature."
     required: true
     content:
       application/json:
         schema:
           oneOf:
-           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
-           - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-           - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
   responses:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
     "202":
       description: "The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
     "400":
-      description: "The `SignedBeaconBlock` object is invalid"
+      description: "The `SignedBlindedBeaconBlock` object is invalid"
       content:
         application/json:
           schema:
