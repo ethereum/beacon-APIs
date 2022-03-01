@@ -252,7 +252,7 @@ components:
     Bellatrix.SignedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBeaconBlock'
     Bellatrix.BlindedBeaconBlock:
-      $ref: './types/bellatrix/block.yaml#/Bellatrix/BeaconBlock'
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
 
