@@ -60,7 +60,7 @@ Altair:
         type: array
         items:
           allOf:
-            - $ref: '../primitive.yaml#/Root'
+            - $ref: '../primitive.yaml#/Bytes32'
         minItems: 65536
         maxItems: 65536
       slashings:

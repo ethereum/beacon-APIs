@@ -15,7 +15,7 @@ Bellatrix:
       logs_bloom:
         $ref: '../primitive.yaml#/LogsBloom'
       prev_randao:
-        $ref: '../primitive.yaml#/Root'
+        $ref: '../primitive.yaml#/Bytes32'
       block_number:
         $ref: '../primitive.yaml#/Uint64'
       gas_limit:
