@@ -95,6 +95,8 @@ paths:
     $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
     $ref: './apis/debug/heads.yaml'
+  /eth/v2/debug/beacon/heads:
+    $ref: './apis/debug/heads.v2.yaml'
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -209,6 +211,8 @@ components:
       $ref: './types/primitive.yaml#/ForkVersion'
     DependentRoot:
       $ref: './types/primitive.yaml#/DependentRoot'
+    ExecutionOptimistic:
+      $ref: './types/primitive.yaml#/ExecutionOptimistic'
     Root:
       $ref: './types/primitive.yaml#/Root'
     Hex:

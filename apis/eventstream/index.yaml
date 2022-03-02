@@ -42,11 +42,13 @@ get:
               description: The node has finished processing, resulting in a new head. previous_duty_dependent_root is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)` and current_duty_dependent_root is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch) - 1)`. Both dependent roots use the genesis block root in the case of underflow.
               value: |
                 event: head
+                execution_optimistic: false
                 data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "epoch_transition":false, "previous_duty_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "current_duty_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91"}
             block:
               description: The node has received a valid block (from P2P or API)
               value: |
                 event: block
+                execution_optimistic: false
                 data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}
             attestation:
               description: The node has received a valid attestation (from P2P or API)
@@ -62,11 +64,13 @@ get:
               description: Finalized checkpoint has been updated
               value: |
                 event: finalized_checkpoint
+                execution_optimistic: false
                 data: {"block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "epoch":"2" }
             chain_reorg:
               description: The node has reorganized its chain
               value: |
                 event: chain_reorg
+                execution_optimistic: false
                 data: {"slot":"200", "depth":"50", "old_head_block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "new_head_block":"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76", "old_head_state":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "new_head_state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "epoch":"2"}
             contribution_and_proof:
               description: The node has received a valid sync committee SignedContributionAndProof (from P2P or API)
