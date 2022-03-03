@@ -34,6 +34,8 @@ get:
             properties:
               dependent_root:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 type: array
                 items:
