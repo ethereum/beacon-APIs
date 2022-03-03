@@ -12,7 +12,7 @@ post:
     `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been
     successful. The beacon node is expected to integrate the new block into its state, and
     therefore validate the block internally, however blocks which fail the validation are still
-    broadcast but a different status code is returned (202)
+    broadcast but a different status code is returned (202).
 
   requestBody:
     description: "The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature."
