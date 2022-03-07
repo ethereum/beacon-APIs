@@ -19,7 +19,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint without an increase in the version number.
 
-    All JSON responses return the requested data under a "data" key in the top level of their response.  Additional metadata may or
+    All JSON responses return the requested data under a `data` key in the top level of their response.  Additional metadata may or
     may not be present in other keys at the top level of the response.  Metadata's presence or absence can be dependent on the type
     and version of the beacon node, the state of the chain, and other conditions.  Metadata is not versioned, and as such the same
     version of an API endpoint may return different metadata at different times.
