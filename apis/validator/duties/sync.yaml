@@ -32,6 +32,8 @@ post:
             title: GetSyncCommitteeDutiesResponse
             type: object
             properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 type: array
                 items:
