@@ -12,8 +12,8 @@ post:
     `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been
     successful. The beacon node is expected to integrate the new block into its state, and
     therefore validate the block internally, however blocks which fail the validation are still
-    broadcast but a different status code is returned (202)
-
+    broadcast but a different status code is returned (202). Pre-Bellatrix, this endpoint will accept 
+    a `SignedBeaconBlock`.
   requestBody:
     description: "The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature."
     required: true
@@ -21,6 +21,8 @@ post:
       application/json:
         schema:
           oneOf:
+            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
   responses:
     "200":

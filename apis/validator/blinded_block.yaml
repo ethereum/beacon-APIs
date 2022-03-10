@@ -10,6 +10,8 @@ get:
 
     Metadata in the response indicates the type of block produced, and the supported types of block
     will be added to as forks progress.
+    
+    Pre-Bellatrix, this endpoint will return a `BeaconBlock`.
   parameters:
     - name: slot
       in: path
@@ -40,10 +42,12 @@ get:
             properties:
               version:
                 type: string
-                enum: [ bellatrix ]
+                enum: [ phase0, altair, bellatrix ]
                 example: "bellatrix"
               data:
                 oneOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
     "400":
       description: "Invalid block production request"

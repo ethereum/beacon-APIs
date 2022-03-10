@@ -132,7 +132,7 @@ paths:
     $ref: "./apis/validator/block.yaml"
   /eth/v2/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v2.yaml"
-  /eth/v2/validator/blinded_blocks/{slot}:
+  /eth/v1/validator/blinded_blocks/{slot}:
     $ref: "./apis/validator/blinded_block.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
