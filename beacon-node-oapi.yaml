@@ -11,18 +11,15 @@ info:
     of requests can respond with data in SSZ format; these are noted in each individual request.
 
     API endpoints are individually versioned.  As such, there is no direct relationship between all v1 endpoints, all v2 endpoints,
-    _etc._ and no such relationship should be inferred.  The rules that require an increase in version number are as follows:
+    _etc._ and no such relationship should be inferred.  All JSON responses return the requested data under a `data` key in the top
+    level of their response.  Additional metadata may or may not be present in other keys at the top level of the response, dependent
+    on the endpoint.  The rules that require an increase in version number are as follows:
 
       - no field that is listed in an endpoint shall be removed without an increase in the version number
       - no field that is listed in an endpoint shall be altered in terms of format (_e.g._ from a string to an array) without an
         increase in the version number
 
-    Note that it is possible for a field to be added to an endpoint without an increase in the version number.
-
-    All JSON responses return the requested data under a `data` key in the top level of their response.  Additional metadata may or
-    may not be present in other keys at the top level of the response.  Metadata's presence or absence can be dependent on the type
-    and version of the beacon node, the state of the chain, and other conditions.  Metadata is not versioned, and as such the same
-    version of an API endpoint may return different metadata at different times.
+    Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
   version: "Dev - Eth2Spec v1.1.0"
   contact:
