@@ -89,6 +89,9 @@ paths:
   /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
+  /eth/v1/beacon/weak_subjectivity:
+    $ref: "./apis/beacon/weak_subjectivity.yaml"
+
   /eth/v1/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.yaml'
   /eth/v2/debug/beacon/states/{state_id}:

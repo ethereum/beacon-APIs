@@ -1,0 +1,34 @@
+  get:
+    operationId: getWeakSubjectivity
+    tags:
+      - Beacon
+    summary: "Retrieve weak subjectivity data based on the current chain head."
+    description: "Retrieve weak subjectivity data to be used for checkpoint validation or initiating checkpoint sync."
+    responses:
+      "200":
+        description: Request successful
+        content:
+          application/json:
+            schema:
+              type: object
+              title: GetWeakSubjectivityResponse
+              properties:
+                data:
+                  type: object
+                  properties:
+                    ws_checkpoint:
+                      $ref: "../../types/misc.yaml#/Checkpoint"
+                    state_root:
+                      $ref: '../../types/primitive.yaml#/Root'
+      "503":
+        description: "Weak Subjectivity data cannot be computed at this time (Beacon Node out of sync)."
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+                - example:
+                    code: 503 
+                    message: "Weak Subjectivity data cannot be computed at this time (Beacon Node out of sync)."
+      "500":
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
