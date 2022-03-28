@@ -1,7 +1,7 @@
-Altair:
+Bellatrix:
   BeaconState:
     type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.3/specs/altair/beacon-chain.md#beaconstate) object from the Eth2.0 Altair spec."
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconstate) object from the Eth2.0 Bellatrix spec."
     properties:
       genesis_time:
         $ref: "../primitive.yaml#/Uint64"
@@ -72,9 +72,9 @@ Altair:
         minItems: 8192
         maxItems: 8192
       previous_epoch_participation:
-        $ref: './epoch_participation.yaml#/Altair/EpochParticipation'
+        $ref: '../altair/epoch_participation.yaml#/Altair/EpochParticipation'
       current_epoch_participation:
-        $ref: './epoch_participation.yaml#/Altair/EpochParticipation'
+        $ref: '../altair/epoch_participation.yaml#/Altair/EpochParticipation'
       justification_bits:
         type: string
         pattern: "^0x[a-fA-F0-9]+$"
@@ -94,6 +94,8 @@ Altair:
           allOf:
             - $ref: "../primitive.yaml#/Uint64"
       current_sync_committee:
-        $ref: "./sync_committee.yaml#/Altair/SyncCommittee"
+        $ref: "../altair/sync_committee.yaml#/Altair/SyncCommittee"
       next_sync_committee:
-        $ref: './sync_committee.yaml#/Altair/SyncCommittee'
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      latest_execution_payload_header:
+        $ref: './execution_payload.yaml#/Bellatrix/ExecutionPayloadHeader'

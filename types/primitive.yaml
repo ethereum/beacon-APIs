@@ -28,6 +28,10 @@ Uint64:
   type: string
   example: "1"
 
+Uint256:
+  type: string
+  example: "1"
+
 DependentRoot:
   allOf:
     - $ref: "./primitive.yaml#/Root"
@@ -40,6 +44,11 @@ ExecutionOptimistic:
     - description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
 
 Root:
+  type: string
+  example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
+  pattern: "^0x[a-fA-F0-9]{64}$"
+
+Bytes32:
   type: string
   example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
   pattern: "^0x[a-fA-F0-9]{64}$"
@@ -70,3 +79,20 @@ ExecutionAddress:
   description: "An address on the execution (Ethereum 1) network."
   example: "0xabcf8e0d4e9587369b2301d0790347320302cc09"
   pattern: "^0x[a-fA-F0-9]{40}$"
+
+Transaction:
+  type: string
+  description: "A transaction on the execution (Ethereum 1) network."
+  example: "0x02f878831469668303f51d843b9ac9f9843b9aca0082520894c93269b73096998db66be0441e836d873535cb9c8894a19041886f000080c001a031cc29234036afbf9a1fb9476b463367cb1f957ac0b919b69bbc798436e604aaa018c4e9c3914eb27aadd0b91e10b18655739fcf8c1fc398763a9f1beecb8ddc86"
+  pattern: "^0x[a-fA-F0-9]{0,2147483648}$"
+
+ExtraData:
+  type: string
+  description: "Extra data on the execution (Ethereum 1) network."
+  example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
+  pattern: "^0x[a-fA-F0-9]{0,64}$"
+
+LogsBloom:
+  type: string
+  example: "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  pattern: "^0x[a-fA-F0-9]{512}$"
