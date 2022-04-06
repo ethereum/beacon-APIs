@@ -4,7 +4,7 @@
       - Node
       - ValidatorRequiredApi
     summary: "Get node syncing status"
-    description: "ZZZ Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to."
+    description: "Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to."
     responses:
       "200":
         description: Request successful
@@ -32,7 +32,7 @@
                     is_optimistic:
                       allOf:
                         - type: boolean
-                        - description: "Set to true if the node is optimistically tracking head (possible syncing reason)."
+                        - description: "Set to true if the node is optimistically tracking head."
 
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
