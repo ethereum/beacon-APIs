@@ -9820,8 +9820,13 @@ paths:
                           - type: string
                             example: '1'
                       is_syncing:
-                        type: boolean
-                        description: 'Set to true if the node is syncing, false if the node is synced.'
+                        allOf:
+                          - type: boolean
+                          - description: 'Set to true if the node is syncing, false if the node is synced.'
+                      is_optimistic:
+                        allOf:
+                          - type: boolean
+                          - description: Set to true if the node is optimistically tracking head.
         '500':
           description: Beacon node internal error.
           content:
