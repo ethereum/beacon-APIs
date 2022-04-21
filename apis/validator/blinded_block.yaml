@@ -49,6 +49,9 @@ get:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is returned in header `Eth-Consensus-Version`."
     "400":
       description: "Invalid block production request"
       content:
