@@ -26,7 +26,7 @@ post:
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
       application/octet-stream:
         schema:
-          description: "SSZ serialized block bytes. Use Accept header to choose this response type."
+          description: "SSZ serialized block bytes. Use Accept header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
