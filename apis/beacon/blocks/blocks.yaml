@@ -3,6 +3,12 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
+  parameters:
+    - name: "Eth-Consensus-Version"
+      in: header
+      allOf:
+        - $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+        - description: "Version of the block being submitted, if using SSZ encoding."
   operationId: "publishBlock"
   description: |
     Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,
@@ -23,7 +29,7 @@ post:
            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
       application/octet-stream:
         schema:
-          description: "SSZ serialized block bytes. Use Accept header to indicate that SSZ data is contained in the request body."
+          description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
