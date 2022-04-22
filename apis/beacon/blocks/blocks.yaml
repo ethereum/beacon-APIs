@@ -3,12 +3,6 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
-  parameters:
-    - name: "Eth-Consensus-Version"
-      in: header
-      allOf:
-        - $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-        - description: "Version of the block being submitted, if using SSZ encoding."
   operationId: "publishBlock"
   description: |
     Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,
@@ -17,6 +11,12 @@ post:
     successful. The beacon node is expected to integrate the new block into its state, and
     therefore validate the block internally, however blocks which fail the validation are still
     broadcast but a different status code is returned (202)
+  parameters:
+    - name: "Eth-Consensus-Version"
+      in: header
+      allOf:
+        - $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+        - description: "Version of the block being submitted, if using SSZ encoding."
   requestBody:
     description: "The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature."
     required: true
