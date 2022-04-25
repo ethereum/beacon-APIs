@@ -10,6 +10,10 @@ post:
     information periodically, for example each epoch, to ensure beacon nodes have
     correct and timely fee recipient information.
 
+    Optionally the validator may also include a signed validator registration
+    which will be used by the Builder API to verify a validator's latest fee
+    recipient.
+
     Note that there is no guarantee that the beacon node will use the supplied fee
     recipient when creating a block proposal, so on receipt of a proposed block the
     validator should confirm that it finds the fee recipient within the block
@@ -32,6 +36,14 @@ post:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
               fee_recipient:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/ExecutionAddress'
+              validator_registration:
+                type: object
+                properties:
+                  timestamp:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                  signature:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+
   responses:
     "200":
       description: |
