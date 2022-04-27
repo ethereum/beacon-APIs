@@ -290,7 +290,7 @@ components:
       $ref: './types/http.yaml#/CurrentlySyncing'
 
   headers:
-    eth-consensus-version:
+    Eth-Consensus-Version:
       description: Required in response so client can deserialize returned json or ssz data more effectively.
       required: true
       schema:
