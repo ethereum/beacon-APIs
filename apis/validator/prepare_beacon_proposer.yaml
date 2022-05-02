@@ -12,7 +12,7 @@ post:
 
     Optionally the validator may also include a signed validator registration
     which will be used by the Builder API to verify a validator's latest fee
-    recipient and preferred gas target.
+    recipient and preferred target gas limit.
 
     Note that there is no guarantee that the beacon node will use the supplied fee
     recipient when creating a block proposal, so on receipt of a proposed block the
@@ -41,7 +41,7 @@ post:
                 properties:
                   timestamp:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                  gas_target:
+                  gas_limit:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
                   signature:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
