@@ -41,7 +41,7 @@ post:
       description: |
         Slot signature is valid and beacon node has prepared the attestation subnet.
 
-        Note that, we cannot be certain Beacon node will find peers for that subnet for various reasons,"
+        Note that we cannot be certain the Beacon node will find peers for that subnet for various reasons.
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "500":
