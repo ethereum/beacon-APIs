@@ -1,3 +1,9 @@
+---
+layout: page
+title: "Validator flow"
+permalink: /validator-flow/
+---
+
 # Validator Flow
 
 Detail explanation how validator should utilize this API to perform his regular BeaconChain duties.
