@@ -14198,7 +14198,7 @@ paths:
           description: |
             Slot signature is valid and beacon node has prepared the attestation subnet.
 
-            Note that, we cannot be certain Beacon node will find peers for that subnet for various reasons,"
+            Note that we cannot be certain the Beacon node will find peers for that subnet for various reasons.
         '400':
           description: Invalid request syntax.
           content:
