@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
-    - run: npm i -g @apidevtools/swagger-cli@4 @stoplight/spectral-cli@6.2.0
+    - run: npm i -g @apidevtools/swagger-cli@4 @stoplight/spectral-cli@6.3.0
     - run: spectral --version
 
     - name: Lint spec

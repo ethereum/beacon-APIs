@@ -270,7 +270,9 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
-
+    ConsensusVersion:
+      enum: [phase0, altair, bellatrix]
+      example: "phase0"
   parameters:
     StateId:
       $ref: './params/index.yaml#/StateId'
@@ -290,7 +292,6 @@ components:
   headers:
     Eth-Consensus-Version:
       description: Required in response so client can deserialize returned json or ssz data more effectively.
+      required: true
       schema:
-        type: string
-        enum: [phase0, altair, bellatrix]
-        example: "phase0"
+        $ref: '#/components/schemas/ConsensusVersion'

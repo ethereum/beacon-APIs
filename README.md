@@ -56,11 +56,11 @@ Api spec is checked for lint errors before merge.
 
 To run lint locally, install linter with
 ```
-npm install -g @stoplight/spectral-cli@6.2.1
+npm install -g @stoplight/spectral-cli@6.3.0
 
 # OR
 
-yarn global add @stoplight/spectral-cli@6.2.1
+yarn global add @stoplight/spectral-cli@6.3.0
 ```
 and run lint with
 ```

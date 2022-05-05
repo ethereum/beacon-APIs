@@ -14,6 +14,13 @@ post:
     therefore validate the block internally, however blocks which fail the validation are still
     broadcast but a different status code is returned (202). Pre-Bellatrix, this endpoint will accept 
     a `SignedBeaconBlock`.
+  parameters:
+    - in: header
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+      required: false
+      name: Eth-Consensus-Version
+      description: "Version of the block being submitted, if using SSZ encoding."
   requestBody:
     description: "The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature."
     required: true
@@ -24,6 +31,9 @@ post:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
