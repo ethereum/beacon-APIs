@@ -12,7 +12,7 @@ post:
 
     Optionally the validator may also include a signed validator registration
     which will be used by the Builder API to verify a validator's latest fee
-    recipient and preferred target gas limit.
+    recipient and preferred gas limit.
 
     Note that there is no guarantee that the beacon node will use the supplied fee
     recipient when creating a block proposal, so on receipt of a proposed block the
