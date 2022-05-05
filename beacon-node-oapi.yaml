@@ -1610,6 +1610,17 @@ paths:
         successful. The beacon node is expected to integrate the new block into its state, and
         therefore validate the block internally, however blocks which fail the validation are still
         broadcast but a different status code is returned (202)
+      parameters:
+        - in: header
+          schema:
+            enum:
+              - phase0
+              - altair
+              - bellatrix
+            example: phase0
+          required: false
+          name: Eth-Consensus-Version
+          description: 'Version of the block being submitted, if using SSZ encoding.'
       requestBody:
         description: The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature.
         required: true
@@ -2908,6 +2919,9 @@ paths:
                       type: string
                       pattern: '^0x[a-fA-F0-9]{192}$'
                       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+          application/octet-stream:
+            schema:
+              description: SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body.
       responses:
         '200':
           description: The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database.
@@ -2997,6 +3011,17 @@ paths:
         therefore validate the block internally, however blocks which fail the validation are still
         broadcast but a different status code is returned (202). Pre-Bellatrix, this endpoint will accept 
         a `SignedBeaconBlock`.
+      parameters:
+        - in: header
+          schema:
+            enum:
+              - phase0
+              - altair
+              - bellatrix
+            example: phase0
+          required: false
+          name: Eth-Consensus-Version
+          description: 'Version of the block being submitted, if using SSZ encoding.'
       requestBody:
         description: The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature.
         required: true
@@ -4291,6 +4316,9 @@ paths:
                       type: string
                       pattern: '^0x[a-fA-F0-9]{192}$'
                       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+          application/octet-stream:
+            schema:
+              description: SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body.
       responses:
         '200':
           description: The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database.
@@ -4888,8 +4916,8 @@ paths:
           headers:
             Eth-Consensus-Version:
               description: Required in response so client can deserialize returned json or ssz data more effectively.
+              required: true
               schema:
-                type: string
                 enum:
                   - phase0
                   - altair
@@ -8118,8 +8146,8 @@ paths:
           headers:
             Eth-Consensus-Version:
               description: Required in response so client can deserialize returned json or ssz data more effectively.
+              required: true
               schema:
-                type: string
                 enum:
                   - phase0
                   - altair
@@ -11000,6 +11028,16 @@ paths:
       responses:
         '200':
           description: Success response
+          headers:
+            Eth-Consensus-Version:
+              description: Required in response so client can deserialize returned json or ssz data more effectively.
+              required: true
+              schema:
+                enum:
+                  - phase0
+                  - altair
+                  - bellatrix
+                example: phase0
           content:
             application/json:
               schema:
@@ -12282,6 +12320,9 @@ paths:
                                                       example: '0x02f878831469668303f51d843b9ac9f9843b9aca0082520894c93269b73096998db66be0441e836d873535cb9c8894a19041886f000080c001a031cc29234036afbf9a1fb9476b463367cb1f957ac0b919b69bbc798436e604aaa018c4e9c3914eb27aadd0b91e10b18655739fcf8c1fc398763a9f1beecb8ddc86'
                                                       pattern: '^0x[a-fA-F0-9]{0,2147483648}$'
                                                 maxItems: 1048576
+            application/octet-stream:
+              schema:
+                description: 'SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`.'
         '400':
           description: Invalid block production request
           content:
@@ -13671,6 +13712,9 @@ paths:
                                                 type: string
                                                 example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
+            application/octet-stream:
+              schema:
+                description: 'SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`.'
         '400':
           description: Invalid block production request
           content:
@@ -20412,6 +20456,12 @@ components:
           type: string
           pattern: '^0x[a-fA-F0-9]{192}$'
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+    ConsensusVersion:
+      enum:
+        - phase0
+        - altair
+        - bellatrix
+      example: phase0
   parameters:
     StateId:
       required: true
@@ -20522,8 +20572,8 @@ components:
   headers:
     Eth-Consensus-Version:
       description: Required in response so client can deserialize returned json or ssz data more effectively.
+      required: true
       schema:
-        type: string
         enum:
           - phase0
           - altair
