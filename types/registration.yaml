@@ -4,19 +4,19 @@ ValidatorRegistration:
   properties:
     fee_recipient:
       allOf:
-        - $ref: '../beacon-apis/types/primitive.yaml#/ExecutionAddress'
+        - $ref: 'primitive.yaml#/ExecutionAddress'
         - description: "Address to receive fees from the block."
     gas_limit:
       allOf:
-        - $ref: "../beacon-apis/types/primitive.yaml#/Uint64"
+        - $ref: "primitive.yaml#/Uint64"
         - description: "Gas limit the validator desires to target."
     timestamp:
       allOf:
-        - $ref: '../beacon-apis/types/primitive.yaml#/Uint64'
+        - $ref: 'primitive.yaml#/Uint64'
         - description: "Unix timestamp of registration."
     pubkey:
       allOf:
-        - $ref: '../beacon-apis/types/primitive.yaml#/Pubkey'
+        - $ref: 'primitive.yaml#/Pubkey'
         - description: "BLS public key of validator."
 
 SignedValidatorRegistration:
@@ -26,4 +26,4 @@ SignedValidatorRegistration:
     message:
       $ref: "#/ValidatorRegistration"
     signature:
-      $ref: "../beacon-apis/types/primitive.yaml#/Signature"
+      $ref: "primitive.yaml#/Signature"
