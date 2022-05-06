@@ -1,0 +1,29 @@
+ValidatorRegistration:
+  type: object
+  description: "The [`ValidatorRegistration`]() object from the Builder API spec."
+  properties:
+    fee_recipient:
+      allOf:
+        - $ref: '../beacon-apis/types/primitive.yaml#/ExecutionAddress'
+        - description: "Address to receive fees from the block."
+    gas_limit:
+      allOf:
+        - $ref: "../beacon-apis/types/primitive.yaml#/Uint64"
+        - description: "Gas limit the validator desires to target."
+    timestamp:
+      allOf:
+        - $ref: '../beacon-apis/types/primitive.yaml#/Uint64'
+        - description: "Unix timestamp of registration."
+    pubkey:
+      allOf:
+        - $ref: '../beacon-apis/types/primitive.yaml#/Pubkey'
+        - description: "BLS public key of validator."
+
+SignedValidatorRegistration:
+  type: object
+  description: "The [`SignedValidatorRegistration`]() object from the Builder API spec."
+  properties:
+    message:
+      $ref: "#/ValidatorRegistration"
+    signature:
+      $ref: "../beacon-apis/types/primitive.yaml#/Signature"
