@@ -26,8 +26,8 @@ info:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
   license:
-    name: "Apache 2.0"
-    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+    name: "CC0-1.0"
+    url: "https://creativecommons.org/publicdomain/zero/1.0/"
 
 servers:
   - url: "{server_url}"
