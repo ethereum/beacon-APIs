@@ -11,7 +11,7 @@ post:
     fee recipient and gas limit preferences.
 
     Note that requests containing currently inactive or unknown validator
-    indices will be accepted, as they may become active at a later epoch.
+    pubkeys will be accepted, as they may become active at a later epoch.
   tags:
     - Validator
   requestBody:
