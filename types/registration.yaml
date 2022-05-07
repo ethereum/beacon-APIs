@@ -1,27 +1,23 @@
 ValidatorRegistration:
   type: object
-  description: "The [`ValidatorRegistration`]() object from the Builder API spec."
+  description: "The `ValidatorRegistration` object from the Builder API specification."
   properties:
     fee_recipient:
-      allOf:
         - $ref: 'primitive.yaml#/ExecutionAddress'
         - description: "Address to receive fees from the block."
     gas_limit:
-      allOf:
         - $ref: "primitive.yaml#/Uint64"
-        - description: "Gas limit the validator desires to target."
+        - description: "Preferred gas limit of validator."
     timestamp:
-      allOf:
         - $ref: 'primitive.yaml#/Uint64'
         - description: "Unix timestamp of registration."
     pubkey:
-      allOf:
         - $ref: 'primitive.yaml#/Pubkey'
         - description: "BLS public key of validator."
 
 SignedValidatorRegistration:
   type: object
-  description: "The [`SignedValidatorRegistration`]() object from the Builder API spec."
+  description: "The `SignedValidatorRegistration` object from the Builder API specification."
   properties:
     message:
       $ref: "#/ValidatorRegistration"
