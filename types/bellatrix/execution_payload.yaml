@@ -2,7 +2,7 @@ Bellatrix:
   ExecutionPayloadCommon:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.9/specs/bellatrix) object from the Eth2.0 Bellatrix spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix) object from the CL Bellatrix spec."
     properties:
       parent_hash:
         $ref: '../primitive.yaml#/Root'

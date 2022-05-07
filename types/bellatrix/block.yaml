@@ -2,7 +2,7 @@ Bellatrix:
   BeaconBlockBodyCommon:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblockbody) object from the Eth2.0 Bellatrix spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblockbody) object from the CL Bellatrix spec."
     properties:
       randao_reveal:
         allOf:
@@ -45,7 +45,7 @@ Bellatrix:
             $ref: './execution_payload.yaml#/Bellatrix/ExecutionPayload'
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblock) object from the Eth2.0 Bellatrix spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblock) object from the CL Bellatrix spec."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
@@ -55,7 +55,7 @@ Bellatrix:
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 Bellatrix spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#signedbeaconblock) object envelope from the CL Bellatrix spec."
     properties:
       message:
         $ref: "#/Bellatrix/BeaconBlock"
@@ -63,7 +63,7 @@ Bellatrix:
         $ref: "../primitive.yaml#/Signature"
 
   BlindedBeaconBlockBody:
-    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblockbody) object from the Eth2.0 Bellatrix spec, which contains a transactions root rather than a full transactions list."
+    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblockbody) object from the CL Bellatrix spec, which contains a transactions root rather than a full transactions list."
     allOf:
       - $ref: '#/Bellatrix/BeaconBlockBodyCommon'
       - type: object
@@ -72,7 +72,7 @@ Bellatrix:
             $ref: './execution_payload.yaml#/Bellatrix/ExecutionPayloadHeader'
 
   BlindedBeaconBlock:
-    description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblock) object from the Eth2.0 Bellatrix spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#beaconblock) object from the CL Bellatrix spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
@@ -82,7 +82,7 @@ Bellatrix:
 
   SignedBlindedBeaconBlock:
     type: object
-    description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 Bellatrix spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.1.9/specs/bellatrix/beacon-chain.md#signedbeaconblock) object envelope from the CL Bellatrix spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
     properties:
       message:
         $ref: "#/Bellatrix/BlindedBeaconBlock"

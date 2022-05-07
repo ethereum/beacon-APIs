@@ -21,7 +21,7 @@ BeaconBlockCommon:
 
 BeaconBlockBody:
   type: object
-  description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockbody) object from the Eth2.0 spec."
+  description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockbody) object from the CL spec."
   properties:
     randao_reveal:
       allOf:
@@ -55,7 +55,7 @@ BeaconBlockBody:
 
 
 BeaconBlock:
-  description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
+  description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec."
   allOf:
     - $ref: '#/BeaconBlockCommon'
     - type: object
@@ -65,7 +65,7 @@ BeaconBlock:
 
 SignedBeaconBlock:
   type: object
-  description: "The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 spec."
+  description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec."
   properties:
     message:
       $ref: "#/BeaconBlock"
@@ -73,7 +73,7 @@ SignedBeaconBlock:
       $ref: "./primitive.yaml#/Signature"
 
 BeaconBlockHeader:
-  description: "The [`BeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the Eth2.0 spec."
+  description: "The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec."
   allOf:
     - $ref: './block.yaml#/BeaconBlockCommon'
     - type: object
@@ -85,7 +85,7 @@ BeaconBlockHeader:
 
 SignedBeaconBlockHeader:
   type: object
-  description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the Eth2.0 spec."
+  description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the CL spec."
   properties:
     message:
       $ref: "./block.yaml#/BeaconBlockHeader"
