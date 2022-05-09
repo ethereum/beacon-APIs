@@ -9,7 +9,7 @@ API browser: [https://ethereum.github.io/beacon-APIs/](https://ethereum.github.i
 ## Outline
 
 This document outlines an application programming interface (API) which is exposed by a beacon node implementation
- which aims to facilitate [Phase 0](https://github.com/ethereum/eth2.0-specs#phase-0) of the Etheruem consensus layer.
+ which aims to facilitate [Phase 0](https://github.com/ethereum/consensus-specs#phase-0) of the Etheruem consensus layer.
 
 The API is a REST interface, accessed via HTTP. The API should not, unless protected by additional security layers, be exposed to the public Internet as the API includes multiple endpoints which could open your node to denial-of-service (DoS) attacks through endpoints triggering heavy processing.
  Currently, the only supported return data type is JSON.
@@ -29,7 +29,7 @@ in root of the repo.
 
 ##### Python
 ```
-python -m SimpleHTTPServer 8080
+python -m http.server 8080
 ```
 And api spec will render on [http://localhost:8080](http://localhost:8080).
 
@@ -78,7 +78,7 @@ https://www.npmjs.com/package/@chainsafe/eth2.0-api-wrapper
 
    - Make sure info.version in beacon-node-oapi.yaml file is updated before tagging.
    - CD will create github release and upload bundled spec file
-   
+
 2. Add release entrypoint in index.html
 
 In SwaggerUIBundle configuration (inside index.html file), add another entry in "urls" field (SwaggerUI will load first item as default).

@@ -1,6 +1,6 @@
 Fork:
   type: object
-  description: "The [`Fork`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#fork) object from the Eth2.0 spec."
+  description: "The [`Fork`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#fork) object from the CL spec."
   properties:
     previous_version:
       $ref: "./primitive.yaml#/ForkVersion"
@@ -11,7 +11,7 @@ Fork:
 
 Checkpoint:
   type: object
-  description: "The [`Checkpoint`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint"
+  description: "The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint"
   properties:
     epoch:
       $ref: "./primitive.yaml#/Uint64"
