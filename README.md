@@ -29,7 +29,7 @@ in root of the repo.
 
 ##### Python
 ```
-python -m SimpleHTTPServer 8080
+python -m http.server 8080
 ```
 And api spec will render on [http://localhost:8080](http://localhost:8080).
 
