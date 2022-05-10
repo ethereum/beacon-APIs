@@ -161,6 +161,8 @@ paths:
     $ref: "./apis/validator/sync_committee_contribution_and_proof.yaml"
   /eth/v1/validator/prepare_beacon_proposer:
     $ref: "./apis/validator/prepare_beacon_proposer.yaml"
+  /eth/v1/validator/register_validator:
+    $ref: "./apis/validator/register_validator.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -273,6 +275,9 @@ components:
     ConsensusVersion:
       enum: [phase0, altair, bellatrix]
       example: "phase0"
+    SignedValidatorRegistration:
+      $ref: './types/registration.yaml#/SignedValidatorRegistration'
+
   parameters:
     StateId:
       $ref: './params/index.yaml#/StateId'
