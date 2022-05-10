@@ -14735,6 +14735,102 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  /eth/v1/validator/register_validator:
+    post:
+      operationId: registerValidator
+      summary: Provide beacon node with registrations for the given validators to the external builder network.
+      description: |
+        Prepares the beacon node for engaging with external builders. The
+        information will be sent by the beacon node to the builder network. It is
+        expected that the validator client will send this information periodically
+        to ensure the beacon node has correct and timely registration information
+        to provide to builders. The validator client should not sign blinded beacon
+        blocks that do not adhere to their latest fee recipient and gas limit
+        preferences.
+
+        Note that requests containing currently inactive or unknown validator
+        pubkeys will be accepted, as they may become active at a later epoch.
+      tags:
+        - Validator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                description: The `SignedValidatorRegistration` object from the Builder API specification.
+                properties:
+                  message:
+                    type: object
+                    description: The `ValidatorRegistration` object from the Builder API specification.
+                    properties:
+                      fee_recipient:
+                        type: string
+                        description: An address on the execution (Ethereum 1) network.
+                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                        pattern: '^0x[a-fA-F0-9]{40}$'
+                      gas_limit:
+                        type: string
+                        example: '1'
+                        description: Preferred gas limit of validator.
+                      timestamp:
+                        type: string
+                        example: '1'
+                        description: Unix timestamp of registration.
+                      pubkey:
+                        type: string
+                        pattern: '^0x[a-fA-F0-9]{96}$'
+                        description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                        example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                  signature:
+                    type: string
+                    pattern: '^0x[a-fA-F0-9]{192}$'
+                    example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+      responses:
+        '200':
+          description: Registration information has been received.
+        '400':
+          description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/events:
     get:
       operationId: eventstream
@@ -20468,6 +20564,36 @@ components:
         - altair
         - bellatrix
       example: phase0
+    SignedValidatorRegistration:
+      type: object
+      description: The `SignedValidatorRegistration` object from the Builder API specification.
+      properties:
+        message:
+          type: object
+          description: The `ValidatorRegistration` object from the Builder API specification.
+          properties:
+            fee_recipient:
+              type: string
+              description: An address on the execution (Ethereum 1) network.
+              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+              pattern: '^0x[a-fA-F0-9]{40}$'
+            gas_limit:
+              type: string
+              example: '1'
+              description: Preferred gas limit of validator.
+            timestamp:
+              type: string
+              example: '1'
+              description: Unix timestamp of registration.
+            pubkey:
+              type: string
+              pattern: '^0x[a-fA-F0-9]{96}$'
+              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+        signature:
+          type: string
+          pattern: '^0x[a-fA-F0-9]{192}$'
+          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
   parameters:
     StateId:
       required: true
