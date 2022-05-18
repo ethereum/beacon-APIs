@@ -1,7 +1,12 @@
 get:
   operationId: "getAggregatedAttestation"
   summary: "Get aggregated attestation"
-  description: "Aggregates all attestations matching given attestation data root and slot"
+  description: |
+    Aggregates all attestations matching given attestation data root and slot.
+
+    A 503 error must be returned if the block identified by the response
+    `beacon_block_root` is optimistic (i.e. the aggregated attestation attests
+    to a block that has not been fully verified by an execution engine).
   tags:
     - ValidatorRequiredApi
     - Validator

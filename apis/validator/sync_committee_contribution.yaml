@@ -4,7 +4,12 @@ get:
     - Validator
   operationId: "produceSyncCommitteeContribution"
   summary: "Produce a sync committee contribution"
-  description: "Requests that the beacon node produce a sync committee contribution."
+  description: |
+    Requests that the beacon node produce a sync committee contribution.
+
+    A 503 error must be returned if the block identified by the response
+    `beacon_block_root` is optimistic (i.e. the sync committee contribution
+    refers to a block that has not been fully verified by an execution engine).
   parameters:
     - name: slot
       in: query
