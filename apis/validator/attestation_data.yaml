@@ -4,7 +4,12 @@ get:
     - Validator
   operationId: "produceAttestationData"
   summary: "Produce an attestation data"
-  description: "Requests that the beacon node produce an AttestationData."
+  description: |
+    Requests that the beacon node produce an AttestationData.
+
+    A 503 error must be returned if the block identified by the response
+    `beacon_block_root` is optimistic (i.e. the attestation attests to a block
+    that has not been fully verified by an execution engine).
   parameters:
     - name: slot
       in: query
