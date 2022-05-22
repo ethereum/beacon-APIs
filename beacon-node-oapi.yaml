@@ -78,8 +78,6 @@ paths:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
-  /eth/v1/beacon/blocks:
-    $ref: "./apis/beacon/blocks/blocks.yaml"
   /eth/v1/beacon/blinded_blocks:
     $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
   /eth/v2/beacon/blocks/{block_id}:
