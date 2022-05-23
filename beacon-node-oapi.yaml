@@ -78,12 +78,8 @@ paths:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
-  /eth/v1/beacon/blocks:
-    $ref: "./apis/beacon/blocks/blocks.yaml"
   /eth/v1/beacon/blinded_blocks:
     $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
-  /eth/v1/beacon/blocks/{block_id}:
-    $ref: "./apis/beacon/blocks/block.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -102,8 +98,6 @@ paths:
   /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
-  /eth/v1/debug/beacon/states/{state_id}:
-    $ref: './apis/debug/state.yaml'
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
