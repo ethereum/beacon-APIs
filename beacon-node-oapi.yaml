@@ -133,8 +133,6 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
-  /eth/v1/validator/blocks/{slot}:
-    $ref: "./apis/validator/block.yaml"
   /eth/v2/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v2.yaml"
   /eth/v1/validator/blinded_blocks/{slot}:
