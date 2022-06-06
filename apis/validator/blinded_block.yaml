@@ -34,6 +34,9 @@ get:
   responses:
     "200":
       description: Success response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
