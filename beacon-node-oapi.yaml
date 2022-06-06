@@ -10076,6 +10076,16 @@ paths:
       responses:
         '200':
           description: Success response
+          headers:
+            Eth-Consensus-Version:
+              description: Required in response so client can deserialize returned json or ssz data more effectively.
+              required: true
+              schema:
+                enum:
+                  - phase0
+                  - altair
+                  - bellatrix
+                example: phase0
           content:
             application/json:
               schema:
