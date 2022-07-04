@@ -24,6 +24,7 @@ NetworkIdentity:
 MetaData:
   type: object
   description: "Based on eth2 [Metadata object](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/p2p-interface.md#metadata)"
+  required: ["seq_number", "attnets"]
   properties:
     seq_number:
       allOf:
@@ -39,7 +40,6 @@ MetaData:
         - description: "Bitvector representing the node's sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair."
         - $ref: "./primitive.yaml#/Hex"
         - example: "0x0f"
-        - required: false
 
 Peer:
   type: object
