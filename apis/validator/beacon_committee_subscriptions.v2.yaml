@@ -1,0 +1,61 @@
+post:
+  operationId: "prepareBeaconCommitteeSubnetV2"
+  summary: Signal beacon node to prepare for a committee subnet
+  description: |
+    After beacon node receives this request:
+    - Search using discv5 for peers related to this subnet and replace current peers with those ones if necessary. 
+    - Check each provided `slot_signature`, to determine whether any validator has been [assigned the duty of aggregation](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#aggregation-selection)
+    based on their slot signature.
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          title: SubscribeToBeaconCommitteeSubnetRequestBody
+          type: array
+          items:
+            type: object
+            properties:
+              validator_index:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+              committee_index:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+              committees_at_slot:
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                  - description: "Number of committees at the returned slot"
+              slot:
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                  - description: "Should be slot at which validator is assigned to attest"
+              slot_signature:
+                allOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+                  - description: "The slot_signature calculated by the validator for the upcoming attestation slot"
+  responses:
+    "200":
+      description: |
+        Slot signature is valid and beacon node has prepared the attestation subnet.
+
+        If any of the returned results for aggregation selection return `true`, the beacon client will begin
+        preparing an aggregation that the validator client must ask for 
+        and sign at the appropriate time. 
+      content:
+        application/json:
+          schema:
+            title: PrepareBeaconCommitteeV2Response
+            type: array
+            items:
+              type: object
+              properties:
+                is_aggregator:
+                  type: boolean
+
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
