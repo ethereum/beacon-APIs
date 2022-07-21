@@ -1,6 +1,7 @@
 # Ethereum Beacon APIs
 
 ![CI](https://github.com/ethereum/beacon-APIs/workflows/CI/badge.svg)
+[![GitPOAP Badge](https://public-api.gitpoap.io/v1/repo/ethereum/beacon-APIs/badge)](https://www.gitpoap.io/gh/ethereum/beacon-APIs)
 
 Collection of RESTful APIs provided by Ethereum Beacon nodes
 
