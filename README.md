@@ -56,15 +56,15 @@ Api spec is checked for lint errors before merge.
 
 To run lint locally, install linter with
 ```
-npm install -g @stoplight/spectral-cli@6.3.0
+npm install -g @redocly/cli
 
 # OR
 
-yarn global add @stoplight/spectral-cli@6.3.0
+yarn global add @redocly/cli
 ```
 and run lint with
 ```
-spectral lint beacon-node-oapi.yaml 
+redocly lint beacon-node-oapi.yaml 
 ```
 
 ## Implementations
