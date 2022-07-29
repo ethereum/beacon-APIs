@@ -1,0 +1,57 @@
+get:
+  operationId: getFinalizedBlockRoot
+  summary: Get finalized block root
+  description: Retrieves hashTreeRoot of finalized BeaconBlock/BeaconBlockHeader. |
+    Responds with 'Block not found' if block at a slot is either unavailable or not yet finalized.
+  tags:
+    - Beacon
+  parameters:
+    - name: slot
+      in: path
+      required: true
+      example: "1"
+      schema:
+        type: string
+      description: |
+        Slot number.
+
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            type: object
+            title: GetBlockRootResponse
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              data:
+                type: object
+                properties:
+                  root:
+                    allOf:
+                      - description: HashTreeRoot of BeaconBlock/BeaconBlockHeader object
+                      - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+    "400":
+      description: "The slot number supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid slot number: current"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Block not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
