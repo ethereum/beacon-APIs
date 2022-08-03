@@ -1,0 +1,44 @@
+get:
+  operationId: "getFinalizedState"
+  summary: "Get full BeaconState object for finalized state"
+  description: |
+     Returns full BeaconState object for a finalized state from the WS period.
+     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+  tags:
+    - Checkpoint
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetFinalizedStateResponse
+            type: object
+            properties:
+              version:
+                type: string
+                enum: [ phase0, altair, bellatrix ]
+                example: "phase0"
+              data:
+                oneOf:
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized state bytes. Use Accept header to choose this response type"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "State not found"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

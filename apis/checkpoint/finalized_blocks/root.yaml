@@ -4,7 +4,7 @@ get:
   description: Retrieves hashTreeRoot of finalized BeaconBlock/BeaconBlockHeader. |
     Responds with 'Block not found' if block at a slot is either unavailable or not yet finalized.
   tags:
-    - Beacon
+    - Checkpoint
   parameters:
     - name: slot
       in: path
