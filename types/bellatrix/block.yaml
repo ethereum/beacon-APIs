@@ -11,8 +11,7 @@ Bellatrix:
       eth1_data:
         $ref: '../eth1.yaml#/Eth1Data'
       graffiti:
-        type: string
-        pattern: "^0x[a-fA-F0-9]{64}$"
+        $ref: '../primitive.yaml#/Graffiti'
       proposer_slashings:
         type: array
         items:
