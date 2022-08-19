@@ -11,7 +11,7 @@ post:
     preferences.
 
     Note that registrations for exited validators will be filtered out and not sent to the builder network. 
-    However, registrations for inactive or unknown validators will be sent, as these validators may become active at a later epoch.
+    However, registrations for inactive or unknown validators will be sent, as they may become active at a later epoch.
   tags:
     - Validator
   requestBody:
