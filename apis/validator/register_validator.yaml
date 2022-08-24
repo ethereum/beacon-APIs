@@ -10,8 +10,8 @@ post:
     blocks that do not adhere to their latest fee recipient and gas limit
     preferences.
 
-    Note that registrations for exited validators will be filtered out and not sent to the builder network. 
-    However, registrations for inactive or unknown validators will be sent, as they may become active at a later epoch.
+    Note that only registrations for active or pending validators will be sent to the builder network.
+    Registrations for exited validators will be filtered out and not sent to the builder network.
   tags:
     - Validator
   requestBody:
