@@ -1,0 +1,36 @@
+ForkChoiceResponse:
+  type: object
+  description: "Debugging context of fork choice"
+  properties:
+    slot:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: "The slot to which this block corresponds."
+    block_root:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "The signing merkle root of the `BeaconBlock`."
+    parent_root:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "The signing merkle root of the parent `BeaconBlock`."
+    state_root:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
+    justified_epoch:
+      $ref: './misc.yaml#/Checkpoint'
+    finalized_epoch:
+      $ref: './misc.yaml#/Checkpoint'
+    weight:
+      $ref: './primitive.yaml#/Uint64'
+    execution_optimistic:
+      $ref: './primitive.yaml#/ExecutionOptimistic'
+    execution_payload_root:
+      allOf:
+        - $ref: './primitive.yaml#/Root'
+        - description: "The tree hash merkle root of the `execution_payload` for the `BeaconBlock`."
+    extra_data:
+      type: object
+      description: 'Optional extra data that clients may provide, which could differ from client to client.'
+      required: false

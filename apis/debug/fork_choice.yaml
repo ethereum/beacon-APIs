@@ -1,0 +1,22 @@
+get:
+  operationId: getDebugForkChoice
+  summary: Get fork choice array
+  description: Retrieves all current fork choice context.
+  tags:
+    - Debug
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetForkChoiceResponse
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/ForkChoiceResponse'
+
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
