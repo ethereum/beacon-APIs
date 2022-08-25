@@ -14,10 +14,6 @@ ForkChoiceResponse:
       allOf:
         - $ref: './primitive.yaml#/Root'
         - description: "The signing merkle root of the parent `BeaconBlock`."
-    state_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
     justified_epoch:
       $ref: './misc.yaml#/Checkpoint'
     finalized_epoch:
