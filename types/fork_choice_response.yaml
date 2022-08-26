@@ -14,9 +14,9 @@ ForkChoiceResponse:
       allOf:
         - $ref: './primitive.yaml#/Root'
         - description: "The signing merkle root of the parent `BeaconBlock`."
-    justified_epoch:
+    justified_checkpoint:
       $ref: './misc.yaml#/Checkpoint'
-    finalized_epoch:
+    finalized_checkpoint:
       $ref: './misc.yaml#/Checkpoint'
     weight:
       $ref: './primitive.yaml#/Uint64'
