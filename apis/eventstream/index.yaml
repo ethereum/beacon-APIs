@@ -78,11 +78,10 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid topic: weather_forecast"
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid topic: weather_forecast"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
       
