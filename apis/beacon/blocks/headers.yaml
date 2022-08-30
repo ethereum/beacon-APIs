@@ -9,17 +9,13 @@ get:
       in: query
       required: false
       schema:
-        allOf:
-          - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-          - example: ""
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: parent_root
       in: query
       required: false
       schema:
-        allOf:
-          - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
-          - example: ""
-  
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
+
   responses:
     "200":
       description: Success

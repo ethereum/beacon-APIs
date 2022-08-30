@@ -3,13 +3,11 @@ VoluntaryExit:
   description: "The [`VoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#voluntaryexit) object from the CL spec."
   properties:
     epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Minimum epoch for processing exit."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Minimum epoch for processing exit."
     validator_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of the exiting validator."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of the exiting validator."
 
 SignedVoluntaryExit:
   type: object

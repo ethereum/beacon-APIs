@@ -30,9 +30,8 @@ get:
                 type: object
                 properties:
                   root:
-                    allOf:
-                      - description: HashTreeRoot of BeaconBlock/BeaconBlockHeader object
-                      - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+                    description: HashTreeRoot of BeaconBlock/BeaconBlockHeader object
     "400":
       description: "The block ID supplied could not be parsed"
       content:

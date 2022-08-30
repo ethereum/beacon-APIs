@@ -7,16 +7,14 @@ get:
   parameters:
     - name: state_id
       in: path
-      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/StateId"
     - name: epoch
       description: "Fetch sync committees for the given epoch.  If not present then the sync committees for the epoch of the state will be obtained."
       in: query
       required: false
       allowEmptyValue: false
       schema:
-        allOf:
-          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-          - example: ""
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: Success
@@ -29,7 +27,7 @@ get:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommittee'
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommittee"
 
     "400":
       description: "Invalid state ID or epoch"

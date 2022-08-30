@@ -4,13 +4,11 @@ ValidatorResponse:
   type: object
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator balance in gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
     status:
       $ref: "#/ValidatorStatus"
     validator:
@@ -20,13 +18,11 @@ ValidatorBalanceResponse:
   type: object
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator balance in gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
 
 ValidatorStatus:
   description: |
@@ -51,9 +47,8 @@ Committee:
   type: object
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: Committee index at a slot
+      $ref: './primitive.yaml#/Uint64'
+      description: Committee index at a slot
     slot:
       $ref: './primitive.yaml#/Uint64'
 

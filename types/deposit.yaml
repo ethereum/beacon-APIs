@@ -6,8 +6,7 @@ Deposit:
       type: array
       description: "Branch in the deposit tree."
       items:
-        allOf:
-          - $ref: './primitive.yaml#/Root'
+        $ref: './primitive.yaml#/Root'
       minItems: 32
       maxItems: 32
     data:
@@ -19,14 +18,11 @@ DepositData:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     withdrawal_credentials:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The withdrawal credentials."
+      $ref: './primitive.yaml#/Root'
+      description: "The withdrawal credentials."
     amount:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Amount in Gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Amount in Gwei."
     signature:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "Container self-signature."
+      $ref: './primitive.yaml#/Signature'
+      description: "Container self-signature."
