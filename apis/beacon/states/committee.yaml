@@ -7,7 +7,7 @@ get:
   parameters:
     - name: state_id
       in: path
-      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/StateId"
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: epoch
       description: "Fetch committees for the given epoch.  If not present then the committees for the epoch of the state will be obtained."
       in: query
@@ -41,7 +41,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Committee"
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Committee'
     "400":
       description: "Invalid state ID, index, epoch, slot, or combination thereof"
       content:

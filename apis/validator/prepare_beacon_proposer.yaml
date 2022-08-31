@@ -29,9 +29,9 @@ post:
             type: object
             properties:
               validator_index:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
               fee_recipient:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionAddress"
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/ExecutionAddress'
   responses:
     "200":
       description: |

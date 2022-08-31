@@ -13,7 +13,7 @@ get:
   parameters:
     - name: state_id
       in: path
-      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/StateId"
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: id
       description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
       in: query
@@ -49,7 +49,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse"
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
     "400":
       description: "Invalid state or validator ID, or status"
       content:
