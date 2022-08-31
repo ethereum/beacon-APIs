@@ -4,9 +4,7 @@ Altair:
     description: "The [`SyncAggregate`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#syncaggregate) object from the CL Altair spec."
     properties:
       sync_committee_bits:
-        type: string
-        pattern: "^0x[a-fA-F0-9]+$"
-        example: "0x01"
+        $ref: "../primitive.yaml#/BitList"
         description: "Aggregation bits of sync"
       sync_committee_signature:
         $ref: '../primitive.yaml#/Signature'
