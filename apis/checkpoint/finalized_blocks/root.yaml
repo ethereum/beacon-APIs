@@ -2,7 +2,7 @@ get:
   operationId: getFinalizedBlockRoot
   summary: Get finalized block root
   description: Retrieves hashTreeRoot of finalized BeaconBlock/BeaconBlockHeader. |
-    Responds with 'Block not found' if block at a slot is either unavailable or not yet finalized.
+    Responds with 404 if block at a slot is either unavailable or not yet finalized.
   tags:
     - Checkpoint
   parameters:
