@@ -2,8 +2,10 @@ get:
   operationId: "getFinalizedCheckpointState"
   summary: "Get full BeaconState object for finalized checkpoint state"
   description: |
-     Returns full BeaconState object for a finalized checkpoint state from the WS period.
-     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+     Returns full BeaconState object for a finalized checkpoint from the WS period.
+     Returned state object MUST NOT be from an empty slot, i.e. it MUST be the post state of
+     a finalized block.
+     Returns 404 if the node is not yet fully synced, e.g. if it is tracking head optimistically.
   tags:
     - Checkpoint
   responses:
@@ -13,20 +15,6 @@ get:
         Eth-Consensus-Version:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
-        application/json:
-          schema:
-            title: GetStateResponse
-            type: object
-            properties:
-              version:
-                type: string
-                enum: [ phase0, altair, bellatrix ]
-                example: "phase0"
-              data:
-                oneOf:
-                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"
