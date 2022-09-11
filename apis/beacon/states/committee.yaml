@@ -8,7 +8,7 @@ get:
     - name: state_id
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
-    - name: epoch
+    - name: epoch(126444)
       description: "Fetch committees for the given epoch.  If not present then the committees for the epoch of the state will be obtained."
       in: query
       required: false
