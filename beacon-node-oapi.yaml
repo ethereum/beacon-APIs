@@ -89,6 +89,8 @@ paths:
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
 
+  /eth/v1/beacon/deposit_snapshot:
+    $ref: "./apis/beacon/deposit_snapshot.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
   /eth/v1/beacon/pool/attester_slashings:
@@ -168,6 +170,8 @@ components:
       $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/BeaconBlock'
+    DepositSnapshotResponse:
+      $ref: './types/api.yaml#/DepositSnapshotResponse'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/SignedBeaconBlock'
     SignedBeaconBlockHeader:

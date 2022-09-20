@@ -1,0 +1,34 @@
+  get:
+    operationId: getDepositSnapshot
+    summary: "Get Deposit Tree Snapshot"
+    description: |
+      Retrieve [EIP-4881](https://eips.ethereum.org/EIPS/eip-4881) Deposit Tree Snapshot.
+      Depending on `Accept` header it can be returned either as json or as bytes serialzed by SSZ
+    tags:
+      - Beacon
+    responses:
+      "200":
+        description: Success
+        content:
+          application/json:
+            schema:
+              type: object
+              title: GetDepositSnapshotResponse
+              properties:
+                data:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/DepositSnapshotResponse'
+          application/octet-stream:
+            schema:
+              description: "SSZ serialized block bytes. Use Accept header to choose this response type"
+      "404":
+        description: "No Finalized Snapshot Available"
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+                - example:
+                    code: 404
+                    message: "No Finalized Snapshot Available"
+      "500":
+        $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
