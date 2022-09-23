@@ -12,11 +12,13 @@ get:
     - name: start_period
       in: query
       required: true
-      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
     - name: count
       in: query
       required: true
-      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
       description: Success
