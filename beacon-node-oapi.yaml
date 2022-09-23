@@ -88,6 +88,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v1/beacon/blinded_blocks/{block_id}:
+    $ref: "./apis/beacon/blocks/blinded_block.yaml"
   /eth/v1/beacon/light_client/bootstrap/{block_root}:
     $ref: "./apis/beacon/light_client/bootstrap.yaml"
   /eth/v1/beacon/light_client/updates:
