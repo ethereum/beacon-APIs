@@ -1,0 +1,54 @@
+Capella:
+  ExecutionPayloadCommon:
+    # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
+    type: object
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#executionpayload) object from the CL Capella spec."
+    properties:
+      parent_hash:
+        $ref: '../primitive.yaml#/Root'
+      fee_recipient:
+        $ref: '../primitive.yaml#/ExecutionAddress'
+      state_root:
+        $ref: '../primitive.yaml#/Root'
+      receipts_root:
+        $ref: '../primitive.yaml#/Root'
+      logs_bloom:
+        $ref: '../primitive.yaml#/LogsBloom'
+      prev_randao:
+        $ref: '../primitive.yaml#/Bytes32'
+      block_number:
+        $ref: '../primitive.yaml#/Uint64'
+      gas_limit:
+        $ref: '../primitive.yaml#/Uint64'
+      gas_used:
+        $ref: '../primitive.yaml#/Uint64'
+      timestamp:
+        $ref: '../primitive.yaml#/Uint64'
+      extra_data:
+        $ref: '../primitive.yaml#/ExtraData'
+      base_fee_per_gas:
+        $ref: '../primitive.yaml#/Uint256'
+      block_hash:
+        $ref: '../primitive.yaml#/Root'
+
+
+  ExecutionPayload:
+    allOf:
+      - $ref: '#/Capella/ExecutionPayloadCommon'
+      - type: object
+        properties:
+          transactions:
+            $ref: './transactions.yaml#/Capella/Transactions'
+          withdrawals:
+            $ref: './withdrawals.yaml#/Capella/Withdrawals'
+
+  ExecutionPayloadHeader:
+    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#executionpayloadheader) object from the CL Capella spec."
+    allOf:
+      - $ref: '#/Capella/ExecutionPayloadCommon'
+      - type: object
+        properties:
+          transactions_root:
+            $ref: '../primitive.yaml#/Root'
+          withdrawals_root:
+            $ref: '../primitive.yaml#/Root'
