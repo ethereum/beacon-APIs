@@ -57,7 +57,6 @@ get:
               | -------------------------------------------- | ------------------------------------ |
               | `GENESIS_FORK_VERSION`                       | n/a                                  |
               | <nobr>`ALTAIR_FORK_VERSION` and later</nobr> | `altair.LightClientUpdate`           |
-
     "400":
       description: Malformed or missing request parameter
       content:
@@ -65,10 +64,6 @@ get:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           examples:
-            InvalidAccept:
-              value:
-                code: 400
-                message: "Incorrect accept response type"
             InvalidSyncPeriod:
               value:
                 code: 400
@@ -85,6 +80,14 @@ get:
               value:
                 code: 400
                 message: "Missing `count` value"
-
+    "406":
+      description: Unacceptable media type
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 406
+              message: "Content type not supported"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

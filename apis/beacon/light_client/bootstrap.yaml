@@ -38,15 +38,9 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          examples:
-            InvalidAccept:
-              value:
-                code: 400
-                message: "Incorrect accept response type"
-            InvalidBlockRootValue:
-              value:
-                code: 400
-                message: "Invalid block root value"
+            example:
+              code: 400
+              message: "Invalid block root value"
     "404":
       description: "`LightClientBootstrap` instance cannot be produced for the given block root"
       content:
@@ -56,5 +50,14 @@ get:
             example:
               code: 404
               message: "LC bootstrap unavailable"
+    "406":
+      description: Unacceptable media type
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 406
+              message: "Content type not supported"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
