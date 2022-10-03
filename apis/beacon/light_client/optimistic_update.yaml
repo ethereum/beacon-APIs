@@ -44,6 +44,6 @@ get:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
             example:
               code: 406
-              message: "Content type not supported"
+              message: "Accepted media type not supported"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
