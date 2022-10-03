@@ -27,6 +27,15 @@ get:
         application/octet-stream:
           schema:
             description: "SSZ serialized `LightClientOptimisticUpdate` bytes. Use Accept header to choose this response type"
+    "400":
+      description: Malformed request parameter
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Incorrect accept response type"
     "404":
       description: "No `LightClientOptimisticUpdate` is available"
       content:

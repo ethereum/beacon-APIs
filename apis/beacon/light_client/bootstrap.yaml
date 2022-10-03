@@ -38,9 +38,15 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block root value"
+          examples:
+            InvalidAccept:
+              value:
+                code: 400
+                message: "Incorrect accept response type"
+            InvalidBlockRootValue:
+              value:
+                code: 400
+                message: "Invalid block root value"
     "404":
       description: "`LightClientBootstrap` instance cannot be produced for the given block root"
       content:

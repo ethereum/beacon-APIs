@@ -65,6 +65,10 @@ get:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           examples:
+            InvalidAccept:
+              value:
+                code: 400
+                message: "Incorrect accept response type"
             InvalidSyncPeriod:
               value:
                 code: 400
