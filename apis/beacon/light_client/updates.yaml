@@ -1,0 +1,93 @@
+get:
+  operationId: getLightClientUpdatesByRange
+  summary: Get `LightClientUpdate` instances in a requested sync committee period range
+  description: |
+    Requests the [`LightClientUpdate`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/sync-protocol.md#lightclientupdate) instances in the sync committee period range `[start_period, start_period + count)`, leading up to the current head sync committee period as selected by fork choice.
+    Depending on the `Accept` header they can be returned either as JSON or SSZ-serialized bytes.
+
+    Servers SHOULD provide results as defined in [`create_light_client_update`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/full-node.md#create_light_client_update). They MUST respond with at least the earliest known result within the requested range, and MUST send results in consecutive order (by period). The response MUST NOT contain more than [`min(MAX_REQUEST_LIGHT_CLIENT_UPDATES, count)`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/p2p-interface.md#configuration) results.
+  tags:
+    - Beacon
+  parameters:
+    - name: start_period
+      in: query
+      required: true
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: count
+      in: query
+      required: true
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetLightClientUpdatesByRangeResponse
+            type: array
+            items:
+              type: object
+              properties:
+                version:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+                data:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientUpdate'
+        application/octet-stream:
+          schema:
+            description: |
+              Sequence of zero or more `response_chunk`. Each _successful_ `response_chunk` MUST contain a single `LightClientUpdate` payload:
+              ```
+              (
+                response_chunk_len: Little-endian Uint64 byte length of `response_chunk`
+                response_chunk: (
+                  context: 4 byte `ForkDigest`
+                  payload: SSZ serialized payload bytes
+                )
+              )
+              ```
+              Use Accept header to choose this response type
+
+              For each `response_chunk`, a `ForkDigest`-context based on `compute_fork_version(compute_epoch_at_slot(update.attested_header.slot))` is used to select the fork namespace of the Response type. Note that this `fork_version` may be different from the one used to verify the `update.sync_aggregate`, which is based on `update.signature_slot`.
+
+              Per `context = compute_fork_digest(fork_version, genesis_validators_root)`:
+
+              | `fork_version`                               | Response chunk SSZ type              |
+              | -------------------------------------------- | ------------------------------------ |
+              | `GENESIS_FORK_VERSION`                       | n/a                                  |
+              | <nobr>`ALTAIR_FORK_VERSION` and later</nobr> | `altair.LightClientUpdate`           |
+    "400":
+      description: Malformed or missing request parameter
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidSyncPeriod:
+              value:
+                code: 400
+                message: "Invalid sync committee period requested"
+            InvalidCount:
+              value:
+                code: 400
+                message: "Invalid count requested"
+            MissingStartPeriodValue:
+              value:
+                code: 400
+                message: "Missing `start_period` value"
+            MissingCountValue:
+              value:
+                code: 400
+                message: "Missing `count` value"
+    "406":
+      description: Unacceptable media type
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 406
+              message: "Accepted media type not supported"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
