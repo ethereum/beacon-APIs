@@ -20,9 +20,7 @@ Attestation:
   description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestation) object from the CL spec."
   properties:
     aggregation_bits:
-      type: string
-      example: "0x01"
-      pattern: "^0x[a-fA-F0-9]+$"
+      $ref: "./primitive.yaml#/BitList"
       description: "Attester aggregation bits."
     signature:
       allOf:
@@ -36,8 +34,7 @@ PendingAttestation:
   description: "The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec."
   properties:
     aggregation_bits:
-      type: string
-      pattern: "^0x[a-fA-F0-9]+$"
+      $ref: "./primitive.yaml#/BitList"
       description: "Attester aggregation bits."
     data:
       $ref: '#/AttestationData'

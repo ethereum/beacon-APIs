@@ -29,6 +29,8 @@ get:
             - finalized_checkpoint
             - chain_reorg
             - contribution_and_proof
+            - light_client_finality_update
+            - light_client_optimistic_update
   responses:
     "200":
       description: Opened SSE stream.
@@ -73,6 +75,16 @@ get:
               value: |
                 event: contribution_and_proof
                 data: {"message": {"aggregator_index": "997", "contribution": {"slot": "168097", "beacon_block_root": "0x56f1fd4262c08fa81e27621c370e187e621a67fc80fe42340b07519f84b42ea1", "subcommittee_index": "0", "aggregation_bits": "0xffffffffffffffffffffffffffffffff", "signature": "0x85ab9018e14963026476fdf784cc674da144b3dbdb47516185438768774f077d882087b90ad642469902e782a8b43eed0cfc1b862aa9a473b54c98d860424a702297b4b648f3f30bdaae8a8b7627d10d04cb96a2cc8376af3e54a9aa0c8145e3"}, "selection_proof": "0x87c305f04bfe5db27c2b19fc23e00d7ac496ec7d3e759cbfdd1035cb8cf6caaa17a36a95a08ba78c282725e7b66a76820ca4eb333822bd399ceeb9807a0f2926c67ce67cfe06a0b0006838203b493505a8457eb79913ce1a3bcd1cc8e4ef30ed"}, "signature": "0xac118511474a94f857300b315c50585c32a713e4452e26a6bb98cdb619936370f126ed3b6bb64469259ee92e69791d9e12d324ce6fd90081680ce72f39d85d50b0ff977260a8667465e613362c6d6e6e745e1f9323ec1d6f16041c4e358839ac"}
+            light_client_finality_update:
+              description: The node's latest known `LightClientFinalityUpdate` has been updated
+              value: |
+                event: light_client_finality_update
+                data: {"version":"phase0", "data": {"attested_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "finalized_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "finality_branch": ["0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"], "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
+            light_client_optimistic_update:
+              description: The node's latest known `LightClientOptimisticUpdate` has been updated
+              value: |
+                event: light_client_optimimstic_update
+                data: {"version":"phase0", "data": {"attested_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
     "400":
       description: "The topics supplied could not be parsed"
       content:
