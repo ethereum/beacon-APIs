@@ -1304,6 +1304,132 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  '/eth/v1/beacon/states/{state_id}/randao':
+    get:
+      operationId: getStateRandao
+      summary: Get the RANDAO mix for some epoch in a specified state.
+      description: |
+        Fetch the RANDAO mix for the requested epoch from the state identified by `state_id`.
+
+        If an epoch is not specified then the RANDAO mix for the state's current epoch will be returned.
+
+        By adjusting the `state_id` parameter you can query for any historic value of the RANDAO mix.
+        Ordinarily states from the same epoch will mutate the RANDAO mix for that epoch as blocks are
+        applied.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+        - name: epoch
+          description: 'Epoch to fetch the RANDAO mix for. Default: state''s current epoch.'
+          in: query
+          required: false
+          allowEmptyValue: false
+          schema:
+            allOf:
+              - type: string
+                example: '1'
+              - example: ''
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetStateRandaoResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  data:
+                    type: object
+                    properties:
+                      randao:
+                        allOf:
+                          - type: string
+                            format: hex
+                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                            pattern: '^0x[a-fA-F0-9]{64}$'
+                          - description: RANDAO mix for requested epoch in state.
+        '400':
+          description: Invalid state ID or epoch
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: Epoch is out of range for the `randao_mixes` of the state
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+              example:
+                code: 404
+                message: State not found
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/headers:
     get:
       operationId: getBlockHeaders
