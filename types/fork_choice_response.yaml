@@ -8,7 +8,7 @@ ForkChoiceResponse:
         - description: "The slot to which this block corresponds."
     block_root:
       allOf:
-        - $ref: './primitive.yaml#/Uint64'
+        - $ref: './primitive.yaml#/Root'
         - description: "The signing merkle root of the `BeaconBlock`."
     parent_root:
       allOf:
