@@ -74,6 +74,8 @@ paths:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
     $ref: "./apis/beacon/states/sync_committees.yaml"
+  /eth/v1/beacon/states/{state_id}/randao:
+    $ref: "./apis/beacon/states/randao.yaml"
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
