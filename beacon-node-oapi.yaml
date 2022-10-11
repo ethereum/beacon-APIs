@@ -93,24 +93,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: Chain genesis info is not yet known
+                example:
+                  code: 404
+                  message: Chain genesis info is not yet known
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -179,44 +178,42 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
               example:
                 code: 404
                 message: State not found
@@ -298,47 +295,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: State not found
+                example:
+                  code: 404
+                  message: State not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -438,47 +433,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: State not found
+                example:
+                  code: 404
+                  message: State not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -677,47 +670,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: State not found
+                example:
+                  code: 404
+                  message: State not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -866,24 +857,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Not Found
           content:
@@ -1002,24 +992,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -1126,44 +1115,42 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: Slot does not belong in epoch
+                example:
+                  code: 400
+                  message: Slot does not belong in epoch
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
               example:
                 code: 404
                 message: State not found
@@ -1256,44 +1243,42 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: Epoch is outside the sync committee period of the state
+                example:
+                  code: 400
+                  message: Epoch is outside the sync committee period of the state
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
               example:
                 code: 404
                 message: State not found
@@ -1423,24 +1408,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid block ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid block ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -1556,47 +1540,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid block ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid block ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Block not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: Block not found
+                example:
+                  code: 404
+                  message: Block not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -3070,24 +3052,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid block: missing signature'
+                example:
+                  code: 400
+                  message: 'Invalid block: missing signature'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -6111,47 +6092,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid block ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid block ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Block not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: Block not found
+                example:
+                  code: 404
+                  message: Block not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -6220,47 +6199,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid block ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid block ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Block not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: Block not found
+                example:
+                  code: 404
+                  message: Block not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -6379,47 +6356,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid block ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid block ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Block not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: Block not found
+                example:
+                  code: 404
+                  message: Block not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -8929,24 +8904,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid slot: current'
+                example:
+                  code: 400
+                  message: 'Invalid slot: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -9401,24 +9375,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid attester slashing, it will never pass validation so it''s rejected'
+                example:
+                  code: 400
+                  message: 'Invalid attester slashing, it will never pass validation so it''s rejected'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -9695,24 +9668,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid proposer slashing, it will never pass validation so it''s rejected'
+                example:
+                  code: 400
+                  message: 'Invalid proposer slashing, it will never pass validation so it''s rejected'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -9933,24 +9905,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid voluntary exit, it will never pass validation so it''s rejected'
+                example:
+                  code: 400
+                  message: 'Invalid voluntary exit, it will never pass validation so it''s rejected'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -11168,47 +11139,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid state ID: current'
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: State not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: State not found
+                example:
+                  code: 404
+                  message: State not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -11594,47 +11563,45 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid peer ID: localhost'
+                example:
+                  code: 400
+                  message: 'Invalid peer ID: localhost'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '404':
           description: Peer not found
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 404
-                      message: Peer not found
+                example:
+                  code: 404
+                  message: Peer not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -12112,24 +12079,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid epoch: -2'
+                example:
+                  code: 400
+                  message: 'Invalid epoch: -2'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -12242,24 +12208,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid epoch: -2'
+                example:
+                  code: 400
+                  message: 'Invalid epoch: -2'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -12374,24 +12339,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid epoch: -2'
+                example:
+                  code: 400
+                  message: 'Invalid epoch: -2'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -16659,24 +16623,23 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - type: object
-                    properties:
-                      code:
-                        description: Either specific error code in case of invalid request or http status code
-                        type: number
-                        example: 404
-                      message:
-                        description: Message describing error
-                        type: string
-                      stacktraces:
-                        description: 'Optional stacktraces, sent when node is in debug mode'
-                        type: array
-                        items:
-                          type: string
-                  - example:
-                      code: 400
-                      message: 'Invalid topic: weather_forecast'
+                example:
+                  code: 400
+                  message: 'Invalid topic: weather_forecast'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
