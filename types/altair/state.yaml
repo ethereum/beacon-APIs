@@ -76,9 +76,7 @@ Altair:
       current_epoch_participation:
         $ref: './epoch_participation.yaml#/Altair/EpochParticipation'
       justification_bits:
-        type: string
-        pattern: "^0x[a-fA-F0-9]+$"
-        example: "0x01"
+        $ref: "../primitive.yaml#/BitList"
         description: "Bit set for every recent justified epoch"
       previous_justified_checkpoint:
         $ref: "../misc.yaml#/Checkpoint"

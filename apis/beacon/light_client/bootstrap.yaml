@@ -1,0 +1,63 @@
+get:
+  operationId: getLightClientBootstrap
+  summary: Get `LightClientBootstrap` structure for a requested block root
+  description: |
+    Requests the [`LightClientBootstrap`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/sync-protocol.md#lightclientbootstrap) structure corresponding to a given post-Altair beacon block root.
+    Depending on the `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
+
+    Servers SHOULD provide results as defined in [`create_light_client_bootstrap`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/full-node.md#create_light_client_bootstrap). To fulfill a request, the requested block's post state needs to be known.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_root
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockRoot'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetLightClientBootstrapResponse
+            type: object
+            properties:
+              version:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientBootstrap'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `LightClientBootstrap` bytes. Use Accept header to choose this response type"
+    "400":
+      description: Malformed request parameter
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid block root value"
+    "404":
+      description: "`LightClientBootstrap` instance cannot be produced for the given block root"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "LC bootstrap unavailable"
+    "406":
+      description: Unacceptable media type
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 406
+              message: "Accepted media type not supported"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
