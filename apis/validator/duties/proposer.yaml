@@ -45,11 +45,10 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid epoch: -2"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid epoch: -2"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
