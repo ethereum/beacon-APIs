@@ -33,4 +33,3 @@ Node:
 ExtraData:
   type: object
   description: 'Optional extra data that clients may provide, which could differ from client to client.'
-  required: false

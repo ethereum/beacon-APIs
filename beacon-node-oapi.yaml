@@ -292,8 +292,6 @@ components:
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
-    ForkChoiceResponse:
-      $ref: './types/fork_choice_response.yaml#/ForkChoiceResponse'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
