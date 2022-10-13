@@ -12,11 +12,19 @@ get:
           schema:
             title: GetForkChoiceResponse
             type: object
+            description: "Debugging context of fork choice"
             properties:
-              data:
+              justified_epoch:
+                $ref: './types/misc.yaml#/Checkpoint'
+              finalized_epoch:
+                $ref: './types/misc.yaml#/Checkpoint'
+              fork_choice_nodes:
                 type: array
+                description: "Forkchoice nodes"
+                minItems: 1
                 items:
-                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/ForkChoiceResponse'
-
+                  $ref: "./fork_choice.yaml#/Node"
+              extra_data:
+                $ref: "./fork_choice.yaml#/ExtraData"
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

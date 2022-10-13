@@ -1,6 +1,6 @@
-ForkChoiceResponse:
+Node:
   type: object
-  description: "Debugging context of fork choice"
+  description: "fork choice node attributes"
   properties:
     slot:
       allOf:
@@ -20,13 +20,17 @@ ForkChoiceResponse:
       $ref: './primitive.yaml#/Uint64'
     weight:
       $ref: './primitive.yaml#/Uint64'
-    execution_optimistic:
-      $ref: './primitive.yaml#/ExecutionOptimistic'
+    validity:
+      type: string
+      enum: [VALID, INVALID, OPTIMISTIC]
     execution_payload_root:
       allOf:
         - $ref: './primitive.yaml#/Root'
         - description: "The tree hash merkle root of the `execution_payload` for the `BeaconBlock`."
     extra_data:
-      type: object
-      description: 'Optional extra data that clients may provide, which could differ from client to client.'
-      required: false
+      $ref: '#/ExtraData'
+
+ExtraData:
+  type: object
+  description: 'Optional extra data that clients may provide, which could differ from client to client.'
+  required: false
