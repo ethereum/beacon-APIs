@@ -14,17 +14,17 @@ get:
             type: object
             description: "Debugging context of fork choice"
             properties:
-              justified_epoch:
+              justified_checkpoint:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
-              finalized_epoch:
+              finalized_checkpoint:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
               fork_choice_nodes:
                 type: array
                 description: "Forkchoice nodes"
                 minItems: 1
                 items:
-                  $ref: "./fork_choice.yaml#/Node"
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Node"
               extra_data:
-                $ref: "./fork_choice.yaml#/ExtraData"
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExtraData"
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

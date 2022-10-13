@@ -294,6 +294,10 @@ components:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
     ForkChoiceResponse:
       $ref: './types/fork_choice_response.yaml#/ForkChoiceResponse'
+    Node:
+      $ref: './types/fork_choice.yaml#/Node'
+    ExtraData:
+      $ref: './types/fork_choice.yaml#/ExtraData'
 
   parameters:
     StateId:
