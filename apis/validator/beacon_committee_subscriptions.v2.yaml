@@ -1,11 +1,20 @@
 post:
   operationId: "prepareBeaconCommitteeSubnetV2"
-  summary: Signal beacon node to prepare for a committee subnet
+  summary: Inform beacon node of slot signature to prepare for a committee subnet
   description: |
-    After beacon node receives this request:
-    - Search using discv5 for peers related to this subnet and replace current peers with those ones if necessary. 
+    This endpoint is a variation of the V1 endpoint that is modified to facilitate Distributed Validators (DVs). A distributed validator 
+    is a collection of independent validator clients working together to operate one or more Ethereum validators. In a DV each validator 
+    client has a different BLS private key, and thus all calculate different `slot_signature`s, resulting in each client 
+    attempting to aggregate at different times. With this version of the endpoint, a validator client sends it's `slot_signature` to 
+    the beacon API, and the server responds with a boolean indicating whether the validator client should sign an aggregate attestation.
+    Validator clients would use this endpoint if a feature flag indicating they are running in a distributed mode is enabled. This
+    allows these validator clients to successfully complete their aggregation duties and keep the network effectiveness high. 
+    
+    After a beacon node receives this request:
     - Check each provided `slot_signature`, to determine whether any validator has been [assigned the duty of aggregation](https://github.com/ethereum/consensus-specs/blob/dev/specs/phase0/validator.md#aggregation-selection)
-    based on their slot signature.
+    based on their slot signature, return `true` for any validator that must aggregate. 
+    - Search using discv5 for peers related to this subnet and replace current peers with those ones if necessary. 
+    - Prepare an aggregate attestation object for the validator to sign two thirds of the way through the slot.
   tags:
     - ValidatorRequiredApi
     - Validator
@@ -39,9 +48,13 @@ post:
       description: |
         Slot signature is valid and beacon node has prepared the attestation subnet.
 
-        If any of the returned results for aggregation selection return `true`, the beacon client will begin
-        preparing an aggregation that the validator client must ask for 
-        and sign at the appropriate time. 
+        If any of the combined `slot_signature`s result in the Distributed Validator being selected to aggregate, the beacon client will inform the validator client 
+        by returning `"is_aggregator": true` and will begin preparing an aggregation that the validator client must ask for 
+        and sign at the appropriate time in the slot. 
+        
+        Be aware the returned `slot_signature` may differ from the submitted one, as a distributed validator 
+        middleware may have aggregated the provided slot_signature with the other partial slot signatures produced across the cluster and 
+        returned the aggregate slot_signature for the distributed validator.  
       content:
         application/json:
           schema:
@@ -50,9 +63,26 @@ post:
             items:
               type: object
               properties:
+                validator_index:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                committee_index:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                committees_at_slot:
+                  allOf:
+                    - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    - description: "Number of committees at the returned slot"
+                slot:
+                  allOf:
+                    - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    - description: "Should be slot at which validator is assigned to attest"
+                slot_signature:
+                  allOf:
+                    - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+                    - description: "The aggregated slot_signature calculated by the distributed validator middleware or consensus client for the upcoming attestation slot"
                 is_aggregator:
                   type: boolean
-
+                  example: true
+                  description: "Whether this validator should attempt to aggregate attestations for this committee and slot"
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "500":
