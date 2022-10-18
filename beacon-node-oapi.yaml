@@ -74,6 +74,8 @@ paths:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
     $ref: "./apis/beacon/states/sync_committees.yaml"
+  /eth/v1/beacon/states/{state_id}/randao:
+    $ref: "./apis/beacon/states/randao.yaml"
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
@@ -90,7 +92,14 @@ paths:
     $ref: "./apis/beacon/blocks/attestations.yaml"
   /eth/v1/beacon/blinded_blocks/{block_id}:
     $ref: "./apis/beacon/blocks/blinded_block.yaml"
-
+  /eth/v1/beacon/light_client/bootstrap/{block_root}:
+    $ref: "./apis/beacon/light_client/bootstrap.yaml"
+  /eth/v1/beacon/light_client/updates:
+    $ref: "./apis/beacon/light_client/updates.yaml"
+  /eth/v1/beacon/light_client/finality_update:
+    $ref: "./apis/beacon/light_client/finality_update.yaml"
+  /eth/v1/beacon/light_client/optimistic_update:
+    $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
   /eth/v1/beacon/pool/attester_slashings:
@@ -242,6 +251,14 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
+    Altair.LightClientBootstrap:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientBootstrap'
+    Altair.LightClientUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientUpdate'
+    Altair.LightClientFinalityUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
+    Altair.LightClientOptimisticUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.BeaconBlock:
@@ -293,6 +310,8 @@ components:
       $ref: './params/index.yaml#/StateId'
     BlockId:
       $ref: './params/index.yaml#/BlockId'
+    BlockRoot:
+      $ref: './params/index.yaml#/BlockRoot'
 
   responses:
     InvalidRequest:
