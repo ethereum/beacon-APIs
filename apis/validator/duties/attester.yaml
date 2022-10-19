@@ -18,6 +18,7 @@ post:
 
       - event.block otherwise
 
+    
     The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
     or the genesis block root in the case of underflow."
   parameters:
@@ -49,6 +50,8 @@ post:
             properties:
               dependent_root:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 type: array
                 items:
@@ -58,11 +61,10 @@ post:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid epoch: -2"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid epoch: -2"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

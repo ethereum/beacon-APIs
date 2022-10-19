@@ -1,0 +1,50 @@
+get:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  operationId: "produceSyncCommitteeContribution"
+  summary: "Produce a sync committee contribution"
+  description: |
+    Requests that the beacon node produce a sync committee contribution.
+
+    A 503 error must be returned if the block identified by the response
+    `beacon_block_root` is optimistic (i.e. the sync committee contribution
+    refers to a block that has not been fully verified by an execution engine).
+  parameters:
+    - name: slot
+      in: query
+      required: true
+      description: "The slot for which a sync committee contribution should be created."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: subcommittee_index
+      in: query
+      description: "the subcommittee index for which to produce the contribution."
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: beacon_block_root
+      in: query
+      description: "the block root for which to produce the contribution."
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: produceSyncCommitteeContributionResponse
+            type: object
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeContribution'
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

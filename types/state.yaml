@@ -1,6 +1,6 @@
 BeaconState:
   type: object
-  description: "The [`BeaconState`](https://github.com/ethereum/eth2.0-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblock) object from the Eth2.0 spec."
+  description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec."
   properties:
     genesis_time:
       $ref: "./primitive.yaml#/Uint64"
@@ -59,7 +59,7 @@ BeaconState:
       type: array
       items:
         allOf:
-          - $ref: './primitive.yaml#/Root'
+          - $ref: './primitive.yaml#/Bytes32'
       minItems: 65536
       maxItems: 65536
     slashings:
@@ -81,9 +81,7 @@ BeaconState:
         allOf:
           - $ref: './attestation.yaml#/PendingAttestation'
     justification_bits:
-      type: string
-      pattern: "^0x[a-fA-F0-9]+$"
-      example: "0x01"
+      $ref: "./primitive.yaml#/BitList"
       description: "Bit set for every recent justified epoch"
     previous_justified_checkpoint:
       $ref: "./misc.yaml#/Checkpoint"

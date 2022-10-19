@@ -1,0 +1,53 @@
+get:
+  operationId: "getEpochSyncCommittees"
+  summary: "Get sync committees for a state."
+  description: "Retrieves the sync committees for the given state."
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: epoch
+      description: "Fetch sync committees for the given epoch.  If not present then the sync committees for the epoch of the state will be obtained."
+      in: query
+      required: false
+      allowEmptyValue: false
+      schema:
+        allOf:
+          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          - example: ""
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetEpochSyncCommitteesResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommittee'
+
+    "400":
+      description: "Invalid state ID or epoch"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Epoch is outside the sync committee period of the state"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

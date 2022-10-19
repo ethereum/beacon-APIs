@@ -10,14 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm i -g @apidevtools/swagger-cli@4
       - name: Bundle yaml spec
-        uses: mpetrunic/swagger-cli-action@v1.0.0
-        with:
-          command: "bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
+        run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Bundle json spec
-        uses: mpetrunic/swagger-cli-action@v1.0.0
-        with:
-          command: "bundle ./beacon-node-oapi.yaml -r -t json -o ./deploy/beacon-node-oapi.json"
+        run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t json -o ./deploy/beacon-node-oapi.json"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -25,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: ${{ github.ref }}
           draft: false
           prerelease: false
       - name: Upload Yaml Bundle

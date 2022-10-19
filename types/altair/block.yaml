@@ -22,7 +22,7 @@ Altair:
 
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#beaconblockbody) object from the Eth2.0 Altair spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.3/specs/altair/beacon-chain.md#beaconblockbody) object from the CL Altair spec."
     properties:
       randao_reveal:
         allOf:
@@ -31,8 +31,7 @@ Altair:
       eth1_data:
         $ref: '../eth1.yaml#/Eth1Data'
       graffiti:
-        type: string
-        pattern: "^0x[a-fA-F0-9]{64}$"
+        $ref: '../primitive.yaml#/Graffiti'
       proposer_slashings:
         type: array
         items:
@@ -57,7 +56,7 @@ Altair:
         $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#beaconblock) object from the Eth2.0 Altair spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.3/specs/altair/beacon-chain.md#beaconblock) object from the CL Altair spec."
     allOf:
       - $ref: '#/Altair/BeaconBlockCommon'
       - type: object
@@ -67,7 +66,7 @@ Altair:
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/eth2.0-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#signedbeaconblock) object envelope from the Eth2.0 Altair spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.3/specs/altair/beacon-chain.md#signedbeaconblock) object envelope from the CL Altair spec."
     properties:
       message:
         $ref: "#/Altair/BeaconBlock"

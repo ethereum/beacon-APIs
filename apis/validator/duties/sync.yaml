@@ -1,0 +1,53 @@
+post:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  summary: "Get sync committee duties"
+  operationId: "getSyncCommitteeDuties"
+  description: "Requests the beacon node to provide a set of sync committee duties for a particular epoch."
+  parameters:
+    - name: epoch
+      description: "epoch // EPOCHS_PER_SYNC_COMMITTEE_PERIOD <= current_epoch // EPOCHS_PER_SYNC_COMMITTEE_PERIOD + 1"
+      in: path
+      required: true
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  requestBody:
+    description: "An array of the validator indices for which to obtain the duties."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: GetSyncCommitteeDutiesBody
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+            minItems: 1
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: GetSyncCommitteeDutiesResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncDuty'
+    "400":
+      description: "Invalid epoch or index"
+      content:
+        application/json:
+          schema:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              example:
+                code: 400
+                message: "Invalid epoch: -2"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

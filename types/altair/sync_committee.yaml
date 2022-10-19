@@ -1,0 +1,102 @@
+Altair:
+  SyncCommittee:
+    type: object
+    properties:
+      pubkeys:
+        type: array
+        items:
+          allOf:
+            - $ref: '../primitive.yaml#/Pubkey'
+        minItems: 512
+        maxItems: 512
+      aggregate_pubkey:
+        $ref: '../primitive.yaml#/Pubkey'
+  SyncCommitteeSignature:
+      type: object
+      properties:
+        slot:
+          $ref: '../primitive.yaml#/Uint64'
+        beacon_block_root:
+          $ref: '../primitive.yaml#/Root'
+        validator_index:
+          $ref: '../primitive.yaml#/Uint64'
+        signature:
+          $ref: '../primitive.yaml#/Signature'
+  SyncCommitteeSubscription:
+    type: object
+    properties:
+      validator_index:
+        $ref: '../primitive.yaml#/Uint64'
+      sync_committee_indices:
+        type: array
+        items:
+          allOf:
+           - $ref: '../primitive.yaml#/Uint64'
+      until_epoch:
+        allOf:
+         - $ref: '../primitive.yaml#/Uint64'
+         - description: 'The final epoch (exclusive value) that the specified validator requires the subscription for.'
+         
+  SignedContributionAndProof:
+    type: object
+    properties:
+      message:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.ContributionAndProof'
+      signature:
+        $ref: '../primitive.yaml#/Signature'
+
+  ContributionAndProof:
+    type: object
+    properties:
+      aggregator_index:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "Index of validator in validator registry."
+      selection_proof:
+        $ref: '../primitive.yaml#/Signature'
+      contribution:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeContribution'
+
+  SyncCommitteeContribution:
+    type: object
+    properties:
+      slot:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "The slot at which the validator is providing a sync committee contribution."
+      beacon_block_root:
+        allOf:
+          - $ref: '../primitive.yaml#/Root'
+          - description: "Block root for this contribution."
+      subcommittee_index:
+        allOf:
+          - $ref: '../primitive.yaml#/Uint64'
+          - description: 'The index of the subcommittee that the contribution pertains to.'
+      aggregation_bits:
+        allOf:
+          - description: 'A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.'
+          - $ref: "../primitive.yaml#/Hex"
+          - example: "0x01"
+      signature:
+        allOf:
+          - $ref: '../primitive.yaml#/Signature'
+          - description: 'Signature by the validator(s) over the block root of `slot`'
+  ValidatorsByIndex:
+    type: array
+    items:
+      allOf:
+        - $ref: '../primitive.yaml#/Uint64'
+  SyncCommitteeByValidatorIndices:
+    type: object
+    properties:
+      validators:
+        allOf:
+         - $ref: '#/Altair/ValidatorsByIndex'
+         - description: 'all of the validator indices in the current sync committee'
+      validator_aggregates:
+        type: array
+        items:
+          allOf:
+            - $ref: '#/Altair/ValidatorsByIndex'
+            - description: 'Subcommittee slices of the current sync committee'
+

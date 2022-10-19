@@ -1,0 +1,60 @@
+get:
+  operationId: "getStateV2"
+  summary: "Get full BeaconState object"
+  description: |
+     Returns full BeaconState object for given stateId.
+     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+  tags:
+    - Debug
+  parameters:
+    - name: state_id
+      in: path
+      required: true
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetStateV2Response
+            type: object
+            properties:
+              version:
+                type: string
+                enum: [ phase0, altair, bellatrix ]
+                example: "phase0"
+              execution_optimistic:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              data:
+                oneOf:
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized state bytes. Use Accept header to choose this response type"
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "State not found"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

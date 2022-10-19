@@ -1,7 +1,13 @@
 get:
   operationId: "getStateValidatorBalances"
   summary: "Get validator balances from state"
-  description: "Returns filterable list of validator balances."
+  description: |
+    Returns filterable list of validators balances.
+
+    Balances will be returned for all indices or public key that match known validators.  If an index or public key does not
+    match any known validator, no balance will be returned but this will not cause an error.  There are no guarantees for the
+    returned data in terms of ordering; the index and is returned for each balance, and can be used to confirm for which inputs a
+    response has been returned.
   tags:
     - Beacon
   parameters:
@@ -9,7 +15,7 @@ get:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: id
-      description: "Either hex encoded public key (with 0x prefix) or validator index"
+      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
       in: query
       required: false
       schema:
@@ -17,7 +23,7 @@ get:
         maxItems: 30
         uniqueItems: true
         items:
-          description: "Either hex encoded public key (with 0x prefix) or validator index"
+          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
           type: string
 
   responses:
@@ -29,6 +35,8 @@ get:
             title: GetStateValidatorBalancesResponse
             type: object
             properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 type: array
                 items:
@@ -38,11 +46,10 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid state ID: current"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid state ID: current"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

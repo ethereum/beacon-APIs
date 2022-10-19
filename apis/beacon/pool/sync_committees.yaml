@@ -1,0 +1,34 @@
+post:
+  operationId: submitPoolSyncCommitteeSignatures
+  summary: Submit sync committee signatures to node
+  description: |
+    Submits sync committee signature objects to the node.
+
+    Sync committee signatures are not present in phase0, but are required for Altair networks.
+
+    If a sync committee signature is validated successfully the node MUST publish that sync committee signature on all applicable subnets.
+
+    If one or more sync committee signatures fail validation the node MUST return a 400 error with details of which sync committee signatures have failed, and why.
+
+  tags:
+    - Beacon
+    - ValidatorRequiredApi
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeSignature'
+  responses:
+    "200":
+      description: Sync committee signatures are stored in pool and broadcast on appropriate subnet
+    "400":
+      description: "Errors with one or more sync committee signatures"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
