@@ -15,15 +15,15 @@ post:
     content:
       application/json:
         schema:
-          title: GetAttesterDutiesBody
+          title: PostLivenessRequestBody
           type: object
           properties:
             epoch:
-              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
             indices:
               type: array
               items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
                 minItems: 1
   responses:
     "200":
@@ -31,7 +31,7 @@ post:
       content:
         application/json:
           schema:
-            title: GetAttesterDutiesBody
+            title: PostLivenessResponseBody
             type: object
             properties:
               data:
@@ -40,9 +40,9 @@ post:
                   type: object
                   properties:
                     index:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
                     epoch:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
                     is_live:
                       type: boolean
     "400":
@@ -51,11 +51,11 @@ post:
         application/json:
           schema:
             allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
               - example:
                   code: 400
                   message: "Invalid epoch: -2"
     "500":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
