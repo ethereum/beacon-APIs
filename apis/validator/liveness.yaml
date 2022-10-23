@@ -44,8 +44,6 @@ post:
                   properties:
                     index:
                       $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                    epoch:
-                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
                     is_live:
                       type: boolean
     "400":
