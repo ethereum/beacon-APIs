@@ -26,7 +26,13 @@
                         - description: "How many slots node needs to process to reach head. 0 if synced."
                         - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
                     is_syncing:
-                      type: boolean
-                      description: "Set to true if the node is syncing, false if the node is synced."
+                      allOf:
+                        - type: boolean
+                        - description: "Set to true if the node is syncing, false if the node is synced."
+                    is_optimistic:
+                      allOf:
+                        - type: boolean
+                        - description: "Set to true if the node is optimistically tracking head."
+
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

@@ -28,9 +28,21 @@ get:
       description: "Arbitrary data validator wants to include in block."
       schema:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
+    - name: skip_randao_verification
+      in: query
+      required: false
+      description: |
+        Skip verification of the `randao_reveal` value. If this flag is set then the
+        `randao_reveal` must be set to the point at infinity (`0xc0..00`). This query parameter
+        is a flag and does not take a value.
+      schema: {}
+      allowEmptyValue: true
   responses:
     "200":
       description: Success response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
@@ -39,12 +51,16 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair ]
+                enum: [ phase0, altair, bellatrix ]
                 example: "phase0"
               data:
                 oneOf:
                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
     "400":
       description: "Invalid block production request"
       content:

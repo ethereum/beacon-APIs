@@ -15,7 +15,7 @@ get:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: id
-      description: "Either hex encoded public key (with 0x prefix) or validator index"
+      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
       in: query
       required: false
       schema:
@@ -23,7 +23,7 @@ get:
         maxItems: 30
         uniqueItems: true
         items:
-          description: "Either hex encoded public key (with 0x prefix) or validator index"
+          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
           type: string
 
   responses:
@@ -35,6 +35,8 @@ get:
             title: GetStateValidatorBalancesResponse
             type: object
             properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 type: array
                 items:
@@ -44,11 +46,10 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid state ID: current"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid state ID: current"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

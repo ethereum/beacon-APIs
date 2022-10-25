@@ -1,0 +1,61 @@
+get:
+  operationId: getBlindedBlock
+  summary: Get blinded block
+  description: |
+    Retrieves blinded block for given block ID.
+    Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ
+  tags:
+    - Beacon
+  parameters:
+    - name: block_id
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  responses:
+    "200":
+      description: "Successful response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetBlindedBlockResponse
+            type: object
+            properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix]
+                example: "phase0"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              data:
+                oneOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized block bytes. Use Accept header to choose this response type"
+    "400":
+      description: "The block ID supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block ID: current"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Block not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

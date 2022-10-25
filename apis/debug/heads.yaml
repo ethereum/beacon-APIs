@@ -2,6 +2,7 @@ get:
   operationId: getDebugChainHeads
   summary: Get fork choice leaves
   description: Retrieves all possible chain heads (leaves of fork choice tree).
+  deprecated: true
   tags:
     - Debug
   responses:

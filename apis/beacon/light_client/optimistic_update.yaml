@@ -1,0 +1,49 @@
+get:
+  operationId: getLightClientOptimisticUpdate
+  summary: Get the latest known `LightClientOptimisticUpdate`
+  description: |
+    Requests the latest [`LightClientOptimisticUpdate`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/sync-protocol.md#lightclientoptimisticupdate) known by the server.
+    Depending on the `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
+
+    Servers SHOULD provide results as defined in [`create_light_client_optimistic_update`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/full-node.md#create_light_client_optimistic_update).
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetLightClientOptimisticUpdateResponse
+            type: object
+            properties:
+              version:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientOptimisticUpdate'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `LightClientOptimisticUpdate` bytes. Use Accept header to choose this response type"
+    "404":
+      description: "No `LightClientOptimisticUpdate` is available"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "LC optimistic update unavailable"
+    "406":
+      description: Unacceptable media type
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 406
+              message: "Accepted media type not supported"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
