@@ -6,11 +6,12 @@ post:
   operationId: "publishBlock"
   description: |
     Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,
-    to be included in the beacon chain. The beacon node is not required to validate the signed
-    `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been
-    successful. The beacon node is expected to integrate the new block into its state, and
-    therefore validate the block internally, however blocks which fail the validation are still
-    broadcast but a different status code is returned (202)
+    to be included in the beacon chain. A success response (20x) indicates that the block
+    passed gossip validation and was successfully broadcast onto the network.
+    The beacon node is also expected to integrate the block into state, but may broadcast it
+    before doing so, so as to aid timely delivery of the block. Should the block fail full
+    validation, a separate success response code (202) is used to indicate that the block was
+    successfully broadcast but failed integration.
   parameters:
     - in: header
       schema:
@@ -35,9 +36,9 @@ post:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
     "202":
-      description: "The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
+      description: "The block could not be integrated into the beacon node's database as it failed validation, but was successfully broadcast."
     "400":
-      description: "The `SignedBeaconBlock` object is invalid"
+      description: "The `SignedBeaconBlock` object is invalid and could not be broadcast"
       content:
         application/json:
           schema:
