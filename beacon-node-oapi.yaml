@@ -168,6 +168,8 @@ paths:
     $ref: "./apis/validator/prepare_beacon_proposer.yaml"
   /eth/v1/validator/register_validator:
     $ref: "./apis/validator/register_validator.yaml"
+  /eth/v1/validator/liveness:
+    $ref: "./apis/validator/liveness.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
