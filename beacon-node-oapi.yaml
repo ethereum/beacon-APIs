@@ -16665,6 +16665,117 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  /eth/v1/validator/liveness:
+    post:
+      tags:
+        - Validator
+      summary: Indicates if a validator has been observed on the network
+      operationId: getLiveness
+      description: 'Requests the beacon node to indicate if a validator has been observed to be live in a given epoch. The beacon node might detect liveness by observing messages from the validator on the network, in the beacon chain, from its API or from any other source. A beacon node SHOULD support the current and previous epoch, however it MAY support earlier epoch. It is important to note that the values returned by the beacon node are not canonical; they are best-effort and based upon a subjective view of the network. A beacon node that was recently started or suffered a network partition may indicate that a validator is not live when it actually is.'
+      requestBody:
+        description: An array of the validator indices for which to detect liveness.
+        required: true
+        content:
+          application/json:
+            schema:
+              title: PostLivenessRequestBody
+              type: object
+              properties:
+                epoch:
+                  type: string
+                  example: '1'
+                indices:
+                  type: array
+                  items:
+                    minItems: 1
+                    type: string
+                    example: '1'
+      responses:
+        '200':
+          description: Success response
+          content:
+            application/json:
+              schema:
+                title: PostLivenessResponseBody
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          type: string
+                          example: '1'
+                        is_live:
+                          type: boolean
+        '400':
+          description: Invalid epoch or index
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: 'Invalid epoch: -2'
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+        '503':
+          description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   /eth/v1/events:
     get:
       operationId: eventstream
