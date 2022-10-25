@@ -36,7 +36,7 @@ post:
     "200":
       description: "The block was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
     "202":
-      description: "The block failed full validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
+      description: "The block could not be integrated into the beacon node's database as it failed validation, but was successfully broadcast."
     "400":
       description: "The `SignedBeaconBlock` object is invalid and could not be broadcast"
       content:
