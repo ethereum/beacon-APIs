@@ -74,23 +74,32 @@ paths:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
     $ref: "./apis/beacon/states/sync_committees.yaml"
+  /eth/v1/beacon/states/{state_id}/randao:
+    $ref: "./apis/beacon/states/randao.yaml"
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
-  /eth/v1/beacon/blocks:
-    $ref: "./apis/beacon/blocks/blocks.yaml"
   /eth/v1/beacon/blinded_blocks:
     $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
-  /eth/v1/beacon/blocks/{block_id}:
-    $ref: "./apis/beacon/blocks/block.yaml"
+  /eth/v1/beacon/blocks:
+    $ref: "./apis/beacon/blocks/blocks.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
-
+  /eth/v1/beacon/blinded_blocks/{block_id}:
+    $ref: "./apis/beacon/blocks/blinded_block.yaml"
+  /eth/v1/beacon/light_client/bootstrap/{block_root}:
+    $ref: "./apis/beacon/light_client/bootstrap.yaml"
+  /eth/v1/beacon/light_client/updates:
+    $ref: "./apis/beacon/light_client/updates.yaml"
+  /eth/v1/beacon/light_client/finality_update:
+    $ref: "./apis/beacon/light_client/finality_update.yaml"
+  /eth/v1/beacon/light_client/optimistic_update:
+    $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
   /eth/v1/beacon/pool/attester_slashings:
@@ -102,8 +111,6 @@ paths:
   /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
 
-  /eth/v1/debug/beacon/states/{state_id}:
-    $ref: './apis/debug/state.yaml'
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
@@ -139,8 +146,6 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
-  /eth/v1/validator/blocks/{slot}:
-    $ref: "./apis/validator/block.yaml"
   /eth/v2/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v2.yaml"
   /eth/v1/validator/blinded_blocks/{slot}:
@@ -163,6 +168,8 @@ paths:
     $ref: "./apis/validator/prepare_beacon_proposer.yaml"
   /eth/v1/validator/register_validator:
     $ref: "./apis/validator/register_validator.yaml"
+  /eth/v1/validator/liveness:
+    $ref: "./apis/validator/liveness.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -242,6 +249,14 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
+    Altair.LightClientBootstrap:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientBootstrap'
+    Altair.LightClientUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientUpdate'
+    Altair.LightClientFinalityUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
+    Altair.LightClientOptimisticUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.BeaconBlock:
@@ -283,6 +298,8 @@ components:
       $ref: './params/index.yaml#/StateId'
     BlockId:
       $ref: './params/index.yaml#/BlockId'
+    BlockRoot:
+      $ref: './params/index.yaml#/BlockRoot'
 
   responses:
     InvalidRequest:

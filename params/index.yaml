@@ -18,3 +18,12 @@ BlockId:
   description: |
     Block identifier.
     Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
+BlockRoot:
+  required: true
+  name: block_root
+  in: path
+  schema:
+    $ref: "../types/primitive.yaml#/Root"
+  description: |
+    Block root.
+    \<hex encoded blockRoot with 0x prefix\>.

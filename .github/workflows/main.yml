@@ -9,11 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
-    - run: npm i -g @apidevtools/swagger-cli@4 @stoplight/spectral-cli@6.3.0
-    - run: spectral --version
+    - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli
 
     - name: Lint spec
-      run: spectral lint ./beacon-node-oapi.yaml
+      run: redocly lint ./beacon-node-oapi.yaml
 
     - name: Bundle spec
       run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
