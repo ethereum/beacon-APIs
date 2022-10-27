@@ -306,6 +306,8 @@ components:
       $ref: './types/http.yaml#/InvalidRequest'
     NotFound:
       $ref: './types/http.yaml#/NotFound'
+    UnsupportedMediaType:
+      $ref: './types/http.yaml#/UnsupportedMediaType'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
     CurrentlySyncing:
