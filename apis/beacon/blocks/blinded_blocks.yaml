@@ -48,6 +48,8 @@ post:
             example:
               code: 400
               message: "Invalid block: missing signature"
+    "415":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
