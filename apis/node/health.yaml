@@ -4,6 +4,15 @@ get:
     - Node
   summary: Get health check
   description: Returns node health status in http status codes. Useful for load balancers.
+  parameters:
+    - name: syncing_status
+      in: query
+      required: false
+      description: "Customize syncing status instead of default status code (206)"
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 599
   responses:
     "200":
       description: Node is ready
