@@ -18,7 +18,7 @@ post:
       in: path
       required: true
       schema:
-        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   requestBody:
     description: "An array of the validator indices for which to detect liveness."
     required: true
@@ -28,7 +28,7 @@ post:
           title: PostLivenessRequestBody
           type: array
           items:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
             minItems: 1
   responses:
     "200":
