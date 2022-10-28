@@ -3,15 +3,15 @@ post:
   summary: Provide beacon node with registrations for the given validators to the external builder network.
   description: |
     Prepares the beacon node for engaging with external builders. The
-    information will be sent by the beacon node to the builder network. It is
+    information must be sent by the beacon node to the builder network. It is
     expected that the validator client will send this information periodically
     to ensure the beacon node has correct and timely registration information
     to provide to builders. The validator client should not sign blinded beacon
     blocks that do not adhere to their latest fee recipient and gas limit
     preferences.
 
-    Note that requests containing currently inactive or unknown validator
-    pubkeys will be accepted, as they may become active at a later epoch.
+    Note that only registrations for active or pending validators must be sent to the builder network.
+    Registrations for unknown or exited validators must be filtered out and not sent to the builder network.
   tags:
     - Validator
   requestBody:
@@ -20,7 +20,7 @@ post:
         schema:
           type: array
           items:
-              $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedValidatorRegistration'
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedValidatorRegistration'
   responses:
     "200":
       description: Registration information has been received.

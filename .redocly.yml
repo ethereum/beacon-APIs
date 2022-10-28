@@ -1,8 +1,8 @@
-lint:
-  extends:
-    - recommended
-  rules:
-    no-unused-components: error
-    operation-4xx-response: off
-    operation-tag-defined: error
+extends:
+  - recommended
+rules:
+  no-unused-components: error
+  operation-4xx-response: off
+  operation-tag-defined: error
+  security-defined: off
     
