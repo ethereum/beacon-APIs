@@ -23,7 +23,7 @@ Node:
     validity:
       type: string
       enum: [VALID, INVALID, OPTIMISTIC]
-    execution_payload_root:
+    execution_block_hash:
       allOf:
         - $ref: './primitive.yaml#/Root'
         - description: "The tree hash merkle root of the `execution_payload` for the `BeaconBlock`."
