@@ -1,0 +1,62 @@
+post:
+  tags:
+    - Validator
+  summary: "Indicates if a validator has been observed on the network"
+  operationId: "getLiveness"
+  description: "Requests the beacon node to indicate if a validator has been
+    observed to be live in a given epoch. The beacon node might detect liveness by
+    observing messages from the validator on the network, in the beacon chain,
+    from its API or from any other source. A beacon node SHOULD support the current
+    and previous epoch, however it MAY support earlier epoch. It is important to
+    note that the values returned by the beacon node are not canonical; they are best-effort
+    and based upon a subjective view of the network. A beacon node that was recently
+    started or suffered a network partition may indicate that a validator is not live
+    when it actually is."
+  requestBody:
+    description: "An array of the validator indices for which to detect liveness."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: PostLivenessRequestBody
+          type: object
+          properties:
+            epoch:
+              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+            indices:
+              type: array
+              items:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                minItems: 1
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: PostLivenessResponseBody
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    index:
+                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    is_live:
+                      type: boolean
+    "400":
+      description: "Invalid epoch or index"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid epoch: -2"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
