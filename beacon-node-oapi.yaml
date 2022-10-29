@@ -11479,6 +11479,127 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  /eth/v1/debug/fork_choice:
+    get:
+      operationId: getDebugForkChoice
+      summary: Get fork choice array
+      description: Retrieves all current fork choice context.
+      tags:
+        - Debug
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetForkChoiceResponse
+                type: object
+                description: Debugging context of fork choice
+                required:
+                  - justified_checkpoint
+                  - finalized_checkpoint
+                properties:
+                  justified_checkpoint:
+                    type: object
+                    description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
+                    properties:
+                      epoch:
+                        type: string
+                        example: '1'
+                      root:
+                        type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+                  finalized_checkpoint:
+                    type: object
+                    description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
+                    properties:
+                      epoch:
+                        type: string
+                        example: '1'
+                      root:
+                        type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+                  fork_choice_nodes:
+                    type: array
+                    description: Fork choice nodes
+                    minItems: 1
+                    items:
+                      type: object
+                      description: fork choice node attributes
+                      properties:
+                        slot:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: The slot to which this block corresponds.
+                        block_root:
+                          allOf:
+                            - type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            - description: The signing merkle root of the `BeaconBlock`.
+                        parent_root:
+                          allOf:
+                            - type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            - description: The signing merkle root of the parent `BeaconBlock`.
+                        justified_epoch:
+                          type: string
+                          example: '1'
+                        finalized_epoch:
+                          type: string
+                          example: '1'
+                        weight:
+                          type: string
+                          example: '1'
+                        validity:
+                          type: string
+                          enum:
+                            - VALID
+                            - INVALID
+                            - OPTIMISTIC
+                        execution_block_hash:
+                          allOf:
+                            - type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            - description: The `block_hash` from the `execution_payload` of the `BeaconBlock`
+                        extra_data:
+                          type: object
+                          description: 'Optional extra data that clients may provide, which could differ from client to client.'
+                  extra_data:
+                    type: object
+                    description: 'Optional extra data that clients may provide, which could differ from client to client.'
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/node/identity:
     get:
       operationId: getNetworkIdentity
@@ -23452,6 +23573,57 @@ components:
           format: hex
           pattern: '^0x[a-fA-F0-9]{192}$'
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+    Node:
+      type: object
+      description: fork choice node attributes
+      properties:
+        slot:
+          allOf:
+            - type: string
+              example: '1'
+            - description: The slot to which this block corresponds.
+        block_root:
+          allOf:
+            - type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            - description: The signing merkle root of the `BeaconBlock`.
+        parent_root:
+          allOf:
+            - type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            - description: The signing merkle root of the parent `BeaconBlock`.
+        justified_epoch:
+          type: string
+          example: '1'
+        finalized_epoch:
+          type: string
+          example: '1'
+        weight:
+          type: string
+          example: '1'
+        validity:
+          type: string
+          enum:
+            - VALID
+            - INVALID
+            - OPTIMISTIC
+        execution_block_hash:
+          allOf:
+            - type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            - description: The `block_hash` from the `execution_payload` of the `BeaconBlock`
+        extra_data:
+          type: object
+          description: 'Optional extra data that clients may provide, which could differ from client to client.'
+    ExtraData:
+      type: object
+      description: 'Optional extra data that clients may provide, which could differ from client to client.'
   parameters:
     StateId:
       required: true
