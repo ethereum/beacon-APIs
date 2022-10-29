@@ -117,6 +117,8 @@ paths:
     $ref: './apis/debug/heads.yaml'
   /eth/v2/debug/beacon/heads:
     $ref: './apis/debug/heads.v2.yaml'
+  /eth/v1/debug/fork_choice:
+    $ref: './apis/debug/fork_choice.yaml'
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -292,6 +294,10 @@ components:
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
+    Node:
+      $ref: './types/fork_choice.yaml#/Node'
+    ExtraData:
+      $ref: './types/fork_choice.yaml#/ExtraData'
 
   parameters:
     StateId:
