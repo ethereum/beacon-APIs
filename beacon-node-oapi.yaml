@@ -119,6 +119,8 @@ paths:
     $ref: './apis/debug/heads.yaml'
   /eth/v2/debug/beacon/heads:
     $ref: './apis/debug/heads.v2.yaml'
+  /eth/v1/debug/fork_choice:
+    $ref: './apis/debug/fork_choice.yaml'
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -306,6 +308,10 @@ components:
       $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
     Capella.SignedBlindedBeaconBlock:
       $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
+    Node:
+      $ref: './types/fork_choice.yaml#/Node'
+    ExtraData:
+      $ref: './types/fork_choice.yaml#/ExtraData'
 
   parameters:
     StateId:
