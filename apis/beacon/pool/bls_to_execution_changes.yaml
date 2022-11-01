@@ -1,0 +1,48 @@
+get:
+  operationId: getPoolBLSToExecutionChanges
+  summary: Get SignedBLSToExecutionChange from operations pool
+  description: Retrieves BLS to execution changes known by the node but not necessarily incorporated into any block
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            title: GetPoolBLSToExecutionChangesResponse
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
+post:
+  operationId: submitPoolBLSToExecutionChange
+  summary: Submit SignedBLSToExecutionChange object to node's pool
+  description: Submits SignedBLSToExecutionChange object to node's pool and if passes validation node MUST broadcast it to network.
+  tags:
+    - Beacon
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
+  responses:
+    "200":
+      description: BLS to execution change is stored in node and broadcasted to network
+    "400":
+      description: "Invalid BLS to execution change"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid BLS to execution change, it will never pass validation so it's rejected"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

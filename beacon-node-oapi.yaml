@@ -110,6 +110,8 @@ paths:
     $ref: "./apis/beacon/pool/sync_committees.yaml"
   /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
+  /eth/v1/beacon/pool/bls_to_execution_changes:
+    $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -201,6 +203,8 @@ components:
       $ref: './types/proposer_slashing.yaml#/ProposerSlashing'
     SignedVoluntaryExit:
       $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
+    SignedBLSToExecutionChange:
+      $ref: './types/bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
     AttesterDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
     ProposerDuty:
@@ -290,10 +294,20 @@ components:
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
-      enum: [phase0, altair, bellatrix]
+      enum: [phase0, altair, bellatrix, capella]
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
+    Capella.BeaconState:
+      $ref: './types/capella/state.yaml#/Capella/BeaconState'
+    Capella.BeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/BeaconBlock'
+    Capella.SignedBeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/SignedBeaconBlock'
+    Capella.BlindedBeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
+    Capella.SignedBlindedBeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
