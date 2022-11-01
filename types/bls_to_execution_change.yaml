@@ -1,0 +1,23 @@
+BLSToExecutionChange:
+  type: object
+  description: "The [`BLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#blstoexecutionchange) object from the CL spec."
+  properties:
+    validator_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of the validator for which credentials will be changed."
+    from_bls_pubkey:
+      $ref: "./primitive.yaml#/Pubkey"
+      description: "Public key of existing credentials."
+    to_execution_address:
+      $ref: "./primitive.yaml#/ExecutionAddress"
+      description: "Execution address to which the credentials will be changed."
+
+SignedBLSToExecutionChange:
+  type: object
+  description: "The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec."
+  properties:
+    message:
+      $ref: "#/BLSToExecutionChange"
+    signature:
+      $ref: './primitive.yaml#/Signature'
+

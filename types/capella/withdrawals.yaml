@@ -1,0 +1,6 @@
+Capella:
+  Withdrawals:
+      type: array
+      items:
+        $ref: '../withdrawal.yaml#/Withdrawal'
+      maxItems: 16

@@ -1,0 +1,6 @@
+Capella:
+  Transactions:
+      type: array
+      items:
+        $ref: '../primitive.yaml#/Transaction'
+      maxItems: 1048576
