@@ -42,6 +42,10 @@ Capella:
         properties:
           execution_payload:
             $ref: './execution_payload.yaml#/Capella/ExecutionPayload'
+          bls_to_execution_changes:
+            type: array
+            items:
+              $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
 
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/Capella/beacon-chain.md#beaconblock) object from the CL Capella spec."
