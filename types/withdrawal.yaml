@@ -4,6 +4,9 @@ Withdrawal:
     index:
       $ref: './primitive.yaml#/Uint64'
       description: "The index of the withdrawal."
+    validator_index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The index of the withdrawing validator."
     address:
       $ref: './primitive.yaml#/ExecutionAddress'
       description: "The address to which the withdrawal is credited."
