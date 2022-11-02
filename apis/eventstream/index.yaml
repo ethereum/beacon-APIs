@@ -26,6 +26,7 @@ get:
             - block
             - attestation
             - voluntary_exit
+            - bls_to_execution_change
             - finalized_checkpoint
             - chain_reorg
             - contribution_and_proof
@@ -60,6 +61,11 @@ get:
               value: |
                 event: voluntary_exit
                 data: {"message":{"epoch":"1", "validator_index":"1"}, "signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
+            bls_to_execution_change:
+              description: The node has received a BLS to execution change (from P2P or API)
+              value: |
+                event: bls_to_execution_change
+                data: {"message":{"validator_index":"1", "from_bls_pubkey":"0x933ad9491b62059dd065b560d256d8957a8c402cc6e8d8ee7290ae11e8f7329267a8811c397529dac52ae1342ba58c95", "to_execution_address":"0x9be8d619c56699667c1fedcd15f6b14d8B067f72"}, "signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
             finalized_checkpoint:
               description: Finalized checkpoint has been updated
               value: |
