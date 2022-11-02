@@ -12622,33 +12622,28 @@ paths:
                                       - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                           block_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           state_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           historical_roots:
                             type: array
+                            description: 'Variable length list, maximum 16777216 items'
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            maxItems: 16777216
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           eth1_data:
                             type: object
                             description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -12674,230 +12669,219 @@ paths:
                                   - description: Ethereum 1.x block hash.
                           eth1_data_votes:
                             type: array
+                            description: Fixed length of 1024 items
                             items:
-                              allOf:
-                                - type: object
-                                  description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
-                                  properties:
-                                    deposit_root:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Root of the deposit tree.
-                                    deposit_count:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Total number of deposits.
-                                    block_hash:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Ethereum 1.x block hash.
-                            maxItems: 1024
+                              type: object
+                              description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+                              properties:
+                                deposit_root:
+                                  allOf:
+                                    - type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Root of the deposit tree.
+                                deposit_count:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Total number of deposits.
+                                block_hash:
+                                  allOf:
+                                    - type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Ethereum 1.x block hash.
                           eth1_deposit_index:
                             type: string
                             example: '1'
                           validators:
                             type: array
-                            maxItems: 1099511627776
+                            description: 'Variable length list, maximum 1099511627776 items'
                             items:
-                              allOf:
-                                - type: object
-                                  properties:
-                                    pubkey:
-                                      type: string
+                              type: object
+                              properties:
+                                pubkey:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                withdrawal_credentials:
+                                  allOf:
+                                    - type: string
                                       format: hex
-                                      pattern: '^0x[a-fA-F0-9]{96}$'
-                                      description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                                      example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                                    withdrawal_credentials:
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Root of withdrawal credentials
+                                effective_balance:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Balance at stake in Gwei.
+                                slashed:
+                                  type: boolean
+                                  example: false
+                                  description: Was validator slashed (not longer active).
+                                activation_eligibility_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: When criteria for activation were met.
+                                activation_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+                                exit_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+                                withdrawable_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+                          balances:
+                            type: array
+                            description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
+                            items:
+                              type: string
+                              example: '1'
+                          randao_mixes:
+                            type: array
+                            description: Fixed length of 65536 items
+                            items:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                          slashings:
+                            type: array
+                            description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
+                            items:
+                              type: string
+                              example: '1'
+                          previous_epoch_attestations:
+                            type: array
+                            items:
+                              type: object
+                              description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
+                              properties:
+                                aggregation_bits:
+                                  description: Attester aggregation bits.
+                                  type: string
+                                  format: hex
+                                  example: '0x01'
+                                  pattern: '^0x[a-fA-F0-9]+$'
+                                data:
+                                  type: object
+                                  description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                                  properties:
+                                    slot:
+                                      type: string
+                                      example: '1'
+                                    index:
+                                      type: string
+                                      example: '1'
+                                    beacon_block_root:
                                       allOf:
                                         - type: string
                                           format: hex
                                           example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                           pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Root of withdrawal credentials
-                                    effective_balance:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Balance at stake in Gwei.
-                                    slashed:
-                                      type: boolean
-                                      example: false
-                                      description: Was validator slashed (not longer active).
-                                    activation_eligibility_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: When criteria for activation were met.
-                                    activation_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
-                                    exit_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
-                                    withdrawable_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
-                          balances:
-                            type: array
-                            description: Validator balances in gwei
-                            maxItems: 1099511627776
-                            items:
-                              allOf:
-                                - type: string
-                                  example: '1'
-                          randao_mixes:
-                            type: array
-                            items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 65536
-                            maxItems: 65536
-                          slashings:
-                            type: array
-                            description: Per-epoch sums of slashed effective balances
-                            items:
-                              allOf:
-                                - type: string
-                                  example: '1'
-                            minItems: 8192
-                            maxItems: 8192
-                          previous_epoch_attestations:
-                            type: array
-                            items:
-                              allOf:
-                                - type: object
-                                  description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
-                                  properties:
-                                    aggregation_bits:
-                                      description: Attester aggregation bits.
-                                      type: string
-                                      format: hex
-                                      example: '0x01'
-                                      pattern: '^0x[a-fA-F0-9]+$'
-                                    data:
+                                        - description: LMD GHOST vote.
+                                    source:
                                       type: object
-                                      description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
                                       properties:
-                                        slot:
+                                        epoch:
                                           type: string
                                           example: '1'
-                                        index:
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                    target:
+                                      type: object
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
+                                      properties:
+                                        epoch:
                                           type: string
                                           example: '1'
-                                        beacon_block_root:
-                                          allOf:
-                                            - type: string
-                                              format: hex
-                                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                              pattern: '^0x[a-fA-F0-9]{64}$'
-                                            - description: LMD GHOST vote.
-                                        source:
-                                          type: object
-                                          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                                          properties:
-                                            epoch:
-                                              type: string
-                                              example: '1'
-                                            root:
-                                              type: string
-                                              format: hex
-                                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                              pattern: '^0x[a-fA-F0-9]{64}$'
-                                        target:
-                                          type: object
-                                          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                                          properties:
-                                            epoch:
-                                              type: string
-                                              example: '1'
-                                            root:
-                                              type: string
-                                              format: hex
-                                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                              pattern: '^0x[a-fA-F0-9]{64}$'
-                                    inclusion_delay:
-                                      type: string
-                                      example: '1'
-                                    proposer_index:
-                                      type: string
-                                      example: '1'
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                inclusion_delay:
+                                  type: string
+                                  example: '1'
+                                proposer_index:
+                                  type: string
+                                  example: '1'
                           current_epoch_attestations:
                             type: array
                             items:
-                              allOf:
-                                - type: object
-                                  description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
+                              type: object
+                              description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
+                              properties:
+                                aggregation_bits:
+                                  description: Attester aggregation bits.
+                                  type: string
+                                  format: hex
+                                  example: '0x01'
+                                  pattern: '^0x[a-fA-F0-9]+$'
+                                data:
+                                  type: object
+                                  description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
                                   properties:
-                                    aggregation_bits:
-                                      description: Attester aggregation bits.
+                                    slot:
                                       type: string
-                                      format: hex
-                                      example: '0x01'
-                                      pattern: '^0x[a-fA-F0-9]+$'
-                                    data:
+                                      example: '1'
+                                    index:
+                                      type: string
+                                      example: '1'
+                                    beacon_block_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: LMD GHOST vote.
+                                    source:
                                       type: object
-                                      description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
                                       properties:
-                                        slot:
+                                        epoch:
                                           type: string
                                           example: '1'
-                                        index:
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                    target:
+                                      type: object
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
+                                      properties:
+                                        epoch:
                                           type: string
                                           example: '1'
-                                        beacon_block_root:
-                                          allOf:
-                                            - type: string
-                                              format: hex
-                                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                              pattern: '^0x[a-fA-F0-9]{64}$'
-                                            - description: LMD GHOST vote.
-                                        source:
-                                          type: object
-                                          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                                          properties:
-                                            epoch:
-                                              type: string
-                                              example: '1'
-                                            root:
-                                              type: string
-                                              format: hex
-                                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                              pattern: '^0x[a-fA-F0-9]{64}$'
-                                        target:
-                                          type: object
-                                          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                                          properties:
-                                            epoch:
-                                              type: string
-                                              example: '1'
-                                            root:
-                                              type: string
-                                              format: hex
-                                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                              pattern: '^0x[a-fA-F0-9]{64}$'
-                                    inclusion_delay:
-                                      type: string
-                                      example: '1'
-                                    proposer_index:
-                                      type: string
-                                      example: '1'
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                inclusion_delay:
+                                  type: string
+                                  example: '1'
+                                proposer_index:
+                                  type: string
+                                  example: '1'
                           justification_bits:
                             description: Bit set for every recent justified epoch
                             type: string
@@ -13013,33 +12997,28 @@ paths:
                                       - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                           block_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           state_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           historical_roots:
                             type: array
+                            description: 'Variable length list, maximum 16777216 items'
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            maxItems: 16777216
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           eth1_data:
                             type: object
                             description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -13065,110 +13044,101 @@ paths:
                                   - description: Ethereum 1.x block hash.
                           eth1_data_votes:
                             type: array
+                            description: Fixed length of 1024 items
                             items:
-                              allOf:
-                                - type: object
-                                  description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
-                                  properties:
-                                    deposit_root:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Root of the deposit tree.
-                                    deposit_count:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Total number of deposits.
-                                    block_hash:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Ethereum 1.x block hash.
-                            maxItems: 1024
+                              type: object
+                              description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+                              properties:
+                                deposit_root:
+                                  allOf:
+                                    - type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Root of the deposit tree.
+                                deposit_count:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Total number of deposits.
+                                block_hash:
+                                  allOf:
+                                    - type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Ethereum 1.x block hash.
                           eth1_deposit_index:
                             type: string
                             example: '1'
                           validators:
                             type: array
-                            maxItems: 1099511627776
+                            description: 'Variable length list, maximum 1099511627776 items'
                             items:
-                              allOf:
-                                - type: object
-                                  properties:
-                                    pubkey:
-                                      type: string
+                              type: object
+                              properties:
+                                pubkey:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                withdrawal_credentials:
+                                  allOf:
+                                    - type: string
                                       format: hex
-                                      pattern: '^0x[a-fA-F0-9]{96}$'
-                                      description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                                      example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                                    withdrawal_credentials:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Root of withdrawal credentials
-                                    effective_balance:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Balance at stake in Gwei.
-                                    slashed:
-                                      type: boolean
-                                      example: false
-                                      description: Was validator slashed (not longer active).
-                                    activation_eligibility_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: When criteria for activation were met.
-                                    activation_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
-                                    exit_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
-                                    withdrawable_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Root of withdrawal credentials
+                                effective_balance:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Balance at stake in Gwei.
+                                slashed:
+                                  type: boolean
+                                  example: false
+                                  description: Was validator slashed (not longer active).
+                                activation_eligibility_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: When criteria for activation were met.
+                                activation_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+                                exit_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+                                withdrawable_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
                           balances:
                             type: array
-                            description: Validator balances in gwei
-                            maxItems: 1099511627776
+                            description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
                             items:
-                              allOf:
-                                - type: string
-                                  example: '1'
+                              type: string
+                              example: '1'
                           randao_mixes:
                             type: array
+                            description: Fixed length of 65536 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 65536
-                            maxItems: 65536
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           slashings:
                             type: array
-                            description: Per-epoch sums of slashed effective balances
+                            description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  example: '1'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              example: '1'
                           previous_epoch_participation:
                             type: array
                             items:
@@ -13230,9 +13200,8 @@ paths:
                                 example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                           inactivity_scores:
-                            description: Per-validator inactivity scores. New in Altair
+                            description: 'Per-validator inactivity scores. New in Altair. Variable length list, maximum 1099511627776 items'
                             type: array
-                            maxItems: 1099511627776
                             items:
                               allOf:
                                 - type: string
@@ -13350,33 +13319,28 @@ paths:
                                       - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                           block_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           state_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           historical_roots:
                             type: array
+                            description: 'Variable length list, maximum 16777216 items'
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            maxItems: 16777216
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           eth1_data:
                             type: object
                             description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -13402,110 +13366,102 @@ paths:
                                   - description: Ethereum 1.x block hash.
                           eth1_data_votes:
                             type: array
+                            description: Fixed length of 1024 items
                             items:
-                              allOf:
-                                - type: object
-                                  description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
-                                  properties:
-                                    deposit_root:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Root of the deposit tree.
-                                    deposit_count:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Total number of deposits.
-                                    block_hash:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Ethereum 1.x block hash.
+                              type: object
+                              description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+                              properties:
+                                deposit_root:
+                                  allOf:
+                                    - type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Root of the deposit tree.
+                                deposit_count:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Total number of deposits.
+                                block_hash:
+                                  allOf:
+                                    - type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Ethereum 1.x block hash.
                             maxItems: 1024
                           eth1_deposit_index:
                             type: string
                             example: '1'
                           validators:
                             type: array
-                            maxItems: 1099511627776
+                            description: 'Variable length list, maximum 1099511627776 items'
                             items:
-                              allOf:
-                                - type: object
-                                  properties:
-                                    pubkey:
-                                      type: string
+                              type: object
+                              properties:
+                                pubkey:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                withdrawal_credentials:
+                                  allOf:
+                                    - type: string
                                       format: hex
-                                      pattern: '^0x[a-fA-F0-9]{96}$'
-                                      description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                                      example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                                    withdrawal_credentials:
-                                      allOf:
-                                        - type: string
-                                          format: hex
-                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                          pattern: '^0x[a-fA-F0-9]{64}$'
-                                        - description: Root of withdrawal credentials
-                                    effective_balance:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Balance at stake in Gwei.
-                                    slashed:
-                                      type: boolean
-                                      example: false
-                                      description: Was validator slashed (not longer active).
-                                    activation_eligibility_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: When criteria for activation were met.
-                                    activation_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
-                                    exit_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
-                                    withdrawable_epoch:
-                                      allOf:
-                                        - type: string
-                                          example: '1'
-                                        - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                    - description: Root of withdrawal credentials
+                                effective_balance:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Balance at stake in Gwei.
+                                slashed:
+                                  type: boolean
+                                  example: false
+                                  description: Was validator slashed (not longer active).
+                                activation_eligibility_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: When criteria for activation were met.
+                                activation_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+                                exit_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+                                withdrawable_epoch:
+                                  allOf:
+                                    - type: string
+                                      example: '1'
+                                    - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
                           balances:
                             type: array
-                            description: Validator balances in gwei
-                            maxItems: 1099511627776
+                            description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
                             items:
-                              allOf:
-                                - type: string
-                                  example: '1'
+                              type: string
+                              example: '1'
                           randao_mixes:
                             type: array
+                            description: Fixed length of 65536 items
                             items:
-                              allOf:
-                                - type: string
-                                  format: hex
-                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                  pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 65536
-                            maxItems: 65536
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
                           slashings:
                             type: array
-                            description: Per-epoch sums of slashed effective balances
+                            description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
                             items:
-                              allOf:
-                                - type: string
-                                  example: '1'
-                            minItems: 8192
-                            maxItems: 8192
+                              type: string
+                              example: '1'
                           previous_epoch_participation:
                             type: array
                             items:
@@ -13567,13 +13523,11 @@ paths:
                                 example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                           inactivity_scores:
-                            description: Per-validator inactivity scores. New in Altair
+                            description: 'Per-validator inactivity scores. Introduced in Altair. Variable length list, maximum 1099511627776 items'
                             type: array
-                            maxItems: 1099511627776
                             items:
-                              allOf:
-                                - type: string
-                                  example: '1'
+                              type: string
+                              example: '1'
                           current_sync_committee:
                             type: object
                             properties:
@@ -13757,30 +13711,28 @@ paths:
                                       - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                           block_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
                               type: string
                               format: hex
                               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                               pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
                           state_roots:
                             type: array
+                            description: Fixed length of 8192 items
                             items:
                               type: string
                               format: hex
                               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                               pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 8192
-                            maxItems: 8192
                           historical_roots:
                             type: array
+                            description: 'Variable length list, maximum 16777216 items'
                             items:
                               type: string
                               format: hex
                               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                               pattern: '^0x[a-fA-F0-9]{64}$'
-                            maxItems: 16777216
                           eth1_data:
                             type: object
                             description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -13806,6 +13758,7 @@ paths:
                                   - description: Ethereum 1.x block hash.
                           eth1_data_votes:
                             type: array
+                            description: Fixed length of 1024 items
                             items:
                               type: object
                               description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -13835,7 +13788,7 @@ paths:
                             example: '1'
                           validators:
                             type: array
-                            maxItems: 1099511627776
+                            description: 'Variable length list, maximum 1099511627776 items'
                             items:
                               type: object
                               properties:
@@ -13883,28 +13836,24 @@ paths:
                                     - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
                           balances:
                             type: array
-                            description: Validator balances in gwei
-                            maxItems: 1099511627776
+                            description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
                             items:
                               type: string
                               example: '1'
                           randao_mixes:
                             type: array
+                            description: Fixed length of 65536 items
                             items:
                               type: string
                               format: hex
                               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                               pattern: '^0x[a-fA-F0-9]{64}$'
-                            minItems: 65536
-                            maxItems: 65536
                           slashings:
                             type: array
-                            description: Per-epoch sums of slashed effective balances
+                            description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
                             items:
                               type: string
                               example: '1'
-                            minItems: 8192
-                            maxItems: 8192
                           previous_epoch_participation:
                             type: array
                             items:
@@ -13966,9 +13915,8 @@ paths:
                                 example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                           inactivity_scores:
-                            description: Per-validator inactivity scores. New in Altair
+                            description: 'Per-validator inactivity scores. Introduced in Altair. Variable length list, maximum 1099511627776 items'
                             type: array
-                            maxItems: 1099511627776
                             items:
                               type: string
                               example: '1'
@@ -14089,7 +14037,7 @@ paths:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                           withdrawal_queue:
                             type: array
-                            maxItems: 1099511627776
+                            description: 'Withdrawals enqueued in state. Variable length list, maximum  1099511627776 items'
                             items:
                               type: object
                               properties:
@@ -21072,33 +21020,28 @@ components:
                     - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         block_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         state_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         historical_roots:
           type: array
+          description: 'Variable length list, maximum 16777216 items'
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          maxItems: 16777216
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         eth1_data:
           type: object
           description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -21124,230 +21067,219 @@ components:
                 - description: Ethereum 1.x block hash.
         eth1_data_votes:
           type: array
+          description: Fixed length of 1024 items
           items:
-            allOf:
-              - type: object
-                description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
-                properties:
-                  deposit_root:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Root of the deposit tree.
-                  deposit_count:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Total number of deposits.
-                  block_hash:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Ethereum 1.x block hash.
-          maxItems: 1024
+            type: object
+            description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+            properties:
+              deposit_root:
+                allOf:
+                  - type: string
+                    format: hex
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Root of the deposit tree.
+              deposit_count:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Total number of deposits.
+              block_hash:
+                allOf:
+                  - type: string
+                    format: hex
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Ethereum 1.x block hash.
         eth1_deposit_index:
           type: string
           example: '1'
         validators:
           type: array
-          maxItems: 1099511627776
+          description: 'Variable length list, maximum 1099511627776 items'
           items:
-            allOf:
-              - type: object
-                properties:
-                  pubkey:
-                    type: string
+            type: object
+            properties:
+              pubkey:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              withdrawal_credentials:
+                allOf:
+                  - type: string
                     format: hex
-                    pattern: '^0x[a-fA-F0-9]{96}$'
-                    description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                    example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                  withdrawal_credentials:
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Root of withdrawal credentials
+              effective_balance:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Balance at stake in Gwei.
+              slashed:
+                type: boolean
+                example: false
+                description: Was validator slashed (not longer active).
+              activation_eligibility_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: When criteria for activation were met.
+              activation_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+              exit_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+              withdrawable_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+        balances:
+          type: array
+          description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
+          items:
+            type: string
+            example: '1'
+        randao_mixes:
+          type: array
+          description: Fixed length of 65536 items
+          items:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+        slashings:
+          type: array
+          description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
+          items:
+            type: string
+            example: '1'
+        previous_epoch_attestations:
+          type: array
+          items:
+            type: object
+            description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
+            properties:
+              aggregation_bits:
+                description: Attester aggregation bits.
+                type: string
+                format: hex
+                example: '0x01'
+                pattern: '^0x[a-fA-F0-9]+$'
+              data:
+                type: object
+                description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                properties:
+                  slot:
+                    type: string
+                    example: '1'
+                  index:
+                    type: string
+                    example: '1'
+                  beacon_block_root:
                     allOf:
                       - type: string
                         format: hex
                         example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                         pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Root of withdrawal credentials
-                  effective_balance:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Balance at stake in Gwei.
-                  slashed:
-                    type: boolean
-                    example: false
-                    description: Was validator slashed (not longer active).
-                  activation_eligibility_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: When criteria for activation were met.
-                  activation_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
-                  exit_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
-                  withdrawable_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
-        balances:
-          type: array
-          description: Validator balances in gwei
-          maxItems: 1099511627776
-          items:
-            allOf:
-              - type: string
-                example: '1'
-        randao_mixes:
-          type: array
-          items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 65536
-          maxItems: 65536
-        slashings:
-          type: array
-          description: Per-epoch sums of slashed effective balances
-          items:
-            allOf:
-              - type: string
-                example: '1'
-          minItems: 8192
-          maxItems: 8192
-        previous_epoch_attestations:
-          type: array
-          items:
-            allOf:
-              - type: object
-                description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
-                properties:
-                  aggregation_bits:
-                    description: Attester aggregation bits.
-                    type: string
-                    format: hex
-                    example: '0x01'
-                    pattern: '^0x[a-fA-F0-9]+$'
-                  data:
+                      - description: LMD GHOST vote.
+                  source:
                     type: object
-                    description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                    description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
                     properties:
-                      slot:
+                      epoch:
                         type: string
                         example: '1'
-                      index:
+                      root:
+                        type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+                  target:
+                    type: object
+                    description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
+                    properties:
+                      epoch:
                         type: string
                         example: '1'
-                      beacon_block_root:
-                        allOf:
-                          - type: string
-                            format: hex
-                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                            pattern: '^0x[a-fA-F0-9]{64}$'
-                          - description: LMD GHOST vote.
-                      source:
-                        type: object
-                        description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                        properties:
-                          epoch:
-                            type: string
-                            example: '1'
-                          root:
-                            type: string
-                            format: hex
-                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                            pattern: '^0x[a-fA-F0-9]{64}$'
-                      target:
-                        type: object
-                        description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                        properties:
-                          epoch:
-                            type: string
-                            example: '1'
-                          root:
-                            type: string
-                            format: hex
-                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                            pattern: '^0x[a-fA-F0-9]{64}$'
-                  inclusion_delay:
-                    type: string
-                    example: '1'
-                  proposer_index:
-                    type: string
-                    example: '1'
+                      root:
+                        type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+              inclusion_delay:
+                type: string
+                example: '1'
+              proposer_index:
+                type: string
+                example: '1'
         current_epoch_attestations:
           type: array
           items:
-            allOf:
-              - type: object
-                description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
+            type: object
+            description: 'The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec.'
+            properties:
+              aggregation_bits:
+                description: Attester aggregation bits.
+                type: string
+                format: hex
+                example: '0x01'
+                pattern: '^0x[a-fA-F0-9]+$'
+              data:
+                type: object
+                description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
                 properties:
-                  aggregation_bits:
-                    description: Attester aggregation bits.
+                  slot:
                     type: string
-                    format: hex
-                    example: '0x01'
-                    pattern: '^0x[a-fA-F0-9]+$'
-                  data:
+                    example: '1'
+                  index:
+                    type: string
+                    example: '1'
+                  beacon_block_root:
+                    allOf:
+                      - type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+                      - description: LMD GHOST vote.
+                  source:
                     type: object
-                    description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                    description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
                     properties:
-                      slot:
+                      epoch:
                         type: string
                         example: '1'
-                      index:
+                      root:
+                        type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+                  target:
+                    type: object
+                    description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
+                    properties:
+                      epoch:
                         type: string
                         example: '1'
-                      beacon_block_root:
-                        allOf:
-                          - type: string
-                            format: hex
-                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                            pattern: '^0x[a-fA-F0-9]{64}$'
-                          - description: LMD GHOST vote.
-                      source:
-                        type: object
-                        description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                        properties:
-                          epoch:
-                            type: string
-                            example: '1'
-                          root:
-                            type: string
-                            format: hex
-                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                            pattern: '^0x[a-fA-F0-9]{64}$'
-                      target:
-                        type: object
-                        description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#checkpoint'
-                        properties:
-                          epoch:
-                            type: string
-                            example: '1'
-                          root:
-                            type: string
-                            format: hex
-                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                            pattern: '^0x[a-fA-F0-9]{64}$'
-                  inclusion_delay:
-                    type: string
-                    example: '1'
-                  proposer_index:
-                    type: string
-                    example: '1'
+                      root:
+                        type: string
+                        format: hex
+                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                        pattern: '^0x[a-fA-F0-9]{64}$'
+              inclusion_delay:
+                type: string
+                example: '1'
+              proposer_index:
+                type: string
+                example: '1'
         justification_bits:
           description: Bit set for every recent justified epoch
           type: string
@@ -24525,33 +24457,28 @@ components:
                     - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         block_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         state_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         historical_roots:
           type: array
+          description: 'Variable length list, maximum 16777216 items'
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          maxItems: 16777216
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         eth1_data:
           type: object
           description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -24577,110 +24504,101 @@ components:
                 - description: Ethereum 1.x block hash.
         eth1_data_votes:
           type: array
+          description: Fixed length of 1024 items
           items:
-            allOf:
-              - type: object
-                description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
-                properties:
-                  deposit_root:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Root of the deposit tree.
-                  deposit_count:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Total number of deposits.
-                  block_hash:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Ethereum 1.x block hash.
-          maxItems: 1024
+            type: object
+            description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+            properties:
+              deposit_root:
+                allOf:
+                  - type: string
+                    format: hex
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Root of the deposit tree.
+              deposit_count:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Total number of deposits.
+              block_hash:
+                allOf:
+                  - type: string
+                    format: hex
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Ethereum 1.x block hash.
         eth1_deposit_index:
           type: string
           example: '1'
         validators:
           type: array
-          maxItems: 1099511627776
+          description: 'Variable length list, maximum 1099511627776 items'
           items:
-            allOf:
-              - type: object
-                properties:
-                  pubkey:
-                    type: string
+            type: object
+            properties:
+              pubkey:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              withdrawal_credentials:
+                allOf:
+                  - type: string
                     format: hex
-                    pattern: '^0x[a-fA-F0-9]{96}$'
-                    description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                    example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                  withdrawal_credentials:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Root of withdrawal credentials
-                  effective_balance:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Balance at stake in Gwei.
-                  slashed:
-                    type: boolean
-                    example: false
-                    description: Was validator slashed (not longer active).
-                  activation_eligibility_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: When criteria for activation were met.
-                  activation_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
-                  exit_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
-                  withdrawable_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Root of withdrawal credentials
+              effective_balance:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Balance at stake in Gwei.
+              slashed:
+                type: boolean
+                example: false
+                description: Was validator slashed (not longer active).
+              activation_eligibility_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: When criteria for activation were met.
+              activation_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+              exit_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+              withdrawable_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
         balances:
           type: array
-          description: Validator balances in gwei
-          maxItems: 1099511627776
+          description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
           items:
-            allOf:
-              - type: string
-                example: '1'
+            type: string
+            example: '1'
         randao_mixes:
           type: array
+          description: Fixed length of 65536 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 65536
-          maxItems: 65536
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         slashings:
           type: array
-          description: Per-epoch sums of slashed effective balances
+          description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                example: '1'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            example: '1'
         previous_epoch_participation:
           type: array
           items:
@@ -24742,9 +24660,8 @@ components:
               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
               pattern: '^0x[a-fA-F0-9]{64}$'
         inactivity_scores:
-          description: Per-validator inactivity scores. New in Altair
+          description: 'Per-validator inactivity scores. New in Altair. Variable length list, maximum 1099511627776 items'
           type: array
-          maxItems: 1099511627776
           items:
             allOf:
               - type: string
@@ -25062,33 +24979,28 @@ components:
                     - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         block_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         state_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         historical_roots:
           type: array
+          description: 'Variable length list, maximum 16777216 items'
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          maxItems: 16777216
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         eth1_data:
           type: object
           description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -25114,110 +25026,102 @@ components:
                 - description: Ethereum 1.x block hash.
         eth1_data_votes:
           type: array
+          description: Fixed length of 1024 items
           items:
-            allOf:
-              - type: object
-                description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
-                properties:
-                  deposit_root:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Root of the deposit tree.
-                  deposit_count:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Total number of deposits.
-                  block_hash:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Ethereum 1.x block hash.
+            type: object
+            description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+            properties:
+              deposit_root:
+                allOf:
+                  - type: string
+                    format: hex
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Root of the deposit tree.
+              deposit_count:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Total number of deposits.
+              block_hash:
+                allOf:
+                  - type: string
+                    format: hex
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Ethereum 1.x block hash.
           maxItems: 1024
         eth1_deposit_index:
           type: string
           example: '1'
         validators:
           type: array
-          maxItems: 1099511627776
+          description: 'Variable length list, maximum 1099511627776 items'
           items:
-            allOf:
-              - type: object
-                properties:
-                  pubkey:
-                    type: string
+            type: object
+            properties:
+              pubkey:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              withdrawal_credentials:
+                allOf:
+                  - type: string
                     format: hex
-                    pattern: '^0x[a-fA-F0-9]{96}$'
-                    description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                    example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                  withdrawal_credentials:
-                    allOf:
-                      - type: string
-                        format: hex
-                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                        pattern: '^0x[a-fA-F0-9]{64}$'
-                      - description: Root of withdrawal credentials
-                  effective_balance:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Balance at stake in Gwei.
-                  slashed:
-                    type: boolean
-                    example: false
-                    description: Was validator slashed (not longer active).
-                  activation_eligibility_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: When criteria for activation were met.
-                  activation_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
-                  exit_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
-                  withdrawable_epoch:
-                    allOf:
-                      - type: string
-                        example: '1'
-                      - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                    pattern: '^0x[a-fA-F0-9]{64}$'
+                  - description: Root of withdrawal credentials
+              effective_balance:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Balance at stake in Gwei.
+              slashed:
+                type: boolean
+                example: false
+                description: Was validator slashed (not longer active).
+              activation_eligibility_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: When criteria for activation were met.
+              activation_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+              exit_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+              withdrawable_epoch:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
         balances:
           type: array
-          description: Validator balances in gwei
-          maxItems: 1099511627776
+          description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
           items:
-            allOf:
-              - type: string
-                example: '1'
+            type: string
+            example: '1'
         randao_mixes:
           type: array
+          description: Fixed length of 65536 items
           items:
-            allOf:
-              - type: string
-                format: hex
-                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 65536
-          maxItems: 65536
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
         slashings:
           type: array
-          description: Per-epoch sums of slashed effective balances
+          description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
           items:
-            allOf:
-              - type: string
-                example: '1'
-          minItems: 8192
-          maxItems: 8192
+            type: string
+            example: '1'
         previous_epoch_participation:
           type: array
           items:
@@ -25279,13 +25183,11 @@ components:
               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
               pattern: '^0x[a-fA-F0-9]{64}$'
         inactivity_scores:
-          description: Per-validator inactivity scores. New in Altair
+          description: 'Per-validator inactivity scores. Introduced in Altair. Variable length list, maximum 1099511627776 items'
           type: array
-          maxItems: 1099511627776
           items:
-            allOf:
-              - type: string
-                example: '1'
+            type: string
+            example: '1'
         current_sync_committee:
           type: object
           properties:
@@ -27590,30 +27492,28 @@ components:
                     - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         block_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
             type: string
             format: hex
             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
             pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
         state_roots:
           type: array
+          description: Fixed length of 8192 items
           items:
             type: string
             format: hex
             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
             pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 8192
-          maxItems: 8192
         historical_roots:
           type: array
+          description: 'Variable length list, maximum 16777216 items'
           items:
             type: string
             format: hex
             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
             pattern: '^0x[a-fA-F0-9]{64}$'
-          maxItems: 16777216
         eth1_data:
           type: object
           description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -27639,6 +27539,7 @@ components:
                 - description: Ethereum 1.x block hash.
         eth1_data_votes:
           type: array
+          description: Fixed length of 1024 items
           items:
             type: object
             description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
@@ -27668,7 +27569,7 @@ components:
           example: '1'
         validators:
           type: array
-          maxItems: 1099511627776
+          description: 'Variable length list, maximum 1099511627776 items'
           items:
             type: object
             properties:
@@ -27716,28 +27617,24 @@ components:
                   - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
         balances:
           type: array
-          description: Validator balances in gwei
-          maxItems: 1099511627776
+          description: 'Validator balances in gwei. Variable length list, maximum 1099511627776 items'
           items:
             type: string
             example: '1'
         randao_mixes:
           type: array
+          description: Fixed length of 65536 items
           items:
             type: string
             format: hex
             example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
             pattern: '^0x[a-fA-F0-9]{64}$'
-          minItems: 65536
-          maxItems: 65536
         slashings:
           type: array
-          description: Per-epoch sums of slashed effective balances
+          description: Per-epoch sums of slashed effective balances. Fixed length of 8192 items
           items:
             type: string
             example: '1'
-          minItems: 8192
-          maxItems: 8192
         previous_epoch_participation:
           type: array
           items:
@@ -27799,9 +27696,8 @@ components:
               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
               pattern: '^0x[a-fA-F0-9]{64}$'
         inactivity_scores:
-          description: Per-validator inactivity scores. New in Altair
+          description: 'Per-validator inactivity scores. Introduced in Altair. Variable length list, maximum 1099511627776 items'
           type: array
-          maxItems: 1099511627776
           items:
             type: string
             example: '1'
@@ -27922,7 +27818,7 @@ components:
                   pattern: '^0x[a-fA-F0-9]{64}$'
         withdrawal_queue:
           type: array
-          maxItems: 1099511627776
+          description: 'Withdrawals enqueued in state. Variable length list, maximum  1099511627776 items'
           items:
             type: object
             properties:
