@@ -57,8 +57,8 @@ BeaconState:
       items:
         allOf:
           - $ref: './primitive.yaml#/Bytes32'
-        minItems: 65536
-        maxItems: 65536
+      minItems: 65536
+      maxItems: 65536
     slashings:
       type: array
       description: "Per-epoch sums of slashed effective balances"
