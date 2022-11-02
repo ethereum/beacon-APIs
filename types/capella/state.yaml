@@ -29,7 +29,6 @@ Capella:
         type: array
         items:
           $ref: '../primitive.yaml#/Root'
-        maxItems: 16777216
       eth1_data:
         $ref: "../eth1.yaml#/Eth1Data"
       eth1_data_votes:
@@ -41,13 +40,11 @@ Capella:
         $ref: "../primitive.yaml#/Uint64"
       validators:
         type: array
-        maxItems: 1099511627776
         items:
           $ref: '../validator.yaml#/Validator'
       balances:
         type: array
         description: "Validator balances in gwei"
-        maxItems: 1099511627776
         items:
           $ref: '../primitive.yaml#/Uint64'
       randao_mixes:
@@ -79,7 +76,6 @@ Capella:
       inactivity_scores:
         description: "Per-validator inactivity scores. New in Altair"
         type: array
-        maxItems: 1099511627776
         items:
           $ref: "../primitive.yaml#/Uint64"
       current_sync_committee:
@@ -90,7 +86,6 @@ Capella:
         $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
       withdrawal_queue:
         type: array
-        maxItems: 1099511627776
         items:
           $ref: '../withdrawal.yaml#/Withdrawal'
       next_withdrawal_index:

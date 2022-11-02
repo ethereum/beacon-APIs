@@ -32,7 +32,6 @@ Altair:
         items:
           allOf:
             - $ref: '../primitive.yaml#/Root'
-        maxItems: 16777216
       eth1_data:
         $ref: "../eth1.yaml#/Eth1Data"
       eth1_data_votes:
@@ -45,14 +44,12 @@ Altair:
         $ref: "../primitive.yaml#/Uint64"
       validators:
         type: array
-        maxItems: 1099511627776
         items:
           allOf:
             - $ref: '../validator.yaml#/Validator'
       balances:
         type: array
         description: "Validator balances in gwei"
-        maxItems: 1099511627776
         items:
           allOf:
             - $ref: '../primitive.yaml#/Uint64'
@@ -87,7 +84,6 @@ Altair:
       inactivity_scores:
         description: "Per-validator inactivity scores. New in Altair"
         type: array
-        maxItems: 1099511627776
         items:
           allOf:
             - $ref: "../primitive.yaml#/Uint64"
