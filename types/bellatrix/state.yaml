@@ -15,62 +15,49 @@ Bellatrix:
         $ref: "../block.yaml#/BeaconBlockHeader"
       block_roots:
         type: array
+        description: "Fixed length of 8192 items"
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Root'
-        minItems: 8192
-        maxItems: 8192
+          $ref: '../primitive.yaml#/Root'
       state_roots:
         type: array
+        description: "Fixed length of 8192 items"
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Root'
-        minItems: 8192
-        maxItems: 8192
+          $ref: '../primitive.yaml#/Root'
       historical_roots:
         type: array
+        description: "Variable length list, maximum 16777216 items"
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Root'
-        maxItems: 16777216
+          $ref: '../primitive.yaml#/Root'
       eth1_data:
         $ref: "../eth1.yaml#/Eth1Data"
       eth1_data_votes:
         type: array
+        description: "Fixed length of 1024 items"
         items:
-          allOf:
-            - $ref: '../eth1.yaml#/Eth1Data'
+          $ref: '../eth1.yaml#/Eth1Data'
         maxItems: 1024
       eth1_deposit_index:
         $ref: "../primitive.yaml#/Uint64"
       validators:
         type: array
-        maxItems: 1099511627776
+        description: "Variable length list, maximum 1099511627776 items"
         items:
-          allOf:
-            - $ref: '../validator.yaml#/Validator'
+          $ref: '../validator.yaml#/Validator'
       balances:
         type: array
-        description: "Validator balances in gwei"
-        maxItems: 1099511627776
+        description: "Validator balances in gwei. Variable length list, maximum 1099511627776 items"
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Uint64'
+          $ref: '../primitive.yaml#/Uint64'
       randao_mixes:
         type: array
+        description: "Fixed length of 65536 items"
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Bytes32'
-        minItems: 65536
-        maxItems: 65536
+          $ref: '../primitive.yaml#/Bytes32'
       slashings:
         type: array
-        description: "Per-epoch sums of slashed effective balances"
+        description: "Per-epoch sums of slashed effective balances. Fixed length of 8192 items"
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Uint64'
-        minItems: 8192
-        maxItems: 8192
+          $ref: '../primitive.yaml#/Uint64'
       previous_epoch_participation:
         $ref: '../altair/epoch_participation.yaml#/Altair/EpochParticipation'
       current_epoch_participation:
@@ -85,12 +72,10 @@ Bellatrix:
       finalized_checkpoint:
         $ref: "../misc.yaml#/Checkpoint"
       inactivity_scores:
-        description: "Per-validator inactivity scores. New in Altair"
+        description: "Per-validator inactivity scores. Introduced in Altair. Variable length list, maximum 1099511627776 items"
         type: array
-        maxItems: 1099511627776
         items:
-          allOf:
-            - $ref: "../primitive.yaml#/Uint64"
+          $ref: "../primitive.yaml#/Uint64"
       current_sync_committee:
         $ref: "../altair/sync_committee.yaml#/Altair/SyncCommittee"
       next_sync_committee:
