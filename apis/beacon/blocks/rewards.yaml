@@ -1,7 +1,13 @@
 get:
-  operationId: WIP
-  summary: WIP
-  description: WIP
+  operationId: getSlotRewards
+  summary: Get slot rewards
+  description: Get slot rewards
   tags:
     - Beacon
-    
+  parameters:
+    - name: slot
+      in: path
+      required: true
+      description: "The slot for which the block should be proposed."
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
