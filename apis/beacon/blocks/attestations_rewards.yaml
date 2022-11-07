@@ -1,0 +1,7 @@
+get:
+  operationId: WIP
+  summary: WIP
+  description: WIP
+  tags:
+    - Beacon
+    
