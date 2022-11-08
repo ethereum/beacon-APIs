@@ -1,12 +1,12 @@
 AttestationsRewards:
-  description: "Rewards Info for attestations"
+  description: "Rewards info for attestations"
   type: array
   items:
     $ref: "./rewards.yaml#/AttestationRewards"
 
 AttestationRewards:
   type: object
-  description: "Rewards Info for a single attestation"
+  description: "Rewards info for a single attestation"
   properties:
     validator_id:
       type: integer
@@ -19,7 +19,7 @@ AttestationRewards:
 
 BlockRewards:
   type: object
-  description: "Rewards Info for a single block:Rewards"
+  description: "Rewards info for a single block"
   properties:
     proposer_index:
       type: integer
