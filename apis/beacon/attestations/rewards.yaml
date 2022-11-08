@@ -1,0 +1,37 @@
+get:
+  operationId: getAttestationsRewards
+  summary: Get attestations rewards
+  description: Retrieves rewards info for attestations 
+  tags:
+    - Beacon
+  parameters:
+    - name: epoch
+      in: path
+      required: true
+      description: "The epoch to get rewards info from"
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  responses:
+    "200":
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            title: GetAttestationsRewardsResponse
+            type: object
+            properties:
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards'
+    "400":
+      description: "Invalid get attestations rewards request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to retrieve attestations rewards info"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
