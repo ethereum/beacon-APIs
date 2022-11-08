@@ -8,14 +8,22 @@ AttestationRewards:
   type: object
   description: "Rewards info for a single attestation"
   properties:
-    validator_id:
+    validator_index:
       type: integer
+      example: 123
+      description: "proposer of the block, the validator index who receives these rewards"
     head:
       type: integer
+      example: 2000
+      description: "attester's reward for head vote"
     target:
       type: integer
+      example: 4000
+      description: "attester's reward for target vote"
     source:
       type: integer
+      example: 4000
+      description: "attester's reward for source vote"
 
 BlockRewards:
   type: object
@@ -23,13 +31,25 @@ BlockRewards:
   properties:
     proposer_index:
       type: integer
+      example: 123
+      description: "proposer of the block, the proposer index who receives these rewards"
     total:
       type: integer
+      example: 5000
+      description: "total block reward, equal to attestations + sync_aggregate + proposer_slashings + attester_slashings"
     attestations:
       type: integer
+      example: 3000
+      description: "block reward component due to included attestations"
     sync_aggregate:
       type: integer
+      example: 2000
+      description: "block reward component due to included sync_aggregate"
     proposer_slashings:
       type: integer
+      example: 0
+      description: "block reward component due to included proposer_slashings"
     attester_slashings:
-      type: integer 
+      type: integer
+      example: 0
+      description: "block reward component due to included attester_slashings"
