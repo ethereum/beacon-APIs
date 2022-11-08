@@ -1,0 +1,13 @@
+get:
+  operationId: getAttestationsRewards
+  summary: Get attestations rewards
+  description: Get attestations rewards
+  tags:
+    - Beacon
+  parameters:
+    - name: epoch
+      in: path
+      required: true
+      description: "Should only be allowed 1 epoch ahead."
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
