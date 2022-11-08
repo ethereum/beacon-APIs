@@ -544,8 +544,8 @@ paths:
                     - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
                     - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
                     - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-                    - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-                    - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+                    - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+                    - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
                     - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
                     - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
@@ -603,8 +603,8 @@ paths:
                             - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
                             - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
                             - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-                            - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-                            - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+                            - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+                            - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
                             - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
                             - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
@@ -790,8 +790,8 @@ paths:
                           - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
                           - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
                           - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-                          - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-                          - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+                          - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+                          - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
                           - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
                           - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
@@ -20898,7 +20898,7 @@ paths:
                 light_client_optimistic_update:
                   description: The node's latest known `LightClientOptimisticUpdate` has been updated
                   value: |
-                    event: light_client_optimimstic_update
+                    event: light_client_optimistic_update
                     data: {"version":"phase0", "data": {"attested_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
         '400':
           description: The topics supplied could not be parsed
@@ -22249,8 +22249,8 @@ components:
             - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
             - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
             - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-            - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-            - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+            - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+            - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
             - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
             - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
@@ -22332,8 +22332,8 @@ components:
         - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
         - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
         - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-        - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-        - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+        - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+        - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
         - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
         - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
