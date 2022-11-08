@@ -1,0 +1,35 @@
+AttestationsRewards:
+  description: "Rewards info for attestations"
+  type: array
+  items:
+    $ref: "./rewards.yaml#/AttestationRewards"
+
+AttestationRewards:
+  type: object
+  description: "Rewards info for a single attestation"
+  properties:
+    validator_id:
+      type: integer
+    head:
+      type: integer
+    target:
+      type: integer
+    source:
+      type: integer
+
+BlockRewards:
+  type: object
+  description: "Rewards info for a single block"
+  properties:
+    proposer_index:
+      type: integer
+    total:
+      type: integer
+    attestations:
+      type: integer
+    sync_aggregate:
+      type: integer
+    proposer_slashings:
+      type: integer
+    attester_slashings:
+      type: integer 

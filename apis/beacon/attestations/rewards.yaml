@@ -1,14 +1,14 @@
 get:
-  operationId: getBlockRewards
-  summary: Get block rewards
-  description: Retrieves block rewards info in a slot 
+  operationId: getAttestationsRewards
+  summary: Get attestations rewards
+  description: Retrieves rewards info for attestations 
   tags:
     - Beacon
   parameters:
-    - name: slot
+    - name: epoch
       in: path
       required: true
-      description: "The slot to get rewards info from"
+      description: "The epoch to get rewards info from"
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
@@ -17,13 +17,13 @@ get:
       content:
         application/json:
           schema:
-            title: GetBlockRewardsResponse
+            title: GetAttestationsRewardsResponse
             type: object
             properties:
               data:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BlockRewards'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards'
     "400":
-      description: "Invalid get block rewards request"
+      description: "Invalid get attestations rewards request"
       content:
         application/json:
           schema:
@@ -32,6 +32,6 @@ get:
             InvalidRequest:
               value:
                 code: 400
-                message: "Invalid request to retrieve block rewards info"
+                message: "Invalid request to retrieve attestations rewards info"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
