@@ -31,7 +31,7 @@ BlockRewards:
   properties:
     proposer_index:
       type: integer
-      example: 123
+      example: 0
       description: "proposer of the block, the proposer index who receives these rewards"
     total:
       type: integer
