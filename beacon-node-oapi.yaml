@@ -316,6 +316,8 @@ components:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
+    SyncCommitteeRewards:
+      $ref: './types/sync_committee_rewards.yaml#/SyncCommitteeRewards'
 
   parameters:
     StateId:

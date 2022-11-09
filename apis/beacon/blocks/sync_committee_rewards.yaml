@@ -24,7 +24,7 @@ get:
             type: object
             properties:
               data:
-                #$ref: '../../../beacon-node-oapi.yaml#/components/schemas/SyncCommitteeRewards'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SyncCommitteeRewards'
     "400":
       description: "Invalid get sync committee rewards request"
       content:
