@@ -163,6 +163,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -271,6 +276,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     description: 'The [`Fork`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#fork) object from the CL spec.'
@@ -389,6 +399,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -580,6 +595,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: array
                     items:
@@ -769,6 +789,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -972,6 +997,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: array
                     items:
@@ -1090,6 +1120,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: array
                     items:
@@ -1217,6 +1252,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -1352,6 +1392,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -1470,6 +1515,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: array
                     items:
@@ -1604,6 +1654,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -5957,6 +6012,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     oneOf:
                       - type: object
@@ -8044,6 +8104,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
                     properties:
@@ -8151,6 +8216,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: array
                     items:
@@ -8329,6 +8399,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     oneOf:
                       - type: object
@@ -12547,6 +12622,11 @@ paths:
                       - type: boolean
                       - example: false
                       - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     oneOf:
                       - type: object
@@ -23061,6 +23141,11 @@ components:
         - type: boolean
         - example: false
         - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+    Finalized:
+      allOf:
+        - type: boolean
+        - example: false
+        - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
     Root:
       type: string
       format: hex
