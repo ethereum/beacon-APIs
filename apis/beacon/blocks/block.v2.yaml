@@ -29,6 +29,8 @@ get:
                 example: "phase0"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 oneOf:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
@@ -37,7 +39,7 @@ get:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
         application/octet-stream:
           schema:
-            
+
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"

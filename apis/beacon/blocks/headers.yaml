@@ -19,7 +19,7 @@ get:
         allOf:
           - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"
           - example: ""
-  
+
   responses:
     "200":
       description: Success
@@ -31,6 +31,8 @@ get:
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: array
                 items:
