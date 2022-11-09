@@ -32,7 +32,7 @@ AttestationRewards:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
         - example: 2000
-        - description: "attester's inclusion_delay reward in gwei"
+        - description: "attester's inclusion_delay reward in gwei (Optional)"
 
 BlockRewards:
   type: object
