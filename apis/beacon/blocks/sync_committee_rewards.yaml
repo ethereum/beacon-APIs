@@ -1,0 +1,49 @@
+get:
+  operationId: getSyncCommitteeRewards
+  summary: Get sync committee rewards
+  description: Retrieves rewards info for sync committee members.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_id
+      in: path
+      required: true
+      example: "head"
+      schema:
+        type: string
+      description: |
+        Block identifier.
+        Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
+  responses:
+    "200":
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            title: GetSyncCommitteeRewardsResponse
+            type: object
+            properties:
+              data:
+                #$ref: '../../../beacon-node-oapi.yaml#/components/schemas/SyncCommitteeRewards'
+    "400":
+      description: "Invalid get sync committee rewards request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to retrieve sync committee rewards info"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "Block not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
