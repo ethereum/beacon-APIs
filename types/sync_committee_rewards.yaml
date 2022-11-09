@@ -14,4 +14,4 @@ SyncCommitteeRewards:
         allOf:
           - $ref: "./primitive.yaml#/Uint64" #needs to be changed to Int64
           - example: 2000
-          - description: "sync committee reward for the validator"
+          - description: "sync committee reward in gwei for the validator"

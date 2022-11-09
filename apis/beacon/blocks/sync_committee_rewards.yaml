@@ -14,6 +14,17 @@ get:
       description: |
         Block identifier.
         Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
+    - name: id
+      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+      in: query
+      required: false #true or false?
+      schema:
+        type: array
+        maxItems: 30
+        uniqueItems: true
+        items:
+          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+          type: string
   responses:
     "200":
       description: "Success"
