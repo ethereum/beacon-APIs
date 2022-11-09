@@ -4,6 +4,7 @@ get:
   description: Retrieves rewards info for attestations 
   tags:
     - Beacon
+    - Rewards
   parameters:
     - name: epoch
       in: path
@@ -33,5 +34,16 @@ get:
               value:
                 code: 400
                 message: "Invalid request to retrieve attestations rewards info"
+    "404":
+      description: "Invalid epoch"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 404
+                message: "Invalid epoch or epoch is not available"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

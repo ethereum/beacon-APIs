@@ -90,7 +90,7 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
-  /eth/v1/beacon/blocks/{slot}/rewards:
+  /eth/v1/beacon/blocks/{block_id}/rewards:
     $ref: "./apis/beacon/blocks/rewards.yaml"
   /eth/v1/beacon/blinded_blocks/{block_id}:
     $ref: "./apis/beacon/blocks/blinded_block.yaml"

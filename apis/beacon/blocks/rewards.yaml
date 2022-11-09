@@ -4,11 +4,12 @@ get:
   description: Retrieves block rewards info in a slot 
   tags:
     - Beacon
+    - Rewards
   parameters:
-    - name: slot
+    - name: block_id
       in: path
       required: true
-      description: "The slot to get rewards info from"
+      description: "The id of the block to get rewards info from"
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
@@ -33,5 +34,16 @@ get:
               value:
                 code: 400
                 message: "Invalid request to retrieve block rewards info"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 404
+                message: "Block not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
