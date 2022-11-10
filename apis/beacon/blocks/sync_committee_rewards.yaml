@@ -10,7 +10,7 @@ get:
       required: true
       example: "head"
       schema:
-        type: string
+        ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
       description: |
         Block identifier.
         Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
