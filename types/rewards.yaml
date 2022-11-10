@@ -7,6 +7,7 @@ AttestationsRewards:
 AttestationRewards:
   type: object
   description: "Rewards info for a single attestation"
+  required: ["validator_index", "head", "target", "source"]
   properties:
     validator_index:
       allOf:
@@ -32,7 +33,7 @@ AttestationRewards:
       allOf:
         - $ref: "./primitive.yaml#/Uint64"
         - example: 2000
-        - description: "attester's inclusion_delay reward in gwei (Optional)"
+        - description: "attester's inclusion_delay reward in gwei"
 
 BlockRewards:
   type: object

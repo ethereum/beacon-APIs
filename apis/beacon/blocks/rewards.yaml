@@ -9,9 +9,7 @@ get:
     - name: block_id
       in: path
       required: true
-      description: "The id of the block to get rewards info from"
-      schema:
-        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
   responses:
     "200":
       description: "Success"

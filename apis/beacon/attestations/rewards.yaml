@@ -46,7 +46,7 @@ get:
                 code: 400
                 message: "Invalid request to retrieve attestations rewards info"
     "404":
-      description: "Invalid epoch"
+      description: "Epoch not known or required data not available"
       content:
         application/json:
           schema:
@@ -55,6 +55,6 @@ get:
             InvalidRequest:
               value:
                 code: 404
-                message: "Invalid epoch or epoch is not available"
+                message: "Epoch not known or required data not available"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
