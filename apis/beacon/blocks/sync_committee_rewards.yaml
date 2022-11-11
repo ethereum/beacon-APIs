@@ -4,19 +4,17 @@ get:
   description: Retrieves rewards info for sync committee members.
   tags:
     - Beacon
+    - Rewards
   parameters:
     - name: block_id
       in: path
       required: true
       example: "head"
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
-      description: |
-        Block identifier.
-        Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
     - name: id
       description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
       in: query
-      required: false #true or false?
+      required: false
       schema:
         type: array
         maxItems: 30
