@@ -45,6 +45,12 @@ ExecutionOptimistic:
     - example: false
     - description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
 
+Finalized:
+  allOf:
+    - type: boolean
+    - example: false
+    - description: "True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint."
+
 Root:
   type: string
   format: hex

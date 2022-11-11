@@ -25,15 +25,18 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix ]
+                enum: [ phase0, altair, bellatrix, capella ]
                 example: "phase0"
               execution_optimistic:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 oneOf:
                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconState"
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"
@@ -42,21 +45,19 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid state ID: current"
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 404
-                  message: "State not found"
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "State not found"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

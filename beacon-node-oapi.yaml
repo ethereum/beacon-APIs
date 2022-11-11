@@ -74,6 +74,8 @@ paths:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
     $ref: "./apis/beacon/states/sync_committees.yaml"
+  /eth/v1/beacon/states/{state_id}/randao:
+    $ref: "./apis/beacon/states/randao.yaml"
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
@@ -91,6 +93,16 @@ paths:
 
   /eth/v1/beacon/deposit_snapshot:
     $ref: "./apis/beacon/deposit_snapshot.yaml"
+  /eth/v1/beacon/blinded_blocks/{block_id}:
+    $ref: "./apis/beacon/blocks/blinded_block.yaml"
+  /eth/v1/beacon/light_client/bootstrap/{block_root}:
+    $ref: "./apis/beacon/light_client/bootstrap.yaml"
+  /eth/v1/beacon/light_client/updates:
+    $ref: "./apis/beacon/light_client/updates.yaml"
+  /eth/v1/beacon/light_client/finality_update:
+    $ref: "./apis/beacon/light_client/finality_update.yaml"
+  /eth/v1/beacon/light_client/optimistic_update:
+    $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
   /eth/v1/beacon/pool/attester_slashings:
@@ -101,6 +113,8 @@ paths:
     $ref: "./apis/beacon/pool/sync_committees.yaml"
   /eth/v1/beacon/pool/voluntary_exits:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
+  /eth/v1/beacon/pool/bls_to_execution_changes:
+    $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -108,6 +122,8 @@ paths:
     $ref: './apis/debug/heads.yaml'
   /eth/v2/debug/beacon/heads:
     $ref: './apis/debug/heads.v2.yaml'
+  /eth/v1/debug/fork_choice:
+    $ref: './apis/debug/fork_choice.yaml'
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -159,6 +175,8 @@ paths:
     $ref: "./apis/validator/prepare_beacon_proposer.yaml"
   /eth/v1/validator/register_validator:
     $ref: "./apis/validator/register_validator.yaml"
+  /eth/v1/validator/liveness:
+    $ref: "./apis/validator/liveness.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -190,6 +208,8 @@ components:
       $ref: './types/proposer_slashing.yaml#/ProposerSlashing'
     SignedVoluntaryExit:
       $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
+    SignedBLSToExecutionChange:
+      $ref: './types/bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
     AttesterDuty:
       $ref: './types/validator.yaml#/AttesterDuty'
     ProposerDuty:
@@ -228,6 +248,8 @@ components:
       $ref: './types/primitive.yaml#/DependentRoot'
     ExecutionOptimistic:
       $ref: './types/primitive.yaml#/ExecutionOptimistic'
+    Finalized:
+      $ref: './types/primitive.yaml#/Finalized'
     Root:
       $ref: './types/primitive.yaml#/Root'
     Hex:
@@ -240,6 +262,14 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
+    Altair.LightClientBootstrap:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientBootstrap'
+    Altair.LightClientUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientUpdate'
+    Altair.LightClientFinalityUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
+    Altair.LightClientOptimisticUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.BeaconBlock:
@@ -271,22 +301,40 @@ components:
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
-      enum: [phase0, altair, bellatrix]
+      enum: [phase0, altair, bellatrix, capella]
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
+    Capella.BeaconState:
+      $ref: './types/capella/state.yaml#/Capella/BeaconState'
+    Capella.BeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/BeaconBlock'
+    Capella.SignedBeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/SignedBeaconBlock'
+    Capella.BlindedBeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
+    Capella.SignedBlindedBeaconBlock:
+      $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
+    Node:
+      $ref: './types/fork_choice.yaml#/Node'
+    ExtraData:
+      $ref: './types/fork_choice.yaml#/ExtraData'
 
   parameters:
     StateId:
       $ref: './params/index.yaml#/StateId'
     BlockId:
       $ref: './params/index.yaml#/BlockId'
+    BlockRoot:
+      $ref: './params/index.yaml#/BlockRoot'
 
   responses:
     InvalidRequest:
       $ref: './types/http.yaml#/InvalidRequest'
     NotFound:
       $ref: './types/http.yaml#/NotFound'
+    UnsupportedMediaType:
+      $ref: './types/http.yaml#/UnsupportedMediaType'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
     CurrentlySyncing:

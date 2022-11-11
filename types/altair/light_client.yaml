@@ -1,0 +1,71 @@
+Altair:
+  FinalityBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(FINALIZED_ROOT_INDEX])`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/sync-protocol.md#constants) roots"
+    minItems: 6
+    maxItems: 6
+  CurrentSyncCommitteeBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(CURRENT_SYNC_COMMITTEE_INDEX])`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/sync-protocol.md#constants) roots"
+    minItems: 5
+    maxItems: 5
+  NextSyncCommitteeBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(NEXT_SYNC_COMMITTEE_INDEX])`](https://github.com/ethereum/consensus-specs/blob/v1.2.0-rc.3/specs/altair/light-client/sync-protocol.md#constants) roots"
+    minItems: 5
+    maxItems: 5
+
+  LightClientBootstrap:
+    type: object
+    properties:
+      header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      current_sync_committee:
+        $ref: './sync_committee.yaml#/Altair/SyncCommittee'
+      current_sync_committee_branch:
+        $ref: '#/Altair/CurrentSyncCommitteeBranch'
+  LightClientUpdate:
+    type: object
+    properties:
+      attested_header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      next_sync_committee:
+        $ref: './sync_committee.yaml#/Altair/SyncCommittee'
+      next_sync_committee_branch:
+        $ref: '#/Altair/NextSyncCommitteeBranch'
+      finalized_header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      finality_branch:
+        $ref: '#/Altair/FinalityBranch'
+      sync_aggregate:
+        $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientFinalityUpdate:
+    type: object
+    properties:
+      attested_header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      finalized_header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      finality_branch:
+        $ref: '#/Altair/FinalityBranch'
+      sync_aggregate:
+        $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientOptimisticUpdate:
+    type: object
+    properties:
+      attested_header:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      sync_aggregate:
+        $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'

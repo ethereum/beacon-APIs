@@ -1,0 +1,69 @@
+get:
+  operationId: "getStateRandao"
+  summary: "Get the RANDAO mix for some epoch in a specified state."
+  description: |
+    Fetch the RANDAO mix for the requested epoch from the state identified by `state_id`.
+
+    If an epoch is not specified then the RANDAO mix for the state's current epoch will be returned.
+
+    By adjusting the `state_id` parameter you can query for any historic value of the RANDAO mix.
+    Ordinarily states from the same epoch will mutate the RANDAO mix for that epoch as blocks are
+    applied.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: epoch
+      description: "Epoch to fetch the RANDAO mix for. Default: state's current epoch."
+      in: query
+      required: false
+      allowEmptyValue: false
+      schema:
+        allOf:
+          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          - example: ""
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateRandaoResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: object
+                properties:
+                  randao:
+                    allOf:
+                      - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+                      - description: RANDAO mix for requested epoch in state.
+    "400":
+      description: "Invalid state ID or epoch"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Epoch is out of range for the `randao_mixes` of the state"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+

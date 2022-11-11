@@ -31,6 +31,7 @@ post:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
       application/octet-stream:
         schema:
           description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."
@@ -44,11 +45,12 @@ post:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid block: missing signature"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid block: missing signature"
+    "415":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

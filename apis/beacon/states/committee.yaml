@@ -44,6 +44,8 @@ get:
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: array
                 items:
@@ -53,21 +55,18 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Slot does not belong in epoch"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Slot does not belong in epoch"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 404
             message: "State not found"
     "500":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
-
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

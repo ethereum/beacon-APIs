@@ -1,9 +1,9 @@
 get:
-  operationId: getBlockV2
-  summary: Get block
+  operationId: getBlindedBlock
+  summary: Get blinded block
   description: |
-    Retrieves block details for given block id.
-    Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+    Retrieves blinded block for given block ID.
+    Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ
   tags:
     - Beacon
   parameters:
@@ -20,7 +20,7 @@ get:
       content:
         application/json:
           schema:
-            title: GetBlockV2Response
+            title: GetBlindedBlockResponse
             type: object
             properties:
               version:
@@ -35,29 +35,30 @@ get:
                 oneOf:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
         application/octet-stream:
           schema:
-
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:
         application/json:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block ID: current"
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "Invalid block ID: current"
     "404":
       description: "Block not found"
       content:
         application/json:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "Block not found"
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 404
+                  message: "Block not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -21,6 +21,8 @@ get:
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: object
                 properties:
@@ -35,21 +37,19 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid state ID: current"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 404
-                  message: "State not found"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "State not found"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

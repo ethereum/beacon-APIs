@@ -1,0 +1,31 @@
+get:
+  operationId: getDebugForkChoice
+  summary: Get fork choice array
+  description: Retrieves all current fork choice context.
+  tags:
+    - Debug
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetForkChoiceResponse
+            type: object
+            description: "Debugging context of fork choice"
+            required: [justified_checkpoint, finalized_checkpoint]
+            properties:
+              justified_checkpoint:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+              finalized_checkpoint:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+              fork_choice_nodes:
+                type: array
+                description: "Fork choice nodes"
+                minItems: 1
+                items:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Node"
+              extra_data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExtraData"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

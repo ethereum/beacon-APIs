@@ -1,0 +1,93 @@
+Capella:
+  BeaconBlockBodyCommon:
+    # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
+    type: object
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblockbody) object from the CL Capella spec."
+    properties:
+      randao_reveal:
+        allOf:
+          - $ref: '../primitive.yaml#/Signature'
+          - description: "The RanDAO reveal value provided by the validator."
+      eth1_data:
+        $ref: '../eth1.yaml#/Eth1Data'
+      graffiti:
+        $ref: '../primitive.yaml#/Graffiti'
+      proposer_slashings:
+        type: array
+        items:
+          $ref: '../proposer_slashing.yaml#/ProposerSlashing'
+      attester_slashings:
+        type: array
+        items:
+          $ref: '../attester_slashing.yaml#/AttesterSlashing'
+      attestations:
+        type: array
+        items:
+          $ref: '../attestation.yaml#/Attestation'
+      deposits:
+        type: array
+        items:
+          $ref: '../deposit.yaml#/Deposit'
+      voluntary_exits:
+        type: array
+        items:
+          $ref: '../voluntary_exit.yaml#/SignedVoluntaryExit'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+
+  BeaconBlockBody:
+    allOf:
+      - $ref: '#/Capella/BeaconBlockBodyCommon'
+      - type: object
+        properties:
+          execution_payload:
+            $ref: './execution_payload.yaml#/Capella/ExecutionPayload'
+          bls_to_execution_changes:
+            type: array
+            items:
+              $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
+
+  BeaconBlock:
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/Capella/beacon-chain.md#beaconblock) object from the CL Capella spec."
+    allOf:
+      - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
+      - type: object
+        properties:
+          body:
+            $ref: '#/Capella/BeaconBlockBody'
+
+  SignedBeaconBlock:
+    type: object
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec."
+    properties:
+      message:
+        $ref: "#/Capella/BeaconBlock"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+
+  BlindedBeaconBlockBody:
+    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblockbody) object from the CL Capella spec, which contains a transactions root rather than a full transactions list."
+    allOf:
+      - $ref: '#/Capella/BeaconBlockBodyCommon'
+      - type: object
+        properties:
+          execution_payload_header:
+            $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
+
+  BlindedBeaconBlock:
+    description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblock) object from the CL Capella spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    allOf:
+      - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
+      - type: object
+        properties:
+          body:
+            $ref: '#/Capella/BlindedBeaconBlockBody'
+
+  SignedBlindedBeaconBlock:
+    type: object
+    description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    properties:
+      message:
+        $ref: "#/Capella/BlindedBeaconBlock"
+      signature:
+        $ref: "../primitive.yaml#/Signature"

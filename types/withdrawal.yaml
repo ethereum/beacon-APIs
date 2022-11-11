@@ -1,0 +1,15 @@
+Withdrawal:
+  type: object
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The index of the withdrawal."
+    validator_index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The index of the withdrawing validator."
+    address:
+      $ref: './primitive.yaml#/ExecutionAddress'
+      description: "The address to which the withdrawal is credited."
+    amount:
+      $ref: "./primitive.yaml#/Gwei"
+      description: "The value withdrawn (gwei)."

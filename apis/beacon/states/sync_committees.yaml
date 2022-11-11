@@ -28,6 +28,8 @@ get:
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommittee'
 
@@ -36,21 +38,18 @@ get:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Epoch is outside the sync committee period of the state"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Epoch is outside the sync committee period of the state"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 404
             message: "State not found"
     "500":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
-
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
