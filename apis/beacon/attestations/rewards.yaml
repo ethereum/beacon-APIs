@@ -1,7 +1,7 @@
 get:
   operationId: getAttestationsRewards
   summary: Get attestations rewards
-  description: Retrieves rewards info for attestations for validators specified in id. If none is specified, return rewards info for every validators.
+  description: Retrieve attestation reward info for validators specified by `id`. If no `id` is specified, return reward info for every validator.
   tags:
     - Beacon
     - Rewards

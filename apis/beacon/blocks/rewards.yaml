@@ -1,7 +1,7 @@
 get:
   operationId: getBlockRewards
   summary: Get block rewards
-  description: Retrieves block rewards info in a slot 
+  description: Retrieve block reward info for a single block
   tags:
     - Beacon
     - Rewards
@@ -33,7 +33,7 @@ get:
                 code: 400
                 message: "Invalid request to retrieve block rewards info"
     "404":
-      description: "Block not found"
+      description: "Block or required state not found"
       content:
         application/json:
           schema:
@@ -42,6 +42,6 @@ get:
             InvalidRequest:
               value:
                 code: 404
-                message: "Block not found"
+                message: "Block or required state not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
