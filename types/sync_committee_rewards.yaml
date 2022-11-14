@@ -4,6 +4,7 @@ SyncCommitteeRewards:
   items:
     type: object
     description: "Rewards info for a single sync committee member"
+    required: ["validator_index", "reward"]
     properties:
       validator_index:
         allOf:

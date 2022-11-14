@@ -54,6 +54,8 @@ tags:
       Minimal set of endpoints to enable a working validator implementation.
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
+  - name: Rewards
+    description: Endpoints to query rewards and penalties for validators.
 paths:
 
   /eth/v1/beacon/genesis:
