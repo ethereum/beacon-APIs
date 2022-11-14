@@ -32,6 +32,10 @@ get:
             title: GetAttestationsRewardsResponse
             type: object
             properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards'
     "400":
