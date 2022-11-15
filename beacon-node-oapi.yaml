@@ -179,8 +179,12 @@ paths:
     $ref: "./apis/validator/beacon_committee_subscriptions.v2.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
     $ref: "./apis/validator/sync_committee_subscriptions.yaml"
+  /eth/v1/validator/beacon_committee_selections:
+    $ref: "./apis/validator/beacon_committee_selections.yaml"
   /eth/v1/validator/sync_committee_contribution:
     $ref: "./apis/validator/sync_committee_contribution.yaml"
+  /eth/v1/validator/sync_committee_selections:
+    $ref: "./apis/validator/sync_committee_selections.yaml"
   /eth/v1/validator/contribution_and_proofs:
     $ref: "./apis/validator/sync_committee_contribution_and_proof.yaml"
   /eth/v1/validator/prepare_beacon_proposer:
@@ -234,6 +238,10 @@ components:
       $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
       $ref: './types/attestation.yaml#/AttestationData'
+    BeaconCommitteeSelection:
+      $ref: './types/selection.yaml#/BeaconCommitteeSelection'
+    SyncCommitteeSelection:
+      $ref: './types/selection.yaml#/SyncCommitteeSelection'
     Fork:
       $ref: './types/misc.yaml#/Fork'
     Checkpoint:
