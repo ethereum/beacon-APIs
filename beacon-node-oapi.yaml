@@ -92,8 +92,10 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
-  /eth/v1/beacon/blocks/{block_id}/rewards:
-    $ref: "./apis/beacon/blocks/rewards.yaml"
+  /eth/v1/beacon/rewards/blocks/{block_id}:
+    $ref: "./apis/beacon/rewards/blocks.yaml"
+  /eth/v1/beacon/rewards/attestations/{epoch}:
+    $ref: "./apis/beacon/rewards/attestations.yaml"
   /eth/v1/beacon/blinded_blocks/{block_id}:
     $ref: "./apis/beacon/blocks/blinded_block.yaml"
   /eth/v1/beacon/light_client/bootstrap/{block_root}:
@@ -116,8 +118,7 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
-  /eth/v1/beacon/attestations/{epoch}/rewards:
-    $ref: "./apis/beacon/attestations/rewards.yaml"
+
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
