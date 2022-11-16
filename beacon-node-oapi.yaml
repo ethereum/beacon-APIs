@@ -119,7 +119,6 @@ paths:
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
-
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
