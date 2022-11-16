@@ -20775,13 +20775,21 @@ paths:
               example:
                 code: 500
                 message: Internal server error
-  /eth/v1/validator/liveness:
+  '/eth/v1/validator/liveness/{epoch}':
     post:
       tags:
         - Validator
       summary: Indicates if a validator has been observed on the network
       operationId: getLiveness
       description: 'Requests the beacon node to indicate if a validator has been observed to be live in a given epoch. The beacon node might detect liveness by observing messages from the validator on the network, in the beacon chain, from its API or from any other source. A beacon node SHOULD support the current and previous epoch, however it MAY support earlier epoch. It is important to note that the values returned by the beacon node are not canonical; they are best-effort and based upon a subjective view of the network. A beacon node that was recently started or suffered a network partition may indicate that a validator is not live when it actually is.'
+      parameters:
+        - name: epoch
+          description: The epoch for which liveness is being queried
+          in: path
+          required: true
+          schema:
+            type: string
+            example: '1'
       requestBody:
         description: An array of the validator indices for which to detect liveness.
         required: true
@@ -20789,17 +20797,11 @@ paths:
           application/json:
             schema:
               title: PostLivenessRequestBody
-              type: object
-              properties:
-                epoch:
-                  type: string
-                  example: '1'
-                indices:
-                  type: array
-                  items:
-                    minItems: 1
-                    type: string
-                    example: '1'
+              type: array
+              items:
+                minItems: 1
+                type: string
+                example: '1'
       responses:
         '200':
           description: Success response
