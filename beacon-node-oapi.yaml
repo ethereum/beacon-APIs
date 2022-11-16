@@ -243,6 +243,8 @@ components:
       $ref: './types/primitive.yaml#/DependentRoot'
     ExecutionOptimistic:
       $ref: './types/primitive.yaml#/ExecutionOptimistic'
+    Finalized:
+      $ref: './types/primitive.yaml#/Finalized'
     Root:
       $ref: './types/primitive.yaml#/Root'
     Hex:
