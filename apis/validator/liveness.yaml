@@ -12,6 +12,13 @@ post:
     and based upon a subjective view of the network. A beacon node that was recently
     started or suffered a network partition may indicate that a validator is not live
     when it actually is."
+  parameters:
+    - name: epoch
+      description: "The epoch for which liveness is being queried"
+      in: path
+      required: true
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   requestBody:
     description: "An array of the validator indices for which to detect liveness."
     required: true
@@ -19,15 +26,10 @@ post:
       application/json:
         schema:
           title: PostLivenessRequestBody
-          type: object
-          properties:
-            epoch:
-              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-            indices:
-              type: array
-              items:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                minItems: 1
+          type: array
+          items:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+            minItems: 1
   responses:
     "200":
       description: Success response
