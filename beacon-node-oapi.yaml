@@ -319,7 +319,7 @@ components:
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
     SyncCommitteeRewards:
-      $ref: './types/rewrds.yaml#/SyncCommitteeRewards'
+      $ref: './types/rewards.yaml#/SyncCommitteeRewards'
 
   parameters:
     StateId:
