@@ -5,6 +5,7 @@ get:
   tags:
     - Beacon
     - Rewards
+    - Experimental
   parameters:
     - name: epoch
       in: path
