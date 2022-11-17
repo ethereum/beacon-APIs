@@ -1,7 +1,7 @@
-get:
+post:
   operationId: getAttestationsRewards
   summary: Get attestations rewards
-  description: Retrieve attestation reward info for validators specified by `id`. If no `id` is specified, return reward info for every validator.
+  description: Retrieve attestation reward info for validators specified by array of public keys or validator index. If no array is provided, return reward info for every validator.
   tags:
     - Beacon
     - Rewards
@@ -13,17 +13,17 @@ get:
       description: "The epoch to get rewards info from"
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-    - name: id
-      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
-      in: query
-      required: false
-      schema:
-        type: array
-        maxItems: 30
-        uniqueItems: true
-        items:
-          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
-          type: string
+  requestBody:
+    description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+    required: false
+    content:
+      application/json:
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+            type: string
   responses:
     "200":
       description: "Success"
