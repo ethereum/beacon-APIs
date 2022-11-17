@@ -1,7 +1,7 @@
-get:
+post:
   operationId: getSyncCommitteeRewards
   summary: Get sync committee rewards
-  description: Retrieves rewards info for sync committee members.
+  description: Retrieves rewards info for sync committee members specified by array of public keys or validator index. If no array is provided, return reward info for every committee member.
   tags:
     - Beacon
     - Rewards
@@ -12,17 +12,17 @@ get:
       required: true
       example: "head"
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
-    - name: id
-      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
-      in: query
-      required: false
-      schema:
-        type: array
-        maxItems: 30
-        uniqueItems: true
-        items:
-          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
-          type: string
+  requestBody:
+   description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+   required: false
+   content:
+     application/json:
+       schema:
+         type: array
+         uniqueItems: true
+         items:
+           description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+           type: string
   responses:
     "200":
       description: "Success"
