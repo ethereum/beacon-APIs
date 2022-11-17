@@ -96,6 +96,8 @@ paths:
     $ref: "./apis/beacon/light_client/bootstrap.yaml"
   /eth/v1/beacon/light_client/updates:
     $ref: "./apis/beacon/light_client/updates.yaml"
+  /eth/v1/beacon/light_client/sync_committee_roots:
+    $ref: "./apis/beacon/light_client/sync_committee_roots.yaml"
   /eth/v1/beacon/light_client/finality_update:
     $ref: "./apis/beacon/light_client/finality_update.yaml"
   /eth/v1/beacon/light_client/optimistic_update:

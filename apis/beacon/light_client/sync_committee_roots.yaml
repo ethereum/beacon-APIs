@@ -1,0 +1,69 @@
+get:
+  operationId: getSyncCommitteeRootsByRange
+  summary: Get `SyncCommittee` SSZ HashTreeRoot in a requested sync committee period range
+  description: |
+    Requests the [`SyncCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.2.0/specs/altair/beacon-chain.md#synccommittee) SSZ HashTreeRoot in the sync committee period range `[start_period, start_period + count)`.
+  tags:
+    - Beacon
+  parameters:
+    - name: start_period
+      in: query
+      required: true
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: count
+      in: query
+      required: true
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: getSyncCommitteeRootsByRangeResponse
+            type: object
+            data:
+              type: array
+              items:
+                type: object
+                properties:
+                  root:
+                      allOf:
+                        - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+                        - description: HashTreeRoot of SyncCommittee object
+    "400":
+      description: Malformed or missing request parameter
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidSyncPeriod:
+              value:
+                code: 400
+                message: "Invalid sync committee period requested"
+            InvalidCount:
+              value:
+                code: 400
+                message: "Invalid count requested"
+            MissingStartPeriodValue:
+              value:
+                code: 400
+                message: "Missing `start_period` value"
+            MissingCountValue:
+              value:
+                code: 400
+                message: "Missing `count` value"
+    "404":
+      description: "One of periods not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "Period not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
