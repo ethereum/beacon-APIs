@@ -37,10 +37,10 @@ post:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
-              ideal_rewards:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IdealAttestationsRewards"
-              total_rewards:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards'
+              data:
+                type: array
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards"
+                  
     "400":
       description: "Invalid get attestations rewards request"
       content:

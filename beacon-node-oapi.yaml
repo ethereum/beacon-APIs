@@ -326,8 +326,6 @@ components:
       $ref: './types/rewards.yaml#/BlockRewards'
     AttestationsRewards:
       $ref: './types/rewards.yaml#/AttestationsRewards'
-    IdealAttestationsRewards:
-      $ref: './types/rewards.yaml#/IdealAttestationsRewards'
 
   parameters:
     StateId:
