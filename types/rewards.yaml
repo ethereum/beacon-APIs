@@ -35,6 +35,38 @@ AttestationRewards:
         - example: 2000
         - description: "attester's inclusion_delay reward in gwei (phase0 only)"
 
+IdealAttestationsRewards:
+  description: "Rewards info for attestations"
+  type: array
+  items:
+    $ref: "./rewards.yaml#/IdealAttestationRewards"
+
+IdealAttestationRewards:
+  type: object
+  description: "Ideal rewards info for a single attestation"
+  required: ["effective_balance", "head", "target", "source"]
+  properties:
+    effective_balance:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 1000000000
+        - description: "validator's effective balance in gwei"
+    head:
+      allOf:
+        - $ref: "./primitive.yaml#/Int64"
+        - example: 2500
+        - description: "Ideal attester's reward for head vote in gwei"
+    target:
+      allOf:
+        - $ref: "./primitive.yaml#/Int64"
+        - example: 5000
+        - description: "Ideal attester's reward for target vote in gwei"
+    source:
+      allOf:
+        - $ref: "./primitive.yaml#/Int64"
+        - example: 5000
+        - description: "Ideal attester's reward for source vote in gwei"
+
 BlockRewards:
   type: object
   description: "Rewards info for a single block"
