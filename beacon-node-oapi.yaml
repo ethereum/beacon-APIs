@@ -112,6 +112,12 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+  /eth/v0/beacon/proof/state:
+    $ref: "./apis/beacon/proof/state.yaml"
+  /eth/v0/beacon/proof/body:
+    $ref: "./apis/beacon/proof/body.yaml"
+  /eth/v0/beacon/proof/subscribe:
+    $ref: "./apis/beacon/proof/subscribe.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -314,6 +320,8 @@ components:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
+    MultiProofResponse:
+      $ref: './types/api.yaml#/MultiProofResponse'
 
   parameters:
     StateId:

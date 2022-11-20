@@ -62,3 +62,23 @@ Committee:
       description: "List of validator indices assigned to this committee"
       items:
         $ref: './primitive.yaml#/Uint64'
+
+MultiProofRequest:
+  description: |
+    Interpreted as a bit list, the Merkle multi-proof request format recursively encodes the shape of the subtree that the requested
+    proof should cover. If the subtree is a single node whose Merkle proof is the tree node itself, it is encoded as a single `1` bit.
+    Otherwise the subtree encoding is the recursive encoding of the left child subtree, then the right child subtree, then a `0` bit.
+    This encoding always starts with a `1` bit and in total consists of `N` `1` bits and `N-1` `0` bits, where `N` is the number of
+    tree nodes stored in the resulting [MultiProofResponse](./api.yaml#/MultiProofResponse) in the same order as the `1` bits
+    representing the stored nodes in the format. The hex encoding optionally allows an extra leading zero nibble if the total number
+    of nibbles would otherwise be odd, additional leading zeroes should result in an invalid proof format error. For example, a proof
+    that proves the generalized tree index 42 should be encoded as 0x792 or 0x0792.
+  type: string
+  format: hex
+  example: "0x792"
+  pattern: "^0x[a-fA-F0-9]+$"
+
+MultiProofResponse:
+  description: |
+    An `N*32` bytes long raw byte vector consisting of `N` Merkle tree nodes, each corresponding to a `1` bit in the
+    [MultiProofRequest](./api.yaml#/MultiProofRequest) format description, stored in the same order.

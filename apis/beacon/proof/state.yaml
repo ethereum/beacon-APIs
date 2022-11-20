@@ -1,0 +1,58 @@
+get:
+  operationId: "getStateProof"
+  summary: "Get partial Merkle proof for requested beacon state"
+  description: |
+    Returns [MultiProofResponse](../../../types/api.yaml#/MultiProofResponse) for state with given 'stateId'
+    in the specified [MultiProofRequest](../../../types/api.yaml#/MultiProofRequest) format if available. A response for the current head
+	is always guaranteed, for past blocks it is optional unless guaranteed by an active [subscription](./subscribe.yaml).
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: format
+      in: query
+      required: true
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/MultiProofRequest'
+      
+  responses:
+    "200":
+      description: Success
+      content:
+        application/octet-stream:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/MultiProofResponse"
+
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid state ID: current"
+    "400":
+      description: "Requested tree node not available"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Requested tree node not available: #1234"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "State not found"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
