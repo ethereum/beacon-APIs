@@ -1,0 +1,52 @@
+get:
+  operationId: getBlockRewards
+  summary: Get block rewards
+  description: Retrieve block reward info for a single block
+  tags:
+    - Beacon
+    - Rewards
+    - Experimental
+  parameters:
+    - name: block_id
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  responses:
+    "200":
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            title: GetBlockRewardsResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BlockRewards'              
+    "400":
+      description: "Invalid get block rewards request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to retrieve block rewards info"
+    "404":
+      description: "Block or required state not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 404
+                message: "Block or required state not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

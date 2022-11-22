@@ -57,7 +57,8 @@ tags:
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
   - name: Experimental
-    description: Endpoints that are not stable or fully implemented by each client
+    description: Endpoints that are not stable or fully implemented by each client.
+    
 paths:
 
   /eth/v1/beacon/genesis:
@@ -96,6 +97,10 @@ paths:
     $ref: "./apis/beacon/blocks/attestations.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
+  /eth/v1/beacon/rewards/blocks/{block_id}:
+    $ref: "./apis/beacon/rewards/blocks.yaml"
+  /eth/v1/beacon/rewards/attestations/{epoch}:
+    $ref: "./apis/beacon/rewards/attestations.yaml"
   /eth/v1/beacon/blinded_blocks/{block_id}:
     $ref: "./apis/beacon/blocks/blinded_block.yaml"
   /eth/v1/beacon/light_client/bootstrap/{block_root}:
@@ -322,6 +327,10 @@ components:
       $ref: './types/fork_choice.yaml#/ExtraData'
     SyncCommitteeRewards:
       $ref: './types/rewards.yaml#/SyncCommitteeRewards'
+    BlockRewards:
+      $ref: './types/rewards.yaml#/BlockRewards'
+    AttestationsRewards:
+      $ref: './types/rewards.yaml#/AttestationsRewards'
 
   parameters:
     StateId:
