@@ -58,6 +58,7 @@ tags:
     description: Endpoints to query rewards and penalties for validators.
   - name: Experimental
     description: Endpoints that are not stable or fully implemented by each client.
+    
 paths:
 
   /eth/v1/beacon/genesis:
@@ -94,6 +95,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v1/beacon/rewards/sync_committee/{block_id}:
+    $ref: "./apis/beacon/rewards/sync_committee.yaml"
   /eth/v1/beacon/deposit_snapshot:
     $ref: "./apis/beacon/deposit_snapshot.yaml"
   /eth/v1/beacon/rewards/blocks/{block_id}:
@@ -326,6 +329,8 @@ components:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
+    SyncCommitteeRewards:
+      $ref: './types/rewards.yaml#/SyncCommitteeRewards'
     BlockRewards:
       $ref: './types/rewards.yaml#/BlockRewards'
     AttestationsRewards:

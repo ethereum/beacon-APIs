@@ -1,3 +1,22 @@
+SyncCommitteeRewards:
+  description: "Rewards info for sync committee members"
+  type: array
+  items:
+    type: object
+    description: "Rewards info for a single sync committee member"
+    required: ["validator_index", "reward"]
+    properties:
+      validator_index:
+        allOf:
+          - $ref: "./primitive.yaml#/Uint64"
+          - example: 0
+          - description: "one entry for every validator participating in the sync committee"
+      reward:
+        allOf:
+          - $ref: "./primitive.yaml#/Int64"
+          - example: 2000
+          - description: "sync committee reward in gwei for the validator"
+
 AttestationsRewards:
   description: "Rewards info for attestations"
   type: array
