@@ -50,6 +50,10 @@ tags:
       Minimal set of endpoints to enable a working validator implementation.
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
+  - name: Rewards
+    description: Endpoints to query rewards and penalties for validators.
+  - name: Experimental
+    description: Endpoints that are not stable or fully implemented by each client.
 paths:
   /eth/v1/beacon/genesis:
     get:
@@ -8325,6 +8329,352 @@ paths:
                     type: array
                     items:
                       type: string
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+  '/eth/v1/beacon/rewards/blocks/{block_id}':
+    get:
+      operationId: getBlockRewards
+      summary: Get block rewards
+      description: Retrieve block reward info for a single block
+      tags:
+        - Beacon
+        - Rewards
+        - Experimental
+      parameters:
+        - name: block_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            Block identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetBlockRewardsResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: object
+                    description: Rewards info for a single block
+                    properties:
+                      proposer_index:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - example: 123
+                          - description: 'proposer of the block, the proposer index who receives these rewards'
+                      total:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - example: 123
+                          - description: 'total block reward in gwei, equal to attestations + sync_aggregate + proposer_slashings + attester_slashings'
+                      attestations:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - example: 123
+                          - description: block reward component due to included attestations in gwei
+                      sync_aggregate:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - example: 123
+                          - description: block reward component due to included sync_aggregate in gwei
+                      proposer_slashings:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - example: 123
+                          - description: block reward component due to included proposer_slashings in gwei
+                      attester_slashings:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - example: 123
+                          - description: block reward component due to included attester_slashings in gwei
+        '400':
+          description: Invalid get block rewards request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidRequest:
+                  value:
+                    code: 400
+                    message: Invalid request to retrieve block rewards info
+        '404':
+          description: Block or required state not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidRequest:
+                  value:
+                    code: 404
+                    message: Block or required state not found
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+  '/eth/v1/beacon/rewards/attestations/{epoch}':
+    post:
+      operationId: getAttestationsRewards
+      summary: Get attestations rewards
+      description: 'Retrieve attestation reward info for validators specified by array of public keys or validator index. If no array is provided, return reward info for every validator.'
+      tags:
+        - Beacon
+        - Rewards
+        - Experimental
+      parameters:
+        - name: epoch
+          in: path
+          required: true
+          description: The epoch to get rewards info from
+          schema:
+            type: string
+            example: '1'
+      requestBody:
+        description: An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index
+        required: false
+        content:
+          application/json:
+            schema:
+              type: array
+              uniqueItems: true
+              items:
+                description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
+                type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetAttestationsRewardsResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: array
+                    description: Rewards info for attestations
+                    items:
+                      properties:
+                        ideal_rewards:
+                          type: array
+                          items:
+                            type: object
+                            description: Ideal rewards info for a single attestation
+                            required:
+                              - effective_balance
+                              - head
+                              - target
+                              - source
+                            properties:
+                              effective_balance:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 1000000000
+                                  - description: validator's effective balance in gwei
+                              head:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 2500
+                                  - description: Ideal attester's reward for head vote in gwei
+                              target:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 5000
+                                  - description: Ideal attester's reward for target vote in gwei
+                              source:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 5000
+                                  - description: Ideal attester's reward for source vote in gwei
+                        total_rewards:
+                          type: array
+                          items:
+                            type: object
+                            description: Rewards info for a single attestation
+                            required:
+                              - validator_index
+                              - head
+                              - target
+                              - source
+                            properties:
+                              validator_index:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 0
+                                  - description: one entry for every validator based on their attestations in the epoch
+                              head:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 2000
+                                  - description: attester's reward for head vote in gwei
+                              target:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 2000
+                                  - description: attester's reward for target vote in gwei
+                              source:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 4000
+                                  - description: attester's reward for source vote in gwei
+                              inclusion_delay:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - example: 2000
+                                  - description: attester's inclusion_delay reward in gwei (phase0 only)
+        '400':
+          description: Invalid get attestations rewards request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidRequest:
+                  value:
+                    code: 400
+                    message: Invalid request to retrieve attestations rewards info
+        '404':
+          description: Epoch not known or required data not available
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidRequest:
+                  value:
+                    code: 404
+                    message: Epoch not known or required data not available
         '500':
           description: Beacon node internal error.
           content:
@@ -30182,6 +30532,127 @@ components:
     ExtraData:
       type: object
       description: 'Optional extra data that clients may provide, which could differ from client to client.'
+    BlockRewards:
+      type: object
+      description: Rewards info for a single block
+      properties:
+        proposer_index:
+          allOf:
+            - type: string
+              example: '1'
+            - example: 123
+            - description: 'proposer of the block, the proposer index who receives these rewards'
+        total:
+          allOf:
+            - type: string
+              example: '1'
+            - example: 123
+            - description: 'total block reward in gwei, equal to attestations + sync_aggregate + proposer_slashings + attester_slashings'
+        attestations:
+          allOf:
+            - type: string
+              example: '1'
+            - example: 123
+            - description: block reward component due to included attestations in gwei
+        sync_aggregate:
+          allOf:
+            - type: string
+              example: '1'
+            - example: 123
+            - description: block reward component due to included sync_aggregate in gwei
+        proposer_slashings:
+          allOf:
+            - type: string
+              example: '1'
+            - example: 123
+            - description: block reward component due to included proposer_slashings in gwei
+        attester_slashings:
+          allOf:
+            - type: string
+              example: '1'
+            - example: 123
+            - description: block reward component due to included attester_slashings in gwei
+    AttestationsRewards:
+      description: Rewards info for attestations
+      type: array
+      items:
+        properties:
+          ideal_rewards:
+            type: array
+            items:
+              type: object
+              description: Ideal rewards info for a single attestation
+              required:
+                - effective_balance
+                - head
+                - target
+                - source
+              properties:
+                effective_balance:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 1000000000
+                    - description: validator's effective balance in gwei
+                head:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 2500
+                    - description: Ideal attester's reward for head vote in gwei
+                target:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 5000
+                    - description: Ideal attester's reward for target vote in gwei
+                source:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 5000
+                    - description: Ideal attester's reward for source vote in gwei
+          total_rewards:
+            type: array
+            items:
+              type: object
+              description: Rewards info for a single attestation
+              required:
+                - validator_index
+                - head
+                - target
+                - source
+              properties:
+                validator_index:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 0
+                    - description: one entry for every validator based on their attestations in the epoch
+                head:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 2000
+                    - description: attester's reward for head vote in gwei
+                target:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 2000
+                    - description: attester's reward for target vote in gwei
+                source:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 4000
+                    - description: attester's reward for source vote in gwei
+                inclusion_delay:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - example: 2000
+                    - description: attester's inclusion_delay reward in gwei (phase0 only)
   parameters:
     StateId:
       required: true
