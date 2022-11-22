@@ -1,0 +1,62 @@
+post:
+  operationId: getSyncCommitteeRewards
+  summary: Get sync committee rewards
+  description: Retrieves rewards info for sync committee members specified by array of public keys or validator index. If no array is provided, return reward info for every committee member.
+  tags:
+    - Beacon
+    - Rewards
+    - Experimental
+  parameters:
+    - name: block_id
+      in: path
+      required: true
+      example: "head"
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  requestBody:
+   description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+   required: false
+   content:
+     application/json:
+       schema:
+         type: array
+         uniqueItems: true
+         items:
+           description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+           type: string
+  responses:
+    "200":
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            title: GetSyncCommitteeRewardsResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SyncCommitteeRewards'
+    "400":
+      description: "Invalid get sync committee rewards request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to retrieve sync committee rewards info"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "Block not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -29,6 +29,8 @@ get:
                 example: "phase0"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 oneOf:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"

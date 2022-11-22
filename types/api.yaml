@@ -1,5 +1,24 @@
 # API specific types
 
+DepositSnapshotResponse:
+  type: object
+  properties:
+    finalized:
+      type: array
+      items:
+        allOf:
+          - $ref: './primitive.yaml#/Root'
+      minItems: 3
+      maxItems: 3
+    deposit_root:
+      $ref: './primitive.yaml#/Root'
+    deposit_count:
+      $ref: './primitive.yaml#/Uint64'
+    execution_block_hash:
+      $ref: './primitive.yaml#/Root'
+    execution_block_height:
+      $ref: './primitive.yaml#/Uint64'
+
 ValidatorResponse:
   type: object
   properties:
@@ -36,8 +55,8 @@ ValidatorStatus:
     - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
     - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
     - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-    - **exited_unslashed** - When validator has reached reguler exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-    - **exited_slashed** - When validator has reached reguler exit epoch, but was slashed, have to wait for a longer withdrawal period.
+    - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+    - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
     - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
     - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 

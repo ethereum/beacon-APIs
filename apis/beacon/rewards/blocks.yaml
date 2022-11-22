@@ -1,22 +1,23 @@
 get:
-  operationId: getBlockAttestations
-  summary: Get block attestations
-  description: Retrieves attestation included in requested block.
+  operationId: getBlockRewards
+  summary: Get block rewards
+  description: Retrieve block reward info for a single block
   tags:
     - Beacon
+    - Rewards
+    - Experimental
   parameters:
     - name: block_id
       in: path
       required: true
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
-
   responses:
     "200":
-      description: Success
+      description: "Success"
       content:
         application/json:
           schema:
-            title: GetBlockAttestationsResponse
+            title: GetBlockRewardsResponse
             type: object
             properties:
               execution_optimistic:
@@ -24,26 +25,28 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-                items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BlockRewards'              
     "400":
-      description: "The block ID supplied could not be parsed"
+      description: "Invalid get block rewards request"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block ID: current"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to retrieve block rewards info"
     "404":
-      description: "Block not found"
+      description: "Block or required state not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "Block not found"
+          examples:
+            InvalidRequest:
+              value:
+                code: 404
+                message: "Block or required state not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

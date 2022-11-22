@@ -1,0 +1,124 @@
+SyncCommitteeRewards:
+  description: "Rewards info for sync committee members"
+  type: array
+  items:
+    type: object
+    description: "Rewards info for a single sync committee member"
+    required: ["validator_index", "reward"]
+    properties:
+      validator_index:
+        allOf:
+          - $ref: "./primitive.yaml#/Uint64"
+          - example: 0
+          - description: "one entry for every validator participating in the sync committee"
+      reward:
+        allOf:
+          - $ref: "./primitive.yaml#/Int64"
+          - example: 2000
+          - description: "sync committee reward in gwei for the validator"
+
+AttestationsRewards:
+  description: "Rewards info for attestations"
+  type: array
+  items:
+    properties:
+      ideal_rewards:
+        type: array
+        items:
+          $ref: ./rewards.yaml#/IdealAttestationRewards
+      total_rewards:
+        type: array
+        items:
+          $ref: ./rewards.yaml#/AttestationRewards
+
+AttestationRewards:
+  type: object
+  description: "Rewards info for a single attestation"
+  required: ["validator_index", "head", "target", "source"]
+  properties:
+      validator_index:
+        allOf:
+          - $ref: "./primitive.yaml#/Uint64"
+          - example: 0
+          - description: "one entry for every validator based on their attestations in the epoch"
+      head:
+        allOf:
+          - $ref: "./primitive.yaml#/Int64"
+          - example: 2000
+          - description: "attester's reward for head vote in gwei"
+      target:
+        allOf:
+          - $ref: "./primitive.yaml#/Int64"
+          - example: 2000
+          - description: "attester's reward for target vote in gwei"
+      source:
+        allOf:
+          - $ref: "./primitive.yaml#/Int64"
+          - example: 4000
+          - description: "attester's reward for source vote in gwei"
+      inclusion_delay:
+        allOf:
+          - $ref: "./primitive.yaml#/Uint64"
+          - example: 2000
+          - description: "attester's inclusion_delay reward in gwei (phase0 only)"
+
+IdealAttestationRewards:
+  type: object
+  description: "Ideal rewards info for a single attestation"
+  required: ["effective_balance", "head", "target", "source"]
+  properties:
+    effective_balance:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 1000000000
+        - description: "validator's effective balance in gwei"
+    head:
+      allOf:
+        - $ref: "./primitive.yaml#/Int64"
+        - example: 2500
+        - description: "Ideal attester's reward for head vote in gwei"
+    target:
+      allOf:
+        - $ref: "./primitive.yaml#/Int64"
+        - example: 5000
+        - description: "Ideal attester's reward for target vote in gwei"
+    source:
+      allOf:
+        - $ref: "./primitive.yaml#/Int64"
+        - example: 5000
+        - description: "Ideal attester's reward for source vote in gwei"
+
+BlockRewards:
+  type: object
+  description: "Rewards info for a single block"
+  properties:
+    proposer_index:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 123
+        - description: "proposer of the block, the proposer index who receives these rewards"
+    total:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 123
+        - description: "total block reward in gwei, equal to attestations + sync_aggregate + proposer_slashings + attester_slashings"
+    attestations:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 123
+        - description: "block reward component due to included attestations in gwei"
+    sync_aggregate:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 123
+        - description: "block reward component due to included sync_aggregate in gwei"
+    proposer_slashings:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 123
+        - description: "block reward component due to included proposer_slashings in gwei"
+    attester_slashings:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - example: 123
+        - description: "block reward component due to included attester_slashings in gwei"
