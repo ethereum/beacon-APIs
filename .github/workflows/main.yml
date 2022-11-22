@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
-    - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli
+    - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli@1.0.0-beta.111
 
     - name: Lint spec
       run: redocly lint ./beacon-node-oapi.yaml
