@@ -37,17 +37,13 @@ get:
       
   responses:
     "200":
-      description: "Successful subscription, proof returned"
+      description: Success
       content:
         application/octet-stream:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/MultiProofResponse"
-    "200":
-      description: "Successful subscription, no proof returned"
-      content:
-        application/octet-stream:
-          schema:
-            description: "zero-length byte vector"
+            oneOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/MultiProofResponse"
+              - description: "zero-length byte vector"
     "400":
       description: "Requested tree node not available"
       content:
