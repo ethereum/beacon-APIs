@@ -8351,6 +8351,145 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  '/eth/v1/beacon/rewards/sync_committee/{block_id}':
+    post:
+      operationId: getSyncCommitteeRewards
+      summary: Get sync committee rewards
+      description: 'Retrieves rewards info for sync committee members specified by array of public keys or validator index. If no array is provided, return reward info for every committee member.'
+      tags:
+        - Beacon
+        - Rewards
+        - Experimental
+      parameters:
+        - name: block_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            Block identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", \<slot\>, \<hex encoded blockRoot with 0x prefix\>.
+      requestBody:
+        description: An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index
+        required: false
+        content:
+          application/json:
+            schema:
+              type: array
+              uniqueItems: true
+              items:
+                description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
+                type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetSyncCommitteeRewardsResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    description: Rewards info for sync committee members
+                    type: array
+                    items:
+                      type: object
+                      description: Rewards info for a single sync committee member
+                      required:
+                        - validator_index
+                        - reward
+                      properties:
+                        validator_index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - example: 0
+                            - description: one entry for every validator participating in the sync committee
+                        reward:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - example: 2000
+                            - description: sync committee reward in gwei for the validator
+        '400':
+          description: Invalid get sync committee rewards request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              examples:
+                InvalidRequest:
+                  value:
+                    code: 400
+                    message: Invalid request to retrieve sync committee rewards info
+        '404':
+          description: Block not found
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 404
+                  message: Block not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/deposit_snapshot:
     get:
       operationId: getDepositSnapshot
@@ -30656,6 +30795,28 @@ components:
     ExtraData:
       type: object
       description: 'Optional extra data that clients may provide, which could differ from client to client.'
+    SyncCommitteeRewards:
+      description: Rewards info for sync committee members
+      type: array
+      items:
+        type: object
+        description: Rewards info for a single sync committee member
+        required:
+          - validator_index
+          - reward
+        properties:
+          validator_index:
+            allOf:
+              - type: string
+                example: '1'
+              - example: 0
+              - description: one entry for every validator participating in the sync committee
+          reward:
+            allOf:
+              - type: string
+                example: '1'
+              - example: 2000
+              - description: sync committee reward in gwei for the validator
     BlockRewards:
       type: object
       description: Rewards info for a single block
