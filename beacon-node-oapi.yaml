@@ -54,6 +54,10 @@ tags:
       Minimal set of endpoints to enable a working validator implementation.
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
+  - name: Rewards
+    description: Endpoints to query rewards and penalties for validators.
+  - name: Experimental
+    description: Endpoints that are not stable or fully implemented by each client.
 paths:
 
   /eth/v1/beacon/genesis:
@@ -90,6 +94,10 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v1/beacon/rewards/blocks/{block_id}:
+    $ref: "./apis/beacon/rewards/blocks.yaml"
+  /eth/v1/beacon/rewards/attestations/{epoch}:
+    $ref: "./apis/beacon/rewards/attestations.yaml"
   /eth/v1/beacon/blinded_blocks/{block_id}:
     $ref: "./apis/beacon/blocks/blinded_block.yaml"
   /eth/v1/beacon/light_client/bootstrap/{block_root}:
@@ -314,6 +322,10 @@ components:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
+    BlockRewards:
+      $ref: './types/rewards.yaml#/BlockRewards'
+    AttestationsRewards:
+      $ref: './types/rewards.yaml#/AttestationsRewards'
 
   parameters:
     StateId:
