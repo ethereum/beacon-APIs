@@ -1,10 +1,10 @@
 get:
-  operationId: "getBlockBodyProof"
-  summary: "Get partial Merkle proof for requested beacon block body"
+  operationId: "getBlockProof"
+  summary: "Get partial Merkle proof for requested beacon block"
   description: |
-    Returns [MultiProofResponse](../../../types/api.yaml#/MultiProofResponse) for block body with given
-	'blockId' in the specified [MultiProofRequest](../../../types/api.yaml#/MultiProofRequest) format. A response for the current head
-	is always guaranteed, for past blocks it is optional unless guaranteed by an active [subscription](./subscribe.yaml).
+    Returns [MultiProofResponse](../../../types/api.yaml#/MultiProofResponse) for block with given 'blockId' in the
+    specified [MultiProofRequest](../../../types/api.yaml#/MultiProofRequest) format. A response for the current head
+	  is always guaranteed, for past blocks it is optional unless guaranteed by an active [subscription](./subscribe.yaml).
   tags:
     - Beacon
   parameters:

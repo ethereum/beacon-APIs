@@ -4,7 +4,7 @@ get:
   description: |
     Returns [MultiProofResponse](../../../types/api.yaml#/MultiProofResponse) for state with given 'stateId'
     in the specified [MultiProofRequest](../../../types/api.yaml#/MultiProofRequest) format if available. A response for the current head
-	is always guaranteed, for past blocks it is optional unless guaranteed by an active [subscription](./subscribe.yaml).
+	  is always guaranteed, for past blocks it is optional unless guaranteed by an active [subscription](./subscribe.yaml).
   tags:
     - Beacon
   parameters:
