@@ -35,15 +35,6 @@ get:
             example:
               code: 400
               message: "Invalid block ID: current"
-    "400":
-      description: "Requested tree node not available"
-      content:
-        application/json:
-          schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Requested tree node not available: #1234"
     "404":
       description: "Block not found"
       content:
@@ -53,6 +44,15 @@ get:
             example:
               code: 404
               message: "Block not found"
+    "422":
+      description: "Requested tree node not available"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Requested tree node not available: #1234"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

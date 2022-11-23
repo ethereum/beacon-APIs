@@ -44,10 +44,10 @@ get:
             oneOf:
               - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/MultiProofResponse"
               - description: "zero-length byte vector"
-    "400":
+    "422":
       description: "Requested tree node not available"
       content:
-        application/json:f
+        application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
             example:
