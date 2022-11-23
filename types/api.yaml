@@ -65,14 +65,14 @@ Committee:
 
 MultiProofRequest:
   description: |
-    Interpreted as a bit list, the Merkle multi-proof request format recursively encodes the shape of the subtree that the requested
-    proof should cover. If the subtree is a single node whose Merkle proof is the tree node itself, it is encoded as a single `1` bit.
-    Otherwise the subtree encoding is the recursive encoding of the left child subtree, then the right child subtree, then a `0` bit.
-    This encoding always starts with a `1` bit and in total consists of `N` `1` bits and `N-1` `0` bits, where `N` is the number of
-    tree nodes stored in the resulting [MultiProofResponse](./api.yaml#/MultiProofResponse) in the same order as the `1` bits
-    representing the stored nodes in the format. The hex encoding optionally allows an extra leading zero nibble if the total number
-    of nibbles would otherwise be odd, additional leading zeroes should result in an invalid proof format error. For example, a proof
-    that proves the generalized tree index 42 should be encoded as 0x792 or 0x0792.
+    The binary Merkle multi-proof request format, interpreted as an MSB-first bit list, recursively encodes the shape of the subtree
+    that the requested proof should cover. If the subtree is a single node whose Merkle proof is the tree node itself, it is encoded
+    as a single `1` bit. Otherwise the subtree encoding consists of a `0` bit, then the recursive encoding of the left child subtree,
+    then the right child subtree. This encoding always ends with a `1` bit and in total consists of `N` `1` bits and `N-1` `0` bits,
+    where `N` is the number of tree nodes stored in the resulting [MultiProofResponse](./api.yaml#/MultiProofResponse) in the same
+    order as the `1` bits representing the stored nodes in the format. After the last `1` bit the remaining least significant bits
+    of the last byte are filled with zeroes. The hex encoding should always have an even number of nibbles and leading zeroes should
+    not be discarded. For example, a proof that proves the generalized tree index 42 should be encoded as 0x25e0.
   type: string
   format: hex
   example: "0x792"
