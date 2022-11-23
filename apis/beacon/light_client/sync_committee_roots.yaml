@@ -7,11 +7,13 @@ get:
     - Beacon
   parameters:
     - name: start_period
+      description: "The start sync committee period we want to get SSZ HashTreeRoot from"
       in: query
       required: true
       schema:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
     - name: count
+      description: "Number of sync committee periods we want to get SSZ HashTreeRoots starting from start_period"
       in: query
       required: true
       schema:
