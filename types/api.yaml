@@ -75,7 +75,7 @@ MultiProofRequest:
     not be discarded. For example, a proof that proves the generalized tree index 42 should be encoded as 0x25e0.
   type: string
   format: hex
-  example: "0x792"
+  example: "0x25e0"
   pattern: "^0x[a-fA-F0-9]+$"
 
 MultiProofResponse:
