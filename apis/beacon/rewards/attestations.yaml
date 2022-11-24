@@ -1,0 +1,67 @@
+post:
+  operationId: getAttestationsRewards
+  summary: Get attestations rewards
+  description: Retrieve attestation reward info for validators specified by array of public keys or validator index. If no array is provided, return reward info for every validator.
+  tags:
+    - Beacon
+    - Rewards
+    - Experimental
+  parameters:
+    - name: epoch
+      in: path
+      required: true
+      description: "The epoch to get rewards info from"
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  requestBody:
+    description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+    required: false
+    content:
+      application/json:
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+            type: string
+  responses:
+    "200":
+      description: "Success"
+      content:
+        application/json:
+          schema:
+            title: GetAttestationsRewardsResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards"
+                  
+    "400":
+      description: "Invalid get attestations rewards request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to retrieve attestations rewards info"
+    "404":
+      description: "Epoch not known or required data not available"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 404
+                message: "Epoch not known or required data not available"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

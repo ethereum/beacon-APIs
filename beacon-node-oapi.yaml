@@ -54,6 +54,11 @@ tags:
       Minimal set of endpoints to enable a working validator implementation.
 
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
+  - name: Rewards
+    description: Endpoints to query rewards and penalties for validators.
+  - name: Experimental
+    description: Endpoints that are not stable or fully implemented by each client.
+    
 paths:
 
   /eth/v1/beacon/genesis:
@@ -90,6 +95,14 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v1/beacon/rewards/sync_committee/{block_id}:
+    $ref: "./apis/beacon/rewards/sync_committee.yaml"
+  /eth/v1/beacon/deposit_snapshot:
+    $ref: "./apis/beacon/deposit_snapshot.yaml"
+  /eth/v1/beacon/rewards/blocks/{block_id}:
+    $ref: "./apis/beacon/rewards/blocks.yaml"
+  /eth/v1/beacon/rewards/attestations/{epoch}:
+    $ref: "./apis/beacon/rewards/attestations.yaml"
   /eth/v1/beacon/blinded_blocks/{block_id}:
     $ref: "./apis/beacon/blocks/blinded_block.yaml"
   /eth/v1/beacon/light_client/bootstrap/{block_root}:
@@ -187,6 +200,8 @@ components:
       $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/BeaconBlock'
+    DepositSnapshotResponse:
+      $ref: './types/api.yaml#/DepositSnapshotResponse'
     SignedBeaconBlock:
       $ref: './types/block.yaml#/SignedBeaconBlock'
     SignedBeaconBlockHeader:
@@ -316,6 +331,12 @@ components:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
+    SyncCommitteeRewards:
+      $ref: './types/rewards.yaml#/SyncCommitteeRewards'
+    BlockRewards:
+      $ref: './types/rewards.yaml#/BlockRewards'
+    AttestationsRewards:
+      $ref: './types/rewards.yaml#/AttestationsRewards'
 
   parameters:
     StateId:
