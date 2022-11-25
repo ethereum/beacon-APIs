@@ -26,15 +26,11 @@ get:
           schema:
             title: getSyncCommitteeRootsByRangeResponse
             type: object
-            data:
-              type: array
-              items:
-                type: object
-                properties:
-                  root:
-                      allOf:
-                        - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
-                        - description: HashTreeRoot of SyncCommittee object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
     "400":
       description: Malformed or missing request parameter
       content:
