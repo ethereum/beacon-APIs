@@ -1,0 +1,59 @@
+get:
+  operationId: getLightClientInstantUpdate
+  summary: Get a `LightClientInstantUpdate` for the given (recent) block header
+  description: |
+    Requests the best [`LightClientInstantUpdate`](../../../types/altair/light_client.yaml#/Altair/LightClientInstantUpdate) known by the server for the given block header.
+    Depending on the `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
+
+    Servers providing this endpoint SHOULD always listen to the sync committee signature gossip and collect individual signatures. On request the best BLS
+    signature is aggregated and returned for the specified (recent) block header. When a new block appears, the previously known best sync aggregate for its
+    parent is compared against the sync aggregate found in the new block and replaced if the canonical one is better. Best sync aggregates are retained and
+    served for the 16 most recent slots.
+    Note that since always listening to the signature gossip costs some resources, it is acceptable to only start listening once this endpoint is called
+    and stop listening if it is not called for an extended period of time.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_root
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockRoot'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetLightClientInstantUpdateResponse
+            type: object
+            properties:
+              version:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientInstantUpdate'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `LightClientInstantUpdate` bytes. Use Accept header to choose this response type"
+    "404":
+      description: "No `LightClientInstantUpdate` is available for given block root"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "LC instant update unavailable"
+    "406":
+      description: Unacceptable media type
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 406
+              message: "Accepted media type not supported"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

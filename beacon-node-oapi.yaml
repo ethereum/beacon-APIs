@@ -113,6 +113,8 @@ paths:
     $ref: "./apis/beacon/light_client/finality_update.yaml"
   /eth/v1/beacon/light_client/optimistic_update:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
+  /eth/v0/beacon/light_client/instant_update:
+    $ref: "./apis/beacon/light_client/instant_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
   /eth/v1/beacon/pool/attester_slashings:
@@ -280,6 +282,8 @@ components:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
     Altair.LightClientOptimisticUpdate:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
+    Altair.LightClientInstantUpdate:
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientInstantUpdate'
     Altair.SignedBeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.BeaconBlock:

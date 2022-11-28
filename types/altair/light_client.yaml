@@ -75,3 +75,18 @@ Altair:
         $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
       signature_slot:
         $ref: '../primitive.yaml#/Uint64'
+  LightClientInstantUpdate:
+    type: object
+    properties:
+      best_sync_aggregate:
+        allOf:
+          - $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
+          - description: "Best available sync aggregate for requested header"
+      signature_slot:
+        allOf:
+          - $ref: '../primitive.yaml#/Uint64'
+          - description: "Signature slot of the best sync aggregate"
+      new_head_header:
+        allOf:
+          - $ref: '../block.yaml#/BeaconBlockHeader'
+          - description: "Latest head block header (only present if not the same as the one the sync aggregate refers to)"
