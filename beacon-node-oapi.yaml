@@ -175,8 +175,6 @@ paths:
     $ref: "./apis/validator/aggregate_and_proofs.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
-  /eth/v2/validator/beacon_committee_subscriptions:
-    $ref: "./apis/validator/beacon_committee_subscriptions.v2.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
     $ref: "./apis/validator/sync_committee_subscriptions.yaml"
   /eth/v1/validator/beacon_committee_selections:
@@ -363,6 +361,8 @@ components:
       $ref: './types/http.yaml#/UnsupportedMediaType'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
+    NotImplementedError:
+      $ref: './types/http.yaml#/NotImplementedError'
     CurrentlySyncing:
       $ref: './types/http.yaml#/CurrentlySyncing'
 

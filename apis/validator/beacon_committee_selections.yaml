@@ -1,9 +1,14 @@
 post:
   operationId: "submitBeaconCommitteeSelections"
-  summary: Submit beacon committee selections
+  summary: Determine if a distributed validator has been selected to aggregate
   description: |
-    Submit beacon committee selections to a DVT middleware client.
-    It returns the threshold aggregated beacon committee selection.
+    This endpoint should be used by a validator client running as 
+    part of a distributed validator cluster, and is implemented 
+    by a distributed validator middleware client. This endpoint is 
+    used to exchange partial selection proof slot signatures for 
+    combined/aggregated selection proofs to allow a validator client 
+    to correctly determine if one of its validators has been selected 
+    to perform an aggregation duty in this slot. 
   tags:
     - Validator
   requestBody:
@@ -34,5 +39,7 @@ post:
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "501":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotImplementedError'
     "503":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

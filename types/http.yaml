@@ -39,6 +39,28 @@ InternalError:
       example:
         code: 500
         message: "Internal server error"
+NotImplementedError:
+  description: "Endpoint not implemented."
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          code:
+            description: "Either specific error code in case of invalid request or http status code"
+            type: number
+            example: 501
+          message:
+            description: "Message describing error"
+            type: string
+          stacktraces:
+            description: "Optional stacktraces, sent when node is in debug mode"
+            type: array
+            items:
+              type: string
+      example:
+        code: 501
+        message: "Endpoint not implemented."
 CurrentlySyncing:
   description: "Beacon node is currently syncing, try again later."
   content:

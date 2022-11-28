@@ -8,11 +8,11 @@ BeaconCommitteeSelection:
     slot:
       allOf:
         - $ref: './primitive.yaml#/Uint64'
-        - description: "Should be the slot at which validator is assigned to attest"
+        - description: "The slot at which a validator is assigned to attest"
     selection_proof:
       allOf:
         - $ref: './primitive.yaml#/Signature'
-        - description: "The slot_signature calculated by the validator for the upcoming attestation slot"
+        - description: "The `slot_signature` calculated by the validator for the upcoming attestation slot"
 
 SyncCommitteeSelection:
   type: object
@@ -24,7 +24,7 @@ SyncCommitteeSelection:
     slot:
       allOf:
         - $ref: './primitive.yaml#/Uint64'
-        - description: "Should be the slot at which validator is assigned to produce sync committee contribution"
+        - description: "The slot at which validator is assigned to produce a sync committee contribution"
     subcommittee_index:
       allOf:
         - $ref: './primitive.yaml#/Uint64'
@@ -32,4 +32,4 @@ SyncCommitteeSelection:
     selection_proof:
       allOf:
         - $ref: './primitive.yaml#/Signature'
-        - description: "The slot_signature calculated by the validator for the upcoming sync committee slot"
+        - description: "The `slot_signature` calculated by the validator for the upcoming sync committee slot"

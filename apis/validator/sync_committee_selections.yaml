@@ -1,9 +1,16 @@
 post:
   operationId: "submitSyncCommitteeSelections"
-  summary: Submit sync committee selections
+  summary: Detemine if a distributed validator has been selected to make a sync committee contribution
   description: |
     Submit sync committee selections to a DVT middleware client.
     It returns the threshold aggregated sync committee selection.
+    This endpoint should be used by a validator client running as 
+    part of a distributed validator cluster, and is implemented 
+    by a distributed validator middleware client. This endpoint is 
+    used to exchange partial selection proof slot signatures for 
+    combined/aggregated selection proofs to allow a validator client 
+    to correctly determine if one of its validators has been selected 
+    to perform a sync committee contribution (sync aggregation) duty in this slot.
   tags:
     - Validator
   requestBody:
