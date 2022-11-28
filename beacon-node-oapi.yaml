@@ -113,7 +113,7 @@ paths:
     $ref: "./apis/beacon/light_client/finality_update.yaml"
   /eth/v1/beacon/light_client/optimistic_update:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
-  /eth/v0/beacon/light_client/instant_update:
+  /eth/v0/beacon/light_client/instant_update/{block_root}:
     $ref: "./apis/beacon/light_client/instant_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
