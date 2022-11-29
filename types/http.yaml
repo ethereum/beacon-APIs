@@ -60,7 +60,7 @@ NotImplementedError:
               type: string
       example:
         code: 501
-        message: "Endpoint not implemented."
+        message: "Endpoint not implemented"
 CurrentlySyncing:
   description: "Beacon node is currently syncing, try again later."
   content:

@@ -1,6 +1,6 @@
 post:
   operationId: "submitSyncCommitteeSelections"
-  summary: Detemine if a distributed validator has been selected to make a sync committee contribution
+  summary: Determine if a distributed validator has been selected to make a sync committee contribution
   description: |
     Submit sync committee selections to a DVT middleware client. It returns the threshold aggregated sync 
     committee selection. This endpoint should be used by a validator client running as part of a distributed 
