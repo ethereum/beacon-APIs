@@ -311,7 +311,7 @@ components:
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
-      enum: [phase0, altair, bellatrix, capella]
+      enum: [phase0, altair, bellatrix, capella, eip4844]
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -325,6 +325,14 @@ components:
       $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
     Capella.SignedBlindedBeaconBlock:
       $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
+    Eip4844.BeaconBlock:
+      $ref: './types/eip4844/block.yaml#/Eip4844/BeaconBlock'
+    Eip4844.SignedBeaconBlock:
+      $ref: './types/eip4844/block.yaml#/Eip4844/SignedBeaconBlock'
+    Eip4844.BlindedBeaconBlock:
+      $ref: './types/eip4844/block.yaml#/Eip4844/BlindedBeaconBlock'
+    Eip4844.SignedBlindedBeaconBlock:
+      $ref: './types/eip4844/block.yaml#/Eip4844/SignedBlindedBeaconBlock'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
