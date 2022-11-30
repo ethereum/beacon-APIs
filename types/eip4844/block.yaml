@@ -54,7 +54,7 @@ Eip4844:
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/Eip4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec."
     allOf:
-      - $ref: './block.yaml#/Eip4844/BeaconBlockCommon'
+      - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
         properties:
           body:
