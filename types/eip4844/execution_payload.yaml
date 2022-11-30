@@ -40,9 +40,9 @@ Eip4844:
       - type: object
         properties:
           transactions:
-            $ref: './transactions.yaml#/Eip4844/Transactions'
+            $ref: '../capella/transactions.yaml#/Capella/Transactions'
           withdrawals:
-            $ref: './withdrawals.yaml#/Eip4844/Withdrawals'
+            $ref: '../capella/withdrawals.yaml#/Capella/Withdrawals'
 
   ExecutionPayloadHeader:
     description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#executionpayloadheader) object from the CL EIP-4844 spec."
