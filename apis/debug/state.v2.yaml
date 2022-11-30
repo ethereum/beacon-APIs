@@ -37,6 +37,7 @@ get:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Eip4844.BeaconState"
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"

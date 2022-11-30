@@ -325,6 +325,8 @@ components:
       $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
     Capella.SignedBlindedBeaconBlock:
       $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
+    Eip4844.BeaconState:
+      $ref: './types/eip4844/state.yaml#/Eip4844/BeaconState'
     Eip4844.BeaconBlock:
       $ref: './types/eip4844/block.yaml#/Eip4844/BeaconBlock'
     Eip4844.SignedBeaconBlock:
