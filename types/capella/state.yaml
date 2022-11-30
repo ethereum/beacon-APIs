@@ -82,12 +82,7 @@ Capella:
         $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
       latest_execution_payload_header:
         $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
-      withdrawal_queue:
-        type: array
-        description: "Withdrawals enqueued in state. Variable length list, maximum  1099511627776 items"
-        items:
-          $ref: '../withdrawal.yaml#/Withdrawal'
       next_withdrawal_index:
         $ref: "../primitive.yaml#/Uint64"
-      next_partial_withdrawal_validator_index:
+      next_withdrawal_validator_index:
         $ref: "../primitive.yaml#/Uint64"
