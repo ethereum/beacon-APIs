@@ -73,6 +73,10 @@ Capella:
         properties:
           execution_payload_header:
             $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
+          bls_to_execution_changes:
+            type: array
+            items:
+              $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
 
   BlindedBeaconBlock:
     description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblock) object from the CL Capella spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
