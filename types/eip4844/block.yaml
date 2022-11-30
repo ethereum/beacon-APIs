@@ -35,7 +35,9 @@ Eip4844:
       sync_aggregate:
         $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
       blob_kzg_commitments:
-        $ref: '../primitive.yaml#/KZGCommitment'
+        type: array
+        items:
+          $ref: '../primitive.yaml#/KZGCommitment'
 
   BeaconBlockBody:
     allOf:
