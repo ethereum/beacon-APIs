@@ -1,0 +1,48 @@
+# Recent Changes
+
+
+## Development Version
+
+These endpoints have been added or updated since the last release.
+
+There are likely to be descriptions etc outside of the list below, but new query parameters, changes to headers, new endpoints should be listed.
+
+| Endpoint | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2)  | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+| --- | --- | --- | --- | --- | --- |
+| #131 #254 NEW `/eth/v1/validator/liveness/{epoch}` | | | | | |
+| #221 `/eth/v1/validator/blinded_blocks/{slot}` added header `ethConsensusVersion` | | | | | |
+| #232 NEW `/eth/v1/debug/fork_choice`
+| #241 NEW `/eth/v1/beacon/blinded_blocks/{block_id}` | | | | | |
+| #242 NEW `/eth/v1/beacon/states/{state_id}/randao` | | | | | |
+| #245 NEW `/eth/v1/beacon/deposit_snapshot` | | | | | |
+| #247 NEW `/eth/v2/beacon/light_client/bootstrap/{block_root}` | | | | | |
+| #247 NEW `/eth/v2/beacon/light_client/updates`| | | | | |
+| #247 NEW `/eth/v2/beacon/light_client/updates` | | | | | |
+| #247 NEW `/eth/v1/beacon/light_client/finality_update`| | | | | |
+| #247 NEW `/eth/v1/beacon/light_client/optimistic_update` | | | | | |
+| #247 NEW `/eth/v1/events:light_client_finality_update` | | | | | |
+| #247 NEW `/eth/v1/events:light_client_optimistic_update` | | | | | |
+| #248 NEW `/eth/v1/beacon/pool/bls_to_execution_changes` | | | | | |
+| #248  add _Capella Types_ | | | | | |
+| #249 `/eth/v1/beacon/blinded_blocks/{block_id}` query parameter `skip_randao_verification` | | | | | |
+| #251 `/eth/v1/node/health` query parameter `syncing_status` | | | | | |
+| #254 add `finalized` to metadata for chain objects | | | | | |
+| #260 NEW `/eth/v1/beacon/rewards/blocks/{block_id}` | | | | | |
+| #260 NEW `/eth/v1/beacon/rewards/attestations/{epoch}` | | | | | |
+| #262 NEW `/eth/v1/beacon/rewards/sync_committee/{block_id}` | | | | | |
+
+
+The Following are no longer in the Standard API, removed since the latest version.
+
+| Endpoint | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2)  | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+| --- | --- | --- | --- | --- | --- |
+| #218 DELETE `/eth/v1/beacon/blocks/{block_id}` | | | | | |
+| #218 DELETE `/eth/v1/debug/beacon/states/{state_id}` | | | | | |
+| #220 DELETE `/eth/v1/validator/blocks/{slot}` | | | | | |
+
+## Version 2.3.0
+
+__Note__ Clients can add notes about level of support for specific endpoints if there are caveats or aspects not implemented.
+
+| Endpoint | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2)  | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+| --- | --- | --- | --- | --- | --- |
