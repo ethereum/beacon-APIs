@@ -1,4 +1,4 @@
-Eip4844:
+EIP4844:
   BeaconState:
     type: object
     description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconstate) object from the Eth2.0 EIP-4844 spec."
@@ -81,7 +81,7 @@ Eip4844:
       next_sync_committee:
         $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
       latest_execution_payload_header:
-        $ref: './execution_payload.yaml#/Eip4844/ExecutionPayloadHeader'
+        $ref: './execution_payload.yaml#/EIP4844/ExecutionPayloadHeader'
       next_withdrawal_index:
         $ref: "../primitive.yaml#/Uint64"
       next_withdrawal_validator_index:

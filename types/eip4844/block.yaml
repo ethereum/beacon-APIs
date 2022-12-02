@@ -1,4 +1,4 @@
-Eip4844:
+EIP4844:
   BeaconBlockBodyCommon:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
@@ -41,42 +41,42 @@ Eip4844:
 
   BeaconBlockBody:
     allOf:
-      - $ref: '#/Eip4844/BeaconBlockBodyCommon'
+      - $ref: '#/EIP4844/BeaconBlockBodyCommon'
       - type: object
         properties:
           execution_payload:
-            $ref: './execution_payload.yaml#/Eip4844/ExecutionPayload'
+            $ref: './execution_payload.yaml#/EIP4844/ExecutionPayload'
           bls_to_execution_changes:
             type: array
             items:
               $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/Eip4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/EIP4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
         properties:
           body:
-            $ref: '#/Eip4844/BeaconBlockBody'
+            $ref: '#/EIP4844/BeaconBlockBody'
 
   SignedBeaconBlock:
     type: object
     description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#signedbeaconblock) object envelope from the CL EIP-4844 spec."
     properties:
       message:
-        $ref: "#/Eip4844/BeaconBlock"
+        $ref: "#/EIP4844/BeaconBlock"
       signature:
         $ref: "../primitive.yaml#/Signature"
 
   BlindedBeaconBlockBody:
     description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconblockbody) object from the CL EIP-4844 spec, which contains a transactions root rather than a full transactions list."
     allOf:
-      - $ref: '#/Eip4844/BeaconBlockBodyCommon'
+      - $ref: '#/EIP4844/BeaconBlockBodyCommon'
       - type: object
         properties:
           execution_payload_header:
-            $ref: './execution_payload.yaml#/Eip4844/ExecutionPayloadHeader'
+            $ref: './execution_payload.yaml#/EIP4844/ExecutionPayloadHeader'
           bls_to_execution_changes:
             type: array
             items:
@@ -89,13 +89,13 @@ Eip4844:
       - type: object
         properties:
           body:
-            $ref: '#/Eip4844/BlindedBeaconBlockBody'
+            $ref: '#/EIP4844/BlindedBeaconBlockBody'
 
   SignedBlindedBeaconBlock:
     type: object
     description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#signedbeaconblock) object envelope from the CL EIP-4844 spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
     properties:
       message:
-        $ref: "#/Eip4844/BlindedBeaconBlock"
+        $ref: "#/EIP4844/BlindedBeaconBlock"
       signature:
         $ref: "../primitive.yaml#/Signature"
