@@ -23,7 +23,7 @@ get:
 post:
   operationId: submitPoolBLSToExecutionChange
   summary: Submit SignedBLSToExecutionChange object to node's pool
-  description: Submits SignedBLSToExecutionChange object to node's pool and if passes validation node MUST broadcast it to network.
+  description: Submits a list of SignedBLSToExecutionChange objects to node's pool. Any that pass validation MUST be broadcast to the network.
   tags:
     - Beacon
   requestBody:
@@ -31,18 +31,46 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
   responses:
     "200":
-      description: BLS to execution change is stored in node and broadcasted to network
+      description: "An array of results, presented in the same order as the submission"
+      content:
+        application/json:
+          schema:
+            title: submitPoolBLSToExecutionChangeResponse
+            type: object
+            required: [data]
+            properties:
+              data:
+                type: array
+                description: The result of each blsToExecutionChange submitted, in order of submission
+                items:
+                  type: object
+                  required: [status]
+                  properties:
+                    status:
+                      type: string
+                      description: |
+                        - accepted: The bls_to_execution_change was accepted, placed in the local pool, and broadcast to the network
+                        - error: The bls_to_execution_change was not accepted. More context may be supplied in the associated message.
+                      enum:
+                        - accepted
+                        - error
+                      example: accepted
+                    message:
+                      type: string
+                      description: error message if status == error
     "400":
-      description: "Invalid BLS to execution change"
+      description: "Unable to read the supplied JSON data"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
             example:
               code: 400
-              message: "Invalid BLS to execution change, it will never pass validation so it's rejected"
+              message: "The supplied JSON did not match the expected format of a list of SignedBlsToExecutionChanges."
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
