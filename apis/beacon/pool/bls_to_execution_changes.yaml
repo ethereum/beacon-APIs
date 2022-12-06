@@ -36,41 +36,13 @@ post:
             $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
   responses:
     "200":
-      description: "An array of results, presented in the same order as the submission"
-      content:
-        application/json:
-          schema:
-            title: submitPoolBLSToExecutionChangeResponse
-            type: object
-            required: [data]
-            properties:
-              data:
-                type: array
-                description: The result of each blsToExecutionChange submitted, in order of submission
-                items:
-                  type: object
-                  required: [status]
-                  properties:
-                    status:
-                      type: string
-                      description: |
-                        - accepted: The bls_to_execution_change was accepted, placed in the local pool, and broadcast to the network
-                        - error: The bls_to_execution_change was not accepted. More context may be supplied in the associated message.
-                      enum:
-                        - accepted
-                        - error
-                      example: accepted
-                    message:
-                      type: string
-                      description: error message if status == error
+      description: "Bls to execution changes were all stored to the pool and broadcast on the appropriate subnet."
     "400":
-      description: "Unable to read the supplied JSON data"
+      description: "Errors in one or more bls to execution changes"
       content:
         application/json:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "The supplied JSON did not match the expected format of a list of SignedBlsToExecutionChanges."
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
