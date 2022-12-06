@@ -67,13 +67,7 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        layout: "StandaloneLayout",
-        requestInterceptor: function() {
-          if(this.url.startsWith("http")) {
-            this.url = "https://api.allorigins.win/raw?url=" + this.url; // will change the URL used.
-          }
-          return this;
-        }
+        layout: "StandaloneLayout"
    })
       // End Swagger UI call region
 
