@@ -23,7 +23,7 @@ get:
 post:
   operationId: submitPoolBLSToExecutionChange
   summary: Submit SignedBLSToExecutionChange object to node's pool
-  description: Submits SignedBLSToExecutionChange object to node's pool and if passes validation node MUST broadcast it to network.
+  description: Submits a list of SignedBLSToExecutionChange objects to node's pool. Any that pass validation MUST be broadcast to the network.
   tags:
     - Beacon
   requestBody:
@@ -31,18 +31,18 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
   responses:
     "200":
-      description: BLS to execution change is stored in node and broadcasted to network
+      description: "Bls to execution changes were all stored to the pool and broadcast on the appropriate subnet."
     "400":
-      description: "Invalid BLS to execution change"
+      description: "Errors in one or more bls to execution changes"
       content:
         application/json:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid BLS to execution change, it will never pass validation so it's rejected"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
