@@ -1,0 +1,38 @@
+EIP4844:
+  SignedBeaconBlockAndBlobsSidecar:
+    type: object
+    description: "The `SignedBeaconBlockAndBlobsSidecar` object from the EIP-4844 CL spec."
+    properties:
+      beacon_block:
+        $ref: "./block.yaml#/EIP4844/SignedBeaconBlock"
+      blobs_sidecar:
+        $ref: "#/EIP4844/BlobsSidecar"
+      
+  BlobsSidecar:
+    type: object
+    description: "The `BlobsSidecar` object from the EIP-4844 CL spec."
+    properties:
+      beacon_block_root:
+        $ref: "../types/primitive.yaml#/Root"
+      beacon_block_slot:
+        $ref: "../types/primitive.yaml#/Uint64"
+      blobs:
+        type: array
+        maxItems: 16
+        minItems: 0
+        items:
+          $ref: "#/EIP4844/Blob"
+      kzg_aggregated_proof: 
+        $ref: "#/EIP4844/KZGProof"
+
+  KZGProof:
+    type: string
+    format: hex
+    pattern: "^0x[a-fA-F0-9]{96}$"
+    description: "An aggregated KZG proof. Same check as `KZGCommitment`"
+
+  Blob:
+    type: string
+    format: hex
+    pattern: "^0x[a-fA-F0-9]{262144}$"
+    description: "A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in EIP-4844"
