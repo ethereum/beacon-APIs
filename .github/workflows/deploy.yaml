@@ -6,7 +6,35 @@ on:
       - "master"
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      releases: ${{ steps.releases.outputs.releases }}
+    steps:
+      - id: releases
+        run: |
+          echo "releases=$(curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "X-GitHub-Api-Version: 2022-11-28" "https://api.github.com/repos/${{github.repository}}/releases?per_page=100" | jq -c '[.[].tag_name]')" >> $GITHUB_OUTPUT
+  releases:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        release: ${{fromJson(needs.setup.outputs.releases)}}
+    steps:
+      - uses: dsaltares/fetch-gh-release-asset@1.1.0
+        with:
+          version: 'tags/${{ matrix.release }}'
+          file: 'beacon-node-oapi.json'
+          target: 'deploy/releases/${{ matrix.release }}/beacon-node-oapi.json'
+      - name: Save releases (artifact)
+        uses: actions/upload-artifact@v3
+        with:
+          name: releases
+          retention-days: 7
+          path: |
+            deploy/releases
   deploy:
+    needs: releases
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -17,7 +45,12 @@ jobs:
           mkdir ./deploy
           cp -r dist ./deploy
           cp -r assets ./deploy
-          cp -r index.html ./deploy
+          cp index.html ./deploy
+      - name: Restore releases
+        uses: actions/download-artifact@v3
+        with:
+          name: releases
+          path: deploy/releases
       - name: Bundle spec
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Publish to Github Pages
