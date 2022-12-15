@@ -47,6 +47,7 @@ Capella:
     allOf:
       - $ref: '#/Capella/ExecutionPayloadCommon'
       - type: object
+        additionalProperties: false
         properties:
           transactions_root:
             $ref: '../primitive.yaml#/Root'

@@ -13,9 +13,9 @@ EIP4844:
     description: "The `BlobsSidecar` object from the EIP-4844 CL spec."
     properties:
       beacon_block_root:
-        $ref: "../types/primitive.yaml#/Root"
+        $ref: "../primitive.yaml#/Root"
       beacon_block_slot:
-        $ref: "../types/primitive.yaml#/Uint64"
+        $ref: "../primitive.yaml#/Uint64"
       blobs:
         type: array
         maxItems: 16
