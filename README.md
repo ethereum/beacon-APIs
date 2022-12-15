@@ -84,5 +84,5 @@ https://www.npmjs.com/package/@chainsafe/eth2.0-api-wrapper
 In SwaggerUIBundle configuration (inside index.html file), add another entry in "urls" field (SwaggerUI will load first item as default).
 Entry should be in following format(replace `<tag>` with real tag name from step 1.):
 ```javascript
-         {url: "https://github.com/ethereum/beacon-APIs/releases/download/<tag>/beacon-node-oapi.yaml", name: "<tag>"},
+         {url: "./releases/<tag>/beacon-node-oapi.json", name: "<tag>"},
 ```
