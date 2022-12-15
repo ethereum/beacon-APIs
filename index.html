@@ -47,11 +47,11 @@
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
         urls: [
-          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v2.3.0/beacon-node-oapi.json", name: "v2.3.0"},
-          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v2.2.0/beacon-node-oapi.json", name: "v2.2.0"},
-          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v2.1.0/beacon-node-oapi.json", name: "v2.1.0"},
-          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v2.0.0/beacon-node-oapi.json", name: "v2.0.0"},
-          {url: "https://github.com/ethereum/beacon-APIs/releases/download/v1/beacon-node-oapi.yaml", name: "v1"},
+          {url: "./releases/v2.3.0/beacon-node-oapi.json", name: "v2.3.0"},
+          {url: "./releases/v2.2.0/beacon-node-oapi.json", name: "v2.2.0"},
+          {url: "./releases/v2.1.0/beacon-node-oapi.json", name: "v2.1.0"},
+          {url: "./releases/v2.0.0/beacon-node-oapi.json", name: "v2.0.0"},
+          {url: "./releases/v1/beacon-node-oapi.json", name: "v1"},
           {url: "./beacon-node-oapi.yaml", name: "dev"}
         ],
         basePath: "/",
@@ -67,13 +67,7 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        layout: "StandaloneLayout",
-        requestInterceptor: function() {
-          if(this.url.startsWith("http")) {
-            this.url = "https://api.allorigins.win/raw?url=" + this.url; // will change the URL used.
-          }
-          return this;
-        }
+        layout: "StandaloneLayout"
    })
       // End Swagger UI call region
 
