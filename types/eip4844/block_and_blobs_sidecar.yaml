@@ -1,13 +1,4 @@
 EIP4844:
-  SignedBeaconBlockAndBlobsSidecar:
-    type: object
-    description: "The `SignedBeaconBlockAndBlobsSidecar` object from the EIP-4844 CL spec."
-    properties:
-      beacon_block:
-        $ref: "./block.yaml#/EIP4844/SignedBeaconBlock"
-      blobs_sidecar:
-        $ref: "#/EIP4844/BlobsSidecar"
-      
   BlobsSidecar:
     type: object
     description: "The `BlobsSidecar` object from the EIP-4844 CL spec."
@@ -18,7 +9,7 @@ EIP4844:
         $ref: "../primitive.yaml#/Uint64"
       blobs:
         type: array
-        maxItems: 16
+        maxItems: 4
         minItems: 0
         items:
           $ref: "#/EIP4844/Blob"
