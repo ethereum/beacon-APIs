@@ -34,6 +34,10 @@ EIP4844:
           $ref: '../voluntary_exit.yaml#/SignedVoluntaryExit'
       sync_aggregate:
         $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      bls_to_execution_changes:
+        type: array
+        items:
+          $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
       blob_kzg_commitments:
         type: array
         items:
@@ -46,10 +50,6 @@ EIP4844:
         properties:
           execution_payload:
             $ref: './execution_payload.yaml#/EIP4844/ExecutionPayload'
-          bls_to_execution_changes:
-            type: array
-            items:
-              $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
 
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/EIP4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec."
@@ -77,10 +77,6 @@ EIP4844:
         properties:
           execution_payload_header:
             $ref: './execution_payload.yaml#/EIP4844/ExecutionPayloadHeader'
-          bls_to_execution_changes:
-            type: array
-            items:
-              $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
 
   BlindedBeaconBlock:
     description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
