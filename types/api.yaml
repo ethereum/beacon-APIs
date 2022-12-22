@@ -81,3 +81,9 @@ Committee:
       description: "List of validator indices assigned to this committee"
       items:
         $ref: './primitive.yaml#/Uint64'
+
+Version:
+  description: Fork name
+  type: string
+  enum: [phase0, altair, bellatrix, capella]
+  example: "phase0"

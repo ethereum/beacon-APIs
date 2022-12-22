@@ -13,6 +13,8 @@ get:
             title: GetPoolBLSToExecutionChangesResponse
             type: object
             properties:
+              version:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Version'
               data:
                 type: array
                 items:
