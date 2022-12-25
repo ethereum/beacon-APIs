@@ -1,8 +1,8 @@
-Capella:
+EIP4844:
   BeaconBlockBodyCommon:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblockbody) object from the CL Capella spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconblockbody) object from the CL EIP-4844 spec."
     properties:
       randao_reveal:
         allOf:
@@ -38,56 +38,60 @@ Capella:
         type: array
         items:
           $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
+      blob_kzg_commitments:
+        type: array
+        items:
+          $ref: '../primitive.yaml#/KZGCommitment'
 
   BeaconBlockBody:
     allOf:
-      - $ref: '#/Capella/BeaconBlockBodyCommon'
+      - $ref: '#/EIP4844/BeaconBlockBodyCommon'
       - type: object
         properties:
           execution_payload:
-            $ref: './execution_payload.yaml#/Capella/ExecutionPayload'
+            $ref: './execution_payload.yaml#/EIP4844/ExecutionPayload'
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/Capella/beacon-chain.md#beaconblock) object from the CL Capella spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/EIP4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
         properties:
           body:
-            $ref: '#/Capella/BeaconBlockBody'
+            $ref: '#/EIP4844/BeaconBlockBody'
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#signedbeaconblock) object envelope from the CL EIP-4844 spec."
     properties:
       message:
-        $ref: "#/Capella/BeaconBlock"
+        $ref: "#/EIP4844/BeaconBlock"
       signature:
         $ref: "../primitive.yaml#/Signature"
 
   BlindedBeaconBlockBody:
-    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblockbody) object from the CL Capella spec, which contains a transactions root rather than a full transactions list."
+    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconblockbody) object from the CL EIP-4844 spec, which contains a transactions root rather than a full transactions list."
     allOf:
-      - $ref: '#/Capella/BeaconBlockBodyCommon'
+      - $ref: '#/EIP4844/BeaconBlockBodyCommon'
       - type: object
         properties:
           execution_payload_header:
-            $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
+            $ref: './execution_payload.yaml#/EIP4844/ExecutionPayloadHeader'
 
   BlindedBeaconBlock:
-    description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblock) object from the CL Capella spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconblock) object from the CL EIP-4844 spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
         properties:
           body:
-            $ref: '#/Capella/BlindedBeaconBlockBody'
+            $ref: '#/EIP4844/BlindedBeaconBlockBody'
 
   SignedBlindedBeaconBlock:
     type: object
-    description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#signedbeaconblock) object envelope from the CL EIP-4844 spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
     properties:
       message:
-        $ref: "#/Capella/BlindedBeaconBlock"
+        $ref: "#/EIP4844/BlindedBeaconBlock"
       signature:
         $ref: "../primitive.yaml#/Signature"
