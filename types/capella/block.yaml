@@ -79,7 +79,7 @@ Capella:
               $ref: '../bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
 
   BlindedBeaconBlock:
-    description: "A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblock) object from the CL Capella spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconblock) object from the CL Capella spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
@@ -89,7 +89,7 @@ Capella:
 
   SignedBlindedBeaconBlock:
     type: object
-    description: "A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
     properties:
       message:
         $ref: "#/Capella/BlindedBeaconBlock"
