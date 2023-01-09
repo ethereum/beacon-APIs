@@ -31,7 +31,7 @@ Altair:
     type: object
     properties:
       header:
-        $ref: '#/LightClientHeader'
+        $ref: '#/Altair/LightClientHeader'
       current_sync_committee:
         $ref: './sync_committee.yaml#/Altair/SyncCommittee'
       current_sync_committee_branch:
@@ -40,13 +40,13 @@ Altair:
     type: object
     properties:
       attested_header:
-        $ref: '#/LightClientHeader'
+        $ref: '#/Altair/LightClientHeader'
       next_sync_committee:
         $ref: './sync_committee.yaml#/Altair/SyncCommittee'
       next_sync_committee_branch:
         $ref: '#/Altair/NextSyncCommitteeBranch'
       finalized_header:
-        $ref: '#/LightClientHeader'
+        $ref: '#/Altair/LightClientHeader'
       finality_branch:
         $ref: '#/Altair/FinalityBranch'
       sync_aggregate:
@@ -57,9 +57,9 @@ Altair:
     type: object
     properties:
       attested_header:
-        $ref: '#/LightClientHeader'
+        $ref: '#/Altair/LightClientHeader'
       finalized_header:
-        $ref: '#/LightClientHeader'
+        $ref: '#/Altair/LightClientHeader'
       finality_branch:
         $ref: '#/Altair/FinalityBranch'
       sync_aggregate:
@@ -70,7 +70,7 @@ Altair:
     type: object
     properties:
       attested_header:
-        $ref: '#/LightClientHeader'
+        $ref: '#/Altair/LightClientHeader'
       sync_aggregate:
         $ref: './sync_aggregate.yaml#/Altair/SyncAggregate'
       signature_slot:
