@@ -95,6 +95,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v1/beacon/blobs_sidecars/{block_id}:
+    $ref: "./apis/beacon/blobs_sidecars/blobs_sidecar.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
   /eth/v1/beacon/deposit_snapshot:
@@ -198,6 +200,8 @@ components:
       $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/BeaconBlock'
+    BlobsSidecar:
+      $ref: './types/blobs_sidecar.yaml#/BlobsSidecar'
     DepositSnapshotResponse:
       $ref: './types/api.yaml#/DepositSnapshotResponse'
     SignedBeaconBlock:
