@@ -11,7 +11,6 @@ get:
   parameters:
     - name: source
       in: query
-      default: block
       description: |
         Source to produce retrieve the SyncAggregate from. Valid values are:
         - `block` (default): Get SyncAggregate from current's head block body, `body.sync_aggregate`
@@ -25,7 +24,7 @@ get:
           and `beacon_block_root == head_root`. After receiving a `signatures` request, the node SHOULD subscribe to
           all sync committee subnets.
       schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/SyncAggregateSource"
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SyncAggregateSource"
   responses:
     "200":
       description: Success
