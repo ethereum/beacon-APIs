@@ -335,6 +335,8 @@ components:
       $ref: './types/rewards.yaml#/BlockRewards'
     AttestationsRewards:
       $ref: './types/rewards.yaml#/AttestationsRewards'
+    SyncAggregateSource:
+      $ref: './types/api.yaml#/SyncAggregateSource'
 
   parameters:
     StateId:
