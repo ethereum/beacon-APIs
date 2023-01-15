@@ -11107,43 +11107,46 @@ paths:
                     type: object
                     properties:
                       header:
-                        description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-                        allOf:
-                          - type: object
-                            properties:
-                              slot:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: The slot to which this block corresponds.
-                              proposer_index:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: Index of validator in validator registry.
-                              parent_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The signing merkle root of the parent `BeaconBlock`.
-                              state_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-                          - type: object
-                            properties:
-                              body_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                        type: object
+                        properties:
+                          beacon:
+                            description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                            allOf:
+                              - type: object
+                                properties:
+                                  slot:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: The slot to which this block corresponds.
+                                  proposer_index:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: Index of validator in validator registry.
+                                  parent_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The signing merkle root of the parent `BeaconBlock`.
+                                  state_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                              - type: object
+                                properties:
+                                  body_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                       current_sync_committee:
                         type: object
                         properties:
@@ -11311,43 +11314,46 @@ paths:
                       type: object
                       properties:
                         attested_header:
-                          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-                          allOf:
-                            - type: object
-                              properties:
-                                slot:
-                                  allOf:
-                                    - type: string
-                                      example: '1'
-                                    - description: The slot to which this block corresponds.
-                                proposer_index:
-                                  allOf:
-                                    - type: string
-                                      example: '1'
-                                    - description: Index of validator in validator registry.
-                                parent_root:
-                                  allOf:
-                                    - type: string
-                                      format: hex
-                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                      pattern: '^0x[a-fA-F0-9]{64}$'
-                                    - description: The signing merkle root of the parent `BeaconBlock`.
-                                state_root:
-                                  allOf:
-                                    - type: string
-                                      format: hex
-                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                      pattern: '^0x[a-fA-F0-9]{64}$'
-                                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-                            - type: object
-                              properties:
-                                body_root:
-                                  allOf:
-                                    - type: string
-                                      format: hex
-                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                      pattern: '^0x[a-fA-F0-9]{64}$'
-                                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                          type: object
+                          properties:
+                            beacon:
+                              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                              allOf:
+                                - type: object
+                                  properties:
+                                    slot:
+                                      allOf:
+                                        - type: string
+                                          example: '1'
+                                        - description: The slot to which this block corresponds.
+                                    proposer_index:
+                                      allOf:
+                                        - type: string
+                                          example: '1'
+                                        - description: Index of validator in validator registry.
+                                    parent_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: The signing merkle root of the parent `BeaconBlock`.
+                                    state_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                                - type: object
+                                  properties:
+                                    body_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                         next_sync_committee:
                           type: object
                           properties:
@@ -11379,43 +11385,46 @@ paths:
                           minItems: 5
                           maxItems: 5
                         finalized_header:
-                          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-                          allOf:
-                            - type: object
-                              properties:
-                                slot:
-                                  allOf:
-                                    - type: string
-                                      example: '1'
-                                    - description: The slot to which this block corresponds.
-                                proposer_index:
-                                  allOf:
-                                    - type: string
-                                      example: '1'
-                                    - description: Index of validator in validator registry.
-                                parent_root:
-                                  allOf:
-                                    - type: string
-                                      format: hex
-                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                      pattern: '^0x[a-fA-F0-9]{64}$'
-                                    - description: The signing merkle root of the parent `BeaconBlock`.
-                                state_root:
-                                  allOf:
-                                    - type: string
-                                      format: hex
-                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                      pattern: '^0x[a-fA-F0-9]{64}$'
-                                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-                            - type: object
-                              properties:
-                                body_root:
-                                  allOf:
-                                    - type: string
-                                      format: hex
-                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                      pattern: '^0x[a-fA-F0-9]{64}$'
-                                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                          type: object
+                          properties:
+                            beacon:
+                              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                              allOf:
+                                - type: object
+                                  properties:
+                                    slot:
+                                      allOf:
+                                        - type: string
+                                          example: '1'
+                                        - description: The slot to which this block corresponds.
+                                    proposer_index:
+                                      allOf:
+                                        - type: string
+                                          example: '1'
+                                        - description: Index of validator in validator registry.
+                                    parent_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: The signing merkle root of the parent `BeaconBlock`.
+                                    state_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                                - type: object
+                                  properties:
+                                    body_root:
+                                      allOf:
+                                        - type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                         finality_branch:
                           type: array
                           items:
@@ -11459,7 +11468,7 @@ paths:
                   ```
                   Use Accept header to choose this response type
 
-                  For each `response_chunk`, a `ForkDigest`-context based on `compute_fork_version(compute_epoch_at_slot(update.attested_header.slot))` is used to select the fork namespace of the Response type. Note that this `fork_version` may be different from the one used to verify the `update.sync_aggregate`, which is based on `update.signature_slot`.
+                  For each `response_chunk`, a `ForkDigest`-context based on `compute_fork_version(compute_epoch_at_slot(update.attested_header.beacon.slot))` is used to select the fork namespace of the Response type. Note that this `fork_version` may be different from the one used to verify the `update.sync_aggregate`, which is based on `update.signature_slot`.
 
                   Per `context = compute_fork_digest(fork_version, genesis_validators_root)`:
 
@@ -11589,81 +11598,87 @@ paths:
                     type: object
                     properties:
                       attested_header:
-                        description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-                        allOf:
-                          - type: object
-                            properties:
-                              slot:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: The slot to which this block corresponds.
-                              proposer_index:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: Index of validator in validator registry.
-                              parent_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The signing merkle root of the parent `BeaconBlock`.
-                              state_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-                          - type: object
-                            properties:
-                              body_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                        type: object
+                        properties:
+                          beacon:
+                            description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                            allOf:
+                              - type: object
+                                properties:
+                                  slot:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: The slot to which this block corresponds.
+                                  proposer_index:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: Index of validator in validator registry.
+                                  parent_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The signing merkle root of the parent `BeaconBlock`.
+                                  state_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                              - type: object
+                                properties:
+                                  body_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                       finalized_header:
-                        description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-                        allOf:
-                          - type: object
-                            properties:
-                              slot:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: The slot to which this block corresponds.
-                              proposer_index:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: Index of validator in validator registry.
-                              parent_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The signing merkle root of the parent `BeaconBlock`.
-                              state_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-                          - type: object
-                            properties:
-                              body_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                        type: object
+                        properties:
+                          beacon:
+                            description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                            allOf:
+                              - type: object
+                                properties:
+                                  slot:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: The slot to which this block corresponds.
+                                  proposer_index:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: Index of validator in validator registry.
+                                  parent_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The signing merkle root of the parent `BeaconBlock`.
+                                  state_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                              - type: object
+                                properties:
+                                  body_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                       finality_branch:
                         type: array
                         items:
@@ -11803,43 +11818,46 @@ paths:
                     type: object
                     properties:
                       attested_header:
-                        description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-                        allOf:
-                          - type: object
-                            properties:
-                              slot:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: The slot to which this block corresponds.
-                              proposer_index:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - description: Index of validator in validator registry.
-                              parent_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The signing merkle root of the parent `BeaconBlock`.
-                              state_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-                          - type: object
-                            properties:
-                              body_root:
-                                allOf:
-                                  - type: string
-                                    format: hex
-                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                                    pattern: '^0x[a-fA-F0-9]{64}$'
-                                  - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                        type: object
+                        properties:
+                          beacon:
+                            description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                            allOf:
+                              - type: object
+                                properties:
+                                  slot:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: The slot to which this block corresponds.
+                                  proposer_index:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: Index of validator in validator registry.
+                                  parent_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The signing merkle root of the parent `BeaconBlock`.
+                                  state_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                              - type: object
+                                properties:
+                                  body_root:
+                                    allOf:
+                                      - type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                      - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
                       sync_aggregate:
                         type: object
                         description: 'The [`SyncAggregate`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#syncaggregate) object from the CL Altair spec.'
@@ -21638,12 +21656,12 @@ paths:
                   description: The node's latest known `LightClientFinalityUpdate` has been updated
                   value: |
                     event: light_client_finality_update
-                    data: {"version":"phase0", "data": {"attested_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "finalized_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "finality_branch": ["0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"], "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
+                    data: {"version":"phase0", "data": {"attested_header": {"beacon": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}, "finalized_header": {"beacon": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}, "finality_branch": ["0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"], "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
                 light_client_optimistic_update:
                   description: The node's latest known `LightClientOptimisticUpdate` has been updated
                   value: |
                     event: light_client_optimistic_update
-                    data: {"version":"phase0", "data": {"attested_header": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
+                    data: {"version":"phase0", "data": {"attested_header": {"beacon": {"slot":"1", "proposer_index":"1", "parent_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "state_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "body_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}, "sync_aggregate": {"sync_committee_bits":"0x01", "sync_committee_signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}, "signature_slot":"1"}}
         '400':
           description: The topics supplied could not be parsed
           content:
@@ -23902,43 +23920,46 @@ components:
       type: object
       properties:
         header:
-          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-          allOf:
-            - type: object
-              properties:
-                slot:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: The slot to which this block corresponds.
-                proposer_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: Index of validator in validator registry.
-                parent_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The signing merkle root of the parent `BeaconBlock`.
-                state_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-            - type: object
-              properties:
-                body_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+          type: object
+          properties:
+            beacon:
+              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+              allOf:
+                - type: object
+                  properties:
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The slot to which this block corresponds.
+                    proposer_index:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: Index of validator in validator registry.
+                    parent_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The signing merkle root of the parent `BeaconBlock`.
+                    state_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                - type: object
+                  properties:
+                    body_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         current_sync_committee:
           type: object
           properties:
@@ -23973,43 +23994,46 @@ components:
       type: object
       properties:
         attested_header:
-          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-          allOf:
-            - type: object
-              properties:
-                slot:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: The slot to which this block corresponds.
-                proposer_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: Index of validator in validator registry.
-                parent_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The signing merkle root of the parent `BeaconBlock`.
-                state_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-            - type: object
-              properties:
-                body_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+          type: object
+          properties:
+            beacon:
+              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+              allOf:
+                - type: object
+                  properties:
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The slot to which this block corresponds.
+                    proposer_index:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: Index of validator in validator registry.
+                    parent_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The signing merkle root of the parent `BeaconBlock`.
+                    state_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                - type: object
+                  properties:
+                    body_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         next_sync_committee:
           type: object
           properties:
@@ -24041,43 +24065,46 @@ components:
           minItems: 5
           maxItems: 5
         finalized_header:
-          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-          allOf:
-            - type: object
-              properties:
-                slot:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: The slot to which this block corresponds.
-                proposer_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: Index of validator in validator registry.
-                parent_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The signing merkle root of the parent `BeaconBlock`.
-                state_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-            - type: object
-              properties:
-                body_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+          type: object
+          properties:
+            beacon:
+              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+              allOf:
+                - type: object
+                  properties:
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The slot to which this block corresponds.
+                    proposer_index:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: Index of validator in validator registry.
+                    parent_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The signing merkle root of the parent `BeaconBlock`.
+                    state_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                - type: object
+                  properties:
+                    body_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         finality_branch:
           type: array
           items:
@@ -24110,81 +24137,87 @@ components:
       type: object
       properties:
         attested_header:
-          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-          allOf:
-            - type: object
-              properties:
-                slot:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: The slot to which this block corresponds.
-                proposer_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: Index of validator in validator registry.
-                parent_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The signing merkle root of the parent `BeaconBlock`.
-                state_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-            - type: object
-              properties:
-                body_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+          type: object
+          properties:
+            beacon:
+              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+              allOf:
+                - type: object
+                  properties:
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The slot to which this block corresponds.
+                    proposer_index:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: Index of validator in validator registry.
+                    parent_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The signing merkle root of the parent `BeaconBlock`.
+                    state_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                - type: object
+                  properties:
+                    body_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         finalized_header:
-          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-          allOf:
-            - type: object
-              properties:
-                slot:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: The slot to which this block corresponds.
-                proposer_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: Index of validator in validator registry.
-                parent_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The signing merkle root of the parent `BeaconBlock`.
-                state_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-            - type: object
-              properties:
-                body_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+          type: object
+          properties:
+            beacon:
+              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+              allOf:
+                - type: object
+                  properties:
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The slot to which this block corresponds.
+                    proposer_index:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: Index of validator in validator registry.
+                    parent_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The signing merkle root of the parent `BeaconBlock`.
+                    state_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                - type: object
+                  properties:
+                    body_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         finality_branch:
           type: array
           items:
@@ -24217,43 +24250,46 @@ components:
       type: object
       properties:
         attested_header:
-          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
-          allOf:
-            - type: object
-              properties:
-                slot:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: The slot to which this block corresponds.
-                proposer_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - description: Index of validator in validator registry.
-                parent_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The signing merkle root of the parent `BeaconBlock`.
-                state_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
-            - type: object
-              properties:
-                body_root:
-                  allOf:
-                    - type: string
-                      format: hex
-                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                      pattern: '^0x[a-fA-F0-9]{64}$'
-                    - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+          type: object
+          properties:
+            beacon:
+              description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+              allOf:
+                - type: object
+                  properties:
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The slot to which this block corresponds.
+                    proposer_index:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: Index of validator in validator registry.
+                    parent_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The signing merkle root of the parent `BeaconBlock`.
+                    state_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                - type: object
+                  properties:
+                    body_root:
+                      allOf:
+                        - type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                        - description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
         sync_aggregate:
           type: object
           description: 'The [`SyncAggregate`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#syncaggregate) object from the CL Altair spec.'
