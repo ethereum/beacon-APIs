@@ -55,7 +55,7 @@ get:
                 code: 400
                 message: "Missing `count` value"
     "404":
-      description: "One of periods not found"
+      description: "One or more periods could not be found"
       content:
         application/json:
           schema:
