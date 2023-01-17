@@ -15,11 +15,11 @@ get:
         Source to produce retrieve the SyncAggregate from. Valid values are:
         - `block` (default): Get SyncAggregate from current's head block body, `body.sync_aggregate`
 
-        - `signedcontributionandproof_pool`: Construct SyncAggregate from aggregating `SignedContributionAndProof`
+        - `pool_contribution_and_proof`: Construct SyncAggregate from aggregating `SignedContributionAndProof`
           objects in the node's pool received from the gossip topic `sync_committee_contribution_and_proof`.
           MUST aggregate messages with `message.contribution.slot == current_slot` and `message.contribution.beacon_block_root == head_root`.
   
-        - `synccommitteemessage_pool`: Construct SyncAggregate from aggregating `SyncCommitteeMessage` objects in the
+        - `pool_committee_message`: Construct SyncAggregate from aggregating `SyncCommitteeMessage` objects in the
           node's pool received from the gossip topics `sync_committee_{subnet_id}`. MUST aggregate messages with`slot == current_slot`
           and `beacon_block_root == head_root`. After receiving a `signatures` request, the node SHOULD subscribe to
           all sync committee subnets.

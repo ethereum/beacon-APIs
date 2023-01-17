@@ -84,5 +84,5 @@ Committee:
 
 SyncAggregateSource:
   type: string
-  enum: ["block", "signedcontributionandproof_pool", "synccommitteemessage_pool"]
+  enum: ["block", "pool_contribution_and_proof", "pool_committee_message"]
   example: block
