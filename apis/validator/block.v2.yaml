@@ -51,7 +51,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix, capella, eip4844 ]
+                enum: [ phase0, altair, bellatrix, capella, deneb ]
                 example: "phase0"
               data:
                 oneOf:
@@ -59,7 +59,7 @@ get:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/EIP4844.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."

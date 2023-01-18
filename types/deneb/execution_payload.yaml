@@ -1,8 +1,8 @@
-EIP4844:
+Deneb:
   ExecutionPayloadCommon:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#executionpayload) object from the CL EIP-4844 spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayload) object from the CL Deneb spec."
     properties:
       parent_hash:
         $ref: '../primitive.yaml#/Root'
@@ -36,7 +36,7 @@ EIP4844:
 
   ExecutionPayload:
     allOf:
-      - $ref: '#/EIP4844/ExecutionPayloadCommon'
+      - $ref: '#/Deneb/ExecutionPayloadCommon'
       - type: object
         properties:
           transactions:
@@ -45,9 +45,9 @@ EIP4844:
             $ref: '../capella/withdrawals.yaml#/Capella/Withdrawals'
 
   ExecutionPayloadHeader:
-    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#executionpayloadheader) object from the CL EIP-4844 spec."
+    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayloadheader) object from the CL Deneb spec."
     allOf:
-      - $ref: '#/EIP4844/ExecutionPayloadCommon'
+      - $ref: '#/Deneb/ExecutionPayloadCommon'
       - type: object
         properties:
           transactions_root:

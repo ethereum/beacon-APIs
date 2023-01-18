@@ -1,7 +1,7 @@
-EIP4844:
+Deneb:
   BlobsSidecar:
     type: object
-    description: "The `BlobsSidecar` object from the EIP-4844 CL spec."
+    description: "The `BlobsSidecar` object from the Deneb CL spec."
     properties:
       beacon_block_root:
         $ref: "../primitive.yaml#/Root"
@@ -12,9 +12,9 @@ EIP4844:
         maxItems: 4
         minItems: 0
         items:
-          $ref: "#/EIP4844/Blob"
+          $ref: "#/Deneb/Blob"
       kzg_aggregated_proof: 
-        $ref: "#/EIP4844/KZGProof"
+        $ref: "#/Deneb/KZGProof"
 
   KZGProof:
     type: string
@@ -26,4 +26,4 @@ EIP4844:
     type: string
     format: hex
     pattern: "^0x[a-fA-F0-9]{262144}$"
-    description: "A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in EIP-4844"
+    description: "A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb"
