@@ -95,8 +95,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
-  /eth/v1/beacon/blobs_sidecars/{block_id}:
-    $ref: "./apis/beacon/blobs_sidecars/blobs_sidecar.yaml"
+  /eth/v1/beacon/blobs/{block_id}:
+    $ref: "./apis/beacon/blobs/blobs_sidecar.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
   /eth/v1/beacon/deposit_snapshot:
