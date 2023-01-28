@@ -38,7 +38,7 @@ Capella:
       - type: object
         properties:
           transactions:
-            $ref: './transactions.yaml#/Capella/Transactions'
+            $ref: '../bellatrix/transactions.yaml#/Bellatrix/Transactions'
           withdrawals:
             $ref: './withdrawals.yaml#/Capella/Withdrawals'
 

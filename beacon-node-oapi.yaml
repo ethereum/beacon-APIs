@@ -58,7 +58,7 @@ tags:
     description: Endpoints to query rewards and penalties for validators.
   - name: Experimental
     description: Endpoints that are not stable or fully implemented by each client.
-    
+
 paths:
 
   /eth/v1/beacon/genesis:
@@ -272,6 +272,10 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
+    Altair.BeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
+    Altair.SignedBeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.LightClientBootstrap:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientBootstrap'
     Altair.LightClientUpdate:
@@ -280,10 +284,6 @@ components:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
     Altair.LightClientOptimisticUpdate:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
-    Altair.SignedBeaconBlock:
-      $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
-    Altair.BeaconBlock:
-      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.BeaconState:
       $ref: './types/altair/state.yaml#/Altair/BeaconState'
     Altair.SyncCommitteeSignature:
@@ -325,6 +325,14 @@ components:
       $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
     Capella.SignedBlindedBeaconBlock:
       $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
+    Capella.LightClientBootstrap:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientBootstrap'
+    Capella.LightClientUpdate:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientUpdate'
+    Capella.LightClientFinalityUpdate:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate'
+    Capella.LightClientOptimisticUpdate:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
