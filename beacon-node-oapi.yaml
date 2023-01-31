@@ -21894,6 +21894,161 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  /eth/v1/validator/beacon_committee_selections:
+    post:
+      operationId: submitBeaconCommitteeSelections
+      summary: Determine if a distributed validator has been selected to aggregate attestations
+      description: |
+        This endpoint should be used by a validator client running as part of a distributed validator cluster, and is 
+        implemented by a distributed validator middleware client. This endpoint is used to exchange partial 
+        selection proofs for combined/aggregated selection proofs to allow a validator client 
+        to correctly determine if one of its validators has been selected to perform an aggregation duty in this slot. 
+        Consensus clients need not support this endpoint and may return a 501.
+      tags:
+        - Validator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: BeaconCommitteeSelectionRequest
+              type: array
+              items:
+                type: object
+                properties:
+                  validator_index:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: Index of the validator
+                  slot:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: The slot at which a validator is assigned to attest
+                  selection_proof:
+                    allOf:
+                      - type: string
+                        format: hex
+                        pattern: '^0x[a-fA-F0-9]{192}$'
+                        example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                      - description: The `slot_signature` calculated by the validator for the upcoming attestation slot
+      responses:
+        '200':
+          description: |
+            Returns the threshold aggregated beacon committee selection proofs.
+          content:
+            application/json:
+              schema:
+                title: BeaconCommitteeSelectionResponse
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        validator_index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Index of the validator
+                        slot:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: The slot at which a validator is assigned to attest
+                        selection_proof:
+                          allOf:
+                            - type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{192}$'
+                              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                            - description: The `slot_signature` calculated by the validator for the upcoming attestation slot
+        '400':
+          description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+        '501':
+          description: Endpoint not implemented.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 501
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 501
+                message: Endpoint not implemented
+        '503':
+          description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   /eth/v1/validator/sync_committee_contribution:
     get:
       tags:
@@ -22015,6 +22170,151 @@ paths:
               example:
                 code: 404
                 message: Requested item not found
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+        '503':
+          description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
+  /eth/v1/validator/sync_committee_selections:
+    post:
+      operationId: submitSyncCommitteeSelections
+      summary: Determine if a distributed validator has been selected to make a sync committee contribution
+      description: |
+        Submit sync committee selections to a DVT middleware client. It returns the threshold aggregated sync 
+        committee selection. This endpoint should be used by a validator client running as part of a distributed 
+        validator cluster, and is implemented by a distributed validator middleware client. This endpoint is 
+        used to exchange partial selection proof slot signatures for combined/aggregated selection proofs to 
+        allow a validator client to correctly determine if one of its validators has been selected to perform 
+        a sync committee contribution (sync aggregation) duty in this slot. Consensus clients need not support 
+        this endpoint and may return a 501.
+      tags:
+        - Validator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: SyncCommitteeSelectionRequest
+              type: array
+              items:
+                type: object
+                properties:
+                  validator_index:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: Index of the validator
+                  slot:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: The slot at which validator is assigned to produce a sync committee contribution
+                  subcommittee_index:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: SubcommitteeIndex to which the validator is assigned
+                  selection_proof:
+                    allOf:
+                      - type: string
+                        format: hex
+                        pattern: '^0x[a-fA-F0-9]{192}$'
+                        example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                      - description: The `slot_signature` calculated by the validator for the upcoming sync committee slot
+      responses:
+        '200':
+          description: |
+            Returns the threshold aggregated sync committee selection proofs.
+          content:
+            application/json:
+              schema:
+                title: SyncCommitteeSelectionResponse
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        validator_index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Index of the validator
+                        slot:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: The slot at which validator is assigned to produce a sync committee contribution
+                        subcommittee_index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: SubcommitteeIndex to which the validator is assigned
+                        selection_proof:
+                          allOf:
+                            - type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{192}$'
+                              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                            - description: The `slot_signature` calculated by the validator for the upcoming sync committee slot
+        '400':
+          description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -24589,6 +24889,51 @@ components:
               format: hex
               example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
               pattern: '^0x[a-fA-F0-9]{64}$'
+    BeaconCommitteeSelection:
+      type: object
+      properties:
+        validator_index:
+          allOf:
+            - type: string
+              example: '1'
+            - description: Index of the validator
+        slot:
+          allOf:
+            - type: string
+              example: '1'
+            - description: The slot at which a validator is assigned to attest
+        selection_proof:
+          allOf:
+            - type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{192}$'
+              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+            - description: The `slot_signature` calculated by the validator for the upcoming attestation slot
+    SyncCommitteeSelection:
+      type: object
+      properties:
+        validator_index:
+          allOf:
+            - type: string
+              example: '1'
+            - description: Index of the validator
+        slot:
+          allOf:
+            - type: string
+              example: '1'
+            - description: The slot at which validator is assigned to produce a sync committee contribution
+        subcommittee_index:
+          allOf:
+            - type: string
+              example: '1'
+            - description: SubcommitteeIndex to which the validator is assigned
+        selection_proof:
+          allOf:
+            - type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{192}$'
+              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+            - description: The `slot_signature` calculated by the validator for the upcoming sync committee slot
     Fork:
       type: object
       description: 'The [`Fork`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#fork) object from the CL spec.'
@@ -33009,6 +33354,28 @@ components:
           example:
             code: 500
             message: Internal server error
+    NotImplementedError:
+      description: Endpoint not implemented.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                description: Either specific error code in case of invalid request or http status code
+                type: number
+                example: 501
+              message:
+                description: Message describing error
+                type: string
+              stacktraces:
+                description: 'Optional stacktraces, sent when node is in debug mode'
+                type: array
+                items:
+                  type: string
+          example:
+            code: 501
+            message: Endpoint not implemented
     CurrentlySyncing:
       description: 'Beacon node is currently syncing, try again later.'
       content:
