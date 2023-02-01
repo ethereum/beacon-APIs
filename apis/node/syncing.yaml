@@ -4,10 +4,7 @@
       - Node
       - ValidatorRequiredApi
     summary: "Get node syncing status"
-    description: |
-    Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to.
-    
-    A 503 error must be returned if the execution layer is unavailable (i.e. offline).
+    description: "Requests the beacon node to describe if it's currently syncing or not, and if it is, what block it is up to."
     responses:
       "200":
         description: Request successful
@@ -36,7 +33,9 @@
                       allOf:
                         - type: boolean
                         - description: "Set to true if the node is optimistically tracking head."
+                    el_offline:
+                      allOf:
+                        - type: boolean
+                        - description: "Set to true if the execution client is offline."
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-      "503":
-        description: The execution layer is unavailable
