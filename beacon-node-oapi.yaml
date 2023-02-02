@@ -16453,6 +16453,10 @@ paths:
                         allOf:
                           - type: boolean
                           - description: Set to true if the node is optimistically tracking head.
+                      el_offline:
+                        allOf:
+                          - type: boolean
+                          - description: Set to true if the execution client is offline.
         '500':
           description: Beacon node internal error.
           content:
