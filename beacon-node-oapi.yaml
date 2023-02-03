@@ -195,8 +195,19 @@ paths:
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
 
+security:
+  - {}
+  - BasicAuth: []
+  - BearerAuth: []
 
 components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    BearerAuth:
+      type: http
+      scheme: bearer
   schemas:
     BeaconState:
       $ref: './types/state.yaml#/BeaconState'
