@@ -8810,86 +8810,88 @@ paths:
                       - example: false
                       - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    type: array
+                    type: object
                     description: Rewards info for attestations
-                    items:
-                      properties:
-                        ideal_rewards:
-                          type: array
-                          items:
-                            type: object
-                            description: Ideal rewards info for a single attestation
-                            required:
-                              - effective_balance
-                              - head
-                              - target
-                              - source
-                            properties:
-                              effective_balance:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 1000000000
-                                  - description: validator's effective balance in gwei
-                              head:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 2500
-                                  - description: Ideal attester's reward for head vote in gwei
-                              target:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 5000
-                                  - description: Ideal attester's reward for target vote in gwei
-                              source:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 5000
-                                  - description: Ideal attester's reward for source vote in gwei
-                        total_rewards:
-                          type: array
-                          items:
-                            type: object
-                            description: Rewards info for a single attestation
-                            required:
-                              - validator_index
-                              - head
-                              - target
-                              - source
-                            properties:
-                              validator_index:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 0
-                                  - description: one entry for every validator based on their attestations in the epoch
-                              head:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 2000
-                                  - description: attester's reward for head vote in gwei
-                              target:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 2000
-                                  - description: attester's reward for target vote in gwei
-                              source:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 4000
-                                  - description: attester's reward for source vote in gwei
-                              inclusion_delay:
-                                allOf:
-                                  - type: string
-                                    example: '1'
-                                  - example: 2000
-                                  - description: attester's inclusion_delay reward in gwei (phase0 only)
+                    required:
+                      - ideal_rewards
+                      - total_rewards
+                    properties:
+                      ideal_rewards:
+                        type: array
+                        items:
+                          type: object
+                          description: Ideal rewards info for a single attestation
+                          required:
+                            - effective_balance
+                            - head
+                            - target
+                            - source
+                          properties:
+                            effective_balance:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 1000000000
+                                - description: validator's effective balance in gwei
+                            head:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 2500
+                                - description: Ideal attester's reward for head vote in gwei
+                            target:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 5000
+                                - description: Ideal attester's reward for target vote in gwei
+                            source:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 5000
+                                - description: Ideal attester's reward for source vote in gwei
+                      total_rewards:
+                        type: array
+                        items:
+                          type: object
+                          description: Rewards info for a single attestation
+                          required:
+                            - validator_index
+                            - head
+                            - target
+                            - source
+                          properties:
+                            validator_index:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 0
+                                - description: one entry for every validator based on their attestations in the epoch
+                            head:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 2000
+                                - description: attester's reward for head vote in gwei
+                            target:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 2000
+                                - description: attester's reward for target vote in gwei
+                            source:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 4000
+                                - description: attester's reward for source vote in gwei
+                            inclusion_delay:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - example: 2000
+                                - description: attester's inclusion_delay reward in gwei (phase0 only)
         '400':
           description: Invalid get attestations rewards request
           content:
@@ -33159,86 +33161,88 @@ components:
             - example: 123
             - description: block reward component due to included attester_slashings in gwei
     AttestationsRewards:
+      type: object
       description: Rewards info for attestations
-      type: array
-      items:
-        properties:
-          ideal_rewards:
-            type: array
-            items:
-              type: object
-              description: Ideal rewards info for a single attestation
-              required:
-                - effective_balance
-                - head
-                - target
-                - source
-              properties:
-                effective_balance:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 1000000000
-                    - description: validator's effective balance in gwei
-                head:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 2500
-                    - description: Ideal attester's reward for head vote in gwei
-                target:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 5000
-                    - description: Ideal attester's reward for target vote in gwei
-                source:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 5000
-                    - description: Ideal attester's reward for source vote in gwei
-          total_rewards:
-            type: array
-            items:
-              type: object
-              description: Rewards info for a single attestation
-              required:
-                - validator_index
-                - head
-                - target
-                - source
-              properties:
-                validator_index:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 0
-                    - description: one entry for every validator based on their attestations in the epoch
-                head:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 2000
-                    - description: attester's reward for head vote in gwei
-                target:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 2000
-                    - description: attester's reward for target vote in gwei
-                source:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 4000
-                    - description: attester's reward for source vote in gwei
-                inclusion_delay:
-                  allOf:
-                    - type: string
-                      example: '1'
-                    - example: 2000
-                    - description: attester's inclusion_delay reward in gwei (phase0 only)
+      required:
+        - ideal_rewards
+        - total_rewards
+      properties:
+        ideal_rewards:
+          type: array
+          items:
+            type: object
+            description: Ideal rewards info for a single attestation
+            required:
+              - effective_balance
+              - head
+              - target
+              - source
+            properties:
+              effective_balance:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 1000000000
+                  - description: validator's effective balance in gwei
+              head:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 2500
+                  - description: Ideal attester's reward for head vote in gwei
+              target:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 5000
+                  - description: Ideal attester's reward for target vote in gwei
+              source:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 5000
+                  - description: Ideal attester's reward for source vote in gwei
+        total_rewards:
+          type: array
+          items:
+            type: object
+            description: Rewards info for a single attestation
+            required:
+              - validator_index
+              - head
+              - target
+              - source
+            properties:
+              validator_index:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 0
+                  - description: one entry for every validator based on their attestations in the epoch
+              head:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 2000
+                  - description: attester's reward for head vote in gwei
+              target:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 2000
+                  - description: attester's reward for target vote in gwei
+              source:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 4000
+                  - description: attester's reward for source vote in gwei
+              inclusion_delay:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - example: 2000
+                  - description: attester's inclusion_delay reward in gwei (phase0 only)
   parameters:
     StateId:
       required: true
