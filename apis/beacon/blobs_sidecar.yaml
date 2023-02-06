@@ -1,0 +1,47 @@
+get:
+  operationId: getBlobsSidecar
+  summary: Get Blobs Sidecar
+  description: |
+    Returns the `BlobsSidecar` for a given block ID.
+    Depending on `Accept` header it can be returned either as JSON or SSZ-serialized bytes.
+  tags:
+    - Beacon
+  parameters:
+    - name: block_id
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+  responses:
+    "200":
+      description: "Successful response"
+      content:
+        application/json:
+          schema:
+            title: GetBlobsSidecarResponse
+            type: object
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/BlobsSidecar'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized BlobsSidecar bytes. Use Accept header to choose this response type"
+    "400":
+      description: "The block ID supplied could not be parsed"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid block ID: current"
+     "404":
+      description: "Blobs Sidecar not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "BlobsSidecar not found"
+     "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -125,6 +125,8 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+  /eth/v1/beacon/blobs_sidecar:
+    $ref: "./apis/beacon/blobs_sidecar.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -345,6 +347,8 @@ components:
       $ref: './types/rewards.yaml#/BlockRewards'
     AttestationsRewards:
       $ref: './types/rewards.yaml#/AttestationsRewards'
+    BlobsSidecar:
+      $ref: './types/eip4844/block_and_blobs_sidecar.yaml#/EIP4844/BlobsSidecar'
 
   parameters:
     StateId:
