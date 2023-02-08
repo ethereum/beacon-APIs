@@ -40,7 +40,7 @@ Deneb:
       - type: object
         properties:
           transactions:
-            $ref: '../capella/transactions.yaml#/Capella/Transactions'
+            $ref: '../bellatrix/transactions.yaml#/Bellatrix/Transactions'
           withdrawals:
             $ref: '../capella/withdrawals.yaml#/Capella/Withdrawals'
 
