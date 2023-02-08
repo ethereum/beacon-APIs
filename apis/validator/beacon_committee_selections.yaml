@@ -1,0 +1,43 @@
+post:
+  operationId: "submitBeaconCommitteeSelections"
+  summary: Determine if a distributed validator has been selected to aggregate attestations
+  description: |
+    This endpoint should be used by a validator client running as part of a distributed validator cluster, and is 
+    implemented by a distributed validator middleware client. This endpoint is used to exchange partial 
+    selection proofs for combined/aggregated selection proofs to allow a validator client 
+    to correctly determine if one of its validators has been selected to perform an aggregation duty in this slot. 
+    Consensus clients need not support this endpoint and may return a 501.
+  tags:
+    - Validator
+  requestBody:
+    content:
+      application/json:
+        schema:
+          title: BeaconCommitteeSelectionRequest
+          type: array
+          items:
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconCommitteeSelection'
+
+  responses:
+    "200":
+      description: |
+        Returns the threshold aggregated beacon committee selection proofs.
+      content:
+        application/json:
+          schema:
+            title: BeaconCommitteeSelectionResponse
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconCommitteeSelection'
+
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "501":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotImplementedError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
