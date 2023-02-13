@@ -1,0 +1,39 @@
+Deneb:
+  BlindedBlobSidecars:
+    type: array
+    items:
+      $ref: '#/Deneb/BlindedBlobSidecar'
+    minItems: 0
+    maxItems: 4
+
+  BlindedBlobSidecar:
+    type: object
+    description: "A blob sidecar with the SSZ root of the blob rather than the full blob."
+    properties:
+      block_root:
+        $ref: "../primitive.yaml#/Root"
+      index:
+        $ref: "../primitive.yaml#/Uint64"
+      slot:
+        $ref: "../primitive.yaml#/Uint64"
+      block_parent_root:
+        $ref: "../primitive.yaml#/Root"
+      proposer_index:
+        $ref: "../primitive.yaml#/Uint64"
+      blob_root:
+        $ref: "../primitive.yaml#/Root"
+      kzg_commitment:
+        $ref: '../primitive.yaml#/KZGCommitment'
+      kzg_proof: 
+        $ref: '../primitive.yaml#/KZGProof'
+
+  SignedBlindedBlobSidecar:
+    type: object
+    description: "A variant of the `SignedBlobSidecar` object envelope from the CL Deneb spec, which contains a `BlindedBlobSidecar` rather than a `BlobSidecar`."
+    properties:
+      message:
+        $ref: "#/Deneb/BlindedBlobSidcar"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+
+

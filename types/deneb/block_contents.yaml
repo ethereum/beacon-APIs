@@ -1,0 +1,18 @@
+Deneb:
+  BlockContents:
+    type: object
+    description: "The required object for block production according to the Deneb CL spec."
+    properties:
+      block:
+        $ref: "./block.yaml#/Deneb/BeaconBlock"
+      blob_sidecars:
+        $ref: "./blob_sidecar.yaml/#Deneb/BlindedBlobSidecars"
+
+  BlindedBlockContents:
+    type: object
+    description: "The required object for blinded block production according to the Deneb CL spec."
+    properties:
+      block:
+        $ref: "./block.yaml#/Deneb/BlindedBeaconBlock"
+      blob_sidecars:
+        $ref: "./blob_sidecar.yaml/#Deneb/BlindedBlobSidecars"
