@@ -89,6 +89,8 @@ paths:
     $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
   /eth/v1/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.yaml"
+  /eth/v1/beacon/blob_sidecar:
+    $ref: "./apis/beacon/blobs/post_blobs.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -345,12 +347,18 @@ components:
       $ref: './types/deneb/state.yaml#/Deneb/BeaconState'
     Deneb.BeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/BeaconBlock'
+    Deneb.BlockContents:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/BlockContents'
     Deneb.SignedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBeaconBlock'
     Deneb.BlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
+    Deneb.BlindedBlockContents:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/BlindedBlockContents'
     Deneb.SignedBlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
+    Deneb.SignedBlindedBlobSidecar:
+      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecar'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
