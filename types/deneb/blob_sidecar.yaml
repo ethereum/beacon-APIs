@@ -32,7 +32,7 @@ Deneb:
     description: "A variant of the `SignedBlobSidecar` object envelope from the CL Deneb spec, which contains a `BlindedBlobSidecar` rather than a `BlobSidecar`."
     properties:
       message:
-        $ref: "#/Deneb/BlindedBlobSidcar"
+        $ref: "#/Deneb/BlindedBlobSidecar"
       signature:
         $ref: "../primitive.yaml#/Signature"
 

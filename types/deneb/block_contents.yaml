@@ -6,7 +6,7 @@ Deneb:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
       blob_sidecars:
-        $ref: "./blob_sidecar.yaml/#Deneb/BlindedBlobSidecars"
+        $ref: "./blob_sidecar.yaml#/Deneb/BlindedBlobSidecars"
 
   BlindedBlockContents:
     type: object
@@ -15,4 +15,4 @@ Deneb:
       block:
         $ref: "./block.yaml#/Deneb/BlindedBeaconBlock"
       blob_sidecars:
-        $ref: "./blob_sidecar.yaml/#Deneb/BlindedBlobSidecars"
+        $ref: "./blob_sidecar.yaml#/Deneb/BlindedBlobSidecars"
