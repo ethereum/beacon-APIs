@@ -15957,9 +15957,9 @@ paths:
                         validity:
                           type: string
                           enum:
-                            - VALID
-                            - INVALID
-                            - OPTIMISTIC
+                            - valid
+                            - invalid
+                            - optimistic
                         execution_block_hash:
                           allOf:
                             - type: string
@@ -33082,9 +33082,9 @@ components:
         validity:
           type: string
           enum:
-            - VALID
-            - INVALID
-            - OPTIMISTIC
+            - valid
+            - invalid
+            - optimistic
         execution_block_hash:
           allOf:
             - type: string
