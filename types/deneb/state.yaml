@@ -1,7 +1,7 @@
-EIP4844:
+Deneb:
   BeaconState:
     type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/master/specs/eip4844/beacon-chain.md#beaconstate) object from the Eth2.0 EIP-4844 spec."
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconstate) object from the Eth2.0 Deneb spec."
     properties:
       genesis_time:
         $ref: "../primitive.yaml#/Uint64"
@@ -81,7 +81,7 @@ EIP4844:
       next_sync_committee:
         $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
       latest_execution_payload_header:
-        $ref: './execution_payload.yaml#/EIP4844/ExecutionPayloadHeader'
+        $ref: './execution_payload.yaml#/Deneb/ExecutionPayloadHeader'
       next_withdrawal_index:
         $ref: "../primitive.yaml#/Uint64"
       next_withdrawal_validator_index:

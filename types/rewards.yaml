@@ -18,18 +18,18 @@ SyncCommitteeRewards:
           - description: "sync committee reward in gwei for the validator"
 
 AttestationsRewards:
+  type: object
   description: "Rewards info for attestations"
-  type: array
-  items:
-    properties:
-      ideal_rewards:
-        type: array
-        items:
-          $ref: ./rewards.yaml#/IdealAttestationRewards
-      total_rewards:
-        type: array
-        items:
-          $ref: ./rewards.yaml#/AttestationRewards
+  required: ["ideal_rewards", "total_rewards"]
+  properties:
+    ideal_rewards:
+      type: array
+      items:
+        $ref: ./rewards.yaml#/IdealAttestationRewards
+    total_rewards:
+      type: array
+      items:
+        $ref: ./rewards.yaml#/AttestationRewards
 
 AttestationRewards:
   type: object
