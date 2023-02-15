@@ -38,9 +38,7 @@ post:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/AttestationsRewards"
-                  
     "400":
       description: "Invalid get attestations rewards request"
       content:

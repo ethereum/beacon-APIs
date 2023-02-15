@@ -22,7 +22,7 @@ Node:
       $ref: './primitive.yaml#/Uint64'
     validity:
       type: string
-      enum: [VALID, INVALID, OPTIMISTIC]
+      enum: [valid, invalid, optimistic]
     execution_block_hash:
       allOf:
         - $ref: './primitive.yaml#/Root'
