@@ -1,8 +1,8 @@
 get:
-  operationId: getBlobsSidecar
-  summary: Get blobs sidecar
+  operationId: getBlobs
+  summary: Get blobs
   description: |
-    Retrieves blobs sidecar for given block id.
+    Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
   tags:
     - Beacon
@@ -17,12 +17,16 @@ get:
       content:
         application/json:
           schema:
-            title: GetBlobsSidecarResponse
+            title: GetBlobsResponse
             type: object
             properties:
               data:
-                oneOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/BlobsSidecar"
+                type: array
+                items:
+                  oneOf:
+                    - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecar"
+                minItems: 0
+                maxItems: 4
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"
