@@ -35,6 +35,8 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Builder
+    description: Set of endpoints specific to building blocks.
   - name: Config
     description: 'Endpoints to query chain configuration, specification, and fork schedules.'
   - name: Debug
@@ -14124,6 +14126,146 @@ paths:
                           description: Message describing error
                           type: string
                           example: invalid signature
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+  '/eth/v1/builder/states/{state_id}/expected_withdrawals':
+    get:
+      operationId: getNextWithdrawals
+      summary: Get the withdrawals that are to be included for the block built on the specified state.
+      description: |
+        Get the withdrawals computed from the specified state, that will be included in the block 
+        that gets built on the specified state.
+      tags:
+        - Builder
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+        - name: proposal_slot
+          description: 'The slot that a block is being built for, with the specified state as the parent. Defaults to the slot after the parent state if not specified.'
+          in: query
+          required: false
+          allowEmptyValue: false
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetNextWithdrawalsResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          description: The index of the withdrawal.
+                          type: string
+                          example: '1'
+                        validator_index:
+                          description: The index of the withdrawing validator.
+                          type: string
+                          example: '1'
+                        address:
+                          description: The address to which the withdrawal is credited.
+                          type: string
+                          format: hex
+                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                          pattern: '^0x[a-fA-F0-9]{40}$'
+                        amount:
+                          description: The value withdrawn (gwei).
+                          type: string
+                          example: '1'
+            application/octet-stream:
+              schema:
+                description: SSZ serialized Withdrawals list. Use Accept header to choose this response type
+        '400':
+          description: An error occurred preparing the withdrawals from the specified state for the proposal slot.
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+                  - example:
+                      code: 400
+                      message: The specified state is not a capella state.
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - type: object
+                    properties:
+                      code:
+                        description: Either specific error code in case of invalid request or http status code
+                        type: number
+                        example: 404
+                      message:
+                        description: Message describing error
+                        type: string
+                      stacktraces:
+                        description: 'Optional stacktraces, sent when node is in debug mode'
+                        type: array
+                        items:
+                          type: string
+              example:
+                code: 404
+                message: State not found
         '500':
           description: Beacon node internal error.
           content:
@@ -33045,6 +33187,27 @@ components:
               pattern: '^0x[a-fA-F0-9]{192}$'
               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         signature_slot:
+          type: string
+          example: '1'
+    Capella.Withdrawal:
+      type: object
+      properties:
+        index:
+          description: The index of the withdrawal.
+          type: string
+          example: '1'
+        validator_index:
+          description: The index of the withdrawing validator.
+          type: string
+          example: '1'
+        address:
+          description: The address to which the withdrawal is credited.
+          type: string
+          format: hex
+          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+          pattern: '^0x[a-fA-F0-9]{40}$'
+        amount:
+          description: The value withdrawn (gwei).
           type: string
           example: '1'
     Node:
