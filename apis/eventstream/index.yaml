@@ -108,10 +108,10 @@ get:
                 - `parent_block_hash`: the execution block hash of the parent block.
                 - `proposer_index`: the validator index of the proposer at `proposal_slot` on
                    the chain identified by `parent_block_root`.
-                - `payload_attributes`: beacon-style encoding of `PayloadAttributesV<N>` as
+                - `payload_attributes`: beacon API encoding of `PayloadAttributesV<N>` as
                    defined by the `execution-apis` specification. The version `N` must match the
                    payload attributes for the hard fork matching `version`.
-                   The object here must have equivalent fields to its counterpart in
+                   The beacon API encoded object must have equivalent fields to its counterpart in
                    `execution-apis` with two differences: 1) `snake_case` identifiers must be used
                    rather than `camelCase`; 2) integers must be encoded as quoted decimals rather
                    than big-endian hex.
