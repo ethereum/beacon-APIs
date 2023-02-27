@@ -1,0 +1,61 @@
+get:
+  operationId: "getNextWithdrawals"
+  summary: "Get the withdrawals that are to be included for the block built on the specified state."
+  description: |
+    Get the withdrawals computed from the specified state, that will be included in the block 
+    that gets built on the specified state.
+  tags:
+    - Builder
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: proposal_slot
+      description: "The slot that a block is being built for, with the specified state as the parent. Defaults to the slot after the parent state if not specified."
+      in: query
+      required: false
+      allowEmptyValue: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetNextWithdrawalsResponse
+            type: object
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.Withdrawal'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized Withdrawals list. Use Accept header to choose this response type"
+    "400":
+      description: "An error occurred preparing the withdrawals from the specified state for the proposal slot."
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+              - example:
+                  code: 400
+                  message: "The specified state is not a capella state."
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
