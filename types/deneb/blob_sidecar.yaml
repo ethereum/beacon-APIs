@@ -27,6 +27,13 @@ Deneb:
       kzg_proof: 
         $ref: '../primitive.yaml#/KZGProof'
 
+  SignedBlindedBlobSidecars:
+    type: array
+    items:
+      $ref: '#/Deneb/SignedBlindedBlobSidecar'
+    minItems: 0
+    maxItems: 4
+
   SignedBlindedBlobSidecar:
     type: object
     description: "A variant of the `SignedBlobSidecar` object envelope from the CL Deneb spec, which contains a `BlindedBlobSidecar` rather than a `BlobSidecar`."

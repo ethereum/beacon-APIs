@@ -12,7 +12,26 @@ Deneb:
     type: object
     description: "The required object for blinded block production according to the Deneb CL spec."
     properties:
-      block:
+      blinded_block:
         $ref: "./block.yaml#/Deneb/BlindedBeaconBlock"
       blinded_blob_sidecars:
         $ref: "./blob_sidecar.yaml#/Deneb/BlindedBlobSidecars"
+
+  SignedBlockContents:
+    type: object
+    description: "The required signed components of block production according to the Deneb CL spec."
+    properties:
+      signed_block:
+        $ref: "./block.yaml#/Deneb/SignedBeaconBlock"
+      signed_blinded_blob_sidecars:
+        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecars"
+
+  SignedBlindedBlockContents:
+    type: object
+    description: "The required signed components of block production according to the Deneb CL spec."
+    properties:
+      signed_blinded_block:
+        $ref: "./block.yaml#/Deneb/SignedBlindedBeaconBlock"
+      signed_blinded_blob_sidecars:
+        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecars"
+       
