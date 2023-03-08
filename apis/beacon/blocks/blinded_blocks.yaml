@@ -13,7 +13,8 @@ post:
     successful. The beacon node is expected to integrate the new block into its state, and
     therefore validate the block internally, however blocks which fail the validation are still
     broadcast but a different status code is returned (202). Pre-Bellatrix, this endpoint will accept 
-    a `SignedBeaconBlock`.
+    a `SignedBeaconBlock`. After Deneb, this additionally instructs the beacon node to broadcast all given
+    signed blobs.
   parameters:
     - in: header
       schema:
