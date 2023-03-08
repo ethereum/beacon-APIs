@@ -5,8 +5,8 @@ Deneb:
     properties:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
-      blinded_blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/BlindedBlobSidecars"
+      blob_sidecars:
+        $ref: "./blob_sidecar.yaml#/Deneb/BlobSidecars"
 
   BlindedBlockContents:
     type: object
@@ -23,8 +23,8 @@ Deneb:
     properties:
       signed_block:
         $ref: "./block.yaml#/Deneb/SignedBeaconBlock"
-      signed_blinded_blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecars"
+      signed_blob_sidecars:
+        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlobSidecars"
 
   SignedBlindedBlockContents:
     type: object
