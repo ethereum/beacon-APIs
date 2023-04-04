@@ -12,6 +12,15 @@ get:
       in: path
       required: true
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+    - name: indices
+      in: query
+      description: Array of indices for blobs to request for in the specified block. Returns all blobs in the block if not speicfied.
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
       description: "Successful response"
