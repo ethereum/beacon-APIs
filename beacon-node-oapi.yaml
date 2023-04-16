@@ -39,6 +39,8 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Builder
+    description: Set of endpoints specific to building blocks.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Debug
@@ -125,6 +127,9 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+
+  /eth/v1/builder/states/{state_id}/expected_withdrawals:
+    $ref: "./apis/builder/states/expected_withdrawals.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -341,6 +346,8 @@ components:
       $ref: './types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate'
     Capella.LightClientOptimisticUpdate:
       $ref: './types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate'
+    Capella.Withdrawal:
+      $ref: './types/withdrawal.yaml#/Withdrawal'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
