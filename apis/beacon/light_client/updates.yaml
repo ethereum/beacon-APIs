@@ -2,10 +2,10 @@ get:
   operationId: getLightClientUpdatesByRange
   summary: Get `LightClientUpdate` instances in a requested sync committee period range
   description: |
-    Requests the [`LightClientUpdate`](https://github.com/ethereum/consensus-specs/blob/v1.3.0-rc.2/specs/altair/light-client/sync-protocol.md#lightclientupdate) instances in the sync committee period range `[start_period, start_period + count)`, leading up to the current head sync committee period as selected by fork choice.
+    Requests the [`LightClientUpdate`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/altair/light-client/sync-protocol.md#lightclientupdate) instances in the sync committee period range `[start_period, start_period + count)`, leading up to the current head sync committee period as selected by fork choice.
     Depending on the `Accept` header they can be returned either as JSON or SSZ-serialized bytes.
 
-    Servers SHOULD provide results as defined in [`create_light_client_update`](https://github.com/ethereum/consensus-specs/blob/v1.3.0-rc.2/specs/altair/light-client/full-node.md#create_light_client_update). They MUST respond with at least the earliest known result within the requested range, and MUST send results in consecutive order (by period). The response MUST NOT contain more than [`min(MAX_REQUEST_LIGHT_CLIENT_UPDATES, count)`](https://github.com/ethereum/consensus-specs/blob/v1.3.0-rc.2/specs/altair/light-client/p2p-interface.md#configuration) results.
+    Servers SHOULD provide results as defined in [`create_light_client_update`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/altair/light-client/full-node.md#create_light_client_update). They MUST respond with at least the earliest known result within the requested range, and MUST send results in consecutive order (by period). The response MUST NOT contain more than [`min(MAX_REQUEST_LIGHT_CLIENT_UPDATES, count)`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/altair/light-client/p2p-interface.md#configuration) results.
   tags:
     - Beacon
   parameters:

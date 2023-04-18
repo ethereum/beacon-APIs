@@ -1,6 +1,6 @@
 VoluntaryExit:
   type: object
-  description: "The [`VoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#voluntaryexit) object from the CL spec."
+  description: "The [`VoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#voluntaryexit) object from the CL spec."
   properties:
     epoch:
       allOf:
@@ -13,10 +13,9 @@ VoluntaryExit:
 
 SignedVoluntaryExit:
   type: object
-  description: "The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec."
+  description: "The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec."
   properties:
     message:
       $ref: "#/VoluntaryExit"
     signature:
       $ref: './primitive.yaml#/Signature'
-

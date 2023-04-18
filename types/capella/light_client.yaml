@@ -3,7 +3,7 @@ Capella:
     type: array
     items:
       $ref: '../primitive.yaml#/Root'
-      description: "Merkle proof consisting of [`log2trunc(EXECUTION_PAYLOAD_INDEX])`](https://github.com/ethereum/consensus-specs/blob/v1.3.0-rc.2/specs/capella/light-client/sync-protocol.md#constants) roots"
+      description: "Merkle proof consisting of [`log2trunc(EXECUTION_PAYLOAD_INDEX])`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/light-client/sync-protocol.md#constants) roots"
     minItems: 4
     maxItems: 4
 

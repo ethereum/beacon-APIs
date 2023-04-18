@@ -1,7 +1,7 @@
 Altair:
   SyncAggregate:
     type: object
-    description: "The [`SyncAggregate`](https://github.com/ethereum/consensus-specs/blob/v1.1.0-alpha.1/specs/altair/beacon-chain.md#syncaggregate) object from the CL Altair spec."
+    description: "The [`SyncAggregate`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/altair/beacon-chain.md#syncaggregate) object from the CL Altair spec."
     properties:
       sync_committee_bits:
         $ref: "../primitive.yaml#/BitList"
