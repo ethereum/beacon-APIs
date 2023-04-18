@@ -1,7 +1,7 @@
 Capella:
   BeaconState:
     type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconstate) object from the Eth2.0 Capella spec."
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#beaconstate) object from the Eth2.0 Capella spec."
     properties:
       genesis_time:
         $ref: "../primitive.yaml#/Uint64"
