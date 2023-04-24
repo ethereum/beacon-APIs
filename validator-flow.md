@@ -19,7 +19,7 @@ If proposing block, then at immediate start of slot:
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
 
-Monitor chain block reorganization events (TBD) as they could change block proposers. 
+Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.
 
 ### Attestation
@@ -29,7 +29,7 @@ Result are array of objects with validator, his committee and attestation slot.
 
 Attesting:
 1. Upon receiving duty, have beacon node prepare committee subnet
-    - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/consensus-specs/blob/v1.0.1/specs/phase0/validator.md#attestation-aggregation)
+    - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#attestation-aggregation)
     - [Ask beacon node to prepare your subnet](#/ValidatorRequiredApi/prepareBeaconCommitteeSubnet)
       -- Note, validator client only needs to submit one call to
       `prepareBeaconCommitteeSubnet` per committee/slot its validators have
@@ -46,5 +46,5 @@ Attesting:
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestation) from Beacon Node you've subscribed to your subnet
     - [Publish SignedAggregateAndProofs](#/ValidatorRequiredApi/publishAggregateAndProofs)
 
-Monitor chain block reorganization events (TBD) as they could change attesters and aggregators. 
+Monitor chain block reorganization events (TBD) as they could change attesters and aggregators.
 If reorg is detected, ask for new attester duties and proceed from 1..
