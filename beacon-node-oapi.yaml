@@ -21,7 +21,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Eth2Spec v1.1.0"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.3.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -39,6 +39,8 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Builder
+    description: Set of endpoints specific to building blocks.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Debug
@@ -125,6 +127,9 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exists.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+
+  /eth/v1/builder/states/{state_id}/expected_withdrawals:
+    $ref: "./apis/builder/states/expected_withdrawals.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -351,6 +356,8 @@ components:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
     Deneb.SignedBlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
+    Capella.Withdrawal:
+      $ref: './types/withdrawal.yaml#/Withdrawal'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
