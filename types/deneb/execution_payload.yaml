@@ -1,8 +1,8 @@
-Capella:
+Deneb:
   ExecutionPayloadCommon:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#executionpayload) object from the CL Capella spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayload) object from the CL Deneb spec."
     properties:
       parent_hash:
         $ref: '../primitive.yaml#/Root'
@@ -28,26 +28,27 @@ Capella:
         $ref: '../primitive.yaml#/ExtraData'
       base_fee_per_gas:
         $ref: '../primitive.yaml#/Uint256'
+      excess_data_gas:
+        $ref: '../primitive.yaml#/Uint256'  
       block_hash:
         $ref: '../primitive.yaml#/Root'
 
 
   ExecutionPayload:
     allOf:
-      - $ref: '#/Capella/ExecutionPayloadCommon'
+      - $ref: '#/Deneb/ExecutionPayloadCommon'
       - type: object
         properties:
           transactions:
             $ref: '../bellatrix/transactions.yaml#/Bellatrix/Transactions'
           withdrawals:
-            $ref: './withdrawals.yaml#/Capella/Withdrawals'
+            $ref: '../capella/withdrawals.yaml#/Capella/Withdrawals'
 
   ExecutionPayloadHeader:
-    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#executionpayloadheader) object from the CL Capella spec."
+    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayloadheader) object from the CL Deneb spec."
     allOf:
-      - $ref: '#/Capella/ExecutionPayloadCommon'
+      - $ref: '#/Deneb/ExecutionPayloadCommon'
       - type: object
-        additionalProperties: false
         properties:
           transactions_root:
             $ref: '../primitive.yaml#/Root'

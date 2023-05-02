@@ -1,0 +1,35 @@
+BeaconCommitteeSelection:
+  type: object
+  properties:
+    validator_index:
+      allOf:
+        - $ref: './primitive.yaml#/Uint64'
+        - description: "Index of the validator"
+    slot:
+      allOf:
+        - $ref: './primitive.yaml#/Uint64'
+        - description: "The slot at which a validator is assigned to attest"
+    selection_proof:
+      allOf:
+        - $ref: './primitive.yaml#/Signature'
+        - description: "The `slot_signature` calculated by the validator for the upcoming attestation slot"
+
+SyncCommitteeSelection:
+  type: object
+  properties:
+    validator_index:
+      allOf:
+        - $ref: './primitive.yaml#/Uint64'
+        - description: "Index of the validator"
+    slot:
+      allOf:
+        - $ref: './primitive.yaml#/Uint64'
+        - description: "The slot at which validator is assigned to produce a sync committee contribution"
+    subcommittee_index:
+      allOf:
+        - $ref: './primitive.yaml#/Uint64'
+        - description: "SubcommitteeIndex to which the validator is assigned"
+    selection_proof:
+      allOf:
+        - $ref: './primitive.yaml#/Signature'
+        - description: "The `slot_signature` calculated by the validator for the upcoming sync committee slot"

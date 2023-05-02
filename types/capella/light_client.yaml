@@ -1,0 +1,67 @@
+Capella:
+  ExecutionBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(EXECUTION_PAYLOAD_INDEX])`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/light-client/sync-protocol.md#constants) roots"
+    minItems: 4
+    maxItems: 4
+
+  LightClientHeader:
+    type: object
+    properties:
+      beacon:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      execution:
+        $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
+      execution_branch:
+        $ref: '#/Capella/ExecutionBranch'
+
+  LightClientBootstrap:
+    type: object
+    properties:
+      header:
+        $ref: '#/Capella/LightClientHeader'
+      current_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      current_sync_committee_branch:
+        $ref: '../altair/light_client.yaml#/Altair/CurrentSyncCommitteeBranch'
+  LightClientUpdate:
+    type: object
+    properties:
+      attested_header:
+        $ref: '#/Capella/LightClientHeader'
+      next_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      next_sync_committee_branch:
+        $ref: '../altair/light_client.yaml#/Altair/NextSyncCommitteeBranch'
+      finalized_header:
+        $ref: '#/Capella/LightClientHeader'
+      finality_branch:
+        $ref: '../altair/light_client.yaml#/Altair/FinalityBranch'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientFinalityUpdate:
+    type: object
+    properties:
+      attested_header:
+        $ref: '#/Capella/LightClientHeader'
+      finalized_header:
+        $ref: '#/Capella/LightClientHeader'
+      finality_branch:
+        $ref: '../altair/light_client.yaml#/Altair/FinalityBranch'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientOptimisticUpdate:
+    type: object
+    properties:
+      attested_header:
+        $ref: '#/Capella/LightClientHeader'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'

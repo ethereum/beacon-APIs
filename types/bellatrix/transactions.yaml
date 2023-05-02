@@ -2,6 +2,5 @@ Bellatrix:
   Transactions:
       type: array
       items:
-        allOf:
-          - $ref: '../primitive.yaml#/Transaction'
+        $ref: '../primitive.yaml#/Transaction'
       maxItems: 1048576

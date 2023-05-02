@@ -21,7 +21,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Eth2Spec v1.1.0"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.3.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -39,6 +39,8 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Builder
+    description: Set of endpoints specific to building blocks.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Debug
@@ -58,7 +60,7 @@ tags:
     description: Endpoints to query rewards and penalties for validators.
   - name: Experimental
     description: Endpoints that are not stable or fully implemented by each client.
-    
+
 paths:
 
   /eth/v1/beacon/genesis:
@@ -128,6 +130,9 @@ paths:
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
+  /eth/v1/builder/states/{state_id}/expected_withdrawals:
+    $ref: "./apis/builder/states/expected_withdrawals.yaml"
+
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
   /eth/v1/debug/beacon/heads:
@@ -179,8 +184,12 @@ paths:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
     $ref: "./apis/validator/sync_committee_subscriptions.yaml"
+  /eth/v1/validator/beacon_committee_selections:
+    $ref: "./apis/validator/beacon_committee_selections.yaml"
   /eth/v1/validator/sync_committee_contribution:
     $ref: "./apis/validator/sync_committee_contribution.yaml"
+  /eth/v1/validator/sync_committee_selections:
+    $ref: "./apis/validator/sync_committee_selections.yaml"
   /eth/v1/validator/contribution_and_proofs:
     $ref: "./apis/validator/sync_committee_contribution_and_proof.yaml"
   /eth/v1/validator/prepare_beacon_proposer:
@@ -234,6 +243,10 @@ components:
       $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
       $ref: './types/attestation.yaml#/AttestationData'
+    BeaconCommitteeSelection:
+      $ref: './types/selection.yaml#/BeaconCommitteeSelection'
+    SyncCommitteeSelection:
+      $ref: './types/selection.yaml#/SyncCommitteeSelection'
     Fork:
       $ref: './types/misc.yaml#/Fork'
     Checkpoint:
@@ -274,6 +287,10 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
+    Altair.BeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
+    Altair.SignedBeaconBlock:
+      $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.LightClientBootstrap:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientBootstrap'
     Altair.LightClientUpdate:
@@ -282,10 +299,6 @@ components:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
     Altair.LightClientOptimisticUpdate:
       $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
-    Altair.SignedBeaconBlock:
-      $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
-    Altair.BeaconBlock:
-      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.BeaconState:
       $ref: './types/altair/state.yaml#/Altair/BeaconState'
     Altair.SyncCommitteeSignature:
@@ -313,7 +326,7 @@ components:
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
-      enum: [phase0, altair, bellatrix, capella]
+      enum: [phase0, altair, bellatrix, capella, deneb]
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -327,6 +340,26 @@ components:
       $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
     Capella.SignedBlindedBeaconBlock:
       $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
+    Capella.LightClientBootstrap:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientBootstrap'
+    Capella.LightClientUpdate:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientUpdate'
+    Capella.LightClientFinalityUpdate:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate'
+    Capella.LightClientOptimisticUpdate:
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate'
+    Deneb.BeaconState:
+      $ref: './types/deneb/state.yaml#/Deneb/BeaconState'
+    Deneb.BeaconBlock:
+      $ref: './types/deneb/block.yaml#/Deneb/BeaconBlock'
+    Deneb.SignedBeaconBlock:
+      $ref: './types/deneb/block.yaml#/Deneb/SignedBeaconBlock'
+    Deneb.BlindedBeaconBlock:
+      $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
+    Deneb.SignedBlindedBeaconBlock:
+      $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
+    Capella.Withdrawal:
+      $ref: './types/withdrawal.yaml#/Withdrawal'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
@@ -355,6 +388,8 @@ components:
       $ref: './types/http.yaml#/UnsupportedMediaType'
     InternalError:
       $ref: './types/http.yaml#/InternalError'
+    NotImplementedError:
+      $ref: './types/http.yaml#/NotImplementedError'
     CurrentlySyncing:
       $ref: './types/http.yaml#/CurrentlySyncing'
 
