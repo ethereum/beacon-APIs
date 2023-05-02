@@ -45,6 +45,7 @@ Bellatrix:
     allOf:
       - $ref: '#/Bellatrix/ExecutionPayloadCommon'
       - type: object
+        additionalProperties: false
         properties:
           transactions_root:
             $ref: '../primitive.yaml#/Root'

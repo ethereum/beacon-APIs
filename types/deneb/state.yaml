@@ -1,0 +1,93 @@
+Deneb:
+  BeaconState:
+    type: object
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconstate) object from the Eth2.0 Deneb spec."
+    properties:
+      genesis_time:
+        $ref: "../primitive.yaml#/Uint64"
+      genesis_validators_root:
+        $ref: "../primitive.yaml#/Root"
+      slot:
+        $ref: "../primitive.yaml#/Uint64"
+      fork:
+        $ref: "../misc.yaml#/Fork"
+      latest_block_header:
+        $ref: "../block.yaml#/BeaconBlockHeader"
+      block_roots:
+        type: array
+        description: "Fixed length of 8192 items"
+        items:
+          $ref: '../primitive.yaml#/Root'
+      state_roots:
+        type: array
+        description: "Fixed length of 8192 items"
+        items:
+          $ref: '../primitive.yaml#/Root'
+      historical_roots:
+        type: array
+        description: "Variable length list, maximum 16777216 items. Frozen in Capella, replaced by historical_summaries."
+        items:
+          $ref: '../primitive.yaml#/Root'
+      eth1_data:
+        $ref: "../eth1.yaml#/Eth1Data"
+      eth1_data_votes:
+        type: array
+        description: "Fixed length of 1024 items"
+        items:
+          $ref: '../eth1.yaml#/Eth1Data'
+        maxItems: 1024
+      eth1_deposit_index:
+        $ref: "../primitive.yaml#/Uint64"
+      validators:
+        type: array
+        description: "Variable length list, maximum 1099511627776 items"
+        items:
+          $ref: '../validator.yaml#/Validator'
+      balances:
+        type: array
+        description: "Validator balances in gwei. Variable length list, maximum 1099511627776 items"
+        items:
+          $ref: '../primitive.yaml#/Uint64'
+      randao_mixes:
+        type: array
+        description: "Fixed length of 65536 items"
+        items:
+          $ref: '../primitive.yaml#/Bytes32'
+      slashings:
+        type: array
+        description: "Per-epoch sums of slashed effective balances. Fixed length of 8192 items"
+        items:
+          $ref: '../primitive.yaml#/Uint64'
+      previous_epoch_participation:
+        $ref: '../altair/epoch_participation.yaml#/Altair/EpochParticipation'
+      current_epoch_participation:
+        $ref: '../altair/epoch_participation.yaml#/Altair/EpochParticipation'
+      justification_bits:
+        $ref: "../primitive.yaml#/BitList"
+        description: "Bit set for every recent justified epoch"
+      previous_justified_checkpoint:
+        $ref: "../misc.yaml#/Checkpoint"
+      current_justified_checkpoint:
+        $ref: "../misc.yaml#/Checkpoint"
+      finalized_checkpoint:
+        $ref: "../misc.yaml#/Checkpoint"
+      inactivity_scores:
+        description: "Per-validator inactivity scores. Introduced in Altair. Variable length list, maximum 1099511627776 items"
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Uint64"
+      current_sync_committee:
+        $ref: "../altair/sync_committee.yaml#/Altair/SyncCommittee"
+      next_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      latest_execution_payload_header:
+        $ref: './execution_payload.yaml#/Deneb/ExecutionPayloadHeader'
+      next_withdrawal_index:
+        $ref: "../primitive.yaml#/Uint64"
+      next_withdrawal_validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+      historical_summaries:
+        type: array
+        items:
+          $ref: "../capella/historical_summary.yaml#/Capella/HistoricalSummary"
+        description: "Variable length list, maximum 16777216 items"
