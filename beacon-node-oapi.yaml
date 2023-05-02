@@ -15525,7 +15525,7 @@ paths:
                               pattern: '^0x[a-fA-F0-9]{64}$'
                           historical_roots:
                             type: array
-                            description: 'Variable length list, maximum 16777216 items'
+                            description: 'Variable length list, maximum 16777216 items. Frozen in Capella, replaced by historical_summaries.'
                             items:
                               type: string
                               format: hex
@@ -15839,6 +15839,23 @@ paths:
                           next_withdrawal_validator_index:
                             type: string
                             example: '1'
+                          historical_summaries:
+                            type: array
+                            items:
+                              type: object
+                              description: 'The [`HistoricalSummary`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#historicalsummary) object from the CL Capella spec.'
+                              properties:
+                                block_summary_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                state_summary_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                            description: 'Variable length list, maximum 16777216 items'
             application/octet-stream:
               schema:
                 description: SSZ serialized state bytes. Use Accept header to choose this response type
@@ -29766,7 +29783,7 @@ components:
             pattern: '^0x[a-fA-F0-9]{64}$'
         historical_roots:
           type: array
-          description: 'Variable length list, maximum 16777216 items'
+          description: 'Variable length list, maximum 16777216 items. Frozen in Capella, replaced by historical_summaries.'
           items:
             type: string
             format: hex
@@ -30080,6 +30097,23 @@ components:
         next_withdrawal_validator_index:
           type: string
           example: '1'
+        historical_summaries:
+          type: array
+          items:
+            type: object
+            description: 'The [`HistoricalSummary`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#historicalsummary) object from the CL Capella spec.'
+            properties:
+              block_summary_root:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+              state_summary_root:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+          description: 'Variable length list, maximum 16777216 items'
     Capella.BeaconBlock:
       description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Capella spec.'
       allOf:
