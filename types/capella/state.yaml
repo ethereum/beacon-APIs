@@ -1,7 +1,7 @@
 Capella:
   BeaconState:
     type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/master/specs/capella/beacon-chain.md#beaconstate) object from the Eth2.0 Capella spec."
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#beaconstate) object from the Eth2.0 Capella spec."
     properties:
       genesis_time:
         $ref: "../primitive.yaml#/Uint64"
@@ -25,7 +25,7 @@ Capella:
           $ref: '../primitive.yaml#/Root'
       historical_roots:
         type: array
-        description: "Variable length list, maximum 16777216 items"
+        description: "Variable length list, maximum 16777216 items. Frozen in Capella, replaced by historical_summaries."
         items:
           $ref: '../primitive.yaml#/Root'
       eth1_data:
@@ -86,3 +86,8 @@ Capella:
         $ref: "../primitive.yaml#/Uint64"
       next_withdrawal_validator_index:
         $ref: "../primitive.yaml#/Uint64"
+      historical_summaries:
+          type: array
+          items:
+            $ref: "./historical_summary.yaml#/Capella/HistoricalSummary"
+          description: "Variable length list, maximum 16777216 items"
