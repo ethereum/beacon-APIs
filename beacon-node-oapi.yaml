@@ -207,6 +207,8 @@ components:
       $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/BeaconBlock'
+    BroadcastValidation:
+      $ref: './types/api.yaml#/BroadcastValidation'
     DepositSnapshotResponse:
       $ref: './types/api.yaml#/DepositSnapshotResponse'
     SignedBeaconBlock:
