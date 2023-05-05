@@ -4,7 +4,6 @@ get:
   description: |
     Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
-    It is recommended that blob retrieval for finalized blocks should by done by slot else the underlying index might not be available.
   tags:
     - Beacon
   parameters:
@@ -50,13 +49,13 @@ get:
               code: 400
               message: "Invalid block ID: current"
     "404":
-      description: "Blob sidecar not found"
+      description: "Block not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
             example:
               code: 404
-              message: "Blob sidecar not found"
+              message: "Block not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
