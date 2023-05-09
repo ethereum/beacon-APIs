@@ -89,8 +89,12 @@ paths:
     $ref: "./apis/beacon/blocks/header.yaml"
   /eth/v1/beacon/blinded_blocks:
     $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
+  /eth/v2/beacon/blinded_blocks:
+    $ref: "./apis/beacon/blocks/blinded_blocks.v2.yaml"
   /eth/v1/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.yaml"
+  /eth/v2/beacon/blocks:
+    $ref: "./apis/beacon/blocks/blocks.v2.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -209,6 +213,8 @@ components:
       $ref: './types/state.yaml#/BeaconState'
     BeaconBlock:
       $ref: './types/block.yaml#/BeaconBlock'
+    BroadcastValidation:
+      $ref: './types/api.yaml#/BroadcastValidation'
     DepositSnapshotResponse:
       $ref: './types/api.yaml#/DepositSnapshotResponse'
     SignedBeaconBlock:
