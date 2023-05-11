@@ -4,6 +4,9 @@ get:
   description: |
     Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
+
+    If the `indices` paramneter is specified, only the blobs with the specified indices will be returned. There are no guarantees for the
+    returned blob sidecars in terms of ordering.
   tags:
     - Beacon
   parameters:
@@ -38,7 +41,7 @@ get:
                 maxItems: 4
         application/octet-stream:
           schema:
-            description: "SSZ serialized block bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `BlobSidecars` bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:
