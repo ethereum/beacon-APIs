@@ -5,8 +5,8 @@ get:
     Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
 
-    If the `indices` paramneter is specified, only the blobs with the specified indices will be returned. There are no guarantees for the
-    returned blob sidecars in terms of ordering.
+    If the `indices` paramneter is specified, only the blobs with the specified indices will be returned. There are no guarantees
+    for the returned blob sidecars in terms of ordering.
   tags:
     - Beacon
   parameters:
