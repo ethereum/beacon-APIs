@@ -52,7 +52,7 @@ Deneb:
             $ref: './execution_payload.yaml#/Deneb/ExecutionPayload'
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/Deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
