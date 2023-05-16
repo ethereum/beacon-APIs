@@ -16,6 +16,9 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#289](https://github.com/ethereum/beacon-APIs/pull/289) `/eth/v2/beacon/blocks/{block_id}` added `deneb` block to response                 |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#289](https://github.com/ethereum/beacon-APIs/pull/289) `/eth/v1/validator/blinded_blocks/{slot}` added `deneb` blinded block              |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#289](https://github.com/ethereum/beacon-APIs/pull/289) `/eth/v1/validator/blocks/{slot}` added `deneb` block                              |                                                  |                                                   |                                                    |                                                 |                                           |
+| `/eth/v1/debug/beacon/heads` removed deprecated endpoint                                                                                    |                                                  |                                                   |                                                    |                                                 |                                           |
+
+
 
 The Following are no longer in the Standard API, removed since the latest version.
 
