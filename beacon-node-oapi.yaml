@@ -350,18 +350,36 @@ components:
       $ref: './types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate'
     Capella.LightClientOptimisticUpdate:
       $ref: './types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate'
+    Capella.Withdrawal:
+      $ref: './types/withdrawal.yaml#/Withdrawal'
     Deneb.BeaconState:
       $ref: './types/deneb/state.yaml#/Deneb/BeaconState'
     Deneb.BeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/BeaconBlock'
+    Deneb.BlockContents:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/BlockContents'
     Deneb.SignedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBeaconBlock'
+    Deneb.SignedBlockContents:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/SignedBlockContents'
     Deneb.BlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
+    Deneb.SignedBlindedBlockContents:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/SignedBlindedBlockContents'
+    Deneb.BlindedBlockContents:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/BlindedBlockContents'
     Deneb.SignedBlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
-    Capella.Withdrawal:
-      $ref: './types/withdrawal.yaml#/Withdrawal'
+    Blob:
+      $ref: './types/primitive.yaml#/Blob'
+    Deneb.BlobSidecar:
+      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecar'
+    Deneb.SignedBlobSidecar:
+      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlobSidecar'
+    Deneb.BlindedBlobSidecar:
+      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlindedBlobSidecar'
+    Deneb.SignedBlindedBlobSidecar:
+      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecar'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
