@@ -33,12 +33,7 @@ get:
             type: object
             properties:
               data:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecar"
-                minItems: 0
-                maxItems: 4
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
         application/octet-stream:
           schema:
             description: "SSZ serialized `BlobSidecars` bytes. Use Accept header to choose this response type"
