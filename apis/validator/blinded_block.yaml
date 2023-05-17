@@ -62,7 +62,7 @@ get:
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
-                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBlockContents"
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
