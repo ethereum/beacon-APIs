@@ -9,6 +9,17 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                                                    | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+
+The Following are no longer in the Standard API, removed since the latest version.
+
+| Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+## Version 2.4.1
+
+| Endpoint                                                                                                                                    | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
 | [#317](https://github.com/ethereum/beacon-APIs/pull/317) `POST /eth/v2/beacon/blocks` and `POST /eth/v2/beacon/blinded_blocks`              |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#316](https://github.com/ethereum/beacon-APIs/pull/316) `/eth/v2/debug/beacon/states` added `historical_summaries` to response             |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#289](https://github.com/ethereum/beacon-APIs/pull/289) `/eth/v2/debug/beacon/states` added `deneb` state to response                      |                                                  |                                                   |                                                    |                                                 |                                           |
@@ -21,11 +32,6 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#302](https://github.com/ethereum/beacon-APIs/pull/302) Added `BlockContents` structures for `deneb` blocks and blob_sidecars              |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#327](https://github.com/ethereum/beacon-APIs/pull/327) Increased maximum number of blobs from 4 to 6                        |                                                  |                                                   |                                                    |                                                 |                                           |
 
-
-The Following are no longer in the Standard API, removed since the latest version.
-
-| Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
-|----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
 
 ## Version 2.4.0
 
