@@ -4,7 +4,7 @@ Deneb:
     items:
       $ref: '#/Deneb/BlobSidecar'
     minItems: 0
-    maxItems: 4
+    maxItems: 6
 
   BlobSidecar:
     type: object
@@ -32,7 +32,7 @@ Deneb:
     items:
       $ref: '#/Deneb/SignedBlobSidecar'
     minItems: 0
-    maxItems: 4
+    maxItems: 6
 
   SignedBlobSidecar:
     type: object
@@ -48,7 +48,7 @@ Deneb:
     items:
       $ref: '#/Deneb/BlindedBlobSidecar'
     minItems: 0
-    maxItems: 4
+    maxItems: 6
 
   BlindedBlobSidecar:
     type: object
@@ -76,7 +76,7 @@ Deneb:
     items:
       $ref: '#/Deneb/SignedBlindedBlobSidecar'
     minItems: 0
-    maxItems: 4
+    maxItems: 6
 
   SignedBlindedBlobSidecar:
     type: object
