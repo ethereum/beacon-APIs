@@ -20,7 +20,7 @@ get:
       required: false
       schema:
         type: array
-        maxItems: 30
+        maxItems: 64
         uniqueItems: true
         items:
           description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
