@@ -27,9 +27,9 @@ post:
         schema:
           title: PostLivenessRequestBody
           type: array
+          minItems: 1
           items:
             $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-            minItems: 1
   responses:
     "200":
       description: Success response
