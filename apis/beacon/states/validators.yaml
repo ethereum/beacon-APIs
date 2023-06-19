@@ -72,7 +72,7 @@ get:
             example:
               code: 404
               message: "State not found"
-    "414"
+    "414":
       description: "Too many validator IDs"
       content:
         application/json:

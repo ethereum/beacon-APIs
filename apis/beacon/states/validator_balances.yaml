@@ -52,7 +52,7 @@ get:
             example:
               code: 400
               message: "Invalid state ID: current"
-    "414"
+    "414":
       description: "Too many validator IDs"
       content:
         application/json:
