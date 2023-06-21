@@ -24819,11 +24819,10 @@ paths:
                           description: 'Cryptographic hash of a peer’s public key. [Read more](https://docs.libp2p.io/concepts/peer-id/)'
                           example: QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
                         enr:
-                          allOf:
-                            - type: string
-                              description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
-                              example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
-                            - nullable: true
+                          nullable: true
+                          type: string
+                          description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
+                          example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
                         last_seen_p2p_address:
                           allOf:
                             - type: string
@@ -24903,11 +24902,10 @@ paths:
                         description: 'Cryptographic hash of a peer’s public key. [Read more](https://docs.libp2p.io/concepts/peer-id/)'
                         example: QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
                       enr:
-                        allOf:
-                          - type: string
-                            description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
-                            example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
-                          - nullable: true
+                        nullable: true
+                        type: string
+                        description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
+                        example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
                       last_seen_p2p_address:
                         allOf:
                           - type: string
@@ -25389,8 +25387,8 @@ paths:
             schema:
               title: GetAttesterDutiesBody
               type: array
+              minItems: 1
               items:
-                minItems: 1
                 type: string
                 example: '1'
       responses:
@@ -25674,8 +25672,8 @@ paths:
             schema:
               title: GetSyncCommitteeDutiesBody
               type: array
+              minItems: 1
               items:
-                minItems: 1
                 type: string
                 example: '1'
       responses:
@@ -32628,8 +32626,8 @@ paths:
             schema:
               title: PostLivenessRequestBody
               type: array
+              minItems: 1
               items:
-                minItems: 1
                 type: string
                 example: '1'
       responses:
@@ -32739,9 +32737,9 @@ paths:
           description: Event types to subscribe to
           schema:
             type: array
+            uniqueItems: true
             items:
               type: string
-              uniqueItems: true
               enum:
                 - head
                 - block
@@ -35018,11 +35016,10 @@ components:
           description: 'Cryptographic hash of a peer’s public key. [Read more](https://docs.libp2p.io/concepts/peer-id/)'
           example: QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N
         enr:
-          allOf:
-            - type: string
-              description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
-              example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
-            - nullable: true
+          nullable: true
+          type: string
+          description: 'Ethereum node record. [Read more](https://eips.ethereum.org/EIPS/eip-778)'
+          example: 'enr:-IS4QHCYrYZbAKWCBRlAy5zzaDZXJBGkcnh4MHcBFZntXNFrdvJjX04jRzjzCBOonrkTfj499SZuOh8R33Ls8RRcy5wBgmlkgnY0gmlwhH8AAAGJc2VjcDI1NmsxoQPKY0yuDUmstAHYpMa2_oxVtw0RW_QAdpzBQA8yWM0xOIN1ZHCCdl8'
         last_seen_p2p_address:
           allOf:
             - type: string
