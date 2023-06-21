@@ -735,6 +735,28 @@ paths:
                     type: array
                     items:
                       type: string
+        '414':
+          description: Too many validator IDs
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 414
+                  message: Too many validator IDs in request
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '500':
           description: Beacon node internal error.
           content:
@@ -1031,6 +1053,28 @@ paths:
                 example:
                   code: 400
                   message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '414':
+          description: Too many validator IDs
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 414
+                  message: Too many validator IDs in request
                 type: object
                 properties:
                   code:
