@@ -18,9 +18,9 @@ get:
       description: Event types to subscribe to
       schema:
         type: array
+        uniqueItems: true
         items:
           type: string
-          uniqueItems: true
           enum:
             - head
             - block
