@@ -39,7 +39,7 @@ post:
     - in: header
       schema:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
-      required: false
+      required: true
       name: Eth-Consensus-Version
       description: "Version of the block being submitted, if using SSZ encoding."
   requestBody:
