@@ -1,7 +1,7 @@
 get:
   operationId: "getEpochSyncCommittees"
   summary: "Get sync committees for a state."
-  description: "Retrieves the sync committees for the given state."
+  description: "Retrieves the current sync committee for the given state. Also returns the subcommittee assignments."
   tags:
     - Beacon
   parameters:
