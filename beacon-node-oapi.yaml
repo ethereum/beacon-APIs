@@ -42,11 +42,11 @@ tags:
   - name: Debug
     description: Set of endpoints to debug chain and shouldn't be exposed publicly.
   - name: Events
-    description: Set of endpoints to for event subscription.
+    description: Set of endpoints for event subscription.
   - name: Node
-    description: Endpoints to query node related informations
+    description: Endpoints to query node related information.
   - name: Validator
-    description: Endpoints intended for validator clients
+    description: Endpoints intended for validator clients.
   - name: ValidatorRequiredApi
     description: |
       Minimal set of endpoints to enable a working validator implementation.
