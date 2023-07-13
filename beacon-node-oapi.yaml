@@ -48,7 +48,7 @@ tags:
   - name: Events
     description: Set of endpoints for event subscription.
   - name: Node
-    description: Endpoints to query node related informations.
+    description: Endpoints to query node related information.
   - name: Validator
     description: Endpoints intended for validator clients.
   - name: ValidatorRequiredApi
