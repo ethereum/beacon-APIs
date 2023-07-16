@@ -2,11 +2,16 @@ get:
   tags:
     - ValidatorRequiredApi
     - Validator
-  operationId: "produceBlockV2"
+  operationId: "produceBlockV3"
   summary: "Produce a new block, without signature."
-  deprecated: true
   description: |
-    Requests a beacon node to produce a valid block, which can then be signed by a validator.
+    Requests a beacon node to produce a valid block, which can then be signed by a validator. The
+    returned block may be blinded or unblinded, depending on the current state of the network as
+    decided by the execution and beacon nodes.
+
+    The beacon node must return an unblinded block if it obtains the execution payload from its
+    paired execution node. It must only return a blinded block if it obtains the execution payload
+    header from an MEV relay.
 
     Metadata in the response indicates the type of block produced, and the supported types of block
     will be added to as forks progress.
@@ -44,10 +49,14 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+        Eth-Blinded-Payload:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Blinded-Payload'
+        Eth-Payload-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Payload-Value'
       content:
         application/json:
           schema:
-            title: ProduceBlockV2Response
+            title: ProduceBlockV3Response
             type: object
             properties:
               version:
@@ -60,10 +69,12 @@ get:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBlockContents"
         application/octet-stream:
           schema:
-            description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
+            description: "SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`."
     "400":
       description: "Invalid block production request"
       content:
