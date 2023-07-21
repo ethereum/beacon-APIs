@@ -34,7 +34,7 @@ AttestationsRewards:
 AttestationRewards:
   type: object
   description: "Rewards info for a single attestation"
-  required: ["validator_index", "head", "target", "source"]
+  required: ["validator_index", "head", "target", "source", "inactivity"]
   properties:
       validator_index:
         allOf:
@@ -70,7 +70,7 @@ AttestationRewards:
 IdealAttestationRewards:
   type: object
   description: "Ideal rewards info for a single attestation"
-  required: ["effective_balance", "head", "target", "source"]
+  required: ["effective_balance", "head", "target", "source", "inactivity"]
   properties:
     effective_balance:
       allOf:
