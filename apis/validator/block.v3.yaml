@@ -49,10 +49,10 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-        Eth-Blinded-Payload:
-          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Blinded-Payload'
-        Eth-Payload-Value:
-          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Payload-Value'
+        Eth-Execution-Payload-Blinded:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Blinded'
+        Eth-Execution-Payload-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Value'
       content:
         application/json:
           schema:
@@ -63,10 +63,10 @@ get:
                 type: string
                 enum: [ phase0, altair, bellatrix, capella, deneb ]
                 example: "phase0"
-              blinded-payload:
+              execution-payload-blinded:
                 type: boolean
                 example: false
-              payload-value:
+              execution-payload-value:
                 type: string
                 example: "12345"
               data:

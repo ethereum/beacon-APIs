@@ -424,12 +424,12 @@ components:
       required: true
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
-    Eth-Blinded-Payload:
+    Eth-Execution-Payload-Blinded:
       description: Required in response so client can deserialize returned json or ssz data to the correct object.
       required: true
       schema:
         type: boolean
-    Eth-Payload-Value:
+    Eth-Execution-Payload-Value:
       description: Required in response so client can determine relative value of execution payloads.
       required: true
       schema:
