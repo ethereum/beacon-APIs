@@ -11,7 +11,7 @@ get:
       description: "Customize syncing status instead of default status code (206)"
       schema:
         type: integer
-        minimum: 1
+        minimum: 100
         maximum: 599
   responses:
     "200":
