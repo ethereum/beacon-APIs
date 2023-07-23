@@ -18,5 +18,7 @@ get:
       description: Node is ready
     "206":
       description: Node is syncing but can serve incomplete data
+    "400":
+      description: Invalid syncing status code
     "503":
       description: Node not initialized or having issues
