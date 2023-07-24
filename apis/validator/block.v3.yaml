@@ -59,7 +59,7 @@ get:
             title: ProduceBlockV3Response
             type: object
             properties:
-              consensus-version:
+              version:
                 type: string
                 enum: [ phase0, altair, bellatrix, capella, deneb ]
                 example: "phase0"
