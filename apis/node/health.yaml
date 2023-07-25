@@ -11,12 +11,14 @@ get:
       description: "Customize syncing status instead of default status code (206)"
       schema:
         type: integer
-        minimum: 1
+        minimum: 100
         maximum: 599
   responses:
     "200":
       description: Node is ready
     "206":
       description: Node is syncing but can serve incomplete data
+    "400":
+      description: Invalid syncing status code
     "503":
       description: Node not initialized or having issues
