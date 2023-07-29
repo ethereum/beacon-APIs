@@ -28662,10 +28662,10 @@ paths:
                       - capella
                       - deneb
                     example: phase0
-                  execution-payload-blinded:
+                  execution_payload_blinded:
                     type: boolean
                     example: false
-                  execution-payload-value:
+                  execution_payload_value:
                     type: string
                     example: '12345'
                   data:
