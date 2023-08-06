@@ -21,7 +21,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "v2.4.2 - Ethereum Proof-of-Stake Consensus Specification v1.4.0-beta.1"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.4.0-beta.1"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
