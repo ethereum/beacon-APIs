@@ -65,8 +65,6 @@ paths:
 
   /eth/v1/beacon/genesis:
     $ref: "./apis/beacon/genesis.yaml"
-  /eth/v1/beacon/states/{state_id}:
-    $ref: "./apis/beacon/states/state.yaml"
   /eth/v1/beacon/states/{state_id}/root:
     $ref: "./apis/beacon/states/root.yaml"
   /eth/v1/beacon/states/{state_id}/fork:
