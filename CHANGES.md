@@ -18,6 +18,7 @@ The Following are no longer in the Standard API, removed since the latest versio
 
 | Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#339](https://github.com/ethereum/beacon-APIs/pull/339) `POST /eth/v2/beacon/*blocks` deprecated        |                                                  |                                                   |                                                    |
 
 ## Version 2.4.1
 
