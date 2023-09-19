@@ -74,6 +74,7 @@ get:
                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
