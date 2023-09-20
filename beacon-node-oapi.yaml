@@ -434,3 +434,8 @@ components:
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'
+    Eth-Consensus-Payload-Value:
+      description: Required in response so client can determine relative value of consensus payloads.
+      required: true
+      schema:
+        $ref: './types/primitive.yaml#/Wei'

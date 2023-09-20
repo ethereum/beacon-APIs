@@ -53,6 +53,8 @@ get:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Blinded'
         Eth-Execution-Payload-Value:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Value'
+        Eth-Consensus-Payload-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Payload-Value'
       content:
         application/json:
           schema:
@@ -67,6 +69,9 @@ get:
                 type: boolean
                 example: false
               execution_payload_value:
+                type: string
+                example: "12345"
+              consensus_payload_value:
                 type: string
                 example: "12345"
               data:
