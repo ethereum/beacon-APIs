@@ -436,3 +436,8 @@ components:
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'
+    Eth-Consensus-Block-Value:
+      description: Required in response so client can determine relative value of consensus blocks.
+      required: true
+      schema:
+        $ref: './types/primitive.yaml#/Wei'
