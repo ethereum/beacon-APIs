@@ -29,7 +29,7 @@ get:
       content:
         application/json:
           schema:
-            title: GetBlobsResponse
+            title: GetBlobSidecarsResponse
             type: object
             properties:
               data:
