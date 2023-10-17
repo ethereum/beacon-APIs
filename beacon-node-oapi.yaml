@@ -3839,10 +3839,10 @@ paths:
                   properties:
                     signed_blinded_block:
                       type: object
-                      description: 'A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
+                      description: 'A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
                       properties:
                         message:
-                          description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+                          description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
                           allOf:
                             - type: object
                               properties:
@@ -6589,10 +6589,10 @@ paths:
                   properties:
                     signed_blinded_block:
                       type: object
-                      description: 'A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
+                      description: 'A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
                       properties:
                         message:
-                          description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+                          description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
                           allOf:
                             - type: object
                               properties:
@@ -18620,10 +18620,10 @@ paths:
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                       - type: object
-                        description: 'A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
+                        description: 'A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
                         properties:
                           message:
-                            description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+                            description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
                             allOf:
                               - type: object
                                 properties:
@@ -32343,7 +32343,7 @@ paths:
                         description: The required object for blinded block production according to the Deneb CL spec.
                         properties:
                           blinded_block:
-                            description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+                            description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
                             allOf:
                               - type: object
                                 properties:
@@ -35032,7 +35032,7 @@ paths:
                         description: The required object for blinded block production according to the Deneb CL spec.
                         properties:
                           blinded_block:
-                            description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+                            description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
                             allOf:
                               - type: object
                                 properties:
@@ -50472,7 +50472,7 @@ components:
           minItems: 0
           maxItems: 6
     Deneb.BlindedBeaconBlock:
-      description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+      description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
       allOf:
         - type: object
           properties:
@@ -51038,10 +51038,10 @@ components:
       properties:
         signed_blinded_block:
           type: object
-          description: 'A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
+          description: 'A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
           properties:
             message:
-              description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+              description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
               allOf:
                 - type: object
                   properties:
@@ -51663,7 +51663,7 @@ components:
       description: The required object for blinded block production according to the Deneb CL spec.
       properties:
         blinded_block:
-          description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+          description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
           allOf:
             - type: object
               properties:
@@ -52268,10 +52268,10 @@ components:
           maxItems: 6
     Deneb.SignedBlindedBeaconBlock:
       type: object
-      description: 'A variant of the the the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
+      description: 'A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`.'
       properties:
         message:
-          description: 'A variant of the the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
+          description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
           allOf:
             - type: object
               properties:
