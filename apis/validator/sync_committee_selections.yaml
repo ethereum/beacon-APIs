@@ -7,7 +7,7 @@ post:
     validator cluster, and is implemented by a distributed validator middleware client. This endpoint is 
     used to exchange partial selection proofs (slot signatures) for combined/aggregated selection proofs to 
     allow a validator client to correctly determine if any of its validators has been selected to perform a 
-    sync committee contribution (sync aggregation) duty in a slot. Validator clients must query this endpoint
+    sync committee contribution (sync aggregation) duty in a slot. Validator clients running in a distributed validator cluster must query this endpoint
     at the start of each slot for all validators that are included in the current sync committee. Consensus
     clients need not support this endpoint and may return a 501.
   tags:
