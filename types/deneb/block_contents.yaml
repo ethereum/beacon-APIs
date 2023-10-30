@@ -1,0 +1,19 @@
+Deneb:
+  BlockContents:
+    type: object
+    description: "The required object for block production according to the Deneb CL spec."
+    properties:
+      block:
+        $ref: "./block.yaml#/Deneb/BeaconBlock"
+      blob_sidecars:
+        $ref: "./blob_sidecar.yaml#/Deneb/BlobSidecars"
+
+  SignedBlockContents:
+    type: object
+    description: "The required signed components of block production according to the Deneb CL spec."
+    properties:
+      signed_block:
+        $ref: "./block.yaml#/Deneb/SignedBeaconBlock"
+      signed_blob_sidecars:
+        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlobSidecars"
+      
