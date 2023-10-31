@@ -75,16 +75,6 @@ get:
                 type: string
                 example: "12345"
               data:
-                discriminator:
-                  mapping:
-                    BeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
-                    Altair.BeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
-                    Bellatrix.BeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
-                    Bellatrix.BlindedBeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
-                    Capella.BeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
-                    Capella.BlindedBeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
-                    Deneb.BlockContents: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
-                    Deneb.BlindedBeaconBlock: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
                 oneOf:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
