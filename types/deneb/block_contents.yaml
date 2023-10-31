@@ -1,12 +1,37 @@
 Deneb:
+  KZGCommitments:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/KZGCommitment'
+    minItems: 0
+    maxItems: 6
+  
+  KzgProofs:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/KZGProof'
+    minItems: 0
+    maxItems: 6
+
+  Blobs:
+    type: array
+    items:
+      $ref: "../primitive.yaml#/Blob"
+    minItems: 0
+    maxItems: 6
+  
   BlockContents:
     type: object
     description: "The required object for block production according to the Deneb CL spec."
     properties:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
-      blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/BlobSidecars"
+      kzg_commitments:
+        $ref: "#/Deneb/KZGCommitments"
+      kzg_proofs:
+        $ref: "#/Deneb/KZGProofs"
+      blobs:
+        $ref: "#/Deneb/Blobs"
 
   SignedBlockContents:
     type: object
@@ -14,6 +39,9 @@ Deneb:
     properties:
       signed_block:
         $ref: "./block.yaml#/Deneb/SignedBeaconBlock"
-      signed_blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlobSidecars"
-      
+      kzg_commitments:
+        $ref: "#/Deneb/KZGCommitments"
+      kzg_proofs:
+        $ref: "#/Deneb/KZGProofs"
+      blobs:
+        $ref: "#/Deneb/Blobs"
