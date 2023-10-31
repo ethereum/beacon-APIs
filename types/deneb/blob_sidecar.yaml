@@ -26,7 +26,7 @@ Deneb:
       kzg_proof:
         $ref: '../primitive.yaml#/KZGProof'
       signed_block_header:
-        $ref: "./block.yaml#/Deneb/SignedBeaconBlockHeader"
+        $ref: "../block.yaml#/Deneb/SignedBeaconBlockHeader"
       commitment_inclusion_proof:
         $ref: '#/Deneb/CommitmentInclusionProof'
 

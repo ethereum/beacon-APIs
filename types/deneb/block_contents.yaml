@@ -6,7 +6,7 @@ Deneb:
     minItems: 0
     maxItems: 6
   
-  KzgProofs:
+  KZGProofs:
     type: array
     items:
       $ref: '../primitive.yaml#/KZGProof'
