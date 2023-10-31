@@ -1,11 +1,4 @@
 Deneb:
-  KZGCommitments:
-    type: array
-    items:
-      $ref: '../primitive.yaml#/KZGCommitment'
-    minItems: 0
-    maxItems: 6
-  
   KZGProofs:
     type: array
     items:
@@ -26,8 +19,6 @@ Deneb:
     properties:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
-      kzg_commitments:
-        $ref: "#/Deneb/KZGCommitments"
       kzg_proofs:
         $ref: "#/Deneb/KZGProofs"
       blobs:
@@ -39,8 +30,6 @@ Deneb:
     properties:
       signed_block:
         $ref: "./block.yaml#/Deneb/SignedBeaconBlock"
-      kzg_commitments:
-        $ref: "#/Deneb/KZGCommitments"
       kzg_proofs:
         $ref: "#/Deneb/KZGProofs"
       blobs:
