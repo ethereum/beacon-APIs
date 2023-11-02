@@ -6,7 +6,7 @@ Deneb:
     minItems: 0
     maxItems: 6
 
-  CommitmentInclusionProof:
+  KZGCommitmentInclusionProof:
     type: array
     items:
       $ref: "../primitive.yaml#/Bytes32"
@@ -27,6 +27,6 @@ Deneb:
         $ref: '../primitive.yaml#/KZGProof'
       signed_block_header:
         $ref: "../block.yaml#/SignedBeaconBlockHeader"
-      commitment_inclusion_proof:
-        $ref: '#/Deneb/CommitmentInclusionProof'
+      kzg_commitment_inclusion_proof:
+        $ref: '#/Deneb/KZGCommitmentInclusionProof'
 
