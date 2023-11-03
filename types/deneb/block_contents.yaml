@@ -5,8 +5,8 @@ Deneb:
     properties:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
-      blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/BlobSidecars"
+      blobs_bundle:
+        $ref: "./blob_sidecar.yaml#/Deneb/BlobsBundle"
 
   BlindedBlockContents:
     type: object

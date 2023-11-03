@@ -1,4 +1,21 @@
 Deneb:
+  BlobsBundle:
+    type: object
+    description: "A blbs bundle as defined in the Deneb consensus spec."
+    properties:
+      blobs:
+        type: array
+        items:
+          $ref: '../primitive.yaml#/Blob'
+      kzg_commitments:
+        type: array
+        items:
+          $ref: '../primitive.yaml#/KZGCommitment'
+      kzg_proofs:
+        type: array
+        items:
+          $ref: '../primitive.yaml#/KZGProof'
+
   BlobSidecars:
     type: array
     items:
