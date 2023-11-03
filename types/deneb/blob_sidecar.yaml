@@ -7,14 +7,20 @@ Deneb:
         type: array
         items:
           $ref: '../primitive.yaml#/Blob'
+        minItems: 0
+        maxItems: 4096
       kzg_commitments:
         type: array
         items:
           $ref: '../primitive.yaml#/KZGCommitment'
+        minItems: 0
+        maxItems: 4096
       kzg_proofs:
         type: array
         items:
           $ref: '../primitive.yaml#/KZGProof'
+        minItems: 0
+        maxItems: 4096
 
   BlobSidecars:
     type: array
