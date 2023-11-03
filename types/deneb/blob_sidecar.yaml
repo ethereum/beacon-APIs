@@ -6,19 +6,19 @@ Deneb:
     minItems: 0
     maxItems: 6
 
+  KzgCommitmentInclusionProof:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`KZG_COMMITMENT_INCLUSION_PROOF_DEPTH`](https://github.com/ethereum/consensus-specs/blob/v1.4.0-beta.4/specs/deneb/p2p-interface.md#preset) roots"
+    minItems: 17
+    maxItems: 17
+
   BlobSidecar:
     type: object
     description: "A blob sidecar as defined in the Deneb consensus spec."
     properties:
-      block_root:
-        $ref: "../primitive.yaml#/Root"
       index:
-        $ref: "../primitive.yaml#/Uint64"
-      slot:
-        $ref: "../primitive.yaml#/Uint64"
-      block_parent_root:
-        $ref: "../primitive.yaml#/Root"
-      proposer_index:
         $ref: "../primitive.yaml#/Uint64"
       blob:
         $ref: "../primitive.yaml#/Blob"
@@ -26,22 +26,10 @@ Deneb:
         $ref: '../primitive.yaml#/KZGCommitment'
       kzg_proof:
         $ref: '../primitive.yaml#/KZGProof'
-
-  SignedBlobSidecars:
-    type: array
-    items:
-      $ref: '#/Deneb/SignedBlobSidecar'
-    minItems: 0
-    maxItems: 6
-
-  SignedBlobSidecar:
-    type: object
-    description: "The `SignedBlobSidecar` object envelope from the CL Deneb spec."
-    properties:
-      message:
-        $ref: "#/Deneb/BlobSidecar"
-      signature:
-        $ref: "../primitive.yaml#/Signature"
+      signed_block_header:
+        $ref: '../block.yaml#/SignedBeaconBlockHeader'
+      kzg_commitment_inclusion_proof:
+        $ref: '#/Deneb/KzgCommitmentInclusionProof'
 
   BlindedBlobSidecars:
     type: array
@@ -70,19 +58,3 @@ Deneb:
         $ref: '../primitive.yaml#/KZGCommitment'
       kzg_proof:
         $ref: '../primitive.yaml#/KZGProof'
-
-  SignedBlindedBlobSidecars:
-    type: array
-    items:
-      $ref: '#/Deneb/SignedBlindedBlobSidecar'
-    minItems: 0
-    maxItems: 6
-
-  SignedBlindedBlobSidecar:
-    type: object
-    description: "A variant of the `SignedBlobSidecar` object envelope from the CL Deneb spec, which contains a `BlindedBlobSidecar` rather than a `BlobSidecar`."
-    properties:
-      message:
-        $ref: "#/Deneb/BlindedBlobSidecar"
-      signature:
-        $ref: "../primitive.yaml#/Signature"

@@ -379,12 +379,8 @@ components:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
-    Deneb.SignedBlobSidecar:
-      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlobSidecar'
     Deneb.BlindedBlobSidecar:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlindedBlobSidecar'
-    Deneb.SignedBlindedBlobSidecar:
-      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecar'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
