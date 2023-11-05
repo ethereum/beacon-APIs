@@ -36342,8 +36342,10 @@ paths:
         This endpoint should be used by a validator client running as part of a distributed validator cluster, and is 
         implemented by a distributed validator middleware client. This endpoint is used to exchange partial 
         selection proofs for combined/aggregated selection proofs to allow a validator client 
-        to correctly determine if one of its validators has been selected to perform an aggregation duty in this slot. 
-        Consensus clients need not support this endpoint and may return a 501.
+        to correctly determine if any of its validators has been selected to perform an attestation aggregation duty in a slot. 
+        Validator clients running in a distributed validator cluster must query this endpoint at the start of an epoch for the current and lookahead (next) epochs for
+        all validators that have attester duties in the current and lookahead epochs. Consensus clients need not support this
+        endpoint and may return a 501.
       tags:
         - Validator
       requestBody:
@@ -36662,10 +36664,11 @@ paths:
         Submit sync committee selections to a DVT middleware client. It returns the threshold aggregated sync 
         committee selection. This endpoint should be used by a validator client running as part of a distributed 
         validator cluster, and is implemented by a distributed validator middleware client. This endpoint is 
-        used to exchange partial selection proof slot signatures for combined/aggregated selection proofs to 
-        allow a validator client to correctly determine if one of its validators has been selected to perform 
-        a sync committee contribution (sync aggregation) duty in this slot. Consensus clients need not support 
-        this endpoint and may return a 501.
+        used to exchange partial selection proofs (slot signatures) for combined/aggregated selection proofs to 
+        allow a validator client to correctly determine if any of its validators has been selected to perform a 
+        sync committee contribution (sync aggregation) duty in a slot. Validator clients running in a distributed validator cluster must query this endpoint
+        at the start of each slot for all validators that are included in the current sync committee. Consensus
+        clients need not support this endpoint and may return a 501.
       tags:
         - Validator
       requestBody:
