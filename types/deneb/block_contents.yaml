@@ -4,14 +4,14 @@ Deneb:
     items:
       $ref: '../primitive.yaml#/KZGProof'
     minItems: 0
-    maxItems: 6
+    maxItems: 4096
 
   Blobs:
     type: array
     items:
       $ref: "../primitive.yaml#/Blob"
     minItems: 0
-    maxItems: 6
+    maxItems: 4096
   
   BlockContents:
     type: object
