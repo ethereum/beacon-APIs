@@ -779,6 +779,250 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+    post:
+      operationId: postStateValidators
+      summary: Get validators from state
+      description: |
+        Returns filterable list of validators with their balance, status and index.
+
+        Information will be returned for all indices or public key that match known validators.  If an index or public key does not
+        match any known validator, no information will be returned but this will not cause an error.  There are no guarantees for the
+        returned data in terms of ordering; both the index and public key are returned for each validator, and can be used to confirm
+        for which inputs a response has been returned.
+
+        The POST variant of this endpoint has the same semantics as the GET endpoint but passes
+        the lists of IDs and statuses via a POST body in order to enable larger requests.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+      requestBody:
+        description: The lists of validator IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: []
+              properties:
+                ids:
+                  type: array
+                  uniqueItems: true
+                  items:
+                    description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
+                    type: string
+                statuses:
+                  type: array
+                  uniqueItems: true
+                  items:
+                    allOf:
+                      - description: |
+                          Possible statuses:
+                          - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
+                          - **pending_queued** - When validator is waiting to get activated, and have enough funds etc. while in the queue, validator activation epoch keeps changing until it gets to the front and make it through (finalization is a requirement here too).
+                          - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
+                          - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
+                          - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
+                          - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+                          - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
+                          - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
+                          - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
+
+                          [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
+                        enum:
+                          - pending_initialized
+                          - pending_queued
+                          - active_ongoing
+                          - active_exiting
+                          - active_slashed
+                          - exited_unslashed
+                          - exited_slashed
+                          - withdrawal_possible
+                          - withdrawal_done
+                        example: active_ongoing
+                      - enum:
+                          - active
+                          - pending
+                          - exited
+                          - withdrawal
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetStateValidatorsResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Index of validator in validator registry.
+                        balance:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Current validator balance in gwei.
+                        status:
+                          description: |
+                            Possible statuses:
+                            - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
+                            - **pending_queued** - When validator is waiting to get activated, and have enough funds etc. while in the queue, validator activation epoch keeps changing until it gets to the front and make it through (finalization is a requirement here too).
+                            - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
+                            - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
+                            - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
+                            - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
+                            - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
+                            - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
+                            - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
+
+                            [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
+                          enum:
+                            - pending_initialized
+                            - pending_queued
+                            - active_ongoing
+                            - active_exiting
+                            - active_slashed
+                            - exited_unslashed
+                            - exited_slashed
+                            - withdrawal_possible
+                            - withdrawal_done
+                          example: active_ongoing
+                        validator:
+                          type: object
+                          properties:
+                            pubkey:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{96}$'
+                              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                            withdrawal_credentials:
+                              allOf:
+                                - type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                - description: Root of withdrawal credentials
+                            effective_balance:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - description: Balance at stake in Gwei.
+                            slashed:
+                              type: boolean
+                              example: false
+                              description: Was validator slashed (not longer active).
+                            activation_eligibility_epoch:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - description: When criteria for activation were met.
+                            activation_epoch:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+                            exit_epoch:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+                            withdrawable_epoch:
+                              allOf:
+                                - type: string
+                                  example: '1'
+                                - description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+        '400':
+          description: 'Invalid state or validator ID, or status'
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 404
+                  message: State not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/validators/{validator_id}':
     get:
       operationId: getStateValidator
@@ -984,9 +1228,9 @@ paths:
       description: |
         Returns filterable list of validators balances.
 
-        Balances will be returned for all indices or public key that match known validators.  If an index or public key does not
-        match any known validator, no balance will be returned but this will not cause an error.  There are no guarantees for the
-        returned data in terms of ordering; the index and is returned for each balance, and can be used to confirm for which inputs a
+        Balances will be returned for all indices or public key that match known validators. If an index or public key does not
+        match any known validator, no balance will be returned but this will not cause an error. There are no guarantees for the
+        returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
         response has been returned.
       tags:
         - Beacon
@@ -1075,6 +1319,117 @@ paths:
                 example:
                   code: 414
                   message: Too many validator IDs in request
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+    post:
+      operationId: postStateValidatorBalances
+      summary: Get validator balances from state
+      description: |
+        Returns filterable list of validators balances.
+
+        Balances will be returned for all indices or public key that match known validators. If an index or public key does not
+        match any known validator, no balance will be returned but this will not cause an error. There are no guarantees for the
+        returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
+        response has been returned.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+      requestBody:
+        description: An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index
+        required: false
+        content:
+          application/json:
+            schema:
+              type: array
+              uniqueItems: true
+              items:
+                description: Either hex encoded public key (any bytes48 with 0x prefix) or validator index
+                type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetStateValidatorBalancesResponse
+                type: object
+                properties:
+                  execution_optimistic:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    allOf:
+                      - type: boolean
+                      - example: false
+                      - description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        index:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Index of validator in validator registry.
+                        balance:
+                          allOf:
+                            - type: string
+                              example: '1'
+                            - description: Current validator balance in gwei.
+        '400':
+          description: Invalid state ID or malformed request
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 400
+                  message: 'Invalid state ID: current'
                 type: object
                 properties:
                   code:
