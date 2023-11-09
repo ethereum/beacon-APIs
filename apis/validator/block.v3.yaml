@@ -76,14 +76,14 @@ get:
                 example: "12345"
               data:
                 oneOf:
-                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBlockContents"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`."

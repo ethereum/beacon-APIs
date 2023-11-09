@@ -144,3 +144,4 @@ KZGProof:
   format: hex
   pattern: "^0x[a-fA-F0-9]{96}$"
   description: "A G1 curve point. Used for verifying that the `KZGCommitment` for a given `Blob` is correct."
+
