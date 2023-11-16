@@ -7459,7 +7459,7 @@ paths:
         '202':
           description: 'The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node''s database.'
         '400':
-          description: The `SignedBlindedBeaconBlock` object is invalid
+          description: The `SignedBlindedBeaconBlock` object is invalid or broadcast validation failed
           content:
             application/json:
               schema:
@@ -12945,7 +12945,7 @@ paths:
         '202':
           description: 'The block could not be integrated into the beacon node''s database as it failed validation, but was successfully broadcast.'
         '400':
-          description: The `SignedBeaconBlock` object is invalid and could not be broadcast
+          description: The `SignedBeaconBlock` object is invalid or broadcast validation failed
           content:
             application/json:
               schema:
