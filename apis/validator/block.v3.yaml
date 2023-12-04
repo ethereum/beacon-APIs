@@ -43,6 +43,13 @@ get:
         is a flag and does not take a value.
       schema: {}
       allowEmptyValue: true
+    - name: ignore_builders
+      in: query
+      required: false
+      description: |
+        Ignore block builders and always attempt to construct blocks via the local execution client.
+      schema: {}
+      allowEmptyValue: true
   responses:
     "200":
       description: Success response
