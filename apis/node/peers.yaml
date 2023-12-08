@@ -34,13 +34,5 @@ get:
                 type: array
                 items:
                   $ref: "../../beacon-node-oapi.yaml#/components/schemas/Peer"
-              meta:
-                type: object
-                properties:
-                  count:
-                    description: "Total number of items"
-                    type: number
-                    example: 1
-
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
