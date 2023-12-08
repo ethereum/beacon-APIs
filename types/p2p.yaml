@@ -10,7 +10,7 @@ NetworkIdentity:
       items:
         allOf:
           - $ref: "./p2p.yaml#/Multiaddr"
-          - description: "Node's addresses on which eth2 rpc requests are served. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
+          - description: "Node's addresses on which eth2 RPC requests are served. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
     discovery_addresses:
       type: array
       items:
