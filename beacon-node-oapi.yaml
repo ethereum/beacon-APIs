@@ -148,6 +148,8 @@ paths:
     $ref: "./apis/node/identity.yaml"
   /eth/v1/node/peers:
     $ref: "./apis/node/peers.yaml"
+  /eth/v2/node/peers:
+    $ref: "./apis/node/peers.v2.yaml"
   /eth/v1/node/peers/{peer_id}:
     $ref: "./apis/node/peer.yaml"
   /eth/v1/node/peer_count:
