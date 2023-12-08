@@ -1,3 +1,40 @@
+get:
+  operationId: getPoolSyncCommitteeSignatures
+  summary: Get sync committee signatures from operations pool
+  description: Retrieves SyncCommitteeSignature known by the node but not necessarily incorporated into any block
+  parameters:
+    - name: slot
+      in: query
+      required: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            title: GetPoolSyncCommitteeSignaturesResponse
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeSignature'
+    "400":
+      description: "The slot could not be parsed"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 400
+              message: "Invalid slot: current"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
 post:
   operationId: submitPoolSyncCommitteeSignatures
   summary: Submit sync committee signatures to node
