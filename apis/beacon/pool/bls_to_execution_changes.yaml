@@ -36,9 +36,9 @@ post:
             $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
   responses:
     "200":
-      description: "Bls to execution changes were all stored to the pool and broadcast on the appropriate subnet."
+      description: "BLS to execution changes were all stored to the pool and broadcast on the appropriate subnet."
     "400":
-      description: "Errors in one or more bls to execution changes"
+      description: "Errors in one or more BLS to execution changes"
       content:
         application/json:
           schema:
