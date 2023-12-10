@@ -31,7 +31,7 @@ servers:
     variables:
       server_url:
         description: Beacon node API url
-        default: 'http://public-mainnet-node.ethereum.org/'
+        default: 'http://localhost/'
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
