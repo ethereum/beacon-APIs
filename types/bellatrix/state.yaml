@@ -45,7 +45,7 @@ Bellatrix:
           $ref: '../validator.yaml#/Validator'
       balances:
         type: array
-        description: "Validator balances in gwei. Variable length list, maximum 1099511627776 items"
+        description: "Validator balances in Gwei. Variable length list, maximum 1099511627776 items"
         items:
           $ref: '../primitive.yaml#/Uint64'
       randao_mixes:
