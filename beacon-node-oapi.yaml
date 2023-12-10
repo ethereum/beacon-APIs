@@ -1311,6 +1311,28 @@ paths:
                     type: array
                     items:
                       type: string
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 404
+                  message: State not found
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
         '414':
           description: Too many validator IDs
           content:
@@ -1430,6 +1452,28 @@ paths:
                 example:
                   code: 400
                   message: 'Invalid state ID: current'
+                type: object
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '404':
+          description: State not found
+          content:
+            application/json:
+              schema:
+                example:
+                  code: 404
+                  message: State not found
                 type: object
                 properties:
                   code:
