@@ -52,6 +52,15 @@ get:
             example:
               code: 400
               message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "State not found"
     "414":
       description: "Too many validator IDs"
       content:
@@ -116,5 +125,14 @@ post:
             example:
               code: 400
               message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "State not found"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
