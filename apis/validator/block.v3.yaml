@@ -43,6 +43,38 @@ get:
         is a flag and does not take a value.
       schema: {}
       allowEmptyValue: true
+    - name: builder_comparison_factor
+      in: query
+      required: false
+      description: |
+        Percentage multiplier to apply to the builder's payload value when choosing between a
+        builder payload header and a local payload. This parameter is only relevant if the beacon
+        node is connected to a builder, deems it safe to produce a builder payload, and receives
+        valid responses from both the builder endpoint _and_ the local execution node. When these
+        pre-conditions are met, the server MUST act as follows:
+
+        * if `local_payload_value >= builder_comparison_factor * builder_payload_value // 100`, then
+          return a full (unblinded) block containing the local payload.
+        * otherwise, return a blinded block containing the builder payload header.
+
+        Servers must support the following values of the comparison factor which encode common
+        preferences:
+
+        * `builder_comparison_factor=0`: prefer the local payload unless an error makes it
+           unviable.
+        * `builder_comparison_factor=100`: default profit maximization mode; choose whichever
+          payload pays more.
+        * `builder_comparison_factor=2**64 - 1`: prefer the builder payload unless an error or
+        beacon node health check makes it unviable.
+
+        Servers should use saturating arithmetic or another technique to ensure that large values
+        of the `builder_comparison_factor` do not trigger overflows or errors.
+
+        If this parameter is provided and the beacon node is not configured with a builder then
+        the beacon node MUST respond with a full local block, which the caller can choose to reject
+        if it wishes.
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: Success response
