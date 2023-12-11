@@ -14,11 +14,11 @@ Altair:
       parent_root:
         allOf:
           - $ref: '../primitive.yaml#/Root'
-          - description: "The signing merkle root of the parent `BeaconBlock`."
+          - description: "The signing Merkle root of the parent `BeaconBlock`."
       state_root:
         allOf:
           - $ref: '../primitive.yaml#/Root'
-          - description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
+          - description: "The tree hash Merkle root of the `BeaconState` for the `BeaconBlock`."
 
   BeaconBlockBody:
     type: object
