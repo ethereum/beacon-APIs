@@ -51,7 +51,7 @@ get:
         builder payload header and a local payload. This parameter is only relevant if the beacon
         node is connected to a builder, deems it safe to produce a builder payload, and receives
         valid responses from both the builder endpoint _and_ the local execution node. When these
-        pre-conditions are met, the server MUST act as follows:
+        preconditions are met, the server MUST act as follows:
 
         * if `local_payload_value >= builder_comparison_factor * builder_payload_value // 100`, then
           return a full (unblinded) block containing the local payload.
