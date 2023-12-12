@@ -36,6 +36,7 @@ get:
                   $ref: "../../beacon-node-oapi.yaml#/components/schemas/Peer"
               meta:
                 type: object
+                required: false
                 properties:
                   count:
                     description: "Total number of items"
