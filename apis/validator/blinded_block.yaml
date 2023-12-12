@@ -12,7 +12,7 @@ get:
     Metadata in the response indicates the type of block produced, and the supported types of block
     will be added to as forks progress.
     
-    Pre-Bellatrix, this endpoint will return a `BeaconBlock`.
+    Before Bellatrix, this endpoint will return a `BeaconBlock`.
   parameters:
     - name: slot
       in: path
