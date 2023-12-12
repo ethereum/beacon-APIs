@@ -35970,6 +35970,9 @@ paths:
         A 503 error must be returned if the block identified by the response
         `beacon_block_root` is optimistic (i.e. the aggregated attestation attests
         to a block that has not been fully verified by an execution engine).
+
+        A 404 error must be returned if no attestation is available for the requested
+        `attestation_data_root`.
       tags:
         - ValidatorRequiredApi
         - Validator
