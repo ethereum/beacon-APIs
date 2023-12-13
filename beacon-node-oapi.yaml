@@ -36136,6 +36136,7 @@ paths:
             schema:
               type: array
               items:
+                type: object
                 description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#signedaggregateandproof) object'
                 properties:
                   message:
@@ -39347,6 +39348,7 @@ components:
             type: string
             example: '1'
     SignedAggregateAndProof:
+      type: object
       description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#signedaggregateandproof) object'
       properties:
         message:
