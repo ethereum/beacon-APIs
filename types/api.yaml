@@ -1,24 +1,5 @@
 # API specific types
 
-DepositSnapshotResponse:
-  type: object
-  properties:
-    finalized:
-      type: array
-      items:
-        allOf:
-          - $ref: './primitive.yaml#/Root'
-      minItems: 3
-      maxItems: 3
-    deposit_root:
-      $ref: './primitive.yaml#/Root'
-    deposit_count:
-      $ref: './primitive.yaml#/Uint64'
-    execution_block_hash:
-      $ref: './primitive.yaml#/Root'
-    execution_block_height:
-      $ref: './primitive.yaml#/Uint64'
-
 ValidatorResponse:
   type: object
   properties:
@@ -50,19 +31,31 @@ ValidatorBalanceResponse:
 ValidatorStatus:
   description: |
     Possible statuses:
-    - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
-    - **pending_queued** - When validator is waiting to get activated, and have enough funds etc. while in the queue, validator activation epoch keeps changing until it gets to the front and make it through (finalization is a requirement here too).
-    - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
-    - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
-    - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
-    - **exited_unslashed** - When validator has reached regular exit epoch, not being slashed, and doesn't have to attest any more, but cannot withdraw yet.
-    - **exited_slashed** - When validator has reached regular exit epoch, but was slashed, have to wait for a longer withdrawal period.
-    - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
-    - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
+    - **waiting_for_eligibility** - A `Deposit` is included in a `BeaconBlock`, causing the Beacon Chain to become aware of the validator.
+    - **waiting_for_finality** - The Beacon Chain has observed that the validator could become eligible and it is waiting for those conditions 
+    to become finalized.
+    - **waiting_in_queue** - The conditions which allow the validator to become active are finalized.
+    The validator is now waiting in the activation queue, awaiting its turn to be activated.
+    - **standby_for_active** - The conditions which allow the validator to become active are finalized.
+    The validator is now waiting in the activation queue, awaiting its turn to be activated.
+    Validator status will change to `active` on `validator.activation_epoch`.
+    - **active** - The validator is now active and, for the first time, is rewarded for including attestations and blocks in the beacon chain.
+     It will be penalized if it fails to have attestations included in the chain.
+    - **active_awaiting_slashed_exit** - The validator has produced conflicting messages and they have been included
+     in the chain via a ProposerSlashing or AttesterSlashing. It will not be rewarded for producing attestations but may be 
+     required to (and rewarded for) producing blocks. Validator will change status to `exited_slashed` on `validator.exit_epoch`.
+    - **active_awaiting_voluntary_exit** - The validator has voluntarily started exiting. As with the active state, the
+    validator will be rewarded for including attestations and blocks in the chain
+    and penalized for failing to include attestations. Validator will change status to `exited_voluntarily` on `validator.exit_epoch`.
+    - **exited_voluntarily** - The validator has exited and is no longer permitted to include attestations or
+    blocks in the beacon chain. Validator will change status to `withdrawable` on `validator.withdrawable_epoch`.
+    - **exited_slashed** - The validator has exited and is no longer permitted to include attestations or
+    blocks in the beacon chain. Validator will change status to `withdrawable` on `validator.withdrawable_epoch`.
+    - **withdrawable** - The validator has exited and waited long enough to be withdrawable.
 
-    [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
-  enum: ["pending_initialized", "pending_queued", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
-  example: "active_ongoing"
+    [More indepth validator status specification](https://hackmd.io/bQxMDRt1RbS1TLno8K4NPg)
+  enum: ["waiting_for_eligibility", "waiting_for_finality", "waiting_in_queue", "standby_for_active", "active", "active_awaiting_slashed_exit", "active_awaiting_voluntary_exit", "exited_voluntarily", "exited_slashed", "withdrawable"]
+  example: "active"
 
 
 Committee:
@@ -81,8 +74,3 @@ Committee:
       description: "List of validator indices assigned to this committee"
       items:
         $ref: './primitive.yaml#/Uint64'
-
-BroadcastValidation:
-  description: Level of validation that must be applied to a block before it is broadcast.
-  type: string
-  enum: [gossip, consensus, consensus_and_equivocation]
