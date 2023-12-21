@@ -43,7 +43,7 @@ get:
         is a flag and does not take a value.
       schema: {}
       allowEmptyValue: true
-    - name: builder_comparison_factor
+    - name: builder_boost_factor
       in: query
       required: false
       description: |
