@@ -19,6 +19,7 @@ post:
           type: array
           items:
             type: object
+            required: [validator_index, committee_index, committees_at_slot, slot, is_aggregator]
             properties:
               validator_index:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'

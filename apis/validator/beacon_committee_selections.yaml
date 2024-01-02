@@ -29,6 +29,7 @@ post:
           schema:
             title: BeaconCommitteeSelectionResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array

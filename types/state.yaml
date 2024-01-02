@@ -1,6 +1,7 @@
 BeaconState:
   type: object
   description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec."
+  required: [genesis_time, genesis_validators_root, slot, fork, latest_block_header, block_roots, state_roots, historical_roots, eth1_data, eth1_data_votes, eth1_deposit_index, validators, balances, randao_mixes, slashings, previous_epoch_attestations, current_epoch_attestations, justification_bits, previous_justified_checkpoint, current_justified_checkpoint, finalized_checkpoint]
   properties:
     genesis_time:
       $ref: "./primitive.yaml#/Uint64"

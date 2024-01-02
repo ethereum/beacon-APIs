@@ -38,11 +38,13 @@ post:
           schema:
             title: PostLivenessResponseBody
             type: object
+            required: [data]
             properties:
               data:
                 type: array
                 items:
                   type: object
+                  required: [index, is_live]
                   properties:
                     index:
                       $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'

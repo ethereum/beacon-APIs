@@ -18,6 +18,7 @@ get:
           schema:
             title: GetStateFinalityCheckpointsResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -25,6 +26,7 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: object
+                required: [previous_justified, current_justified, finalized]
                 properties:
                   previous_justified:
                     $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
