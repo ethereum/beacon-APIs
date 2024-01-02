@@ -12,6 +12,7 @@ post:
   tags:
     - Validator
   requestBody:
+    required: true
     content:
       application/json:
         schema:
