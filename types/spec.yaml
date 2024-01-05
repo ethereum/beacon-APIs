@@ -1,0 +1,1233 @@
+primitive:
+  boolean:
+    type: boolean
+    example: false
+  uint8:
+    type: integer
+    example: 1
+  uint64:
+    type: string
+    example: '1'
+  uint256:
+    type: string
+    example: '1'
+  Bytes32:
+    type: string
+    format: hex
+    example: '0x0123456789abcdef0123456789abcdef'
+    pattern: ^0x[a-fA-F0-9]{64}$
+  Bytes4:
+    type: string
+    format: hex
+    example: '0x0123'
+    pattern: ^0x[a-fA-F0-9]{8}$
+  Bytes48:
+    type: string
+    format: hex
+    example: '0x0123456789abcdef0123456789abcdef0123456789abcdef'
+    pattern: ^0x[a-fA-F0-9]{96}$
+  Bytes96:
+    type: string
+    format: hex
+    example: '0x0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef'
+    pattern: ^0x[a-fA-F0-9]{192}$
+  Bytes20:
+    type: string
+    format: hex
+    example: '0x0123456789abcdef0123'
+    pattern: ^0x[a-fA-F0-9]{40}$
+phase0:
+  Slot:
+    allOf:
+    - $ref: '#/primitive/uint64'
+    - description: a slot number
+  Epoch:
+    allOf:
+    - $ref: '#/primitive/uint64'
+    - description: an epoch number
+  CommitteeIndex:
+    allOf:
+    - $ref: '#/primitive/uint64'
+    - description: a committee index at a slot
+  ValidatorIndex:
+    allOf:
+    - $ref: '#/primitive/uint64'
+    - description: a validator registry index
+  Gwei:
+    allOf:
+    - $ref: '#/primitive/uint64'
+    - description: an amount in Gwei
+  Root:
+    allOf:
+    - $ref: '#/primitive/Bytes32'
+    - description: a Merkle root
+  Hash32:
+    allOf:
+    - $ref: '#/primitive/Bytes32'
+    - description: a 256-bit hash
+  Version:
+    allOf:
+    - $ref: '#/primitive/Bytes4'
+    - description: a fork version number
+  DomainType:
+    allOf:
+    - $ref: '#/primitive/Bytes4'
+    - description: a domain type
+  ForkDigest:
+    allOf:
+    - $ref: '#/primitive/Bytes4'
+    - description: a digest of the current fork data
+  Domain:
+    allOf:
+    - $ref: '#/primitive/Bytes32'
+    - description: a signature domain
+  BLSPubkey:
+    allOf:
+    - $ref: '#/primitive/Bytes48'
+    - description: a BLS12-381 public key
+  BLSSignature:
+    allOf:
+    - $ref: '#/primitive/Bytes96'
+    - description: a BLS12-381 signature
+  Fork:
+    type: object
+    properties:
+      previous_version:
+        $ref: '#/phase0/Version'
+      current_version:
+        $ref: '#/phase0/Version'
+      epoch:
+        allOf:
+        - $ref: '#/phase0/Epoch'
+        - description: Epoch of latest fork
+  ForkData:
+    type: object
+    properties:
+      current_version:
+        $ref: '#/phase0/Version'
+      genesis_validators_root:
+        $ref: '#/phase0/Root'
+  Checkpoint:
+    type: object
+    properties:
+      epoch:
+        $ref: '#/phase0/Epoch'
+      root:
+        $ref: '#/phase0/Root'
+  Validator:
+    type: object
+    properties:
+      pubkey:
+        $ref: '#/phase0/BLSPubkey'
+      withdrawal_credentials:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: Commitment to pubkey for withdrawals
+      effective_balance:
+        allOf:
+        - $ref: '#/phase0/Gwei'
+        - description: Balance at stake
+      slashed:
+        $ref: '#/primitive/boolean'
+      activation_eligibility_epoch:
+        allOf:
+        - $ref: '#/phase0/Epoch'
+        - description: When criteria for activation were met
+      activation_epoch:
+        $ref: '#/phase0/Epoch'
+      exit_epoch:
+        $ref: '#/phase0/Epoch'
+      withdrawable_epoch:
+        allOf:
+        - $ref: '#/phase0/Epoch'
+        - description: When validator can withdraw funds
+  AttestationData:
+    type: object
+    properties:
+      slot:
+        $ref: '#/phase0/Slot'
+      index:
+        $ref: '#/phase0/CommitteeIndex'
+      beacon_block_root:
+        $ref: '#/phase0/Root'
+      source:
+        $ref: '#/phase0/Checkpoint'
+      target:
+        $ref: '#/phase0/Checkpoint'
+  IndexedAttestation:
+    type: object
+    properties:
+      attesting_indices:
+        type: array
+        items:
+          $ref: '#/phase0/ValidatorIndex'
+      data:
+        $ref: '#/phase0/AttestationData'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  PendingAttestation:
+    type: object
+    properties:
+      aggregation_bits:
+        $ref: '#/primitive/Bitlist'
+      data:
+        $ref: '#/phase0/AttestationData'
+      inclusion_delay:
+        $ref: '#/phase0/Slot'
+      proposer_index:
+        $ref: '#/phase0/ValidatorIndex'
+  Eth1Data:
+    type: object
+    properties:
+      deposit_root:
+        $ref: '#/phase0/Root'
+      deposit_count:
+        $ref: '#/primitive/uint64'
+      block_hash:
+        $ref: '#/phase0/Hash32'
+  HistoricalBatch:
+    type: object
+    properties:
+      block_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      state_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+  DepositMessage:
+    type: object
+    properties:
+      pubkey:
+        $ref: '#/phase0/BLSPubkey'
+      withdrawal_credentials:
+        $ref: '#/primitive/Bytes32'
+      amount:
+        $ref: '#/phase0/Gwei'
+  DepositData:
+    type: object
+    properties:
+      pubkey:
+        $ref: '#/phase0/BLSPubkey'
+      withdrawal_credentials:
+        $ref: '#/primitive/Bytes32'
+      amount:
+        $ref: '#/phase0/Gwei'
+      signature:
+        allOf:
+        - $ref: '#/phase0/BLSSignature'
+        - description: Signing over DepositMessage
+  BeaconBlockHeader:
+    type: object
+    properties:
+      slot:
+        $ref: '#/phase0/Slot'
+      proposer_index:
+        $ref: '#/phase0/ValidatorIndex'
+      parent_root:
+        $ref: '#/phase0/Root'
+      state_root:
+        $ref: '#/phase0/Root'
+      body_root:
+        $ref: '#/phase0/Root'
+  SigningData:
+    type: object
+    properties:
+      object_root:
+        $ref: '#/phase0/Root'
+      domain:
+        $ref: '#/phase0/Domain'
+  AttesterSlashing:
+    type: object
+    properties:
+      attestation_1:
+        $ref: '#/phase0/IndexedAttestation'
+      attestation_2:
+        $ref: '#/phase0/IndexedAttestation'
+  Attestation:
+    type: object
+    properties:
+      aggregation_bits:
+        $ref: '#/primitive/Bitlist'
+      data:
+        $ref: '#/phase0/AttestationData'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  Deposit:
+    type: object
+    properties:
+      proof:
+        type: array
+        items:
+          $ref: '#/primitive/Bytes32'
+        description: Merkle path to deposit root
+      data:
+        $ref: '#/phase0/DepositData'
+  VoluntaryExit:
+    type: object
+    properties:
+      epoch:
+        allOf:
+        - $ref: '#/phase0/Epoch'
+        - description: Earliest epoch when voluntary exit can be processed
+      validator_index:
+        $ref: '#/phase0/ValidatorIndex'
+  BeaconState:
+    type: object
+    properties:
+      genesis_time:
+        $ref: '#/primitive/uint64'
+      genesis_validators_root:
+        $ref: '#/phase0/Root'
+      slot:
+        $ref: '#/phase0/Slot'
+      fork:
+        $ref: '#/phase0/Fork'
+      latest_block_header:
+        $ref: '#/phase0/BeaconBlockHeader'
+      block_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      state_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      historical_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      eth1_data:
+        $ref: '#/phase0/Eth1Data'
+      eth1_data_votes:
+        type: array
+        items:
+          $ref: '#/phase0/Eth1Data'
+      eth1_deposit_index:
+        $ref: '#/primitive/uint64'
+      validators:
+        type: array
+        items:
+          $ref: '#/phase0/Validator'
+      balances:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+      randao_mixes:
+        type: array
+        items:
+          $ref: '#/primitive/Bytes32'
+      slashings:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+        description: Per-epoch sums of slashed effective balances
+      previous_epoch_attestations:
+        type: array
+        items:
+          $ref: '#/phase0/PendingAttestation'
+      current_epoch_attestations:
+        type: array
+        items:
+          $ref: '#/phase0/PendingAttestation'
+      justification_bits:
+        allOf:
+        - $ref: '#/primitive/Bitlist'
+        - description: Bit set for every recent justified epoch
+      previous_justified_checkpoint:
+        allOf:
+        - $ref: '#/phase0/Checkpoint'
+        - description: Previous epoch snapshot
+      current_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      finalized_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+  SignedVoluntaryExit:
+    type: object
+    properties:
+      message:
+        $ref: '#/phase0/VoluntaryExit'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  SignedBeaconBlockHeader:
+    type: object
+    properties:
+      message:
+        $ref: '#/phase0/BeaconBlockHeader'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  ProposerSlashing:
+    type: object
+    properties:
+      signed_header_1:
+        $ref: '#/phase0/SignedBeaconBlockHeader'
+      signed_header_2:
+        $ref: '#/phase0/SignedBeaconBlockHeader'
+  BeaconBlockBody:
+    type: object
+    properties:
+      randao_reveal:
+        $ref: '#/phase0/BLSSignature'
+      eth1_data:
+        allOf:
+        - $ref: '#/phase0/Eth1Data'
+        - description: Eth1 data vote
+      graffiti:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: Arbitrary data
+      proposer_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/ProposerSlashing'
+      attester_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/AttesterSlashing'
+      attestations:
+        type: array
+        items:
+          $ref: '#/phase0/Attestation'
+      deposits:
+        type: array
+        items:
+          $ref: '#/phase0/Deposit'
+      voluntary_exits:
+        type: array
+        items:
+          $ref: '#/phase0/SignedVoluntaryExit'
+  BeaconBlock:
+    type: object
+    properties:
+      slot:
+        $ref: '#/phase0/Slot'
+      proposer_index:
+        $ref: '#/phase0/ValidatorIndex'
+      parent_root:
+        $ref: '#/phase0/Root'
+      state_root:
+        $ref: '#/phase0/Root'
+      body:
+        $ref: '#/phase0/BeaconBlockBody'
+  SignedBeaconBlock:
+    type: object
+    properties:
+      message:
+        $ref: '#/phase0/BeaconBlock'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  Eth1Block:
+    type: object
+    properties:
+      timestamp:
+        $ref: '#/primitive/uint64'
+      deposit_root:
+        $ref: '#/phase0/Root'
+      deposit_count:
+        $ref: '#/primitive/uint64'
+  AggregateAndProof:
+    type: object
+    properties:
+      aggregator_index:
+        $ref: '#/phase0/ValidatorIndex'
+      aggregate:
+        $ref: '#/phase0/Attestation'
+      selection_proof:
+        $ref: '#/phase0/BLSSignature'
+  SignedAggregateAndProof:
+    type: object
+    properties:
+      message:
+        $ref: '#/phase0/AggregateAndProof'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+altair:
+  ParticipationFlags:
+    allOf:
+    - $ref: '#/primitive/uint8'
+    - description: a succinct representation of 8 boolean participation flags
+  SyncAggregate:
+    type: object
+    properties:
+      sync_committee_bits:
+        $ref: '#/primitive/Bitlist'
+      sync_committee_signature:
+        $ref: '#/phase0/BLSSignature'
+  SyncCommittee:
+    type: object
+    properties:
+      pubkeys:
+        type: array
+        items:
+          $ref: '#/phase0/BLSPubkey'
+      aggregate_pubkey:
+        $ref: '#/phase0/BLSPubkey'
+  BeaconBlockBody:
+    type: object
+    properties:
+      randao_reveal:
+        $ref: '#/phase0/BLSSignature'
+      eth1_data:
+        allOf:
+        - $ref: '#/phase0/Eth1Data'
+        - description: Eth1 data vote
+      graffiti:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: Arbitrary data
+      proposer_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/ProposerSlashing'
+      attester_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/AttesterSlashing'
+      attestations:
+        type: array
+        items:
+          $ref: '#/phase0/Attestation'
+      deposits:
+        type: array
+        items:
+          $ref: '#/phase0/Deposit'
+      voluntary_exits:
+        type: array
+        items:
+          $ref: '#/phase0/SignedVoluntaryExit'
+      sync_aggregate:
+        $ref: '#/altair/SyncAggregate'
+  BeaconState:
+    type: object
+    properties:
+      genesis_time:
+        $ref: '#/primitive/uint64'
+      genesis_validators_root:
+        $ref: '#/phase0/Root'
+      slot:
+        $ref: '#/phase0/Slot'
+      fork:
+        $ref: '#/phase0/Fork'
+      latest_block_header:
+        $ref: '#/phase0/BeaconBlockHeader'
+      block_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      state_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      historical_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      eth1_data:
+        $ref: '#/phase0/Eth1Data'
+      eth1_data_votes:
+        type: array
+        items:
+          $ref: '#/phase0/Eth1Data'
+      eth1_deposit_index:
+        $ref: '#/primitive/uint64'
+      validators:
+        type: array
+        items:
+          $ref: '#/phase0/Validator'
+      balances:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+      randao_mixes:
+        type: array
+        items:
+          $ref: '#/primitive/Bytes32'
+      slashings:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+        description: Per-epoch sums of slashed effective balances
+      previous_epoch_participation:
+        type: array
+        items:
+          $ref: '#/altair/ParticipationFlags'
+      current_epoch_participation:
+        type: array
+        items:
+          $ref: '#/altair/ParticipationFlags'
+      justification_bits:
+        allOf:
+        - $ref: '#/primitive/Bitlist'
+        - description: Bit set for every recent justified epoch
+      previous_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      current_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      finalized_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      inactivity_scores:
+        type: array
+        items:
+          $ref: '#/primitive/uint64'
+      current_sync_committee:
+        $ref: '#/altair/SyncCommittee'
+      next_sync_committee:
+        $ref: '#/altair/SyncCommittee'
+  SyncCommitteeMessage:
+    type: object
+    properties:
+      slot:
+        $ref: '#/phase0/Slot'
+      beacon_block_root:
+        $ref: '#/phase0/Root'
+      validator_index:
+        $ref: '#/phase0/ValidatorIndex'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  SyncCommitteeContribution:
+    type: object
+    properties:
+      slot:
+        $ref: '#/phase0/Slot'
+      beacon_block_root:
+        $ref: '#/phase0/Root'
+      subcommittee_index:
+        $ref: '#/primitive/uint64'
+      aggregation_bits:
+        $ref: '#/primitive/Bitlist'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  ContributionAndProof:
+    type: object
+    properties:
+      aggregator_index:
+        $ref: '#/phase0/ValidatorIndex'
+      contribution:
+        $ref: '#/altair/SyncCommitteeContribution'
+      selection_proof:
+        $ref: '#/phase0/BLSSignature'
+  SignedContributionAndProof:
+    type: object
+    properties:
+      message:
+        $ref: '#/altair/ContributionAndProof'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  SyncAggregatorSelectionData:
+    type: object
+    properties:
+      slot:
+        $ref: '#/phase0/Slot'
+      subcommittee_index:
+        $ref: '#/primitive/uint64'
+bellatrix:
+  Transaction:
+    allOf:
+    - $ref: '#/primitive/ByteList'
+    - description: either a [typed transaction envelope](https://eips.ethereum.org/EIPS/eip-2718#opaque-byte-array-rather-than-an-rlp-array)
+        or a legacy transaction
+  ExecutionAddress:
+    allOf:
+    - $ref: '#/primitive/Bytes20'
+    - description: Address of account on the execution layer
+  ExecutionPayload:
+    type: object
+    properties:
+      parent_hash:
+        $ref: '#/phase0/Hash32'
+      fee_recipient:
+        allOf:
+        - $ref: '#/bellatrix/ExecutionAddress'
+        - description: '''beneficiary'' in the yellow paper'
+      state_root:
+        $ref: '#/primitive/Bytes32'
+      receipts_root:
+        $ref: '#/primitive/Bytes32'
+      logs_bloom:
+        $ref: '#/primitive/ByteVector'
+      prev_randao:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: '''difficulty'' in the yellow paper'
+      block_number:
+        allOf:
+        - $ref: '#/primitive/uint64'
+        - description: '''number'' in the yellow paper'
+      gas_limit:
+        $ref: '#/primitive/uint64'
+      gas_used:
+        $ref: '#/primitive/uint64'
+      timestamp:
+        $ref: '#/primitive/uint64'
+      extra_data:
+        $ref: '#/primitive/ByteList'
+      base_fee_per_gas:
+        $ref: '#/primitive/uint256'
+      block_hash:
+        allOf:
+        - $ref: '#/phase0/Hash32'
+        - description: Hash of execution block
+      transactions:
+        type: array
+        items:
+          $ref: '#/bellatrix/Transaction'
+  ExecutionPayloadHeader:
+    type: object
+    properties:
+      parent_hash:
+        $ref: '#/phase0/Hash32'
+      fee_recipient:
+        $ref: '#/bellatrix/ExecutionAddress'
+      state_root:
+        $ref: '#/primitive/Bytes32'
+      receipts_root:
+        $ref: '#/primitive/Bytes32'
+      logs_bloom:
+        $ref: '#/primitive/ByteVector'
+      prev_randao:
+        $ref: '#/primitive/Bytes32'
+      block_number:
+        $ref: '#/primitive/uint64'
+      gas_limit:
+        $ref: '#/primitive/uint64'
+      gas_used:
+        $ref: '#/primitive/uint64'
+      timestamp:
+        $ref: '#/primitive/uint64'
+      extra_data:
+        $ref: '#/primitive/ByteList'
+      base_fee_per_gas:
+        $ref: '#/primitive/uint256'
+      block_hash:
+        allOf:
+        - $ref: '#/phase0/Hash32'
+        - description: Hash of execution block
+      transactions_root:
+        $ref: '#/phase0/Root'
+  BeaconBlockBody:
+    type: object
+    properties:
+      randao_reveal:
+        $ref: '#/phase0/BLSSignature'
+      eth1_data:
+        allOf:
+        - $ref: '#/phase0/Eth1Data'
+        - description: Eth1 data vote
+      graffiti:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: Arbitrary data
+      proposer_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/ProposerSlashing'
+      attester_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/AttesterSlashing'
+      attestations:
+        type: array
+        items:
+          $ref: '#/phase0/Attestation'
+      deposits:
+        type: array
+        items:
+          $ref: '#/phase0/Deposit'
+      voluntary_exits:
+        type: array
+        items:
+          $ref: '#/phase0/SignedVoluntaryExit'
+      sync_aggregate:
+        $ref: '#/altair/SyncAggregate'
+      execution_payload:
+        $ref: '#/bellatrix/ExecutionPayload'
+  BeaconState:
+    type: object
+    properties:
+      genesis_time:
+        $ref: '#/primitive/uint64'
+      genesis_validators_root:
+        $ref: '#/phase0/Root'
+      slot:
+        $ref: '#/phase0/Slot'
+      fork:
+        $ref: '#/phase0/Fork'
+      latest_block_header:
+        $ref: '#/phase0/BeaconBlockHeader'
+      block_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      state_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      historical_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      eth1_data:
+        $ref: '#/phase0/Eth1Data'
+      eth1_data_votes:
+        type: array
+        items:
+          $ref: '#/phase0/Eth1Data'
+      eth1_deposit_index:
+        $ref: '#/primitive/uint64'
+      validators:
+        type: array
+        items:
+          $ref: '#/phase0/Validator'
+      balances:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+      randao_mixes:
+        type: array
+        items:
+          $ref: '#/primitive/Bytes32'
+      slashings:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+        description: Per-epoch sums of slashed effective balances
+      previous_epoch_participation:
+        type: array
+        items:
+          $ref: '#/altair/ParticipationFlags'
+      current_epoch_participation:
+        type: array
+        items:
+          $ref: '#/altair/ParticipationFlags'
+      justification_bits:
+        allOf:
+        - $ref: '#/primitive/Bitlist'
+        - description: Bit set for every recent justified epoch
+      previous_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      current_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      finalized_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      inactivity_scores:
+        type: array
+        items:
+          $ref: '#/primitive/uint64'
+      current_sync_committee:
+        $ref: '#/altair/SyncCommittee'
+      next_sync_committee:
+        $ref: '#/altair/SyncCommittee'
+      latest_execution_payload_header:
+        $ref: '#/bellatrix/ExecutionPayloadHeader'
+capella:
+  WithdrawalIndex:
+    allOf:
+    - $ref: '#/primitive/uint64'
+    - description: an index of a `Withdrawal`
+  Withdrawal:
+    type: object
+    properties:
+      index:
+        $ref: '#/capella/WithdrawalIndex'
+      validator_index:
+        $ref: '#/phase0/ValidatorIndex'
+      address:
+        $ref: '#/bellatrix/ExecutionAddress'
+      amount:
+        $ref: '#/phase0/Gwei'
+  BLSToExecutionChange:
+    type: object
+    properties:
+      validator_index:
+        $ref: '#/phase0/ValidatorIndex'
+      from_bls_pubkey:
+        $ref: '#/phase0/BLSPubkey'
+      to_execution_address:
+        $ref: '#/bellatrix/ExecutionAddress'
+  SignedBLSToExecutionChange:
+    type: object
+    properties:
+      message:
+        $ref: '#/capella/BLSToExecutionChange'
+      signature:
+        $ref: '#/phase0/BLSSignature'
+  HistoricalSummary:
+    type: object
+    properties:
+      block_summary_root:
+        $ref: '#/phase0/Root'
+      state_summary_root:
+        $ref: '#/phase0/Root'
+  ExecutionPayload:
+    type: object
+    properties:
+      parent_hash:
+        $ref: '#/phase0/Hash32'
+      fee_recipient:
+        allOf:
+        - $ref: '#/bellatrix/ExecutionAddress'
+        - description: '''beneficiary'' in the yellow paper'
+      state_root:
+        $ref: '#/primitive/Bytes32'
+      receipts_root:
+        $ref: '#/primitive/Bytes32'
+      logs_bloom:
+        $ref: '#/primitive/ByteVector'
+      prev_randao:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: '''difficulty'' in the yellow paper'
+      block_number:
+        allOf:
+        - $ref: '#/primitive/uint64'
+        - description: '''number'' in the yellow paper'
+      gas_limit:
+        $ref: '#/primitive/uint64'
+      gas_used:
+        $ref: '#/primitive/uint64'
+      timestamp:
+        $ref: '#/primitive/uint64'
+      extra_data:
+        $ref: '#/primitive/ByteList'
+      base_fee_per_gas:
+        $ref: '#/primitive/uint256'
+      block_hash:
+        allOf:
+        - $ref: '#/phase0/Hash32'
+        - description: Hash of execution block
+      transactions:
+        type: array
+        items:
+          $ref: '#/bellatrix/Transaction'
+      withdrawals:
+        type: array
+        items:
+          $ref: '#/capella/Withdrawal'
+  ExecutionPayloadHeader:
+    type: object
+    properties:
+      parent_hash:
+        $ref: '#/phase0/Hash32'
+      fee_recipient:
+        $ref: '#/bellatrix/ExecutionAddress'
+      state_root:
+        $ref: '#/primitive/Bytes32'
+      receipts_root:
+        $ref: '#/primitive/Bytes32'
+      logs_bloom:
+        $ref: '#/primitive/ByteVector'
+      prev_randao:
+        $ref: '#/primitive/Bytes32'
+      block_number:
+        $ref: '#/primitive/uint64'
+      gas_limit:
+        $ref: '#/primitive/uint64'
+      gas_used:
+        $ref: '#/primitive/uint64'
+      timestamp:
+        $ref: '#/primitive/uint64'
+      extra_data:
+        $ref: '#/primitive/ByteList'
+      base_fee_per_gas:
+        $ref: '#/primitive/uint256'
+      block_hash:
+        allOf:
+        - $ref: '#/phase0/Hash32'
+        - description: Hash of execution block
+      transactions_root:
+        $ref: '#/phase0/Root'
+      withdrawals_root:
+        $ref: '#/phase0/Root'
+  BeaconBlockBody:
+    type: object
+    properties:
+      randao_reveal:
+        $ref: '#/phase0/BLSSignature'
+      eth1_data:
+        allOf:
+        - $ref: '#/phase0/Eth1Data'
+        - description: Eth1 data vote
+      graffiti:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: Arbitrary data
+      proposer_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/ProposerSlashing'
+      attester_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/AttesterSlashing'
+      attestations:
+        type: array
+        items:
+          $ref: '#/phase0/Attestation'
+      deposits:
+        type: array
+        items:
+          $ref: '#/phase0/Deposit'
+      voluntary_exits:
+        type: array
+        items:
+          $ref: '#/phase0/SignedVoluntaryExit'
+      sync_aggregate:
+        $ref: '#/altair/SyncAggregate'
+      execution_payload:
+        $ref: '#/capella/ExecutionPayload'
+      bls_to_execution_changes:
+        type: array
+        items:
+          $ref: '#/capella/SignedBLSToExecutionChange'
+  BeaconState:
+    type: object
+    properties:
+      genesis_time:
+        $ref: '#/primitive/uint64'
+      genesis_validators_root:
+        $ref: '#/phase0/Root'
+      slot:
+        $ref: '#/phase0/Slot'
+      fork:
+        $ref: '#/phase0/Fork'
+      latest_block_header:
+        $ref: '#/phase0/BeaconBlockHeader'
+      block_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      state_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+      historical_roots:
+        type: array
+        items:
+          $ref: '#/phase0/Root'
+        description: Frozen in Capella, replaced by historical_summaries
+      eth1_data:
+        $ref: '#/phase0/Eth1Data'
+      eth1_data_votes:
+        type: array
+        items:
+          $ref: '#/phase0/Eth1Data'
+      eth1_deposit_index:
+        $ref: '#/primitive/uint64'
+      validators:
+        type: array
+        items:
+          $ref: '#/phase0/Validator'
+      balances:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+      randao_mixes:
+        type: array
+        items:
+          $ref: '#/primitive/Bytes32'
+      slashings:
+        type: array
+        items:
+          $ref: '#/phase0/Gwei'
+        description: Per-epoch sums of slashed effective balances
+      previous_epoch_participation:
+        type: array
+        items:
+          $ref: '#/altair/ParticipationFlags'
+      current_epoch_participation:
+        type: array
+        items:
+          $ref: '#/altair/ParticipationFlags'
+      justification_bits:
+        allOf:
+        - $ref: '#/primitive/Bitlist'
+        - description: Bit set for every recent justified epoch
+      previous_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      current_justified_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      finalized_checkpoint:
+        $ref: '#/phase0/Checkpoint'
+      inactivity_scores:
+        type: array
+        items:
+          $ref: '#/primitive/uint64'
+      current_sync_committee:
+        $ref: '#/altair/SyncCommittee'
+      next_sync_committee:
+        $ref: '#/altair/SyncCommittee'
+      latest_execution_payload_header:
+        $ref: '#/capella/ExecutionPayloadHeader'
+      next_withdrawal_index:
+        $ref: '#/capella/WithdrawalIndex'
+      next_withdrawal_validator_index:
+        $ref: '#/phase0/ValidatorIndex'
+      historical_summaries:
+        type: array
+        items:
+          $ref: '#/capella/HistoricalSummary'
+deneb:
+  G1Point:
+    $ref: '#/primitive/Bytes48'
+  G2Point:
+    $ref: '#/primitive/Bytes96'
+  BLSFieldElement:
+    allOf:
+    - $ref: '#/primitive/uint256'
+    - description: 'Validation: `x < BLS_MODULUS`'
+  KZGCommitment:
+    allOf:
+    - $ref: '#/primitive/Bytes48'
+    - description: 'Validation: Perform [BLS standard''s](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-bls-signature-04#section-2.5)
+        "KeyValidate" check but do allow the identity point'
+  KZGProof:
+    allOf:
+    - $ref: '#/primitive/Bytes48'
+    - description: Same as for `KZGCommitment`
+  Polynomial:
+    type: array
+    items:
+      $ref: '#/deneb/BLSFieldElement'
+    description: A polynomial in evaluation form
+  Blob:
+    allOf:
+    - $ref: '#/primitive/ByteVector'
+    - description: A basic data blob
+  VersionedHash:
+    $ref: '#/primitive/Bytes32'
+  BlobIndex:
+    $ref: '#/primitive/uint64'
+  BeaconBlockBody:
+    type: object
+    properties:
+      randao_reveal:
+        $ref: '#/phase0/BLSSignature'
+      eth1_data:
+        allOf:
+        - $ref: '#/phase0/Eth1Data'
+        - description: Eth1 data vote
+      graffiti:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: Arbitrary data
+      proposer_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/ProposerSlashing'
+      attester_slashings:
+        type: array
+        items:
+          $ref: '#/phase0/AttesterSlashing'
+      attestations:
+        type: array
+        items:
+          $ref: '#/phase0/Attestation'
+      deposits:
+        type: array
+        items:
+          $ref: '#/phase0/Deposit'
+      voluntary_exits:
+        type: array
+        items:
+          $ref: '#/phase0/SignedVoluntaryExit'
+      sync_aggregate:
+        $ref: '#/altair/SyncAggregate'
+      execution_payload:
+        $ref: '#/capella/ExecutionPayload'
+      bls_to_execution_changes:
+        type: array
+        items:
+          $ref: '#/capella/SignedBLSToExecutionChange'
+      blob_kzg_commitments:
+        type: array
+        items:
+          $ref: '#/deneb/KZGCommitment'
+  ExecutionPayload:
+    type: object
+    properties:
+      parent_hash:
+        $ref: '#/phase0/Hash32'
+      fee_recipient:
+        allOf:
+        - $ref: '#/bellatrix/ExecutionAddress'
+        - description: '''beneficiary'' in the yellow paper'
+      state_root:
+        $ref: '#/primitive/Bytes32'
+      receipts_root:
+        $ref: '#/primitive/Bytes32'
+      logs_bloom:
+        $ref: '#/primitive/ByteVector'
+      prev_randao:
+        allOf:
+        - $ref: '#/primitive/Bytes32'
+        - description: '''difficulty'' in the yellow paper'
+      block_number:
+        allOf:
+        - $ref: '#/primitive/uint64'
+        - description: '''number'' in the yellow paper'
+      gas_limit:
+        $ref: '#/primitive/uint64'
+      gas_used:
+        $ref: '#/primitive/uint64'
+      timestamp:
+        $ref: '#/primitive/uint64'
+      extra_data:
+        $ref: '#/primitive/ByteList'
+      base_fee_per_gas:
+        $ref: '#/primitive/uint256'
+      block_hash:
+        allOf:
+        - $ref: '#/phase0/Hash32'
+        - description: Hash of execution block
+      transactions:
+        type: array
+        items:
+          $ref: '#/bellatrix/Transaction'
+      withdrawals:
+        type: array
+        items:
+          $ref: '#/capella/Withdrawal'
+      blob_gas_used:
+        $ref: '#/primitive/uint64'
+      excess_blob_gas:
+        $ref: '#/primitive/uint64'
+  ExecutionPayloadHeader:
+    type: object
+    properties:
+      parent_hash:
+        $ref: '#/phase0/Hash32'
+      fee_recipient:
+        $ref: '#/bellatrix/ExecutionAddress'
+      state_root:
+        $ref: '#/primitive/Bytes32'
+      receipts_root:
+        $ref: '#/primitive/Bytes32'
+      logs_bloom:
+        $ref: '#/primitive/ByteVector'
+      prev_randao:
+        $ref: '#/primitive/Bytes32'
+      block_number:
+        $ref: '#/primitive/uint64'
+      gas_limit:
+        $ref: '#/primitive/uint64'
+      gas_used:
+        $ref: '#/primitive/uint64'
+      timestamp:
+        $ref: '#/primitive/uint64'
+      extra_data:
+        $ref: '#/primitive/ByteList'
+      base_fee_per_gas:
+        $ref: '#/primitive/uint256'
+      block_hash:
+        allOf:
+        - $ref: '#/phase0/Hash32'
+        - description: Hash of execution block
+      transactions_root:
+        $ref: '#/phase0/Root'
+      withdrawals_root:
+        $ref: '#/phase0/Root'
+      blob_gas_used:
+        $ref: '#/primitive/uint64'
+      excess_blob_gas:
+        $ref: '#/primitive/uint64'

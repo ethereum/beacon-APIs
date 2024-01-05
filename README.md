@@ -66,6 +66,15 @@ and run lint with
 redocly lint beacon-node-oapi.yaml
 ```
 
+### Generating spec types
+
+Spec types are generated automatically from the [ethereum/consensus-specs](https://github.com/ethereum/consensus-specs) repo.
+
+```
+pip install pyspec2openapi
+pyspec2openapi pyspec2openapi.yml types/spec.yaml
+```
+
 ## Releasing
 
 1. Create and push tag

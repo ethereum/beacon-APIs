@@ -1,0 +1,11 @@
+version: v1.4.0-beta.5
+sources:
+  phase0: [beacon-chain.md, validator.md]
+  altair: [beacon-chain.md, validator.md]
+  bellatrix: [beacon-chain.md, validator.md]
+  capella: [beacon-chain.md, validator.md]
+  deneb: [polynomial-commitments.md, beacon-chain.md, validator.md]
+exclude_comments:
+  - '\[New [^\]]*\]'
+  - '\[Modified [^\]]*\]'
+

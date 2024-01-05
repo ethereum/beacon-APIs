@@ -9,6 +9,23 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
+
+    # Check generate spec types are correct
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - run: pip install pyspec2openapi
+    - run: pyspec2openapi pyspec2openapi.yml types/spec.yaml
+    - name: Check spec types are unchanged
+      run: |
+        if [ -z "$(git status --porcelain)" ]; then 
+          echo "Working directory clean"
+        else 
+          git --no-pager diff
+          exit 1
+        fi
+
     - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli@1.0.0-beta.111
 
     - name: Lint spec
