@@ -61,27 +61,27 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid state ID: current"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "State not found"
+          example:
+            code: 404
+            message: "State not found"
     "414":
       description: "Too many validator IDs"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 414
-              message: "Too many validator IDs in request"
+          example:
+            code: 414
+            message: "Too many validator IDs in request"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
 post:
@@ -149,17 +149,17 @@ post:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid state ID: current"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "State not found"
+          example:
+            code: 404
+            message: "State not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -47,9 +47,9 @@ post:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block: missing signature"
+          example:
+            code: 400
+            message: "Invalid block: missing signature"
     "415":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":

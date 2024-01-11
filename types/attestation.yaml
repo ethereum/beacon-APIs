@@ -9,9 +9,8 @@ IndexedAttestation:
       items:
         $ref: "./primitive.yaml#/Uint64"
     signature:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
+      $ref: './primitive.yaml#/Signature'
+      description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
     data:
       $ref: './attestation.yaml#/AttestationData'
 
@@ -24,9 +23,8 @@ Attestation:
       $ref: "./primitive.yaml#/BitList"
       description: "Attester aggregation bits."
     signature:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "BLS aggregate signature."
+      $ref: './primitive.yaml#/Signature'
+      description: "BLS aggregate signature."
     data:
       $ref: './attestation.yaml#/AttestationData'
 
@@ -55,9 +53,8 @@ AttestationData:
     index:
       $ref: "./primitive.yaml#/Uint64"
     beacon_block_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "LMD GHOST vote."
+      $ref: './primitive.yaml#/Root'
+      description: "LMD GHOST vote."
     source:
       $ref: "./misc.yaml#/Checkpoint"
     target:

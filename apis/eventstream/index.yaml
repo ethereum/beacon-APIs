@@ -146,9 +146,9 @@ get:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid topic: weather_forecast"
+          example:
+            code: 400
+            message: "Invalid topic: weather_forecast"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
       

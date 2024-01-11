@@ -42,8 +42,8 @@ post:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid proposer slashing, it will never pass validation so it's rejected"
+          example:
+            code: 400
+            message: "Invalid proposer slashing, it will never pass validation so it's rejected"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

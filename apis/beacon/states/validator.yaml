@@ -38,9 +38,9 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid state ID: current"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
     "404":
       description: "Not Found"
       content:

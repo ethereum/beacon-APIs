@@ -5,33 +5,27 @@ Validator:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     withdrawal_credentials:
-      allOf:
-        - $ref: "./primitive.yaml#/Root"
-        - description: "Root of withdrawal credentials"
+      $ref: "./primitive.yaml#/Root"
+      description: "Root of withdrawal credentials"
     effective_balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Balance at stake in Gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Balance at stake in Gwei."
     slashed:
       type: boolean
       example: false
       description: "Was validator slashed (not longer active)."
     activation_eligibility_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "When criteria for activation were met."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "When criteria for activation were met."
     activation_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
     exit_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
     withdrawable_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
 
 AttesterDuty:
   type: object
@@ -40,29 +34,23 @@ AttesterDuty:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     validator_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of validator in validator registry"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry"
     committee_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The committee index"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The committee index"
     committee_length:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Number of validators in committee"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Number of validators in committee"
     committees_at_slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Number of committees at the provided slot"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Number of committees at the provided slot"
     validator_committee_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of validator in committee"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in committee"
     slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The slot at which the validator must attest."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must attest."
 
 ProposerDuty:
   type: object
@@ -71,13 +59,11 @@ ProposerDuty:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     validator_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of validator in validator registry."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry."
     slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The slot at which the validator must propose block."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must propose block."
 
 Altair:
   SyncDuty:
@@ -87,9 +73,8 @@ Altair:
       pubkey:
         $ref: './primitive.yaml#/Pubkey'
       validator_index:
-        allOf:
-          - $ref: "./primitive.yaml#/Uint64"
-          - description: "Index of validator in validator registry."
+        $ref: "./primitive.yaml#/Uint64"
+        description: "Index of validator in validator registry."
       validator_sync_committee_indices:
         type: array
         description: "The indices of the validator in the sync committee."
