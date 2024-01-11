@@ -283,8 +283,6 @@ components:
       $ref: './types/primitive.yaml#/Finalized'
     Root:
       $ref: './types/primitive.yaml#/Root'
-    Hex:
-      $ref: './types/primitive.yaml#/Hex'
     Graffiti:
       $ref: './types/primitive.yaml#/Graffiti'
     Signature:

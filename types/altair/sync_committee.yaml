@@ -75,7 +75,7 @@ Altair:
       aggregation_bits:
         allOf:
           - description: 'A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.'
-          - $ref: "../primitive.yaml#/Hex"
+          - $ref: "../primitive.yaml#/Bitvector"
           - example: "0x01"
       signature:
         allOf:
