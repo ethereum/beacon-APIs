@@ -25,6 +25,6 @@ get:
                     allOf:
                       - $ref: ../../beacon-node-oapi.yaml#/components/schemas/ExecutionAddress
                       - description: Hex encoded deposit contract address with 0x prefix
-                      - example: "0x1Db3439a222C519ab44bb1144fC28167b4Fa6EE6"
+                      - example: "0x00000000219ab540356cBB839Cbe05303d7705Fa"
     "500":
       $ref: ../../beacon-node-oapi.yaml#/components/responses/InternalError
