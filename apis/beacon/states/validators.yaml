@@ -33,7 +33,7 @@ get:
         type: array
         uniqueItems: true
         items:
-          allOf:
+          oneOf:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorStatus'
             - enum: ["active", "pending", "exited", "withdrawal"]
 
@@ -121,7 +121,7 @@ post:
               type: array
               uniqueItems: true
               items:
-                allOf:
+                oneOf:
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorStatus'
                   - enum: ["active", "pending", "exited", "withdrawal"]
   responses:
