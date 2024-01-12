@@ -16312,13 +16312,13 @@ paths:
                           allOf:
                             - type: string
                               example: '1'
-                            - example: 0
+                            - example: '0'
                             - description: one entry for every validator participating in the sync committee
                         reward:
                           allOf:
                             - type: string
                               example: '1'
-                            - example: 2000
+                            - example: '2000'
                             - description: sync committee reward in gwei for the validator
         '400':
           description: Invalid get sync committee rewards request
@@ -16529,37 +16529,37 @@ paths:
                         allOf:
                           - type: string
                             example: '1'
-                          - example: 123
+                          - example: '123'
                           - description: 'proposer of the block, the proposer index who receives these rewards'
                       total:
                         allOf:
                           - type: string
                             example: '1'
-                          - example: 123
+                          - example: '123'
                           - description: 'total block reward in gwei, equal to attestations + sync_aggregate + proposer_slashings + attester_slashings'
                       attestations:
                         allOf:
                           - type: string
                             example: '1'
-                          - example: 123
+                          - example: '123'
                           - description: block reward component due to included attestations in gwei
                       sync_aggregate:
                         allOf:
                           - type: string
                             example: '1'
-                          - example: 123
+                          - example: '123'
                           - description: block reward component due to included sync_aggregate in gwei
                       proposer_slashings:
                         allOf:
                           - type: string
                             example: '1'
-                          - example: 123
+                          - example: '123'
                           - description: block reward component due to included proposer_slashings in gwei
                       attester_slashings:
                         allOf:
                           - type: string
                             example: '1'
-                          - example: 123
+                          - example: '123'
                           - description: block reward component due to included attester_slashings in gwei
         '400':
           description: Invalid get block rewards request
@@ -16701,37 +16701,37 @@ paths:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 1000000000
+                                - example: '1000000000'
                                 - description: validator's effective balance in gwei
                             head:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 2500
+                                - example: '2500'
                                 - description: Ideal attester's reward for head vote in gwei
                             target:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 5000
+                                - example: '5000'
                                 - description: Ideal attester's reward for target vote in gwei
                             source:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 5000
+                                - example: '5000'
                                 - description: Ideal attester's reward for source vote in gwei
                             inclusion_delay:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 5000
+                                - example: '5000'
                                 - description: Ideal attester's inclusion_delay reward in gwei (phase0 only)
                             inactivity:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 5000
+                                - example: '5000'
                                 - description: Ideal attester's inactivity penalty in gwei
                       total_rewards:
                         type: array
@@ -16749,37 +16749,37 @@ paths:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 0
+                                - example: '0'
                                 - description: one entry for every validator based on their attestations in the epoch
                             head:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 2000
+                                - example: '2000'
                                 - description: attester's reward for head vote in gwei
                             target:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 2000
+                                - example: '2000'
                                 - description: attester's reward for target vote in gwei
                             source:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 4000
+                                - example: '4000'
                                 - description: attester's reward for source vote in gwei
                             inclusion_delay:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 2000
+                                - example: '2000'
                                 - description: attester's inclusion_delay reward in gwei (phase0 only)
                             inactivity:
                               allOf:
                                 - type: string
                                   example: '1'
-                                - example: 2000
+                                - example: '2000'
                                 - description: attester's inactivity penalty in gwei
         '400':
           description: Invalid get attestations rewards request
@@ -51863,13 +51863,13 @@ components:
             allOf:
               - type: string
                 example: '1'
-              - example: 0
+              - example: '0'
               - description: one entry for every validator participating in the sync committee
           reward:
             allOf:
               - type: string
                 example: '1'
-              - example: 2000
+              - example: '2000'
               - description: sync committee reward in gwei for the validator
     BlockRewards:
       type: object
@@ -51879,37 +51879,37 @@ components:
           allOf:
             - type: string
               example: '1'
-            - example: 123
+            - example: '123'
             - description: 'proposer of the block, the proposer index who receives these rewards'
         total:
           allOf:
             - type: string
               example: '1'
-            - example: 123
+            - example: '123'
             - description: 'total block reward in gwei, equal to attestations + sync_aggregate + proposer_slashings + attester_slashings'
         attestations:
           allOf:
             - type: string
               example: '1'
-            - example: 123
+            - example: '123'
             - description: block reward component due to included attestations in gwei
         sync_aggregate:
           allOf:
             - type: string
               example: '1'
-            - example: 123
+            - example: '123'
             - description: block reward component due to included sync_aggregate in gwei
         proposer_slashings:
           allOf:
             - type: string
               example: '1'
-            - example: 123
+            - example: '123'
             - description: block reward component due to included proposer_slashings in gwei
         attester_slashings:
           allOf:
             - type: string
               example: '1'
-            - example: 123
+            - example: '123'
             - description: block reward component due to included attester_slashings in gwei
     AttestationsRewards:
       type: object
@@ -51934,37 +51934,37 @@ components:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 1000000000
+                  - example: '1000000000'
                   - description: validator's effective balance in gwei
               head:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 2500
+                  - example: '2500'
                   - description: Ideal attester's reward for head vote in gwei
               target:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 5000
+                  - example: '5000'
                   - description: Ideal attester's reward for target vote in gwei
               source:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 5000
+                  - example: '5000'
                   - description: Ideal attester's reward for source vote in gwei
               inclusion_delay:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 5000
+                  - example: '5000'
                   - description: Ideal attester's inclusion_delay reward in gwei (phase0 only)
               inactivity:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 5000
+                  - example: '5000'
                   - description: Ideal attester's inactivity penalty in gwei
         total_rewards:
           type: array
@@ -51982,37 +51982,37 @@ components:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 0
+                  - example: '0'
                   - description: one entry for every validator based on their attestations in the epoch
               head:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 2000
+                  - example: '2000'
                   - description: attester's reward for head vote in gwei
               target:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 2000
+                  - example: '2000'
                   - description: attester's reward for target vote in gwei
               source:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 4000
+                  - example: '4000'
                   - description: attester's reward for source vote in gwei
               inclusion_delay:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 2000
+                  - example: '2000'
                   - description: attester's inclusion_delay reward in gwei (phase0 only)
               inactivity:
                 allOf:
                   - type: string
                     example: '1'
-                  - example: 2000
+                  - example: '2000'
                   - description: attester's inactivity penalty in gwei
   parameters:
     StateId:
