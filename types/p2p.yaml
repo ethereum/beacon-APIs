@@ -47,8 +47,9 @@ Peer:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
     enr:
-      nullable: true
-      $ref: "./p2p.yaml#/ENR"
+      oneOf:
+        - type: "null"
+        - $ref: "./p2p.yaml#/ENR"
     last_seen_p2p_address:
       allOf:
         - $ref: "./p2p.yaml#/Multiaddr"
