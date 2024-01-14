@@ -29,6 +29,7 @@ get:
           schema:
             title: GetPeersResponse
             type: object
+            required: [data, meta]
             properties:
               data:
                 type: array
@@ -36,6 +37,7 @@ get:
                   $ref: "../../beacon-node-oapi.yaml#/components/schemas/Peer"
               meta:
                 type: object
+                required: [count]
                 properties:
                   count:
                     description: "Total number of items"

@@ -46,6 +46,7 @@ jobs:
           cp -r dist ./deploy
           cp -r assets ./deploy
           cp index.html ./deploy
+          cp validator-flow.md ./deploy
       - name: Restore releases
         uses: actions/download-artifact@v3
         with:
