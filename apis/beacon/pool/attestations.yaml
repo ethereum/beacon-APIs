@@ -23,6 +23,7 @@ get:
           schema:
             title: GetPoolAttestationsResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array

@@ -52,6 +52,7 @@ get:
           schema:
             title: ProduceBlindedBlockResponse
             type: object
+            required: [version, data]
             properties:
               version:
                 type: string

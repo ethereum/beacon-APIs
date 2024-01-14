@@ -12,6 +12,7 @@ get:
           schema:
             title: GetNetworkIdentityResponse
             type: object
+            required: [data]
             properties:
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/NetworkIdentity"

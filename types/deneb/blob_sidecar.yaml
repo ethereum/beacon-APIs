@@ -16,6 +16,7 @@ Deneb:
   BlobSidecar:
     type: object
     description: "A blob sidecar as defined in the Deneb consensus spec."
+    required: [index, blob, kzg_commitment, kzg_proof, signed_block_header, kzg_commitment_inclusion_proof]
     properties:
       index:
         $ref: "../primitive.yaml#/Uint64"
