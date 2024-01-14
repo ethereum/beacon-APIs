@@ -1,5 +1,6 @@
 BeaconCommitteeSelection:
   type: object
+  required: [validator_index, slot, selection_proof]
   properties:
     validator_index:
       allOf:
@@ -16,6 +17,7 @@ BeaconCommitteeSelection:
 
 SyncCommitteeSelection:
   type: object
+  required: [validator_index, slot, subcommittee_index, selection_proof]
   properties:
     validator_index:
       allOf:

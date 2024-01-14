@@ -2,6 +2,7 @@
 
 DepositSnapshotResponse:
   type: object
+  required: [finalized, deposit_root, deposit_count, execution_block_hash, execution_block_height]
   properties:
     finalized:
       type: array
@@ -21,6 +22,7 @@ DepositSnapshotResponse:
 
 ValidatorResponse:
   type: object
+  required: [index, balance, status, validator]
   properties:
     index:
       allOf:
@@ -37,6 +39,7 @@ ValidatorResponse:
 
 ValidatorBalanceResponse:
   type: object
+  required: [index, balance]
   properties:
     index:
       allOf:
@@ -68,6 +71,7 @@ ValidatorStatus:
 Committee:
   description: Group of validators assigned to attest at specific slot and that have the same committee index (shard in phase 1)
   type: object
+  required: [index, slot, validators]
   properties:
     index:
       allOf:

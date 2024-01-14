@@ -12,6 +12,7 @@ get:
           schema:
             title: GetForkScheduleResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array
