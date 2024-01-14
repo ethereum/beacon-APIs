@@ -4233,7 +4233,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -4880,7 +4880,7 @@ paths:
                                                 description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
                                             type: string
@@ -4920,7 +4920,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -5574,7 +5574,7 @@ paths:
                                                 description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
                                             type: string
@@ -5623,7 +5623,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -7543,7 +7543,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -8190,7 +8190,7 @@ paths:
                                                 description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
                                             type: string
@@ -8230,7 +8230,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -8884,7 +8884,7 @@ paths:
                                                 description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
                                             type: string
@@ -8933,7 +8933,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -10823,7 +10823,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -11472,7 +11472,7 @@ paths:
                                                 description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
                                             type: string
@@ -11511,7 +11511,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -11595,7 +11595,7 @@ paths:
                                                     description: The address to which the withdrawal is credited.
                                                     type: string
                                                     format: hex
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   amount:
                                                     description: The value withdrawn (gwei).
@@ -12199,7 +12199,7 @@ paths:
                                                     description: Execution address to which the credentials will be changed.
                                                     type: string
                                                     format: hex
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                               signature:
                                                 type: string
@@ -12247,7 +12247,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   description: An address on the execution (Ethereum 1) network.
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                                 state_root:
                                                   type: string
@@ -12334,7 +12334,7 @@ paths:
                                                         description: The address to which the withdrawal is credited.
                                                         type: string
                                                         format: hex
-                                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                                       amount:
                                                         description: The value withdrawn (gwei).
@@ -14211,7 +14211,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -14860,7 +14860,7 @@ paths:
                                                 description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
                                             type: string
@@ -14899,7 +14899,7 @@ paths:
                                               type: string
                                               format: hex
                                               description: An address on the execution (Ethereum 1) network.
-                                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                             state_root:
                                               type: string
@@ -14983,7 +14983,7 @@ paths:
                                                     description: The address to which the withdrawal is credited.
                                                     type: string
                                                     format: hex
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   amount:
                                                     description: The value withdrawn (gwei).
@@ -15587,7 +15587,7 @@ paths:
                                                     description: Execution address to which the credentials will be changed.
                                                     type: string
                                                     format: hex
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                               signature:
                                                 type: string
@@ -15635,7 +15635,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   description: An address on the execution (Ethereum 1) network.
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                                 state_root:
                                                   type: string
@@ -15722,7 +15722,7 @@ paths:
                                                         description: The address to which the withdrawal is credited.
                                                         type: string
                                                         format: hex
-                                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                                       amount:
                                                         description: The value withdrawn (gwei).
@@ -17602,7 +17602,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -18251,7 +18251,7 @@ paths:
                                                       description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
                                                   type: string
@@ -18290,7 +18290,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -18374,7 +18374,7 @@ paths:
                                                           description: The address to which the withdrawal is credited.
                                                           type: string
                                                           format: hex
-                                                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                           pattern: '^0x[a-fA-F0-9]{40}$'
                                                         amount:
                                                           description: The value withdrawn (gwei).
@@ -18970,7 +18970,7 @@ paths:
                                                       description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
                                                   type: string
@@ -19018,7 +19018,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -19105,7 +19105,7 @@ paths:
                                                           description: The address to which the withdrawal is credited.
                                                           type: string
                                                           format: hex
-                                                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                           pattern: '^0x[a-fA-F0-9]{40}$'
                                                         amount:
                                                           description: The value withdrawn (gwei).
@@ -22139,7 +22139,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -22786,7 +22786,7 @@ paths:
                                                       description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
                                                   type: string
@@ -22826,7 +22826,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -23480,7 +23480,7 @@ paths:
                                                       description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
                                                   type: string
@@ -23529,7 +23529,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -23915,7 +23915,7 @@ paths:
                                         type: string
                                         format: hex
                                         description: An address on the execution (Ethereum 1) network.
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       state_root:
                                         type: string
@@ -24439,7 +24439,7 @@ paths:
                                           type: string
                                           format: hex
                                           description: An address on the execution (Ethereum 1) network.
-                                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                           pattern: '^0x[a-fA-F0-9]{40}$'
                                         state_root:
                                           type: string
@@ -24627,7 +24627,7 @@ paths:
                                           type: string
                                           format: hex
                                           description: An address on the execution (Ethereum 1) network.
-                                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                           pattern: '^0x[a-fA-F0-9]{40}$'
                                         state_root:
                                           type: string
@@ -25120,7 +25120,7 @@ paths:
                                         type: string
                                         format: hex
                                         description: An address on the execution (Ethereum 1) network.
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       state_root:
                                         type: string
@@ -25275,7 +25275,7 @@ paths:
                                         type: string
                                         format: hex
                                         description: An address on the execution (Ethereum 1) network.
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       state_root:
                                         type: string
@@ -25669,7 +25669,7 @@ paths:
                                         type: string
                                         format: hex
                                         description: An address on the execution (Ethereum 1) network.
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       state_root:
                                         type: string
@@ -27235,7 +27235,7 @@ paths:
                               description: Execution address to which the credentials will be changed.
                               type: string
                               format: hex
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                         signature:
                           type: string
@@ -27308,7 +27308,7 @@ paths:
                         description: Execution address to which the credentials will be changed.
                         type: string
                         format: hex
-                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                         pattern: '^0x[a-fA-F0-9]{40}$'
                   signature:
                     type: string
@@ -27451,7 +27451,7 @@ paths:
                           description: The address to which the withdrawal is credited.
                           type: string
                           format: hex
-                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                           pattern: '^0x[a-fA-F0-9]{40}$'
                         amount:
                           description: The value withdrawn (gwei).
@@ -28882,7 +28882,7 @@ paths:
                                     type: string
                                     format: hex
                                     description: An address on the execution (Ethereum 1) network.
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                   state_root:
                                     type: string
@@ -29363,7 +29363,7 @@ paths:
                                     type: string
                                     format: hex
                                     description: An address on the execution (Ethereum 1) network.
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                   state_root:
                                     type: string
@@ -29877,7 +29877,7 @@ paths:
                                     type: string
                                     format: hex
                                     description: An address on the execution (Ethereum 1) network.
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                   state_root:
                                     type: string
@@ -33229,7 +33229,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -33866,7 +33866,7 @@ paths:
                                                   description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
                                               type: string
@@ -33905,7 +33905,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -33989,7 +33989,7 @@ paths:
                                                       description: The address to which the withdrawal is credited.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                     amount:
                                                       description: The value withdrawn (gwei).
@@ -34581,7 +34581,7 @@ paths:
                                                       description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
                                                   type: string
@@ -34629,7 +34629,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -34716,7 +34716,7 @@ paths:
                                                           description: The address to which the withdrawal is credited.
                                                           type: string
                                                           format: hex
-                                                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                           pattern: '^0x[a-fA-F0-9]{40}$'
                                                         amount:
                                                           description: The value withdrawn (gwei).
@@ -36616,7 +36616,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -37255,7 +37255,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -37889,7 +37889,7 @@ paths:
                                                   description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
                                               type: string
@@ -37928,7 +37928,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -38012,7 +38012,7 @@ paths:
                                                       description: The address to which the withdrawal is credited.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                     amount:
                                                       description: The value withdrawn (gwei).
@@ -38596,7 +38596,7 @@ paths:
                                                   description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
                                               type: string
@@ -38636,7 +38636,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -39285,7 +39285,7 @@ paths:
                                                       description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
-                                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
                                                   type: string
@@ -39333,7 +39333,7 @@ paths:
                                                     type: string
                                                     format: hex
                                                     description: An address on the execution (Ethereum 1) network.
-                                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                                   state_root:
                                                     type: string
@@ -39420,7 +39420,7 @@ paths:
                                                           description: The address to which the withdrawal is credited.
                                                           type: string
                                                           format: hex
-                                                          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                           pattern: '^0x[a-fA-F0-9]{40}$'
                                                         amount:
                                                           description: The value withdrawn (gwei).
@@ -40023,7 +40023,7 @@ paths:
                                                   description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
                                               type: string
@@ -40072,7 +40072,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -41950,7 +41950,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -42585,7 +42585,7 @@ paths:
                                                   description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
                                               type: string
@@ -42625,7 +42625,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -43267,7 +43267,7 @@ paths:
                                                   description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
-                                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
                                               type: string
@@ -43316,7 +43316,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 description: An address on the execution (Ethereum 1) network.
-                                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                               state_root:
                                                 type: string
@@ -44934,7 +44934,7 @@ paths:
                     type: string
                     format: hex
                     description: An address on the execution (Ethereum 1) network.
-                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                     pattern: '^0x[a-fA-F0-9]{40}$'
       responses:
         '200':
@@ -45030,7 +45030,7 @@ paths:
                         description: Address to receive fees from the block.
                         type: string
                         format: hex
-                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                         pattern: '^0x[a-fA-F0-9]{40}$'
                       gas_limit:
                         description: Preferred gas limit of validator.
@@ -45310,7 +45310,7 @@ paths:
                   description: The node has received a BLS to execution change (from P2P or API)
                   value: |
                     event: bls_to_execution_change
-                    data: {"message":{"validator_index":"1", "from_bls_pubkey":"0x933ad9491b62059dd065b560d256d8957a8c402cc6e8d8ee7290ae11e8f7329267a8811c397529dac52ae1342ba58c95", "to_execution_address":"0x9be8d619c56699667c1fedcd15f6b14d8B067f72"}, "signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
+                    data: {"message":{"validator_index":"1", "from_bls_pubkey":"0x933ad9491b62059dd065b560d256d8957a8c402cc6e8d8ee7290ae11e8f7329267a8811c397529dac52ae1342ba58c95", "to_execution_address":"0x9Be8d619c56699667c1feDCD15f6b14D8B067F72"}, "signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
                 finalized_checkpoint:
                   description: Finalized checkpoint has been updated
                   value: |
@@ -47541,7 +47541,7 @@ components:
               description: Execution address to which the credentials will be changed.
               type: string
               format: hex
-              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
               pattern: '^0x[a-fA-F0-9]{40}$'
         signature:
           type: string
@@ -50397,7 +50397,7 @@ components:
       type: string
       format: hex
       description: An address on the execution (Ethereum 1) network.
-      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
       pattern: '^0x[a-fA-F0-9]{40}$'
     Bellatrix.BeaconState:
       type: object
@@ -50820,7 +50820,7 @@ components:
                   type: string
                   format: hex
                   description: An address on the execution (Ethereum 1) network.
-                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                   pattern: '^0x[a-fA-F0-9]{40}$'
                 state_root:
                   type: string
@@ -51455,7 +51455,7 @@ components:
                               type: string
                               format: hex
                               description: An address on the execution (Ethereum 1) network.
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                             state_root:
                               type: string
@@ -52100,7 +52100,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
@@ -52745,7 +52745,7 @@ components:
                               type: string
                               format: hex
                               description: An address on the execution (Ethereum 1) network.
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                             state_root:
                               type: string
@@ -53389,7 +53389,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
@@ -53481,7 +53481,7 @@ components:
               description: Address to receive fees from the block.
               type: string
               format: hex
-              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
               pattern: '^0x[a-fA-F0-9]{40}$'
             gas_limit:
               description: Preferred gas limit of validator.
@@ -53926,7 +53926,7 @@ components:
                   type: string
                   format: hex
                   description: An address on the execution (Ethereum 1) network.
-                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                   pattern: '^0x[a-fA-F0-9]{40}$'
                 state_root:
                   type: string
@@ -54593,7 +54593,7 @@ components:
                                 description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
-                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
                             type: string
@@ -54632,7 +54632,7 @@ components:
                               type: string
                               format: hex
                               description: An address on the execution (Ethereum 1) network.
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                             state_root:
                               type: string
@@ -54716,7 +54716,7 @@ components:
                                     description: The address to which the withdrawal is credited.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                   amount:
                                     description: The value withdrawn (gwei).
@@ -55307,7 +55307,7 @@ components:
                                     description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
                                 type: string
@@ -55346,7 +55346,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
@@ -55430,7 +55430,7 @@ components:
                                         description: The address to which the withdrawal is credited.
                                         type: string
                                         format: hex
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       amount:
                                         description: The value withdrawn (gwei).
@@ -56020,7 +56020,7 @@ components:
                                 description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
-                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
                             type: string
@@ -56060,7 +56060,7 @@ components:
                               type: string
                               format: hex
                               description: An address on the execution (Ethereum 1) network.
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                             state_root:
                               type: string
@@ -56709,7 +56709,7 @@ components:
                                     description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
                                 type: string
@@ -56749,7 +56749,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
@@ -56906,7 +56906,7 @@ components:
                       type: string
                       format: hex
                       description: An address on the execution (Ethereum 1) network.
-                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                       pattern: '^0x[a-fA-F0-9]{40}$'
                     state_root:
                       type: string
@@ -57105,7 +57105,7 @@ components:
                       type: string
                       format: hex
                       description: An address on the execution (Ethereum 1) network.
-                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                       pattern: '^0x[a-fA-F0-9]{40}$'
                     state_root:
                       type: string
@@ -57293,7 +57293,7 @@ components:
                       type: string
                       format: hex
                       description: An address on the execution (Ethereum 1) network.
-                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                       pattern: '^0x[a-fA-F0-9]{40}$'
                     state_root:
                       type: string
@@ -57488,7 +57488,7 @@ components:
                       type: string
                       format: hex
                       description: An address on the execution (Ethereum 1) network.
-                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                       pattern: '^0x[a-fA-F0-9]{40}$'
                     state_root:
                       type: string
@@ -57643,7 +57643,7 @@ components:
                       type: string
                       format: hex
                       description: An address on the execution (Ethereum 1) network.
-                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                       pattern: '^0x[a-fA-F0-9]{40}$'
                     state_root:
                       type: string
@@ -57836,7 +57836,7 @@ components:
                       type: string
                       format: hex
                       description: An address on the execution (Ethereum 1) network.
-                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                       pattern: '^0x[a-fA-F0-9]{40}$'
                     state_root:
                       type: string
@@ -57951,7 +57951,7 @@ components:
           description: The address to which the withdrawal is credited.
           type: string
           format: hex
-          example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
           pattern: '^0x[a-fA-F0-9]{40}$'
         amount:
           description: The value withdrawn (gwei).
@@ -58382,7 +58382,7 @@ components:
                   type: string
                   format: hex
                   description: An address on the execution (Ethereum 1) network.
-                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                   pattern: '^0x[a-fA-F0-9]{40}$'
                 state_root:
                   type: string
@@ -59052,7 +59052,7 @@ components:
                                 description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
-                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
                             type: string
@@ -59100,7 +59100,7 @@ components:
                               type: string
                               format: hex
                               description: An address on the execution (Ethereum 1) network.
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                             state_root:
                               type: string
@@ -59187,7 +59187,7 @@ components:
                                     description: The address to which the withdrawal is credited.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                   amount:
                                     description: The value withdrawn (gwei).
@@ -59780,7 +59780,7 @@ components:
                                     description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
                                 type: string
@@ -59828,7 +59828,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
@@ -59915,7 +59915,7 @@ components:
                                         description: The address to which the withdrawal is credited.
                                         type: string
                                         format: hex
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       amount:
                                         description: The value withdrawn (gwei).
@@ -60525,7 +60525,7 @@ components:
                                     description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
                                 type: string
@@ -60573,7 +60573,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
@@ -60660,7 +60660,7 @@ components:
                                         description: The address to which the withdrawal is credited.
                                         type: string
                                         format: hex
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                       amount:
                                         description: The value withdrawn (gwei).
@@ -61265,7 +61265,7 @@ components:
                                         description: Execution address to which the credentials will be changed.
                                         type: string
                                         format: hex
-                                        example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                        example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                   signature:
                                     type: string
@@ -61313,7 +61313,7 @@ components:
                                       type: string
                                       format: hex
                                       description: An address on the execution (Ethereum 1) network.
-                                      example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                     state_root:
                                       type: string
@@ -61400,7 +61400,7 @@ components:
                                             description: The address to which the withdrawal is credited.
                                             type: string
                                             format: hex
-                                            example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                            example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                             pattern: '^0x[a-fA-F0-9]{40}$'
                                           amount:
                                             description: The value withdrawn (gwei).
@@ -62009,7 +62009,7 @@ components:
                                 description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
-                                example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
                             type: string
@@ -62058,7 +62058,7 @@ components:
                               type: string
                               format: hex
                               description: An address on the execution (Ethereum 1) network.
-                              example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                             state_root:
                               type: string
@@ -62710,7 +62710,7 @@ components:
                                     description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
-                                    example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
                                 type: string
@@ -62759,7 +62759,7 @@ components:
                                   type: string
                                   format: hex
                                   description: An address on the execution (Ethereum 1) network.
-                                  example: '0xabcf8e0d4e9587369b2301d0790347320302cc09'
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                 state_root:
                                   type: string
