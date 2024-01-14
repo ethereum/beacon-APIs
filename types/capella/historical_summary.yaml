@@ -2,6 +2,7 @@ Capella:
   HistoricalSummary:
     type: object
     description:  "The [`HistoricalSummary`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#historicalsummary) object from the CL Capella spec."
+    required: [block_summary_root, state_summary_root]
     properties:
       block_summary_root:
         $ref: '../primitive.yaml#/Root'

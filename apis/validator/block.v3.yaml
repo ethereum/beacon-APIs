@@ -93,6 +93,7 @@ get:
           schema:
             title: ProduceBlockV3Response
             type: object
+            required: [version, execution_payload_blinded, execution_payload_value, consensus_block_value, data]
             properties:
               version:
                 type: string
