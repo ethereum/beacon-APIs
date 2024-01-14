@@ -12,6 +12,7 @@ post:
   tags:
     - Validator
   requestBody:
+    required: true
     content:
       application/json:
         schema:
@@ -29,6 +30,7 @@ post:
           schema:
             title: BeaconCommitteeSelectionResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array

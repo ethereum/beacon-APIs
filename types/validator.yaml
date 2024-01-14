@@ -1,5 +1,6 @@
 Validator:
   type: object
+  required: [pubkey, withdrawal_credentials, effective_balance, slashed, activation_eligibility_epoch, activation_epoch, exit_epoch, withdrawable_epoch]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
@@ -34,6 +35,7 @@ Validator:
 
 AttesterDuty:
   type: object
+  required: [pubkey, validator_index, committee_index, committee_length, committees_at_slot, validator_committee_index, slot]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
@@ -64,6 +66,7 @@ AttesterDuty:
 
 ProposerDuty:
   type: object
+  required: [pubkey, validator_index, slot]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
@@ -79,6 +82,7 @@ ProposerDuty:
 Altair:
   SyncDuty:
     type: object
+    required: [pubkey, validator_index, validator_sync_committee_indices]
     properties:
       pubkey:
         $ref: './primitive.yaml#/Pubkey'
@@ -97,6 +101,7 @@ AggregateAndProof:
   allOf:
     - $ref: '#/Aggregate'
     - type: object
+      required: [selection_proof]
       properties:
         selection_proof:
           $ref: './primitive.yaml#/Signature'
@@ -104,6 +109,7 @@ AggregateAndProof:
 Aggregate:
   type: object
   description: "The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#aggregateandproof) without selection_proof"
+  required: [aggregator_index, aggregate]
   properties:
     aggregator_index:
       $ref: './primitive.yaml#/Uint64'
@@ -114,6 +120,7 @@ Aggregate:
 SignedAggregateAndProof:
   type: object
   description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#signedaggregateandproof) object"
+  required: [message, signature]
   properties:
     message:
       $ref: "#/AggregateAndProof"

@@ -1,6 +1,7 @@
 BeaconBlockCommon:
   # An abstract object to collect the common fields between the BeaconBlockHeader and the BeaconBlock objects
   type: object
+  required: [slot, proposer_index, parent_root, state_root]
   properties:
     slot:
       allOf:
@@ -22,6 +23,7 @@ BeaconBlockCommon:
 BeaconBlockBody:
   type: object
   description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblockbody) object from the CL spec."
+  required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits]
   properties:
     randao_reveal:
       allOf:
@@ -58,6 +60,7 @@ BeaconBlock:
   allOf:
     - $ref: '#/BeaconBlockCommon'
     - type: object
+      required: [body]
       properties:
         body:
           $ref: '#/BeaconBlockBody'
@@ -65,6 +68,7 @@ BeaconBlock:
 SignedBeaconBlock:
   type: object
   description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec."
+  required: [message, signature]
   properties:
     message:
       $ref: "#/BeaconBlock"
@@ -76,6 +80,7 @@ BeaconBlockHeader:
   allOf:
     - $ref: './block.yaml#/BeaconBlockCommon'
     - type: object
+      required: [body_root]
       properties:
         body_root:
           allOf:
@@ -85,6 +90,7 @@ BeaconBlockHeader:
 SignedBeaconBlockHeader:
   type: object
   description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the CL spec."
+  required: [message, signature]
   properties:
     message:
       $ref: "./block.yaml#/BeaconBlockHeader"

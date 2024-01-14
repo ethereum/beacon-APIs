@@ -25,6 +25,7 @@ get:
           schema:
             title: GetEpochSyncCommitteesResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"

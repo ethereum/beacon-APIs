@@ -24,6 +24,7 @@ get:
           schema:
             title: GetLightClientBootstrapResponse
             type: object
+            required: [version, data]
             properties:
               version:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
