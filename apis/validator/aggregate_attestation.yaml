@@ -33,6 +33,7 @@ get:
           schema:
             title: GetAggregatedAttestationResponse
             type: object
+            required: [data]
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'

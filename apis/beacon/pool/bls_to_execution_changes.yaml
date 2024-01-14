@@ -12,6 +12,7 @@ get:
           schema:
             title: GetPoolBLSToExecutionChangesResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array

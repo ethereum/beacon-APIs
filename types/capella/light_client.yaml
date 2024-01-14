@@ -9,6 +9,7 @@ Capella:
 
   LightClientHeader:
     type: object
+    required: [beacon, execution, execution_branch]
     properties:
       beacon:
         $ref: '../block.yaml#/BeaconBlockHeader'
@@ -19,6 +20,7 @@ Capella:
 
   LightClientBootstrap:
     type: object
+    required: [header, current_sync_committee, current_sync_committee_branch]
     properties:
       header:
         $ref: '#/Capella/LightClientHeader'
@@ -28,6 +30,7 @@ Capella:
         $ref: '../altair/light_client.yaml#/Altair/CurrentSyncCommitteeBranch'
   LightClientUpdate:
     type: object
+    required: [attested_header, next_sync_committee, next_sync_committee_branch, finalized_header, finality_branch, sync_aggregate, signature_slot]
     properties:
       attested_header:
         $ref: '#/Capella/LightClientHeader'
@@ -45,6 +48,7 @@ Capella:
         $ref: '../primitive.yaml#/Uint64'
   LightClientFinalityUpdate:
     type: object
+    required: [attested_header, finalized_header, finality_branch, sync_aggregate, signature_slot]
     properties:
       attested_header:
         $ref: '#/Capella/LightClientHeader'
@@ -58,6 +62,7 @@ Capella:
         $ref: '../primitive.yaml#/Uint64'
   LightClientOptimisticUpdate:
     type: object
+    required: [attested_header, sync_aggregate, signature_slot]
     properties:
       attested_header:
         $ref: '#/Capella/LightClientHeader'

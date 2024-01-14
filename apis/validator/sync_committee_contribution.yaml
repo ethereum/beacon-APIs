@@ -37,6 +37,7 @@ get:
           schema:
             title: produceSyncCommitteeContributionResponse
             type: object
+            required: [data]
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.SyncCommitteeContribution'

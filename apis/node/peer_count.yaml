@@ -12,9 +12,11 @@ get:
           schema:
             title: GetPeerCountResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: object
+                required: [disconnected, connecting, connected, disconnecting]
                 properties: 
                   disconnected:
                     allOf:
