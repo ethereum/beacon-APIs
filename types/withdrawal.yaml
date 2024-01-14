@@ -1,5 +1,6 @@
 Withdrawal:
   type: object
+  required: [index, validator_index, address, amount]
   properties:
     index:
       $ref: './primitive.yaml#/Uint64'

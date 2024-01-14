@@ -16,6 +16,7 @@ get:
           schema:
             title: GetStateRootResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -23,6 +24,7 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: object
+                required: [root]
                 properties:
                   root:
                     allOf:

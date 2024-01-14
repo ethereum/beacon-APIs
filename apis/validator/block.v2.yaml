@@ -49,6 +49,7 @@ get:
           schema:
             title: ProduceBlockV2Response
             type: object
+            required: [version, data]
             properties:
               version:
                 type: string

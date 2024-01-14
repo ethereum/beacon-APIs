@@ -3,6 +3,7 @@ Bellatrix:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
     description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/bellatrix/beacon-chain.md#executionpayload) object from the CL Bellatrix spec."
+    required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, block_hash]
     properties:
       parent_hash:
         $ref: '../primitive.yaml#/Root'
@@ -36,6 +37,7 @@ Bellatrix:
     allOf:
       - $ref: '#/Bellatrix/ExecutionPayloadCommon'
       - type: object
+        required: [transactions]
         properties:
           transactions:
             $ref: './transactions.yaml#/Bellatrix/Transactions'
@@ -46,6 +48,7 @@ Bellatrix:
       - $ref: '#/Bellatrix/ExecutionPayloadCommon'
       - type: object
         additionalProperties: false
+        required: [transactions_root]
         properties:
           transactions_root:
             $ref: '../primitive.yaml#/Root'

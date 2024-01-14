@@ -1,6 +1,7 @@
 Node:
   type: object
   description: "fork choice node attributes"
+  required: [slot, block_root, parent_root, justified_epoch, finalized_epoch, weight, validity, execution_block_hash]
   properties:
     slot:
       allOf:

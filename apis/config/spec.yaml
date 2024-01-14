@@ -21,6 +21,7 @@ get:
           schema:
             title: GetSpecResponse
             type: object
+            required: [data]
             properties:
               data:
                 description: |
