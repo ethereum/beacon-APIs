@@ -12,6 +12,7 @@ get:
           schema:
             title: GetPoolVoluntaryExitsResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array

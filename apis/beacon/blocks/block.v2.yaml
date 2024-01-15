@@ -22,6 +22,7 @@ get:
           schema:
             title: GetBlockV2Response
             type: object
+            required: [version, execution_optimistic, finalized, data]
             properties:
               version:
                 type: string

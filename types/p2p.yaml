@@ -1,5 +1,6 @@
 NetworkIdentity:
   type: object
+  required: [peer_id, enr, p2p_addresses, discovery_addresses, metadata]
   properties:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
@@ -24,7 +25,7 @@ NetworkIdentity:
 MetaData:
   type: object
   description: "Based on eth2 [Metadata object](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/p2p-interface.md#metadata)"
-  required: ["seq_number", "attnets"]
+  required: [seq_number, attnets]
   properties:
     seq_number:
       allOf:
@@ -43,12 +44,14 @@ MetaData:
 
 Peer:
   type: object
+  required: [peer_id, enr, last_seen_p2p_address, state, direction]
   properties:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
     enr:
-      nullable: true
-      $ref: "./p2p.yaml#/ENR"
+      oneOf:
+        - type: "null"
+        - $ref: "./p2p.yaml#/ENR"
     last_seen_p2p_address:
       allOf:
         - $ref: "./p2p.yaml#/Multiaddr"

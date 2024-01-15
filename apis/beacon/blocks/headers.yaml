@@ -28,6 +28,7 @@ get:
           schema:
             title: GetBlockHeadersResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -37,6 +38,7 @@ get:
                 type: array
                 items:
                   type: object
+                  required: [root, canonical, header]
                   properties:
                     root:
                       $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Root"

@@ -1,6 +1,7 @@
 Altair:
   SyncCommittee:
     type: object
+    required: [pubkeys, aggregate_pubkey]
     properties:
       pubkeys:
         type: array
@@ -13,6 +14,7 @@ Altair:
         $ref: '../primitive.yaml#/Pubkey'
   SyncCommitteeSignature:
       type: object
+      required: [slot, beacon_block_root, validator_index, signature]
       properties:
         slot:
           $ref: '../primitive.yaml#/Uint64'
@@ -24,6 +26,7 @@ Altair:
           $ref: '../primitive.yaml#/Signature'
   SyncCommitteeSubscription:
     type: object
+    required: [validator_index, sync_committee_indices, until_epoch]
     properties:
       validator_index:
         $ref: '../primitive.yaml#/Uint64'
@@ -39,6 +42,7 @@ Altair:
          
   SignedContributionAndProof:
     type: object
+    required: [message, signature]
     properties:
       message:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Altair.ContributionAndProof'
@@ -47,6 +51,7 @@ Altair:
 
   ContributionAndProof:
     type: object
+    required: [aggregator_index, selection_proof, contribution]
     properties:
       aggregator_index:
         allOf:
@@ -59,6 +64,7 @@ Altair:
 
   SyncCommitteeContribution:
     type: object
+    required: [slot, beacon_block_root, subcommittee_index, aggregation_bits, signature]
     properties:
       slot:
         allOf:
@@ -88,6 +94,7 @@ Altair:
         - $ref: '../primitive.yaml#/Uint64'
   SyncCommitteeByValidatorIndices:
     type: object
+    required: [validators, validator_aggregates]
     properties:
       validators:
         allOf:

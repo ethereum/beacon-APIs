@@ -104,7 +104,7 @@ ExecutionAddress:
   type: string
   format: hex
   description: "An address on the execution (Ethereum 1) network."
-  example: "0xabcf8e0d4e9587369b2301d0790347320302cc09"
+  example: "0xAbcF8e0d4e9587369b2301D0790347320302cc09"
   pattern: "^0x[a-fA-F0-9]{40}$"
 
 Transaction:

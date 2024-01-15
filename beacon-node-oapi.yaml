@@ -1,4 +1,4 @@
-openapi: "3.0.3"
+openapi: "3.1.0"
 
 info:
   title: "Eth Beacon Node API"
@@ -418,12 +418,16 @@ components:
       schema:
         type: boolean
     Eth-Execution-Payload-Value:
-      description: Required in response so client can determine relative value of execution payloads.
+      description: |
+        Execution payload value in Wei. Required in response so client can determine relative value
+        of execution payloads.
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'
     Eth-Consensus-Block-Value:
-      description: Required in response so client can determine relative value of consensus blocks.
+      description: |
+        Consensus rewards paid to the proposer for this block, in Wei. Required in response so
+        client can determine relative value of consensus blocks.
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'

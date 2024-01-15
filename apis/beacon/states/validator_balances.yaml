@@ -34,6 +34,7 @@ get:
           schema:
             title: GetStateValidatorBalancesResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -107,6 +108,7 @@ post:
           schema:
             title: GetStateValidatorBalancesResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
