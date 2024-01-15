@@ -21,12 +21,14 @@ post:
     - ValidatorRequiredApi
     - Validator
   requestBody:
+    required: true
     content:
       application/json:
         schema:
           type: array
           items:
             type: object
+            required: [validator_index, fee_recipient]
             properties:
               validator_index:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'

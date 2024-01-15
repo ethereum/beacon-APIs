@@ -13,9 +13,11 @@
             schema:
               title: GetSyncingStatusResponse
               type: object
+              required: [data]
               properties:
                 data:
                   type: object
+                  required: [head_slot, sync_distance, is_syncing, is_optimistic, el_offline]
                   properties:
                     head_slot:
                       allOf:

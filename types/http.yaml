@@ -4,6 +4,7 @@ InvalidRequest:
     application/json:
       schema:
         type: object
+        required: [code, message]
         properties:
           code:
             description: "Either specific error code in case of invalid request or http status code"
@@ -23,6 +24,7 @@ InternalError:
     application/json:
       schema:
         type: object
+        required: [code, message]
         properties:
           code:
             description: "Either specific error code in case of invalid request or http status code"
@@ -45,6 +47,7 @@ NotImplementedError:
     application/json:
       schema:
         type: object
+        required: [code, message]
         properties:
           code:
             description: "Either specific error code in case of invalid request or http status code"
@@ -67,6 +70,7 @@ CurrentlySyncing:
     application/json:
       schema:
         type: object
+        required: [code, message]
         properties:
           code:
             description: "Either specific error code in case of invalid request or http status code"
@@ -89,6 +93,7 @@ NotFound:
     application/json:
       schema:
         type: object
+        required: [code, message]
         properties:
           code:
             description: "Either specific error code in case of invalid request or http status code"
@@ -111,6 +116,7 @@ UnsupportedMediaType:
     application/json:
       schema:
         type: object
+        required: [code, message]
         properties:
           code:
             description: "The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept."
@@ -129,6 +135,7 @@ UnsupportedMediaType:
         message: "Cannot read the supplied content type."
 ErrorMessage:
   type: object
+  required: [code, message]
   properties:
     code:
       description: "Either specific error code in case of invalid request or http status code"
@@ -144,6 +151,7 @@ ErrorMessage:
         type: string
 IndexedErrorMessage:
   type: object
+  required: [code, message, failures]
   properties:
     code:
       description: "Either specific error code in case of invalid request or http status code"
@@ -158,6 +166,7 @@ IndexedErrorMessage:
       type: array
       items:
         type: object
+        required: [index, message]
         properties:
           index:
             description: "Index of item in the request list that caused the error"

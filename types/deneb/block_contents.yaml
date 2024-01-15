@@ -16,6 +16,7 @@ Deneb:
   BlockContents:
     type: object
     description: "The required object for block production according to the Deneb CL spec."
+    required: [block, kzg_proofs, blobs]
     properties:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
@@ -27,6 +28,7 @@ Deneb:
   SignedBlockContents:
     type: object
     description: "The required signed components of block production according to the Deneb CL spec."
+    required: [signed_block, kzg_proofs, blobs]
     properties:
       signed_block:
         $ref: "./block.yaml#/Deneb/SignedBeaconBlock"

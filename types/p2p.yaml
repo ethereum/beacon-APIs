@@ -1,5 +1,6 @@
 NetworkIdentity:
   type: object
+  required: [peer_id, enr, p2p_addresses, discovery_addresses, metadata]
   properties:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
@@ -24,7 +25,7 @@ NetworkIdentity:
 MetaData:
   type: object
   description: "Based on eth2 [Metadata object](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/p2p-interface.md#metadata)"
-  required: ["seq_number", "attnets"]
+  required: [seq_number, attnets]
   properties:
     seq_number:
       allOf:
@@ -33,22 +34,24 @@ MetaData:
     attnets:
       allOf:
         - description: "Bitvector representing the node's persistent attestation subnet subscriptions."
-        - $ref: "./primitive.yaml#/Hex"
+        - $ref: "./primitive.yaml#/Bitvector"
         - example: "0x0000000000000000"
     syncnets:
       allOf:
         - description: "Bitvector representing the node's sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair."
-        - $ref: "./primitive.yaml#/Hex"
+        - $ref: "./primitive.yaml#/Bitvector"
         - example: "0x0f"
 
 Peer:
   type: object
+  required: [peer_id, enr, last_seen_p2p_address, state, direction]
   properties:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
     enr:
-      nullable: true
-      $ref: "./p2p.yaml#/ENR"
+      oneOf:
+        - type: "null"
+        - $ref: "./p2p.yaml#/ENR"
     last_seen_p2p_address:
       allOf:
         - $ref: "./p2p.yaml#/Multiaddr"

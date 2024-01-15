@@ -4,7 +4,7 @@ SyncCommitteeRewards:
   items:
     type: object
     description: "Rewards info for a single sync committee member"
-    required: ["validator_index", "reward"]
+    required: [validator_index, reward]
     properties:
       validator_index:
         allOf:
@@ -20,7 +20,7 @@ SyncCommitteeRewards:
 AttestationsRewards:
   type: object
   description: "Rewards info for attestations"
-  required: ["ideal_rewards", "total_rewards"]
+  required: [ideal_rewards, total_rewards]
   properties:
     ideal_rewards:
       type: array
@@ -34,7 +34,7 @@ AttestationsRewards:
 AttestationRewards:
   type: object
   description: "Rewards info for a single attestation"
-  required: ["validator_index", "head", "target", "source", "inactivity"]
+  required: [validator_index, head, target, source, inactivity]
   properties:
       validator_index:
         allOf:
@@ -70,7 +70,7 @@ AttestationRewards:
 IdealAttestationRewards:
   type: object
   description: "Ideal rewards info for a single attestation"
-  required: ["effective_balance", "head", "target", "source", "inactivity"]
+  required: [effective_balance, head, target, source, inactivity]
   properties:
     effective_balance:
       allOf:
@@ -106,6 +106,7 @@ IdealAttestationRewards:
 BlockRewards:
   type: object
   description: "Rewards info for a single block"
+  required: [proposer_index, total, attestations, sync_aggregate, proposer_slashings, attester_slashings]
   properties:
     proposer_index:
       allOf:
