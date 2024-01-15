@@ -627,7 +627,7 @@ paths:
             type: array
             uniqueItems: true
             items:
-              allOf:
+              oneOf:
                 - description: |
                     Possible statuses:
                     - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
@@ -923,7 +923,7 @@ paths:
                   type: array
                   uniqueItems: true
                   items:
-                    allOf:
+                    oneOf:
                       - description: |
                           Possible statuses:
                           - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
