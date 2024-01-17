@@ -14,6 +14,7 @@
             schema:
               type: object
               title: GetDepositSnapshotResponse
+              required: [data]
               properties:
                 data:
                   $ref: '../../beacon-node-oapi.yaml#/components/schemas/DepositSnapshotResponse'
@@ -25,10 +26,9 @@
         content:
           application/json:
             schema:
-              allOf:
-                - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-                - example:
-                    code: 404
-                    message: "No Finalized Snapshot Available"
+              $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            example:
+              code: 404
+              message: "No Finalized Snapshot Available"
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

@@ -1,13 +1,13 @@
 Deposit:
   type: object
   description: "The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec."
+  required: [proof, data]
   properties:
     proof:
       type: array
       description: "Branch in the deposit tree."
       items:
-        allOf:
-          - $ref: './primitive.yaml#/Root'
+        $ref: './primitive.yaml#/Root'
       minItems: 32
       maxItems: 32
     data:
@@ -15,18 +15,16 @@ Deposit:
 DepositData:
   type: object
   description: "The [`DepositData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#depositdata) object from the CL spec."
+  required: [pubkey, withdrawal_credentials, amount, signature]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     withdrawal_credentials:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The withdrawal credentials."
+      $ref: './primitive.yaml#/Root'
+      description: "The withdrawal credentials."
     amount:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Amount in Gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Amount in Gwei."
     signature:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "Container self-signature."
+      $ref: './primitive.yaml#/Signature'
+      description: "Container self-signature."

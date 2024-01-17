@@ -24,6 +24,7 @@ get:
           schema:
             title: GetLightClientBootstrapResponse
             type: object
+            required: [version, data]
             properties:
               version:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
@@ -40,26 +41,26 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block root value"
+          example:
+            code: 400
+            message: "Invalid block root value"
     "404":
       description: "`LightClientBootstrap` instance cannot be produced for the given block root"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "LC bootstrap unavailable"
+          example:
+            code: 404
+            message: "LC bootstrap unavailable"
     "406":
       description: Unacceptable media type
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 406
-              message: "Accepted media type not supported"
+          example:
+            code: 406
+            message: "Accepted media type not supported"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

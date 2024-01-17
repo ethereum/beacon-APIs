@@ -3,6 +3,7 @@ Capella:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
     description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#executionpayload) object from the CL Capella spec."
+    required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, block_hash]
     properties:
       parent_hash:
         $ref: '../primitive.yaml#/Root'
@@ -36,6 +37,7 @@ Capella:
     allOf:
       - $ref: '#/Capella/ExecutionPayloadCommon'
       - type: object
+        required: [transactions, withdrawals]
         properties:
           transactions:
             $ref: '../bellatrix/transactions.yaml#/Bellatrix/Transactions'
@@ -48,6 +50,7 @@ Capella:
       - $ref: '#/Capella/ExecutionPayloadCommon'
       - type: object
         additionalProperties: false
+        required: [transactions_root, withdrawals_root]
         properties:
           transactions_root:
             $ref: '../primitive.yaml#/Root'

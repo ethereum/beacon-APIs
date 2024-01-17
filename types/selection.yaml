@@ -1,35 +1,30 @@
 BeaconCommitteeSelection:
   type: object
+  required: [validator_index, slot, selection_proof]
   properties:
     validator_index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of the validator"
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of the validator"
     slot:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "The slot at which a validator is assigned to attest"
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot at which a validator is assigned to attest"
     selection_proof:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "The `slot_signature` calculated by the validator for the upcoming attestation slot"
+      $ref: './primitive.yaml#/Signature'
+      description: "The `slot_signature` calculated by the validator for the upcoming attestation slot"
 
 SyncCommitteeSelection:
   type: object
+  required: [validator_index, slot, subcommittee_index, selection_proof]
   properties:
     validator_index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of the validator"
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of the validator"
     slot:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "The slot at which validator is assigned to produce a sync committee contribution"
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot at which validator is assigned to produce a sync committee contribution"
     subcommittee_index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "SubcommitteeIndex to which the validator is assigned"
+      $ref: './primitive.yaml#/Uint64'
+      description: "SubcommitteeIndex to which the validator is assigned"
     selection_proof:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "The `slot_signature` calculated by the validator for the upcoming sync committee slot"
+      $ref: './primitive.yaml#/Signature'
+      description: "The `slot_signature` calculated by the validator for the upcoming sync committee slot"

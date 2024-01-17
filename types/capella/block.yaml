@@ -3,11 +3,11 @@ Capella:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
     description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#beaconblockbody) object from the CL Capella spec."
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes]
     properties:
       randao_reveal:
-        allOf:
-          - $ref: '../primitive.yaml#/Signature'
-          - description: "The RanDAO reveal value provided by the validator."
+          $ref: '../primitive.yaml#/Signature'
+          description: "The RanDAO reveal value provided by the validator."
       eth1_data:
         $ref: '../eth1.yaml#/Eth1Data'
       graffiti:
@@ -43,6 +43,7 @@ Capella:
     allOf:
       - $ref: '#/Capella/BeaconBlockBodyCommon'
       - type: object
+        required: [execution_payload]
         properties:
           execution_payload:
             $ref: './execution_payload.yaml#/Capella/ExecutionPayload'
@@ -52,6 +53,7 @@ Capella:
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
+        required: [body]
         properties:
           body:
             $ref: '#/Capella/BeaconBlockBody'
@@ -59,6 +61,7 @@ Capella:
   SignedBeaconBlock:
     type: object
     description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec."
+    required: [message, signature]
     properties:
       message:
         $ref: "#/Capella/BeaconBlock"
@@ -70,6 +73,7 @@ Capella:
     allOf:
       - $ref: '#/Capella/BeaconBlockBodyCommon'
       - type: object
+        required: [execution_payload_header]
         properties:
           execution_payload_header:
             $ref: './execution_payload.yaml#/Capella/ExecutionPayloadHeader'
@@ -79,6 +83,7 @@ Capella:
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
+        required: [body]
         properties:
           body:
             $ref: '#/Capella/BlindedBeaconBlockBody'
@@ -86,6 +91,7 @@ Capella:
   SignedBlindedBeaconBlock:
     type: object
     description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Capella spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    required: [message, signature]
     properties:
       message:
         $ref: "#/Capella/BlindedBeaconBlock"

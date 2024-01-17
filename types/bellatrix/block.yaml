@@ -3,11 +3,11 @@ Bellatrix:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
     description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/bellatrix/beacon-chain.md#beaconblockbody) object from the CL Bellatrix spec."
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate]
     properties:
       randao_reveal:
-        allOf:
-          - $ref: '../primitive.yaml#/Signature'
-          - description: "The RanDAO reveal value provided by the validator."
+        $ref: '../primitive.yaml#/Signature'
+        description: "The RanDAO reveal value provided by the validator."
       eth1_data:
         $ref: '../eth1.yaml#/Eth1Data'
       graffiti:
@@ -39,6 +39,7 @@ Bellatrix:
     allOf:
       - $ref: '#/Bellatrix/BeaconBlockBodyCommon'
       - type: object
+        required: [execution_payload]
         properties:
           execution_payload:
             $ref: './execution_payload.yaml#/Bellatrix/ExecutionPayload'
@@ -48,6 +49,7 @@ Bellatrix:
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
+        required: [body]
         properties:
           body:
             $ref: '#/Bellatrix/BeaconBlockBody'
@@ -55,6 +57,7 @@ Bellatrix:
   SignedBeaconBlock:
     type: object
     description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Bellatrix spec."
+    required: [message, signature]
     properties:
       message:
         $ref: "#/Bellatrix/BeaconBlock"
@@ -66,6 +69,7 @@ Bellatrix:
     allOf:
       - $ref: '#/Bellatrix/BeaconBlockBodyCommon'
       - type: object
+        required: [execution_payload_header]
         properties:
           execution_payload_header:
             $ref: './execution_payload.yaml#/Bellatrix/ExecutionPayloadHeader'
@@ -75,6 +79,7 @@ Bellatrix:
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
+        required: [body]
         properties:
           body:
             $ref: '#/Bellatrix/BlindedBeaconBlockBody'
@@ -82,6 +87,7 @@ Bellatrix:
   SignedBlindedBeaconBlock:
     type: object
     description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Bellatrix spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    required: [message, signature]
     properties:
       message:
         $ref: "#/Bellatrix/BlindedBeaconBlock"

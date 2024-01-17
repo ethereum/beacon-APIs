@@ -26,6 +26,7 @@ get:
           schema:
             title: GetBlockResponse
             type: object
+            required: [data]
             properties:
               data:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
@@ -38,18 +39,18 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block ID: current"
+          example:
+            code: 400
+            message: "Invalid block ID: current"
     "404":
       description: "Block not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "Block not found"
+          example:
+            code: 404
+            message: "Block not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
 

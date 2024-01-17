@@ -12,11 +12,13 @@ get:
           schema:
             title: GetDebugChainHeadsResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array
                 items:
                   type: object
+                  required: [root, slot, execution_optimistic]
                   properties:
                     root:
                       $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"

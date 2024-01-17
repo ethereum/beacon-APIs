@@ -12,6 +12,7 @@ get:
           schema:
             title: GetPoolVoluntaryExitsResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array
@@ -41,8 +42,8 @@ post:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid voluntary exit, it will never pass validation so it's rejected"
+          example:
+            code: 400
+            message: "Invalid voluntary exit, it will never pass validation so it's rejected"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
