@@ -75,8 +75,7 @@ Altair:
         description: "Per-validator inactivity scores. New in Altair. Variable length list, maximum 1099511627776 items"
         type: array
         items:
-          allOf:
-            - $ref: "../primitive.yaml#/Uint64"
+          $ref: "../primitive.yaml#/Uint64"
       current_sync_committee:
         $ref: "./sync_committee.yaml#/Altair/SyncCommittee"
       next_sync_committee:

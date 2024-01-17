@@ -9,16 +9,14 @@ NetworkIdentity:
     p2p_addresses:
       type: array
       items:
-        allOf:
-          - $ref: "./p2p.yaml#/Multiaddr"
-          - description: "Node's addresses on which eth2 RPC requests are served. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
+        $ref: "./p2p.yaml#/Multiaddr"
+        description: "Node's addresses on which eth2 RPC requests are served. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
     discovery_addresses:
       type: array
       items:
-        allOf:
-          - $ref: "./p2p.yaml#/Multiaddr"
-          - description: "Node's addresses on which is listening for discv5 requests. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
-          - example: "/ip4/7.7.7.7/udp/30303/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
+        $ref: "./p2p.yaml#/Multiaddr"
+        description: "Node's addresses on which is listening for discv5 requests. [Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
+        example: "/ip4/7.7.7.7/udp/30303/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
     metadata:
       $ref: "./p2p.yaml#/MetaData"
 
@@ -28,19 +26,16 @@ MetaData:
   required: [seq_number, attnets]
   properties:
     seq_number:
-      allOf:
-        - description: "Uint64 starting at 0 used to version the node's metadata. If any other field in the local MetaData changes, the node MUST increment seq_number by 1."
-        - $ref: "./primitive.yaml#/Uint64"
+      description: "Uint64 starting at 0 used to version the node's metadata. If any other field in the local MetaData changes, the node MUST increment seq_number by 1."
+      $ref: "./primitive.yaml#/Uint64"
     attnets:
-      allOf:
-        - description: "Bitvector representing the node's persistent attestation subnet subscriptions."
-        - $ref: "./primitive.yaml#/Hex"
-        - example: "0x0000000000000000"
+      description: "Bitvector representing the node's persistent attestation subnet subscriptions."
+      $ref: "./primitive.yaml#/Bitvector"
+      example: "0x0000000000000000"
     syncnets:
-      allOf:
-        - description: "Bitvector representing the node's sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair."
-        - $ref: "./primitive.yaml#/Hex"
-        - example: "0x0f"
+      description: "Bitvector representing the node's sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair."
+      $ref: "./primitive.yaml#/Bitvector"
+      example: "0x0f"
 
 Peer:
   type: object
@@ -49,12 +44,12 @@ Peer:
     peer_id:
       $ref: "./p2p.yaml#/PeerId"
     enr:
-      nullable: true
-      $ref: "./p2p.yaml#/ENR"
+      oneOf:
+        - type: "null"
+        - $ref: "./p2p.yaml#/ENR"
     last_seen_p2p_address:
-      allOf:
-        - $ref: "./p2p.yaml#/Multiaddr"
-        - description: Multiaddrs used in last peer connection.
+      $ref: "./p2p.yaml#/Multiaddr"
+      description: Multiaddrs used in last peer connection.
     state:
       $ref: "./p2p.yaml#/PeerConnectionState"
     direction:

@@ -6,8 +6,7 @@ Altair:
       pubkeys:
         type: array
         items:
-          allOf:
-            - $ref: '../primitive.yaml#/Pubkey'
+          $ref: '../primitive.yaml#/Pubkey'
         minItems: 512
         maxItems: 512
       aggregate_pubkey:
@@ -33,12 +32,10 @@ Altair:
       sync_committee_indices:
         type: array
         items:
-          allOf:
-           - $ref: '../primitive.yaml#/Uint64'
+           $ref: '../primitive.yaml#/Uint64'
       until_epoch:
-        allOf:
-         - $ref: '../primitive.yaml#/Uint64'
-         - description: 'The final epoch (exclusive value) that the specified validator requires the subscription for.'
+        $ref: '../primitive.yaml#/Uint64'
+        description: 'The final epoch (exclusive value) that the specified validator requires the subscription for.'
          
   SignedContributionAndProof:
     type: object
@@ -54,9 +51,8 @@ Altair:
     required: [aggregator_index, selection_proof, contribution]
     properties:
       aggregator_index:
-        allOf:
-          - $ref: "../primitive.yaml#/Uint64"
-          - description: "Index of validator in validator registry."
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of validator in validator registry."
       selection_proof:
         $ref: '../primitive.yaml#/Signature'
       contribution:
@@ -67,43 +63,35 @@ Altair:
     required: [slot, beacon_block_root, subcommittee_index, aggregation_bits, signature]
     properties:
       slot:
-        allOf:
-          - $ref: "../primitive.yaml#/Uint64"
-          - description: "The slot at which the validator is providing a sync committee contribution."
+        $ref: "../primitive.yaml#/Uint64"
+        description: "The slot at which the validator is providing a sync committee contribution."
       beacon_block_root:
-        allOf:
-          - $ref: '../primitive.yaml#/Root'
-          - description: "Block root for this contribution."
+        $ref: '../primitive.yaml#/Root'
+        description: "Block root for this contribution."
       subcommittee_index:
-        allOf:
-          - $ref: '../primitive.yaml#/Uint64'
-          - description: 'The index of the subcommittee that the contribution pertains to.'
+        $ref: '../primitive.yaml#/Uint64'
+        description: 'The index of the subcommittee that the contribution pertains to.'
       aggregation_bits:
-        allOf:
-          - description: 'A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.'
-          - $ref: "../primitive.yaml#/Hex"
-          - example: "0x01"
+        description: 'A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.'
+        $ref: "../primitive.yaml#/Bitvector"
+        example: "0xffffffffffffffffffffffffffffffff"
       signature:
-        allOf:
-          - $ref: '../primitive.yaml#/Signature'
-          - description: 'Signature by the validator(s) over the block root of `slot`'
+        $ref: '../primitive.yaml#/Signature'
+        description: 'Signature by the validator(s) over the block root of `slot`'
   ValidatorsByIndex:
     type: array
     items:
-      allOf:
-        - $ref: '../primitive.yaml#/Uint64'
+      $ref: '../primitive.yaml#/Uint64'
   SyncCommitteeByValidatorIndices:
     type: object
     required: [validators, validator_aggregates]
     properties:
       validators:
-        allOf:
-         - $ref: '#/Altair/ValidatorsByIndex'
-         - description: 'all of the validator indices in the current sync committee'
+        $ref: '#/Altair/ValidatorsByIndex'
+        description: 'all of the validator indices in the current sync committee'
       validator_aggregates:
         type: array
         items:
-          allOf:
-            - $ref: '#/Altair/ValidatorsByIndex'
-            - description: 'Subcommittee slices of the current sync committee'
+          $ref: '#/Altair/ValidatorsByIndex'
+          description: 'Subcommittee slices of the current sync committee'
 

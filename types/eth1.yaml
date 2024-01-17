@@ -4,14 +4,11 @@ Eth1Data:
   required: [deposit_root, deposit_count, block_hash]
   properties:
     deposit_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "Root of the deposit tree."
+      $ref: './primitive.yaml#/Root'
+      description: "Root of the deposit tree."
     deposit_count:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Total number of deposits."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Total number of deposits."
     block_hash:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "Ethereum 1.x block hash."
+      $ref: './primitive.yaml#/Root'
+      description: "Ethereum 1.x block hash."
