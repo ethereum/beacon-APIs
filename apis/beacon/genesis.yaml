@@ -31,8 +31,8 @@
           application/json:
             schema:
               $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              example:
-                code: 404
-                message: "Chain genesis info is not yet known"
+            example:
+              code: 404
+              message: "Chain genesis info is not yet known"
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

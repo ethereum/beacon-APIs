@@ -4,13 +4,11 @@ VoluntaryExit:
   required: [epoch, validator_index]
   properties:
     epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Minimum epoch for processing exit."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Minimum epoch for processing exit."
     validator_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of the exiting validator."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of the exiting validator."
 
 SignedVoluntaryExit:
   type: object

@@ -18,10 +18,9 @@ Version:
   example: "Lighthouse/v0.1.5 (Linux x86_64)"
 
 GenesisTime:
-  allOf:
-    - $ref: "./primitive.yaml#/Uint64"
-    - example: "1590832934"
-    - description: "The genesis_time configured for the beacon node, which is the unix time in seconds at which the Eth2.0 chain began."
+  $ref: "./primitive.yaml#/Uint64"
+  example: "1590832934"
+  description: "The genesis_time configured for the beacon node, which is the unix time in seconds at which the Eth2.0 chain began."
 
 Wei:
   $ref: "./primitive.yaml#/Uint256"
@@ -42,21 +41,18 @@ Int64:
   example: "1"
 
 DependentRoot:
-  allOf:
-    - $ref: "./primitive.yaml#/Root"
-    - description: "The block root that this response is dependent on."
+  $ref: "./primitive.yaml#/Root"
+  description: "The block root that this response is dependent on."
 
 ExecutionOptimistic:
-  allOf:
-    - type: boolean
-    - example: false
-    - description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
+  type: boolean
+  example: false
+  description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
 
 Finalized:
-  allOf:
-    - type: boolean
-    - example: false
-    - description: "True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint."
+  type: boolean
+  example: false
+  description: "True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint."
 
 Root:
   type: string

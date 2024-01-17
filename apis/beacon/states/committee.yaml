@@ -14,25 +14,19 @@ get:
       required: false
       allowEmptyValue: false
       schema:
-        allOf:
-          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-          - example: ""
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
     - name: index
       description: "Restrict returned values to those matching the supplied committee index."
       in: query
       required: false
       schema:
-        allOf:
-          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-          - example: ""
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
     - name: slot
       description: "Restrict returned values to those matching the supplied slot."
       in: query
       required: false
       schema:
-        allOf:
-          - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-          - example: ""
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
       description: Success
@@ -57,9 +51,9 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Slot does not belong in epoch"
+          example:
+            code: 400
+            message: "Slot does not belong in epoch"
     "404":
       description: "State not found"
       content:

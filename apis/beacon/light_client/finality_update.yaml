@@ -36,17 +36,17 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "LC finality update unavailable"
+          example:
+            code: 404
+            message: "LC finality update unavailable"
     "406":
       description: Unacceptable media type
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 406
-              message: "Accepted media type not supported"
+          example:
+            code: 406
+            message: "Accepted media type not supported"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

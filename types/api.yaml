@@ -7,8 +7,7 @@ DepositSnapshotResponse:
     finalized:
       type: array
       items:
-        allOf:
-          - $ref: './primitive.yaml#/Root'
+        $ref: './primitive.yaml#/Root'
       minItems: 3
       maxItems: 3
     deposit_root:
@@ -25,13 +24,11 @@ ValidatorResponse:
   required: [index, balance, status, validator]
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator balance in gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
     status:
       $ref: "#/ValidatorStatus"
     validator:
@@ -42,13 +39,11 @@ ValidatorBalanceResponse:
   required: [index, balance]
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator balance in gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
 
 ValidatorStatus:
   description: |
@@ -74,9 +69,8 @@ Committee:
   required: [index, slot, validators]
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: Committee index at a slot
+      $ref: './primitive.yaml#/Uint64'
+      description: Committee index at a slot
     slot:
       $ref: './primitive.yaml#/Uint64'
 
