@@ -2831,7 +2831,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -3338,7 +3338,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -3488,7 +3488,7 @@ paths:
                                       type: string
                                       format: hex
                                       example: '0x01'
-                                      pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                      pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
                                       format: hex
@@ -3865,7 +3865,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -4015,7 +4015,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -4484,7 +4484,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -4634,7 +4634,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -5149,7 +5149,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -5299,7 +5299,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -5992,7 +5992,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -6499,7 +6499,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -6649,7 +6649,7 @@ paths:
                                       type: string
                                       format: hex
                                       example: '0x01'
-                                      pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                      pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
                                       format: hex
@@ -7026,7 +7026,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -7176,7 +7176,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -7645,7 +7645,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -7795,7 +7795,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -8310,7 +8310,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -8460,7 +8460,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -9125,7 +9125,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -9632,7 +9632,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -9782,7 +9782,7 @@ paths:
                                       type: string
                                       format: hex
                                       example: '0x01'
-                                      pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                      pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
                                       format: hex
@@ -10158,7 +10158,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -10308,7 +10308,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -10778,7 +10778,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -10928,7 +10928,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -11476,7 +11476,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               signature:
                                                 description: BLS aggregate signature.
                                                 type: string
@@ -11626,7 +11626,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             sync_committee_signature:
                                               type: string
                                               format: hex
@@ -12363,7 +12363,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -12870,7 +12870,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       signature:
                                         description: BLS aggregate signature.
                                         type: string
@@ -13020,7 +13020,7 @@ paths:
                                       type: string
                                       format: hex
                                       example: '0x01'
-                                      pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                      pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
                                       format: hex
@@ -13396,7 +13396,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -13546,7 +13546,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -14016,7 +14016,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           signature:
                                             description: BLS aggregate signature.
                                             type: string
@@ -14166,7 +14166,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
                                           format: hex
@@ -14714,7 +14714,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               signature:
                                                 description: BLS aggregate signature.
                                                 type: string
@@ -14864,7 +14864,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             sync_committee_signature:
                                               type: string
                                               format: hex
@@ -15602,7 +15602,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -16109,7 +16109,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -16259,7 +16259,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -16635,7 +16635,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -16785,7 +16785,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -17255,7 +17255,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -17405,7 +17405,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -17945,7 +17945,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -18095,7 +18095,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -18534,7 +18534,7 @@ paths:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         signature:
                           description: BLS aggregate signature.
                           type: string
@@ -19926,7 +19926,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -20433,7 +20433,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -20583,7 +20583,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -20960,7 +20960,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -21110,7 +21110,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -21579,7 +21579,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -21729,7 +21729,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -22244,7 +22244,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -22394,7 +22394,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -23265,7 +23265,7 @@ paths:
                                   type: string
                                   format: hex
                                   example: '0x01'
-                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
                                   format: hex
@@ -23638,7 +23638,7 @@ paths:
                                   type: string
                                   format: hex
                                   example: '0x01'
-                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
                                   format: hex
@@ -23927,7 +23927,7 @@ paths:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
                                 format: hex
@@ -24266,7 +24266,7 @@ paths:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
                                 format: hex
@@ -24463,7 +24463,7 @@ paths:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
                                 format: hex
@@ -24640,7 +24640,7 @@ paths:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
                                 format: hex
@@ -24773,7 +24773,7 @@ paths:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         signature:
                           description: BLS aggregate signature.
                           type: string
@@ -24913,7 +24913,7 @@ paths:
                     type: string
                     format: hex
                     example: '0x01'
-                    pattern: '^0x[a-fA-F0-9]{2,64}$'
+                    pattern: '^0x[a-fA-F0-9]{2,}$'
                   signature:
                     description: BLS aggregate signature.
                     type: string
@@ -26711,7 +26711,7 @@ paths:
                                   type: string
                                   format: hex
                                   example: '0x01'
-                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                 data:
                                   type: object
                                   description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
@@ -26786,7 +26786,7 @@ paths:
                                   type: string
                                   format: hex
                                   example: '0x01'
-                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                 data:
                                   type: object
                                   description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
@@ -26850,7 +26850,7 @@ paths:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -27168,7 +27168,7 @@ paths:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -27538,7 +27538,7 @@ paths:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -27998,7 +27998,7 @@ paths:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -28490,7 +28490,7 @@ paths:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -29048,13 +29048,13 @@ paths:
                             example: '0x0000000000000000'
                             type: string
                             format: hex
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           syncnets:
                             description: 'Bitvector representing the node''s sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair.'
                             example: '0x0f'
                             type: string
                             format: hex
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
         '500':
           description: Beacon node internal error.
           content:
@@ -30636,7 +30636,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         signature:
                                           description: BLS aggregate signature.
                                           type: string
@@ -31131,7 +31131,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         signature:
                                           description: BLS aggregate signature.
                                           type: string
@@ -31281,7 +31281,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       sync_committee_signature:
                                         type: string
                                         format: hex
@@ -31645,7 +31645,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -31795,7 +31795,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -32253,7 +32253,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -32403,7 +32403,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -32939,7 +32939,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -33089,7 +33089,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -33878,7 +33878,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         signature:
                                           description: BLS aggregate signature.
                                           type: string
@@ -34373,7 +34373,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         signature:
                                           description: BLS aggregate signature.
                                           type: string
@@ -34523,7 +34523,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       sync_committee_signature:
                                         type: string
                                         format: hex
@@ -34887,7 +34887,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -35037,7 +35037,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -35495,7 +35495,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -35645,7 +35645,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -36101,7 +36101,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -36251,7 +36251,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -36778,7 +36778,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -36928,7 +36928,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -37438,7 +37438,7 @@ paths:
                                                   type: string
                                                   format: hex
                                                   example: '0x01'
-                                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                                 signature:
                                                   description: BLS aggregate signature.
                                                   type: string
@@ -37588,7 +37588,7 @@ paths:
                                                 type: string
                                                 format: hex
                                                 example: '0x01'
-                                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                                pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
                                                 format: hex
@@ -38147,7 +38147,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -38297,7 +38297,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -38972,7 +38972,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         signature:
                                           description: BLS aggregate signature.
                                           type: string
@@ -39467,7 +39467,7 @@ paths:
                                           type: string
                                           format: hex
                                           example: '0x01'
-                                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                          pattern: '^0x[a-fA-F0-9]{2,}$'
                                         signature:
                                           description: BLS aggregate signature.
                                           type: string
@@ -39617,7 +39617,7 @@ paths:
                                         type: string
                                         format: hex
                                         example: '0x01'
-                                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                        pattern: '^0x[a-fA-F0-9]{2,}$'
                                       sync_committee_signature:
                                         type: string
                                         format: hex
@@ -39982,7 +39982,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -40132,7 +40132,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -40589,7 +40589,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -40739,7 +40739,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -41242,7 +41242,7 @@ paths:
                                               type: string
                                               format: hex
                                               example: '0x01'
-                                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                              pattern: '^0x[a-fA-F0-9]{2,}$'
                                             signature:
                                               description: BLS aggregate signature.
                                               type: string
@@ -41392,7 +41392,7 @@ paths:
                                             type: string
                                             format: hex
                                             example: '0x01'
-                                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                            pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
                                             format: hex
@@ -41843,7 +41843,7 @@ paths:
                         type: string
                         format: hex
                         example: '0x01'
-                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                        pattern: '^0x[a-fA-F0-9]{2,}$'
                       signature:
                         description: BLS aggregate signature.
                         type: string
@@ -42019,7 +42019,7 @@ paths:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -42605,7 +42605,7 @@ paths:
                         example: '0xffffffffffffffffffffffffffffffff'
                         type: string
                         format: hex
-                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                        pattern: '^0x[a-fA-F0-9]{2,}$'
                       signature:
                         description: Signature by the validator(s) over the block root of `slot`
                         type: string
@@ -42958,7 +42958,7 @@ paths:
                             example: '0xffffffffffffffffffffffffffffffff'
                             type: string
                             format: hex
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: Signature by the validator(s) over the block root of `slot`
                             type: string
@@ -43815,7 +43815,7 @@ components:
                 type: string
                 format: hex
                 example: '0x01'
-                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                pattern: '^0x[a-fA-F0-9]{2,}$'
               data:
                 type: object
                 description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
@@ -43890,7 +43890,7 @@ components:
                 type: string
                 format: hex
                 example: '0x01'
-                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                pattern: '^0x[a-fA-F0-9]{2,}$'
               data:
                 type: object
                 description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
@@ -43954,7 +43954,7 @@ components:
           type: string
           format: hex
           example: '0x01'
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -44357,7 +44357,7 @@ components:
                         type: string
                         format: hex
                         example: '0x01'
-                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                        pattern: '^0x[a-fA-F0-9]{2,}$'
                       signature:
                         description: BLS aggregate signature.
                         type: string
@@ -44900,7 +44900,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -45680,7 +45680,7 @@ components:
                       type: string
                       format: hex
                       example: '0x01'
-                      pattern: '^0x[a-fA-F0-9]{2,64}$'
+                      pattern: '^0x[a-fA-F0-9]{2,}$'
                     signature:
                       description: BLS aggregate signature.
                       type: string
@@ -45766,7 +45766,7 @@ components:
           type: string
           format: hex
           example: '0x01'
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         signature:
           description: BLS aggregate signature.
           type: string
@@ -46010,13 +46010,13 @@ components:
               example: '0x0000000000000000'
               type: string
               format: hex
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             syncnets:
               description: 'Bitvector representing the node''s sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair.'
               example: '0x0f'
               type: string
               format: hex
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
     Peer:
       type: object
       required:
@@ -46519,7 +46519,7 @@ components:
                         type: string
                         format: hex
                         example: '0x01'
-                        pattern: '^0x[a-fA-F0-9]{2,64}$'
+                        pattern: '^0x[a-fA-F0-9]{2,}$'
                       signature:
                         description: BLS aggregate signature.
                         type: string
@@ -46669,7 +46669,7 @@ components:
                       type: string
                       format: hex
                       example: '0x01'
-                      pattern: '^0x[a-fA-F0-9]{2,64}$'
+                      pattern: '^0x[a-fA-F0-9]{2,}$'
                     sync_committee_signature:
                       type: string
                       format: hex
@@ -47040,7 +47040,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -47190,7 +47190,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -47440,7 +47440,7 @@ components:
               type: string
               format: hex
               example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
               format: hex
@@ -47570,7 +47570,7 @@ components:
               type: string
               format: hex
               example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
               format: hex
@@ -47643,7 +47643,7 @@ components:
               type: string
               format: hex
               example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
               format: hex
@@ -47925,7 +47925,7 @@ components:
           type: string
           format: hex
           example: '0x01'
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -48108,7 +48108,7 @@ components:
               example: '0xffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             signature:
               description: Signature by the validator(s) over the block root of `slot`
               type: string
@@ -48165,7 +48165,7 @@ components:
                   example: '0xffffffffffffffffffffffffffffffff'
                   type: string
                   format: hex
-                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                  pattern: '^0x[a-fA-F0-9]{2,}$'
                 signature:
                   description: Signature by the validator(s) over the block root of `slot`
                   type: string
@@ -48205,7 +48205,7 @@ components:
           example: '0xffffffffffffffffffffffffffffffff'
           type: string
           format: hex
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         signature:
           description: Signature by the validator(s) over the block root of `slot`
           type: string
@@ -48513,7 +48513,7 @@ components:
           type: string
           format: hex
           example: '0x01'
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -49055,7 +49055,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -49205,7 +49205,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -49670,7 +49670,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -49820,7 +49820,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
@@ -50284,7 +50284,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -50434,7 +50434,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -50898,7 +50898,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -51048,7 +51048,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
@@ -51478,7 +51478,7 @@ components:
           type: string
           format: hex
           example: '0x01'
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -52053,7 +52053,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -52203,7 +52203,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -52737,7 +52737,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -52887,7 +52887,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
@@ -53420,7 +53420,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -53570,7 +53570,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -54079,7 +54079,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -54229,7 +54229,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
@@ -54929,7 +54929,7 @@ components:
               type: string
               format: hex
               example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
               format: hex
@@ -55269,7 +55269,7 @@ components:
               type: string
               format: hex
               example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
               format: hex
@@ -55447,7 +55447,7 @@ components:
               type: string
               format: hex
               example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,64}$'
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
               format: hex
@@ -55760,7 +55760,7 @@ components:
           type: string
           format: hex
           example: '0x01'
-          pattern: '^0x[a-fA-F0-9]{2,64}$'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
@@ -56340,7 +56340,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -56490,7 +56490,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -57039,7 +57039,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -57189,7 +57189,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
@@ -57755,7 +57755,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -57905,7 +57905,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
@@ -58466,7 +58466,7 @@ components:
                                     type: string
                                     format: hex
                                     example: '0x01'
-                                    pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                    pattern: '^0x[a-fA-F0-9]{2,}$'
                                   signature:
                                     description: BLS aggregate signature.
                                     type: string
@@ -58616,7 +58616,7 @@ components:
                                   type: string
                                   format: hex
                                   example: '0x01'
-                                  pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                  pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
                                   format: hex
@@ -59181,7 +59181,7 @@ components:
                             type: string
                             format: hex
                             example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,64}$'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           signature:
                             description: BLS aggregate signature.
                             type: string
@@ -59331,7 +59331,7 @@ components:
                           type: string
                           format: hex
                           example: '0x01'
-                          pattern: '^0x[a-fA-F0-9]{2,64}$'
+                          pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
                           format: hex
@@ -59853,7 +59853,7 @@ components:
                                 type: string
                                 format: hex
                                 example: '0x01'
-                                pattern: '^0x[a-fA-F0-9]{2,64}$'
+                                pattern: '^0x[a-fA-F0-9]{2,}$'
                               signature:
                                 description: BLS aggregate signature.
                                 type: string
@@ -60003,7 +60003,7 @@ components:
                               type: string
                               format: hex
                               example: '0x01'
-                              pattern: '^0x[a-fA-F0-9]{2,64}$'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
                               format: hex
