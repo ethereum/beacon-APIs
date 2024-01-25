@@ -109,7 +109,7 @@ get:
                 type: string
                 example: "12345"
               data:
-                oneOf:
+                anyOf:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
