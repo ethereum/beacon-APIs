@@ -49,7 +49,7 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
+          anyOf:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"

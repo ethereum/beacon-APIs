@@ -56,7 +56,7 @@ get:
                 enum: [ phase0, altair, bellatrix, capella, deneb ]
                 example: "phase0"
               data:
-                oneOf:
+                anyOf:
                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
