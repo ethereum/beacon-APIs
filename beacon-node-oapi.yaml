@@ -2467,7 +2467,7 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
+              anyOf:
                 - type: object
                   description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec.'
                   required:
@@ -5628,7 +5628,7 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
+              anyOf:
                 - type: object
                   description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec.'
                   required:
@@ -8761,7 +8761,7 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
+              anyOf:
                 - type: object
                   description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec.'
                   required:
@@ -11999,7 +11999,7 @@ paths:
         content:
           application/json:
             schema:
-              oneOf:
+              anyOf:
                 - type: object
                   description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec.'
                   required:
@@ -15238,7 +15238,7 @@ paths:
                     example: false
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec.'
                         required:
@@ -19562,7 +19562,7 @@ paths:
                     example: false
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec.'
                         required:
@@ -22687,7 +22687,7 @@ paths:
                       - deneb
                     example: phase0
                   data:
-                    oneOf:
+                    anyOf:
                       - type: object
                         required:
                           - header
@@ -23110,7 +23110,7 @@ paths:
                         - deneb
                       example: phase0
                     data:
-                      oneOf:
+                      anyOf:
                         - type: object
                           required:
                             - attested_header
@@ -23806,7 +23806,7 @@ paths:
                       - deneb
                     example: phase0
                   data:
-                    oneOf:
+                    anyOf:
                       - type: object
                         required:
                           - attested_header
@@ -24399,7 +24399,7 @@ paths:
                       - deneb
                     example: phase0
                   data:
-                    oneOf:
+                    anyOf:
                       - type: object
                         required:
                           - attested_header
@@ -26446,7 +26446,7 @@ paths:
                     example: false
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec.'
                         required:
@@ -30279,7 +30279,7 @@ paths:
                       - deneb
                     example: phase0
                   data:
-                    oneOf:
+                    anyOf:
                       - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec.'
                         allOf:
                           - type: object
@@ -33521,7 +33521,7 @@ paths:
                     type: string
                     example: '12345'
                   data:
-                    oneOf:
+                    anyOf:
                       - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec.'
                         allOf:
                           - type: object
@@ -38615,7 +38615,7 @@ paths:
                       - deneb
                     example: bellatrix
                   data:
-                    oneOf:
+                    anyOf:
                       - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL spec.'
                         allOf:
                           - type: object
