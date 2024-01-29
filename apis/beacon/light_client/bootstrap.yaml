@@ -29,7 +29,7 @@ get:
               version:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
               data:
-                oneOf:
+                anyOf:
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientBootstrap'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientBootstrap'
         application/octet-stream:
