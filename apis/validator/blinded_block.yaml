@@ -52,13 +52,14 @@ get:
           schema:
             title: ProduceBlindedBlockResponse
             type: object
+            required: [version, data]
             properties:
               version:
                 type: string
                 enum: [ phase0, altair, bellatrix, capella, deneb ]
                 example: "bellatrix"
               data:
-                oneOf:
+                anyOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"

@@ -12,6 +12,7 @@ post:
     - ValidatorRequiredApi
     - Validator
   requestBody:
+    required: true
     content:
       application/json:
         schema:
@@ -19,19 +20,18 @@ post:
           type: array
           items:
             type: object
+            required: [validator_index, committee_index, committees_at_slot, slot, is_aggregator]
             properties:
               validator_index:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
               committee_index:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
               committees_at_slot:
-                allOf:
-                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                  - description: "Number of committees at the returned slot"
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                description: "Number of committees at the returned slot"
               slot:
-                allOf:
-                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                  - description: "Should be slot at which validator is assigned to attest"
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                description: "Should be slot at which validator is assigned to attest"
               is_aggregator:
                 type: boolean
                 description: "Signals to BN that a validator on the VC has been chosen for aggregator role."

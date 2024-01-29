@@ -1,6 +1,7 @@
 ValidatorRegistration:
   type: object
   description: "The `ValidatorRegistration` object from the Builder API specification."
+  required: [fee_recipient, gas_limit, timestamp, pubkey]
   properties:
     fee_recipient:
       $ref: 'primitive.yaml#/ExecutionAddress'
@@ -18,6 +19,7 @@ ValidatorRegistration:
 SignedValidatorRegistration:
   type: object
   description: "The `SignedValidatorRegistration` object from the Builder API specification."
+  required: [message, signature]
   properties:
     message:
       $ref: "#/ValidatorRegistration"

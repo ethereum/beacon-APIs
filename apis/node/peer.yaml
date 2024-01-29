@@ -18,6 +18,7 @@ get:
           schema:
             title: GetPeerResponse
             type: object
+            required: [data]
             properties:
               data:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Peer'
@@ -27,17 +28,17 @@ get:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid peer ID: localhost"
+          example:
+            code: 400
+            message: "Invalid peer ID: localhost"
     "404":
       description: "Peer not found"
       content:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "Peer not found"
+          example:
+            code: 404
+            message: "Peer not found"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

@@ -12,25 +12,23 @@ get:
           schema:
             title: GetPeerCountResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: object
+                required: [disconnected, connecting, connected, disconnecting]
                 properties: 
                   disconnected:
-                    allOf:
-                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                      - example: "12"
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    example: "12"
                   connecting:
-                    allOf:
-                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                      - example: "34"
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    example: "34"
                   connected:
-                    allOf:
-                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                      - example: "56"
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    example: "56"
                   disconnecting:
-                    allOf:
-                      - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
-                      - example: "5"
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                    example: "5"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

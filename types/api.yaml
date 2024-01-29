@@ -2,12 +2,12 @@
 
 DepositSnapshotResponse:
   type: object
+  required: [finalized, deposit_root, deposit_count, execution_block_hash, execution_block_height]
   properties:
     finalized:
       type: array
       items:
-        allOf:
-          - $ref: './primitive.yaml#/Root'
+        $ref: './primitive.yaml#/Root'
       minItems: 3
       maxItems: 3
     deposit_root:
@@ -21,15 +21,14 @@ DepositSnapshotResponse:
 
 ValidatorResponse:
   type: object
+  required: [index, balance, status, validator]
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator balance in gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
     status:
       $ref: "#/ValidatorStatus"
     validator:
@@ -37,15 +36,14 @@ ValidatorResponse:
 
 ValidatorBalanceResponse:
   type: object
+  required: [index, balance]
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Current validator balance in gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
 
 ValidatorStatus:
   description: |
@@ -68,11 +66,11 @@ ValidatorStatus:
 Committee:
   description: Group of validators assigned to attest at specific slot and that have the same committee index (shard in phase 1)
   type: object
+  required: [index, slot, validators]
   properties:
     index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: Committee index at a slot
+      $ref: './primitive.yaml#/Uint64'
+      description: Committee index at a slot
     slot:
       $ref: './primitive.yaml#/Uint64'
 

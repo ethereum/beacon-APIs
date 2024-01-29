@@ -38,11 +38,13 @@ post:
           schema:
             title: PostLivenessResponseBody
             type: object
+            required: [data]
             properties:
               data:
                 type: array
                 items:
                   type: object
+                  required: [index, is_live]
                   properties:
                     index:
                       $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
@@ -53,11 +55,10 @@ post:
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid epoch: -2"
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid epoch: -2"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

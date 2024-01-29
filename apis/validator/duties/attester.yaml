@@ -47,6 +47,7 @@ post:
           schema:
             title: GetAttesterDutiesResponse
             type: object
+            required: [dependent_root, execution_optimistic, data]
             properties:
               dependent_root:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
@@ -62,9 +63,9 @@ post:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid epoch: -2"
+          example:
+            code: 400
+            message: "Invalid epoch: -2"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

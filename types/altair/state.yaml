@@ -2,6 +2,7 @@ Altair:
   BeaconState:
     type: object
     description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/altair/beacon-chain.md#beaconstate) object from the CL Altair spec."
+    required: [genesis_time, genesis_validators_root, slot, fork, latest_block_header, block_roots, state_roots, historical_roots, eth1_data, eth1_data_votes, eth1_deposit_index, validators, balances, randao_mixes, slashings, previous_epoch_participation, current_epoch_participation, justification_bits, previous_justified_checkpoint, current_justified_checkpoint, finalized_checkpoint, inactivity_scores, current_sync_committee, next_sync_committee]
     properties:
       genesis_time:
         $ref: "../primitive.yaml#/Uint64"
@@ -74,8 +75,7 @@ Altair:
         description: "Per-validator inactivity scores. New in Altair. Variable length list, maximum 1099511627776 items"
         type: array
         items:
-          allOf:
-            - $ref: "../primitive.yaml#/Uint64"
+          $ref: "../primitive.yaml#/Uint64"
       current_sync_committee:
         $ref: "./sync_committee.yaml#/Altair/SyncCommittee"
       next_sync_committee:

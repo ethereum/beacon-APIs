@@ -1,32 +1,29 @@
 BeaconBlockCommon:
   # An abstract object to collect the common fields between the BeaconBlockHeader and the BeaconBlock objects
   type: object
+  required: [slot, proposer_index, parent_root, state_root]
   properties:
     slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The slot to which this block corresponds."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot to which this block corresponds."
     proposer_index:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "Index of validator in validator registry."
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
     parent_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The signing merkle root of the parent `BeaconBlock`."
+      $ref: './primitive.yaml#/Root'
+      description: "The signing merkle root of the parent `BeaconBlock`."
     state_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
+      $ref: './primitive.yaml#/Root'
+      description: "The tree hash merkle root of the `BeaconState` for the `BeaconBlock`."
 
 BeaconBlockBody:
   type: object
   description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblockbody) object from the CL spec."
+  required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits]
   properties:
     randao_reveal:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "The RanDAO reveal value provided by the validator."
+      $ref: './primitive.yaml#/Signature'
+      description: "The RanDAO reveal value provided by the validator."
     eth1_data:
       $ref: './eth1.yaml#/Eth1Data'
     graffiti:
@@ -58,6 +55,7 @@ BeaconBlock:
   allOf:
     - $ref: '#/BeaconBlockCommon'
     - type: object
+      required: [body]
       properties:
         body:
           $ref: '#/BeaconBlockBody'
@@ -65,6 +63,7 @@ BeaconBlock:
 SignedBeaconBlock:
   type: object
   description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL spec."
+  required: [message, signature]
   properties:
     message:
       $ref: "#/BeaconBlock"
@@ -76,15 +75,16 @@ BeaconBlockHeader:
   allOf:
     - $ref: './block.yaml#/BeaconBlockCommon'
     - type: object
+      required: [body_root]
       properties:
         body_root:
-          allOf:
-            - $ref: './primitive.yaml#/Root'
-            - description: "The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`"
+          $ref: './primitive.yaml#/Root'
+          description: "The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`"
 
 SignedBeaconBlockHeader:
   type: object
   description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedbeaconblockheader) object envelope from the CL spec."
+  required: [message, signature]
   properties:
     message:
       $ref: "./block.yaml#/BeaconBlockHeader"

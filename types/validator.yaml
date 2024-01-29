@@ -1,91 +1,80 @@
 Validator:
   type: object
+  required: [pubkey, withdrawal_credentials, effective_balance, slashed, activation_eligibility_epoch, activation_epoch, exit_epoch, withdrawable_epoch]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     withdrawal_credentials:
-      allOf:
-        - $ref: "./primitive.yaml#/Root"
-        - description: "Root of withdrawal credentials"
+      $ref: "./primitive.yaml#/Root"
+      description: "Root of withdrawal credentials"
     effective_balance:
-      allOf:
-        - $ref: "./primitive.yaml#/Gwei"
-        - description: "Balance at stake in Gwei."
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Balance at stake in Gwei."
     slashed:
       type: boolean
       example: false
       description: "Was validator slashed (not longer active)."
     activation_eligibility_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "When criteria for activation were met."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "When criteria for activation were met."
     activation_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
     exit_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited."
     withdrawable_epoch:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined"
 
 AttesterDuty:
   type: object
+  required: [pubkey, validator_index, committee_index, committee_length, committees_at_slot, validator_committee_index, slot]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     validator_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of validator in validator registry"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry"
     committee_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The committee index"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The committee index"
     committee_length:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Number of validators in committee"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Number of validators in committee"
     committees_at_slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Number of committees at the provided slot"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Number of committees at the provided slot"
     validator_committee_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of validator in committee"
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in committee"
     slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The slot at which the validator must attest."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must attest."
 
 ProposerDuty:
   type: object
+  required: [pubkey, validator_index, slot]
   properties:
     pubkey:
       $ref: './primitive.yaml#/Pubkey'
     validator_index:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "Index of validator in validator registry."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry."
     slot:
-      allOf:
-        - $ref: "./primitive.yaml#/Uint64"
-        - description: "The slot at which the validator must propose block."
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must propose block."
 
 Altair:
   SyncDuty:
     type: object
+    required: [pubkey, validator_index, validator_sync_committee_indices]
     properties:
       pubkey:
         $ref: './primitive.yaml#/Pubkey'
       validator_index:
-        allOf:
-          - $ref: "./primitive.yaml#/Uint64"
-          - description: "Index of validator in validator registry."
+        $ref: "./primitive.yaml#/Uint64"
+        description: "Index of validator in validator registry."
       validator_sync_committee_indices:
         type: array
         description: "The indices of the validator in the sync committee."
@@ -97,6 +86,7 @@ AggregateAndProof:
   allOf:
     - $ref: '#/Aggregate'
     - type: object
+      required: [selection_proof]
       properties:
         selection_proof:
           $ref: './primitive.yaml#/Signature'
@@ -104,6 +94,7 @@ AggregateAndProof:
 Aggregate:
   type: object
   description: "The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#aggregateandproof) without selection_proof"
+  required: [aggregator_index, aggregate]
   properties:
     aggregator_index:
       $ref: './primitive.yaml#/Uint64'
@@ -114,6 +105,7 @@ Aggregate:
 SignedAggregateAndProof:
   type: object
   description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#signedaggregateandproof) object"
+  required: [message, signature]
   properties:
     message:
       $ref: "#/AggregateAndProof"

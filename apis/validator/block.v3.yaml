@@ -93,6 +93,7 @@ get:
           schema:
             title: ProduceBlockV3Response
             type: object
+            required: [version, execution_payload_blinded, execution_payload_value, consensus_block_value, data]
             properties:
               version:
                 type: string
@@ -108,7 +109,7 @@ get:
                 type: string
                 example: "12345"
               data:
-                oneOf:
+                anyOf:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
