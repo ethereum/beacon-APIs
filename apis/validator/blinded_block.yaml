@@ -12,7 +12,7 @@ get:
     Metadata in the response indicates the type of block produced, and the supported types of block
     will be added to as forks progress.
     
-    Pre-Bellatrix, this endpoint will return a `BeaconBlock`.
+    Before Bellatrix, this endpoint will return a `BeaconBlock`.
   parameters:
     - name: slot
       in: path
@@ -52,18 +52,19 @@ get:
           schema:
             title: ProduceBlindedBlockResponse
             type: object
+            required: [version, data]
             properties:
               version:
                 type: string
                 enum: [ phase0, altair, bellatrix, capella, deneb ]
                 example: "bellatrix"
               data:
-                oneOf:
+                anyOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
-                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBlockContents"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."

@@ -1,19 +1,17 @@
 Node:
   type: object
   description: "fork choice node attributes"
+  required: [slot, block_root, parent_root, justified_epoch, finalized_epoch, weight, validity, execution_block_hash]
   properties:
     slot:
-      allOf:
-        - $ref: './primitive.yaml#/Uint64'
-        - description: "The slot to which this block corresponds."
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot to which this block corresponds."
     block_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The signing merkle root of the `BeaconBlock`."
+      $ref: './primitive.yaml#/Root'
+      description: "The signing merkle root of the `BeaconBlock`."
     parent_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The signing merkle root of the parent `BeaconBlock`."
+      $ref: './primitive.yaml#/Root'
+      description: "The signing merkle root of the parent `BeaconBlock`."
     justified_epoch:
       $ref: './primitive.yaml#/Uint64'
     finalized_epoch:
@@ -24,9 +22,8 @@ Node:
       type: string
       enum: [valid, invalid, optimistic]
     execution_block_hash:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "The `block_hash` from the `execution_payload` of the `BeaconBlock`"
+      $ref: './primitive.yaml#/Root'
+      description: "The `block_hash` from the `execution_payload` of the `BeaconBlock`"
     extra_data:
       $ref: '#/ExtraData'
 

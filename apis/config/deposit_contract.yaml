@@ -12,19 +12,19 @@ get:
           schema:
             title: GetDepositContractResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: object
+                required: [chain_id, address]
                 properties:
                   chain_id:
-                    allOf:
-                      - $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
-                      - description: Id of Eth1 chain on which contract is deployed.
-                      - example: "1"
+                    $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
+                    description: Id of Eth1 chain on which contract is deployed.
+                    example: "1"
                   address:
-                    allOf:
-                      - $ref: ../../beacon-node-oapi.yaml#/components/schemas/Hex
-                      - description: Hex encoded deposit contract address with 0x prefix
-                      - example: "0x1Db3439a222C519ab44bb1144fC28167b4Fa6EE6"
+                    $ref: ../../beacon-node-oapi.yaml#/components/schemas/ExecutionAddress
+                    description: Hex encoded deposit contract address with 0x prefix
+                    example: "0x00000000219ab540356cBB839Cbe05303d7705Fa"
     "500":
       $ref: ../../beacon-node-oapi.yaml#/components/responses/InternalError

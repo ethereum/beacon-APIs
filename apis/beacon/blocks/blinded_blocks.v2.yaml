@@ -12,9 +12,8 @@ post:
     `BeaconBlock`, and a successful response (20X) only indicates that the broadcast has been
     successful. The beacon node is expected to integrate the new block into its state, and
     therefore validate the block internally, however blocks which fail the validation are still
-    broadcast but a different status code is returned (202). Pre-Bellatrix, this endpoint will accept 
-    a `SignedBeaconBlock`. After Deneb, this additionally instructs the beacon node to broadcast all given
-    signed blobs. The broadcast behaviour may be adjusted via the `broadcast_validation`
+    broadcast but a different status code is returned (202). Before Bellatrix, this endpoint will accept 
+    a `SignedBeaconBlock`. The broadcast behaviour may be adjusted via the `broadcast_validation`
     query parameter.
   parameters:
     - name: broadcast_validation
@@ -50,12 +49,12 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
+          anyOf:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBlindedBlockContents"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBlindedBeaconBlock"
       application/octet-stream:
         schema:
           description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."
@@ -65,14 +64,14 @@ post:
     "202":
       description: "The block failed validation, but was successfully broadcast anyway. It was not integrated into the beacon node's database."
     "400":
-      description: "The `SignedBlindedBeaconBlock` object is invalid"
+      description: "The `SignedBlindedBeaconBlock` object is invalid or broadcast validation failed"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block: missing signature"
+          example:
+            code: 400
+            message: "Invalid block: missing signature"
     "415":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":

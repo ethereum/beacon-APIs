@@ -23,6 +23,7 @@ get:
           schema:
             title: GetPoolAttestationsResponse
             type: object
+            required: [data]
             properties:
               data:
                 type: array
@@ -34,9 +35,9 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid slot: current"
+          example:
+            code: 400
+            message: "Invalid slot: current"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

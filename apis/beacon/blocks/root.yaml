@@ -23,6 +23,7 @@ get:
           schema:
             type: object
             title: GetBlockRootResponse
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -30,28 +31,28 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: object
+                required: [root]
                 properties:
                   root:
-                    allOf:
-                      - description: HashTreeRoot of BeaconBlock/BeaconBlockHeader object
-                      - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+                    description: HashTreeRoot of BeaconBlock/BeaconBlockHeader object
+                    $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
     "400":
       description: "The block ID supplied could not be parsed"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid block ID: current"
+          example:
+            code: 400
+            message: "Invalid block ID: current"
     "404":
       description: "Block not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "Block not found"
+          example:
+            code: 404
+            message: "Block not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

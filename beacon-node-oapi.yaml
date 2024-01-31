@@ -1,4 +1,4 @@
-openapi: "3.0.3"
+openapi: "3.1.0"
 
 info:
   title: "Eth Beacon Node API"
@@ -34,7 +34,7 @@ servers:
     variables:
       server_url:
         description: "Beacon node API url"
-        default: "http://public-mainnet-node.ethereum.org/"
+        default: "http://localhost/"
 
 tags:
   - name: Beacon
@@ -283,8 +283,6 @@ components:
       $ref: './types/primitive.yaml#/Finalized'
     Root:
       $ref: './types/primitive.yaml#/Root'
-    Hex:
-      $ref: './types/primitive.yaml#/Hex'
     Graffiti:
       $ref: './types/primitive.yaml#/Graffiti'
     Signature:
@@ -369,22 +367,12 @@ components:
       $ref: './types/deneb/block_contents.yaml#/Deneb/SignedBlockContents'
     Deneb.BlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
-    Deneb.SignedBlindedBlockContents:
-      $ref: './types/deneb/block_contents.yaml#/Deneb/SignedBlindedBlockContents'
-    Deneb.BlindedBlockContents:
-      $ref: './types/deneb/block_contents.yaml#/Deneb/BlindedBlockContents'
     Deneb.SignedBlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
     Blob:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
-    Deneb.SignedBlobSidecar:
-      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlobSidecar'
-    Deneb.BlindedBlobSidecar:
-      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlindedBlobSidecar'
-    Deneb.SignedBlindedBlobSidecar:
-      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecar'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
@@ -430,7 +418,16 @@ components:
       schema:
         type: boolean
     Eth-Execution-Payload-Value:
-      description: Required in response so client can determine relative value of execution payloads.
+      description: |
+        Execution payload value in Wei. Required in response so client can determine relative value
+        of execution payloads.
+      required: true
+      schema:
+        $ref: './types/primitive.yaml#/Wei'
+    Eth-Consensus-Block-Value:
+      description: |
+        Consensus rewards paid to the proposer for this block, in Wei. Required in response so
+        client can determine relative value of consensus blocks.
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'

@@ -1,37 +1,38 @@
 Deneb:
+  KZGProofs:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/KZGProof'
+    minItems: 0
+    maxItems: 4096
+
+  Blobs:
+    type: array
+    items:
+      $ref: "../primitive.yaml#/Blob"
+    minItems: 0
+    maxItems: 4096
+  
   BlockContents:
     type: object
     description: "The required object for block production according to the Deneb CL spec."
+    required: [block, kzg_proofs, blobs]
     properties:
       block:
         $ref: "./block.yaml#/Deneb/BeaconBlock"
-      blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/BlobSidecars"
-
-  BlindedBlockContents:
-    type: object
-    description: "The required object for blinded block production according to the Deneb CL spec."
-    properties:
-      blinded_block:
-        $ref: "./block.yaml#/Deneb/BlindedBeaconBlock"
-      blinded_blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/BlindedBlobSidecars"
+      kzg_proofs:
+        $ref: "#/Deneb/KZGProofs"
+      blobs:
+        $ref: "#/Deneb/Blobs"
 
   SignedBlockContents:
     type: object
     description: "The required signed components of block production according to the Deneb CL spec."
+    required: [signed_block, kzg_proofs, blobs]
     properties:
       signed_block:
         $ref: "./block.yaml#/Deneb/SignedBeaconBlock"
-      signed_blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlobSidecars"
-
-  SignedBlindedBlockContents:
-    type: object
-    description: "The required signed components of block production according to the Deneb CL spec."
-    properties:
-      signed_blinded_block:
-        $ref: "./block.yaml#/Deneb/SignedBlindedBeaconBlock"
-      signed_blinded_blob_sidecars:
-        $ref: "./blob_sidecar.yaml#/Deneb/SignedBlindedBlobSidecars"
-       
+      kzg_proofs:
+        $ref: "#/Deneb/KZGProofs"
+      blobs:
+        $ref: "#/Deneb/Blobs"

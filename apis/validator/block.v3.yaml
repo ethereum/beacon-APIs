@@ -43,6 +43,39 @@ get:
         is a flag and does not take a value.
       schema: {}
       allowEmptyValue: true
+    - name: builder_boost_factor
+      in: query
+      required: false
+      description: |
+        Percentage multiplier to apply to the builder's payload value when choosing between a
+        builder payload header and payload from the paired execution node. This parameter is only
+        relevant if the beacon node is connected to a builder, deems it safe to produce a builder
+        payload, and receives valid responses from both the builder endpoint _and_ the paired
+        execution node. When these preconditions are met, the server MUST act as follows:
+
+        * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`,
+          then return a full (unblinded) block containing the execution node payload.
+        * otherwise, return a blinded block containing the builder payload header.
+
+        Servers must support the following values of the boost factor which encode common
+        preferences:
+
+        * `builder_boost_factor=0`: prefer the execution node payload unless an error makes it
+          unviable.
+        * `builder_boost_factor=100`: default profit maximization mode; choose whichever
+          payload pays more.
+        * `builder_boost_factor=2**64 - 1`: prefer the builder payload unless an error or
+          beacon node health check makes it unviable.
+
+        Servers should use saturating arithmetic or another technique to ensure that large values of
+        the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
+        provided and the beacon node is not configured with a builder then the beacon node MUST
+        respond with a full block, which the caller can choose to reject if it wishes. If this
+        parameter is **not** provided then it should be treated as having the default value of 100.
+        If the value is provided but out of range for a 64-bit unsigned integer, then an error
+        response with status code 400 MUST be returned.
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: Success response
@@ -53,11 +86,14 @@ get:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Blinded'
         Eth-Execution-Payload-Value:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Value'
+        Eth-Consensus-Block-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
       content:
         application/json:
           schema:
             title: ProduceBlockV3Response
             type: object
+            required: [version, execution_payload_blinded, execution_payload_value, consensus_block_value, data]
             properties:
               version:
                 type: string
@@ -69,16 +105,19 @@ get:
               execution_payload_value:
                 type: string
                 example: "12345"
+              consensus_block_value:
+                type: string
+                example: "12345"
               data:
-                oneOf:
-                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock'
+                anyOf:
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBlockContents"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`."

@@ -9,29 +9,29 @@ IndexedAttestation:
       items:
         $ref: "./primitive.yaml#/Uint64"
     signature:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
+      $ref: './primitive.yaml#/Signature'
+      description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
     data:
       $ref: './attestation.yaml#/AttestationData'
 
 Attestation:
   type: object
   description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestation) object from the CL spec."
+  required: [aggregation_bits, signature, data]
   properties:
     aggregation_bits:
       $ref: "./primitive.yaml#/BitList"
       description: "Attester aggregation bits."
     signature:
-      allOf:
-        - $ref: './primitive.yaml#/Signature'
-        - description: "BLS aggregate signature."
+      $ref: './primitive.yaml#/Signature'
+      description: "BLS aggregate signature."
     data:
       $ref: './attestation.yaml#/AttestationData'
 
 PendingAttestation:
   type: object
   description: "The [`PendingAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#pendingattestation) object from the CL spec."
+  required: [aggregation_bits, data, inclusion_delay, proposer_index]
   properties:
     aggregation_bits:
       $ref: "./primitive.yaml#/BitList"
@@ -46,15 +46,15 @@ PendingAttestation:
 AttestationData:
   type: object
   description: "The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec."
+  required: [slot, index, beacon_block_root, source, target]
   properties:
     slot:
       $ref: "./primitive.yaml#/Uint64"
     index:
       $ref: "./primitive.yaml#/Uint64"
     beacon_block_root:
-      allOf:
-        - $ref: './primitive.yaml#/Root'
-        - description: "LMD GHOST vote."
+      $ref: './primitive.yaml#/Root'
+      description: "LMD GHOST vote."
     source:
       $ref: "./misc.yaml#/Checkpoint"
     target:

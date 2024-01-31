@@ -12,7 +12,7 @@ post:
     before doing so, so as to aid timely delivery of the block. Should the block fail full
     validation, a separate success response code (202) is used to indicate that the block was
     successfully broadcast but failed integration. After Deneb, this additionally instructs
-    the beacon node to broadcast all given signed blobs. The broadcast behaviour may be adjusted via the
+    the beacon node to broadcast all given blobs. The broadcast behaviour may be adjusted via the
     `broadcast_validation` query parameter.
   parameters:
     - name: broadcast_validation
@@ -48,7 +48,7 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
+          anyOf:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
@@ -63,15 +63,14 @@ post:
     "202":
       description: "The block could not be integrated into the beacon node's database as it failed validation, but was successfully broadcast."
     "400":
-      description: "The `SignedBeaconBlock` object is invalid and could not be broadcast"
+      description: "The `SignedBeaconBlock` object is invalid or broadcast validation failed"
       content:
         application/json:
           schema:
-            allOf:
-              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-              - example:
-                  code: 400
-                  message: "Invalid block: missing signature"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid block: missing signature"
     "415":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":

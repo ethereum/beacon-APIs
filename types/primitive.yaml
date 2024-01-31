@@ -18,10 +18,9 @@ Version:
   example: "Lighthouse/v0.1.5 (Linux x86_64)"
 
 GenesisTime:
-  allOf:
-    - $ref: "./primitive.yaml#/Uint64"
-    - example: "1590832934"
-    - description: "The genesis_time configured for the beacon node, which is the unix time in seconds at which the Eth2.0 chain began."
+  $ref: "./primitive.yaml#/Uint64"
+  example: "1590832934"
+  description: "The genesis_time configured for the beacon node, which is the unix time in seconds at which the Eth2.0 chain began."
 
 Wei:
   $ref: "./primitive.yaml#/Uint256"
@@ -42,21 +41,18 @@ Int64:
   example: "1"
 
 DependentRoot:
-  allOf:
-    - $ref: "./primitive.yaml#/Root"
-    - description: "The block root that this response is dependent on."
+  $ref: "./primitive.yaml#/Root"
+  description: "The block root that this response is dependent on."
 
 ExecutionOptimistic:
-  allOf:
-    - type: boolean
-    - example: false
-    - description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
+  type: boolean
+  example: false
+  description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
 
 Finalized:
-  allOf:
-    - type: boolean
-    - example: false
-    - description: "True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint."
+  type: boolean
+  example: false
+  description: "True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint."
 
 Root:
   type: string
@@ -76,11 +72,6 @@ Graffiti:
   example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
   pattern: "^0x[a-fA-F0-9]{64}$"
 
-Hex:
-  type: string
-  format: hex
-  pattern: "^0x[a-fA-F0-9]{2,}$"
-
 Signature:
   type: string
   format: hex
@@ -91,7 +82,13 @@ BitList:
   type: string
   format: hex
   example: "0x01"
-  pattern: "^0x[a-fA-F0-9]+$"
+  pattern: "^0x[a-fA-F0-9]{2,}$"
+
+Bitvector:
+  type: string
+  format: hex
+  example: "0x01"
+  pattern: "^0x[a-fA-F0-9]{2,}$"
 
 Uint8:
   type: string
@@ -103,7 +100,7 @@ ExecutionAddress:
   type: string
   format: hex
   description: "An address on the execution (Ethereum 1) network."
-  example: "0xabcf8e0d4e9587369b2301d0790347320302cc09"
+  example: "0xAbcF8e0d4e9587369b2301D0790347320302cc09"
   pattern: "^0x[a-fA-F0-9]{40}$"
 
 Transaction:
@@ -144,3 +141,4 @@ KZGProof:
   format: hex
   pattern: "^0x[a-fA-F0-9]{96}$"
   description: "A G1 curve point. Used for verifying that the `KZGCommitment` for a given `Blob` is correct."
+

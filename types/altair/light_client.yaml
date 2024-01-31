@@ -23,12 +23,14 @@ Altair:
 
   LightClientHeader:
     type: object
+    required: [beacon]
     properties:
       beacon:
         $ref: '../block.yaml#/BeaconBlockHeader'
 
   LightClientBootstrap:
     type: object
+    required: [header, current_sync_committee, current_sync_committee_branch]
     properties:
       header:
         $ref: '#/Altair/LightClientHeader'
@@ -38,6 +40,7 @@ Altair:
         $ref: '#/Altair/CurrentSyncCommitteeBranch'
   LightClientUpdate:
     type: object
+    required: [attested_header, next_sync_committee, next_sync_committee_branch, finalized_header, finality_branch, sync_aggregate, signature_slot]
     properties:
       attested_header:
         $ref: '#/Altair/LightClientHeader'
@@ -55,6 +58,7 @@ Altair:
         $ref: '../primitive.yaml#/Uint64'
   LightClientFinalityUpdate:
     type: object
+    required: [attested_header, finalized_header, finality_branch, sync_aggregate, signature_slot]
     properties:
       attested_header:
         $ref: '#/Altair/LightClientHeader'
@@ -68,6 +72,7 @@ Altair:
         $ref: '../primitive.yaml#/Uint64'
   LightClientOptimisticUpdate:
     type: object
+    required: [attested_header, sync_aggregate, signature_slot]
     properties:
       attested_header:
         $ref: '#/Altair/LightClientHeader'

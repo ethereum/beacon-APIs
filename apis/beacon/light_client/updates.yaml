@@ -29,11 +29,12 @@ get:
             type: array
             items:
               type: object
+              required: [version, data]
               properties:
                 version:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
                 data:
-                  oneOf:
+                  anyOf:
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientUpdate'
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientUpdate'
         application/octet-stream:
@@ -89,8 +90,8 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 406
-              message: "Accepted media type not supported"
+          example:
+            code: 406
+            message: "Accepted media type not supported"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -33,7 +33,7 @@ get:
         type: array
         uniqueItems: true
         items:
-          allOf:
+          oneOf:
             - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorStatus'
             - enum: ["active", "pending", "exited", "withdrawal"]
 
@@ -45,6 +45,7 @@ get:
           schema:
             title: GetStateValidatorsResponse
             type: object
+            required: [execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -60,26 +61,105 @@ get:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 400
-              message: "Invalid state ID: current"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
     "404":
       description: "State not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 404
-              message: "State not found"
+          example:
+            code: 404
+            message: "State not found"
     "414":
       description: "Too many validator IDs"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-            example:
-              code: 414
-              message: "Too many validator IDs in request"
+          example:
+            code: 414
+            message: "Too many validator IDs in request"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
+post:
+  operationId: "postStateValidators"
+  summary: "Get validators from state"
+  description: |
+    Returns filterable list of validators with their balance, status and index.
+
+    Information will be returned for all indices or public key that match known validators.  If an index or public key does not
+    match any known validator, no information will be returned but this will not cause an error.  There are no guarantees for the
+    returned data in terms of ordering; both the index and public key are returned for each validator, and can be used to confirm
+    for which inputs a response has been returned.
+
+    The POST variant of this endpoint has the same semantics as the GET endpoint but passes
+    the lists of IDs and statuses via a POST body in order to enable larger requests.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  requestBody:
+    description: "The lists of validator IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: []
+          properties:
+            ids:
+              type: array
+              uniqueItems: true
+              items:
+                description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+                type: string
+            statuses:
+              type: array
+              uniqueItems: true
+              items:
+                oneOf:
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorStatus'
+                  - enum: ["active", "pending", "exited", "withdrawal"]
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateValidatorsResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
+    "400":
+      description: "Invalid state or validator ID, or status"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
