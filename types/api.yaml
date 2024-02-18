@@ -8,8 +8,8 @@ DepositSnapshotResponse:
       type: array
       items:
         $ref: './primitive.yaml#/Root'
-      minItems: 3
-      maxItems: 3
+      minItems: 0
+      maxItems: 32
     deposit_root:
       $ref: './primitive.yaml#/Root'
     deposit_count:
