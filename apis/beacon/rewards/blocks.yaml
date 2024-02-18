@@ -5,7 +5,6 @@ get:
   tags:
     - Beacon
     - Rewards
-    - Experimental
   parameters:
     - name: block_id
       in: path
