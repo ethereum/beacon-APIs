@@ -9,7 +9,6 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
-| [#339](https://github.com/ethereum/beacon-APIs/pull/339) `POST /eth/v3/beacon/blocks` added                         |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#350](https://github.com/ethereum/beacon-APIs/pull/350) `blob_sidecar EVENT` added                                 |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#366](https://github.com/ethereum/beacon-APIs/pull/366) `proposer_slashing, attester_slashing EVENT` added         |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#367](https://github.com/ethereum/beacon-APIs/pull/367) `POST /eth/v1/beacon/states/{state_id}/validators`         |                                                  |                                                   |                                                    |                                                 |                                           |
@@ -21,7 +20,18 @@ The Following are no longer in the Standard API, removed since the latest versio
 
 | Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
-| [#339](https://github.com/ethereum/beacon-APIs/pull/339) `POST /eth/v2/beacon/*blocks` deprecated        |                                                  |                                                   |                                                    |
+
+
+## Version 2.4.2
+
+These endpoints have been added or updated since the last release.
+
+There are likely to be descriptions etc outside of the list below, but new query parameters, changes to headers, new endpoints should be listed.
+
+| Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#339](https://github.com/ethereum/beacon-APIs/pull/339) `POST /eth/v3/beacon/blocks` added                         |                                                  |                                                   |                                                    |                                                 |                                           |
+
 
 ## Version 2.4.1
 
