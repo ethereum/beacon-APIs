@@ -9,6 +9,22 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+
+The Following are no longer in the Standard API, removed since the latest version.
+
+| Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+
+## Version 2.5.0
+
+These endpoints have been added or updated since the last release.
+
+There are likely to be descriptions etc outside of the list below, but new query parameters, changes to headers, new endpoints should be listed.
+
+| Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
 | [#350](https://github.com/ethereum/beacon-APIs/pull/350) `blob_sidecar EVENT` added                                 |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#358](https://github.com/ethereum/beacon-APIs/pull/358) `/eth/v3/beacon/blocks` added `consensus_block_value` to response                                |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#366](https://github.com/ethereum/beacon-APIs/pull/366) `proposer_slashing, attester_slashing EVENT` added         |                                                  |                                                   |                                                    |                                                 |                                           |
