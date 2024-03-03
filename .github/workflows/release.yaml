@@ -11,11 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: npm i -g @apidevtools/swagger-cli@4
+      - run: npm i -g @redocly/cli@1.6.0
       - name: Bundle yaml spec
-        run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
+        run: "redocly bundle ./beacon-node-oapi.yaml --remove-unused-components -d --ext yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Bundle json spec
-        run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t json -o ./deploy/beacon-node-oapi.json"
+        run: "redocly bundle ./beacon-node-oapi.yaml --remove-unused-components -d --ext json -o ./deploy/beacon-node-oapi.json"
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

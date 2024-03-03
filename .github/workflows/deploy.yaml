@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: npm i -g @apidevtools/swagger-cli@4
+      - run: npm i -g @redocly/cli@1.6.0
       - name: Prepare deploy directory
         run: |
           mkdir ./deploy
@@ -53,7 +53,7 @@ jobs:
           name: releases
           path: deploy/releases
       - name: Bundle spec
-        run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
+        run: "redocly bundle ./beacon-node-oapi.yaml --remove-unused-components -d --ext yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Publish to Github Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

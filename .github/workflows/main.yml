@@ -9,10 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
-    - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli@1.0.0-beta.111
+    - run: npm i -g @redocly/cli@1.6.0
 
     - name: Lint spec
       run: redocly lint ./beacon-node-oapi.yaml
 
     - name: Bundle spec
-      run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
+      run: "redocly bundle ./beacon-node-oapi.yaml --remove-unused-components  -d --ext yaml -o ./deploy/beacon-node-oapi.yaml"
