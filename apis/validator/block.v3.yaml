@@ -60,18 +60,17 @@ get:
         Servers must support the following values of the boost factor which encode common
         preferences:
 
-        * `builder_boost_factor=0`: prefer the execution node payload unless an error makes it
+        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes it
           unviable.
-        * `builder_boost_factor=100`: default profit maximization mode; choose whichever
+        * `builder_boost_factor=100`: profit maximization mode; choose whichever
           payload pays more.
-        * `builder_boost_factor=2**64 - 1`: prefer the builder payload unless an error or
+        * `builder_boost_factor=2**64 - 1`: prefer the external builder payload unless an error or
           beacon node health check makes it unviable.
 
         Servers should use saturating arithmetic or another technique to ensure that large values of
         the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
         provided and the beacon node is not configured with a builder then the beacon node MUST
-        respond with a full block, which the caller can choose to reject if it wishes. If this
-        parameter is **not** provided then it should be treated as having the default value of 100.
+        respond with a full block, which the caller can choose to reject if it wishes.
         If the value is provided but out of range for a 64-bit unsigned integer, then an error
         response with status code 400 MUST be returned.
       schema:
