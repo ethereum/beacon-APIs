@@ -128,7 +128,7 @@ paths:
   /eth/v1/beacon/pool/sync_committees:
     $ref: "./apis/beacon/pool/sync_committees.yaml"
   /eth/v1/beacon/pool/voluntary_exits:
-    $ref: "./apis/beacon/pool/voluntary_exists.yaml"
+    $ref: "./apis/beacon/pool/voluntary_exits.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
