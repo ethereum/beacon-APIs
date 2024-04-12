@@ -17,7 +17,7 @@ get:
     "200":
       description: Node is ready
     "206":
-      description: Node is syncing but can serve incomplete data
+      description: Either the beacon node is syncing, or its execution node is optimistic, so data served may be incorrect
     "400":
       description: Invalid syncing status code
     "503":
