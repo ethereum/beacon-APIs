@@ -38,5 +38,5 @@ SkipRandaoVerification:
   schema:
     type: 
       - boolean      
-      - 'null'
+      - null
   allowEmptyValue: true
