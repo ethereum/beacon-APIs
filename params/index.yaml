@@ -27,3 +27,16 @@ BlockRoot:
   description: |
     Block root.
     \<hex encoded blockRoot with 0x prefix\>.
+SkipRandaoVerification:
+  name: skip_randao_verification
+  in: query
+  required: false
+  description: |
+    Skip verification of the `randao_reveal` value. If this flag is set then the
+    `randao_reveal` must be set to the point at infinity (`0xc0..00`). 
+    For backward compatibility, this query parameter can be set empty, but recommended to set a correct value when calling. 
+  schema:
+    type: 
+      - boolean      
+      - 'null'
+  allowEmptyValue: true

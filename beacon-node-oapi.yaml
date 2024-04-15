@@ -389,6 +389,8 @@ components:
       $ref: './params/index.yaml#/BlockId'
     BlockRoot:
       $ref: './params/index.yaml#/BlockRoot'
+    SkipRandaoVerification:
+      $ref: './params/index.yaml#/SkipRandaoVerification'
 
   responses:
     InvalidRequest:
