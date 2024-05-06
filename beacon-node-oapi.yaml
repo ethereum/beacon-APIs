@@ -5371,7 +5371,7 @@ paths:
                                             - timestamp
                                             - extra_data
                                             - base_fee_per_gas
-                                            - excess_data_gas
+                                            - excess_blob_gas
                                             - block_hash
                                           properties:
                                             parent_hash:
@@ -5426,7 +5426,7 @@ paths:
                                             base_fee_per_gas:
                                               type: string
                                               example: '1'
-                                            excess_data_gas:
+                                            excess_blob_gas:
                                               type: string
                                               example: '1'
                                             block_hash:
@@ -8532,7 +8532,7 @@ paths:
                                             - timestamp
                                             - extra_data
                                             - base_fee_per_gas
-                                            - excess_data_gas
+                                            - excess_blob_gas
                                             - block_hash
                                           properties:
                                             parent_hash:
@@ -8587,7 +8587,7 @@ paths:
                                             base_fee_per_gas:
                                               type: string
                                               example: '1'
-                                            excess_data_gas:
+                                            excess_blob_gas:
                                               type: string
                                               example: '1'
                                             block_hash:
@@ -11697,7 +11697,7 @@ paths:
                                                 - timestamp
                                                 - extra_data
                                                 - base_fee_per_gas
-                                                - excess_data_gas
+                                                - excess_blob_gas
                                                 - block_hash
                                               properties:
                                                 parent_hash:
@@ -11752,7 +11752,7 @@ paths:
                                                 base_fee_per_gas:
                                                   type: string
                                                   example: '1'
-                                                excess_data_gas:
+                                                excess_blob_gas:
                                                   type: string
                                                   example: '1'
                                                 block_hash:
@@ -14935,7 +14935,7 @@ paths:
                                                 - timestamp
                                                 - extra_data
                                                 - base_fee_per_gas
-                                                - excess_data_gas
+                                                - excess_blob_gas
                                                 - block_hash
                                               properties:
                                                 parent_hash:
@@ -14990,7 +14990,7 @@ paths:
                                                 base_fee_per_gas:
                                                   type: string
                                                   example: '1'
-                                                excess_data_gas:
+                                                excess_blob_gas:
                                                   type: string
                                                   example: '1'
                                                 block_hash:
@@ -18166,7 +18166,7 @@ paths:
                                                   - timestamp
                                                   - extra_data
                                                   - base_fee_per_gas
-                                                  - excess_data_gas
+                                                  - excess_blob_gas
                                                   - block_hash
                                                 properties:
                                                   parent_hash:
@@ -18221,7 +18221,7 @@ paths:
                                                   base_fee_per_gas:
                                                     type: string
                                                     example: '1'
-                                                  excess_data_gas:
+                                                  excess_blob_gas:
                                                     type: string
                                                     example: '1'
                                                   block_hash:
@@ -22493,7 +22493,7 @@ paths:
                                                   - timestamp
                                                   - extra_data
                                                   - base_fee_per_gas
-                                                  - excess_data_gas
+                                                  - excess_blob_gas
                                                   - block_hash
                                                 properties:
                                                   parent_hash:
@@ -22548,7 +22548,7 @@ paths:
                                                   base_fee_per_gas:
                                                     type: string
                                                     example: '1'
-                                                  excess_data_gas:
+                                                  excess_blob_gas:
                                                     type: string
                                                     example: '1'
                                                   block_hash:
@@ -28629,7 +28629,7 @@ paths:
                                   - timestamp
                                   - extra_data
                                   - base_fee_per_gas
-                                  - excess_data_gas
+                                  - excess_blob_gas
                                   - block_hash
                                 properties:
                                   parent_hash:
@@ -28684,7 +28684,7 @@ paths:
                                   base_fee_per_gas:
                                     type: string
                                     example: '1'
-                                  excess_data_gas:
+                                  excess_blob_gas:
                                     type: string
                                     example: '1'
                                   block_hash:
@@ -33187,7 +33187,7 @@ paths:
                                                   - timestamp
                                                   - extra_data
                                                   - base_fee_per_gas
-                                                  - excess_data_gas
+                                                  - excess_blob_gas
                                                   - block_hash
                                                 properties:
                                                   parent_hash:
@@ -33242,7 +33242,7 @@ paths:
                                                   base_fee_per_gas:
                                                     type: string
                                                     example: '1'
-                                                  excess_data_gas:
+                                                  excess_blob_gas:
                                                     type: string
                                                     example: '1'
                                                   block_hash:
@@ -37686,7 +37686,7 @@ paths:
                                                   - timestamp
                                                   - extra_data
                                                   - base_fee_per_gas
-                                                  - excess_data_gas
+                                                  - excess_blob_gas
                                                   - block_hash
                                                 properties:
                                                   parent_hash:
@@ -37741,7 +37741,7 @@ paths:
                                                   base_fee_per_gas:
                                                     type: string
                                                     example: '1'
-                                                  excess_data_gas:
+                                                  excess_blob_gas:
                                                     type: string
                                                     example: '1'
                                                   block_hash:
@@ -38396,7 +38396,7 @@ paths:
                                               - timestamp
                                               - extra_data
                                               - base_fee_per_gas
-                                              - excess_data_gas
+                                              - excess_blob_gas
                                               - block_hash
                                             properties:
                                               parent_hash:
@@ -38451,7 +38451,7 @@ paths:
                                               base_fee_per_gas:
                                                 type: string
                                                 example: '1'
-                                              excess_data_gas:
+                                              excess_blob_gas:
                                                 type: string
                                                 example: '1'
                                               block_hash:
@@ -41491,7 +41491,7 @@ paths:
                                               - timestamp
                                               - extra_data
                                               - base_fee_per_gas
-                                              - excess_data_gas
+                                              - excess_blob_gas
                                               - block_hash
                                             properties:
                                               parent_hash:
@@ -41546,7 +41546,7 @@ paths:
                                               base_fee_per_gas:
                                                 type: string
                                                 example: '1'
-                                              excess_data_gas:
+                                              excess_blob_gas:
                                                 type: string
                                                 example: '1'
                                               block_hash:
@@ -55903,7 +55903,7 @@ components:
                 - timestamp
                 - extra_data
                 - base_fee_per_gas
-                - excess_data_gas
+                - excess_blob_gas
                 - block_hash
               properties:
                 parent_hash:
@@ -55958,7 +55958,7 @@ components:
                 base_fee_per_gas:
                   type: string
                   example: '1'
-                excess_data_gas:
+                excess_blob_gas:
                   type: string
                   example: '1'
                 block_hash:
@@ -56592,7 +56592,7 @@ components:
                             - timestamp
                             - extra_data
                             - base_fee_per_gas
-                            - excess_data_gas
+                            - excess_blob_gas
                             - block_hash
                           properties:
                             parent_hash:
@@ -56647,7 +56647,7 @@ components:
                             base_fee_per_gas:
                               type: string
                               example: '1'
-                            excess_data_gas:
+                            excess_blob_gas:
                               type: string
                               example: '1'
                             block_hash:
@@ -57291,7 +57291,7 @@ components:
                                 - timestamp
                                 - extra_data
                                 - base_fee_per_gas
-                                - excess_data_gas
+                                - excess_blob_gas
                                 - block_hash
                               properties:
                                 parent_hash:
@@ -57346,7 +57346,7 @@ components:
                                 base_fee_per_gas:
                                   type: string
                                   example: '1'
-                                excess_data_gas:
+                                excess_blob_gas:
                                   type: string
                                   example: '1'
                                 block_hash:
@@ -58007,7 +58007,7 @@ components:
                                 - timestamp
                                 - extra_data
                                 - base_fee_per_gas
-                                - excess_data_gas
+                                - excess_blob_gas
                                 - block_hash
                               properties:
                                 parent_hash:
@@ -58062,7 +58062,7 @@ components:
                                 base_fee_per_gas:
                                   type: string
                                   example: '1'
-                                excess_data_gas:
+                                excess_blob_gas:
                                   type: string
                                   example: '1'
                                 block_hash:
@@ -58718,7 +58718,7 @@ components:
                                     - timestamp
                                     - extra_data
                                     - base_fee_per_gas
-                                    - excess_data_gas
+                                    - excess_blob_gas
                                     - block_hash
                                   properties:
                                     parent_hash:
@@ -58773,7 +58773,7 @@ components:
                                     base_fee_per_gas:
                                       type: string
                                       example: '1'
-                                    excess_data_gas:
+                                    excess_blob_gas:
                                       type: string
                                       example: '1'
                                     block_hash:
@@ -59434,7 +59434,7 @@ components:
                             - timestamp
                             - extra_data
                             - base_fee_per_gas
-                            - excess_data_gas
+                            - excess_blob_gas
                             - block_hash
                           properties:
                             parent_hash:
@@ -59489,7 +59489,7 @@ components:
                             base_fee_per_gas:
                               type: string
                               example: '1'
-                            excess_data_gas:
+                            excess_blob_gas:
                               type: string
                               example: '1'
                             block_hash:
@@ -60106,7 +60106,7 @@ components:
                                 - timestamp
                                 - extra_data
                                 - base_fee_per_gas
-                                - excess_data_gas
+                                - excess_blob_gas
                                 - block_hash
                               properties:
                                 parent_hash:
@@ -60161,7 +60161,7 @@ components:
                                 base_fee_per_gas:
                                   type: string
                                   example: '1'
-                                excess_data_gas:
+                                excess_blob_gas:
                                   type: string
                                   example: '1'
                                 block_hash:
