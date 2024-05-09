@@ -1,0 +1,50 @@
+get:
+  operationId: "getAggregatedAttestationV2"
+  summary: "Get aggregated attestation"
+  description: |
+    Aggregates all attestations matching given attestation data root, slot and committee index.
+
+    A 503 error must be returned if the block identified by the response
+    `beacon_block_root` is optimistic (i.e. the aggregated attestation attests
+    to a block that has not been fully verified by an execution engine).
+
+    A 404 error must be returned if no attestation is available for the requested
+    `attestation_data_root`.
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  parameters:
+    - name: attestation_data_root
+      in: query
+      required: true
+      description: "HashTreeRoot of AttestationData that validator wants aggregated"
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Root'
+    - name: slot
+      in: query
+      required: true
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: committee_index
+      in: query
+      required: true
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: "Returns aggregated `Attestation` object with same `AttestationData` root, slot and committee index."
+      content:
+        application/json:
+          schema:
+            title: GetAggregatedAttestationV2Response
+            type: object
+            required: [data]
+            properties:
+              data:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
