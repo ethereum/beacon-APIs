@@ -8,10 +8,10 @@ Electra:
         $ref: "../primitive.yaml#/BitList"
         description: "Attester aggregation bits."
       signature:
-        $ref: '../primitive.yaml#/Signature'
+        $ref: "../primitive.yaml#/Signature"
         description: "BLS aggregate signature."
       data:
-        $ref: '../attestation.yaml#/AttestationData'
+        $ref: "../attestation.yaml#/AttestationData"
       committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Committee bits."
