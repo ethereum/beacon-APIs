@@ -7,6 +7,9 @@ get:
   responses:
     "200":
       description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
@@ -17,7 +20,9 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                  oneOf:
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
@@ -32,7 +37,9 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+          oneOf:
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
   responses:
     "200":
       description: Success

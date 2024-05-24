@@ -18,6 +18,9 @@ get:
   responses:
     "200":
       description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
@@ -28,7 +31,9 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  oneOf:
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       description: "The slot or committee index could not be parsed"
       content:

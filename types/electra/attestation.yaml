@@ -1,18 +1,34 @@
 Electra:
+  IndexedAttestation:
+    type: object
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/dev/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec."
+    properties:
+      attesting_indices:
+        type: array
+        maxItems: 131072
+        description: "Attesting validator indices"
+        items:
+          $ref: "../primitive.yaml#/Uint64"
+      signature:
+        $ref: '../primitive.yaml#/Signature'
+        description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
+      data:
+        $ref: '../attestation_data.yaml#/AttestationData'
+
   Attestation:
     type: object
-    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#attestation) object from the CL spec."
-    required: [aggregation_bits, data, signature, committee_bits]
+    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/dev/specs/electra/beacon-chain.md#attestation) object from the CL spec."
+    required: [aggregation_bits, signature, data]
     properties:
       aggregation_bits:
         $ref: "../primitive.yaml#/BitList"
         description: "Attester aggregation bits."
       data:
-        $ref: "../attestation.yaml#/AttestationData"
+        $ref: '../attestation_data.yaml#/AttestationData'
       signature:
-        $ref: "../primitive.yaml#/Signature"
+        $ref: '../primitive.yaml#/Signature'
         description: "BLS aggregate signature."
       committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Committee bits."
-        example: "0x0000000000000000000000000000000000000000000000000000000000000001"
+        example: "0x000000000000000000000000000000000000000000000000000
