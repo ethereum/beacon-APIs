@@ -33,12 +33,15 @@ get:
   responses:
     "200":
       description: "Returns aggregated `Attestation` object with same `AttestationData` root, slot and committee index."
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
             title: GetAggregatedAttestationV2Response
             type: object
-            required: [data]
+            required: [version, data]
             properties:
               version:
                 type: string
