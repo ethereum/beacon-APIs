@@ -1,6 +1,7 @@
 get:
   operationId: "getAggregatedAttestation"
   summary: "Get aggregated attestation"
+  deprecated: true
   description: |
     Aggregates all attestations matching given attestation data root and slot.
 
