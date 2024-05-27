@@ -18,11 +18,13 @@ get:
             required: [data]
             properties:
               data:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
+                oneOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 

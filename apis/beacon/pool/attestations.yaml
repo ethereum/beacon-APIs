@@ -29,11 +29,13 @@ get:
             required: [data]
             properties:
               data:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
+                oneOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       description: "The slot or committee index could not be parsed"
       content:
