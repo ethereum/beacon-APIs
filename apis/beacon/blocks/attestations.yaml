@@ -28,11 +28,13 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
+                oneOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       description: "The block ID supplied could not be parsed"
       content:
