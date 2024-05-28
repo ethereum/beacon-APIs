@@ -99,6 +99,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v2/beacon/blocks/{block_id}/attestations:
+    $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
@@ -121,8 +123,12 @@ paths:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
+  /eth/v2/beacon/pool/attestations:
+    $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
+  /eth/v2/beacon/pool/attester_slashings:
+    $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
     $ref: "./apis/beacon/pool/proposer_slashings.yaml"
   /eth/v1/beacon/pool/sync_committees:

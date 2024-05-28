@@ -25,6 +25,7 @@ get:
 post:
   operationId: submitPoolAttesterSlashings
   summary: Submit AttesterSlashing object to node's pool
+  deprecated: true
   description: Submits AttesterSlashing object to node's pool and if passes validation node MUST broadcast it to network.
   tags:
     - Beacon

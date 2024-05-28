@@ -1,7 +1,6 @@
 get:
-  operationId: getPoolAttestations
+  operationId: getPoolAttestationsV2
   summary: Get Attestations from operations pool
-  deprecated: true
   description: Retrieves attestations known by the node but not necessarily incorporated into any block
   parameters:
     - name: slot
@@ -19,17 +18,24 @@ get:
   responses:
     "200":
       description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
-            title: GetPoolAttestationsResponse
+            title: GetPoolAttestationsV2Response
             type: object
             required: [data]
             properties:
               data:
-                type: array
-                items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       description: "The slot or committee index could not be parsed"
       content:
@@ -43,9 +49,8 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
 post:
-  operationId: submitPoolAttestations
+  operationId: submitPoolAttestationsV2
   summary: Submit Attestation objects to node
-  deprecated: true
   description: |
     Submits Attestation objects to the node.  Each attestation in the request body is processed individually.
     
@@ -60,9 +65,13 @@ post:
     content:
       application/json:
         schema:
-          type: array
-          items:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+          anyOf:
+            - type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+            - type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on appropriate subnet

@@ -33,7 +33,7 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
 post:
-  operationId: submitPoolAttesterSlashings
+  operationId: submitPoolAttesterSlashingsV2
   summary: Submit AttesterSlashing object to node's pool
   description: Submits AttesterSlashing object to node's pool and if passes validation node MUST broadcast it to network.
   tags:
