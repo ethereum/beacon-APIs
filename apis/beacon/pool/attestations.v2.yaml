@@ -61,6 +61,13 @@ post:
     If an attestation is validated successfully the node MUST publish that attestation on the appropriate subnet.
 
     If one or more attestations fail validation the node MUST return a 400 error with details of which attestations have failed, and why.
+  parameters:
+    - in: header
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+      required: true
+      name: Eth-Consensus-Version
+      description: "Version of the block being submitted."
   tags:
     - Beacon
     - ValidatorRequiredApi

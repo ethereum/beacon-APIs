@@ -36,6 +36,13 @@ post:
   operationId: submitPoolAttesterSlashingsV2
   summary: Submit AttesterSlashing object to node's pool
   description: Submits AttesterSlashing object to node's pool and if passes validation node MUST broadcast it to network.
+  parameters:
+    - in: header
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+      required: true
+      name: Eth-Consensus-Version
+      description: "Version of the block being submitted."
   tags:
     - Beacon
   requestBody:
