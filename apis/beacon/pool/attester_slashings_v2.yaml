@@ -1,24 +1,34 @@
 get:
-  operationId: getPoolAttesterSlashings
+  operationId: getPoolAttesterSlashingsV2
   summary: Get AttesterSlashings from operations pool
-  deprecated: true
   description: Retrieves attester slashings known by the node but not necessarily incorporated into any block
   tags:
     - Beacon
   responses:
     "200":
       description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
-            title: GetPoolAttesterSlashingsResponse
+            title: GetPoolAttesterSlashingsV2Response
             type: object
             required: [data]
             properties:
+              version:
+                type: string
+                enum: [ phase0, altair, bellatrix, capella, deneb, electra ]
+                example: "phase0"
               data:
-                type: array
-                items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
@@ -33,7 +43,9 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+          anyOf:
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
   responses:
     "200":
       description: Success
