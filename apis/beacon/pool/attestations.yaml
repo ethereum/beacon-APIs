@@ -29,7 +29,7 @@ get:
             required: [data]
             properties:
               data:
-                oneOf:
+                anyOf:
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'

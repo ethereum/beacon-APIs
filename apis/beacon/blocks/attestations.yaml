@@ -28,7 +28,7 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                oneOf:
+                anyOf:
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'

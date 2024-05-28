@@ -18,7 +18,7 @@ get:
             required: [data]
             properties:
               data:
-                oneOf:
+                anyOf:
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
@@ -39,7 +39,7 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
+          anyOf:
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
   responses:
