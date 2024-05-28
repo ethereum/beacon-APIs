@@ -26,8 +26,12 @@ get:
           schema:
             title: GetPoolAttestationsV2Response
             type: object
-            required: [data]
+            required: [version, data]
             properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                example: "phase0"
               data:
                 anyOf:
                   - type: array

@@ -15,7 +15,7 @@ get:
           schema:
             title: GetPoolAttesterSlashingsV2Response
             type: object
-            required: [data]
+            required: [version, data]
             properties:
               version:
                 type: string

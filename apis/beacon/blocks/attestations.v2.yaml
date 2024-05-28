@@ -21,7 +21,7 @@ get:
           schema:
             title: GetBlockAttestationsV2Response
             type: object
-            required: [execution_optimistic, finalized, data]
+            required: [version, execution_optimistic, finalized, data]
             properties:
               version:
                 type: string
