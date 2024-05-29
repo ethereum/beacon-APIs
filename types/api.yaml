@@ -34,6 +34,19 @@ ValidatorResponse:
     validator:
       $ref: "./validator.yaml#/Validator"
 
+ValidatorV2Response:
+  type: object
+  required: [index, balance, validator]
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
+    balance:
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current validator balance in gwei."
+    validator:
+      $ref: "./validator.yaml#/Validator"
+
 ValidatorBalanceResponse:
   type: object
   required: [index, balance]
