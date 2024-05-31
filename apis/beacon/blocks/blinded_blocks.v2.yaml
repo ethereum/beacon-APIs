@@ -29,6 +29,7 @@ post:
         - **`consensus_and_equivocation`**: the same as `consensus`, with an extra equivocation
           check immediately before the block is broadcast. If the block is found to be an
           equivocation it fails validation.
+        - **`no_validation`** bypass all validation checks and broadcast the block immediately          
 
         If the block fails the requested level of a validation a 400 status MUST be returned
         immediately and the block MUST NOT be broadcast to the network.
