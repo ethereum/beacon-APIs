@@ -83,4 +83,4 @@ Committee:
 BroadcastValidation:
   description: Level of validation that must be applied to a block before it is broadcast.
   type: string
-  enum: [gossip, consensus, consensus_and_equivocation, no_validation]
+  enum: [gossip, consensus, consensus_and_equivocation, none]
