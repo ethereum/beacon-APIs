@@ -1,6 +1,6 @@
 get:
   operationId: getPoolAttestationsV2
-  summary: Get Attestations from operations pool
+  summary: Get attestations from operations pool
   description: Retrieves attestations known by the node but not necessarily incorporated into any block
   parameters:
     - name: slot
@@ -56,18 +56,18 @@ post:
   operationId: submitPoolAttestationsV2
   summary: Submit Attestation objects to node
   description: |
-    Submits Attestation objects to the node.  Each attestation in the request body is processed individually.
+    Submits Attestation objects to the node. Each attestation in the request body is processed individually.
     
-    If an attestation is validated successfully the node MUST publish that attestation on the appropriate subnet.
+    If an attestation is validated successfully, the node MUST publish that attestation on the appropriate subnet.
 
-    If one or more attestations fail validation the node MUST return a 400 error with details of which attestations have failed, and why.
+    If one or more attestations fail validation, the node MUST return a 400 error with details of which attestations have failed, and why.
   parameters:
     - in: header
       schema:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
       required: true
       name: Eth-Consensus-Version
-      description: "Version of the block being submitted."
+      description: "Version of the attestation being submitted."
   tags:
     - Beacon
     - ValidatorRequiredApi
@@ -85,7 +85,7 @@ post:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
   responses:
     "200":
-      description: Attestations are stored in pool and broadcast on appropriate subnet
+      description: Attestations are stored in pool and broadcast on the appropriate subnet
     "400":
       description: "Errors with one or more attestations"
       content:
