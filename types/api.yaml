@@ -45,6 +45,20 @@ ValidatorBalanceResponse:
       $ref: "./primitive.yaml#/Gwei"
       description: "Current validator balance in gwei."
 
+ValidatorIdentityResponse:
+  type: object
+  required: [index, pubkey, activation_epoch]
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of validator in validator registry."
+    pubkey:
+      $ref: './primitive.yaml#/Pubkey'
+      description: "Public key of validator."
+    activation_epoch:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
+
 ValidatorStatus:
   description: |
     Possible statuses:
