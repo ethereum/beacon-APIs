@@ -26,6 +26,10 @@ get:
   responses:
     "200":
       description: "Successful response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          required: false
       content:
         application/json:
           schema:
@@ -33,6 +37,14 @@ get:
             type: object
             required: [data]
             properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix, capella, deneb]
+                example: "deneb"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
         application/octet-stream:

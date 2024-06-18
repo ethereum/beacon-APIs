@@ -3,7 +3,7 @@ Deneb:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
     description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayload) object from the CL Deneb spec."
-    required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, excess_data_gas, block_hash]
+    required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, excess_blob_gas, block_hash]
     properties:
       parent_hash:
         $ref: '../primitive.yaml#/Root'
@@ -29,7 +29,7 @@ Deneb:
         $ref: '../primitive.yaml#/ExtraData'
       base_fee_per_gas:
         $ref: '../primitive.yaml#/Uint256'
-      excess_data_gas:
+      excess_blob_gas:
         $ref: '../primitive.yaml#/Uint256'  
       block_hash:
         $ref: '../primitive.yaml#/Root'
