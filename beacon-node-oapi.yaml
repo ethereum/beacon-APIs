@@ -11823,7 +11823,7 @@ paths:
                         type: string
                         format: hex
                         pattern: '^0x[a-fA-F0-9]{262144}$'
-                        description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+                        description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
                       minItems: 0
                       maxItems: 4096
           application/octet-stream:
@@ -15061,7 +15061,7 @@ paths:
                         type: string
                         format: hex
                         pattern: '^0x[a-fA-F0-9]{262144}$'
-                        description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+                        description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
                       minItems: 0
                       maxItems: 4096
           application/octet-stream:
@@ -18759,7 +18759,7 @@ paths:
                           type: string
                           format: hex
                           pattern: '^0x[a-fA-F0-9]{262144}$'
-                          description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+                          description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
                         kzg_commitment:
                           type: string
                           format: hex
@@ -33310,7 +33310,7 @@ paths:
                               type: string
                               format: hex
                               pattern: '^0x[a-fA-F0-9]{262144}$'
-                              description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+                              description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
                             minItems: 0
                             maxItems: 4096
             application/octet-stream:
@@ -37811,7 +37811,7 @@ paths:
                               type: string
                               format: hex
                               pattern: '^0x[a-fA-F0-9]{262144}$'
-                              description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+                              description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
                             minItems: 0
                             maxItems: 4096
                       - description: 'A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`.'
@@ -57715,7 +57715,7 @@ components:
             type: string
             format: hex
             pattern: '^0x[a-fA-F0-9]{262144}$'
-            description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+            description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
           minItems: 0
           maxItems: 4096
     Deneb.SignedBeaconBlock:
@@ -59147,7 +59147,7 @@ components:
             type: string
             format: hex
             pattern: '^0x[a-fA-F0-9]{262144}$'
-            description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+            description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
           minItems: 0
           maxItems: 4096
     Deneb.BlindedBeaconBlock:
@@ -60496,7 +60496,7 @@ components:
       type: string
       format: hex
       pattern: '^0x[a-fA-F0-9]{262144}$'
-      description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+      description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
     Deneb.BlobSidecars:
       type: array
       items:
@@ -60517,7 +60517,7 @@ components:
             type: string
             format: hex
             pattern: '^0x[a-fA-F0-9]{262144}$'
-            description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb
+            description: A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb
           kzg_commitment:
             type: string
             format: hex
