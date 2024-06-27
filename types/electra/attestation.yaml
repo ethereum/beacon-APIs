@@ -10,11 +10,11 @@ Electra:
         description: "Attesting validator indices"
         items:
           $ref: "../primitive.yaml#/Uint64"
+      data:
+        $ref: '../attestation_data.yaml#/AttestationData'
       signature:
         $ref: '../primitive.yaml#/Signature'
         description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
-      data:
-        $ref: '../attestation_data.yaml#/AttestationData'
 
   Attestation:
     type: object
@@ -25,9 +25,9 @@ Electra:
         $ref: "../primitive.yaml#/BitList"
         description: "Attester aggregation bits."
       data:
-        $ref: '../attestation_data.yaml#/AttestationData'
+        $ref: "../attestation_data.yaml#/AttestationData"
       signature:
-        $ref: '../primitive.yaml#/Signature'
+        $ref: "../primitive.yaml#/Signature"
         description: "BLS aggregate signature."
       committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
