@@ -1,0 +1,18 @@
+Electra:
+  Attestation:
+    type: object
+    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#attestation) object from the CL spec."
+    required: [aggregation_bits, data, signature, committee_bits]
+    properties:
+      aggregation_bits:
+        $ref: "../primitive.yaml#/BitList"
+        description: "Attester aggregation bits."
+      data:
+        $ref: "../attestation.yaml#/AttestationData"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS aggregate signature."
+      committee_bits:
+        $ref: "../primitive.yaml#/Bitvector"
+        description: "Committee bits."
+        example: "0x0000000000000000000000000000000000000000000000000000000000000001"
