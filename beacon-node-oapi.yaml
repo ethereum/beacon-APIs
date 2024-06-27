@@ -41822,6 +41822,7 @@ paths:
     get:
       operationId: getAggregatedAttestation
       summary: Get aggregated attestation
+      deprecated: true
       description: |
         Aggregates all attestations matching given attestation data root and slot.
 
@@ -41933,6 +41934,302 @@ paths:
                                 format: hex
                                 example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
                                 pattern: '^0x[a-fA-F0-9]{64}$'
+        '400':
+          description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 404
+                message: Requested item not found
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+  /eth/v2/validator/aggregate_attestation:
+    get:
+      operationId: getAggregatedAttestationV2
+      summary: Get aggregated attestation
+      description: |
+        Aggregates all attestations matching given attestation data root, slot and committee index.
+
+        A 503 error must be returned if the block identified by the response
+        `beacon_block_root` is optimistic (i.e. the aggregated attestation attests
+        to a block that has not been fully verified by an execution engine).
+
+        A 404 error must be returned if no attestation is available for the requested
+        `attestation_data_root`.
+      tags:
+        - ValidatorRequiredApi
+        - Validator
+      parameters:
+        - name: attestation_data_root
+          in: query
+          required: true
+          description: HashTreeRoot of AttestationData that validator wants aggregated
+          schema:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+        - name: slot
+          in: query
+          required: true
+          schema:
+            type: string
+            example: '1'
+        - name: committee_index
+          in: query
+          required: true
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: 'Returns aggregated `Attestation` object with same `AttestationData` root, slot and committee index.'
+          headers:
+            Eth-Consensus-Version:
+              description: Required in response so client can deserialize returned json or ssz data more effectively.
+              required: true
+              schema:
+                type: string
+                enum:
+                  - phase0
+                  - altair
+                  - bellatrix
+                  - capella
+                  - deneb
+                example: phase0
+          content:
+            application/json:
+              schema:
+                title: GetAggregatedAttestationV2Response
+                type: object
+                required:
+                  - version
+                  - data
+                properties:
+                  version:
+                    type: string
+                    enum:
+                      - phase0
+                      - altair
+                      - bellatrix
+                      - capella
+                      - deneb
+                      - electra
+                    example: phase0
+                  data:
+                    anyOf:
+                      - type: object
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestation) object from the CL spec.'
+                        required:
+                          - aggregation_bits
+                          - signature
+                          - data
+                        properties:
+                          aggregation_bits:
+                            description: Attester aggregation bits.
+                            type: string
+                            format: hex
+                            example: '0x01'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
+                          signature:
+                            description: BLS aggregate signature.
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{192}$'
+                            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                          data:
+                            type: object
+                            description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                            required:
+                              - slot
+                              - index
+                              - beacon_block_root
+                              - source
+                              - target
+                            properties:
+                              slot:
+                                type: string
+                                example: '1'
+                              index:
+                                type: string
+                                example: '1'
+                              beacon_block_root:
+                                description: LMD GHOST vote.
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                              source:
+                                type: object
+                                description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
+                                required:
+                                  - epoch
+                                  - root
+                                properties:
+                                  epoch:
+                                    type: string
+                                    example: '1'
+                                  root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                              target:
+                                type: object
+                                description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
+                                required:
+                                  - epoch
+                                  - root
+                                properties:
+                                  epoch:
+                                    type: string
+                                    example: '1'
+                                  root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                      - type: object
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                        required:
+                          - aggregation_bits
+                          - data
+                          - signature
+                          - committee_bits
+                        properties:
+                          aggregation_bits:
+                            description: Attester aggregation bits.
+                            type: string
+                            format: hex
+                            example: '0x01'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
+                          data:
+                            type: object
+                            description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                            required:
+                              - slot
+                              - index
+                              - beacon_block_root
+                              - source
+                              - target
+                            properties:
+                              slot:
+                                type: string
+                                example: '1'
+                              index:
+                                type: string
+                                example: '1'
+                              beacon_block_root:
+                                description: LMD GHOST vote.
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                              source:
+                                type: object
+                                description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
+                                required:
+                                  - epoch
+                                  - root
+                                properties:
+                                  epoch:
+                                    type: string
+                                    example: '1'
+                                  root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                              target:
+                                type: object
+                                description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
+                                required:
+                                  - epoch
+                                  - root
+                                properties:
+                                  epoch:
+                                    type: string
+                                    example: '1'
+                                  root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                          signature:
+                            description: BLS aggregate signature.
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{192}$'
+                            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                          committee_bits:
+                            description: Committee bits.
+                            example: '0x0000000000000000000000000000000000000000000000000000000000000001'
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
         '400':
           description: Invalid request syntax.
           content:
@@ -60295,6 +60592,85 @@ components:
             maxItems: 17
       minItems: 0
       maxItems: 6
+    Electra.Attestation:
+      type: object
+      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+      required:
+        - aggregation_bits
+        - data
+        - signature
+        - committee_bits
+      properties:
+        aggregation_bits:
+          description: Attester aggregation bits.
+          type: string
+          format: hex
+          example: '0x01'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
+        data:
+          type: object
+          description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+          required:
+            - slot
+            - index
+            - beacon_block_root
+            - source
+            - target
+          properties:
+            slot:
+              type: string
+              example: '1'
+            index:
+              type: string
+              example: '1'
+            beacon_block_root:
+              description: LMD GHOST vote.
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            source:
+              type: object
+              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
+              required:
+                - epoch
+                - root
+              properties:
+                epoch:
+                  type: string
+                  example: '1'
+                root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+            target:
+              type: object
+              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint'
+              required:
+                - epoch
+                - root
+              properties:
+                epoch:
+                  type: string
+                  example: '1'
+                root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+        signature:
+          description: BLS aggregate signature.
+          type: string
+          format: hex
+          pattern: '^0x[a-fA-F0-9]{192}$'
+          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+        committee_bits:
+          description: Committee bits.
+          example: '0x0000000000000000000000000000000000000000000000000000000000000001'
+          type: string
+          format: hex
+          pattern: '^0x[a-fA-F0-9]{2,}$'
     Node:
       type: object
       description: fork choice node attributes
