@@ -1,6 +1,7 @@
 IndexedAttestation:
   type: object
   description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#indexedattestation) object from the CL spec."
+  required: [attesting_indices, signature, data]
   properties:
     attesting_indices:
       type: array

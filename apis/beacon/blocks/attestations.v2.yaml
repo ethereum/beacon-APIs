@@ -9,7 +9,6 @@ get:
       in: path
       required: true
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
-
   responses:
     "200":
       description: Success

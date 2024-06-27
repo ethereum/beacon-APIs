@@ -383,8 +383,6 @@ components:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
-    Electra.Attestation:
-      $ref: './types/electra/attestation.yaml#/Electra/Attestation'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

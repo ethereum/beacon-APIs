@@ -2,6 +2,7 @@ Electra:
   IndexedAttestation:
     type: object
     description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.2/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec."
+    required: [attesting_indices, signature, data]
     properties:
       attesting_indices:
         type: array
@@ -17,8 +18,8 @@ Electra:
 
   Attestation:
     type: object
-    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.2/specs/electra/beacon-chain.md#attestation) object from the CL spec."
-    required: [aggregation_bits, signature, committee_bits, data]
+    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#attestation) object from the CL spec."
+    required: [aggregation_bits, data, signature, committee_bits]
     properties:
       aggregation_bits:
         $ref: "../primitive.yaml#/BitList"
@@ -31,4 +32,4 @@ Electra:
       committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Committee bits."
-        example: "0x000000000000000000000000000000000000000000000000000
+        example: "0x000000000000000000000000000000000000000000000000000"
