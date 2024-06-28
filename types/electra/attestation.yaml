@@ -2,7 +2,7 @@ Electra:
   IndexedAttestation:
     type: object
     description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec."
-    required: [attesting_indices, signature, data]
+    required: [attesting_indices, data, signature]
     properties:
       attesting_indices:
         type: array
