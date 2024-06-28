@@ -1,6 +1,7 @@
 get:
   operationId: getPoolAttestations
   summary: Get Attestations from operations pool
+  deprecated: true
   description: Retrieves attestations known by the node but not necessarily incorporated into any block
   parameters:
     - name: slot
@@ -44,6 +45,7 @@ get:
 post:
   operationId: submitPoolAttestations
   summary: Submit Attestation objects to node
+  deprecated: true
   description: |
     Submits Attestation objects to the node.  Each attestation in the request body is processed individually.
     

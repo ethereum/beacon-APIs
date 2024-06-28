@@ -1,7 +1,6 @@
 get:
-  operationId: getBlockAttestations
+  operationId: getBlockAttestationsV2
   summary: Get block attestations
-  deprecated: true
   description: Retrieves attestation included in requested block.
   tags:
     - Beacon
@@ -10,25 +9,35 @@ get:
       in: path
       required: true
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
-
   responses:
     "200":
       description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
-            title: GetBlockAttestationsResponse
+            title: GetBlockAttestationsV2Response
             type: object
-            required: [execution_optimistic, finalized, data]
+            required: [version, execution_optimistic, finalized, data]
             properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                example: "phase0"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-                items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       description: "The block ID supplied could not be parsed"
       content:
