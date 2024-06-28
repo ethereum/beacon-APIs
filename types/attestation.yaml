@@ -9,11 +9,11 @@ IndexedAttestation:
       description: "Attesting validator indices"
       items:
         $ref: "./primitive.yaml#/Uint64"
+    data:
+      $ref: './attestation_data.yaml#/AttestationData'
     signature:
       $ref: './primitive.yaml#/Signature'
       description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
-    data:
-      $ref: './attestation_data.yaml#/AttestationData'
 
 Attestation:
   type: object

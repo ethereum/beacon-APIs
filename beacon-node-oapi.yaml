@@ -237,8 +237,6 @@ components:
       $ref: './types/api.yaml#/Committee'
     AttesterSlashing:
       $ref: './types/attester_slashing.yaml#/AttesterSlashing'
-    Electra.AttesterSlashing:
-      $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     ProposerSlashing:
       $ref: './types/proposer_slashing.yaml#/ProposerSlashing'
     SignedVoluntaryExit:
@@ -255,8 +253,6 @@ components:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
     Attestation:
       $ref: './types/attestation.yaml#/Attestation'
-    Electra.Attestation:
-      $ref: './types/electra/attestation.yaml#/Electra/Attestation'
     AttestationData:
       $ref: './types/attestation_data.yaml#/AttestationData'
     BeaconCommitteeSelection:
@@ -383,6 +379,10 @@ components:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
+    Electra.Attestation:
+      $ref: './types/electra/attestation.yaml#/Electra/Attestation'
+    Electra.AttesterSlashing:
+      $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
