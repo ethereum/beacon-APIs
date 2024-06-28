@@ -1,6 +1,7 @@
 get:
   operationId: "getStateValidators"
   summary: "Get validators from state"
+  deprecated: true
   description: |
     Returns filterable list of validators with their balance, status and index.
 
@@ -87,6 +88,7 @@ get:
 post:
   operationId: "postStateValidators"
   summary: "Get validators from state"
+  deprecated: true
   description: |
     Returns filterable list of validators with their balance, status and index.
 

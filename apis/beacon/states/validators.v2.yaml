@@ -1,0 +1,86 @@
+post:
+  operationId: "postStateValidatorsV2"
+  summary: "Get validators from state"
+  description: |
+    Returns filterable list of validators with their index.
+
+    Information will be returned for all indices or public keys that match known validators.  If an index or public key does not
+    match any known validator, no information will be returned but this will not cause an error.  There are no guarantees for the
+    returned data in terms of ordering; both the index and public key are returned for each validator, and can be used to confirm
+    for which inputs a response has been returned.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  requestBody:
+    description: "The lists of validator IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: []
+          properties:
+            ids:
+              type: array
+              uniqueItems: true
+              items:
+                description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+                type: string
+            statuses:
+              type: array
+              uniqueItems: true
+              items:
+                oneOf:
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorStatus'
+                  - enum: ["active", "pending", "exited", "withdrawal"]
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: PostStateValidatorsV2Response
+            type: object
+            required: [version, execution_optimistic, finalized, data]
+            properties:
+              version:
+                type: string
+                enum: [ phase0, altair, bellatrix, capella, deneb, electra ]
+                example: "phase0"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorV2Response'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized array of the returned data. Use Accept header to choose this response type"
+    "400":
+      description: "Invalid state or validator ID, or status"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
