@@ -1,7 +1,7 @@
 IndexedAttestation:
   type: object
   description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#indexedattestation) object from the CL spec."
-  required: [attesting_indices, signature, data]
+  required: [attesting_indices, data, signature]
   properties:
     attesting_indices:
       type: array
@@ -18,16 +18,16 @@ IndexedAttestation:
 Attestation:
   type: object
   description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestation) object from the CL spec."
-  required: [aggregation_bits, signature, data]
+  required: [aggregation_bits, data, signature]
   properties:
     aggregation_bits:
       $ref: "./primitive.yaml#/BitList"
       description: "Attester aggregation bits."
+    data:
+      $ref: './attestation_data.yaml#/AttestationData'
     signature:
       $ref: './primitive.yaml#/Signature'
       description: "BLS aggregate signature."
-    data:
-      $ref: './attestation_data.yaml#/AttestationData'
 
 PendingAttestation:
   type: object
