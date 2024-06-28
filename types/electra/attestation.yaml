@@ -32,4 +32,4 @@ Electra:
       committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Committee bits."
-        example: "0x0000000000000000000000000000000000000000000000000000000000000001"
+        example: "0x0000000000000001"
