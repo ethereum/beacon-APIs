@@ -190,6 +190,8 @@ paths:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
   /eth/v1/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proofs.yaml"
+  /eth/v2/validator/aggregate_and_proofs:
+    $ref: "./apis/validator/aggregate_and_proofs.v2.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
@@ -383,6 +385,8 @@ components:
       $ref: './types/electra/attestation.yaml#/Electra/Attestation'
     Electra.AttesterSlashing:
       $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
+    Electra.SignedAggregateAndProof:
+      $ref: './types/electra/validator.yaml#/Electra/SignedAggregateAndProof'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
