@@ -1,0 +1,69 @@
+get:
+  operationId: getPoolAttesterSlashingsV2
+  summary: Get attester slashings from operations pool
+  description: Retrieves attester slashings known by the node but not necessarily incorporated into any block
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetPoolAttesterSlashingsV2Response
+            type: object
+            required: [version, data]
+            properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                example: "phase0"
+              data:
+                anyOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
+post:
+  operationId: submitPoolAttesterSlashingsV2
+  summary: Submit AttesterSlashing object to node's pool
+  description: Submits AttesterSlashing object to node's pool. Upon successful validation the node MUST broadcast it to network.
+  parameters:
+    - in: header
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+      required: true
+      name: Eth-Consensus-Version
+      description: "Version of the attester slashing being submitted."
+  tags:
+    - Beacon
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          anyOf:
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
+  responses:
+    "200":
+      description: Success
+    "400":
+      description: "Invalid attester slashing"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid attester slashing, it will never pass validation so it's rejected"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
