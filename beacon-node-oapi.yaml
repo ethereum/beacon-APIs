@@ -7,8 +7,12 @@ info:
 
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
     and "Accept: application/json" headers.  In addition, some requests can return data in the SSZ format.  To indicate that SSZ
-    data is required in response to a request the header "Accept: application/octet-stream" should be sent.  Note that only a subset
-    of requests can respond with data in SSZ format; these are noted in each individual request.
+    data is preferred in response to a request the header "Accept: application/octet-stream;q=1.0,application/json;q=0.9" should
+    be sent.  Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
+
+    When handling requests, the server should return a 415 status code if the "Content-Type" header in the request specifies a format
+    that is not supported.  Similarly, it should return a 406 status code if none of the content types specified in the "Accept" header
+    of the request are supported or alternatively, default to return data in JSON format.
 
     API endpoints are individually versioned.  As such, there is no direct relationship between all v1 endpoints, all v2 endpoints,
     _etc._ and no such relationship should be inferred.  All JSON responses return the requested data under a `data` key in the top
