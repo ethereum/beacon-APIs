@@ -6,9 +6,10 @@ info:
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
-    and "Accept: application/json" headers.  In addition, some requests can return data in the SSZ format.  To indicate that SSZ
-    data is preferred in response to a request the header "Accept: application/octet-stream;q=1.0,application/json;q=0.9" should
-    be sent.  Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
+    and "Accept: application/json" headers.  In addition, some requests can send and receive data in the SSZ format.  The header
+    "Content-Type: application/octet-stream" should be set in requests that contain SSZ data; a preference to receive SSZ data in
+    response can be indicated by setting the header "Accept: application/octet-stream;q=1.0,application/json;q=0.9" in the request.
+    Note that only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
 
     When handling requests, the server should return a 415 status code if the "Content-Type" header in the request specifies a format
     that is not supported.  Similarly, it should return a 406 status code if it cannot produce a response in the format accepted by
