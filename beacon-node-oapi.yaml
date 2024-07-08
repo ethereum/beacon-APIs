@@ -12,7 +12,7 @@ info:
 
     When handling requests, the server should return a 415 status code if the "Content-Type" header in the request specifies a format
     that is not supported.  Similarly, it should return a 406 status code if none of the content types specified in the "Accept" header
-    of the request are supported or alternatively, default to return data in JSON format.
+    of the request are supported; if no "Accept" header is provided then it is assumed to be "application/json".
 
     API endpoints are individually versioned.  As such, there is no direct relationship between all v1 endpoints, all v2 endpoints,
     _etc._ and no such relationship should be inferred.  All JSON responses return the requested data under a `data` key in the top
