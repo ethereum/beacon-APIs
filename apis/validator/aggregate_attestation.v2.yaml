@@ -1,9 +1,8 @@
 get:
-  operationId: "getAggregatedAttestation"
+  operationId: "getAggregatedAttestationV2"
   summary: "Get aggregated attestation"
-  deprecated: true
   description: |
-    Aggregates all attestations matching given attestation data root and slot.
+    Aggregates all attestations matching given attestation data root, slot and committee index.
 
     A 503 error must be returned if the block identified by the response
     `beacon_block_root` is optimistic (i.e. the aggregated attestation attests
@@ -26,18 +25,32 @@ get:
       required: true
       schema:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: committee_index
+      in: query
+      required: true
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
-      description: "Returns aggregated `Attestation` object with same `AttestationData` root."
+      description: "Returns aggregated `Attestation` object with same `AttestationData` root, slot and committee index."
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
-            title: GetAggregatedAttestationResponse
+            title: GetAggregatedAttestationV2Response
             type: object
-            required: [data]
+            required: [version, data]
             properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                example: "phase0"
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                anyOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
