@@ -1,5 +1,5 @@
 get:
-  operationId: "eventstream"
+  operationId: "eventstreamV2"
   summary: Subscribe to beacon node events
   tags:
     - Events
