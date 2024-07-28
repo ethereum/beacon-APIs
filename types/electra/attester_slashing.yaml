@@ -1,0 +1,10 @@
+Electra:
+  AttesterSlashing:
+    type: object
+    description: "The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec."
+    required: [attestation_1, attestation_2]
+    properties:
+      attestation_1:
+        $ref: './attestation.yaml#/Electra/IndexedAttestation'
+      attestation_2:
+        $ref: './attestation.yaml#/Electra/IndexedAttestation'

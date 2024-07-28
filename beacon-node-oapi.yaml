@@ -99,6 +99,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v2/beacon/blocks/{block_id}/attestations:
+    $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
@@ -121,8 +123,12 @@ paths:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
+  /eth/v2/beacon/pool/attestations:
+    $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
+  /eth/v2/beacon/pool/attester_slashings:
+    $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
     $ref: "./apis/beacon/pool/proposer_slashings.yaml"
   /eth/v1/beacon/pool/sync_committees:
@@ -180,8 +186,12 @@ paths:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.yaml"
+  /eth/v2/validator/aggregate_attestation:
+    $ref: "./apis/validator/aggregate_attestation.v2.yaml"
   /eth/v1/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proofs.yaml"
+  /eth/v2/validator/aggregate_and_proofs:
+    $ref: "./apis/validator/aggregate_and_proofs.v2.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
@@ -246,7 +256,7 @@ components:
     Attestation:
       $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
-      $ref: './types/attestation.yaml#/AttestationData'
+      $ref: './types/attestation_data.yaml#/AttestationData'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -329,7 +339,7 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra]
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -371,6 +381,12 @@ components:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
+    Electra.Attestation:
+      $ref: './types/electra/attestation.yaml#/Electra/Attestation'
+    Electra.AttesterSlashing:
+      $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
+    Electra.SignedAggregateAndProof:
+      $ref: './types/electra/validator.yaml#/Electra/SignedAggregateAndProof'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
