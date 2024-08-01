@@ -40,13 +40,6 @@ get:
             code: 404
             message: "LC optimistic update unavailable"
     "406":
-      description: Unacceptable media type
-      content:
-        application/json:
-          schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 406
-            message: "Accepted media type not supported"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

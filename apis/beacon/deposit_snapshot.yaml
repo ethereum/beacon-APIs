@@ -3,7 +3,7 @@
     summary: "Get Deposit Tree Snapshot"
     description: |
       Retrieve [EIP-4881](https://eips.ethereum.org/EIPS/eip-4881) Deposit Tree Snapshot.
-      Depending on `Accept` header it can be returned either as json or as bytes serialzed by SSZ
+      Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
     tags:
       - Beacon
     responses:
@@ -30,5 +30,7 @@
             example:
               code: 404
               message: "No Finalized Snapshot Available"
+      "406":
+        $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
       "500":
         $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

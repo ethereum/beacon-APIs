@@ -110,8 +110,8 @@ NotFound:
       example:
         code: 404
         message: "Requested item not found"
-UnsupportedMediaType:
-  description: "The supplied content-type is not supported."
+NotAcceptable:
+  description: "Accepted media type is not supported."
   content:
     application/json:
       schema:
@@ -119,7 +119,30 @@ UnsupportedMediaType:
         required: [code, message]
         properties:
           code:
-            description: "The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept."
+            description: "The media type in \"Accept\" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client."
+            type: number
+            example: 406
+          message:
+            description: "Message describing error"
+            type: string
+          stacktraces:
+            description: "Optional stacktraces, sent when node is in debug mode"
+            type: array
+            items:
+              type: string
+      example:
+        code: 406
+        message: "Accepted media type not supported"
+UnsupportedMediaType:
+  description: "Supplied content-type is not supported."
+  content:
+    application/json:
+      schema:
+        type: object
+        required: [code, message]
+        properties:
+          code:
+            description: "The media type in \"Content-Type\" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle."
             type: number
             example: 415
           message:

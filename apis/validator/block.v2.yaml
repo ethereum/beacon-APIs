@@ -69,6 +69,8 @@ get:
               value:
                 code: 400
                 message: "Invalid request to produce a block"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
