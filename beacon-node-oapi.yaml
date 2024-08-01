@@ -212,8 +212,9 @@ paths:
     $ref: "./apis/validator/liveness.yaml"
 
   /eth/v1/events:
-    $ref: "./apis/eventstream/index.yaml"
-
+    $ref: "./apis/eventstream/eventstream.yaml"
+  /eth/v2/events:
+    $ref: "./apis/eventstream/eventstream.v2.yaml"
 
 components:
   schemas:
