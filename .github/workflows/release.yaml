@@ -9,8 +9,8 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
       - run: npm i -g @apidevtools/swagger-cli@4
       - name: Bundle yaml spec
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
@@ -18,41 +18,27 @@ jobs:
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t json -o ./deploy/beacon-node-oapi.json"
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
           draft: false
           prerelease: false
-      - name: Upload Yaml Bundle
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./deploy/beacon-node-oapi.yaml
-          asset_name: beacon-node-oapi.yaml
-          asset_content_type: text/x-yaml
-      - name: Upload Json Bundle
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./deploy/beacon-node-oapi.json
-          asset_name: beacon-node-oapi.json
-          asset_content_type: application/json
+          files: |
+            ./deploy/beacon-node-oapi.yaml
+            ./deploy/beacon-node-oapi.json
+          fail_on_unmatched_files: true
       - name: Rollback Release
         if: failure()
-        uses: author/action-rollback@stable
+        uses: author/action-rollback@1.0.4
         with:
           # Using a known release ID
-          id: ${{ steps.create_release.id }}
+          release_id: ${{ steps.create_release.outputs.id }}
           # Using a tag name
           tag: ${{ github.ref }}
-          # Always delete} the tag, even if a release is not associated with it.
-          always_delete_tag: true
+          # Remove the tag if release process failed
+          delete_orphan_tag: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
