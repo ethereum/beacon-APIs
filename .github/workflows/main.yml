@@ -1,18 +1,23 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-    - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli@1.0.0-beta.111
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm i -g @apidevtools/swagger-cli@4 @redocly/cli@1.19.0
 
-    - name: Lint spec
-      run: redocly lint ./beacon-node-oapi.yaml
+      - name: Lint spec
+        run: redocly lint ./beacon-node-oapi.yaml
 
-    - name: Bundle spec
-      run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
+      - name: Bundle spec
+        run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
