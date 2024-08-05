@@ -64,11 +64,10 @@ get:
                 event: block_gossip
                 data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}
             attestation:
-              deprecated: true
               description: |
                 The node has received an Attestation (from P2P or API) that passes validation rules of the `beacon_attestation_{subnet_id}` topic
 
-                **Note:** only supports phase0 Attestation, use `attestation_versioned` event post-electra
+                **deprecated:** only supports phase0 Attestation, use `attestation_versioned` event post-electra
               value: |
                 event: attestation
                 data: {"aggregation_bits":"0x01", "signature":"0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505", "data":{"slot":"1", "index":"1", "beacon_block_root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "source":{"epoch":"1", "root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "target":{"epoch":"1", "root":"0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}}
@@ -88,11 +87,10 @@ get:
                 event: proposer_slashing
                 data: {"signed_header_1":{"message":{"slot":"0","proposer_index":"0","parent_root":"0x0000000000000000000000000000000000000000000000000000000000000000","state_root":"0x0000000000000000000000000000000000000000000000000000000000000000","body_root":"0x0000000000000000000000000000000000000000000000000000000000000000"},"signature":"0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},"signed_header_2":{"message":{"slot":"0","proposer_index":"0","parent_root":"0x0000000000000000000000000000000000000000000000000000000000000000","state_root":"0x0000000000000000000000000000000000000000000000000000000000000000","body_root":"0x0000000000000000000000000000000000000000000000000000000000000000"},"signature":"0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}}
             attester_slashing:
-              deprecated: true
               description: |
                 The node has received an AttesterSlashing (from P2P or API) that passes validation rules of the `attester_slashing` topic
 
-                **Note:** only supports phase0 AttesterSlashing, use `attester_slashing_versioned` event post-electra
+                **deprecated:** only supports phase0 AttesterSlashing, use `attester_slashing_versioned` event post-electra
               value: |
                 event: attester_slashing
                 data: {"attestation_1":{"attesting_indices":["0", "1"],"data":{"slot":"0","index":"0","beacon_block_root":"0x0000000000000000000000000000000000000000000000000000000000000000","source":{"epoch":"0","root":"0x0000000000000000000000000000000000000000000000000000000000000000"},"target":{"epoch":"0","root":"0x0000000000000000000000000000000000000000000000000000000000000000"}},"signature":"0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"},"attestation_2":{"attesting_indices":["0", "1"],"data":{"slot":"0","index":"0","beacon_block_root":"0x0000000000000000000000000000000000000000000000000000000000000000","source":{"epoch":"0","root":"0x0000000000000000000000000000000000000000000000000000000000000000"},"target":{"epoch":"0","root":"0x0000000000000000000000000000000000000000000000000000000000000000"}},"signature":"0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}}
@@ -176,5 +174,4 @@ get:
             code: 400
             message: "Invalid topic: weather_forecast"
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
-      
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
