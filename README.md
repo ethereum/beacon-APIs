@@ -81,3 +81,9 @@ redocly lint beacon-node-oapi.yaml
 ```
          {url: "./releases/<tag>/beacon-node-oapi.json", name: "<tag>"},
 ```
+
+### Pre-releases
+
+To create a pre-release, simply push a new tag with the suffix `-alpha.x`. The CD will create a github release and upload the bundled spec files.
+
+Pre-releases will not be listed in `index.html` and are intended to allow early testing against the spec.
