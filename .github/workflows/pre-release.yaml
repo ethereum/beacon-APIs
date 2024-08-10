@@ -18,6 +18,11 @@ jobs:
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Bundle json spec
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t json -o ./deploy/beacon-node-oapi.json"
+      - name: Create Release Notes
+        run: |
+          echo "The following changes are included in this release:" > release-notes.md
+          awk '/^## Development Version/ {flag=1; next} /^## / {flag=0} flag { \
+          if ($0 ~ /\| \[#/) {sub(/^\| /, "- "); sub(/\| .*$/, ""); sub(/[[:space:]]+$/, ""); print}}' CHANGES.md >> release-notes.md
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
@@ -26,6 +31,7 @@ jobs:
         with:
           name: ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
+          body_path: "release-notes.md"
           draft: false
           prerelease: true
           files: |
