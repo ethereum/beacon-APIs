@@ -27,7 +27,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v2
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           name: ${{ github.ref_name }}
           tag_name: ${{ github.ref_name }}
@@ -42,11 +42,8 @@ jobs:
         if: failure()
         uses: author/action-rollback@1.0.4
         with:
-          # Using a known release ID
           release_id: ${{ steps.create_release.outputs.id }}
-          # Using a tag name
           tag: ${{ github.ref }}
-          # Remove the tag if release process failed
           delete_orphan_tag: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
