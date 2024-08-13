@@ -79,7 +79,7 @@ post:
   description: |
     Returns filterable list of validators balances.
 
-    Balances will be returned for all indices or public key that match known validators. If an index or public key does not
+    Balances will be returned for all indices or public keys that match known validators. If an index or public key does not
     match any known validator, no balance will be returned but this will not cause an error. There are no guarantees for the
     returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
     response has been returned.
@@ -90,7 +90,10 @@ post:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
-    description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+    description: |
+      An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index.
+
+      If the supplied list is empty (i.e. the body is `[]`) or no body is supplied then balances will be returned for all validators.
     required: false
     content:
       application/json:
