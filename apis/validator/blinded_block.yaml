@@ -33,14 +33,7 @@ get:
       schema:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
     - name: skip_randao_verification
-      in: query
-      required: false
-      description: |
-        Skip verification of the `randao_reveal` value. If this flag is set then the
-        `randao_reveal` must be set to the point at infinity (`0xc0..00`). This query parameter
-        is a flag and does not take a value.
-      schema: {}
-      allowEmptyValue: true
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
   responses:
     "200":
       description: Success response
