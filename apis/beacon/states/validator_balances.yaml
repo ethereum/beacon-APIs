@@ -91,10 +91,10 @@ post:
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
     description: |
-      Either hex encoded public key (any bytes48 with 0x prefix) or validator index.
+      An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index.
 
-      If the supplied list is empty (i.e. the body is `[]`) then balances will be returned for all validators.
-    required: true
+      If the supplied list is empty (i.e. the body is `[]`) or no body is supplied then balances will be returned for all validators.
+    required: false
     content:
       application/json:
         schema:
