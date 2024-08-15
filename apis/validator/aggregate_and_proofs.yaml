@@ -1,6 +1,7 @@
 post:
   operationId: "publishAggregateAndProofs"
   summary: "Publish multiple aggregate and proofs"
+  deprecated: true
   description: "Verifies given aggregate and proofs and publishes them on appropriate gossipsub topic."
   tags:
     - ValidatorRequiredApi

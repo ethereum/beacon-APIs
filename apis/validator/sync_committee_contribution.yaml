@@ -10,6 +10,9 @@ get:
     A 503 error must be returned if the block identified by the response
     `beacon_block_root` is optimistic (i.e. the sync committee contribution
     refers to a block that has not been fully verified by an execution engine).
+
+    A 404 error must be returned if no sync committee contribution is available
+    for the requested `beacon_block_root`.
   parameters:
     - name: slot
       in: query

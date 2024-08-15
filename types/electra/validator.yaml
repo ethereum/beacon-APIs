@@ -1,0 +1,29 @@
+Electra:
+  AggregateAndProof:
+    allOf:
+      - $ref: '#/Electra/Aggregate'
+      - type: object
+        required: [selection_proof]
+        properties:
+          selection_proof:
+            $ref: '../primitive.yaml#/Signature'
+
+  Aggregate:
+    type: object
+    description: "The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/validator.md#aggregateandproof) without selection_proof"
+    required: [aggregator_index, aggregate]
+    properties:
+      aggregator_index:
+        $ref: '../primitive.yaml#/Uint64'
+      aggregate:
+        $ref: './attestation.yaml#/Electra/Attestation'
+
+  SignedAggregateAndProof:
+    type: object
+    description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/validator.md#signedaggregateandproof) object"
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Electra/AggregateAndProof"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
