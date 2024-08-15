@@ -1,11 +1,17 @@
 name: Spellcheck
-on: [push, pull_request, workflow_dispatch]
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
     name: Spellcheck
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - uses: rojopolis/spellcheck-github-actions@0.29.0
-      name: Spellcheck
+      - uses: actions/checkout@v4
+      - uses: rojopolis/spellcheck-github-actions@0.40.0
+        name: Spellcheck
