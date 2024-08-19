@@ -1,6 +1,5 @@
 # Recent Changes
 
-
 ## Development Version
 
 These endpoints have been added or updated since the last release.
@@ -24,7 +23,7 @@ The Following are no longer in the Standard API, removed since the latest versio
 |----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
 
 
-## Version 2.5.0
+## v2.5.0
 
 These endpoints have been added or updated since the last release.
 
@@ -41,7 +40,7 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#405](https://github.com/ethereum/beacon-APIs/pull/405) `block_gossip EVENT` added                                 |                                                  | -                                                  |                                                    |                                                 |                                           |
 
 
-## Version 2.4.2
+## v2.4.2
 
 These endpoints have been added or updated since the last release.
 
@@ -53,7 +52,7 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#339](https://github.com/ethereum/beacon-APIs/pull/339) `POST /eth/v2/validator/*blocks` deprecated                                 |                                                  | v1.14.0                                                  |                                                    |                                                 |                                           |
 
 
-## Version 2.4.1
+## v2.4.1
 
 | Endpoint                                                                                                                                    | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
@@ -70,7 +69,7 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#327](https://github.com/ethereum/beacon-APIs/pull/327) Increased maximum number of blobs from 4 to 6                        |                                                  | v1.9.0                                                  |                                                    |                                                 |                                           |
 
 
-## Version 2.4.0
+## v2.4.0
 
 __Note__ Clients can add notes about level of support for specific endpoints if there are caveats or aspects not implemented.
 
