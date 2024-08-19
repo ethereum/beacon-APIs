@@ -3,7 +3,9 @@ name: Pre-release
 on:
   push:
     tags:
-      - "v*-(alpha|beta|rc).*"
+      - "v*-alpha.*"
+      - "v*-beta.*"
+      - "v*-rc.*"
 
 jobs:
   release:
