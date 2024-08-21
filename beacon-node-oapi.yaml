@@ -387,6 +387,14 @@ components:
       $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     Electra.SignedAggregateAndProof:
       $ref: './types/electra/validator.yaml#/Electra/SignedAggregateAndProof'
+    Electra.LightClientBootstrap:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientBootstrap'
+    Electra.LightClientUpdate:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientUpdate'
+    Electra.LightClientFinalityUpdate:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate'
+    Electra.LightClientOptimisticUpdate:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

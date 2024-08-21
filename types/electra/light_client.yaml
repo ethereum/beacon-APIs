@@ -1,0 +1,75 @@
+Electra:
+  FinalityBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(FINALIZED_ROOT_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/light-client/sync-protocol.md#constants) roots"
+    minItems: 7
+    maxItems: 7
+  CurrentSyncCommitteeBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(CURRENT_SYNC_COMMITTEE_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/light-client/sync-protocol.md#constants) roots"
+    minItems: 6
+    maxItems: 6
+  NextSyncCommitteeBranch:
+    type: array
+    items:
+      $ref: '../primitive.yaml#/Root'
+      description: "Merkle proof consisting of [`log2trunc(NEXT_SYNC_COMMITTEE_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/light-client/sync-protocol.md#constants) roots"
+    minItems: 6
+    maxItems: 6
+    
+  LightClientBootstrap:
+    type: object
+    required: [header, current_sync_committee, current_sync_committee_branch]
+    properties:
+      header:
+        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+      current_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      current_sync_committee_branch:
+        $ref: '#/Electra/CurrentSyncCommitteeBranch'
+  LightClientUpdate:
+    type: object
+    required: [attested_header, next_sync_committee, next_sync_committee_branch, finalized_header, finality_branch, sync_aggregate, signature_slot]
+    properties:
+      attested_header:
+        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+      next_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      next_sync_committee_branch:
+        $ref: '#/Electra/NextSyncCommitteeBranch'
+      finalized_header:
+        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+      finality_branch:
+        $ref: '#/Electra/FinalityBranch'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientFinalityUpdate:
+    type: object
+    required: [attested_header, finalized_header, finality_branch, sync_aggregate, signature_slot]
+    properties:
+      attested_header:
+        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+      finalized_header:
+        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+      finality_branch:
+        $ref: '#/Electra/FinalityBranch'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientOptimisticUpdate:
+    type: object
+    required: [attested_header, sync_aggregate, signature_slot]
+    properties:
+      attested_header:
+        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
