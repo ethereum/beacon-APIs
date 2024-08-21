@@ -68,22 +68,23 @@ redocly lint beacon-node-oapi.yaml
 
 ## Releasing
 
-1. Create and push tag
+This repository supports both stable and pre-releases. The version of the next release has to be
+determined based on the changes in `master` branch since the last stable release. It is recommended
+to create a pre-release before releasing a new stable version.
 
-   - Make sure `info.version` in `beacon-node-oapi.yaml` file is updated before tagging.  This will need to be a PR, and will get the release process started.
-   - CD will create github release and upload bundled spec file
+### Stable releases
 
-2. Create a second PR, containing the updated `index.html`. Also change back the `info.version` in `beacon-node-api.yaml` back to `Dev`
+Steps to create a new stable release:
 
-   - The `index.html` file needs a new release entrypoint added to refer to the new release. Find the `urls` field, 
-     and add the new release as the first entry in the list.
-     Entry should be in following format(replace `<tag>` with real tag name from step 1.):
-```
-         {url: "./releases/<tag>/beacon-node-oapi.json", name: "<tag>"},
-```
+- Create and push a tag with the version of the release, e.g. `v3.0.0`
+- CD will create the github release, upload bundled spec files, and open a release PR
+- Review, approve and merge the release PR to `master` branch
 
 ### Pre-releases
 
-To create a pre-release, simply push a new tag with the suffix `-alpha.x`. The CD will create a github release and upload the bundled spec files.
+Steps to create a new pre-release:
+
+- Create and push a tag with the version of the release, e.g. `v3.0.0-alpha.0`
+- CD will create the github release and upload bundled spec files
 
 Pre-releases will not be listed in `index.html` and are intended to allow early testing against the spec.
