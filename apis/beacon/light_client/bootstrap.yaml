@@ -32,6 +32,7 @@ get:
                 anyOf:
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientBootstrap'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientBootstrap'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientBootstrap'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientBootstrap'
         application/octet-stream:
           schema:

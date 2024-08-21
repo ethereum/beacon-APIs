@@ -27,6 +27,7 @@ get:
                 anyOf:
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientOptimisticUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientOptimisticUpdate'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientOptimisticUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientOptimisticUpdate'
         application/octet-stream:
           schema:

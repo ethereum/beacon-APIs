@@ -377,6 +377,14 @@ components:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
     Deneb.SignedBlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
+    Deneb.LightClientBootstrap:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientBootstrap'
+    Deneb.LightClientUpdate:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientUpdate'
+    Deneb.LightClientFinalityUpdate:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientFinalityUpdate'
+    Deneb.LightClientOptimisticUpdate:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientOptimisticUpdate'
     Blob:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
