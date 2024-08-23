@@ -3,21 +3,21 @@ Electra:
     type: array
     items:
       $ref: '../primitive.yaml#/Root'
-      description: "Merkle proof consisting of [`log2trunc(FINALIZED_ROOT_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/light-client/sync-protocol.md#constants) roots"
+      description: "Merkle proof consisting of [`log2trunc(FINALIZED_ROOT_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.4/specs/electra/light-client/sync-protocol.md#constants) roots"
     minItems: 7
     maxItems: 7
   CurrentSyncCommitteeBranch:
     type: array
     items:
       $ref: '../primitive.yaml#/Root'
-      description: "Merkle proof consisting of [`log2trunc(CURRENT_SYNC_COMMITTEE_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/light-client/sync-protocol.md#constants) roots"
+      description: "Merkle proof consisting of [`log2trunc(CURRENT_SYNC_COMMITTEE_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.4/specs/electra/light-client/sync-protocol.md#constants) roots"
     minItems: 6
     maxItems: 6
   NextSyncCommitteeBranch:
     type: array
     items:
       $ref: '../primitive.yaml#/Root'
-      description: "Merkle proof consisting of [`log2trunc(NEXT_SYNC_COMMITTEE_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/light-client/sync-protocol.md#constants) roots"
+      description: "Merkle proof consisting of [`log2trunc(NEXT_SYNC_COMMITTEE_GINDEX_ELECTRA])`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.4/specs/electra/light-client/sync-protocol.md#constants) roots"
     minItems: 6
     maxItems: 6
     
