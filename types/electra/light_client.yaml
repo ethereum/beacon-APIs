@@ -26,7 +26,7 @@ Electra:
     required: [header, current_sync_committee, current_sync_committee_branch]
     properties:
       header:
-        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+        $ref: '../deneb/light_client.yaml#/Deneb/LightClientHeader'
       current_sync_committee:
         $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
       current_sync_committee_branch:
@@ -36,13 +36,13 @@ Electra:
     required: [attested_header, next_sync_committee, next_sync_committee_branch, finalized_header, finality_branch, sync_aggregate, signature_slot]
     properties:
       attested_header:
-        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+        $ref: '../deneb/light_client.yaml#/Deneb/LightClientHeader'
       next_sync_committee:
         $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
       next_sync_committee_branch:
         $ref: '#/Electra/NextSyncCommitteeBranch'
       finalized_header:
-        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+        $ref: '../deneb/light_client.yaml#/Deneb/LightClientHeader'
       finality_branch:
         $ref: '#/Electra/FinalityBranch'
       sync_aggregate:
@@ -54,9 +54,9 @@ Electra:
     required: [attested_header, finalized_header, finality_branch, sync_aggregate, signature_slot]
     properties:
       attested_header:
-        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+        $ref: '../deneb/light_client.yaml#/Deneb/LightClientHeader'
       finalized_header:
-        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+        $ref: '../deneb/light_client.yaml#/Deneb/LightClientHeader'
       finality_branch:
         $ref: '#/Electra/FinalityBranch'
       sync_aggregate:
@@ -68,7 +68,7 @@ Electra:
     required: [attested_header, sync_aggregate, signature_slot]
     properties:
       attested_header:
-        $ref: '../capella/light_client.yaml#/Capella/LightClientHeader'
+        $ref: '../deneb/light_client.yaml#/Deneb/LightClientHeader'
       sync_aggregate:
         $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
       signature_slot:
