@@ -1,0 +1,104 @@
+Electra:
+  BeaconBlockBodyCommon:
+    # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
+    type: object
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#beaconblockbody) object from the CL Electra spec."
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, blob_kzg_commitments]
+    properties:
+      randao_reveal:
+        allOf:
+          - $ref: "../primitive.yaml#/Signature"
+          - description: "The RANDAO reveal value provided by the validator."
+      eth1_data:
+        $ref: "../eth1.yaml#/Eth1Data"
+      graffiti:
+        $ref: "../primitive.yaml#/Graffiti"
+      proposer_slashings:
+        type: array
+        items:
+          $ref: "../proposer_slashing.yaml#/ProposerSlashing"
+      attester_slashings:
+        type: array
+        items:
+          $ref: "./attester_slashing.yaml#/Electra/AttesterSlashing"
+      attestations:
+        type: array
+        items:
+          $ref: "./attestation.yaml#/Electra/Attestation"
+      deposits:
+        type: array
+        items:
+          $ref: "../deposit.yaml#/Deposit"
+      voluntary_exits:
+        type: array
+        items:
+          $ref: "../voluntary_exit.yaml#/SignedVoluntaryExit"
+      sync_aggregate:
+        $ref: "../altair/sync_aggregate.yaml#/Altair/SyncAggregate"
+      bls_to_execution_changes:
+        type: array
+        items:
+          $ref: "../bls_to_execution_change.yaml#/SignedBLSToExecutionChange"
+      blob_kzg_commitments:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/KZGCommitment"
+
+  BeaconBlockBody:
+    allOf:
+      - $ref: "#/Electra/BeaconBlockBodyCommon"
+      - type: object
+        required: [execution_payload]
+        properties:
+          execution_payload:
+            $ref: "./execution_payload.yaml#/Electra/ExecutionPayload"
+
+  BeaconBlock:
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#beaconblock) object from the CL Electra spec."
+    allOf:
+      - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
+      - type: object
+        required: [body]
+        properties:
+          body:
+            $ref: "#/Electra/BeaconBlockBody"
+
+  SignedBeaconBlock:
+    type: object
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#signedbeaconblock) object envelope from the CL Electra spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Electra/BeaconBlock"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+
+  BlindedBeaconBlockBody:
+    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#beaconblockbody) object from the CL Electra spec, which contains a transactions root rather than a full transactions list."
+    allOf:
+      - $ref: "#/Electra/BeaconBlockBodyCommon"
+      - type: object
+        required: [execution_payload_header]
+        properties:
+          execution_payload_header:
+            $ref: "./execution_payload.yaml#/Electra/ExecutionPayloadHeader"
+
+  BlindedBeaconBlock:
+    description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#beaconblock) object from the CL Electra spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    allOf:
+      - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
+      - type: object
+        required: [body]
+        properties:
+          body:
+            $ref: "#/Electra/BlindedBeaconBlockBody"
+
+  SignedBlindedBeaconBlock:
+    type: object
+    description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#signedbeaconblock) object envelope from the CL Electra spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Electra/BlindedBeaconBlock"
+      signature:
+        $ref: "../primitive.yaml#/Signature"

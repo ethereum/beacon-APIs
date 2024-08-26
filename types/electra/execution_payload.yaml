@@ -1,0 +1,79 @@
+Electra:
+  ExecutionPayloadCommon:
+    # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
+    type: object
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#executionpayload) object from the CL Electra spec."
+    required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, excess_blob_gas, block_hash]
+    properties:
+      parent_hash:
+        $ref: "../primitive.yaml#/Root"
+      fee_recipient:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+      state_root:
+        $ref: "../primitive.yaml#/Root"
+      receipts_root:
+        $ref: "../primitive.yaml#/Root"
+      logs_bloom:
+        $ref: "../primitive.yaml#/LogsBloom"
+      prev_randao:
+        $ref: "../primitive.yaml#/Bytes32"
+      block_number:
+        $ref: "../primitive.yaml#/Uint64"
+      gas_limit:
+        $ref: "../primitive.yaml#/Uint64"
+      gas_used:
+        $ref: "../primitive.yaml#/Uint64"
+      timestamp:
+        $ref: "../primitive.yaml#/Uint64"
+      extra_data:
+        $ref: "../primitive.yaml#/ExtraData"
+      base_fee_per_gas:
+        $ref: "../primitive.yaml#/Uint256"
+      excess_blob_gas:
+        $ref: "../primitive.yaml#/Uint256"
+      block_hash:
+        $ref: "../primitive.yaml#/Root"
+
+  ExecutionPayload:
+    allOf:
+      - $ref: "#/Electra/ExecutionPayloadCommon"
+      - type: object
+        required: [transactions, withdrawals, deposit_requests, withdrawal_requests, consolidation_requests]
+        properties:
+          transactions:
+            $ref: "../bellatrix/transactions.yaml#/Bellatrix/Transactions"
+          withdrawals:
+            $ref: "../capella/withdrawals.yaml#/Capella/Withdrawals"
+          deposit_requests:
+            type: array
+            items:
+              $ref: "./deposit.yaml#/Electra/DepositRequest"
+            maxItems: 8192
+          withdrawal_requests:
+            type: array
+            items:
+              $ref: "./withdrawal.yaml#/Electra/WithdrawalRequest"
+            maxItems: 16
+          consolidation_requests:
+            type: array
+            items:
+              $ref: "./consolidation.yaml#/Electra/ConsolidationRequest"
+            maxItems: 1
+
+  ExecutionPayloadHeader:
+    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#executionpayloadheader) object from the CL Electra spec."
+    allOf:
+      - $ref: "#/Electra/ExecutionPayloadCommon"
+      - type: object
+        required: [transactions_root, withdrawals_root, deposit_requests_root, withdrawal_requests_root, consolidation_requests_root]
+        properties:
+          transactions_root:
+            $ref: "../primitive.yaml#/Root"
+          withdrawals_root:
+            $ref: "../primitive.yaml#/Root"
+          deposit_requests_root:
+            $ref: "../primitive.yaml#/Root"
+          withdrawal_requests_root:
+            $ref: "../primitive.yaml#/Root"
+          consolidation_requests_root:
+            $ref: "../primitive.yaml#/Root"

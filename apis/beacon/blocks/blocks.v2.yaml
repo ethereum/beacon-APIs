@@ -54,6 +54,7 @@ post:
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBlockContents"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBlockContents"
       application/octet-stream:
         schema:
           description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."

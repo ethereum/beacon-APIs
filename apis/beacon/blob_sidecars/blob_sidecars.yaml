@@ -39,7 +39,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "deneb"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
