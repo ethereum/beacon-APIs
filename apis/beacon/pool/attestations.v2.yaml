@@ -67,7 +67,7 @@ post:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
       required: true
       name: Eth-Consensus-Version
-      description: "Version of the attestations being submitted."
+      description: "The consensus version of the attestations being submitted."
   tags:
     - Beacon
     - ValidatorRequiredApi

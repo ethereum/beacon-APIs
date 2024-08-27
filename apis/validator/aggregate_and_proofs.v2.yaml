@@ -11,7 +11,7 @@ post:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
       required: true
       name: Eth-Consensus-Version
-      description: "Version of the aggregate and proofs being submitted."
+      description: "The consensus version of the aggregate and proofs being submitted."
   requestBody:
     required: true
     content:

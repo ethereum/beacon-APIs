@@ -20,7 +20,7 @@ post:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
       required: false
       name: Eth-Consensus-Version
-      description: "Version of the block being submitted, if using SSZ encoding."
+      description: "The consensus version of the block being submitted, if using SSZ encoding."
   requestBody:
     description: "The `SignedBlindedBeaconBlock` object composed of `BlindedBeaconBlock` object (produced by beacon node) and validator signature."
     required: true
