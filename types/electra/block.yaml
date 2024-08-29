@@ -54,7 +54,7 @@ Electra:
             $ref: "./execution_payload.yaml#/Electra/ExecutionPayload"
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#beaconblock) object from the CL Electra spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/phase0/beacon-chain.md#beaconblock) object from the CL Electra spec."
     allOf:
       - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
       - type: object
@@ -65,7 +65,7 @@ Electra:
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#signedbeaconblock) object envelope from the CL Electra spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Electra spec."
     required: [message, signature]
     properties:
       message:
@@ -84,7 +84,7 @@ Electra:
             $ref: "./execution_payload.yaml#/Electra/ExecutionPayloadHeader"
 
   BlindedBeaconBlock:
-    description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#beaconblock) object from the CL Electra spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/phase0/beacon-chain.md#beaconblock) object from the CL Electra spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
     allOf:
       - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
       - type: object
@@ -95,7 +95,7 @@ Electra:
 
   SignedBlindedBeaconBlock:
     type: object
-    description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#signedbeaconblock) object envelope from the CL Electra spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Electra spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
     required: [message, signature]
     properties:
       message:
