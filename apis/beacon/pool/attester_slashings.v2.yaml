@@ -42,7 +42,7 @@ post:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
       required: true
       name: Eth-Consensus-Version
-      description: "The consensus version of the attester slashing being submitted."
+      description: "The active consensus version to which the attester slashing being submitted belongs."
   tags:
     - Beacon
   requestBody:

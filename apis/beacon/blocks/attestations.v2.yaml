@@ -15,7 +15,7 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-          description: "The consensus version of the attestations"
+          description: "The active consensus version to which the attestations belong"
       content:
         application/json:
           schema:
