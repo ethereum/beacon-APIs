@@ -5,9 +5,15 @@ info:
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
-    and "Accept: application/json" headers.  In addition, some requests can return data in the SSZ format.  To indicate that SSZ
-    data is required in response to a request the header "Accept: application/octet-stream" should be sent.  Note that only a subset
-    of requests can respond with data in SSZ format; these are noted in each individual request.
+    and "Accept: application/json" headers.  In addition, some requests can send and receive data in the SSZ format.  The header
+    "Content-Type: application/octet-stream" should be set in requests that contain SSZ data; a preference to receive SSZ data in
+    response can be indicated by setting the "Accept: application/octet-stream;q=1.0,application/json;q=0.9" header.  Note that
+    only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
+
+    When handling requests, the server should return a 415 status code if the "Content-Type" header in the request specifies a format
+    that is not supported.  Similarly, it should return a 406 status code if it cannot produce a response in the format accepted by
+    the client as specified in the "Accept" header; if no "Accept" header is provided then it is assumed to be "application/json".
+    In any case, the server should indicate the format of the response by setting the corresponding "Content-Type" header.
 
     API endpoints are individually versioned.  As such, there is no direct relationship between all v1 endpoints, all v2 endpoints,
     _etc._ and no such relationship should be inferred.  All JSON responses return the requested data under a `data` key in the top
@@ -5532,7 +5538,7 @@ paths:
                 code: 400
                 message: 'Invalid block: missing signature'
         '415':
-          description: The supplied content-type is not supported.
+          description: Supplied content-type is not supported.
           content:
             application/json:
               schema:
@@ -5542,7 +5548,7 @@ paths:
                   - message
                 properties:
                   code:
-                    description: 'The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept.'
+                    description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
                     type: number
                     example: 415
                   message:
@@ -8734,7 +8740,7 @@ paths:
                 code: 400
                 message: 'Invalid block: missing signature'
         '415':
-          description: The supplied content-type is not supported.
+          description: Supplied content-type is not supported.
           content:
             application/json:
               schema:
@@ -8744,7 +8750,7 @@ paths:
                   - message
                 properties:
                   code:
-                    description: 'The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept.'
+                    description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
                     type: number
                     example: 415
                   message:
@@ -11986,7 +11992,7 @@ paths:
                 code: 400
                 message: 'Invalid block: missing signature'
         '415':
-          description: The supplied content-type is not supported.
+          description: Supplied content-type is not supported.
           content:
             application/json:
               schema:
@@ -11996,7 +12002,7 @@ paths:
                   - message
                 properties:
                   code:
-                    description: 'The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept.'
+                    description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
                     type: number
                     example: 415
                   message:
@@ -15265,7 +15271,7 @@ paths:
                 code: 400
                 message: 'Invalid block: missing signature'
         '415':
-          description: The supplied content-type is not supported.
+          description: Supplied content-type is not supported.
           content:
             application/json:
               schema:
@@ -15275,7 +15281,7 @@ paths:
                   - message
                 properties:
                   code:
-                    description: 'The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept.'
+                    description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
                     type: number
                     example: 415
                   message:
@@ -18538,6 +18544,31 @@ paths:
               example:
                 code: 404
                 message: Block not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -19390,6 +19421,31 @@ paths:
               example:
                 code: 404
                 message: Block not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -19566,7 +19622,7 @@ paths:
       summary: Get Deposit Tree Snapshot
       description: |
         Retrieve [EIP-4881](https://eips.ethereum.org/EIPS/eip-4881) Deposit Tree Snapshot.
-        Depending on `Accept` header it can be returned either as json or as bytes serialzed by SSZ
+        Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
       tags:
         - Beacon
       responses:
@@ -19642,6 +19698,31 @@ paths:
               example:
                 code: 404
                 message: No Finalized Snapshot Available
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -23173,6 +23254,31 @@ paths:
               example:
                 code: 404
                 message: Block not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -23584,7 +23690,7 @@ paths:
                 code: 404
                 message: LC bootstrap unavailable
         '406':
-          description: Unacceptable media type
+          description: Accepted media type is not supported.
           content:
             application/json:
               schema:
@@ -23594,9 +23700,9 @@ paths:
                   - message
                 properties:
                   code:
-                    description: Either specific error code in case of invalid request or http status code
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
                     type: number
-                    example: 404
+                    example: 406
                   message:
                     description: Message describing error
                     type: string
@@ -24283,7 +24389,7 @@ paths:
                     code: 400
                     message: Missing `count` value
         '406':
-          description: Unacceptable media type
+          description: Accepted media type is not supported.
           content:
             application/json:
               schema:
@@ -24293,9 +24399,9 @@ paths:
                   - message
                 properties:
                   code:
-                    description: Either specific error code in case of invalid request or http status code
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
                     type: number
-                    example: 404
+                    example: 406
                   message:
                     description: Message describing error
                     type: string
@@ -24878,7 +24984,7 @@ paths:
                 code: 404
                 message: LC finality update unavailable
         '406':
-          description: Unacceptable media type
+          description: Accepted media type is not supported.
           content:
             application/json:
               schema:
@@ -24888,9 +24994,9 @@ paths:
                   - message
                 properties:
                   code:
-                    description: Either specific error code in case of invalid request or http status code
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
                     type: number
-                    example: 404
+                    example: 406
                   message:
                     description: Message describing error
                     type: string
@@ -25254,7 +25360,7 @@ paths:
                 code: 404
                 message: LC optimistic update unavailable
         '406':
-          description: Unacceptable media type
+          description: Accepted media type is not supported.
           content:
             application/json:
               schema:
@@ -25264,9 +25370,9 @@ paths:
                   - message
                 properties:
                   code:
-                    description: Either specific error code in case of invalid request or http status code
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
                     type: number
-                    example: 404
+                    example: 406
                   message:
                     description: Message describing error
                     type: string
@@ -28226,6 +28332,31 @@ paths:
               example:
                 code: 404
                 message: State not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -30631,6 +30762,31 @@ paths:
               example:
                 code: 404
                 message: State not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -35229,6 +35385,31 @@ paths:
                   value:
                     code: 400
                     message: Invalid request to produce a block
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -40459,6 +40640,31 @@ paths:
                   value:
                     code: 400
                     message: Invalid request to produce a block
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -43597,6 +43803,31 @@ paths:
                   value:
                     code: 400
                     message: Invalid request to produce a block
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
@@ -63662,8 +63893,8 @@ components:
           example:
             code: 404
             message: Requested item not found
-    UnsupportedMediaType:
-      description: The supplied content-type is not supported.
+    NotAcceptable:
+      description: Accepted media type is not supported.
       content:
         application/json:
           schema:
@@ -63673,7 +63904,32 @@ components:
               - message
             properties:
               code:
-                description: 'The media type supplied is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the service is not able to accept.'
+                description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                type: number
+                example: 406
+              message:
+                description: Message describing error
+                type: string
+              stacktraces:
+                description: 'Optional stacktraces, sent when node is in debug mode'
+                type: array
+                items:
+                  type: string
+          example:
+            code: 406
+            message: Accepted media type not supported
+    UnsupportedMediaType:
+      description: Supplied content-type is not supported.
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - code
+              - message
+            properties:
+              code:
+                description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
                 type: number
                 example: 415
               message:
