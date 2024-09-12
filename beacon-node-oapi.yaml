@@ -448,7 +448,9 @@ components:
 
   headers:
     Eth-Consensus-Version:
-      description: Required in response so client can deserialize returned json or ssz data more effectively.
+      description: |
+        The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data 
+        more effectively.
       required: true
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
