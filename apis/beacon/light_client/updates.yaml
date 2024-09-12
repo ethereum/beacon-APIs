@@ -37,6 +37,8 @@ get:
                   anyOf:
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientUpdate'
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientUpdate'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientUpdate'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientUpdate'
         application/octet-stream:
           schema:
             description: |
@@ -60,7 +62,9 @@ get:
               | ------------------------------------------------------------------- | ------------------------------------- |
               | `GENESIS_FORK_VERSION`                                              | n/a                                   |
               | <nobr>`ALTAIR_FORK_VERSION` through `BELLATRIX_FORK_VERSION`</nobr> | `altair.LightClientUpdate`            |
-              | <nobr>`CAPELLA_FORK_VERSION` and later</nobr>                       | `capella.LightClientUpdate`           |
+              | <nobr>`CAPELLA_FORK_VERSION` </nobr>                                | `capella.LightClientUpdate`           |
+              | <nobr>`DENEB_FORK_VERSION` </nobr>                                  | `deneb.LightClientUpdate`             |
+              | <nobr>`ELECTRA_FORK_VERSION` and later</nobr>                       | `electra.LightClientUpdate`           |
     "400":
       description: Malformed or missing request parameter
       content:

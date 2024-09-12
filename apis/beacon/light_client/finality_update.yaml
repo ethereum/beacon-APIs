@@ -27,6 +27,8 @@ get:
                 anyOf:
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientFinalityUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientFinalityUpdate'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientFinalityUpdate'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientFinalityUpdate'
         application/octet-stream:
           schema:
             description: "SSZ serialized `LightClientFinalityUpdate` bytes. Use Accept header to choose this response type"
