@@ -3,6 +3,7 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
+  deprecated: true
   operationId: "publishBlock"
   description: |
     Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,

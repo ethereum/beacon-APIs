@@ -3,6 +3,7 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
+  deprecated: true
   operationId: "publishBlindedBlock"
   description: |
     Instructs the beacon node to use the components of the `SignedBlindedBeaconBlock` to construct and publish a 
