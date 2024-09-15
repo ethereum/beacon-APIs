@@ -21,11 +21,11 @@ jobs:
       matrix:
         release: ${{fromJson(needs.setup.outputs.releases)}}
     steps:
-      - uses: dsaltares/fetch-gh-release-asset@1.1.0
+      - uses: dsaltares/fetch-gh-release-asset@1.1.2
         with:
-          version: 'tags/${{ matrix.release }}'
-          file: 'beacon-node-oapi.json'
-          target: 'deploy/releases/${{ matrix.release }}/beacon-node-oapi.json'
+          version: "tags/${{ matrix.release }}"
+          file: "beacon-node-oapi.json"
+          target: "deploy/releases/${{ matrix.release }}/beacon-node-oapi.json"
       - name: Save releases (artifact)
         uses: actions/upload-artifact@v3
         with:
@@ -37,8 +37,8 @@ jobs:
     needs: releases
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
       - run: npm i -g @apidevtools/swagger-cli@4
       - name: Prepare deploy directory
         run: |
@@ -55,7 +55,7 @@ jobs:
       - name: Bundle spec
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Publish to Github Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./deploy
