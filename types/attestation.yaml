@@ -15,6 +15,23 @@ IndexedAttestation:
       $ref: './primitive.yaml#/Signature'
       description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
 
+SingleAttestation:
+  type: object
+  description: "The [`SingleAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/electra/beacon-chain.md#singleattestation) object from the CL spec."
+  required: [committee_index, attester_index, data, signature]
+  properties:
+    committee_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The attestations committee index."
+    attester_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The validator index that signed this attestation."
+    data:
+      $ref: './attestation_data.yaml#/AttestationData'
+    signature:
+      $ref: './primitive.yaml#/Signature'
+      description: "BLS aggregate signature."
+
 Attestation:
   type: object
   description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestation) object from the CL spec."

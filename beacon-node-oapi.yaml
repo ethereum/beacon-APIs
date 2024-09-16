@@ -259,6 +259,8 @@ components:
       $ref: './types/validator.yaml#/Altair/SyncDuty'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
+    SingleAttestation:
+      $ref: './types/attestation.yaml#/SingleAttestation'
     Attestation:
       $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
