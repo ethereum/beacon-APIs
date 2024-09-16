@@ -42,7 +42,6 @@ get:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBeaconBlock"
         application/octet-stream:
           schema:
-
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
@@ -62,5 +61,7 @@ get:
           example:
             code: 404
             message: "Block not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
