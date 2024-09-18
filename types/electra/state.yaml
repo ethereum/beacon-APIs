@@ -82,7 +82,7 @@ Electra:
       next_sync_committee:
         $ref: "../altair/sync_committee.yaml#/Altair/SyncCommittee"
       latest_execution_payload_header:
-        $ref: "./execution_payload.yaml#/Electra/ExecutionPayloadHeader"
+        $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayloadHeader"
       next_withdrawal_index:
         $ref: "../primitive.yaml#/Uint64"
       next_withdrawal_validator_index:

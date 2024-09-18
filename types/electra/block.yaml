@@ -48,10 +48,12 @@ Electra:
     allOf:
       - $ref: "#/Electra/BeaconBlockBodyCommon"
       - type: object
-        required: [execution_payload]
+        required: [execution_payload, execution_requests]
         properties:
           execution_payload:
-            $ref: "./execution_payload.yaml#/Electra/ExecutionPayload"
+            $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
+          execution_requests:
+            $ref: "./execution_requests.yaml#/Electra/ExecutionRequests"
 
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/phase0/beacon-chain.md#beaconblock) object from the CL Electra spec."
@@ -78,10 +80,12 @@ Electra:
     allOf:
       - $ref: "#/Electra/BeaconBlockBodyCommon"
       - type: object
-        required: [execution_payload_header]
+        required: [execution_payload_header, execution_requests_root]
         properties:
           execution_payload_header:
-            $ref: "./execution_payload.yaml#/Electra/ExecutionPayloadHeader"
+            $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayloadHeader"
+          execution_requests_root:
+            $ref: "../primitive.yaml#/Root"
 
   BlindedBeaconBlock:
     description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/phase0/beacon-chain.md#beaconblock) object from the CL Electra spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
