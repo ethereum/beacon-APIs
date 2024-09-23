@@ -395,6 +395,18 @@ components:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
+    Electra.BeaconState:
+      $ref: './types/electra/state.yaml#/Electra/BeaconState'
+    Electra.BlockContents:
+      $ref: './types/electra/block_contents.yaml#/Electra/BlockContents'
+    Electra.SignedBeaconBlock:
+      $ref: './types/electra/block.yaml#/Electra/SignedBeaconBlock'
+    Electra.SignedBlockContents:
+      $ref: './types/electra/block_contents.yaml#/Electra/SignedBlockContents'
+    Electra.BlindedBeaconBlock:
+      $ref: './types/electra/block.yaml#/Electra/BlindedBeaconBlock'
+    Electra.SignedBlindedBeaconBlock:
+      $ref: './types/electra/block.yaml#/Electra/SignedBlindedBeaconBlock'
     Electra.Attestation:
       $ref: './types/electra/attestation.yaml#/Electra/Attestation'
     Electra.AttesterSlashing:

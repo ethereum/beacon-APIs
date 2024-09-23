@@ -26,7 +26,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix, capella, deneb ]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "phase0"
               execution_optimistic:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -39,6 +39,7 @@ get:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BeaconState"
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"
