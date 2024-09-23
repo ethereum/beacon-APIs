@@ -6,9 +6,15 @@ info:
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
-    and "Accept: application/json" headers.  In addition, some requests can return data in the SSZ format.  To indicate that SSZ
-    data is required in response to a request the header "Accept: application/octet-stream" should be sent.  Note that only a subset
-    of requests can respond with data in SSZ format; these are noted in each individual request.
+    and "Accept: application/json" headers.  In addition, some requests can send and receive data in the SSZ format.  The header
+    "Content-Type: application/octet-stream" should be set in requests that contain SSZ data; a preference to receive SSZ data in
+    response can be indicated by setting the "Accept: application/octet-stream;q=1.0,application/json;q=0.9" header.  Note that
+    only a subset of requests can respond with data in SSZ format; these are noted in each individual request.
+
+    When handling requests, the server should return a 415 status code if the "Content-Type" header in the request specifies a format
+    that is not supported.  Similarly, it should return a 406 status code if it cannot produce a response in the format accepted by
+    the client as specified in the "Accept" header; if no "Accept" header is provided then it is assumed to be "application/json".
+    In any case, the server should indicate the format of the response by setting the corresponding "Content-Type" header.
 
     API endpoints are individually versioned.  As such, there is no direct relationship between all v1 endpoints, all v2 endpoints,
     _etc._ and no such relationship should be inferred.  All JSON responses return the requested data under a `data` key in the top
@@ -21,7 +27,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.4.0-beta.1"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.4.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -58,8 +64,6 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
-  - name: Experimental
-    description: Endpoints that are not stable or fully implemented by each client.
 
 paths:
 
@@ -101,6 +105,8 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v1/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.yaml"
+  /eth/v2/beacon/blocks/{block_id}/attestations:
+    $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
@@ -123,14 +129,18 @@ paths:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
+  /eth/v2/beacon/pool/attestations:
+    $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.yaml"
+  /eth/v2/beacon/pool/attester_slashings:
+    $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
     $ref: "./apis/beacon/pool/proposer_slashings.yaml"
   /eth/v1/beacon/pool/sync_committees:
     $ref: "./apis/beacon/pool/sync_committees.yaml"
   /eth/v1/beacon/pool/voluntary_exits:
-    $ref: "./apis/beacon/pool/voluntary_exists.yaml"
+    $ref: "./apis/beacon/pool/voluntary_exits.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
@@ -182,8 +192,12 @@ paths:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.yaml"
+  /eth/v2/validator/aggregate_attestation:
+    $ref: "./apis/validator/aggregate_attestation.v2.yaml"
   /eth/v1/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proofs.yaml"
+  /eth/v2/validator/aggregate_and_proofs:
+    $ref: "./apis/validator/aggregate_and_proofs.v2.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
     $ref: "./apis/validator/beacon_committee_subscriptions.yaml"
   /eth/v1/validator/sync_committee_subscriptions:
@@ -248,7 +262,7 @@ components:
     Attestation:
       $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
-      $ref: './types/attestation.yaml#/AttestationData'
+      $ref: './types/attestation_data.yaml#/AttestationData'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -331,7 +345,7 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra]
       example: "phase0"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -369,10 +383,44 @@ components:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
     Deneb.SignedBlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
+    Deneb.LightClientBootstrap:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientBootstrap'
+    Deneb.LightClientUpdate:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientUpdate'
+    Deneb.LightClientFinalityUpdate:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientFinalityUpdate'
+    Deneb.LightClientOptimisticUpdate:
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientOptimisticUpdate'
     Blob:
       $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
+    Electra.BeaconState:
+      $ref: './types/electra/state.yaml#/Electra/BeaconState'
+    Electra.BlockContents:
+      $ref: './types/electra/block_contents.yaml#/Electra/BlockContents'
+    Electra.SignedBeaconBlock:
+      $ref: './types/electra/block.yaml#/Electra/SignedBeaconBlock'
+    Electra.SignedBlockContents:
+      $ref: './types/electra/block_contents.yaml#/Electra/SignedBlockContents'
+    Electra.BlindedBeaconBlock:
+      $ref: './types/electra/block.yaml#/Electra/BlindedBeaconBlock'
+    Electra.SignedBlindedBeaconBlock:
+      $ref: './types/electra/block.yaml#/Electra/SignedBlindedBeaconBlock'
+    Electra.Attestation:
+      $ref: './types/electra/attestation.yaml#/Electra/Attestation'
+    Electra.AttesterSlashing:
+      $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
+    Electra.SignedAggregateAndProof:
+      $ref: './types/electra/validator.yaml#/Electra/SignedAggregateAndProof'
+    Electra.LightClientBootstrap:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientBootstrap'
+    Electra.LightClientUpdate:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientUpdate'
+    Electra.LightClientFinalityUpdate:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate'
+    Electra.LightClientOptimisticUpdate:
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
@@ -391,12 +439,16 @@ components:
       $ref: './params/index.yaml#/BlockId'
     BlockRoot:
       $ref: './params/index.yaml#/BlockRoot'
+    SkipRandaoVerification:
+      $ref: './params/index.yaml#/SkipRandaoVerification'
 
   responses:
     InvalidRequest:
       $ref: './types/http.yaml#/InvalidRequest'
     NotFound:
       $ref: './types/http.yaml#/NotFound'
+    NotAcceptable:
+      $ref: './types/http.yaml#/NotAcceptable'
     UnsupportedMediaType:
       $ref: './types/http.yaml#/UnsupportedMediaType'
     InternalError:
@@ -408,7 +460,9 @@ components:
 
   headers:
     Eth-Consensus-Version:
-      description: Required in response so client can deserialize returned json or ssz data more effectively.
+      description: |
+        The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data 
+        more effectively.
       required: true
       schema:
         $ref: '#/components/schemas/ConsensusVersion'

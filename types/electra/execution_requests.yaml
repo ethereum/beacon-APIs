@@ -1,0 +1,21 @@
+Electra:  
+  ExecutionRequests:
+    type: object
+    description: "The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.6/specs/electra/beacon-chain.md#executionrequests) object from the CL Electra spec."
+    required: [deposits, withdrawals, consolidations]
+    properties:
+      deposits:
+        type: array
+        items:
+          $ref: "./deposit.yaml#/Electra/DepositRequest"
+        maxItems: 8192
+      withdrawals:
+        type: array
+        items:
+          $ref: "./withdrawal.yaml#/Electra/WithdrawalRequest"
+        maxItems: 16
+      consolidations:
+        type: array
+        items:
+          $ref: "./consolidation.yaml#/Electra/ConsolidationRequest"
+        maxItems: 1

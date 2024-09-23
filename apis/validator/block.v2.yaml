@@ -30,14 +30,7 @@ get:
       schema:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
     - name: skip_randao_verification
-      in: query
-      required: false
-      description: |
-        Skip verification of the `randao_reveal` value. If this flag is set then the
-        `randao_reveal` must be set to the point at infinity (`0xc0..00`). This query parameter
-        is a flag and does not take a value.
-      schema: {}
-      allowEmptyValue: true
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
   responses:
     "200":
       description: Success response
@@ -53,7 +46,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix, capella, deneb ]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "phase0"
               data:
                 anyOf:
@@ -62,6 +55,7 @@ get:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlockContents"
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
@@ -76,6 +70,8 @@ get:
               value:
                 code: 400
                 message: "Invalid request to produce a block"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
