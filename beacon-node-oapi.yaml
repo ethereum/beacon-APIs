@@ -259,8 +259,6 @@ components:
       $ref: './types/validator.yaml#/Altair/SyncDuty'
     SignedAggregateAndProof:
       $ref: './types/validator.yaml#/SignedAggregateAndProof'
-    SingleAttestation:
-      $ref: './types/attestation.yaml#/SingleAttestation'
     Attestation:
       $ref: './types/attestation.yaml#/Attestation'
     AttestationData:
@@ -399,6 +397,8 @@ components:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
     Electra.Attestation:
       $ref: './types/electra/attestation.yaml#/Electra/Attestation'
+    Electra.SingleAttestation:
+      $ref: './types/electra/attestation.yaml#/Electra/SingleAttestation'
     Electra.AttesterSlashing:
       $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     Electra.SignedAggregateAndProof:

@@ -76,9 +76,13 @@ post:
     content:
       application/json:
         schema:
-          - type: array
-            items:
-              $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SingleAttestation'
+          anyOf:
+            - type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+            - type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on the appropriate subnet
