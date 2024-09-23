@@ -32,6 +32,8 @@ get:
                 anyOf:
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientBootstrap'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientBootstrap'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientBootstrap'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientBootstrap'
         application/octet-stream:
           schema:
             description: "SSZ serialized `LightClientBootstrap` bytes. Use Accept header to choose this response type"
@@ -54,13 +56,6 @@ get:
             code: 404
             message: "LC bootstrap unavailable"
     "406":
-      description: Unacceptable media type
-      content:
-        application/json:
-          schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 406
-            message: "Accepted media type not supported"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

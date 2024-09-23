@@ -1,0 +1,32 @@
+Electra:
+  DepositRequest:
+    type: object
+    description: "The [`DepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#depositrequest) object from the CL Electra spec."
+    required: [pubkey, withdrawal_credentials, amount, signature, index]
+    properties:
+      pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+        description: "BLS public key of validator."
+      withdrawal_credentials:
+        $ref: "../primitive.yaml#/Root"
+        description: "The withdrawal credentials."
+      amount:
+        $ref: "../primitive.yaml#/Gwei"
+        description: "The value to be deposited (gwei)."
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+      index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "The index of the deposit request."
+
+  PendingBalanceDeposit:
+    type: object
+    description: "The [`PendingBalanceDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#pendingbalancedeposit) object from the CL Electra spec."
+    required: [index, amount]
+    properties:
+      index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of validator in validator registry."
+      amount:
+        $ref: "../primitive.yaml#/Gwei"
+        description: "The value to be deposited (gwei)."
