@@ -81,6 +81,8 @@ paths:
     $ref: "./apis/beacon/states/validator.yaml"
   /eth/v1/beacon/states/{state_id}/validator_balances:
     $ref: "./apis/beacon/states/validator_balances.yaml"
+  /eth/v1/beacon/states/{state_id}/validator_identities:
+    $ref: "./apis/beacon/states/validator_identities.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
@@ -239,6 +241,8 @@ components:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorBalanceResponse:
       $ref: './types/api.yaml#/ValidatorBalanceResponse'
+    ValidatorIdentityResponse:
+      $ref: './types/api.yaml#/ValidatorIdentityResponse'
     ValidatorStatus:
       $ref: './types/api.yaml#/ValidatorStatus'
     Committee:
