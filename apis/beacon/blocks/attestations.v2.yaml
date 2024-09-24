@@ -1,9 +1,7 @@
 get:
-  operationId: getBlockV2
-  summary: Get block
-  description: |
-    Retrieves block details for given block id.
-    Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+  operationId: getBlockAttestationsV2
+  summary: Get block attestations
+  description: Retrieves attestation included in requested block.
   tags:
     - Beacon
   parameters:
@@ -13,14 +11,15 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
   responses:
     "200":
-      description: "Successful response"
+      description: Success
       headers:
         Eth-Consensus-Version:
           $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version to which the attestations belong."
       content:
         application/json:
           schema:
-            title: GetBlockV2Response
+            title: GetBlockAttestationsV2Response
             type: object
             required: [version, execution_optimistic, finalized, data]
             properties:
@@ -34,15 +33,12 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBeaconBlock"
-        application/octet-stream:
-          schema:
-            description: "SSZ serialized block bytes. Use Accept header to choose this response type"
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       description: "The block ID supplied could not be parsed"
       content:
@@ -61,7 +57,5 @@ get:
           example:
             code: 404
             message: "Block not found"
-    "406":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

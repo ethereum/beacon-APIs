@@ -1,0 +1,64 @@
+Deneb:
+  LightClientHeader:
+    type: object
+    required: [beacon, execution, execution_branch]
+    properties:
+      beacon:
+        $ref: '../block.yaml#/BeaconBlockHeader'
+      execution:
+        $ref: './execution_payload.yaml#/Deneb/ExecutionPayloadHeader'
+      execution_branch:
+        $ref: '../capella/light_client.yaml#/Capella/ExecutionBranch'
+
+  LightClientBootstrap:
+    type: object
+    required: [header, current_sync_committee, current_sync_committee_branch]
+    properties:
+      header:
+        $ref: '#/Deneb/LightClientHeader'
+      current_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      current_sync_committee_branch:
+        $ref: '../altair/light_client.yaml#/Altair/CurrentSyncCommitteeBranch'
+  LightClientUpdate:
+    type: object
+    required: [attested_header, next_sync_committee, next_sync_committee_branch, finalized_header, finality_branch, sync_aggregate, signature_slot]
+    properties:
+      attested_header:
+        $ref: '#/Deneb/LightClientHeader'
+      next_sync_committee:
+        $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
+      next_sync_committee_branch:
+        $ref: '../altair/light_client.yaml#/Altair/NextSyncCommitteeBranch'
+      finalized_header:
+        $ref: '#/Deneb/LightClientHeader'
+      finality_branch:
+        $ref: '../altair/light_client.yaml#/Altair/FinalityBranch'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientFinalityUpdate:
+    type: object
+    required: [attested_header, finalized_header, finality_branch, sync_aggregate, signature_slot]
+    properties:
+      attested_header:
+        $ref: '#/Deneb/LightClientHeader'
+      finalized_header:
+        $ref: '#/Deneb/LightClientHeader'
+      finality_branch:
+        $ref: '../altair/light_client.yaml#/Altair/FinalityBranch'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'
+  LightClientOptimisticUpdate:
+    type: object
+    required: [attested_header, sync_aggregate, signature_slot]
+    properties:
+      attested_header:
+        $ref: '#/Deneb/LightClientHeader'
+      sync_aggregate:
+        $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
+      signature_slot:
+        $ref: '../primitive.yaml#/Uint64'

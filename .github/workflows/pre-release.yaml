@@ -1,12 +1,11 @@
-name: Release
+name: Pre-release
 
 on:
   push:
     tags:
-      - "v*"
-      - "!v*-alpha.*"
-      - "!v*-beta.*"
-      - "!v*-rc.*"
+      - "v*-alpha.*"
+      - "v*-beta.*"
+      - "v*-rc.*"
 
 jobs:
   release:
@@ -21,28 +20,11 @@ jobs:
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Bundle json spec
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t json -o ./deploy/beacon-node-oapi.json"
-      - name: Update index.html
-        run: |
-          sed -i "/urls:/a \          {url: \"./releases/${{ github.ref_name }}/beacon-node-oapi.json\", name: \"${{ github.ref_name }}\"}," ./index.html
-      - name: Update Changelog
-        run: |
-          sed -i "s/## Development Version/## ${{ github.ref_name }}/" ./CHANGES.md
-          awk '/# Recent Changes/ {print; print ""; system("cat .github/changes-template.md"); next}1' CHANGES.md > temp && mv temp CHANGES.md
       - name: Create Release Notes
         run: |
           echo "The following changes are included in this release:" > release-notes.md
-          awk '/^## ${{ github.ref_name }}/ {flag=1; next} /^## / {flag=0} flag { \
+          awk '/^## Development Version/ {flag=1; next} /^## / {flag=0} flag { \
           if ($0 ~ /\| \[#/) {sub(/^\| /, "- "); sub(/\| .*$/, ""); sub(/[[:space:]]+$/, ""); print}}' CHANGES.md >> release-notes.md
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Release ${{ github.ref_name }}"
-          branch: release-${{ github.ref_name }}
-          title: "Release ${{ github.ref_name }}"
-          body-path: "release-notes.md"
-          base: master
-          add-paths: index.html,CHANGES.md
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
@@ -53,7 +35,7 @@ jobs:
           tag_name: ${{ github.ref_name }}
           body_path: "release-notes.md"
           draft: false
-          prerelease: false
+          prerelease: true
           files: |
             ./deploy/beacon-node-oapi.yaml
             ./deploy/beacon-node-oapi.json

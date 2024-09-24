@@ -127,7 +127,7 @@ Blob:
   type: string
   format: hex
   pattern: "^0x[a-fA-F0-9]{262144}$"
-  description: "A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a SSZ-encoded Blob as defined in Deneb"
+  description: "A blob is `FIELD_ELEMENTS_PER_BLOB * size_of(BLSFieldElement) = 4096 * 32 = 131072` bytes (`DATA`) representing a Blob as defined in Deneb"
 
 KZGCommitment:
   type: string

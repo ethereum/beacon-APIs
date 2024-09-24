@@ -1,0 +1,27 @@
+Electra:
+  ConsolidationRequest:
+    type: object
+    description: "The [`ConsolidationRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#consolidationrequest) object from the CL Electra spec."
+    required: [source_address, source_pubkey, target_pubkey]
+    properties:
+      source_address:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+        description: "Execution address which sent the request."
+      source_pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+        description: "BLS public key of validator to consolidate from."
+      target_pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+        description: "BLS public key of validator to consolidate to."
+
+  PendingConsolidation:
+    type: object
+    description: "The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec."
+    required: [source_index, target_index]
+    properties:
+      source_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of validator to consolidate from."
+      target_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of validator to consolidate to."

@@ -1,6 +1,7 @@
 get:
   operationId: getBlockAttestations
   summary: Get block attestations
+  deprecated: true
   description: Retrieves attestation included in requested block.
   tags:
     - Beacon
