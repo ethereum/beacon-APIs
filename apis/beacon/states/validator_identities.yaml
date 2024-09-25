@@ -1,0 +1,71 @@
+post:
+  operationId: "postStateValidatorIdentities"
+  summary: "Get validator identities from state"
+  description: |
+    Returns filterable list of validators identities.
+
+    Identities will be returned for all indices or public keys that match known validators. If an index or public key does not
+    match any known validator, no identity will be returned but this will not cause an error. There are no guarantees for the
+    returned data in terms of ordering.
+
+     Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  requestBody:
+    description: "An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index."
+    required: false
+    content:
+      application/json:
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+            type: string
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: PostStateValidatorIdentitiesResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorIdentityResponse'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized results. Use Accept header to choose this response type"
+    "400":
+      description: "Invalid state ID or malformed request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
