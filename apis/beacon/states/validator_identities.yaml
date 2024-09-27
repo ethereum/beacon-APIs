@@ -7,8 +7,6 @@ post:
     Identities will be returned for all indices or public keys that match known validators. If an index or public key does not
     match any known validator, no identity will be returned but this will not cause an error. There are no guarantees for the
     returned data in terms of ordering.
-
-     Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:

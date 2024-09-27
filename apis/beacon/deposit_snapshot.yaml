@@ -3,7 +3,6 @@
     summary: "Get Deposit Tree Snapshot"
     description: |
       Retrieve [EIP-4881](https://eips.ethereum.org/EIPS/eip-4881) Deposit Tree Snapshot.
-      Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
     tags:
       - Beacon
     responses:
