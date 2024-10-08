@@ -49,7 +49,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix, capella, deneb ]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "bellatrix"
               data:
                 anyOf:
@@ -58,6 +58,7 @@ get:
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlindedBeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
@@ -72,6 +73,8 @@ get:
               value:
                 code: 400
                 message: "Invalid request to produce a block"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

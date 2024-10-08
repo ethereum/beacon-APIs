@@ -39,7 +39,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "deneb"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -68,5 +68,7 @@ get:
           example:
             code: 404
             message: "Block not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

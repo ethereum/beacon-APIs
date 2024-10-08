@@ -53,18 +53,17 @@ get:
         Servers must support the following values of the boost factor which encode common
         preferences:
 
-        * `builder_boost_factor=0`: prefer the execution node payload unless an error makes it
+        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes it
           unviable.
-        * `builder_boost_factor=100`: default profit maximization mode; choose whichever
+        * `builder_boost_factor=100`: profit maximization mode; choose whichever
           payload pays more.
-        * `builder_boost_factor=2**64 - 1`: prefer the builder payload unless an error or
+        * `builder_boost_factor=2**64 - 1`: prefer the external builder payload unless an error or
           beacon node health check makes it unviable.
 
         Servers should use saturating arithmetic or another technique to ensure that large values of
         the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
         provided and the beacon node is not configured with a builder then the beacon node MUST
-        respond with a full block, which the caller can choose to reject if it wishes. If this
-        parameter is **not** provided then it should be treated as having the default value of 100.
+        respond with a full block, which the caller can choose to reject if it wishes.
         If the value is provided but out of range for a 64-bit unsigned integer, then an error
         response with status code 400 MUST be returned.
       schema:
@@ -90,7 +89,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [ phase0, altair, bellatrix, capella, deneb ]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "phase0"
               execution_payload_blinded:
                 type: boolean
@@ -111,6 +110,8 @@ get:
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlockContents"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlindedBeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`."
@@ -125,6 +126,8 @@ get:
               value:
                 code: 400
                 message: "Invalid request to produce a block"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
