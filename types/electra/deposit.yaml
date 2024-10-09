@@ -37,4 +37,4 @@ Electra:
         $ref: "../primitive.yaml#/Signature"
       slot:
         $ref: "../primitive.yaml#/Uint64"
-        description: "The slot at which the deposit request was processed"
+        description: "The slot at which the deposit request was processed."
