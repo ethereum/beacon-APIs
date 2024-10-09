@@ -21,15 +21,15 @@ Electra:
     required: [committee_index, attester_index, data, signature]
     properties:
       committee_index:
-        $ref: "./primitive.yaml#/Uint64"
+        $ref: "../primitive.yaml#/Uint64"
         description: "The attestations committee index."
       attester_index:
-        $ref: "./primitive.yaml#/Uint64"
+        $ref: "../primitive.yaml#/Uint64"
         description: "The validator index that signed this attestation."
       data:
-        $ref: './attestation_data.yaml#/AttestationData'
+        $ref: '../attestation_data.yaml#/AttestationData'
       signature:
-        $ref: './primitive.yaml#/Signature'
+        $ref: '../primitive.yaml#/Signature'
         description: "BLS aggregate signature."
   Attestation:
     type: object
