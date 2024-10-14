@@ -19,14 +19,22 @@ Electra:
         $ref: "../primitive.yaml#/Uint64"
         description: "The index of the deposit request."
 
-  PendingBalanceDeposit:
+  PendingDeposit:
     type: object
-    description: "The [`PendingBalanceDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#pendingbalancedeposit) object from the CL Electra spec."
-    required: [index, amount]
+    description: "The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.8/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec."
+    required: [pubkey, withdrawal_credentials, amount, signature, slot]
     properties:
-      index:
-        $ref: "../primitive.yaml#/Uint64"
-        description: "Index of validator in validator registry."
+      pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+        description: "BLS public key of validator."
+      withdrawal_credentials:
+        $ref: "../primitive.yaml#/Root"
+        description: "The withdrawal credentials."
       amount:
         $ref: "../primitive.yaml#/Gwei"
         description: "The value to be deposited (gwei)."
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+      slot:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "The slot at which the deposit request was processed."
