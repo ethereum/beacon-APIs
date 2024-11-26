@@ -409,6 +409,8 @@ components:
       $ref: './types/electra/block.yaml#/Electra/SignedBlindedBeaconBlock'
     Electra.Attestation:
       $ref: './types/electra/attestation.yaml#/Electra/Attestation'
+    Electra.SingleAttestation:
+      $ref: './types/electra/attestation.yaml#/Electra/SingleAttestation'
     Electra.AttesterSlashing:
       $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     Electra.SignedAggregateAndProof:
