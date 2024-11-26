@@ -56,7 +56,7 @@ post:
   operationId: submitPoolAttestationsV2
   summary: Submit Attestation objects to node
   description: |
-    Submits Attestation objects to the node. Each attestation in the request body is processed individually.
+    Submits attestations to the node. Each attestation in the request body is processed individually.
     
     If an attestation is validated successfully, the node MUST publish that attestation on the appropriate subnet.
 
@@ -82,7 +82,7 @@ post:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
             - type: array
               items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on the appropriate subnet
