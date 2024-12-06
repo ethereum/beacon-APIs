@@ -95,7 +95,7 @@ Bytes:
   format: hex
   description: "An arbitrary-length sequence of bytes"
   example: "0x02a94f5374fce5edbc8e2a8697c15331677e6ebf0b85103a5617937691dfeeb89b86a80d5dc9e3c9d3a1a0e7ce311e26e0bb732eabaa47ffa288f0d54de28209a62a7d29d098daeed734da114470da559bd4b4c7259e1f7952555241dcbc90cf194a2ef676fc6005f3672fada2a3645edb297a7553"
-  pattern: "^0x[a-fA-F0-9]{2,}$"
+  pattern: "^0x([0-9a-fA-F][0-9a-fA-F])+$"
 
 Uint8:
   type: string
