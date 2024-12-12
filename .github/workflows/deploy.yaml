@@ -27,9 +27,9 @@ jobs:
           file: "beacon-node-oapi.json"
           target: "deploy/releases/${{ matrix.release }}/beacon-node-oapi.json"
       - name: Save releases (artifact)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: releases
+          name: releases-${{ matrix.release }}
           retention-days: 7
           path: |
             deploy/releases
@@ -48,10 +48,11 @@ jobs:
           cp index.html ./deploy
           cp validator-flow.md ./deploy
       - name: Restore releases
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: releases
           path: deploy/releases
+          pattern: releases-*
+          merge-multiple: true
       - name: Bundle spec
         run: "swagger-cli bundle ./beacon-node-oapi.yaml -r -t yaml -o ./deploy/beacon-node-oapi.yaml"
       - name: Publish to Github Pages
