@@ -27,7 +27,7 @@ jobs:
           file: "beacon-node-oapi.json"
           target: "deploy/releases/${{ matrix.release }}/beacon-node-oapi.json"
       - name: Save releases (artifact)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: releases
           retention-days: 7
@@ -48,7 +48,7 @@ jobs:
           cp index.html ./deploy
           cp validator-flow.md ./deploy
       - name: Restore releases
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: releases
           path: deploy/releases
