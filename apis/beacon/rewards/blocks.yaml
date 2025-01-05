@@ -2,9 +2,9 @@ get:
   operationId: getBlockRewards
   summary: Get block rewards
   description: |
-    Retrieve block reward info for a single block. This reward consists of the reward
-    accruing specifically to the block proposer in its proposer role, rather than any
-    other roles it might additionally have in that block.
+    Retrieve block reward info for a single block. The rewards value is the sum
+    of values of the proposer rewards from attestations, sync committees and
+    slashings included in the proposal.
   tags:
     - Beacon
     - Rewards
