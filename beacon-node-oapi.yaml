@@ -178,6 +178,8 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
+  /eth/v1/validator/duties/inclusion_list/{epoch}:
+    $ref: "./apis/validator/duties/inclusion_list.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
@@ -204,7 +206,8 @@ paths:
     $ref: "./apis/validator/register_validator.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
-
+  /eth/v1/validator/inclusion_list:
+    $ref: "./apis/validator/inclusion_lists.yaml"
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
 
@@ -229,6 +232,8 @@ components:
       $ref: './types/duty.yaml#/ProposerDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
+    Focil.InclusionListDuty:
+      $ref: './types/validator.yaml#/Focil/InclusionListDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -425,6 +430,10 @@ components:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
     Fulu.DataColumnSidecars:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
+    Focil.InclusionLists:
+      $ref: './types/focil/inclusion_list.yaml#/Focil/InclusionLists'
+    Focil.SignedInclusionList:
+      $ref: './types/focil/inclusion_list.yaml#/Focil/SignedInclusionList'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
