@@ -1,0 +1,56 @@
+post:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  summary: "Get inclusion list committee duties"
+  operationId: "getInclusionListCommitteeDuties"
+  description: "Requests the beacon node to provide a set of inclusion list committee duties for a particular epoch."
+  parameters:
+    - name: epoch
+      description: "Should only be allowed 1 epoch ahead"
+      in: path
+      required: true
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  requestBody:
+    description: "An array of the validator indices for which to obtain the duties."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: GetInclusionListCommitteeDutiesBody
+          type: array
+          minItems: 1
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: Success response
+      content:
+        application/json:
+          schema:
+            title: GetInclusionListCommitteeDutiesResponse
+            type: object
+            required: [dependent_root, execution_optimistic, data]
+            properties:
+              dependent_root:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Focil.InclusionListDuty'
+    "400":
+      description: "Invalid epoch or index"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid epoch: -2"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
