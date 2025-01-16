@@ -1,10 +1,4 @@
 Focil:
-  InclusionLists:
-    type: array
-    items:
-      $ref: '#/Focil/InclusionList'
-    minItems: 1
-
   SignedInclusionList:
     type: object
     description: "The [`SignedInclusionList`](https://github.com/ethereum/consensus-specs/blob/702b9e5c320d5e35bc49d45f07bfc0db7565ec88/specs/_features/eip7805/beacon-chain.md#signedinclusionlist) object from the CL spec."

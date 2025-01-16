@@ -207,7 +207,7 @@ paths:
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/inclusion_list:
-    $ref: "./apis/validator/inclusion_lists.yaml"
+    $ref: "./apis/validator/inclusion_list.yaml"
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
 
@@ -430,8 +430,8 @@ components:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
     Fulu.DataColumnSidecars:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
-    Focil.InclusionLists:
-      $ref: './types/focil/inclusion_list.yaml#/Focil/InclusionLists'
+    Focil.InclusionList:
+      $ref: './types/focil/inclusion_list.yaml#/Focil/InclusionList'
     Focil.SignedInclusionList:
       $ref: './types/focil/inclusion_list.yaml#/Focil/SignedInclusionList'
     Node:

@@ -2,9 +2,9 @@ get:
   tags:
     - ValidatorRequiredApi
     - Validator
-  operationId: "produceInclusionLists"
-  summary: "Produce inclusion lists"
-  description: Requests that the beacon node produce multiple InclusionList.
+  operationId: "produceInclusionList"
+  summary: "Produce an inclusion list"
+  description: Requests that the beacon node produce an InclusionList.
   parameters:
     - name: slot
       in: query
@@ -12,15 +12,6 @@ get:
       description: "The slot for which an inclusion list should be created."
       schema:
         $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
-    - name: validator_indices
-      in: query
-      description: "Array of validator indices for which inclusion lists should be created."
-      required: true
-      schema:
-        type: array
-        uniqueItems: true
-        items:
-          $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
       description: Success response
@@ -32,7 +23,7 @@ get:
             required: [data]
             properties:
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Focil.InclusionLists'
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Focil.InclusionList'
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "500":
@@ -44,17 +35,19 @@ post:
   tags:
     - ValidatorRequiredApi
     - Validator
-  operationId: "publishInclusionLists"
-  summary: "Publish multiple inclusion lists"
-  description: "Verifies given inclusion lists and publishes them on appropriate gossipsub topic."
+  operationId: "publishInclusionList"
+  summary: "Publish an inclusion list"
+  description: "Verifies given an inclusion list and publishes them on appropriate gossipsub topic."
   requestBody:
     required: true
     content:
       application/json:
         schema:
-          type: array
-          items:
-            $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedInclusionList'
+          type: object
+          required: [data]
+          properties:
+            data:
+              $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedInclusionList'
   responses:
     "200":
       description: "Successful response"
