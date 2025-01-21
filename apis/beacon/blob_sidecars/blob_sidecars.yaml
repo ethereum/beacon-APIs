@@ -35,7 +35,7 @@ get:
           schema:
             title: GetBlobSidecarsResponse
             type: object
-            required: [data]
+            required: [version, execution_optimistic, finalized, data]
             properties:
               version:
                 type: string
@@ -46,7 +46,9 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
+                anyOf:
+                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
+                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.BlobSidecars"
         application/octet-stream:
           schema:
             description: "SSZ serialized `BlobSidecars` bytes. Use Accept header to choose this response type"

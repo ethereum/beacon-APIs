@@ -427,6 +427,8 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate'
     Electra.LightClientOptimisticUpdate:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
+    Electra.BlobSidecars:
+      $ref: './types/electra/blob_sidecar.yaml#/Electra/BlobSidecars'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
