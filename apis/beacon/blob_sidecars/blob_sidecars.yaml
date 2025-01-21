@@ -1,6 +1,6 @@
 get:
   operationId: getBlobSidecars
-  summary: Get blob sidecars  
+  summary: Get blob sidecars
   description: |
     Retrieves blob sidecars for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
@@ -13,7 +13,7 @@ get:
     - name: block_id
       in: path
       required: true
-      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
     - name: indices
       in: query
       description: Array of indices for blob sidecars to request for in the specified block. Returns all blob sidecars in the block if not specified.
@@ -22,7 +22,7 @@ get:
         type: array
         uniqueItems: true
         items:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: "Successful response"
@@ -46,8 +46,8 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
-                 - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.BlobSidecars"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.BlobSidecars"
         application/octet-stream:
           schema:
             description: "SSZ serialized `BlobSidecars` bytes. Use Accept header to choose this response type"
