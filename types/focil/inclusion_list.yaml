@@ -1,14 +1,4 @@
 Focil:
-  SignedInclusionList:
-    type: object
-    description: "The [`SignedInclusionList`](https://github.com/ethereum/consensus-specs/blob/702b9e5c320d5e35bc49d45f07bfc0db7565ec88/specs/_features/eip7805/beacon-chain.md#signedinclusionlist) object from the CL spec."
-    required: [message, signature]
-    properties:
-      message:
-        $ref: "#/Focil/InclusionList"
-      signature:
-        $ref: '../primitive.yaml#/Signature'
-
   InclusionList:
     type: object
     description: "The [`InclusionList`](https://github.com/ethereum/consensus-specs/blob/702b9e5c320d5e35bc49d45f07bfc0db7565ec88/specs/_features/eip7805/beacon-chain.md#inclusionlist) object from the CL spec."
@@ -19,6 +9,16 @@ Focil:
       validator_index:
         $ref: "../primitive.yaml#/Uint64"
       inclusion_list_committee_root:
-        $ref: '../primitive.yaml#/Root'
+        $ref: "../primitive.yaml#/Root"
       transactions:
-        $ref: '../bellatrix/transactions.yaml#/Bellatrix/Transactions'
+        $ref: "../bellatrix/transactions.yaml#/Bellatrix/Transactions"
+
+  SignedInclusionList:
+    type: object
+    description: "The [`SignedInclusionList`](https://github.com/ethereum/consensus-specs/blob/702b9e5c320d5e35bc49d45f07bfc0db7565ec88/specs/_features/eip7805/beacon-chain.md#signedinclusionlist) object from the CL spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Focil/InclusionList"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
