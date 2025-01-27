@@ -37,4 +37,5 @@ KZGProofs
 KZGCommitmentInclusionProof
 LMD
 fulu
+EIPs
 focil
