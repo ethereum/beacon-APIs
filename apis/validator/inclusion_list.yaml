@@ -4,7 +4,7 @@ get:
     - Validator
   operationId: "produceInclusionList"
   summary: "Produce an inclusion list"
-  description: Requests that the beacon node produce an InclusionList.
+  description: Requests the beacon node to produce an inclusion list.
   parameters:
     - name: slot
       in: query
@@ -37,7 +37,7 @@ post:
     - Validator
   operationId: "publishInclusionList"
   summary: "Publish an inclusion list"
-  description: "Verifies given an inclusion list and publishes them on appropriate gossipsub topic."
+  description: "Verifies given inclusion list and publishes it on appropriate gossipsub topic."
   requestBody:
     required: true
     content:
