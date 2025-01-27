@@ -1,7 +1,6 @@
 post:
   tags:
-    - ValidatorRequiredApi
-    - Validator
+    - Experimental
   summary: "Get inclusion list committee duties"
   operationId: "getInclusionListCommitteeDuties"
   description:

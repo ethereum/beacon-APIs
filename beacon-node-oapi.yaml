@@ -62,6 +62,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: Experimental
+    description: Endpoints associated with new EIPs that are not yet included in a hard fork.
 
 paths:
 
@@ -208,6 +210,7 @@ paths:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/inclusion_list:
     $ref: "./apis/validator/inclusion_list.yaml"
+
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
 
