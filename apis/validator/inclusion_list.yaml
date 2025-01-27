@@ -1,6 +1,6 @@
 get:
   tags:
-    - Experimental
+    - Draft
   operationId: "produceInclusionList"
   summary: "Produce an inclusion list"
   description: Requests the beacon node to produce an inclusion list.
@@ -39,7 +39,7 @@ get:
 
 post:
   tags:
-    - Experimental
+    - Draft
   operationId: "publishInclusionList"
   summary: "Publish an inclusion list"
   description: "Verifies given inclusion list and publishes it on appropriate gossipsub topic."
