@@ -15,13 +15,20 @@ get:
   responses:
     "200":
       description: Success response
+      headers:
+        Eth-Consensus-Version:
+          $ref: "../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
       content:
         application/json:
           schema:
             title: ProduceInclusionListResponse
             type: object
-            required: [data]
+            required: [version, data]
             properties:
+              version:
+                type: string
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, focil]
+                example: "focil"
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Focil.InclusionList"
     "400":
@@ -38,6 +45,13 @@ post:
   operationId: "publishInclusionList"
   summary: "Publish an inclusion list"
   description: "Verifies given inclusion list and publishes it on appropriate gossipsub topic."
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the inclusion list being submitted belongs."
   requestBody:
     required: true
     content:
