@@ -337,6 +337,8 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
+    Bellatrix.Transactions:
+      $ref: './types/bellatrix/transactions.yaml#/Bellatrix/Transactions'
     ConsensusVersion:
       type: string
       enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
