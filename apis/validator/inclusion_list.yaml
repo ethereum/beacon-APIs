@@ -14,20 +14,13 @@ get:
   responses:
     "200":
       description: Success response
-      headers:
-        Eth-Consensus-Version:
-          $ref: "../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
       content:
         application/json:
           schema:
             title: ProduceInclusionListResponse
             type: object
-            required: [version, data]
+            required: [data]
             properties:
-              version:
-                type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, focil]
-                example: "focil"
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.Transactions"
     "400":
