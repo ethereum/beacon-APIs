@@ -1,4 +1,4 @@
-Electra:  
+Electra:
   WithdrawalRequest:
     type: object
     description: "The [`WithdrawalRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#withdrawalrequest) object from the CL Electra spec."
@@ -17,9 +17,9 @@ Electra:
   PendingPartialWithdrawal:
     type: object
     description: "The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec."
-    required: [index, amount, withdrawable_epoch]
+    required: [validator_index, amount, withdrawable_epoch]
     properties:
-      index:
+      validator_index:
         $ref: "../primitive.yaml#/Uint64"
         description: "Index of validator in validator registry."
       amount:
