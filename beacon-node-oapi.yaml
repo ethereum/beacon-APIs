@@ -81,6 +81,8 @@ paths:
     $ref: "./apis/beacon/states/validator.yaml"
   /eth/v1/beacon/states/{state_id}/validator_balances:
     $ref: "./apis/beacon/states/validator_balances.yaml"
+  /eth/v1/beacon/states/{state_id}/validator_identities:
+    $ref: "./apis/beacon/states/validator_identities.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
@@ -182,12 +184,8 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
-  /eth/v2/validator/blocks/{slot}:
-    $ref: "./apis/validator/block.v2.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
-  /eth/v1/validator/blinded_blocks/{slot}:
-    $ref: "./apis/validator/blinded_block.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/aggregate_attestation:
@@ -239,6 +237,8 @@ components:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorBalanceResponse:
       $ref: './types/api.yaml#/ValidatorBalanceResponse'
+    ValidatorIdentityResponse:
+      $ref: './types/api.yaml#/ValidatorIdentityResponse'
     ValidatorStatus:
       $ref: './types/api.yaml#/ValidatorStatus'
     Committee:
@@ -409,6 +409,8 @@ components:
       $ref: './types/electra/block.yaml#/Electra/SignedBlindedBeaconBlock'
     Electra.Attestation:
       $ref: './types/electra/attestation.yaml#/Electra/Attestation'
+    Electra.SingleAttestation:
+      $ref: './types/electra/attestation.yaml#/Electra/SingleAttestation'
     Electra.AttesterSlashing:
       $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     Electra.SignedAggregateAndProof:
@@ -480,8 +482,11 @@ components:
         $ref: './types/primitive.yaml#/Wei'
     Eth-Consensus-Block-Value:
       description: |
-        Consensus rewards paid to the proposer for this block, in Wei. Required in response so
-        client can determine relative value of consensus blocks.
+        Consensus rewards for this block in Wei paid to the proposer. The
+        rewards value is the sum of values of the proposer rewards from
+        attestations, sync committees and slashings included in the proposal.
+        Required in response so client can determine relative value of
+        consensus blocks.
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'

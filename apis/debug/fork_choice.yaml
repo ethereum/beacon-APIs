@@ -13,7 +13,7 @@ get:
             title: GetForkChoiceResponse
             type: object
             description: "Debugging context of fork choice"
-            required: [justified_checkpoint, finalized_checkpoint]
+            required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes]
             properties:
               justified_checkpoint:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
