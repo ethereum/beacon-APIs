@@ -22,6 +22,8 @@ The Following are no longer in the Standard API, removed since the latest versio
 
 | Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#466](https://github.com/ethereum/beacon-APIs/pull/466) `GET /eth/v2/validator/blocks/{slot}` removed        |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#466](https://github.com/ethereum/beacon-APIs/pull/466) `GET /eth/v1/validator/blinded_blocks/{slot}` removed        |                                                  |                                                  |                                                    |                                                 |                                           |
 
 
 ## v2.5.0
