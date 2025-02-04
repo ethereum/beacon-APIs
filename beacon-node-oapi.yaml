@@ -235,8 +235,8 @@ components:
       $ref: './types/duty.yaml#/ProposerDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
-    Focil.InclusionListDuty:
-      $ref: './types/validator.yaml#/Focil/InclusionListDuty'
+    EIP7805.InclusionListDuty:
+      $ref: './types/validator.yaml#/EIP7805/InclusionListDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -435,10 +435,10 @@ components:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
     Fulu.DataColumnSidecars:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
-    Focil.InclusionList:
-      $ref: './types/focil/inclusion_list.yaml#/Focil/InclusionList'
-    Focil.SignedInclusionList:
-      $ref: './types/focil/inclusion_list.yaml#/Focil/SignedInclusionList'
+    EIP7805.InclusionList:
+      $ref: './types/eip7805/inclusion_list.yaml#/EIP7805/InclusionList'
+    EIP7805.SignedInclusionList:
+      $ref: './types/eip7805/inclusion_list.yaml#/EIP7805/SignedInclusionList'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

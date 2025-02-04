@@ -1,4 +1,4 @@
-Focil:
+EIP7805:
   InclusionList:
     type: object
     description: "The [`InclusionList`](https://github.com/ethereum/consensus-specs/blob/702b9e5c320d5e35bc49d45f07bfc0db7565ec88/specs/_features/eip7805/beacon-chain.md#inclusionlist) object from the CL spec."
@@ -19,6 +19,6 @@ Focil:
     required: [message, signature]
     properties:
       message:
-        $ref: "#/Focil/InclusionList"
+        $ref: "#/EIP7805/InclusionList"
       signature:
         $ref: "../primitive.yaml#/Signature"
