@@ -63,7 +63,7 @@ tags:
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
   - name: EIP-7805
-    description: Endpoints required for EIP-7805 Fork-choice enforced Inclusion Lists (FOCIL)
+    description: "Endpoints required for EIP-7805: Fork-choice enforced Inclusion Lists (FOCIL)"
 
 paths:
 
