@@ -55,7 +55,7 @@ post:
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Focil.InclusionListDuty"
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/EIP7805.InclusionListDuty"
     "400":
       description: "Invalid epoch or index"
       content:

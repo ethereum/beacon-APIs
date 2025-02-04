@@ -52,7 +52,7 @@ post:
           required: [data]
           properties:
             data:
-              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Focil.SignedInclusionList"
+              $ref: "../../beacon-node-oapi.yaml#/components/schemas/EIP7805.SignedInclusionList"
   responses:
     "200":
       description: "Successful response"
