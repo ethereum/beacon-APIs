@@ -62,8 +62,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
-  - name: Draft
-    description: Endpoints associated with new EIPs that are not yet included in a hard fork.
+  - name: EIP-7805
+    description: Endpoints required for EIP-7805 Fork-choice enforced Inclusion Lists (FOCIL)
 
 paths:
 
