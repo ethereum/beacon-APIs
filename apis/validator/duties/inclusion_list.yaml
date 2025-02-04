@@ -1,6 +1,6 @@
 post:
   tags:
-    - Draft
+    - EIP-7805
   summary: "Get inclusion list committee duties"
   operationId: "getInclusionListCommitteeDuties"
   description:
