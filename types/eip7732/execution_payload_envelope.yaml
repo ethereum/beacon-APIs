@@ -1,0 +1,31 @@
+ExecutionPayloadEnvelope:
+  type: object
+  description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/dev/specs/_features/eip7732/beacon-chain.md#executionpayloadenvelope) object from the CL eip7732 spec."
+  required: [payload, execution_requests, builder_index, beacon_block_root, slot, blob_kzg_commitments, state_root]
+  properties:
+    payload:
+      $ref: '../execution_payload.yaml#/Deneb/ExecutionPayload'
+    execution_requests:
+      $ref: '../execution_requests.yaml#/Electra/ExecutionRequests'
+    builder_index:
+      $ref: '../primitive.yaml#/Uint64'
+    beacon_block_root:
+      $ref: '../primitive.yaml#/Root'
+    slot:
+      $ref: '../primitive.yaml#/Uint64'
+    blob_kzg_commitments:
+      type: array
+      items:
+        $ref: '../primitive.yaml#/KZGCommitment'
+    state_root:
+      $ref: '../primitive.yaml#/Root'
+
+SignedExecutionPayloadEnvelope:
+  type: object
+  description: "The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/dev/specs/_features/eip7732/beacon-chain.md#signedexecutionpayloadenvelope) object envelope from the CL eip7732 spec."
+  required: [message, signature]
+  properties:
+    message:
+      $ref: '#/ExecutionPayloadEnvelope'
+    signature:
+      $ref: '../primitive.yaml#/Signature'

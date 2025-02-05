@@ -36,3 +36,4 @@ KZGProof
 KZGProofs
 KZGCommitmentInclusionProof
 LMD
+eip7732
