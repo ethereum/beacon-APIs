@@ -33,7 +33,7 @@ get:
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
                 example: "phase0"
               data:
-                anyOf:
+                oneOf:
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
@@ -61,6 +61,8 @@ post:
     If an attestation is validated successfully, the node MUST publish that attestation on the appropriate subnet.
 
     If one or more attestations fail validation, the node MUST return a 400 error with details of which attestations have failed, and why.
+
+    Prior to the Electra hard fork, this endpoint MUST be sent Attestation objects only.  At and after the Electra hard fork, this endpoint MUST be sent SingleAttestation objects only.
   parameters:
     - in: header
       schema:
