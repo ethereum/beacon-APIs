@@ -4,9 +4,9 @@ ExecutionPayloadEnvelope:
   required: [payload, execution_requests, builder_index, beacon_block_root, slot, blob_kzg_commitments, state_root]
   properties:
     payload:
-      $ref: '../execution_payload.yaml#/Deneb/ExecutionPayload'
+      $ref: '../deneb/execution_payload.yaml#/Deneb/ExecutionPayload'
     execution_requests:
-      $ref: '../execution_requests.yaml#/Electra/ExecutionRequests'
+      $ref: '../electra/execution_requests.yaml#/Electra/ExecutionRequests'
     builder_index:
       $ref: '../primitive.yaml#/Uint64'
     beacon_block_root:
