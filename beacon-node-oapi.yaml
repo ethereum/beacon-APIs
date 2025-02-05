@@ -111,7 +111,7 @@ paths:
     $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
-  /eth/v1/beacon/execution_payload/{block_id}/fork:
+  /eth/v1/beacon/execution_payload/{block_id}:
     $ref: "./apis/beacon/execution_payloads/execution_payload.yaml" 
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
@@ -426,9 +426,9 @@ components:
     Electra.LightClientOptimisticUpdate:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Eip7732.ExecutionPayloadEnvelope:
-      $ref: './types/eip7732/execution_payload.yaml#/ExecutionPayloadEnvelope'
+      $ref: './types/eip7732/execution_payload_envelope.yaml#/ExecutionPayloadEnvelope'
     Eip7732.SignedExecutionPayloadEnvelope:
-      $ref: './types/eip7732/execution_payload.yaml#/SignedExecutionPayloadEnvelope'
+      $ref: './types/eip7732/execution_payload_envelope.yaml#/SignedExecutionPayloadEnvelope'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
