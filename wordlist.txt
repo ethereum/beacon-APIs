@@ -36,3 +36,6 @@ KZGProof
 KZGProofs
 KZGCommitmentInclusionProof
 LMD
+EIPs
+FOCIL
+eip7805
