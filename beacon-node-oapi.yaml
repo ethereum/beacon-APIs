@@ -64,6 +64,10 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: EIP-7732
+    description: Set of endpoints specific to EIP-7732 (ePBS).
+  - name: Draft
+    description: Draft endpoints which are used for testing and prototyping.     
 
 paths:
 
