@@ -429,10 +429,12 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate'
     Electra.LightClientOptimisticUpdate:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
+    Electra.BlobSidecars:
+      $ref: './types/electra/blob_sidecar.yaml#/Electra/BlobSidecars'
     Eip7732.ExecutionPayloadEnvelope:
       $ref: './types/eip7732/execution_payload_envelope.yaml#/ExecutionPayloadEnvelope'
     Eip7732.SignedExecutionPayloadEnvelope:
-      $ref: './types/eip7732/execution_payload_envelope.yaml#/SignedExecutionPayloadEnvelope'
+      $ref: './types/eip7732/execution_payload_envelope.yaml#/SignedExecutionPayloadEnvelope'     
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
