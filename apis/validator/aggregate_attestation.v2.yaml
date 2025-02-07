@@ -49,7 +49,7 @@ get:
                 example: "phase0"
               data:
                 anyOf:
-                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'

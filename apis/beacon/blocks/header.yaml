@@ -32,7 +32,7 @@ get:
                   canonical:
                     type: boolean
                   header:
-                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlockHeader"
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlockHeader"
     "400":
       description: "The block ID supplied could not be parsed"
       content:

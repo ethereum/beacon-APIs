@@ -13,7 +13,7 @@ Capella:
       fork:
         $ref: "../misc.yaml#/Fork"
       latest_block_header:
-        $ref: "../block.yaml#/BeaconBlockHeader"
+        $ref: "../phase0/block.yaml#/Phase0/BeaconBlockHeader"
       block_roots:
         type: array
         description: "Fixed length of 8192 items"
@@ -30,12 +30,12 @@ Capella:
         items:
           $ref: '../primitive.yaml#/Root'
       eth1_data:
-        $ref: "../eth1.yaml#/Eth1Data"
+        $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
       eth1_data_votes:
         type: array
         description: "Fixed length of 1024 items"
         items:
-          $ref: '../eth1.yaml#/Eth1Data'
+          $ref: '../phase0/eth1.yaml#/Phase0/Eth1Data'
         maxItems: 1024
       eth1_deposit_index:
         $ref: "../primitive.yaml#/Uint64"
@@ -43,7 +43,7 @@ Capella:
         type: array
         description: "Variable length list, maximum 1099511627776 items"
         items:
-          $ref: '../validator.yaml#/Validator'
+          $ref: '../phase0/validator.yaml#/Phase0/Validator'
       balances:
         type: array
         description: "Validator balances in gwei. Variable length list, maximum 1099511627776 items"
