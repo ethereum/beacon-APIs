@@ -25,7 +25,7 @@ get:
                 anyOf:
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
@@ -51,7 +51,7 @@ post:
       application/json:
         schema:
           anyOf:
-           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
   responses:
     "200":

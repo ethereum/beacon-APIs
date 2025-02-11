@@ -1,9 +1,0 @@
-AttesterSlashing:
-  type: object
-  description: "The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attesterslashing) object from the CL spec."
-  required: [attestation_1, attestation_2]
-  properties:
-    attestation_1:
-      $ref: './attestation.yaml#/IndexedAttestation'
-    attestation_2:
-      $ref: './attestation.yaml#/IndexedAttestation'
