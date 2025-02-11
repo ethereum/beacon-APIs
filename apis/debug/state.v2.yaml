@@ -34,7 +34,7 @@ get:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/BeaconState'
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.BeaconState'
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconState"

@@ -102,7 +102,7 @@ get:
                 example: "12345"
               data:
                 anyOf:
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Phase0.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"

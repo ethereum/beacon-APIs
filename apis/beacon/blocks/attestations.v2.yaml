@@ -35,7 +35,7 @@ get:
                 anyOf:
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'

@@ -1,7 +1,7 @@
 Electra:
   DepositRequest:
     type: object
-    description: "The [`DepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.5/specs/electra/beacon-chain.md#depositrequest) object from the CL Electra spec."
+    description: "The [`DepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/beacon-chain.md#depositrequest) object from the CL Electra spec."
     required: [pubkey, withdrawal_credentials, amount, signature, index]
     properties:
       pubkey:
@@ -21,7 +21,7 @@ Electra:
 
   PendingDeposit:
     type: object
-    description: "The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.8/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec."
+    description: "The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec."
     required: [pubkey, withdrawal_credentials, amount, signature, slot]
     properties:
       pubkey:

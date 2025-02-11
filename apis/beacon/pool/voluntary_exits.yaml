@@ -17,7 +17,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedVoluntaryExit'
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedVoluntaryExit'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
@@ -32,7 +32,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedVoluntaryExit'
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedVoluntaryExit'
   responses:
     "200":
       description: Voluntary exit is stored in node and broadcasted to network

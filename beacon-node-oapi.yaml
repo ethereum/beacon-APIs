@@ -27,7 +27,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.4.0"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.5.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -221,18 +221,10 @@ paths:
 
 components:
   schemas:
-    BeaconState:
-      $ref: './types/state.yaml#/BeaconState'
-    BeaconBlock:
-      $ref: './types/block.yaml#/BeaconBlock'
     BroadcastValidation:
       $ref: './types/api.yaml#/BroadcastValidation'
     DepositSnapshotResponse:
       $ref: './types/api.yaml#/DepositSnapshotResponse'
-    SignedBeaconBlock:
-      $ref: './types/block.yaml#/SignedBeaconBlock'
-    SignedBeaconBlockHeader:
-      $ref: './types/block.yaml#/SignedBeaconBlockHeader'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorBalanceResponse:
@@ -243,26 +235,12 @@ components:
       $ref: './types/api.yaml#/ValidatorStatus'
     Committee:
       $ref: './types/api.yaml#/Committee'
-    AttesterSlashing:
-      $ref: './types/attester_slashing.yaml#/AttesterSlashing'
-    ProposerSlashing:
-      $ref: './types/proposer_slashing.yaml#/ProposerSlashing'
-    SignedVoluntaryExit:
-      $ref: './types/voluntary_exit.yaml#/SignedVoluntaryExit'
-    SignedBLSToExecutionChange:
-      $ref: './types/bls_to_execution_change.yaml#/SignedBLSToExecutionChange'
     AttesterDuty:
-      $ref: './types/validator.yaml#/AttesterDuty'
+      $ref: './types/duty.yaml#/AttesterDuty'
     ProposerDuty:
-      $ref: './types/validator.yaml#/ProposerDuty'
+      $ref: './types/duty.yaml#/ProposerDuty'
     Altair.SyncDuty:
-      $ref: './types/validator.yaml#/Altair/SyncDuty'
-    SignedAggregateAndProof:
-      $ref: './types/validator.yaml#/SignedAggregateAndProof'
-    Attestation:
-      $ref: './types/attestation.yaml#/Attestation'
-    AttestationData:
-      $ref: './types/attestation_data.yaml#/AttestationData'
+      $ref: './types/duty.yaml#/Altair/SyncDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -305,6 +283,26 @@ components:
       $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
       $ref: './types/http.yaml#/IndexedErrorMessage'
+    Phase0.BeaconState:
+      $ref: './types/phase0/state.yaml#/Phase0/BeaconState'
+    Phase0.BeaconBlock:
+      $ref: './types/phase0/block.yaml#/Phase0/BeaconBlock'
+    Phase0.SignedBeaconBlock:
+      $ref: './types/phase0/block.yaml#/Phase0/SignedBeaconBlock'
+    Phase0.SignedBeaconBlockHeader:
+      $ref: './types/phase0/block.yaml#/Phase0/SignedBeaconBlockHeader'
+    Phase0.AttesterSlashing:
+      $ref: './types/phase0/attester_slashing.yaml#/Phase0/AttesterSlashing'
+    Phase0.ProposerSlashing:
+      $ref: './types/phase0/proposer_slashing.yaml#/Phase0/ProposerSlashing'
+    Phase0.SignedVoluntaryExit:
+      $ref: './types/phase0/voluntary_exit.yaml#/Phase0/SignedVoluntaryExit'
+    Phase0.SignedAggregateAndProof:
+      $ref: './types/phase0/validator.yaml#/Phase0/SignedAggregateAndProof'
+    Phase0.Attestation:
+      $ref: './types/phase0/attestation.yaml#/Phase0/Attestation'
+    Phase0.AttestationData:
+      $ref: './types/phase0/attestation_data.yaml#/Phase0/AttestationData'
     Altair.BeaconBlock:
       $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.SignedBeaconBlock:
@@ -367,8 +365,10 @@ components:
       $ref: './types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate'
     Capella.LightClientOptimisticUpdate:
       $ref: './types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate'
+    Capella.SignedBLSToExecutionChange:
+      $ref: './types/capella/bls_to_execution_change.yaml#/Capella/SignedBLSToExecutionChange'
     Capella.Withdrawal:
-      $ref: './types/withdrawal.yaml#/Withdrawal'
+      $ref: './types/capella/withdrawal.yaml#/Capella/Withdrawal'
     Deneb.BeaconState:
       $ref: './types/deneb/state.yaml#/Deneb/BeaconState'
     Deneb.BeaconBlock:

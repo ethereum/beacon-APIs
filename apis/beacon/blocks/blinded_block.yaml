@@ -34,7 +34,7 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
