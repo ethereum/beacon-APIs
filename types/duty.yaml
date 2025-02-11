@@ -1,0 +1,54 @@
+AttesterDuty:
+  type: object
+  required: [pubkey, validator_index, committee_index, committee_length, committees_at_slot, validator_committee_index, slot]
+  properties:
+    pubkey:
+      $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry"
+    committee_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The committee index"
+    committee_length:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Number of validators in committee"
+    committees_at_slot:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Number of committees at the provided slot"
+    validator_committee_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in committee"
+    slot:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must attest."
+
+ProposerDuty:
+  type: object
+  required: [pubkey, validator_index, slot]
+  properties:
+    pubkey:
+      $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry."
+    slot:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must propose block."
+
+Altair:
+  SyncDuty:
+    type: object
+    required: [pubkey, validator_index, validator_sync_committee_indices]
+    properties:
+      pubkey:
+        $ref: './primitive.yaml#/Pubkey'
+      validator_index:
+        $ref: "./primitive.yaml#/Uint64"
+        description: "Index of validator in validator registry."
+      validator_sync_committee_indices:
+        type: array
+        description: "The indices of the validator in the sync committee."
+        minItems: 1
+        items:
+          $ref: './primitive.yaml#/Uint64'

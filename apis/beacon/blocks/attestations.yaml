@@ -28,7 +28,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
     "400":
       description: "The block ID supplied could not be parsed"
       content:

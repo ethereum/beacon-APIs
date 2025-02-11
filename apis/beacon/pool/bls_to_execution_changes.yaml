@@ -17,7 +17,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBLSToExecutionChange'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
@@ -34,7 +34,7 @@ post:
         schema:
           type: array
           items:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBLSToExecutionChange'
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBLSToExecutionChange'
   responses:
     "200":
       description: "BLS to execution changes were all stored to the pool and broadcast on the appropriate subnet."

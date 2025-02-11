@@ -12,7 +12,7 @@ Fork:
 
 Checkpoint:
   type: object
-  description: "The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint"
+  description: "The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec."
   required: [epoch, root]
   properties:
     epoch:

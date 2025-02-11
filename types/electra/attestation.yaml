@@ -11,7 +11,7 @@ Electra:
         items:
           $ref: "../primitive.yaml#/Uint64"
       data:
-        $ref: '../attestation_data.yaml#/AttestationData'
+        $ref: '../phase0/attestation_data.yaml#/Phase0/AttestationData'
       signature:
         $ref: '../primitive.yaml#/Signature'
         description: "The BLS signature of the `IndexedAttestation`, created by the validator of the attestation."
@@ -28,7 +28,7 @@ Electra:
         $ref: "../primitive.yaml#/Uint64"
         description: "The validator index that signed this attestation."
       data:
-        $ref: '../attestation_data.yaml#/AttestationData'
+        $ref: '../phase0/attestation_data.yaml#/Phase0/AttestationData'
       signature:
         $ref: '../primitive.yaml#/Signature'
         description: "BLS aggregate signature."
@@ -42,7 +42,7 @@ Electra:
         $ref: "../primitive.yaml#/BitList"
         description: "Attester aggregation bits."
       data:
-        $ref: "../attestation_data.yaml#/AttestationData"
+        $ref: "../phase0/attestation_data.yaml#/Phase0/AttestationData"
       signature:
         $ref: "../primitive.yaml#/Signature"
         description: "BLS aggregate signature."

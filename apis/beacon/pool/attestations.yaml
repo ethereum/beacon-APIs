@@ -29,7 +29,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
     "400":
       description: "The slot or committee index could not be parsed"
       content:
@@ -62,7 +62,7 @@ post:
         schema:
           type: array
           items:
-            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on appropriate subnet
