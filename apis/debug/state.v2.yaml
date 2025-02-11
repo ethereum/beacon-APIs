@@ -27,19 +27,19 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "phase0"
+                example: "electra"
               execution_optimistic:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.BeaconState'
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconState"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BeaconState"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconState"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconState"
+                 - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.BeaconState'
         application/octet-stream:
           schema:
             description: "SSZ serialized state bytes. Use Accept header to choose this response type"

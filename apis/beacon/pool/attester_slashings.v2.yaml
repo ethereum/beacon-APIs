@@ -20,15 +20,15 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "phase0"
+                example: "electra"
               data:
                 anyOf:
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
@@ -51,8 +51,8 @@ post:
       application/json:
         schema:
           anyOf:
-           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
   responses:
     "200":
       description: Success
