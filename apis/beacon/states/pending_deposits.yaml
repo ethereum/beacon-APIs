@@ -1,0 +1,51 @@
+get:
+  operationId: "getPendingDeposits"
+  summary: "Get State Pending Deposits"
+  description: |
+    Returns pending deposits for state with given 'stateId'. Should return 400 if requested before electra.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetPendingDepositsResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingDeposit"
+                maxItems: 134217728
+    "400":
+      description: "Invalid state ID"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
