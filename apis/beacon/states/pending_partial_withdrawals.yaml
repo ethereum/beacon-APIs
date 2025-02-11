@@ -12,40 +12,38 @@ get:
   responses:
     "200":
       description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version to which the pending partial withdrawals belong."
       content:
         application/json:
           schema:
             title: GetPendingPartialWithdrawalsResponse
             type: object
-            required: [execution_optimistic, finalized, data]
+            required: [version, execution_optimistic, finalized, data]
             properties:
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              version:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+                example: "electra"
               data:
                 type: array
                 items:
                   $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingPartialWithdrawal"
                 maxItems: 134217728
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `PendingPartialWithdrawals` bytes. Use Accept header to choose this response type"
     "400":
-      description: "Invalid state ID"
-      content:
-        application/json:
-          schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 400
-            message: "Invalid state ID: current"
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
-      description: "State not found"
-      content:
-        application/json:
-          schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 404
-            message: "State not found"
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "415":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
