@@ -37,7 +37,7 @@ get:
                 maxItems: 134217728
         application/octet-stream:
           schema:
-            description: "SSZ serialized `PendingDeposits` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` bytes. Use Accept header to choose this response type"
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
