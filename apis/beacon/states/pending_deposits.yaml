@@ -2,7 +2,7 @@ get:
   operationId: "getPendingDeposits"
   summary: "Get State Pending Deposits"
   description: |
-    Returns pending deposits for state with given 'stateId'. Should return 400 if requested before electra.
+    Returns pending deposits for state with given 'stateId'. Should return 400 if the state retrieved is prior to Electra.
   tags:
     - Beacon
   parameters:
@@ -23,13 +23,13 @@ get:
             type: object
             required: [version, execution_optimistic, finalized, data]
             properties:
+              version:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+                example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
-              version:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
-                example: "electra"
               data:
                 type: array
                 items:
