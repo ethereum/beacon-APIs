@@ -31,15 +31,15 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "phase0"
+                example: "electra"
               data:
                 anyOf:
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
     "400":
       description: "The slot or committee index could not be parsed"
       content:
@@ -81,10 +81,10 @@ post:
           oneOf:
             - type: array
               items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
             - type: array
               items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on the appropriate subnet

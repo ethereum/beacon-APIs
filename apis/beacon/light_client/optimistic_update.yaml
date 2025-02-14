@@ -25,10 +25,10 @@ get:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
               data:
                 anyOf:
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientOptimisticUpdate'
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientOptimisticUpdate'
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientOptimisticUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientOptimisticUpdate'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientOptimisticUpdate'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientOptimisticUpdate'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientOptimisticUpdate'
         application/octet-stream:
           schema:
             description: "SSZ serialized `LightClientOptimisticUpdate` bytes. Use Accept header to choose this response type"

@@ -26,7 +26,7 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "phase0"
+                example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
@@ -35,10 +35,10 @@ get:
                 anyOf:
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
                   - type: array
                     items:
-                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
     "400":
       description: "The block ID supplied could not be parsed"
       content:
