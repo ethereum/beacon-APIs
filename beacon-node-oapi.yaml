@@ -89,6 +89,11 @@ paths:
     $ref: "./apis/beacon/states/sync_committees.yaml"
   /eth/v1/beacon/states/{state_id}/randao:
     $ref: "./apis/beacon/states/randao.yaml"
+  /eth/v1/beacon/states/{state_id}/pending_deposits:
+    $ref: "./apis/beacon/states/pending_deposits.yaml"
+  /eth/v1/beacon/states/{state_id}/pending_partial_withdrawals:
+    $ref: "./apis/beacon/states/pending_partial_withdrawals.yaml"
+
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
@@ -425,6 +430,10 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Electra.BlobSidecars:
       $ref: './types/electra/blob_sidecar.yaml#/Electra/BlobSidecars'
+    Electra.PendingDeposit:
+      $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
+    Electra.PendingPartialWithdrawal:
+      $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
