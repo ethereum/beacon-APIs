@@ -47,7 +47,6 @@ Bellatrix:
     allOf:
       - $ref: '#/Bellatrix/ExecutionPayloadCommon'
       - type: object
-        additionalProperties: false
         required: [transactions_root]
         properties:
           transactions_root:
