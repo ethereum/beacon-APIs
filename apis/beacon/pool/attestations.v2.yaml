@@ -78,7 +78,7 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
+          anyOf:
             - type: array
               items:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
