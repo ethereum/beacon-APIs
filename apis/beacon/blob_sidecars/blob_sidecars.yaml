@@ -38,16 +38,16 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "deneb"
+                enum: [deneb, electra]
+                example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.BlobSidecars"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
         application/octet-stream:
           schema:
             description: "SSZ serialized `BlobSidecars` bytes. Use Accept header to choose this response type"
