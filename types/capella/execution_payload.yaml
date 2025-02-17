@@ -49,7 +49,6 @@ Capella:
     allOf:
       - $ref: '#/Capella/ExecutionPayloadCommon'
       - type: object
-        additionalProperties: false
         required: [transactions_root, withdrawals_root]
         properties:
           transactions_root:
