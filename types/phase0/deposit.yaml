@@ -9,8 +9,8 @@ Phase0:
         description: "Branch in the deposit tree."
         items:
           $ref: '../primitive.yaml#/Root'
-        minItems: 32
-        maxItems: 32
+        minItems: 33
+        maxItems: 33
       data:
         $ref: './deposit.yaml#/Phase0/DepositData'
 
