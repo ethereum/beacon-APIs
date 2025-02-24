@@ -2,7 +2,7 @@ Deneb:
   ExecutionPayloadCommon:
     # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
     type: object
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayload) object from the CL Deneb spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/deneb/beacon-chain.md#executionpayload) object from the CL Deneb spec."
     required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, blob_gas_used, excess_blob_gas, block_hash]
     properties:
       parent_hash:
@@ -49,7 +49,7 @@ Deneb:
             $ref: '../capella/withdrawals.yaml#/Capella/Withdrawals'
 
   ExecutionPayloadHeader:
-    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#executionpayloadheader) object from the CL Deneb spec."
+    description: "The [`ExecutionPayloadHeader`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/deneb/beacon-chain.md#executionpayloadheader) object from the CL Deneb spec."
     allOf:
       - $ref: '#/Deneb/ExecutionPayloadCommon'
       - type: object
