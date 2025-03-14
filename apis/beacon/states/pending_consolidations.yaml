@@ -1,0 +1,48 @@
+get:
+  operationId: "getPendingConsolidations"
+  summary: "Get State Pending Consolidations"
+  description: |
+    Returns pending consolidations for state with given 'stateId'. Should return 400 if the state retrieved is prior to Electra.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version to which the pending consolidations belong."
+      content:
+        application/json:
+          schema:
+            title: GetPendingDepositsResponse
+            type: object
+            required: [version, execution_optimistic, finalized, data]
+            properties:
+              version:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+                example: "electra"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingConsolidation"
+                maxItems: 262144
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes. Use Accept header to choose this response type"
+    "400":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "415":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
