@@ -2,5 +2,5 @@ Capella:
   Withdrawals:
       type: array
       items:
-        $ref: '../withdrawal.yaml#/Withdrawal'
+        $ref: './withdrawal.yaml#/Capella/Withdrawal'
       maxItems: 16

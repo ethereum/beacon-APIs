@@ -10,7 +10,7 @@ Electra:
 
   Aggregate:
     type: object
-    description: "The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/validator.md#aggregateandproof) without selection_proof"
+    description: "The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/validator.md#aggregateandproof) without selection_proof"
     required: [aggregator_index, aggregate]
     properties:
       aggregator_index:
@@ -20,7 +20,7 @@ Electra:
 
   SignedAggregateAndProof:
     type: object
-    description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.3/specs/electra/validator.md#signedaggregateandproof) object"
+    description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/validator.md#signedaggregateandproof) object"
     required: [message, signature]
     properties:
       message:

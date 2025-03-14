@@ -26,7 +26,7 @@ Altair:
     required: [beacon]
     properties:
       beacon:
-        $ref: '../block.yaml#/BeaconBlockHeader'
+        $ref: '../phase0/block.yaml#/Phase0/BeaconBlockHeader'
 
   LightClientBootstrap:
     type: object

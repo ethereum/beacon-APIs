@@ -4,7 +4,7 @@ Deneb:
     required: [beacon, execution, execution_branch]
     properties:
       beacon:
-        $ref: '../block.yaml#/BeaconBlockHeader'
+        $ref: '../phase0/block.yaml#/Phase0/BeaconBlockHeader'
       execution:
         $ref: './execution_payload.yaml#/Deneb/ExecutionPayloadHeader'
       execution_branch:

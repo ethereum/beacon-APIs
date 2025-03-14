@@ -27,19 +27,19 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "phase0"
+                example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block bytes. Use Accept header to choose this response type"

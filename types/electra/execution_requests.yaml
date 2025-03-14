@@ -1,7 +1,7 @@
 Electra:  
   ExecutionRequests:
     type: object
-    description: "The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-alpha.6/specs/electra/beacon-chain.md#executionrequests) object from the CL Electra spec."
+    description: "The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/beacon-chain.md#executionrequests) object from the CL Electra spec."
     required: [deposits, withdrawals, consolidations]
     properties:
       deposits:

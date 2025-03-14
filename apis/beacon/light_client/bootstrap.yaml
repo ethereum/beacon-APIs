@@ -30,10 +30,10 @@ get:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
               data:
                 anyOf:
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientBootstrap'
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientBootstrap'
-                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientBootstrap'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientBootstrap'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientBootstrap'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientBootstrap'
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientBootstrap'
         application/octet-stream:
           schema:
             description: "SSZ serialized `LightClientBootstrap` bytes. Use Accept header to choose this response type"

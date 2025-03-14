@@ -90,7 +90,7 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra]
-                example: "phase0"
+                example: "electra"
               execution_payload_blinded:
                 type: boolean
                 example: false
@@ -102,16 +102,16 @@ get:
                 example: "12345"
               data:
                 anyOf:
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlockContents"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlindedBeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Phase0.BeaconBlock"
         application/octet-stream:
           schema:
             description: "SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`."

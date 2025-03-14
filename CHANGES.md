@@ -8,6 +8,20 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+The Following are no longer in the Standard API, removed since the latest version.
+
+| Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+## v3.0.0
+
+These endpoints have been added or updated since the last release.
+
+There are likely to be descriptions etc outside of the list below, but new query parameters, changes to headers, new endpoints should be listed.
+
+| Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
 | [#447](https://github.com/ethereum/beacon-APIs/pull/447) `GET /eth/v2/validator/aggregate_attestation` added         |                                                  |                                                   |                                                    |                                                 |                                           |
 | [#448](https://github.com/ethereum/beacon-APIs/pull/448) `GET /eth/v2/beacon/blocks/{block_id}/attestations` added  |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#448](https://github.com/ethereum/beacon-APIs/pull/448) `GET /eth/v2/beacon/pool/attestations` added               |                                                  |                                                  |                                                    |                                                 |                                           |
@@ -20,7 +34,9 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#467](https://github.com/ethereum/beacon-APIs/pull/467) `POST /eth/v1/beacon/blinded_blocks` deprecated        |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#472](https://github.com/ethereum/beacon-APIs/pull/472) `single_attestation EVENT` added        |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#494](https://github.com/ethereum/beacon-APIs/pull/494) `GET /eth/v1/beacon/deposit_snapshot` deprecated        |                                                  |                                                  |                                                    |                                                 |                                           |
-
+| [#498](https://github.com/ethereum/beacon-APIs/pull/498) `GET /eth/v1/builder/states/{state_id}/expected_withdrawals` deprecated        |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#500](https://github.com/ethereum/beacon-APIs/pull/500) `GET /eth/v1/beacon/states/{state_id}/pending_deposits` added        |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#500](https://github.com/ethereum/beacon-APIs/pull/500) `GET /eth/v1/beacon/states/{state_id}/pending_partial_withdrawals` added         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 The Following are no longer in the Standard API, removed since the latest version.
 

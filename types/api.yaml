@@ -32,7 +32,7 @@ ValidatorResponse:
     status:
       $ref: "#/ValidatorStatus"
     validator:
-      $ref: "./validator.yaml#/Validator"
+      $ref: "./phase0/validator.yaml#/Phase0/Validator"
 
 ValidatorBalanceResponse:
   type: object
