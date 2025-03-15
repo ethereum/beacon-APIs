@@ -8,6 +8,7 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#512](https://github.com/ethereum/beacon-APIs/pull/512) `GET /eth/v1/beacon/states/{state_id}/pending_consolidations` added         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 The Following are no longer in the Standard API, removed since the latest version.
 
@@ -37,7 +38,6 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#498](https://github.com/ethereum/beacon-APIs/pull/498) `GET /eth/v1/builder/states/{state_id}/expected_withdrawals` deprecated        |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#500](https://github.com/ethereum/beacon-APIs/pull/500) `GET /eth/v1/beacon/states/{state_id}/pending_deposits` added        |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#500](https://github.com/ethereum/beacon-APIs/pull/500) `GET /eth/v1/beacon/states/{state_id}/pending_partial_withdrawals` added         |                                                  |                                                  |                                                    |                                                 |                                           |
-| [#512](https://github.com/ethereum/beacon-APIs/pull/512) `GET /eth/v1/beacon/states/{state_id}/pending_consolidations` added         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 The Following are no longer in the Standard API, removed since the latest version.
 
