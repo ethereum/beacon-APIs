@@ -20,10 +20,15 @@ post:
           type: array
           items:
             $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedValidatorRegistration'
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedValidatorRegistrationV1, VALIDATOR_REGISTRY_LIMIT]` bytes. Use content type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: Registration information has been received.
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "415":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
