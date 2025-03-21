@@ -1,0 +1,34 @@
+Fulu:
+  DataColumnSidecar:
+    type: object
+    description: "A data column sidecar as defined in the Fulu CL spec."
+    required:
+      [
+        column_index,
+        column,
+        kzg_commitments,
+        kzg_proofs,
+        signed_block_header,
+        kzg_commitments_inclusion_proof,
+      ]
+    properties:
+      column_index:
+        $ref: "../primitive.yaml#/Uint64"
+      column:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Bytes"
+      kzg_commitments:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Bytes"
+      kzg_proofs:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Bytes"
+      signed_block_header:
+        $ref: "../deneb/block_contents.yaml#/Deneb/SignedBeaconBlockHeader"
+      kzg_commitments_inclusion_proof:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Bytes"
