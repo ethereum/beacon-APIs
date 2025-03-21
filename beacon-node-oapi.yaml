@@ -438,6 +438,14 @@ components:
       $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Fulu.BlockContents:
+      $ref: './types/fulu/block_contents.yaml#/Fulu/BlockContents'
+    Fulu.SignedBlockContents:
+      $ref: './types/fulu/block_contents.yaml#/Fulu/SignedBlockContents'
+    Fulu.BeaconBlock:
+      $ref: './types/fulu/block.yaml#/Fulu/BeaconBlock'
+    Fulu.SignedBeaconBlock:
+      $ref: './types/fulu/block.yaml#/Fulu/SignedBeaconBlock'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
