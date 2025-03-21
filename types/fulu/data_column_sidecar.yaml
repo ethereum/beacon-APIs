@@ -4,7 +4,7 @@ Fulu:
     description: "A data column sidecar as defined in the Fulu CL spec."
     required:
       [
-        column_index,
+        index,
         column,
         kzg_commitments,
         kzg_proofs,
@@ -12,7 +12,7 @@ Fulu:
         kzg_commitments_inclusion_proof,
       ]
     properties:
-      column_index:
+      index:
         $ref: "../primitive.yaml#/Uint64"
       column:
         type: array
@@ -27,7 +27,7 @@ Fulu:
         items:
           $ref: "../primitive.yaml#/Bytes"
       signed_block_header:
-        $ref: "../deneb/block_contents.yaml#/Deneb/SignedBeaconBlockHeader"
+        $ref: "../phase0/block.yaml#/Phase0/SignedBeaconBlockHeader"
       kzg_commitments_inclusion_proof:
         type: array
         items:
