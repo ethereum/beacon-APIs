@@ -10,13 +10,13 @@ get:
     - name: block_id
       in: path
       required: true
-      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
   responses:
     "200":
       description: "Successful response"
       headers:
         Eth-Consensus-Version:
-          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          $ref: "../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
       content:
         application/json:
           schema:
@@ -26,7 +26,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
                 example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -34,6 +34,7 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Fulu.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
