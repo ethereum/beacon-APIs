@@ -2,11 +2,12 @@ Fulu:
   BlockContents:
     type: object
     description: "The required object for block production according to the Fulu CL spec."
-    required: [block, cell_proofs, blobs]
+    required: [block, kzg_proofs, blobs]
     properties:
       block:
-        $ref: "./block.yaml#/Fulu/BeaconBlock"
-      cell_proofs:
+        $ref: "./block.yaml#/Electra/BeaconBlock"
+      kzg_proofs:
+        description: "These should be cell proofs of the blobs."
         $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
@@ -14,11 +15,12 @@ Fulu:
   SignedBlockContents:
     type: object
     description: "The required signed components of block production according to the Fulu CL spec."
-    required: [signed_block, cell_proofs, blobs]
+    required: [signed_block, kzg_proofs, blobs]
     properties:
       signed_block:
-        $ref: "./block.yaml#/Fulu/SignedBeaconBlock"
-      cell_proofs:
+        $ref: "./block.yaml#/Electra/SignedBeaconBlock"
+      kzg_proofs:
+        description: "These should be cell proofs of the blobs."
         $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"

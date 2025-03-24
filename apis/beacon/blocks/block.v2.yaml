@@ -34,7 +34,6 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Fulu.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBeaconBlock"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"

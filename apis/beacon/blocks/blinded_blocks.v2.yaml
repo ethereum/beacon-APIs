@@ -36,10 +36,10 @@ post:
         If validation succeeds, the block must still be fully verified before it is
         incorporated into the state and a 20x status is returned to the caller.
       schema:
-        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/BroadcastValidation"
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BroadcastValidation'
     - in: header
       schema:
-        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
       required: true
       name: Eth-Consensus-Version
       description: "The active consensus version to which the block being submitted belongs."
@@ -50,13 +50,12 @@ post:
       application/json:
         schema:
           anyOf:
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Fulu.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlock"
+            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlock'
       application/octet-stream:
         schema:
           description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."
@@ -75,8 +74,8 @@ post:
             code: 400
             message: "Invalid block: missing signature"
     "415":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing"
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
