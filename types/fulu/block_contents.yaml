@@ -5,7 +5,7 @@ Fulu:
     required: [block, kzg_proofs, blobs]
     properties:
       block:
-        $ref: "./block.yaml#/Electra/BeaconBlock"
+        $ref: "../electra/block.yaml#/Electra/BeaconBlock"
       kzg_proofs:
         description: "These should be cell proofs of the blobs."
         $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
@@ -18,7 +18,7 @@ Fulu:
     required: [signed_block, kzg_proofs, blobs]
     properties:
       signed_block:
-        $ref: "./block.yaml#/Electra/SignedBeaconBlock"
+        $ref: "../electra/block.yaml#/Electra/SignedBeaconBlock"
       kzg_proofs:
         description: "These should be cell proofs of the blobs."
         $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
