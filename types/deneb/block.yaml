@@ -2,7 +2,7 @@ Deneb:
   BeaconBlockBodyCommon:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblockbody) object from the CL Deneb spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/deneb/beacon-chain.md#beaconblockbody) object from the CL Deneb spec."
     required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, blob_kzg_commitments]
     properties:
       randao_reveal:
@@ -54,7 +54,7 @@ Deneb:
             $ref: './execution_payload.yaml#/Deneb/ExecutionPayload'
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/phase0/beacon-chain.md#beaconblock) object from the CL Deneb spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Deneb spec."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
@@ -65,7 +65,7 @@ Deneb:
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec."
     required: [message, signature]
     properties:
       message:
@@ -74,7 +74,7 @@ Deneb:
         $ref: "../primitive.yaml#/Signature"
 
   BlindedBeaconBlockBody:
-    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/deneb/beacon-chain.md#beaconblockbody) object from the CL Deneb spec, which contains a transactions root rather than a full transactions list."
+    description: "A variant of the [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/deneb/beacon-chain.md#beaconblockbody) object from the CL Deneb spec, which contains a transactions root rather than a full transactions list."
     allOf:
       - $ref: '#/Deneb/BeaconBlockBodyCommon'
       - type: object
@@ -84,7 +84,7 @@ Deneb:
             $ref: './execution_payload.yaml#/Deneb/ExecutionPayloadHeader'
 
   BlindedBeaconBlock:
-    description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/phase0/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
+    description: "A variant of the [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Deneb spec, which contains a `BlindedBeaconBlockBody` rather than a `BeaconBlockBody`."
     allOf:
       - $ref: '../altair/block.yaml#/Altair/BeaconBlockCommon'
       - type: object
@@ -95,7 +95,7 @@ Deneb:
 
   SignedBlindedBeaconBlock:
     type: object
-    description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/master/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
+    description: "A variant of the [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.4.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Deneb spec, which contains a `BlindedBeaconBlock` rather than a `BeaconBlock`."
     required: [message, signature]
     properties:
       message:
