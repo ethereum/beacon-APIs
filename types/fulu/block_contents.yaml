@@ -7,7 +7,7 @@ Fulu:
       block:
         $ref: "../electra/block.yaml#/Electra/BeaconBlock"
       kzg_proofs:
-        description: "These should be cell proofs of the blobs."
+        description: "Cell proofs of the blobs as defined in EIP-7594"
         $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
@@ -20,7 +20,7 @@ Fulu:
       signed_block:
         $ref: "../electra/block.yaml#/Electra/SignedBeaconBlock"
       kzg_proofs:
-        description: "These should be cell proofs of the blobs."
+        description: "Cell proofs of the blobs as defined in EIP-7594"
         $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
