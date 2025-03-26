@@ -1,4 +1,11 @@
 Fulu:
+  KZGProofs:
+    type: array
+    items:
+      $ref: "../primitive.yaml#/KZGProof"
+    minItems: 0
+    maxItems: 33554432 # FIELD_ELEMENTS_PER_EXT_BLOB * MAX_BLOB_COMMITMENTS_PER_BLOCK
+
   BlockContents:
     type: object
     description: "The required object for block production according to the Fulu CL spec."
@@ -8,7 +15,7 @@ Fulu:
         $ref: "../electra/block.yaml#/Electra/BeaconBlock"
       kzg_proofs:
         description: "Cell proofs of the blobs as defined in EIP-7594"
-        $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
+        $ref: "#/Fulu/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
 
@@ -21,6 +28,6 @@ Fulu:
         $ref: "../electra/block.yaml#/Electra/SignedBeaconBlock"
       kzg_proofs:
         description: "Cell proofs of the blobs as defined in EIP-7594"
-        $ref: "../deneb/block_contents.yaml#/Deneb/KZGProofs"
+        $ref: "#/Fulu/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
