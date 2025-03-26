@@ -10,13 +10,13 @@ get:
     - name: block_id
       in: path
       required: true
-      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
   responses:
     "200":
       description: "Successful response"
       headers:
         Eth-Consensus-Version:
-          $ref: "../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:

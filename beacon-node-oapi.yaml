@@ -66,6 +66,7 @@ tags:
     description: Endpoints to query rewards and penalties for validators.
 
 paths:
+
   /eth/v1/beacon/genesis:
     $ref: "./apis/beacon/genesis.yaml"
   /eth/v1/beacon/states/{state_id}/root:
@@ -156,11 +157,11 @@ paths:
     $ref: "./apis/builder/states/expected_withdrawals.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
-    $ref: "./apis/debug/state.v2.yaml"
+    $ref: './apis/debug/state.v2.yaml'
   /eth/v2/debug/beacon/heads:
-    $ref: "./apis/debug/heads.v2.yaml"
+    $ref: './apis/debug/heads.v2.yaml'
   /eth/v1/debug/fork_choice:
-    $ref: "./apis/debug/fork_choice.yaml"
+    $ref: './apis/debug/fork_choice.yaml'
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -224,218 +225,219 @@ paths:
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
 
+
 components:
   schemas:
     BroadcastValidation:
-      $ref: "./types/api.yaml#/BroadcastValidation"
+      $ref: './types/api.yaml#/BroadcastValidation'
     DepositSnapshotResponse:
-      $ref: "./types/api.yaml#/DepositSnapshotResponse"
+      $ref: './types/api.yaml#/DepositSnapshotResponse'
     ValidatorResponse:
-      $ref: "./types/api.yaml#/ValidatorResponse"
+      $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorBalanceResponse:
-      $ref: "./types/api.yaml#/ValidatorBalanceResponse"
+      $ref: './types/api.yaml#/ValidatorBalanceResponse'
     ValidatorIdentityResponse:
-      $ref: "./types/api.yaml#/ValidatorIdentityResponse"
+      $ref: './types/api.yaml#/ValidatorIdentityResponse'
     ValidatorStatus:
-      $ref: "./types/api.yaml#/ValidatorStatus"
+      $ref: './types/api.yaml#/ValidatorStatus'
     Committee:
-      $ref: "./types/api.yaml#/Committee"
+      $ref: './types/api.yaml#/Committee'
     AttesterDuty:
-      $ref: "./types/duty.yaml#/AttesterDuty"
+      $ref: './types/duty.yaml#/AttesterDuty'
     ProposerDuty:
-      $ref: "./types/duty.yaml#/ProposerDuty"
+      $ref: './types/duty.yaml#/ProposerDuty'
     Altair.SyncDuty:
-      $ref: "./types/duty.yaml#/Altair/SyncDuty"
+      $ref: './types/duty.yaml#/Altair/SyncDuty'
     BeaconCommitteeSelection:
-      $ref: "./types/selection.yaml#/BeaconCommitteeSelection"
+      $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
-      $ref: "./types/selection.yaml#/SyncCommitteeSelection"
+      $ref: './types/selection.yaml#/SyncCommitteeSelection'
     Fork:
-      $ref: "./types/misc.yaml#/Fork"
+      $ref: './types/misc.yaml#/Fork'
     Checkpoint:
-      $ref: "./types/misc.yaml#/Checkpoint"
+      $ref: './types/misc.yaml#/Checkpoint'
     Uint64:
-      $ref: "./types/primitive.yaml#/Uint64"
+      $ref: './types/primitive.yaml#/Uint64'
     NetworkIdentity:
-      $ref: "./types/p2p.yaml#/NetworkIdentity"
+      $ref: './types/p2p.yaml#/NetworkIdentity'
     Peer:
-      $ref: "./types/p2p.yaml#/Peer"
+      $ref: './types/p2p.yaml#/Peer'
     PeerId:
-      $ref: "./types/p2p.yaml#/PeerId"
+      $ref: './types/p2p.yaml#/PeerId'
     PeerConnectionState:
-      $ref: "./types/p2p.yaml#/PeerConnectionState"
+      $ref: './types/p2p.yaml#/PeerConnectionState'
     PeerConnectionDirection:
-      $ref: "./types/p2p.yaml#/PeerConnectionDirection"
+      $ref: './types/p2p.yaml#/PeerConnectionDirection'
     GenesisTime:
-      $ref: "./types/primitive.yaml#/GenesisTime"
+      $ref: './types/primitive.yaml#/GenesisTime'
     Version:
-      $ref: "./types/primitive.yaml#/Version"
+      $ref: './types/primitive.yaml#/Version'
     ForkVersion:
-      $ref: "./types/primitive.yaml#/ForkVersion"
+      $ref: './types/primitive.yaml#/ForkVersion'
     DependentRoot:
-      $ref: "./types/primitive.yaml#/DependentRoot"
+      $ref: './types/primitive.yaml#/DependentRoot'
     ExecutionOptimistic:
-      $ref: "./types/primitive.yaml#/ExecutionOptimistic"
+      $ref: './types/primitive.yaml#/ExecutionOptimistic'
     Finalized:
-      $ref: "./types/primitive.yaml#/Finalized"
+      $ref: './types/primitive.yaml#/Finalized'
     Root:
-      $ref: "./types/primitive.yaml#/Root"
+      $ref: './types/primitive.yaml#/Root'
     Graffiti:
-      $ref: "./types/primitive.yaml#/Graffiti"
+      $ref: './types/primitive.yaml#/Graffiti'
     Signature:
-      $ref: "./types/primitive.yaml#/Signature"
+      $ref: './types/primitive.yaml#/Signature'
     ErrorMessage:
-      $ref: "./types/http.yaml#/ErrorMessage"
+      $ref: './types/http.yaml#/ErrorMessage'
     IndexedErrorMessage:
-      $ref: "./types/http.yaml#/IndexedErrorMessage"
+      $ref: './types/http.yaml#/IndexedErrorMessage'
     Phase0.BeaconState:
-      $ref: "./types/phase0/state.yaml#/Phase0/BeaconState"
+      $ref: './types/phase0/state.yaml#/Phase0/BeaconState'
     Phase0.BeaconBlock:
-      $ref: "./types/phase0/block.yaml#/Phase0/BeaconBlock"
+      $ref: './types/phase0/block.yaml#/Phase0/BeaconBlock'
     Phase0.SignedBeaconBlock:
-      $ref: "./types/phase0/block.yaml#/Phase0/SignedBeaconBlock"
+      $ref: './types/phase0/block.yaml#/Phase0/SignedBeaconBlock'
     Phase0.SignedBeaconBlockHeader:
-      $ref: "./types/phase0/block.yaml#/Phase0/SignedBeaconBlockHeader"
+      $ref: './types/phase0/block.yaml#/Phase0/SignedBeaconBlockHeader'
     Phase0.AttesterSlashing:
-      $ref: "./types/phase0/attester_slashing.yaml#/Phase0/AttesterSlashing"
+      $ref: './types/phase0/attester_slashing.yaml#/Phase0/AttesterSlashing'
     Phase0.ProposerSlashing:
-      $ref: "./types/phase0/proposer_slashing.yaml#/Phase0/ProposerSlashing"
+      $ref: './types/phase0/proposer_slashing.yaml#/Phase0/ProposerSlashing'
     Phase0.SignedVoluntaryExit:
-      $ref: "./types/phase0/voluntary_exit.yaml#/Phase0/SignedVoluntaryExit"
+      $ref: './types/phase0/voluntary_exit.yaml#/Phase0/SignedVoluntaryExit'
     Phase0.SignedAggregateAndProof:
-      $ref: "./types/phase0/validator.yaml#/Phase0/SignedAggregateAndProof"
+      $ref: './types/phase0/validator.yaml#/Phase0/SignedAggregateAndProof'
     Phase0.Attestation:
-      $ref: "./types/phase0/attestation.yaml#/Phase0/Attestation"
+      $ref: './types/phase0/attestation.yaml#/Phase0/Attestation'
     Phase0.AttestationData:
-      $ref: "./types/phase0/attestation_data.yaml#/Phase0/AttestationData"
+      $ref: './types/phase0/attestation_data.yaml#/Phase0/AttestationData'
     Altair.BeaconBlock:
-      $ref: "./types/altair/block.yaml#/Altair/BeaconBlock"
+      $ref: './types/altair/block.yaml#/Altair/BeaconBlock'
     Altair.SignedBeaconBlock:
-      $ref: "./types/altair/block.yaml#/Altair/SignedBeaconBlock"
+      $ref: './types/altair/block.yaml#/Altair/SignedBeaconBlock'
     Altair.LightClientBootstrap:
-      $ref: "./types/altair/light_client.yaml#/Altair/LightClientBootstrap"
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientBootstrap'
     Altair.LightClientUpdate:
-      $ref: "./types/altair/light_client.yaml#/Altair/LightClientUpdate"
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientUpdate'
     Altair.LightClientFinalityUpdate:
-      $ref: "./types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate"
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientFinalityUpdate'
     Altair.LightClientOptimisticUpdate:
-      $ref: "./types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate"
+      $ref: './types/altair/light_client.yaml#/Altair/LightClientOptimisticUpdate'
     Altair.BeaconState:
-      $ref: "./types/altair/state.yaml#/Altair/BeaconState"
+      $ref: './types/altair/state.yaml#/Altair/BeaconState'
     Altair.SyncCommitteeSignature:
-      $ref: "./types/altair/sync_committee.yaml#/Altair/SyncCommitteeSignature"
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSignature'
     Altair.SyncCommitteeSubscription:
-      $ref: "./types/altair/sync_committee.yaml#/Altair/SyncCommitteeSubscription"
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeSubscription'
     Altair.ContributionAndProof:
-      $ref: "./types/altair/sync_committee.yaml#/Altair/ContributionAndProof"
+      $ref: './types/altair/sync_committee.yaml#/Altair/ContributionAndProof'
     Altair.SignedContributionAndProof:
-      $ref: "./types/altair/sync_committee.yaml#/Altair/SignedContributionAndProof"
+      $ref: './types/altair/sync_committee.yaml#/Altair/SignedContributionAndProof'
     Altair.SyncCommitteeContribution:
-      $ref: "./types/altair/sync_committee.yaml#/Altair/SyncCommitteeContribution"
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeContribution'
     Altair.SyncCommittee:
-      $ref: "./types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices"
+      $ref: './types/altair/sync_committee.yaml#/Altair/SyncCommitteeByValidatorIndices'
     ExecutionAddress:
-      $ref: "./types/primitive.yaml#/ExecutionAddress"
+      $ref: './types/primitive.yaml#/ExecutionAddress'
     Bellatrix.BeaconState:
-      $ref: "./types/bellatrix/state.yaml#/Bellatrix/BeaconState"
+      $ref: './types/bellatrix/state.yaml#/Bellatrix/BeaconState'
     Bellatrix.BeaconBlock:
-      $ref: "./types/bellatrix/block.yaml#/Bellatrix/BeaconBlock"
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/BeaconBlock'
     Bellatrix.SignedBeaconBlock:
-      $ref: "./types/bellatrix/block.yaml#/Bellatrix/SignedBeaconBlock"
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBeaconBlock'
     Bellatrix.BlindedBeaconBlock:
-      $ref: "./types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock"
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
-      $ref: "./types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock"
+      $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
       enum: [phase0, altair, bellatrix, capella, deneb, electra]
       example: "electra"
     SignedValidatorRegistration:
-      $ref: "./types/registration.yaml#/SignedValidatorRegistration"
+      $ref: './types/registration.yaml#/SignedValidatorRegistration'
     Capella.BeaconState:
-      $ref: "./types/capella/state.yaml#/Capella/BeaconState"
+      $ref: './types/capella/state.yaml#/Capella/BeaconState'
     Capella.BeaconBlock:
-      $ref: "./types/capella/block.yaml#/Capella/BeaconBlock"
+      $ref: './types/capella/block.yaml#/Capella/BeaconBlock'
     Capella.SignedBeaconBlock:
-      $ref: "./types/capella/block.yaml#/Capella/SignedBeaconBlock"
+      $ref: './types/capella/block.yaml#/Capella/SignedBeaconBlock'
     Capella.BlindedBeaconBlock:
-      $ref: "./types/capella/block.yaml#/Capella/BlindedBeaconBlock"
+      $ref: './types/capella/block.yaml#/Capella/BlindedBeaconBlock'
     Capella.SignedBlindedBeaconBlock:
-      $ref: "./types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock"
+      $ref: './types/capella/block.yaml#/Capella/SignedBlindedBeaconBlock'
     Capella.LightClientBootstrap:
-      $ref: "./types/capella/light_client.yaml#/Capella/LightClientBootstrap"
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientBootstrap'
     Capella.LightClientUpdate:
-      $ref: "./types/capella/light_client.yaml#/Capella/LightClientUpdate"
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientUpdate'
     Capella.LightClientFinalityUpdate:
-      $ref: "./types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate"
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientFinalityUpdate'
     Capella.LightClientOptimisticUpdate:
-      $ref: "./types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate"
+      $ref: './types/capella/light_client.yaml#/Capella/LightClientOptimisticUpdate'
     Capella.SignedBLSToExecutionChange:
-      $ref: "./types/capella/bls_to_execution_change.yaml#/Capella/SignedBLSToExecutionChange"
+      $ref: './types/capella/bls_to_execution_change.yaml#/Capella/SignedBLSToExecutionChange'
     Capella.Withdrawal:
-      $ref: "./types/capella/withdrawal.yaml#/Capella/Withdrawal"
+      $ref: './types/capella/withdrawal.yaml#/Capella/Withdrawal'
     Deneb.BeaconState:
-      $ref: "./types/deneb/state.yaml#/Deneb/BeaconState"
+      $ref: './types/deneb/state.yaml#/Deneb/BeaconState'
     Deneb.BeaconBlock:
-      $ref: "./types/deneb/block.yaml#/Deneb/BeaconBlock"
+      $ref: './types/deneb/block.yaml#/Deneb/BeaconBlock'
     Deneb.BlockContents:
-      $ref: "./types/deneb/block_contents.yaml#/Deneb/BlockContents"
+      $ref: './types/deneb/block_contents.yaml#/Deneb/BlockContents'
     Deneb.SignedBeaconBlock:
-      $ref: "./types/deneb/block.yaml#/Deneb/SignedBeaconBlock"
+      $ref: './types/deneb/block.yaml#/Deneb/SignedBeaconBlock'
     Deneb.SignedBlockContents:
-      $ref: "./types/deneb/block_contents.yaml#/Deneb/SignedBlockContents"
+      $ref: './types/deneb/block_contents.yaml#/Deneb/SignedBlockContents'
     Deneb.BlindedBeaconBlock:
-      $ref: "./types/deneb/block.yaml#/Deneb/BlindedBeaconBlock"
+      $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
     Deneb.SignedBlindedBeaconBlock:
-      $ref: "./types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock"
+      $ref: './types/deneb/block.yaml#/Deneb/SignedBlindedBeaconBlock'
     Deneb.LightClientBootstrap:
-      $ref: "./types/deneb/light_client.yaml#/Deneb/LightClientBootstrap"
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientBootstrap'
     Deneb.LightClientUpdate:
-      $ref: "./types/deneb/light_client.yaml#/Deneb/LightClientUpdate"
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientUpdate'
     Deneb.LightClientFinalityUpdate:
-      $ref: "./types/deneb/light_client.yaml#/Deneb/LightClientFinalityUpdate"
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientFinalityUpdate'
     Deneb.LightClientOptimisticUpdate:
-      $ref: "./types/deneb/light_client.yaml#/Deneb/LightClientOptimisticUpdate"
+      $ref: './types/deneb/light_client.yaml#/Deneb/LightClientOptimisticUpdate'
     Blob:
-      $ref: "./types/primitive.yaml#/Blob"
+      $ref: './types/primitive.yaml#/Blob'
     Deneb.BlobSidecars:
-      $ref: "./types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars"
+      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
     Electra.BeaconState:
-      $ref: "./types/electra/state.yaml#/Electra/BeaconState"
+      $ref: './types/electra/state.yaml#/Electra/BeaconState'
     Electra.BlockContents:
-      $ref: "./types/electra/block_contents.yaml#/Electra/BlockContents"
+      $ref: './types/electra/block_contents.yaml#/Electra/BlockContents'
     Electra.SignedBeaconBlock:
-      $ref: "./types/electra/block.yaml#/Electra/SignedBeaconBlock"
+      $ref: './types/electra/block.yaml#/Electra/SignedBeaconBlock'
     Electra.SignedBlockContents:
-      $ref: "./types/electra/block_contents.yaml#/Electra/SignedBlockContents"
+      $ref: './types/electra/block_contents.yaml#/Electra/SignedBlockContents'
     Electra.BlindedBeaconBlock:
-      $ref: "./types/electra/block.yaml#/Electra/BlindedBeaconBlock"
+      $ref: './types/electra/block.yaml#/Electra/BlindedBeaconBlock'
     Electra.SignedBlindedBeaconBlock:
-      $ref: "./types/electra/block.yaml#/Electra/SignedBlindedBeaconBlock"
+      $ref: './types/electra/block.yaml#/Electra/SignedBlindedBeaconBlock'
     Electra.Attestation:
-      $ref: "./types/electra/attestation.yaml#/Electra/Attestation"
+      $ref: './types/electra/attestation.yaml#/Electra/Attestation'
     Electra.SingleAttestation:
-      $ref: "./types/electra/attestation.yaml#/Electra/SingleAttestation"
+      $ref: './types/electra/attestation.yaml#/Electra/SingleAttestation'
     Electra.AttesterSlashing:
-      $ref: "./types/electra/attester_slashing.yaml#/Electra/AttesterSlashing"
+      $ref: './types/electra/attester_slashing.yaml#/Electra/AttesterSlashing'
     Electra.SignedAggregateAndProof:
-      $ref: "./types/electra/validator.yaml#/Electra/SignedAggregateAndProof"
+      $ref: './types/electra/validator.yaml#/Electra/SignedAggregateAndProof'
     Electra.LightClientBootstrap:
-      $ref: "./types/electra/light_client.yaml#/Electra/LightClientBootstrap"
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientBootstrap'
     Electra.LightClientUpdate:
-      $ref: "./types/electra/light_client.yaml#/Electra/LightClientUpdate"
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientUpdate'
     Electra.LightClientFinalityUpdate:
-      $ref: "./types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate"
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate'
     Electra.LightClientOptimisticUpdate:
-      $ref: "./types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate"
+      $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Electra.BlobSidecars:
-      $ref: "./types/electra/blob_sidecar.yaml#/Electra/BlobSidecars"
+      $ref: './types/electra/blob_sidecar.yaml#/Electra/BlobSidecars'
     Electra.PendingDeposit:
-      $ref: "./types/electra/deposit.yaml#/Electra/PendingDeposit"
+      $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
     Electra.PendingConsolidation:
-      $ref: "./types/electra/consolidation.yaml#/Electra/PendingConsolidation"
+      $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
     Electra.PendingPartialWithdrawal:
-      $ref: "./types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal"
+      $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
@@ -445,41 +447,41 @@ components:
     Fulu.SignedBeaconBlock:
       $ref: "./types/fulu/block.yaml#/Fulu/SignedBeaconBlock"
     Node:
-      $ref: "./types/fork_choice.yaml#/Node"
+      $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
-      $ref: "./types/fork_choice.yaml#/ExtraData"
+      $ref: './types/fork_choice.yaml#/ExtraData'
     SyncCommitteeRewards:
-      $ref: "./types/rewards.yaml#/SyncCommitteeRewards"
+      $ref: './types/rewards.yaml#/SyncCommitteeRewards'
     BlockRewards:
-      $ref: "./types/rewards.yaml#/BlockRewards"
+      $ref: './types/rewards.yaml#/BlockRewards'
     AttestationsRewards:
-      $ref: "./types/rewards.yaml#/AttestationsRewards"
+      $ref: './types/rewards.yaml#/AttestationsRewards'
 
   parameters:
     StateId:
-      $ref: "./params/index.yaml#/StateId"
+      $ref: './params/index.yaml#/StateId'
     BlockId:
-      $ref: "./params/index.yaml#/BlockId"
+      $ref: './params/index.yaml#/BlockId'
     BlockRoot:
-      $ref: "./params/index.yaml#/BlockRoot"
+      $ref: './params/index.yaml#/BlockRoot'
     SkipRandaoVerification:
-      $ref: "./params/index.yaml#/SkipRandaoVerification"
+      $ref: './params/index.yaml#/SkipRandaoVerification'
 
   responses:
     InvalidRequest:
-      $ref: "./types/http.yaml#/InvalidRequest"
+      $ref: './types/http.yaml#/InvalidRequest'
     NotFound:
-      $ref: "./types/http.yaml#/NotFound"
+      $ref: './types/http.yaml#/NotFound'
     NotAcceptable:
-      $ref: "./types/http.yaml#/NotAcceptable"
+      $ref: './types/http.yaml#/NotAcceptable'
     UnsupportedMediaType:
-      $ref: "./types/http.yaml#/UnsupportedMediaType"
+      $ref: './types/http.yaml#/UnsupportedMediaType'
     InternalError:
-      $ref: "./types/http.yaml#/InternalError"
+      $ref: './types/http.yaml#/InternalError'
     NotImplementedError:
-      $ref: "./types/http.yaml#/NotImplementedError"
+      $ref: './types/http.yaml#/NotImplementedError'
     CurrentlySyncing:
-      $ref: "./types/http.yaml#/CurrentlySyncing"
+      $ref: './types/http.yaml#/CurrentlySyncing'
 
   headers:
     Eth-Consensus-Version:
@@ -488,7 +490,7 @@ components:
         more effectively.
       required: true
       schema:
-        $ref: "#/components/schemas/ConsensusVersion"
+        $ref: '#/components/schemas/ConsensusVersion'
     Eth-Execution-Payload-Blinded:
       description: Required in response so client can deserialize returned json or ssz data to the correct object.
       required: true
@@ -500,7 +502,7 @@ components:
         of execution payloads.
       required: true
       schema:
-        $ref: "./types/primitive.yaml#/Wei"
+        $ref: './types/primitive.yaml#/Wei'
     Eth-Consensus-Block-Value:
       description: |
         Consensus rewards for this block in Wei paid to the proposer. The
@@ -510,4 +512,4 @@ components:
         consensus blocks.
       required: true
       schema:
-        $ref: "./types/primitive.yaml#/Wei"
+        $ref: './types/primitive.yaml#/Wei'
