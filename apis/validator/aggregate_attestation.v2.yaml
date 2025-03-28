@@ -45,7 +45,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
                 example: "electra"
               data:
                 anyOf:
