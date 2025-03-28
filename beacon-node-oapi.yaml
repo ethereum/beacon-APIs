@@ -350,7 +350,7 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
       example: "electra"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -438,6 +438,10 @@ components:
       $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Fulu.BlockContents:
+      $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
+    Fulu.SignedBlockContents:
+      $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
