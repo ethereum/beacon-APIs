@@ -102,6 +102,7 @@ get:
                 example: "12345"
               data:
                 anyOf:
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.BlockContents"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlockContents"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
