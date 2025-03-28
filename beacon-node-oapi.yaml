@@ -350,7 +350,7 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
       example: "electra"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
