@@ -125,7 +125,7 @@ post:
               type: array
               uniqueItems: true
               description: |
-                [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
+                An array of validator statuses to filter on.
 
                 If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then validators with all statuses will be returned.
               items:
