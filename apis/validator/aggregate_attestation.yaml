@@ -37,7 +37,7 @@ get:
             required: [data]
             properties:
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Attestation'
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":

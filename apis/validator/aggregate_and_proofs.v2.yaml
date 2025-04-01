@@ -20,10 +20,10 @@ post:
           anyOf:
             - type: array
               items:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/SignedAggregateAndProof'
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedAggregateAndProof'
             - type: array
               items:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedAggregateAndProof'
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedAggregateAndProof'
   responses:
     "200":
       description: "Successful response"

@@ -35,10 +35,10 @@ get:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
                 data:
                   anyOf:
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientUpdate'
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientUpdate'
-                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientUpdate'
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientUpdate'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientUpdate'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientUpdate'
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Altair.LightClientUpdate'
         application/octet-stream:
           schema:
             description: |

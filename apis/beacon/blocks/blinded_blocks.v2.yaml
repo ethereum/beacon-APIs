@@ -50,12 +50,12 @@ post:
       application/json:
         schema:
           anyOf:
-            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/SignedBeaconBlock'
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
-            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBlindedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBlindedBeaconBlock"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBlindedBeaconBlock"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBlindedBeaconBlock"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBlindedBeaconBlock"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
+            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlock'
       application/octet-stream:
         schema:
           description: "SSZ serialized block bytes. Use content type header to indicate that SSZ data is contained in the request body."

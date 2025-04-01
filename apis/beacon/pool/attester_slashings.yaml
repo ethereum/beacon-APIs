@@ -18,7 +18,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
@@ -34,7 +34,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/AttesterSlashing'
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'
   responses:
     "200":
       description: Success

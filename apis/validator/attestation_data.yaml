@@ -5,7 +5,8 @@ get:
   operationId: "produceAttestationData"
   summary: "Produce an attestation data"
   description: |
-    Requests that the beacon node produce an AttestationData.
+    Requests that the beacon node produce an AttestationData. For `slot`s in
+    Electra and later, this AttestationData must have a `committee_index` of 0.
 
     A 503 error must be returned if the block identified by the response
     `beacon_block_root` is optimistic (i.e. the attestation attests to a block
@@ -34,7 +35,7 @@ get:
             required: [data]
             properties:
               data:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/AttestationData'
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttestationData'
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "500":
