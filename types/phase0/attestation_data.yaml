@@ -8,6 +8,7 @@ Phase0:
         $ref: "../primitive.yaml#/Uint64"
       index:
         $ref: "../primitive.yaml#/Uint64"
+        example: "0"
       beacon_block_root:
         $ref: '../primitive.yaml#/Root'
         description: "LMD GHOST vote."
