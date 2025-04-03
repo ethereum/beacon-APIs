@@ -20,7 +20,10 @@ post:
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   requestBody:
-    description: "An array of the validator indices for which to detect liveness."
+    description: |
+      An array of the validator indices for which to detect liveness.
+
+      If the supplied list is empty (i.e. the body is `[]`) or no body is supplied then liveness will be returned for all validators.
     required: true
     content:
       application/json:
