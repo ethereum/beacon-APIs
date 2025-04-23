@@ -1,0 +1,8 @@
+Fulu:
+  BlobSidecars:
+    type: array
+    items:
+      $ref: "#/Deneb/BlobSidecar"
+    minItems: 0
+    maxItems: 48 # placeholder, depending on the final value we chose and BPO schedule
+

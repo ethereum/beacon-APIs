@@ -7,6 +7,10 @@ get:
 
     If the `indices` parameter is specified, only the blob sidecars with the specified indices will be returned. There are no guarantees
     for the returned blob sidecars in terms of ordering.
+
+    After the Fulu fork, getBlobSidecars will still return blob sidecars with below caveats:
+    1. Only supernodes (which custodies all data columns) are required to return blob sidecars. It's up to the client if they want to implement blob reconstruction logic for non super nodes.
+    2. for the returned blob sidecars, kzg_proof should be zeroed out since we don't have need blob proofs any more.
   tags:
     - Beacon
   parameters:
@@ -38,7 +42,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [deneb, electra]
+                enum: [deneb, electra, fulu]
                 example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
@@ -46,6 +50,7 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 anyOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Fulu.BlobSidecars"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.BlobSidecars"
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
         application/octet-stream:
