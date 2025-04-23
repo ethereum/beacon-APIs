@@ -9,8 +9,8 @@ get:
     for the returned blob sidecars in terms of ordering.
 
     After the Fulu fork, getBlobSidecars will still return blob sidecars with below caveats:
-    1. Only supernodes (which custodies all data columns) are required to return blob sidecars. It's up to the client if they want to implement blob reconstruction logic for non super nodes.
-    2. for the returned blob sidecars, kzg_proof should be zeroed out since we don't have need blob proofs any more.
+    1. Only supernodes (which custody all data column sidecars) are required to return blob sidecars. It is up to the client if they want to implement blob reconstruction logic for non-super nodes.
+    2. For the returned blob sidecars, `kzg_proof` should be zeroed out (`0x0000...0000`, an invalid compressed G1 point which will error if used in verification) since blob proofs are no longer computed; cell proofs are used instead. Also, this is generally considered a trusted endpoint, so recomputing blob proofs would be an unnecessary expense.
   tags:
     - Beacon
   parameters:
