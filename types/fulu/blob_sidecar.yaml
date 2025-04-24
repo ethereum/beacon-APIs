@@ -2,7 +2,6 @@ Fulu:
   BlobSidecars:
     type: array
     items:
-      $ref: "#/Deneb/BlobSidecar"
+      $ref: "../deneb/blob_sidecar.yaml#/Deneb/BlobSidecar"
     minItems: 0
-    maxItems: 48 # placeholder, depending on the final value we chose and BPO schedule
-
+    maxItems: 4096 # MAX_BLOB_COMMITMENTS_PER_BLOCK
