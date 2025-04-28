@@ -138,6 +138,8 @@ paths:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v1/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.yaml"
+  /eth/v1/beacon/validators/{validator_id}/withdrawable_epochs:
+  $ref: "./apis/beacon/validators/withdrawable_epochs.yaml"
   /eth/v2/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/attester_slashings:

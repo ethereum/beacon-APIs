@@ -1,0 +1,29 @@
+get:
+  operationId: getWithdrawableEpochs
+  summary: Get exit and withdrawable epochs of a validator
+  description: Returns the exit and withdrawable epochs for a given validator ID.
+  tags:
+    - Beacon
+  parameters:
+    - name: validator_id
+      in: path
+      required: true
+      description: ID of the validator to query
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Successfully retrieved withdrawable info
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              exit_epoch:
+                type: string
+                description: Epoch when validator exits
+              withdrawable_epoch:
+                type: string
+                description: Epoch when validator becomes withdrawable
+    '404':
+      description: Validator not found
