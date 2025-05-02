@@ -51,9 +51,14 @@ get:
                 anyOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `Attestation` bytes. Use Accept header to choose this response type"
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
