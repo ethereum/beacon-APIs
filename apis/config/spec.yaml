@@ -10,6 +10,7 @@ get:
     Values are returned with following format:
       - any value starting with 0x in the spec is returned as a hex string
       - numeric values are returned as a quoted integer
+      - array values are returned as a JSON array
   tags:
     - Config
     - ValidatorRequiredApi
