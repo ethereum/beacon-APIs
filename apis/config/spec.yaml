@@ -10,6 +10,7 @@ get:
     Values are returned with following format:
       - any value starting with 0x in the spec is returned as a hex string
       - numeric values are returned as a quoted integer
+      - array values are returned as a JSON array
   tags:
     - Config
     - ValidatorRequiredApi
@@ -36,5 +37,6 @@ get:
                   'DOMAIN_AGGREGATE_AND_PROOF': '0x06000000'
                   'INACTIVITY_PENALTY_QUOTIENT': '67108864'
                   'INACTIVITY_PENALTY_QUOTIENT_ALTAIR': '50331648'
+                  'BLOB_SCHEDULE': [{'EPOCH': '269568', 'MAX_BLOBS_PER_BLOCK': '6'}, {'EPOCH': '364032', 'MAX_BLOBS_PER_BLOCK': '9'}]
     "500":
       $ref: ../../beacon-node-oapi.yaml#/components/responses/InternalError
