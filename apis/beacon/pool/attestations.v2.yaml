@@ -62,7 +62,6 @@ post:
 
     If one or more attestations fail validation, the node MUST return a 400 error with details of which attestations have failed, and why.
 
-    Prior to the Electra hard fork, this endpoint MUST be sent Attestation objects only.  At and after the Electra hard fork, this endpoint MUST be sent SingleAttestation objects only.
   parameters:
     - in: header
       schema:
@@ -78,13 +77,9 @@ post:
     content:
       application/json:
         schema:
-          oneOf:
-            - type: array
-              items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
-            - type: array
-              items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
+          - type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on the appropriate subnet
