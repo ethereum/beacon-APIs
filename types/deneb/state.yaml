@@ -1,7 +1,7 @@
 Deneb:
   BeaconState:
     type: object
-    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/deneb/beacon-chain.md#beaconstate) object from the Eth2.0 Deneb spec."
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/deneb/beacon-chain.md#beaconstate) object from the Eth2.0 Deneb spec."
     required: [genesis_time, genesis_validators_root, slot, fork, latest_block_header, block_roots, state_roots, historical_roots, eth1_data, eth1_data_votes, eth1_deposit_index, validators, balances, randao_mixes, slashings, previous_epoch_participation, current_epoch_participation, justification_bits, previous_justified_checkpoint, current_justified_checkpoint, finalized_checkpoint, inactivity_scores, current_sync_committee, next_sync_committee, latest_execution_payload_header, next_withdrawal_index, next_withdrawal_validator_index, historical_summaries]
     properties:
       genesis_time:

@@ -1,7 +1,7 @@
 Electra:
   ConsolidationRequest:
     type: object
-    description: "The [`ConsolidationRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/beacon-chain.md#consolidationrequest) object from the CL Electra spec."
+    description: "The [`ConsolidationRequest`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#consolidationrequest) object from the CL Electra spec."
     required: [source_address, source_pubkey, target_pubkey]
     properties:
       source_address:
@@ -16,7 +16,7 @@ Electra:
 
   PendingConsolidation:
     type: object
-    description: "The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0-beta.2/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec."
+    description: "The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec."
     required: [source_index, target_index]
     properties:
       source_index:
