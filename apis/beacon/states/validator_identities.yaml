@@ -16,7 +16,10 @@ post:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
-    description: "An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index."
+    description: |
+      An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index.
+
+      If the supplied list is empty (i.e. the body is `[]`) or no body is supplied then all validators will be returned.
     required: false
     content:
       application/json:
