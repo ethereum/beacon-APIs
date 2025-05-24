@@ -85,6 +85,9 @@ post:
             - type: array
               items:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[Attestation, MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT]` or `List[SingleAttestation, MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT]` bytes. Use content type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: Attestations are stored in pool and broadcast on the appropriate subnet
@@ -94,5 +97,7 @@ post:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+    "415":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
