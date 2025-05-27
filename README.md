@@ -1,6 +1,6 @@
 # Ethereum Beacon APIs
 
-![CI](https://github.com/ethereum/beacon-APIs/workflows/CI/badge.svg)
+[![CI](https://github.com/ethereum/beacon-APIs/workflows/CI/badge.svg)](https://github.com/ethereum/beacon-APIs/actions/workflows/main.yml?query=branch%3Amaster)
 
 Collection of RESTful APIs provided by Ethereum Beacon nodes
 
