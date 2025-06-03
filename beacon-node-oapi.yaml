@@ -118,6 +118,8 @@ paths:
     $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
+  /eth/v1/debug/beacon/data_column_sidecars/{block_id}:
+    $ref: "./apis/debug/data_column_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
   /eth/v1/beacon/deposit_snapshot:
@@ -442,6 +444,8 @@ components:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
+    Fulu.DataColumnSidecars:
+      $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

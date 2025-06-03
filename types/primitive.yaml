@@ -142,3 +142,8 @@ KZGProof:
   pattern: "^0x[a-fA-F0-9]{96}$"
   description: "A G1 curve point. Used for verifying that the `KZGCommitment` for a given `Blob` is correct."
 
+Cell:
+  type: string
+  format: hex
+  pattern: "^0x[a-fA-F0-9]{4096}$"
+  description: "A 2048-byte hexadecimal string, prefixed with `0x`"
