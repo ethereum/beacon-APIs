@@ -1,0 +1,44 @@
+Fulu:
+  DataColumnSidecars:
+    type: array
+    items:
+      $ref: '#/Fulu/DataColumnSidecar'
+    minItems: 0
+    maxItems: 128
+
+  KZGCommitmentsInclusionProof:
+    type: array
+    items:
+      $ref: "../primitive.yaml#/Bytes32"
+    minItems: 4
+    maxItems: 4
+
+  DataColumnSidecar:
+    type: object
+    description: "A data column sidecar as defined in the Fulu consensus spec."
+    required: [index, column, kzg_commitments, kzg_proofs, signed_block_header, kzg_commitments_inclusion_proof]
+    properties:
+      index:
+        $ref: "../primitive.yaml#/Uint64"
+      column:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Cell"
+        minItems: 0
+        maxItems: 4096
+      kzg_commitments:
+        type: array
+        items:
+          $ref: '../primitive.yaml#/KZGCommitment'
+        minItems: 0
+        maxItems: 4096
+      kzg_proofs:
+        type: array
+        items:
+          $ref: '../primitive.yaml#/KZGProof'
+        minItems: 0
+        maxItems: 4096
+      signed_block_header:
+        $ref: "../phase0/block.yaml#/Phase0/SignedBeaconBlockHeader"
+      kzg_commitments_inclusion_proof:
+        $ref: '#/Fulu/KZGCommitmentsInclusionProof'
