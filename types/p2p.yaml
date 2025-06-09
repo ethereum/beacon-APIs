@@ -39,6 +39,9 @@ MetaData:
     custody_group_count:
       description: "Uint64 representing the node's custody group count. The metadata is present from the Fulu fork."
       $ref: "./primitive.yaml#/Uint64"
+    next_fork_digest:
+      description: "Byte4 representing the next fork digest. The metadata is present from the Fulu fork."
+      $ref: "./primitive.yaml#/Byte4"
 
 Peer:
   type: object
