@@ -93,6 +93,8 @@ paths:
     $ref: "./apis/beacon/states/pending_deposits.yaml"
   /eth/v1/beacon/states/{state_id}/pending_partial_withdrawals:
     $ref: "./apis/beacon/states/pending_partial_withdrawals.yaml"
+  /eth/v1/beacon/states/{state_id}/proposer_lookahead:
+    $ref: "./apis/beacon/states/proposer_lookahead.yaml"
 
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
