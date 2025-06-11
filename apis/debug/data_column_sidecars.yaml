@@ -16,7 +16,7 @@ get:
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/BlockId'
     - name: indices
       in: query
-      description: Array of indices for data column sidecars to request for in the specified block. Returns all data column sidecars in the block if not specified.
+      description: Array of indices for data column sidecars to request for in the specified block. This endpoint will only return columns that the node is actually custodying. If not specified, returns all data column sidecars that this node is custodying in the block.
       required: false
       schema:
         type: array
