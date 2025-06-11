@@ -1,0 +1,49 @@
+get:
+  operationId: "getProposerLookahead"
+  summary: "Get State Proposer Lookahead"
+  description: |
+    Returns proposer lookahead for state with given 'stateId'. Should return 400 if the state retrieved is prior to Fulu.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version to which the proposer lookahead data belongs."
+      content:
+        application/json:
+          schema:
+            title: GetProposerLookaheadResponse
+            type: object
+            required: [version, execution_optimistic, finalized, data]
+            properties:
+              version:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+                example: "fulu"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                maxItems: 64
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `List[Uint64, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type"
+    "400":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "406":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
