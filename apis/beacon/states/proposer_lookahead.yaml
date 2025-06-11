@@ -1,8 +1,8 @@
 get:
   operationId: "getProposerLookahead"
-  summary: "Get State Proposer Look-ahead"
+  summary: "Get State Proposer Lookahead"
   description: |
-    Returns proposer look-ahead for state with given 'stateId'. Should return 400 if the state retrieved is prior to Fulu.
+    Returns proposer lookahead for state with given 'stateId'. Should return 400 if the state retrieved is prior to Fulu.
   tags:
     - Beacon
   parameters:
@@ -15,7 +15,7 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-          description: "The active consensus version to which the proposer look ahead data belongs."
+          description: "The active consensus version to which the proposer lookahead data belongs."
       content:
         application/json:
           schema:
@@ -25,7 +25,7 @@ get:
             properties:
               version:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
-                example: "electra"
+                example: "fulu"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
