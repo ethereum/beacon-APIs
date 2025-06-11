@@ -13,6 +13,12 @@ Fulu:
     minItems: 4
     maxItems: 4
 
+  DataColumn:
+    type: string
+    format: hex
+    pattern: "^0x[a-fA-F0-9]{4096}$"
+    description: "A data column is `FIELD_ELEMENTS_PER_CELL * size_of(BLSFieldElement) = 64 * 32 = 2048` bytes (`DATA`) representing a Cell as defined in Fulu"
+
   DataColumnSidecar:
     type: object
     description: "A data column sidecar as defined in the Fulu consensus spec."
@@ -23,7 +29,7 @@ Fulu:
       column:
         type: array
         items:
-          $ref: "../primitive.yaml#/Cell"
+          $ref: '#/Fulu/DataColumn'
         minItems: 0
         maxItems: 4096
       kzg_commitments:
