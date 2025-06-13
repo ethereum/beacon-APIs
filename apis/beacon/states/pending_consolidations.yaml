@@ -42,7 +42,7 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
-    "415":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
+    "406":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
