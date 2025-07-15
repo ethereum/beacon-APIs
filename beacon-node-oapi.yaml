@@ -89,10 +89,14 @@ paths:
     $ref: "./apis/beacon/states/sync_committees.yaml"
   /eth/v1/beacon/states/{state_id}/randao:
     $ref: "./apis/beacon/states/randao.yaml"
+  /eth/v1/beacon/states/{state_id}/pending_consolidations:
+    $ref: "./apis/beacon/states/pending_consolidations.yaml"
   /eth/v1/beacon/states/{state_id}/pending_deposits:
     $ref: "./apis/beacon/states/pending_deposits.yaml"
   /eth/v1/beacon/states/{state_id}/pending_partial_withdrawals:
     $ref: "./apis/beacon/states/pending_partial_withdrawals.yaml"
+  /eth/v1/beacon/states/{state_id}/proposer_lookahead:
+    $ref: "./apis/beacon/states/proposer_lookahead.yaml"
 
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
@@ -116,6 +120,8 @@ paths:
     $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
+  /eth/v1/debug/beacon/data_column_sidecars/{block_id}:
+    $ref: "./apis/debug/data_column_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
   /eth/v1/beacon/deposit_snapshot:
@@ -348,7 +354,7 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
       example: "electra"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -432,8 +438,16 @@ components:
       $ref: './types/electra/blob_sidecar.yaml#/Electra/BlobSidecars'
     Electra.PendingDeposit:
       $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
+    Electra.PendingConsolidation:
+      $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Fulu.BlockContents:
+      $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
+    Fulu.SignedBlockContents:
+      $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
+    Fulu.DataColumnSidecars:
+      $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

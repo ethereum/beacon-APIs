@@ -89,7 +89,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
                 example: "electra"
               execution_payload_blinded:
                 type: boolean
@@ -102,6 +102,7 @@ get:
                 example: "12345"
               data:
                 anyOf:
+                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.BlockContents"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlockContents"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlindedBeaconBlock"
                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"

@@ -1,8 +1,8 @@
 get:
-  operationId: "getPendingDeposits"
-  summary: "Get State Pending Deposits"
+  operationId: "getPendingConsolidations"
+  summary: "Get State Pending Consolidations"
   description: |
-    Returns pending deposits for state with given 'stateId'. Should return 400 if the state retrieved is prior to Electra.
+    Returns pending consolidations for state with given 'stateId'. Should return 400 if the state retrieved is prior to Electra.
   tags:
     - Beacon
   parameters:
@@ -15,7 +15,7 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-          description: "The active consensus version to which the pending deposits belong."
+          description: "The active consensus version to which the pending consolidations belong."
       content:
         application/json:
           schema:
@@ -33,11 +33,11 @@ get:
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingDeposit"
-                maxItems: 134217728
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingConsolidation"
+                maxItems: 262144
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes. Use Accept header to choose this response type"
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
@@ -46,4 +46,3 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
-

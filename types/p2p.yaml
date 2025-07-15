@@ -36,6 +36,9 @@ MetaData:
       description: "Bitvector representing the node's sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair."
       $ref: "./primitive.yaml#/Bitvector"
       example: "0x0f"
+    custody_group_count:
+      description: "Uint64 representing the node's custody group count. The metadata is present from the Fulu fork."
+      $ref: "./primitive.yaml#/Uint64"
 
 Peer:
   type: object

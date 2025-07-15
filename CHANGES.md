@@ -8,11 +8,24 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#535](https://github.com/ethereum/beacon-APIs/pull/535) `data_column_sidecar EVENT` added        |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#537](https://github.com/ethereum/beacon-APIs/pull/537) `GET /eth/v1/debug/beacon/data_column_sidecars/{block_id}` added         |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#539](https://github.com/ethereum/beacon-APIs/pull/539) `GET /eth/v1/beacon/states/{state_id}/proposer_lookahead` added         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 The Following are no longer in the Standard API, removed since the latest version.
 
 | Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+
+## v3.1.0
+
+These endpoints have been added or updated since the last release.
+
+There are likely to be descriptions etc outside of the list below, but new query parameters, changes to headers, new endpoints should be listed.
+
+| Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
+|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#512](https://github.com/ethereum/beacon-APIs/pull/512) `GET /eth/v1/beacon/states/{state_id}/pending_consolidations` added         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 ## v3.0.0
 
