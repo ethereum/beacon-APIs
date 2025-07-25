@@ -22,7 +22,7 @@ get:
       in: query
       description: |
         The committee index for which an attestation data should be created. For `slot`s in
-        Electra and later, this paramiter MAY always be set to 0.
+        Electra and later, this parameter MAY always be set to 0.
       required: true
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
