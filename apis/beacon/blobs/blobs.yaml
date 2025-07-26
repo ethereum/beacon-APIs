@@ -1,57 +1,50 @@
 get:
-  operationId: getBlobSidecars
-  summary: Get blob sidecars  
-  deprecated: true
+  operationId: getBlobs
+  summary: Get blobs
   description: |
-    Retrieves blob sidecars for a given block id.
+    Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
 
-    If the `indices` parameter is specified, only the blob sidecars with the specified indices will be returned. There are no guarantees
-    for the returned blob sidecars in terms of ordering.
+    If the `indices` parameter is specified, only the blobs with the specified indices will be returned. There are no guarantees
+    for the returned blobs in terms of ordering.
+
+    After the Fulu fork, only supernodes (which custody all data columns) are required to return blobs. Clients may implement
+    blob reconstruction logic for non-super nodes.
   tags:
     - Beacon
   parameters:
     - name: block_id
       in: path
       required: true
-      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
     - name: indices
       in: query
-      description: Array of indices for blob sidecars to request for in the specified block. Returns all blob sidecars in the block if not specified.
+      description: Array of indices for blobs to request for in the specified block. Returns all blobs in the block if not specified.
       required: false
       schema:
         type: array
         uniqueItems: true
         items:
-          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: "Successful response"
-      headers:
-        Eth-Consensus-Version:
-          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
-            title: GetBlobSidecarsResponse
+            title: GetBlobsResponse
             type: object
-            required: [version, execution_optimistic, finalized, data]
+            required: [execution_optimistic, finalized, data]
             properties:
-              version:
-                type: string
-                enum: [deneb, electra]
-                example: "electra"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.BlobSidecars"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlobSidecars"
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Blobs"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `BlobSidecars` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[Blob, MAX_BLOB_COMMITMENTS_PER_BLOCK]` bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:

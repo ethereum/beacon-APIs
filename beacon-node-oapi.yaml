@@ -120,6 +120,8 @@ paths:
     $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
     $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
+  /eth/v1/beacon/blobs/{block_id}:
+    $ref: "./apis/beacon/blobs/blobs.yaml"
   /eth/v1/debug/beacon/data_column_sidecars/{block_id}:
     $ref: "./apis/debug/data_column_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
@@ -404,6 +406,8 @@ components:
       $ref: './types/deneb/light_client.yaml#/Deneb/LightClientOptimisticUpdate'
     Blob:
       $ref: './types/primitive.yaml#/Blob'
+    Blobs:
+      $ref: './types/deneb/block_contents.yaml#/Deneb/Blobs'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
     Electra.BeaconState:
