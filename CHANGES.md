@@ -26,6 +26,7 @@ The Following are no longer in the Standard API, removed since the latest versio
 | [#547](https://github.com/ethereum/beacon-APIs/pull/547) `POST /eth/v1/validator/aggregate_and_proofs` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#547](https://github.com/ethereum/beacon-APIs/pull/547) `POST /eth/v1/beacon/blocks` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#547](https://github.com/ethereum/beacon-APIs/pull/547) `POST /eth/v1/beacon/blinded_blocks` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#547](https://github.com/ethereum/beacon-APIs/pull/547) `GET /eth/v1/builder/states/{state_id}/expected_withdrawals` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 ## v3.1.0
 
