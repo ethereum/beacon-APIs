@@ -1,24 +1,5 @@
 # API specific types
 
-DepositSnapshotResponse:
-  type: object
-  required: [finalized, deposit_root, deposit_count, execution_block_hash, execution_block_height]
-  properties:
-    finalized:
-      type: array
-      items:
-        $ref: './primitive.yaml#/Root'
-      minItems: 0
-      maxItems: 32
-    deposit_root:
-      $ref: './primitive.yaml#/Root'
-    deposit_count:
-      $ref: './primitive.yaml#/Uint64'
-    execution_block_hash:
-      $ref: './primitive.yaml#/Root'
-    execution_block_height:
-      $ref: './primitive.yaml#/Uint64'
-
 ValidatorResponse:
   type: object
   required: [index, balance, status, validator]

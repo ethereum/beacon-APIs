@@ -45,8 +45,6 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
-  - name: Builder
-    description: Set of endpoints specific to building blocks.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Debug
@@ -102,20 +100,14 @@ paths:
     $ref: "./apis/beacon/blocks/headers.yaml"
   /eth/v1/beacon/headers/{block_id}:
     $ref: "./apis/beacon/blocks/header.yaml"
-  /eth/v1/beacon/blinded_blocks:
-    $ref: "./apis/beacon/blocks/blinded_blocks.yaml"
   /eth/v2/beacon/blinded_blocks:
     $ref: "./apis/beacon/blocks/blinded_blocks.v2.yaml"
-  /eth/v1/beacon/blocks:
-    $ref: "./apis/beacon/blocks/blocks.yaml"
   /eth/v2/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
     $ref: "./apis/beacon/blocks/root.yaml"
-  /eth/v1/beacon/blocks/{block_id}/attestations:
-    $ref: "./apis/beacon/blocks/attestations.yaml"
   /eth/v2/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.v2.yaml"
   /eth/v1/beacon/blob_sidecars/{block_id}:
@@ -124,8 +116,6 @@ paths:
     $ref: "./apis/debug/data_column_sidecars.yaml"
   /eth/v1/beacon/rewards/sync_committee/{block_id}:
     $ref: "./apis/beacon/rewards/sync_committee.yaml"
-  /eth/v1/beacon/deposit_snapshot:
-    $ref: "./apis/beacon/deposit_snapshot.yaml"
   /eth/v1/beacon/rewards/blocks/{block_id}:
     $ref: "./apis/beacon/rewards/blocks.yaml"
   /eth/v1/beacon/rewards/attestations/{epoch}:
@@ -140,12 +130,8 @@ paths:
     $ref: "./apis/beacon/light_client/finality_update.yaml"
   /eth/v1/beacon/light_client/optimistic_update:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
-  /eth/v1/beacon/pool/attestations:
-    $ref: "./apis/beacon/pool/attestations.yaml"
   /eth/v2/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
-  /eth/v1/beacon/pool/attester_slashings:
-    $ref: "./apis/beacon/pool/attester_slashings.yaml"
   /eth/v2/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
@@ -156,9 +142,6 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exits.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
-
-  /eth/v1/builder/states/{state_id}/expected_withdrawals:
-    $ref: "./apis/builder/states/expected_withdrawals.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -199,12 +182,8 @@ paths:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
-  /eth/v1/validator/aggregate_attestation:
-    $ref: "./apis/validator/aggregate_attestation.yaml"
   /eth/v2/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
-  /eth/v1/validator/aggregate_and_proofs:
-    $ref: "./apis/validator/aggregate_and_proofs.yaml"
   /eth/v2/validator/aggregate_and_proofs:
     $ref: "./apis/validator/aggregate_and_proofs.v2.yaml"
   /eth/v1/validator/beacon_committee_subscriptions:
@@ -234,8 +213,6 @@ components:
   schemas:
     BroadcastValidation:
       $ref: './types/api.yaml#/BroadcastValidation'
-    DepositSnapshotResponse:
-      $ref: './types/api.yaml#/DepositSnapshotResponse'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorBalanceResponse:
