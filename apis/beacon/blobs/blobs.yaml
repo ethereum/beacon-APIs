@@ -5,8 +5,8 @@ get:
     Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
 
-    If the `indices` parameter is specified, only the blobs with the specified indices will be returned. There are no guarantees
-    for the returned blobs in terms of ordering.
+    If the `versioned_hashes` parameter is specified, only the blobs with the specified versioned hashes will be returned. Blobs are 
+    returned as an ordered list matching the order of their corresponding KZG commitments in the block.
 
     After the Fulu fork, only supernodes (which custody all data columns) are required to return blobs. Clients may implement
     blob reconstruction logic for non-super nodes.
@@ -17,15 +17,15 @@ get:
       in: path
       required: true
       $ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
-    - name: indices
+    - name: versioned_hashes
       in: query
-      description: Array of indices for blobs to request for in the specified block. Returns all blobs in the block if not specified.
+      description: Array of versioned hashes for blobs to request for in the specified block. Returns all blobs in the block if not specified.
       required: false
       schema:
         type: array
         uniqueItems: true
         items:
-          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/VersionedHash"
   responses:
     "200":
       description: "Successful response"

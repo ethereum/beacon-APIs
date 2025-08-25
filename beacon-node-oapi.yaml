@@ -385,6 +385,8 @@ components:
       $ref: './types/primitive.yaml#/Blob'
     Blobs:
       $ref: './types/deneb/block_contents.yaml#/Deneb/Blobs'
+    VersionedHash:
+      $ref: './types/primitive.yaml#/VersionedHash'
     Deneb.BlobSidecars:
       $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
     Electra.BeaconState:
