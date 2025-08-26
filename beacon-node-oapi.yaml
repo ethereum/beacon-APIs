@@ -236,7 +236,7 @@ components:
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
     EIP7805.InclusionListDuty:
-      $ref: './types/validator.yaml#/EIP7805/InclusionListDuty'
+      $ref: './types/duty.yaml#/EIP7805/InclusionListDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
