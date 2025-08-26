@@ -52,3 +52,20 @@ Altair:
         minItems: 1
         items:
           $ref: './primitive.yaml#/Uint64'
+
+EIP7805:
+  InclusionListDuty:
+    type: object
+    required: [pubkey, validator_index, slot, inclusion_list_committee_root]
+    properties:
+      pubkey:
+        $ref: "./primitive.yaml#/Pubkey"
+      validator_index:
+        $ref: "./primitive.yaml#/Uint64"
+        description: "Index of validator in validator registry."
+      slot:
+        $ref: "./primitive.yaml#/Uint64"
+        description: "The slot at which the validator must propose an inclusion list." 
+      inclusion_list_committee_root:
+        $ref: "./primitive.yaml#/Root"
+        description: "The root of inclusion list committee that the validator is part of."
