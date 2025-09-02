@@ -1,0 +1,24 @@
+EIP7805:
+  InclusionList:
+    type: object
+    description: "The [`InclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.6.0-alpha.5/specs/_features/eip7805/beacon-chain.md#inclusionlist) object from the CL spec."
+    required: [slot, validator_index, inclusion_list_committee_root, transactions]
+    properties:
+      slot:
+        $ref: "../primitive.yaml#/Uint64"
+      validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+      inclusion_list_committee_root:
+        $ref: "../primitive.yaml#/Root"
+      transactions:
+        $ref: "../bellatrix/transactions.yaml#/Bellatrix/Transactions"
+
+  SignedInclusionList:
+    type: object
+    description: "The [`SignedInclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.6.0-alpha.5/specs/_features/eip7805/beacon-chain.md#signedinclusionlist) object from the CL spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/EIP7805/InclusionList"
+      signature:
+        $ref: "../primitive.yaml#/Signature"

@@ -62,6 +62,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: EIP-7805
+    description: "Endpoints required for EIP-7805: Fork-choice enforced Inclusion Lists (FOCIL)"
 
 paths:
 
@@ -180,6 +182,8 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
+  /eth/v1/validator/duties/inclusion_list/{epoch}:
+    $ref: "./apis/validator/duties/inclusion_list.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
@@ -206,6 +210,8 @@ paths:
     $ref: "./apis/validator/register_validator.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
+  /eth/v1/validator/inclusion_list:
+    $ref: "./apis/validator/inclusion_list.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -231,6 +237,8 @@ components:
       $ref: './types/duty.yaml#/ProposerDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
+    EIP7805.InclusionListDuty:
+      $ref: './types/duty.yaml#/EIP7805/InclusionListDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -331,6 +339,8 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
+    Bellatrix.Transactions:
+      $ref: './types/bellatrix/transactions.yaml#/Bellatrix/Transactions'
     ConsensusVersion:
       type: string
       enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
@@ -431,6 +441,10 @@ components:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
     Fulu.DataColumnSidecars:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
+    EIP7805.InclusionList:
+      $ref: './types/eip7805/inclusion_list.yaml#/EIP7805/InclusionList'
+    EIP7805.SignedInclusionList:
+      $ref: './types/eip7805/inclusion_list.yaml#/EIP7805/SignedInclusionList'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
