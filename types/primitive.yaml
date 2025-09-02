@@ -147,4 +147,4 @@ VersionedHash:
   format: hex
   pattern: "^0x[a-fA-F0-9]{64}$"
   description: "A versioned hash used to identify a Blob."
-  example: "0x01cf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
+  example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
