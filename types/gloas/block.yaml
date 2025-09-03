@@ -1,0 +1,77 @@
+Gloas:
+  BeaconBlockBodyCommon:
+    # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
+    type: object
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes]
+    properties:
+      randao_reveal:
+        allOf:
+          - $ref: "../primitive.yaml#/Signature"
+          - description: "The RANDAO reveal value provided by the validator."
+      eth1_data:
+        $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
+      graffiti:
+        $ref: "../primitive.yaml#/Graffiti"
+      proposer_slashings:
+        type: array
+        items:
+          $ref: "../phase0/proposer_slashing.yaml#/Phase0/ProposerSlashing"
+      attester_slashings:
+        type: array
+        items:
+          $ref: "../electra/attester_slashing.yaml#/Electra/AttesterSlashing"
+      attestations:
+        type: array
+        items:
+          $ref: "../electra/attestation.yaml#/Electra/Attestation"
+      deposits:
+        type: array
+        items:
+          $ref: "../phase0/deposit.yaml#/Phase0/Deposit"
+      voluntary_exits:
+        type: array
+        items:
+          $ref: "../phase0/voluntary_exit.yaml#/Phase0/SignedVoluntaryExit"
+      sync_aggregate:
+        $ref: "../altair/sync_aggregate.yaml#/Altair/SyncAggregate"
+      bls_to_execution_changes:
+        type: array
+        items:
+          $ref: "../capella/bls_to_execution_change.yaml#/Capella/SignedBLSToExecutionChange"
+
+  BeaconBlockBody:
+    allOf:
+      - $ref: "#/Gloas/BeaconBlockBodyCommon"
+      - type: object
+        required: [signed_execution_payload_bid, payload_attestations]
+        properties:
+          signed_execution_payload_bid:
+            $ref: "./execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
+          payload_attestations:
+            type: array
+            description: "Array of payload attestations from gloas."
+            items:
+              $ref: "./payload_attestations.yaml#/Gloas/PayloadAttestation"
+            minItems: 0
+            maxItems: 4
+
+  BeaconBlock:
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
+    allOf:
+      - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
+      - type: object
+        required: [body]
+        properties:
+          body:
+            $ref: "#/Gloas/BeaconBlockBody"
+
+  SignedBeaconBlock:
+    type: object
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/BeaconBlock"
+      signature:
+        $ref: "../primitive.yaml#/Signature"

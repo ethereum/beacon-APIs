@@ -333,8 +333,8 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
-      example: "fulu"
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+      example: "gloas"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
     Capella.BeaconState:
@@ -427,6 +427,10 @@ components:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
     Fulu.BeaconState:
       $ref: './types/fulu/state.yaml#/Fulu/BeaconState'
+    Gloas.BeaconBlock:
+      $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
+    Gloas.SignedBeaconBlock:
+      $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
@@ -473,21 +477,22 @@ components:
   headers:
     Eth-Consensus-Version:
       description: |
-        The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data 
+        The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data
         more effectively.
       required: true
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
     Eth-Execution-Payload-Blinded:
-      description: Required in response so client can deserialize returned json or ssz data to the correct object.
-      required: true
+      description: "DEPRECATED: Not applicable for gloas fork. For pre-gloas forks, this is required in response so client can deserialize returned json or ssz data to the correct object pre-gloas. Post-gloas, there is no concept of blinded blocks."
+      required: false
       schema:
         type: boolean
     Eth-Execution-Payload-Value:
       description: |
-        Execution payload value in Wei. Required in response so client can determine relative value
-        of execution payloads.
-      required: true
+        DEPRECATED: Not applicable for gloas fork.
+        For pre-gloas forks, this is the execution payload value in Wei. Required in response so client can determine relative value
+        of execution payloads pre-gloas.  Post-gloas, the ExecutionPayloadBid defines the value of an execution payload.
+      required: false
       schema:
         $ref: './types/primitive.yaml#/Wei'
     Eth-Consensus-Block-Value:
