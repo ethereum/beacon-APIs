@@ -104,6 +104,8 @@ paths:
     $ref: "./apis/beacon/blocks/blinded_blocks.v2.yaml"
   /eth/v2/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
+  /eth/v1/beacon/execution_payload_bid:
+    $ref: "./apis/beacon/execution_payload/bid.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -206,6 +208,8 @@ paths:
     $ref: "./apis/validator/register_validator.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
+  /eth/v1/validator/execution_payload_bid/{slot}/{builder_index}:
+    $ref: "./apis/validator/execution_payload_bid.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -429,6 +433,10 @@ components:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
+    Gloas.ExecutionPayloadBid:
+      $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
+    Gloas.SignedExecutionPayloadBid:
+      $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:

@@ -1,0 +1,69 @@
+get:
+  operationId: getExecutionPayloadBid
+  summary: Get execution payload bid
+  description: |
+    Retrieves execution payload bid for a given slot and builder. Depending on `Accept` header, it can be returned either as json or as bytes serialized by SSZ.
+  tags:
+    - Validator
+  parameters:
+    - name: slot
+      in: path
+      required: true
+      description: "Slot for which the execution payload bid is requested. Must be current slot or next slot."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: builder_index
+      in: path
+      required: true
+      description: "Index of the builder from which the execution payload bid is requested."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: "Successful response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          required: true
+      content:
+        application/json:
+          schema:
+            title: GetExecutionPayloadBidResponse
+            type: object
+            required: [data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              execution_optimistic:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadBid"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized execution payload bid bytes. Use Accept header to choose this response type"
+    "400":
+      description: "The slot supplied could not be parsed or is invalid"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid slot: must be current slot or next slot"
+    "404":
+      description: "Execution payload bid not available for the requested slot and builder"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "Execution payload bid not available for slot and builder"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
