@@ -13,26 +13,25 @@ get:
       required: true
       description: "Slot for which the execution payload envelope is requested."
       schema:
-        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: builder_index
       in: path
       required: true
       description: "Index of the builder from which the execution payload envelope is requested."
       schema:
-        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: "Successful response"
       headers:
         Eth-Consensus-Version:
-          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-          required: true
+          $ref: "../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
       content:
         application/json:
           schema:
             title: GetExecutionPayloadEnvelopeResponse
             type: object
-            required: [data]
+            required: [version, execution_optimistic, finalized, data]
             properties:
               version:
                 type: string

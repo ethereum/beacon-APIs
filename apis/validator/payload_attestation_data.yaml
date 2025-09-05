@@ -17,7 +17,7 @@ get:
       required: true
       description: "The slot for which payload attestation data should be created."
       schema:
-        $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
       description: "Success response"
@@ -34,9 +34,9 @@ get:
           schema:
             description: "SSZ serialized PayloadAttestationData bytes. Use Accept header to choose this response type"
     "400":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
     "406":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
     "503":
