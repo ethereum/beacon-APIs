@@ -1,0 +1,43 @@
+get:
+  tags:
+    - ValidatorRequiredApi
+    - Validator
+  operationId: "producePayloadAttestationData"
+  summary: "Produce payload attestation data"
+  description: |
+    Requests that the beacon node produce a PayloadAttestationData.
+
+    This endpoint is used by PTC validators to obtain the data structure they need to attest to
+    regarding payload presence and blob data availability for a specific slot.
+
+    A 503 error must be returned if the beacon node is currently syncing.
+  parameters:
+    - name: slot
+      in: query
+      required: true
+      description: "The slot for which payload attestation data should be created."
+      schema:
+        $ref: ../../beacon-node-oapi.yaml#/components/schemas/Uint64
+  responses:
+    "200":
+      description: "Success response"
+      content:
+        application/json:
+          schema:
+            title: ProducePayloadAttestationDataResponse
+            type: object
+            required: [data]
+            properties:
+              data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationData"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized PayloadAttestationData bytes. Use Accept header to choose this response type"
+    "400":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "406":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+    "503":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing"

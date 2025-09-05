@@ -1,0 +1,83 @@
+get:
+  operationId: getPoolPayloadAttestations
+  summary: Get payload attestations from operations pool
+  description: Retrieves payload attestations known by the node but not necessarily incorporated into any block
+  parameters:
+    - name: slot
+      in: query
+      required: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            title: GetPoolPayloadAttestationsResponse
+            type: object
+            required: [version, data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage'
+    "400":
+      description: "The slot could not be parsed"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid slot parameter"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+
+post:
+  operationId: submitPayloadAttestationMessage
+  summary: Submit payload attestation message
+  description: |
+    Submits a payload attestation message to the beacon node.
+
+    The beacon node will validate the payload attestation message according to the gossip validation rules
+    and, if valid, store it in the pool and broadcast it globally to the network.
+
+    A success response indicates that the payload attestation message passed validation and was
+    successfully stored and broadcast.
+  tags:
+    - Beacon
+    - ValidatorRequiredApi
+  requestBody:
+    description: "The PayloadAttestationMessage object to be submitted."
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized PayloadAttestationMessage bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
+  responses:
+    "200":
+      description: "The payload attestation message was stored in the pool and has been broadcast."
+      content:
+        text/plain:
+          schema:
+            type: string
+    "400":
+      description: "The PayloadAttestationMessage object is invalid or failed gossip validation"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -138,6 +138,8 @@ paths:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v2/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
+  /eth/v1/beacon/pool/payload_attestations:
+    $ref: "./apis/beacon/pool/payload_attestations.yaml"
   /eth/v2/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
@@ -190,6 +192,8 @@ paths:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
+  /eth/v1/validator/payload_attestation_data:
+    $ref: "./apis/validator/payload_attestation_data.yaml"
   /eth/v2/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
   /eth/v2/validator/aggregate_and_proofs:
@@ -449,6 +453,12 @@ components:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
     Gloas.SignedExecutionPayloadEnvelope:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
+    Gloas.PayloadAttestationData:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
+    Gloas.PayloadAttestation:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
+    Gloas.PayloadAttestationMessage:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
