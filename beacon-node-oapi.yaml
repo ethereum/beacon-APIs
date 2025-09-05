@@ -184,6 +184,8 @@ paths:
     $ref: "./apis/validator/duties/proposer.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
+  /eth/v1/validator/duties/ptc/{epoch}:
+    $ref: "./apis/validator/duties/ptc.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
@@ -237,6 +239,8 @@ components:
       $ref: './types/duty.yaml#/AttesterDuty'
     ProposerDuty:
       $ref: './types/duty.yaml#/ProposerDuty'
+    PtcDuty:
+      $ref: './types/duty.yaml#/PtcDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
     BeaconCommitteeSelection:
