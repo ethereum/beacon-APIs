@@ -1,0 +1,71 @@
+get:
+  operationId: getExecutionPayloadEnvelope
+  summary: Get execution payload envelope
+  description: |
+    Retrieves execution payload envelope for a given slot and builder. The envelope contains the full
+    execution payload along with associated metadata. Depending on `Accept` header, it can be returned
+    either as json or as bytes serialized by SSZ.
+  tags:
+    - Validator
+  parameters:
+    - name: slot
+      in: path
+      required: true
+      description: "Slot for which the execution payload envelope is requested."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+    - name: builder_index
+      in: path
+      required: true
+      description: "Index of the builder from which the execution payload envelope is requested."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: "Successful response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          required: true
+      content:
+        application/json:
+          schema:
+            title: GetExecutionPayloadEnvelopeResponse
+            type: object
+            required: [data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              execution_optimistic:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized execution payload envelope bytes. Use Accept header to choose this response type"
+    "400":
+      description: "Invalid execution payload envelope request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid slot or builder_index parameter"
+    "404":
+      description: "Execution payload envelope not available for the requested slot and builder"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "Execution payload envelope not available for slot and builder"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
