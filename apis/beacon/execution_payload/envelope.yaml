@@ -1,0 +1,41 @@
+post:
+  operationId: publishExecutionPayloadEnvelope
+  summary: Publish signed execution payload envelope
+  description: |
+    Instructs the beacon node to broadcast a signed execution payload envelope to the beacon network,
+    to be gossiped for payload validation. A success response (20x) indicates
+    that the envelope passed gossip validation and was successfully broadcast onto the network.
+  tags:
+    - Beacon
+  requestBody:
+    description: "The `SignedExecutionPayloadEnvelope` object to be broadcast."
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelope"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized SignedExecutionPayloadEnvelope bytes. Use Content-Type header to specify this format"
+  responses:
+    "200":
+      description: "The envelope was validated successfully and has been broadcast."
+      content:
+        text/plain:
+          schema:
+            type: string
+    "400":
+      description: "The SignedExecutionPayloadEnvelope object is invalid or failed gossip validation"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid signed execution payload envelope"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

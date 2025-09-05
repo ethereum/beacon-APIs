@@ -106,6 +106,8 @@ paths:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
   /eth/v1/beacon/execution_payload_bid:
     $ref: "./apis/beacon/execution_payload/bid.yaml"
+  /eth/v1/beacon/execution_payload_envelope:
+    $ref: "./apis/beacon/execution_payload/envelope.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -210,6 +212,8 @@ paths:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_bid/{slot}/{builder_index}:
     $ref: "./apis/validator/execution_payload_bid.yaml"
+  /eth/v1/validator/execution_payload_envelope/{slot}/{builder_index}:
+    $ref: "./apis/validator/execution_payload_envelope.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -437,6 +441,10 @@ components:
       $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
     Gloas.SignedExecutionPayloadBid:
       $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
+    Gloas.ExecutionPayloadEnvelope:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
+    Gloas.SignedExecutionPayloadEnvelope:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:

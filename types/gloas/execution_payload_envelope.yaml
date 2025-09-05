@@ -1,0 +1,45 @@
+Gloas:
+  ExecutionPayloadEnvelope:
+    type: object
+    description:  "The [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#executionpayloadenvelope)  object from the CL gloas spec."
+    required: [payload, execution_requests, builder_index, beacon_block_root, slot, blob_kzg_commitments, state_root]
+    properties:
+      payload:
+        $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
+      execution_requests:
+        $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
+      builder_index:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "Index of the builder that created this execution payload"
+      beacon_block_root:
+        allOf:
+          - $ref: "../primitive.yaml#/Root"
+          - description: "Root of the beacon block for this payload"
+      slot:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "Slot number for this execution payload"
+      blob_kzg_commitments:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/KZGCommitment"
+        minItems: 0
+        maxItems: 4096
+        description: "KZG commitments for the blobs included in this execution payload"
+      state_root:
+        allOf:
+          - $ref: "../primitive.yaml#/Root"
+          - description: "Beacon state root after executing this payload"
+
+  SignedExecutionPayloadEnvelope:
+    type: object
+    description:  "The [SignedExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope)  object from the CL gloas spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/ExecutionPayloadEnvelope"
+      signature:
+        allOf:
+          - $ref: "../primitive.yaml#/BLSSignature"
+          - description: "BLS signature of the execution payload envelope"
