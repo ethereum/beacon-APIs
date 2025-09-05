@@ -56,7 +56,7 @@ post:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/PtcDuty'
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/PtcDuty"
     "400":
       description: "Invalid epoch or index"
       content:

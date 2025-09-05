@@ -41,5 +41,5 @@ Gloas:
         $ref: "#/Gloas/ExecutionPayloadEnvelope"
       signature:
         allOf:
-          - $ref: "../primitive.yaml#/BLSSignature"
+          - $ref: "../primitive.yaml#/Signature"
           - description: "BLS signature of the execution payload envelope"

@@ -13,7 +13,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadBid"
+          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadBid"
       application/octet-stream:
         schema:
           description: "SSZ serialized SignedExecutionPayloadBid bytes. Use Content-Type header to specify this format"
@@ -29,13 +29,13 @@ post:
       content:
         application/json:
           schema:
-            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 400
             message: "Invalid signed execution payload bid"
     "406":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "415":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

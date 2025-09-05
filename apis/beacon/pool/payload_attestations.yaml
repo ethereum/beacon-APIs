@@ -7,7 +7,7 @@ get:
       in: query
       required: false
       schema:
-        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   tags:
     - Beacon
   responses:
@@ -27,7 +27,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage'
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
     "400":
       description: "The slot could not be parsed"
       content:
@@ -38,7 +38,7 @@ get:
             code: 400
             message: "Invalid slot parameter"
     "500":
-      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
 
 post:
   operationId: submitPayloadAttestationMessage
@@ -60,7 +60,7 @@ post:
     content:
       application/json:
         schema:
-          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
       application/octet-stream:
         schema:
           description: "SSZ serialized PayloadAttestationMessage bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
@@ -76,8 +76,8 @@ post:
       content:
         application/json:
           schema:
-            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
     "415":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
     "500":
-      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
