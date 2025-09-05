@@ -52,7 +52,7 @@ Gloas:
             type: array
             description: "Array of payload attestations from gloas."
             items:
-              $ref: "./payload_attestations.yaml#/Gloas/PayloadAttestation"
+              $ref: "./payload_attestation.yaml#/Gloas/PayloadAttestation"
             minItems: 0
             maxItems: 4
 

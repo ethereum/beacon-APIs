@@ -1,0 +1,48 @@
+Gloas:
+  PayloadAttestationData:
+    type: object
+    description: "The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec."
+    required: [beacon_block_root, slot, payload_present, blob_data_available]
+    properties:
+      beacon_block_root:
+        allOf:
+          - $ref: "../primitive.yaml#/Root"
+          - description: "Hash tree root of the beacon block associated with this ptc attestation"
+      slot:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "The slot for which the payload attestation is being made"
+      payload_present:
+        type: boolean
+        description: "True if a SignedExecutionPayloadEnvelope has been seen referencing this block"
+      blob_data_available:
+        type: boolean
+        description: "True if blob data is available for this block"
+
+  PayloadAttestation:
+    type: object
+    description: "The [PayloadAttestation](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#payloadattestation) object from the CL gloas spec."
+    required: [aggregation_bits, data, signature]
+    properties:
+      aggregation_bits:
+        $ref: "../primitive.yaml#/BitList"
+      data:
+        $ref: "#/Gloas/PayloadAttestationData"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+
+  PayloadAttestationMessage:
+    type: object
+    description: "The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec."
+    required: [validator_index, data, signature]
+    properties:
+      validator_index:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "Index of the validator submitting the payload attestation"
+      data:
+        $ref: "#/Gloas/PayloadAttestationData"
+      signature:
+        allOf:
+          - $ref: "../primitive.yaml#/Signature"
+          - description: "BLS signature of the payload attestation data"

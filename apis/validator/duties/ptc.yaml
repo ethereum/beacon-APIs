@@ -1,6 +1,7 @@
 post:
   tags:
     - Validator
+    - ValidatorRequiredApi
   summary: "Get PTC duties"
   operationId: "getPtcDuties"
   description: "Requests the beacon node to provide a set of Payload Timeliness Committee (PTC) duties,
