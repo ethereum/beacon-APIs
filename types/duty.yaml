@@ -52,3 +52,16 @@ Altair:
         minItems: 1
         items:
           $ref: './primitive.yaml#/Uint64'
+
+PtcDuty:
+  type: object
+  required: [pubkey, validator_index, slot]
+  properties:
+    pubkey:
+      $ref: './primitive.yaml#/Pubkey'
+    validator_index:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Index of validator in validator registry."
+    slot:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "The slot at which the validator must perform PTC duties."
