@@ -6,7 +6,7 @@ get:
   summary: "Produce an attestation data"
   description: |
     Requests that the beacon node produce an AttestationData. For `slot`s in
-    Electra and Fulu, this AttestationData must have a `committee_index` of 0. In Gloas, this `committee_index` field is repurposed to signal payload status: 0 if the execution payload is not present in the canonical chain (EMPTY), or 1 if the payload is present (FULL). For current slot attestations, always use 0.
+    Electra and Fulu, this AttestationData must have a `committee_index` of 0. In Gloas, this `committee_index` field is repurposed to signal payload status: 0 if the execution payload is not present in the canonical chain (EMPTY), or 1 if the payload is present (FULL). For current slot attestations, which means the head block root is a block proposed in the same slot as the AttestationData.slot, always use 0.
 
     A 503 error must be returned if the block identified by the response
     `beacon_block_root` is optimistic (i.e. the attestation attests to a block
