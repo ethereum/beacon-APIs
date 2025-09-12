@@ -7,6 +7,7 @@ get:
     either as json or as bytes serialized by SSZ.
   tags:
     - Validator
+    - ValidatorRequiredApi
   parameters:
     - name: slot
       in: path

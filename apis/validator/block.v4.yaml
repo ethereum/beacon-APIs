@@ -1,7 +1,7 @@
 get:
   tags:
-    - ValidatorRequiredApi
     - Validator
+    - ValidatorRequiredApi
   operationId: "produceBlockV4"
   summary: "Produce a new block, without signature."
   description: |

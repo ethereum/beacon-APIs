@@ -2,8 +2,8 @@ post:
   operationId: publishExecutionPayloadBid
   summary: Publish signed execution payload bid
   description: |
-    Instructs the beacon node to broadcast a signed execution payload bid to the beacon network,
-    to be gossiped for potential inclusion in block building. A success response indicates
+    Instructs the beacon node to broadcast a signed execution payload bid to the network,
+    to be gossiped for potential inclusion in block building. A success response (20x) indicates
     that the bid passed gossip validation and was successfully broadcast onto the network.
   tags:
     - Beacon

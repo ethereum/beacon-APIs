@@ -2,11 +2,12 @@ post:
   operationId: publishExecutionPayloadEnvelope
   summary: Publish signed execution payload envelope
   description: |
-    Instructs the beacon node to broadcast a signed execution payload envelope to the beacon network,
+    Instructs the beacon node to broadcast a signed execution payload envelope to the network,
     to be gossiped for payload validation. A success response (20x) indicates
     that the envelope passed gossip validation and was successfully broadcast onto the network.
   tags:
     - Beacon
+    - ValidatorRequiredApi
   requestBody:
     description: "The `SignedExecutionPayloadEnvelope` object to be broadcast."
     required: true

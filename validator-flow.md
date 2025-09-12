@@ -15,7 +15,9 @@ On start of every epoch, validator should [fetch proposer duties](#/Validator/ge
 Result is array of objects, each containing proposer pubkey and slot at which he is suppose to propose.
 
 If proposing block, then at immediate start of slot:
-1. [Ask Beacon Node for BeaconBlock object](#/Validator/produceBlock)
+1. Ask Beacon Node for BeaconBlock object:
+   - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
+   - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
 
@@ -36,13 +38,15 @@ Attesting:
       been assigned to. If any validators in the committee are aggregators,
       set `is_aggregator` to `True`,
 2. Wait for new BeaconBlock for the assigned slot (either stream updates or poll)
-    - Max wait: `SECONDS_PER_SLOT / 4` seconds into the assigned slot
+    - Pre-Gloas forks: Max wait `SECONDS_PER_SLOT / 3` seconds into the assigned slot
+    - Post-Gloas forks: Max wait `SECONDS_PER_SLOT / 4` seconds into the assigned slot
 3. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)
 4. [Submit Attestation](#/ValidatorRequiredApi/submitPoolAttestations) (AttestationData + aggregation bits)
     - Aggregation bits are `Bitlist` with length of committee (received in AttesterDuty)
     with bit on position `validator_committee_index` (see AttesterDuty) set to true
 5. If aggregator:
-    - Wait for `SECONDS_PER_SLOT / 2` seconds into the assigned slot
+    - Pre-Gloas forks: Wait for `SECONDS_PER_SLOT * 2 / 3` seconds into the assigned slot
+    - Post-Gloas forks: Wait for `SECONDS_PER_SLOT / 2` seconds into the assigned slot
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestation) from Beacon Node you've subscribed to your subnet
     - [Publish SignedAggregateAndProofs](#/ValidatorRequiredApi/publishAggregateAndProofs)
 
@@ -51,7 +55,7 @@ If reorg is detected, ask for new attester duties and proceed from 1..
 
 ### PTC Attesting
 
-On start of every epoch, validator should [fetch PTC duties](#/Validator/getPtcDuties) for epoch + 1.
+On start of every epoch beginning with the Gloas fork, validator should [fetch PTC duties](#/Validator/getPtcDuties) for epoch + 1.
 Result are array of objects with validator index and assigned slot for payload timeliness committee participation.
 
 PTC Attesting:
@@ -68,7 +72,7 @@ If reorg is detected, ask for new PTC duties and proceed from 1..
 
 ### Builder (Optional)
 
-Validators may optionally act as builders to submit execution payload bids for block inclusion.
+Post-Gloas fork, validators may optionally act as builders to submit execution payload bids for block inclusion.
 This requires registering with builder-specific withdrawal credentials (`BUILDER_WITHDRAWAL_PREFIX`).
 
 Building:
