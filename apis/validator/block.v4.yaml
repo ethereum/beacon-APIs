@@ -2,19 +2,15 @@ get:
   tags:
     - ValidatorRequiredApi
     - Validator
-  operationId: "produceBlockV3"
+  operationId: "produceBlockV4"
   summary: "Produce a new block, without signature."
   description: |
-    Requests a beacon node to produce a valid block, which can then be signed by a validator. The
-    returned block may be blinded or unblinded, depending on the current state of the network as
-    decided by the execution and beacon nodes.
+    Requests a beacon node to produce a valid block, which can then be signed by a validator.
 
-    The beacon node must return an unblinded block if it obtains the execution payload from its
-    paired execution node. It must only return a blinded block if it obtains the execution payload
-    header from an MEV relay.
-
-    Metadata in the response indicates the type of block produced, and the supported types of block
-    are for all pre-Gloas forks.  This endpoint is not forwards compatible after the Fulu fork.
+    Post-Gloas, proposers submit execution payload bids rather than full execution payloads,
+    so there is no longer a concept of blinded or unblinded blocks. Builders release the
+    payload later. This endpoint is specific to the post-Gloas forks and is not backwards compatible
+    with previous forks.
   parameters:
     - name: slot
       in: path
@@ -74,48 +70,28 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
-        Eth-Execution-Payload-Blinded:
-          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Blinded'
-        Eth-Execution-Payload-Value:
-          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Value'
         Eth-Consensus-Block-Value:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
       content:
         application/json:
           schema:
-            title: ProduceBlockV3Response
+            title: "ProduceBlockV4Response"
             type: object
-            required: [version, execution_payload_blinded, execution_payload_value, consensus_block_value, data]
+            required: [version, data, consensus_block_value]
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
-                example: "fulu"
-              execution_payload_blinded:
-                type: boolean
-                example: false
-              execution_payload_value:
-                type: string
-                example: "12345"
+                enum: [gloas]
+                example: "gloas"
               consensus_block_value:
                 type: string
                 example: "12345"
+                description: "Consensus rewards for this block in Wei"
               data:
-                anyOf:
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.BlockContents"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlockContents"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.BlindedBeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlockContents"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.BlindedBeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Capella.BlindedBeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.BlindedBeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Altair.BeaconBlock"
-                 - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Phase0.BeaconBlock"
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BeaconBlock"
         application/octet-stream:
           schema:
-            description: "SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`."
+            description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
     "400":
       description: "Invalid block production request"
       content:

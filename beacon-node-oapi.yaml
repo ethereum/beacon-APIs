@@ -190,6 +190,8 @@ paths:
     $ref: "./apis/validator/duties/ptc.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
+  /eth/v4/validator/blocks/{slot}:
+    $ref: "./apis/validator/block.v4.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/payload_attestation_data:
@@ -513,16 +515,15 @@ components:
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
     Eth-Execution-Payload-Blinded:
-      description: "DEPRECATED: Not applicable for gloas fork. For pre-gloas forks, this is required in response so client can deserialize returned json or ssz data to the correct object pre-gloas. Post-gloas, there is no concept of blinded blocks."
-      required: false
+      description: Required in response so client can deserialize returned json or ssz data to the correct object.
+      required: true
       schema:
         type: boolean
     Eth-Execution-Payload-Value:
       description: |
-        DEPRECATED: Not applicable for gloas fork.
-        For pre-gloas forks, this is the execution payload value in Wei. Required in response so client can determine relative value
-        of execution payloads pre-gloas.  Post-gloas, the ExecutionPayloadBid defines the value of an execution payload.
-      required: false
+        Execution payload value in Wei. Required in response so client can determine relative value
+        of execution payloads.
+      required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'
     Eth-Consensus-Block-Value:
