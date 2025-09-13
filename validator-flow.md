@@ -78,7 +78,7 @@ This requires registering with builder-specific withdrawal credentials (`BUILDER
 Building:
 1. [Fetch ExecutionPayloadBid](#/Validator/getExecutionPayloadBid) from beacon node
     - Beacon node obtains payload via `engine_getPayload` call to execution client
-2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#executionpayloadenvelope)
+2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#executionpayloadenvelope)
 2. Sign ExecutionPayloadBid to create SignedExecutionPayloadBid
 3. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
 4. If bid is selected by proposer in their block:

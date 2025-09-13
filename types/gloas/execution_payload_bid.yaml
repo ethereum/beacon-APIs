@@ -1,7 +1,7 @@
 Gloas:
   ExecutionPayloadBid:
     type: object
-    description: "The [ExecutionPayloadBid](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#executionpayloadbid)  object from the CL gloas spec."
+    description: "The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL gloas spec."
     required: [parent_block_hash, parent_block_root, block_hash, fee_recipient, gas_limit, builder_index, slot, value, blob_kzg_commitments_root]
     properties:
       parent_block_hash:
@@ -25,7 +25,7 @@ Gloas:
 
   SignedExecutionPayloadBid:
     type: object
-    description: "The [SignedExecutionPayloadBid](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#signedexecutionpayloadbid)  object from the CL gloas spec."
+    description: "The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL gloas spec."
     required: [message, signature]
     properties:
       message:

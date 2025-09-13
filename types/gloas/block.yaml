@@ -2,7 +2,7 @@ Gloas:
   BeaconBlockBodyCommon:
     # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
     required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes]
     properties:
       randao_reveal:

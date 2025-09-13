@@ -1,7 +1,7 @@
 Gloas:
   ExecutionPayloadEnvelope:
     type: object
-    description:  "The [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#executionpayloadenvelope)  object from the CL gloas spec."
+    description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL gloas spec."
     required: [payload, execution_requests, builder_index, beacon_block_root, slot, blob_kzg_commitments, state_root]
     properties:
       payload:
@@ -34,7 +34,7 @@ Gloas:
 
   SignedExecutionPayloadEnvelope:
     type: object
-    description:  "The [SignedExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope)  object from the CL gloas spec."
+    description: "The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL gloas spec."
     required: [message, signature]
     properties:
       message:

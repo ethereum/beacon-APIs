@@ -1,7 +1,7 @@
 Gloas:
   PayloadAttestationData:
     type: object
-    description: "The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec."
+    description: "The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec."
     required: [beacon_block_root, slot, payload_present, blob_data_available]
     properties:
       beacon_block_root:
@@ -21,7 +21,7 @@ Gloas:
 
   PayloadAttestation:
     type: object
-    description: "The [PayloadAttestation](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#payloadattestation) object from the CL gloas spec."
+    description: "The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#payloadattestation) object from the CL gloas spec."
     required: [aggregation_bits, data, signature]
     properties:
       aggregation_bits:
@@ -33,7 +33,7 @@ Gloas:
 
   PayloadAttestationMessage:
     type: object
-    description: "The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec."
+    description: "The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec."
     required: [validator_index, data, signature]
     properties:
       validator_index:
