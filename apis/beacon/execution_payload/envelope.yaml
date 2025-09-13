@@ -8,6 +8,13 @@ post:
   tags:
     - Beacon
     - ValidatorRequiredApi
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the execution payload envelope being submitted belongs."
   requestBody:
     description: "The `SignedExecutionPayloadEnvelope` object to be broadcast."
     required: true

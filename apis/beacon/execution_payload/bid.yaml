@@ -7,6 +7,13 @@ post:
     that the bid passed gossip validation and was successfully broadcast onto the network.
   tags:
     - Beacon
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the execution payload bid being submitted belongs."
   requestBody:
     description: "The `SignedExecutionPayloadBid` object to be broadcast."
     required: true
