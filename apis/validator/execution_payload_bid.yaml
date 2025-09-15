@@ -64,5 +64,14 @@ get:
             message: "Execution payload bid not available for slot and builder"
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "422":
+      description: "The builder_index does not correspond to a validator with builder withdrawal credentials (0x03 prefix)"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 422
+            message: "Builder index does not correspond to a registered builder validator"
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
