@@ -21,13 +21,20 @@ get:
   responses:
     "200":
       description: "Success response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: "../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
       content:
         application/json:
           schema:
             title: ProducePayloadAttestationDataResponse
             type: object
-            required: [data]
+            required: [version, data]
             properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationData"
         application/octet-stream:

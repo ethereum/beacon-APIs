@@ -13,6 +13,9 @@ get:
   responses:
     "200":
       description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
       content:
         application/json:
           schema:
@@ -51,6 +54,13 @@ post:
 
     A success response indicates that the payload attestation message passed validation and was
     successfully stored and broadcast.
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the payload attestation message being submitted belongs."
   tags:
     - Beacon
     - ValidatorRequiredApi
