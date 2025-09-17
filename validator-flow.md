@@ -39,14 +39,14 @@ Attesting:
       set `is_aggregator` to `True`,
 2. Wait for new BeaconBlock for the assigned slot (either stream updates or poll)
     - Pre-Gloas forks: Max wait `SECONDS_PER_SLOT / 3` seconds into the assigned slot
-    - Post-Gloas forks: Max wait `SECONDS_PER_SLOT / 4` seconds into the assigned slot
+    - Post-Gloas forks: Max wait [ATTESTATION_DUE_BPS_GLOAS](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
 3. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)
 4. [Submit Attestation](#/ValidatorRequiredApi/submitPoolAttestations) (AttestationData + aggregation bits)
     - Aggregation bits are `Bitlist` with length of committee (received in AttesterDuty)
     with bit on position `validator_committee_index` (see AttesterDuty) set to true
 5. If aggregator:
     - Pre-Gloas forks: Wait for `SECONDS_PER_SLOT * 2 / 3` seconds into the assigned slot
-    - Post-Gloas forks: Wait for `SECONDS_PER_SLOT / 2` seconds into the assigned slot
+    - Post-Gloas forks: Wait for [AGGREGATE_DUE_BPS_GLOAS](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestation) from Beacon Node you've subscribed to your subnet
     - [Publish SignedAggregateAndProofs](#/ValidatorRequiredApi/publishAggregateAndProofs)
 
@@ -64,7 +64,7 @@ PTC Attesting:
 2. [Fetch PayloadAttestationData](#/ValidatorRequiredApi/producePayloadAttestationData) for the assigned slot
 3. Sign PayloadAttestationData to create PayloadAttestationMessage
 4. [Submit PayloadAttestationMessage](#/ValidatorRequiredApi/submitPayloadAttestationMessage)
-    - Must be submitted by `3/4` of slot duration (`PAYLOAD_ATTESTATION_DUE_BPS` = 75% of slot)
+    - Must be submitted by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/validator.md#time-parameters) of slot duration
     - Attestation indicates whether execution payload envelope has been seen for the block and if blobs were received
 
 Monitor chain block reorganization events (TBD) as they could change PTC assignments.
@@ -84,7 +84,7 @@ Building:
 4. If bid is selected by proposer in their block:
     - [Fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from beacon node
     - Sign envelope and [submit SignedExecutionPayloadEnvelope](#/Beacon/publishExecutionPayloadEnvelope)
-    - Must submit early enough for PTC attestation by `3/4` of slot duration
+    - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/validator.md#time-parameters) of slot duration
 
 Monitor for block proposals containing your bid to trigger envelope release.
 
