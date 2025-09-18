@@ -13,7 +13,7 @@ get:
     A 503 error must be returned if the beacon node is currently syncing.
   parameters:
     - name: slot
-      in: query
+      in: path
       required: true
       description: "The slot for which payload attestation data should be created."
       schema:

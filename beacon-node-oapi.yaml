@@ -194,7 +194,7 @@ paths:
     $ref: "./apis/validator/block.v4.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
-  /eth/v1/validator/payload_attestation_data:
+  /eth/v1/validator/payload_attestation_data/{slot}:
     $ref: "./apis/validator/payload_attestation_data.yaml"
   /eth/v2/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
