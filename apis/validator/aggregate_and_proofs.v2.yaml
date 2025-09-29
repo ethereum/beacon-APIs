@@ -31,7 +31,11 @@ post:
     "200":
       description: "Successful response"
     "400":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+      description: "Errors with one or more aggregate and proofs"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
     "415":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
