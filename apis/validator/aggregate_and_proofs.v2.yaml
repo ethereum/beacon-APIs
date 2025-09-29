@@ -35,7 +35,7 @@ post:
       content:
         application/json:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
     "415":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType'
     "500":
