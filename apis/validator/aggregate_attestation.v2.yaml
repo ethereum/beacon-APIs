@@ -46,7 +46,7 @@ get:
               version:
                 type: string
                 enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
-                example: "electra"
+                example: "fulu"
               data:
                 anyOf:
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'

@@ -40,7 +40,7 @@ get:
               version:
                 type: string
                 enum: [deneb, electra]
-                example: "electra"
+                example: "fulu"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
