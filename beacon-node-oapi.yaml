@@ -107,7 +107,9 @@ paths:
   /eth/v1/beacon/execution_payload_bid:
     $ref: "./apis/beacon/execution_payload/bid.yaml"
   /eth/v1/beacon/execution_payload_envelope:
-    $ref: "./apis/beacon/execution_payload/envelope.yaml"
+    $ref: "./apis/beacon/execution_payload/envelope_post.yaml"
+  /eth/v1/beacon/execution_payload_envelope/{block_id}:
+    $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:

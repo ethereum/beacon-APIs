@@ -1,16 +1,13 @@
 get:
-  operationId: getBlockV2
-  summary: Get block
+  operationId: getExecutionPayloadEnvelopeByBlockId
+  summary: Get execution payload envelope
   description: |
-    Retrieves block details for given block id.
-    Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ
+    Retrieves execution payload envelope for a given block id.
+    Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
-    - name: block_id
-      in: path
-      required: true
-      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+    - $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
   responses:
     "200":
       description: "Successful response"
@@ -20,30 +17,23 @@ get:
       content:
         application/json:
           schema:
-            title: GetBlockV2Response
+            title: GetExecutionPayloadEnvelopeResponse
             type: object
             required: [version, execution_optimistic, finalized, data]
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+                enum: [gloas]
                 example: "gloas"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                anyOf:
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Capella.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Bellatrix.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Altair.SignedBeaconBlock"
-                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlock"
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelope"
         application/octet-stream:
           schema:
-            description: "SSZ serialized block bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized execution payload envelope bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:
@@ -54,14 +44,14 @@ get:
             code: 400
             message: "Invalid block ID: current"
     "404":
-      description: "Block not found"
+      description: "Execution payload envelope not found"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 404
-            message: "Block not found"
+            message: "Execution payload envelope not found"
     "406":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
