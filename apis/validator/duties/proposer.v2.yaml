@@ -30,7 +30,9 @@ get:
      - dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
 
 
-    The dependent_root value is the genesis block root in the case of underflow."
+    The dependent_root value is the genesis block root in the case of underflow.
+    
+    Note: not required until Gloas"
   parameters:
     - name: epoch
       in: path
