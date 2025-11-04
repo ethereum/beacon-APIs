@@ -334,7 +334,7 @@ components:
     ConsensusVersion:
       type: string
       enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
-      example: "electra"
+      example: "fulu"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
     Capella.BeaconState:
