@@ -29,30 +29,32 @@ get:
           schema:
             title: GetExecutionPayloadBidResponse
             type: object
-            required: [version, execution_optimistic, finalized, data]
+            required: [version, data]
             properties:
               version:
                 type: string
                 enum: [gloas]
                 example: "gloas"
-              execution_optimistic:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
-              finalized:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadBid"
         application/octet-stream:
           schema:
-            description: "SSZ serialized execution payload bid bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `ExecutionPayloadBid` bytes. Use Accept header to choose this response type"
     "400":
-      description: "The slot supplied could not be parsed or is invalid"
+      description: "Invalid request - the slot or builder_index is invalid"
       content:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 400
-            message: "Invalid slot: must be current slot or next slot"
+          examples:
+            InvalidSlot:
+              value:
+                code: 400
+                message: "Invalid slot: must be current slot or next slot"
+            InvalidBuilderIndex:
+              value:
+                code: 400
+                message: "Builder index does not correspond to a registered builder validator"
     "404":
       description: "Execution payload bid not available for the requested slot and builder"
       content:
@@ -64,14 +66,5 @@ get:
             message: "Execution payload bid not available for slot and builder"
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
-    "422":
-      description: "The builder_index does not correspond to a validator with builder withdrawal credentials (0x03 prefix)"
-      content:
-        application/json:
-          schema:
-            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 422
-            message: "Builder index does not correspond to a registered builder validator"
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

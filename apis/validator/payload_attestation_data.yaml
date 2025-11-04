@@ -39,7 +39,7 @@ get:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationData"
         application/octet-stream:
           schema:
-            description: "SSZ serialized PayloadAttestationData bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `PayloadAttestationData` bytes. Use Accept header to choose this response type"
     "400":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
     "406":

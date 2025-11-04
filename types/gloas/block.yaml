@@ -1,14 +1,12 @@
 Gloas:
-  BeaconBlockBodyCommon:
-    # An abstract object to collect the common fields between the BeaconBlockBody and the BlindedBeaconBlockBody objects
+  BeaconBlockBody:
     type: object
     description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
-    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes]
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, signed_execution_payload_bid, payload_attestations]
     properties:
       randao_reveal:
-        allOf:
-          - $ref: "../primitive.yaml#/Signature"
-          - description: "The RANDAO reveal value provided by the validator."
+        $ref: "../primitive.yaml#/Signature"
+        description: "The RANDAO reveal value provided by the validator."
       eth1_data:
         $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
       graffiti:
@@ -39,22 +37,15 @@ Gloas:
         type: array
         items:
           $ref: "../capella/bls_to_execution_change.yaml#/Capella/SignedBLSToExecutionChange"
-
-  BeaconBlockBody:
-    allOf:
-      - $ref: "#/Gloas/BeaconBlockBodyCommon"
-      - type: object
-        required: [signed_execution_payload_bid, payload_attestations]
-        properties:
-          signed_execution_payload_bid:
-            $ref: "./execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
-          payload_attestations:
-            type: array
-            description: "Array of payload attestations from gloas."
-            items:
-              $ref: "./payload_attestation.yaml#/Gloas/PayloadAttestation"
-            minItems: 0
-            maxItems: 4
+      signed_execution_payload_bid:
+        $ref: "./execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
+      payload_attestations:
+        type: array
+        description: "Array of payload attestations from gloas."
+        items:
+          $ref: "./payload_attestation.yaml#/Gloas/PayloadAttestation"
+        minItems: 0
+        maxItems: 4
 
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."

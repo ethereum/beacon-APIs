@@ -77,7 +77,7 @@ get:
           schema:
             title: "ProduceBlockV4Response"
             type: object
-            required: [version, data, consensus_block_value]
+            required: [version, consensus_block_value, data]
             properties:
               version:
                 type: string
@@ -91,7 +91,7 @@ get:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BeaconBlock"
         application/octet-stream:
           schema:
-            description: "SSZ serialized block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
+            description: "SSZ serialized `BeaconBlock` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`."
     "400":
       description: "Invalid block production request"
       content:

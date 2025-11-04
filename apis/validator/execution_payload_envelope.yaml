@@ -18,7 +18,7 @@ get:
     - name: builder_index
       in: path
       required: true
-      description: "Index of the builder from which the execution payload envelope is requested."
+      description: "Validator index of the builder from which the execution payload envelope is requested.  For self-building, it will be the proposer's validator index."
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
@@ -32,21 +32,17 @@ get:
           schema:
             title: GetExecutionPayloadEnvelopeResponse
             type: object
-            required: [version, execution_optimistic, finalized, data]
+            required: [version, data]
             properties:
               version:
                 type: string
                 enum: [gloas]
                 example: "gloas"
-              execution_optimistic:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
-              finalized:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
         application/octet-stream:
           schema:
-            description: "SSZ serialized execution payload envelope bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `ExecutionPayloadEnvelope` bytes. Use Accept header to choose this response type"
     "400":
       description: "Invalid execution payload envelope request"
       content:

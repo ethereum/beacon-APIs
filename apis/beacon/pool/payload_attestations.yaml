@@ -44,8 +44,8 @@ get:
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
 
 post:
-  operationId: submitPayloadAttestationMessage
-  summary: Submit payload attestation message
+  operationId: submitPayloadAttestationMessages
+  summary: Submit payload attestation messages
   description: |
     Submits payload attestation messages to the beacon node.
 
@@ -77,7 +77,7 @@ post:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
       application/octet-stream:
         schema:
-          description: "SSZ serialized array of PayloadAttestationMessage bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
+          description: "SSZ serialized `List[PayloadAttestationMessage, PTC_SIZE]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: "Payload attestation messages are stored in pool and broadcasted to the network"

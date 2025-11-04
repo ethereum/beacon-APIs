@@ -24,14 +24,10 @@ post:
           $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelope"
       application/octet-stream:
         schema:
-          description: "SSZ serialized SignedExecutionPayloadEnvelope bytes. Use Content-Type header to specify this format"
+          description: "SSZ serialized `SignedExecutionPayloadEnvelope` bytes. Use Content-Type header to specify this format"
   responses:
     "200":
       description: "The envelope was validated successfully and has been broadcast."
-      content:
-        text/plain:
-          schema:
-            type: string
     "400":
       description: "The SignedExecutionPayloadEnvelope object is invalid or failed gossip validation"
       content:
@@ -41,8 +37,6 @@ post:
           example:
             code: 400
             message: "Invalid signed execution payload envelope"
-    "406":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "415":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
     "500":

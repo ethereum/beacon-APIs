@@ -5,13 +5,11 @@ Gloas:
     required: [beacon_block_root, slot, payload_present, blob_data_available]
     properties:
       beacon_block_root:
-        allOf:
-          - $ref: "../primitive.yaml#/Root"
-          - description: "Hash tree root of the beacon block associated with this ptc attestation"
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the beacon block associated with this ptc attestation"
       slot:
-        allOf:
-          - $ref: "../primitive.yaml#/Uint64"
-          - description: "The slot for which the payload attestation is being made"
+        $ref: "../primitive.yaml#/Uint64"
+        description: "The slot for which the payload attestation is being made"
       payload_present:
         type: boolean
         description: "True if a SignedExecutionPayloadEnvelope has been seen referencing this block"
@@ -37,12 +35,10 @@ Gloas:
     required: [validator_index, data, signature]
     properties:
       validator_index:
-        allOf:
-          - $ref: "../primitive.yaml#/Uint64"
-          - description: "Index of the validator submitting the payload attestation"
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the validator submitting the payload attestation"
       data:
         $ref: "#/Gloas/PayloadAttestationData"
       signature:
-        allOf:
-          - $ref: "../primitive.yaml#/Signature"
-          - description: "BLS signature of the payload attestation data"
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS signature of the payload attestation data"

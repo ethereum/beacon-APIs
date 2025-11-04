@@ -9,17 +9,14 @@ Gloas:
       execution_requests:
         $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
       builder_index:
-        allOf:
-          - $ref: "../primitive.yaml#/Uint64"
-          - description: "Index of the builder that created this execution payload"
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the builder that created this execution payload"
       beacon_block_root:
-        allOf:
-          - $ref: "../primitive.yaml#/Root"
-          - description: "Root of the beacon block for this payload"
+        $ref: "../primitive.yaml#/Root"
+        description: "Root of the beacon block for this payload"
       slot:
-        allOf:
-          - $ref: "../primitive.yaml#/Uint64"
-          - description: "Slot number for this execution payload"
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Slot number for this execution payload"
       blob_kzg_commitments:
         type: array
         items:
@@ -28,9 +25,8 @@ Gloas:
         maxItems: 4096
         description: "KZG commitments for the blobs included in this execution payload"
       state_root:
-        allOf:
-          - $ref: "../primitive.yaml#/Root"
-          - description: "Beacon state root after executing this payload"
+        $ref: "../primitive.yaml#/Root"
+        description: "Beacon state root after executing this payload"
 
   SignedExecutionPayloadEnvelope:
     type: object
@@ -40,6 +36,5 @@ Gloas:
       message:
         $ref: "#/Gloas/ExecutionPayloadEnvelope"
       signature:
-        allOf:
-          - $ref: "../primitive.yaml#/Signature"
-          - description: "BLS signature of the execution payload envelope"
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS signature of the execution payload envelope"
