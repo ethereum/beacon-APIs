@@ -2,7 +2,7 @@ get:
   operationId: getExecutionPayloadEnvelope
   summary: Get execution payload envelope
   description: |
-    Retrieves execution payload envelope for a given slot and builder. The envelope contains the full
+    Retrieves execution payload envelope for a given slot and builder, which can then be signed by a validator. The envelope contains the full
     execution payload along with associated metadata. Depending on `Accept` header, it can be returned
     either as json or as bytes serialized by SSZ.
   tags:

@@ -30,7 +30,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestation"
     "400":
       description: "The slot could not be parsed"
       content:

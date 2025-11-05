@@ -19,7 +19,7 @@ Gloas:
 
   PayloadAttestation:
     type: object
-    description: "The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#payloadattestation) object from the CL gloas spec."
+    description: "The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec."
     required: [aggregation_bits, data, signature]
     properties:
       aggregation_bits:

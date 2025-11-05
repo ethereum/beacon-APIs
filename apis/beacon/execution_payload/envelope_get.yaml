@@ -1,8 +1,8 @@
 get:
-  operationId: getExecutionPayloadEnvelopeByBlockId
-  summary: Get execution payload envelope
+  operationId: getSignedExecutionPayloadEnvelope
+  summary: Get signed execution payload envelope
   description: |
-    Retrieves execution payload envelope for a given block id.
+    Retrieves signed execution payload envelope for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
   tags:
     - Beacon
