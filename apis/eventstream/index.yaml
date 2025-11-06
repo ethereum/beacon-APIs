@@ -40,6 +40,8 @@ get:
             - blob_sidecar
             - data_column_sidecar
             - execution_payload_available
+            - execution_payload_bid
+            - payload_attestation
   responses:
     "200":
       description: Opened SSE stream.
@@ -164,6 +166,16 @@ get:
               value: |
                 event: execution_payload_available
                 data: {"slot": "10", "block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}
+            execution_payload_bid:
+              description: The node has received a `SignedExecutionPayloadBid` (from P2P or API) that passes gossip validation on the `execution_payload_bid` topic
+              value: |
+                event: execution_payload_bid
+                data: {"slot": "10", "builder_index": "42", "parent_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "block_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "value": "1000000000"}
+            payload_attestation:
+              description: The node has received a `PayloadAttestationMessage` that passes validation rules of the `payload_attestation` topic
+              value: |
+                event: payload_attestation
+                data: {"validator_index": "123", "slot": "10", "beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "payload_present": true, "blob_data_available": true}
     "400":
       description: "The topics supplied could not be parsed"
       content:
