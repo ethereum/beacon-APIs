@@ -21,7 +21,7 @@ Fulu:
 
   DataColumnSidecar:
     type: object
-    description: "A [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/dev/specs/fulu/das-core.md#datacolumnsidecar) as defined in the Fulu consensus spec."
+    description: "A [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/v1.6.0/specs/fulu/das-core.md#datacolumnsidecar) as defined in the Fulu consensus spec."
     required: [index, column, kzg_commitments, kzg_proofs, signed_block_header, kzg_commitments_inclusion_proof]
     properties:
       index:
