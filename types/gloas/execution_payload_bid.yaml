@@ -20,6 +20,8 @@ Gloas:
         $ref: "../primitive.yaml#/Uint64"
       value:
         $ref: "../primitive.yaml#/Gwei"
+      execution_payment:
+        $ref: "../primitive.yaml#/Gwei"
       blob_kzg_commitments_root:
         $ref: "../primitive.yaml#/Root"
 
