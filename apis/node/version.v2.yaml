@@ -1,0 +1,54 @@
+get:
+  operationId: "getNodeVersionV2"
+  tags:
+    - Node
+  summary: "Get version information for the beacon node and execution payload validator."
+  description: "Retrieves structured information about the version of the beacon node and its attached execution payload validator."
+  responses:
+    "200":
+      description: Request successful
+      content:
+        application/json:
+          schema:
+            title: GetVersionV2Response
+            type: object
+            required: [data]
+            properties:
+              data:
+                type: object
+                required: [beacon_node, execution_payload_validator]
+                properties:
+                  beacon_node:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
+                  execution_payload_validator:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
+          examples:
+            StatefulELValidator:
+              value:
+                data:
+                  beacon_node:
+                    code: "LH"
+                    name: "Lighthouse"
+                    version: "v8.0.1"
+                    commit: "ced49dd2"
+                  execution_payload_validator:
+                    code: "NM"
+                    name: "Nethermind"
+                    version: "v1.35.8"
+                    commit: "c066aee2"
+            StatelessELValidator:
+              value:
+                data:
+                  beacon_node:
+                    code: "LS"
+                    name: "Lodestar"
+                    version: "v1.38.0"
+                    commit: "dbd94781"
+                  execution_payload_validator:
+                    code: "ZK"
+                    name: "ZK Proof Verifier"
+                    version: "v0.0.1"
+                    commit: "c066aee2"
+
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'

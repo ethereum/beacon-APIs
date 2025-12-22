@@ -162,6 +162,8 @@ paths:
     $ref: "./apis/node/peer_count.yaml"
   /eth/v1/node/version:
     $ref: "./apis/node/version.yaml"
+  /eth/v2/node/version:
+    $ref: "./apis/node/version.v2.yaml"
   /eth/v1/node/syncing:
     $ref: "./apis/node/syncing.yaml"
   /eth/v1/node/health:
@@ -255,6 +257,8 @@ components:
       $ref: './types/primitive.yaml#/GenesisTime'
     Version:
       $ref: './types/primitive.yaml#/Version'
+    ClientVersionV1:
+      $ref: './types/node.yaml#/ClientVersionV1'
     ForkVersion:
       $ref: './types/primitive.yaml#/ForkVersion'
     DependentRoot:

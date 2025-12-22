@@ -1,0 +1,17 @@
+ClientVersionV1:
+  type: object
+  description: "A structure which uniquely identifies a client implementation and its version; similar to [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)."
+  required: [name, version, commit]
+  properties:
+    code:
+      type: string
+      example: "LS"
+    name:
+      type: string
+      example: "Lodestar"
+    version:
+      type: string
+      example: "v1.23.4"
+    commit:
+      type: string
+      example: "fa4ff922"
