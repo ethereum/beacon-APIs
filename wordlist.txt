@@ -37,3 +37,8 @@ KZGProofs
 KZGCommitmentInclusionProof
 LMD
 fulu
+ZK
+Stateful
+Verifier
+LH
+ClientVersionV

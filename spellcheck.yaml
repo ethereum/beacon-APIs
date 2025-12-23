@@ -65,3 +65,8 @@ matrix:
         delimiters:
           - open: 'data:.*'
             close: '$'
+    - pyspelling.filters.context:
+        context_visible_first: true
+        delimiters:
+          - open: 'commit:.*'
+            close: '$'

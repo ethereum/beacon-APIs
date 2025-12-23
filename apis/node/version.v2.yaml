@@ -23,7 +23,7 @@ get:
                   execution_payload_validator:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
           examples:
-            StatefulELValidator:
+            Stateful Execution Payload Validator:
               value:
                 data:
                   beacon_node:
@@ -36,7 +36,7 @@ get:
                     name: "Nethermind"
                     version: "v1.35.8"
                     commit: "c066aee2"
-            StatelessELValidator:
+            Stateless Execution Payload Validator:
               value:
                 data:
                   beacon_node:
@@ -45,7 +45,7 @@ get:
                     version: "v1.38.0"
                     commit: "dbd94781"
                   execution_payload_validator:
-                    code: "ZK"
+                    code: "TBD"
                     name: "ZK Proof Verifier"
                     version: "v0.0.1"
                     commit: "c066aee2"
