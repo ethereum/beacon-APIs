@@ -1,17 +1,19 @@
 ClientVersionV1:
   type: object
-  description: "A structure which uniquely identifies a client implementation and its version; similar to [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)."
-  required: [name, version, commit]
+  description: "A structure which uniquely identifies a client implementation and its version. Mirrors the client version specification in the [Engine API](https://github.com/ethereum/execution-apis/blob/main/src/engine/identification.md)."
+  required: [code, name, version, commit]
   properties:
     code:
-      type: string
-      example: "LS"
+      $ref: './primitive.yaml#/ClientCode'
     name:
       type: string
+      description: "Human-readable name of the client, e.g. Lighthouse or go-ethereum"
       example: "Lodestar"
     version:
       type: string
+      description: "the version string of the current implementation e.g. v4.6.0 or 1.0.0-alpha.1 or 1.0.0+20130313144700"
       example: "v1.23.4"
     commit:
       type: string
+      description: "4 bytes - first four bytes of the latest commit hash of this build e.g. fa4ff922"
       example: "fa4ff922"
