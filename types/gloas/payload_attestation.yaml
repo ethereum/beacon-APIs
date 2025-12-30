@@ -23,7 +23,7 @@ Gloas:
     required: [aggregation_bits, data, signature]
     properties:
       aggregation_bits:
-        $ref: "../primitive.yaml#/BitList"
+        $ref: "../primitive.yaml#/Bitvector"
       data:
         $ref: "#/Gloas/PayloadAttestationData"
       signature:
