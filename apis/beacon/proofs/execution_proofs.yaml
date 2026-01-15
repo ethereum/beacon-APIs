@@ -1,0 +1,39 @@
+get:
+  operationId: getExecutionProofs
+  summary: Get execution proofs
+  description: |
+    Retrieves execution proofs known by the node.
+  parameters:
+    - name: new_payload_request_root
+      in: query
+      required: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+      description: "Filter by new payload request root"
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            title: GetExecutionProofsResponse
+            type: object
+            required: [data]
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/EIP8025.ProverSignedExecutionProof'
+    "400":
+      description: "The new_payload_request_root could not be parsed"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid new_payload_request_root"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
