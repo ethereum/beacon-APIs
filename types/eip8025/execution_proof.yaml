@@ -1,0 +1,40 @@
+EIP8025:
+  PublicInput:
+    type: object
+    description: "Public input for execution proof verification"
+    required: [new_payload_request_root]
+    properties:
+      new_payload_request_root:
+        $ref: '../primitive.yaml#/Root'
+        description: "Root of the NewPayloadRequest being proven"
+
+  ExecutionProof:
+    type: object
+    description: "Unsigned execution proof for stateless validation"
+    required: [proof_data, proof_type, public_input]
+    properties:
+      proof_data:
+        type: string
+        format: hex
+        pattern: "^0x[a-fA-F0-9]{0,614400}$"
+        description: "Proof data, max 300KiB (307200 bytes = 614400 hex chars)"
+        example: "0x1234567890abcdef"
+      proof_type:
+        $ref: '../primitive.yaml#/Uint8'
+        description: "Type identifier for the proof system"
+      public_input:
+        $ref: '#/EIP8025/PublicInput'
+
+  ProverSignedExecutionProof:
+    type: object
+    description: "Execution proof signed by a whitelisted prover"
+    required: [message, prover_pubkey, signature]
+    properties:
+      message:
+        $ref: '#/EIP8025/ExecutionProof'
+      prover_pubkey:
+        $ref: '../primitive.yaml#/Pubkey'
+        description: "BLS public key of the prover"
+      signature:
+        $ref: '../primitive.yaml#/Signature'
+        description: "BLS signature over the execution proof"
