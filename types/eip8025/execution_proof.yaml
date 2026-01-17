@@ -1,4 +1,22 @@
 EIP8025:
+  ProofGenId:
+    type: string
+    format: hex
+    pattern: "^0x[a-fA-F0-9]{16}$"
+    description: "8-byte identifier for tracking proof generation requests"
+    example: "0x0102030405060708"
+
+  GeneratedProof:
+    type: object
+    description: "Generated execution proof with associated proof generation ID"
+    required: [proof_gen_id, execution_proof]
+    properties:
+      proof_gen_id:
+        $ref: '#/EIP8025/ProofGenId'
+        description: "ID linking this proof to the original request"
+      execution_proof:
+        $ref: '#/EIP8025/ExecutionProof'
+
   PublicInput:
     type: object
     description: "Public input for execution proof verification"

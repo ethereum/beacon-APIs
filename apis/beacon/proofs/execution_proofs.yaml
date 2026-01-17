@@ -2,16 +2,19 @@ get:
   operationId: getExecutionProofs
   summary: Get execution proofs
   description: |
-    Retrieves execution proofs known by the node.
-  parameters:
-    - name: new_payload_request_root
-      in: query
-      required: false
-      schema:
-        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
-      description: "Filter by new payload request root"
+    Retrieves execution proofs for a given block id.
+    Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ.
+
+    Proofs are returned as an ordered list of `ProverSignedExecutionProof` objects.
+
+    Proofs are only available for recent blocks within the proof retention period.
   tags:
     - Beacon
+  parameters:
+    - name: block_id
+      in: path
+      required: true
+      $ref: "../../../beacon-node-oapi.yaml#/components/parameters/BlockId"
   responses:
     "200":
       description: Successful response
@@ -20,20 +23,38 @@ get:
           schema:
             title: GetExecutionProofsResponse
             type: object
-            required: [data]
+            required: [execution_optimistic, finalized, data]
             properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/EIP8025.ProverSignedExecutionProof'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `List[ProverSignedExecutionProof, MAX_EXECUTION_PROOFS_PER_PAYLOAD]` bytes. Use Accept header to choose this response type"
     "400":
-      description: "The new_payload_request_root could not be parsed"
+      description: "The block ID supplied could not be parsed"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 400
-            message: "Invalid new_payload_request_root"
+            message: "Invalid block ID: current"
+    "404":
+      description: "Block not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "Block not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
