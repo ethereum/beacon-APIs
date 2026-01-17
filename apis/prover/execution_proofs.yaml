@@ -4,6 +4,7 @@ post:
   description: |
     Receives unsigned execution proofs from the proof engine. The beacon node
     validates, signs, stores, and broadcasts them on the `execution_proof` gossip topic.
+    Each proof includes the `proof_gen_id` to link it to the original proof generation request.
   tags:
     - Prover
   requestBody:
@@ -13,10 +14,10 @@ post:
         schema:
           type: array
           items:
-            $ref: '../../beacon-node-oapi.yaml#/components/schemas/EIP8025.ExecutionProof'
+            $ref: '../../beacon-node-oapi.yaml#/components/schemas/EIP8025.GeneratedProof'
       application/octet-stream:
         schema:
-          description: "SSZ serialized List[ExecutionProof, MAX_EXECUTION_PROOFS_PER_PAYLOAD]"
+          description: "SSZ serialized List[GeneratedProof, MAX_EXECUTION_PROOFS_PER_PAYLOAD]"
   responses:
     "200":
       description: "Proofs received and validated successfully"
