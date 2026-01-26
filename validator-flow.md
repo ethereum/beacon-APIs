@@ -76,8 +76,9 @@ If reorg is detected, ask for new PTC duties and proceed from 1..
 
 ### Builder (Optional)
 
-Post-Gloas fork, validators may optionally act as builders to submit execution payload bids for block inclusion.
-This requires registering with builder-specific withdrawal credentials (`BUILDER_WITHDRAWAL_PREFIX`).
+Post-Gloas fork, builders are separate non-validating staked actors that submit execution payload bids for block inclusion.
+Builders register by depositing with builder-specific withdrawal credentials (`BUILDER_WITHDRAWAL_PREFIX`) and are tracked
+in the beacon state's builder registry.
 
 Building:
 1. [Fetch ExecutionPayloadBid](#/Validator/getExecutionPayloadBid) from beacon node for the current or next slot's proposer to include.

@@ -18,7 +18,7 @@ get:
     - name: builder_index
       in: path
       required: true
-      description: "Validator index of the builder from which the execution payload envelope is requested.  For self-building, it will be the proposer's validator index."
+      description: "Validator index of the builder from which the execution payload envelope is requested.  For self-building, it will be `BUILDER_INDEX_SELF_BUILD`."
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:

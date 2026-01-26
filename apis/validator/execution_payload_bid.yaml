@@ -54,7 +54,7 @@ get:
             InvalidBuilderIndex:
               value:
                 code: 400
-                message: "Builder index does not correspond to a registered builder validator"
+                message: "Builder index does not correspond to a registered builder"
     "404":
       description: "Execution payload bid not available for the requested slot and builder"
       content:
