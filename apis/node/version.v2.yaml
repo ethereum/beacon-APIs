@@ -3,7 +3,7 @@ get:
   tags:
     - Node
   summary: "Get version information for the beacon node and execution client."
-  description: "Retrieves structured information about the version of the beacon node and its attached execution client in the same format as used on the [Engine API](https://github.com/ethereum/execution-apis/blob/main/src/engine/identification.md)."
+  description: "Retrieves structured information about the version of the beacon node and its attached execution client in the same format as used on the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md)."
   responses:
     "200":
       description: Request successful

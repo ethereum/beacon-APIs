@@ -1,6 +1,6 @@
 ClientVersionV1:
   type: object
-  description: "A structure which uniquely identifies a client implementation and its version. Mirrors the client version specification in the [Engine API](https://github.com/ethereum/execution-apis/blob/main/src/engine/identification.md)."
+  description: "A structure which uniquely identifies a client implementation and its version. Mirrors the client version specification in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md)."
   required: [code, name, version, commit]
   properties:
     code:
