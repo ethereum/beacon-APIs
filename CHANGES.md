@@ -8,6 +8,8 @@ There are likely to be descriptions etc outside of the list below, but new query
 
 | Endpoint                                                                                                            | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
+| [#568](https://github.com/ethereum/beacon-APIs/pull/568) `GET /eth/v2/node/version` added                           |                                                  |                                                   |                                                    |                                                 |                                           |
+| [#568](https://github.com/ethereum/beacon-APIs/pull/568) `GET /eth/v1/node/version` deprecated                      |                                                  |                                                   |                                                    |                                                 |                                           |
 
 The Following are no longer in the Standard API, removed since the latest version.
 
