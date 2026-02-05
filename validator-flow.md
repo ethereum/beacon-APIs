@@ -15,9 +15,8 @@ On start of every epoch, validator should [fetch proposer duties](#/Validator/ge
 Result is array of objects, each containing proposer pubkey and slot at which he is suppose to propose.
 
 If proposing block, then at immediate start of slot:
-1. Ask Beacon Node for BeaconBlock object:
-   - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
-   - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
+1. Ask Beacon Node for BeaconBlock object: [produceBlockV3](#/Validator/produceBlockV3)
+   - TODO: Post-Gloas block production endpoint (produceBlockV4) to be added in separate PR
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
 4. Post-Gloas, if self-building (proposer's own bid included in block):
