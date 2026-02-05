@@ -40,6 +40,29 @@ get:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
     - name: skip_randao_verification
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
+    - name: include_payload
+      in: query
+      required: false
+      description: |
+        Controls whether the execution payload envelope and blobs are included in the response
+        when self-building (using local execution payload).
+
+        When `true` (default), the response includes the full block contents: beacon block,
+        execution payload envelope, blobs, and KZG proofs. This enables stateless operation
+        where the validator client can use multiple beacon nodes (multi-BN setups, DVs, failover).
+
+        When `false`, only the beacon block is returned and the beacon node caches the execution
+        payload envelope and blobs internally. The validator client must then fetch them separately
+        via `GET /eth/v1/validator/execution_payload_envelope/{slot}/{builder_index}`. This saves
+        bandwidth but requires the validator client to publish via the same beacon node that
+        produced the block (stateful operation).
+
+        This parameter only affects self-building scenarios. When using an external builder's bid,
+        only the beacon block is returned regardless of this parameter (the beacon node does not
+        have access to the builder's execution payload).
+      schema:
+        type: boolean
+        default: true
     - name: builder_boost_factor
       in: query
       required: false
