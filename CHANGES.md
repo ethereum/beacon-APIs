@@ -13,8 +13,8 @@ The Following are no longer in the Standard API, removed since the latest versio
 
 | Endpoint                                                                                                 | [Lighthouse](https://github.com/sigp/lighthouse) | [Lodestar](https://github.com/ChainSafe/lodestar) | [Nimbus](https://github.com/status-im/nimbus-eth2) | [Prysm](https://github.com/prysmaticlabs/prysm) | [Teku](https://github.com/ConsenSys/teku) |
 |----------------------------------------------------------------------------------------------------------|--------------------------------------------------|---------------------------------------------------|----------------------------------------------------|-------------------------------------------------|-------------------------------------------|
-| `GET /eth/v1/beacon/blob_sidecars/{block_id}` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
-| `blob_sidecar EVENT` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#577](https://github.com/ethereum/beacon-APIs/pull/577) `GET /eth/v1/beacon/blob_sidecars/{block_id}` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#577](https://github.com/ethereum/beacon-APIs/pull/577) `blob_sidecar EVENT` removed         |                                                  |                                                  |                                                    |                                                 |                                           |
 
 ## v4.0.0
 
