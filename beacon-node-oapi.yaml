@@ -110,8 +110,6 @@ paths:
     $ref: "./apis/beacon/blocks/root.yaml"
   /eth/v2/beacon/blocks/{block_id}/attestations:
     $ref: "./apis/beacon/blocks/attestations.v2.yaml"
-  /eth/v1/beacon/blob_sidecars/{block_id}:
-    $ref: "./apis/beacon/blob_sidecars/blob_sidecars.yaml"
   /eth/v1/beacon/blobs/{block_id}:
     $ref: "./apis/beacon/blobs/blobs.yaml"
   /eth/v1/debug/beacon/data_column_sidecars/{block_id}:
@@ -387,8 +385,6 @@ components:
       $ref: './types/deneb/block_contents.yaml#/Deneb/Blobs'
     VersionedHash:
       $ref: './types/primitive.yaml#/VersionedHash'
-    Deneb.BlobSidecars:
-      $ref: './types/deneb/blob_sidecar.yaml#/Deneb/BlobSidecars'
     Electra.BeaconState:
       $ref: './types/electra/state.yaml#/Electra/BeaconState'
     Electra.BlockContents:
@@ -417,8 +413,6 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientFinalityUpdate'
     Electra.LightClientOptimisticUpdate:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
-    Electra.BlobSidecars:
-      $ref: './types/electra/blob_sidecar.yaml#/Electra/BlobSidecars'
     Electra.PendingDeposit:
       $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
     Electra.PendingConsolidation:
