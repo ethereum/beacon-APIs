@@ -19,7 +19,7 @@ Version:
 
 ClientCode:
   type: string
-  description: "A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md#clientcode). If unknown, the string `XX` should be returned."
+  description: "A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md#clientcode)."
   enum: [BU, EJ, EG, GE, GR, LH, LS, NM, NB, TE, TK, PM, RH, XX]
   example: LS
 

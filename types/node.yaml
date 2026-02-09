@@ -7,13 +7,13 @@ ClientVersionV1:
       $ref: './primitive.yaml#/ClientCode'
     name:
       type: string
-      description: "Human-readable name of the client, e.g. `Lighthouse` or `go-ethereum`. If unknown, the string `Unknown` should be returned."
+      description: "Human-readable name of the client, e.g. `Lighthouse` or `go-ethereum`."
       example: "Lodestar"
     version:
       type: string
-      description: "The version string of the current implementation e.g. `v4.6.0` or `1.0.0-alpha.1` or `1.0.0+20130313144700`. If unknown, an empty string should be returned."
+      description: "The version string of the current implementation e.g. `v4.6.0` or `1.0.0-alpha.1` or `1.0.0+20130313144700`."
       example: "v1.23.4"
     commit:
       type: string
-      description: "4 bytes - first four bytes of the latest commit hash of this build e.g. `fa4ff922`. If unknown, an empty string should be returned."
+      description: "4 bytes - first four bytes of the latest commit hash of this build e.g. `fa4ff922`."
       example: "fa4ff922"
