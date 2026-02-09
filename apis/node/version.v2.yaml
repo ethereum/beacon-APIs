@@ -6,8 +6,7 @@ get:
   description: |
     Retrieves structured information about the version of the beacon node
     and its attached execution client in the same format as used on the
-    [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md)
-    .
+    [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md).
 
     Version information about the execution client may not be available
     at all times and is therefore optional.
