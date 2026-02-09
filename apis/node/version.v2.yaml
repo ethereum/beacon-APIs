@@ -3,7 +3,14 @@ get:
   tags:
     - Node
   summary: "Get version information for the beacon node and execution client."
-  description: "Retrieves structured information about the version of the beacon node and its attached execution client in the same format as used on the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md)."
+  description: |
+    Retrieves structured information about the version of the beacon node
+    and its attached execution client in the same format as used on the
+    [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md)
+    .
+
+    Version information about the execution client may not be available
+    at all times and is therefore optional.
   responses:
     "200":
       description: Request successful
@@ -21,8 +28,6 @@ get:
                   beacon_node:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
                   execution_client:
-                    # Version information about the execution client may not be available at all times
-                    # and is therefore not required.
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
           examples:
             Full response:
