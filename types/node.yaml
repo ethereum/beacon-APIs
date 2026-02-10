@@ -15,5 +15,7 @@ ClientVersionV1:
       example: "v1.23.4"
     commit:
       type: string
-      description: "4 bytes - first four bytes of the latest commit hash of this build e.g. `fa4ff922`."
-      example: "fa4ff922"
+      format: hex
+      description: "4 bytes - first four bytes of the latest commit hash of this build e.g. `0xfa4ff922`."
+      example: "0xfa4ff922"
+      pattern: "^0x[a-fA-F0-9]{8}$"
