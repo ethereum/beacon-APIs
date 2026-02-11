@@ -10,6 +10,9 @@ get:
 
     Version information about the execution client may not be available
     at all times and is therefore optional.
+
+    If the beacon node receives multiple values from the Engine API, the
+    first value should be returned on this endpoint.
   responses:
     "200":
       description: Request successful
