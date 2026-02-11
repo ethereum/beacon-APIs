@@ -5,7 +5,7 @@ get:
   operationId: "producePayloadAttestationData"
   summary: "Produce payload attestation data"
   description: |
-    Requests that the beacon node produce a PayloadAttestationData.
+    Requests that the beacon node produce a `PayloadAttestationData`.
 
     This endpoint is used by PTC validators to obtain the data structure they need to attest to
     regarding payload presence and blob data availability for a specific slot.
