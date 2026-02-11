@@ -1,0 +1,21 @@
+ClientVersionV1:
+  type: object
+  description: "A structure which uniquely identifies a client implementation and its version. Mirrors the client version specification in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md)."
+  required: [code, name, version, commit]
+  properties:
+    code:
+      $ref: './primitive.yaml#/ClientCode'
+    name:
+      type: string
+      description: "Human-readable name of the client, e.g. `Lighthouse` or `go-ethereum`."
+      example: "Lodestar"
+    version:
+      type: string
+      description: "The version string of the current implementation e.g. `v4.6.0` or `1.0.0-alpha.1` or `1.0.0+20130313144700`."
+      example: "v1.23.4"
+    commit:
+      type: string
+      format: hex
+      description: "4 bytes - first four bytes of the latest commit hash of this build e.g. `0xfa4ff922`."
+      example: "0xfa4ff922"
+      pattern: "^0x[a-fA-F0-9]{8}$"

@@ -38,3 +38,5 @@ KZGCommitmentInclusionProof
 LMD
 fulu
 gloas
+LH
+ClientVersionV

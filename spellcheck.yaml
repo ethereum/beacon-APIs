@@ -65,3 +65,14 @@ matrix:
         delimiters:
           - open: 'data:.*'
             close: '$'
+    - pyspelling.filters.context:
+        context_visible_first: true
+        delimiters:
+          - open: 'commit:.*'
+            close: '$'
+    # Ignore the 2-character ClientCode enum values (BU, EJ, EG, ...)
+    - pyspelling.filters.context:
+        context_visible_first: true
+        delimiters:
+          - open: 'enum: \[BU'
+            close: '$'

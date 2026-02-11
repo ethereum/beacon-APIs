@@ -17,6 +17,12 @@ Version:
   description: "A string which uniquely identifies the client implementation and its version; similar to [HTTP User-Agent](https://tools.ietf.org/html/rfc7231#section-5.5.3)."
   example: "Lighthouse/v0.1.5 (Linux x86_64)"
 
+ClientCode:
+  type: string
+  description: "A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md#clientcode)."
+  enum: [BU, EJ, EG, GE, GR, LH, LS, NM, NB, TE, TK, PM, RH]
+  example: LS
+
 GenesisTime:
   $ref: "./primitive.yaml#/Uint64"
   example: "1590832934"
