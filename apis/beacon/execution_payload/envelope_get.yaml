@@ -33,7 +33,7 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelope"
         application/octet-stream:
           schema:
-            description: "SSZ serialized execution payload envelope bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `SignedExecutionPayloadEnvelope` bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:
