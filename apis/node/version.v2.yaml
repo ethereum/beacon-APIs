@@ -2,16 +2,14 @@ get:
   operationId: "getNodeVersionV2"
   tags:
     - Node
-  summary: "Get version information for the beacon node and execution client(s)."
+  summary: "Get version information for the beacon node and execution client."
   description: |
     Retrieves structured information about the version of the beacon node
-    and its attached execution client(s) in the same format as used on the
+    and its attached execution client in the same format as used on the
     [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md).
 
-    Version information about the execution client(s) may not be available
-    at all times and is therefore optional. The `execution_client` field is
-    an array because the Engine API's `engine_getClientVersionV1` may return
-    multiple entries when using multiplexed connections.
+    Version information about the execution client may not be available
+    at all times and is therefore optional.
   responses:
     "200":
       description: Request successful
@@ -29,9 +27,7 @@ get:
                   beacon_node:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
                   execution_client:
-                    type: array
-                    items:
-                      $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/ClientVersionV1'
           examples:
             Full response:
               value:
@@ -42,10 +38,10 @@ get:
                     version: "v8.0.1"
                     commit: "0xced49dd2"
                   execution_client:
-                    - code: "NM"
-                      name: "Nethermind"
-                      version: "v1.35.8"
-                      commit: "0xc066aee2"
+                    code: "NM"
+                    name: "Nethermind"
+                    version: "v1.35.8"
+                    commit: "0xc066aee2"
             Execution client unknown:
               value:
                 data:
