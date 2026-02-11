@@ -1,7 +1,7 @@
 Gloas:
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/00d531949b1f30516979b60ddd2a411e7f388299/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
     required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, signed_execution_payload_bid, payload_attestations]
     properties:
       randao_reveal:
@@ -48,7 +48,7 @@ Gloas:
         maxItems: 4
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
     allOf:
       - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
       - type: object
@@ -59,7 +59,7 @@ Gloas:
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec."
     required: [message, signature]
     properties:
       message:
