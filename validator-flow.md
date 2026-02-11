@@ -15,11 +15,15 @@ On start of every epoch, validator should [fetch proposer duties](#/Validator/ge
 Result is array of objects, each containing proposer pubkey and slot at which he is suppose to propose.
 
 If proposing block, then at immediate start of slot:
-1. Ask Beacon Node for BeaconBlock object: [produceBlockV3](#/Validator/produceBlockV3)
-   - TODO: Post-Gloas block production endpoint (produceBlockV4) to be added in separate PR
+1. Ask Beacon Node for BeaconBlock object:
+   - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
+   - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
-4. TODO: Post-Gloas local block building flow (stateless vs. stateful) to be detailed in separate PR
+4. Post-Gloas, if self-building (proposer's own bid included in block):
+  - [Fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from beacon node
+  - Sign envelope and [submit SignedExecutionPayloadEnvelope](#/Beacon/publishExecutionPayloadEnvelope)
+  - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) of slot duration
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.
@@ -81,6 +85,9 @@ Building:
 2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/beacon-chain.md#executionpayloadenvelope)
 2. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
 3. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
-4. TODO: Envelope fetching and publishing flow (stateless vs. stateful) to be detailed in separate PR
+4. If bid is selected by proposer in their block:
+    - [Fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from beacon node
+    - Sign envelope and [submit SignedExecutionPayloadEnvelope](#/Beacon/publishExecutionPayloadEnvelope)
+    - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) of slot duration
 
 Monitor for block proposals containing your bid to trigger envelope release.
