@@ -28,7 +28,7 @@ post:
     "200":
       description: "The bid was validated successfully and has been broadcast."
     "400":
-      description: "The SignedExecutionPayloadBid object is invalid or failed gossip validation"
+      description: "The `SignedExecutionPayloadBid` object is invalid or failed gossip validation"
       content:
         application/json:
           schema:
