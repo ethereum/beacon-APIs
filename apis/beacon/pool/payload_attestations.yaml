@@ -70,7 +70,7 @@ post:
     - Beacon
     - ValidatorRequiredApi
   requestBody:
-    description: "Array of PayloadAttestationMessage objects to be submitted."
+    description: "Array of `PayloadAttestationMessage` objects to be submitted."
     required: true
     content:
       application/json:

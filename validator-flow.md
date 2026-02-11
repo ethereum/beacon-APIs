@@ -62,7 +62,7 @@ PTC Attesting:
 1. Wait for execution payload and blobs to become available for the assigned slot (either stream updates or poll)
     - Max wait [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
 2. [Fetch PayloadAttestationData](#/ValidatorRequiredApi/producePayloadAttestationData) for the assigned slot
-3. Sign PayloadAttestationData to create PayloadAttestationMessage
+3. Sign `PayloadAttestationData` to create `PayloadAttestationMessage`
 4. [Submit PayloadAttestationMessages](#/ValidatorRequiredApi/submitPayloadAttestationMessages)
     - Attestation indicates whether execution payload envelope has been seen for the block and if blobs were received
 
@@ -79,10 +79,8 @@ Building:
 1. [Fetch ExecutionPayloadBid](#/Validator/getExecutionPayloadBid) from beacon node for the current or next slot's proposer to include.
     - Beacon node obtains payload via `engine_getPayload` call to execution client
 2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/beacon-chain.md#executionpayloadenvelope)
-2. Sign ExecutionPayloadBid to create SignedExecutionPayloadBid
+2. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
 3. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
 4. TODO: Envelope fetching and publishing flow (stateless vs. stateful) to be detailed in separate PR
 
 Monitor for block proposals containing your bid to trigger envelope release.
-
-
