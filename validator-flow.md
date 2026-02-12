@@ -15,9 +15,11 @@ On start of every epoch, validator should [fetch proposer duties](#/Validator/ge
 Result is array of objects, each containing proposer pubkey and slot at which he is suppose to propose.
 
 If proposing block, then at immediate start of slot:
-1. [Ask Beacon Node for BeaconBlock object](#/Validator/produceBlock)
+1. Ask Beacon Node for BeaconBlock object: [produceBlockV3](#/Validator/produceBlockV3)
+   - TODO: Post-Gloas block production endpoint (produceBlockV4) to be added in separate PR
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
+4. TODO: Post-Gloas local block building flow (stateless vs. stateful) to be detailed in separate PR
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.
@@ -36,15 +38,49 @@ Attesting:
       been assigned to. If any validators in the committee are aggregators,
       set `is_aggregator` to `True`,
 2. Wait for new BeaconBlock for the assigned slot (either stream updates or poll)
-    - Max wait: `SECONDS_PER_SLOT / 3` seconds into the assigned slot
+    - Pre-Gloas forks: Max wait `SECONDS_PER_SLOT / 3` seconds into the assigned slot
+    - Post-Gloas forks: Max wait [ATTESTATION_DUE_BPS_GLOAS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
 3. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)
 4. [Submit Attestation](#/ValidatorRequiredApi/submitPoolAttestations) (AttestationData + aggregation bits)
     - Aggregation bits are `Bitlist` with length of committee (received in AttesterDuty)
     with bit on position `validator_committee_index` (see AttesterDuty) set to true
 5. If aggregator:
-    - Wait for `SECONDS_PER_SLOT * 2 / 3` seconds into the assigned slot
+    - Pre-Gloas forks: Wait for `SECONDS_PER_SLOT * 2 / 3` seconds into the assigned slot
+    - Post-Gloas forks: Wait for [AGGREGATE_DUE_BPS_GLOAS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestation) from Beacon Node you've subscribed to your subnet
     - [Publish SignedAggregateAndProofs](#/ValidatorRequiredApi/publishAggregateAndProofs)
 
 Monitor chain block reorganization events (TBD) as they could change attesters and aggregators.
 If reorg is detected, ask for new attester duties and proceed from 1..
+
+### PTC Attesting
+
+On start of every epoch beginning with the Gloas fork, validator should [fetch PTC duties](#/Validator/getPtcDuties) for epoch + 1.
+Result are array of objects with validator index and assigned slot for payload timeliness committee participation.
+
+PTC Attesting:
+1. Wait for execution payload and blobs to become available for the assigned slot (either stream updates or poll)
+    - Max wait [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
+2. [Fetch PayloadAttestationData](#/ValidatorRequiredApi/producePayloadAttestationData) for the assigned slot
+3. Sign `PayloadAttestationData` to create `PayloadAttestationMessage`
+4. [Submit PayloadAttestationMessages](#/ValidatorRequiredApi/submitPayloadAttestationMessages)
+    - Attestation indicates whether execution payload envelope has been seen for the block and if blobs were received
+
+Monitor chain block reorganization events (TBD) as they could change PTC assignments.
+If reorg is detected, ask for new PTC duties and proceed from 1..
+
+### Builder (Optional)
+
+Post-Gloas fork, builders are separate non-validating staked actors that submit execution payload bids for block inclusion.
+Builders register by depositing with builder-specific withdrawal credentials (`BUILDER_WITHDRAWAL_PREFIX`) and are tracked
+in the beacon state's builder registry.
+
+Building:
+1. [Fetch ExecutionPayloadBid](#/Validator/getExecutionPayloadBid) from beacon node for the current or next slot's proposer to include.
+    - Beacon node obtains payload via `engine_getPayload` call to execution client
+2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/beacon-chain.md#executionpayloadenvelope)
+2. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
+3. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
+4. TODO: Envelope fetching and publishing flow (stateless vs. stateful) to be detailed in separate PR
+
+Monitor for block proposals containing your bid to trigger envelope release.
