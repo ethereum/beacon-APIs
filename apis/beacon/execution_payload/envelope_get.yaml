@@ -7,7 +7,10 @@ get:
   tags:
     - Beacon
   parameters:
-    - $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
+    - name: block_id
+      in: path
+      required: true
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/BlockId'
   responses:
     "200":
       description: "Successful response"
