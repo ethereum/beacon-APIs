@@ -1,0 +1,58 @@
+EIP8025:
+  ProofGenId:
+    type: string
+    format: hex
+    pattern: "^0x[a-fA-F0-9]{16}$"
+    description: "8-byte identifier for tracking proof generation requests"
+    example: "0x0102030405060708"
+
+  GeneratedProof:
+    type: object
+    description: "Generated execution proof with associated proof generation ID"
+    required: [proof_gen_id, execution_proof]
+    properties:
+      proof_gen_id:
+        $ref: '#/EIP8025/ProofGenId'
+        description: "ID linking this proof to the original request"
+      execution_proof:
+        $ref: '#/EIP8025/ExecutionProof'
+
+  PublicInput:
+    type: object
+    description: "Public input for execution proof verification"
+    required: [new_payload_request_root]
+    properties:
+      new_payload_request_root:
+        $ref: '../primitive.yaml#/Root'
+        description: "Root of the NewPayloadRequest being proven"
+
+  ExecutionProof:
+    type: object
+    description: "Unsigned execution proof for stateless validation"
+    required: [proof_data, proof_type, public_input]
+    properties:
+      proof_data:
+        type: string
+        format: hex
+        pattern: "^0x[a-fA-F0-9]{0,614400}$"
+        description: "Proof data, max 300KiB (307200 bytes = 614400 hex chars)"
+        example: "0x1234567890abcdef"
+      proof_type:
+        $ref: '../primitive.yaml#/Uint8'
+        description: "Type identifier for the proof system"
+      public_input:
+        $ref: '#/EIP8025/PublicInput'
+
+  ProverSignedExecutionProof:
+    type: object
+    description: "Execution proof signed by a whitelisted prover"
+    required: [message, prover_pubkey, signature]
+    properties:
+      message:
+        $ref: '#/EIP8025/ExecutionProof'
+      prover_pubkey:
+        $ref: '../primitive.yaml#/Pubkey'
+        description: "BLS public key of the prover"
+      signature:
+        $ref: '../primitive.yaml#/Signature'
+        description: "BLS signature over the execution proof"
