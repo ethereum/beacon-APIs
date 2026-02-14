@@ -1,7 +1,23 @@
 post:
   operationId: getAttestationsRewards
   summary: Get attestations rewards
-  description: Retrieve attestation reward info for validators specified by array of public keys or validator index. If no array is provided, return reward info for every validator.
+  description: |
+    Retrieve attestation reward info for validators specified by array of public keys or validator index.
+    If no array is provided, return reward info for every validator.
+
+    The `total_rewards` field MUST contain one entry for every validator selected by the request.
+    The `ideal_rewards` field coverage is controlled by the `ideal_rewards` query parameter:
+    - `none`: `ideal_rewards` MUST be omitted from the response.
+    - `queried_validators`: `ideal_rewards` MUST contain one entry per distinct effective
+      balance present in `total_rewards`.
+    - `all`: `ideal_rewards` MUST contain one entry for every possible effective balance value for
+      the target epoch and fork.
+
+    If `ideal_rewards` is omitted:
+    - when the request body is not provided, it defaults to `all`.
+    - otherwise, it defaults to `queried_validators`.
+
+    When `ideal_rewards` is present, entries MUST be sorted by increasing `effective_balance`.
   tags:
     - Beacon
     - Rewards
@@ -12,6 +28,15 @@ post:
       description: "The epoch to get rewards info from"
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: ideal_rewards
+      in: query
+      required: false
+      description: |
+        Controls `ideal_rewards` response coverage.
+        If omitted, defaults to `all` when no validator array is passed, otherwise defaults to
+        `queried_validators`.
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IdealRewardsMode"
   requestBody:
     description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
     required: false

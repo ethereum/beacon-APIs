@@ -79,3 +79,9 @@ BroadcastValidation:
   description: Level of validation that must be applied to a block before it is broadcast.
   type: string
   enum: [gossip, consensus, consensus_and_equivocation]
+
+IdealRewardsMode:
+  description: |
+    Controls coverage of the `ideal_rewards` field in attestation rewards responses.
+  type: string
+  enum: [none, queried_validators, all]
