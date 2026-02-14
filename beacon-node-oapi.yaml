@@ -231,6 +231,8 @@ components:
   schemas:
     BroadcastValidation:
       $ref: './types/api.yaml#/BroadcastValidation'
+    IdealRewardsMode:
+      $ref: './types/api.yaml#/IdealRewardsMode'
     ValidatorResponse:
       $ref: './types/api.yaml#/ValidatorResponse'
     ValidatorBalanceResponse:
