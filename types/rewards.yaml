@@ -18,13 +18,18 @@ SyncCommitteeRewards:
 AttestationsRewards:
   type: object
   description: "Rewards info for attestations"
-  required: [ideal_rewards, total_rewards]
+  required: [total_rewards]
   properties:
     ideal_rewards:
+      description: |
+        Optional ideal rewards table keyed by effective balance.
+        Omitted when the request sets `ideal_rewards=none`.
       type: array
       items:
         $ref: ./rewards.yaml#/IdealAttestationRewards
     total_rewards:
+      description: |
+        One entry for every validator selected by the request for the target epoch.
       type: array
       items:
         $ref: ./rewards.yaml#/AttestationRewards
