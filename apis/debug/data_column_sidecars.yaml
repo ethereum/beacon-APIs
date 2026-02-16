@@ -38,14 +38,16 @@ get:
             properties:
               version:
                 type: string
-                enum: [fulu]
-                example: "fulu"
+                enum: [fulu, gloas]
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.DataColumnSidecars"
+                anyOf:
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.DataColumnSidecars"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.DataColumnSidecars"
         application/octet-stream:
           schema:
             description: "SSZ serialized `DataColumnSidecars` bytes. Use Accept header to choose this response type"
