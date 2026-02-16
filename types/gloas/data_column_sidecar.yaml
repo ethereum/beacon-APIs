@@ -8,7 +8,7 @@ Gloas:
 
   DataColumnSidecar:
     type: object
-    description: "A [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/e8b77415ffce13ee2b14a5c22417a1f77f1dca34/specs/gloas/p2p-interface.md?plain=1#L57) as defined in the Gloas consensus spec."
+    description: "A [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/p2p-interface.md?plain=1#L57) as defined in the Gloas consensus spec."
     required: [index, column, kzg_proofs, slot, beacon_block_root]
     properties:
       index:
