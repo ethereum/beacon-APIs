@@ -39,7 +39,7 @@ get:
               version:
                 type: string
                 enum: [fulu, gloas]
-                example: "fulu"
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
