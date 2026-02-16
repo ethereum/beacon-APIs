@@ -27,7 +27,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.5.0"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-alpha.2"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -104,6 +104,10 @@ paths:
     $ref: "./apis/beacon/blocks/blinded_blocks.v2.yaml"
   /eth/v2/beacon/blocks:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
+  /eth/v1/beacon/execution_payload_bid:
+    $ref: "./apis/beacon/execution_payload/bid.yaml"
+  /eth/v1/beacon/execution_payload_envelope/{block_id}:
+    $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -132,6 +136,8 @@ paths:
     $ref: "./apis/beacon/light_client/optimistic_update.yaml"
   /eth/v2/beacon/pool/attestations:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
+  /eth/v1/beacon/pool/payload_attestations:
+    $ref: "./apis/beacon/pool/payload_attestations.yaml"
   /eth/v2/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
@@ -160,6 +166,8 @@ paths:
     $ref: "./apis/node/peer_count.yaml"
   /eth/v1/node/version:
     $ref: "./apis/node/version.yaml"
+  /eth/v2/node/version:
+    $ref: "./apis/node/version.v2.yaml"
   /eth/v1/node/syncing:
     $ref: "./apis/node/syncing.yaml"
   /eth/v1/node/health:
@@ -180,10 +188,14 @@ paths:
     $ref: "./apis/validator/duties/proposer.v2.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
+  /eth/v1/validator/duties/ptc/{epoch}:
+    $ref: "./apis/validator/duties/ptc.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
+  /eth/v1/validator/payload_attestation_data/{slot}:
+    $ref: "./apis/validator/payload_attestation_data.yaml"
   /eth/v2/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
   /eth/v2/validator/aggregate_and_proofs:
@@ -206,6 +218,8 @@ paths:
     $ref: "./apis/validator/register_validator.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
+  /eth/v1/validator/execution_payload_bid/{slot}/{builder_index}:
+    $ref: "./apis/validator/execution_payload_bid.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -229,6 +243,8 @@ components:
       $ref: './types/duty.yaml#/AttesterDuty'
     ProposerDuty:
       $ref: './types/duty.yaml#/ProposerDuty'
+    PtcDuty:
+      $ref: './types/duty.yaml#/PtcDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
     BeaconCommitteeSelection:
@@ -255,6 +271,8 @@ components:
       $ref: './types/primitive.yaml#/GenesisTime'
     Version:
       $ref: './types/primitive.yaml#/Version'
+    ClientVersionV1:
+      $ref: './types/node.yaml#/ClientVersionV1'
     ForkVersion:
       $ref: './types/primitive.yaml#/ForkVersion'
     DependentRoot:
@@ -333,8 +351,8 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
-      example: "fulu"
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+      example: "gloas"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
     Capella.BeaconState:
@@ -423,6 +441,24 @@ components:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
     Fulu.BeaconState:
       $ref: './types/fulu/state.yaml#/Fulu/BeaconState'
+    Gloas.BeaconBlock:
+      $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
+    Gloas.SignedBeaconBlock:
+      $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
+    Gloas.ExecutionPayloadBid:
+      $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
+    Gloas.SignedExecutionPayloadBid:
+      $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
+    Gloas.ExecutionPayloadEnvelope:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
+    Gloas.SignedExecutionPayloadEnvelope:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
+    Gloas.PayloadAttestationData:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
+    Gloas.PayloadAttestation:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
+    Gloas.PayloadAttestationMessage:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
@@ -469,7 +505,7 @@ components:
   headers:
     Eth-Consensus-Version:
       description: |
-        The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data 
+        The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data
         more effectively.
       required: true
       schema:

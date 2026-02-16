@@ -14,7 +14,7 @@ get:
     header from an MEV relay.
 
     Metadata in the response indicates the type of block produced, and the supported types of block
-    will be added to as forks progress.
+    are for all pre-Gloas forks.  This endpoint is not forwards compatible after the Gloas fork.
   parameters:
     - name: slot
       in: path

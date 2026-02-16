@@ -38,3 +38,10 @@ KZGCommitmentInclusionProof
 LMD
 fulu
 gloas
+LH
+ClientVersionV
+PTC
+ptc
+PtcDuty
+produceBlockV
+stateful

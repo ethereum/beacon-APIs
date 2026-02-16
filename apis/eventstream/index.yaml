@@ -38,6 +38,9 @@ get:
             - light_client_optimistic_update
             - payload_attributes
             - data_column_sidecar
+            - execution_payload_available
+            - execution_payload_bid
+            - payload_attestation_message
   responses:
     "200":
       description: Opened SSE stream.
@@ -152,6 +155,21 @@ get:
               value: |
                 event: data_column_sidecar
                 data: {"block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "index": "1", "slot": "1", "kzg_commitments": ["0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"]}
+            execution_payload_available:
+              description: The node has verified that the execution payload and blobs for a block are available and ready for payload attestation
+              value: |
+                event: execution_payload_available
+                data: {"slot": "10", "block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}
+            execution_payload_bid:
+              description: The node has received a `SignedExecutionPayloadBid` (from P2P or API) that passes gossip validation on the `execution_payload_bid` topic
+              value: |
+                event: execution_payload_bid
+                data: {"message": {"parent_block_hash": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "parent_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "block_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "prev_randao": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "fee_recipient": "0x0000000000000000000000000000000000000000", "gas_limit": "30000000", "builder_index": "42", "slot": "10", "value": "1000000000", "execution_payment": "0", "blob_kzg_commitments": ["0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2"]}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
+            payload_attestation_message:
+              description: The node has received a `PayloadAttestationMessage` that passes validation rules of the `payload_attestation_message` topic
+              value: |
+                event: payload_attestation_message
+                data: {"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
     "400":
       description: "The topics supplied could not be parsed"
       content:
