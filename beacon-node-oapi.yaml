@@ -62,6 +62,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: Prover
+    description: Endpoints for execution proof generation and submission.
 
 paths:
 
@@ -148,6 +150,10 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exits.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+  /eth/v1/beacon/proofs/execution_proofs/{block_id}:
+    $ref: "./apis/beacon/proofs/execution_proofs.yaml"
+  /eth/v1/prover/execution_proofs:
+    $ref: "./apis/prover/execution_proofs.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -465,6 +471,16 @@ components:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/SignedBlockContents"
     Fulu.DataColumnSidecars:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
+    EIP8025.ProofGenId:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/ProofGenId'
+    EIP8025.PublicInput:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/PublicInput'
+    EIP8025.ExecutionProof:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/ExecutionProof'
+    EIP8025.GeneratedProof:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/GeneratedProof'
+    EIP8025.ProverSignedExecutionProof:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/ProverSignedExecutionProof'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
