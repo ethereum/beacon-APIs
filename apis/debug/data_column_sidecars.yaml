@@ -45,7 +45,9 @@ get:
               finalized:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.DataColumnSidecars"
+                anyOf:
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Fulu.DataColumnSidecars"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.DataColumnSidecars"
         application/octet-stream:
           schema:
             description: "SSZ serialized `DataColumnSidecars` bytes. Use Accept header to choose this response type"
