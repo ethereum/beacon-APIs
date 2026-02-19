@@ -1,0 +1,17 @@
+Gloas:
+  BlockContents:
+    type: object
+    description: |
+      Block contents for self-building, including the execution payload envelope
+      and blobs. This enables stateless failover to another beacon node for publishing,
+      as all required data is returned in a single response.
+    required: [block, execution_payload_envelope, kzg_proofs, blobs]
+    properties:
+      block:
+        $ref: "./block.yaml#/Gloas/BeaconBlock"
+      execution_payload_envelope:
+        $ref: "./execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
+      kzg_proofs:
+        $ref: "../fulu/block_contents.yaml#/Fulu/KZGProofs"
+      blobs:
+        $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"

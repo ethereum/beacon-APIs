@@ -31,3 +31,18 @@ Gloas:
       signature:
         $ref: "../primitive.yaml#/Signature"
         description: "BLS signature of the execution payload envelope"
+
+  SignedExecutionPayloadEnvelopeContents:
+    type: object
+    description: |
+      Signed execution payload envelope bundled with blobs and KZG proofs for stateless
+      publishing. Used when the validator client publishes to a beacon node that does not
+      have the blobs cached (e.g. multi-BN setups, DVs, failover).
+    required: [signed_execution_payload_envelope, kzg_proofs, blobs]
+    properties:
+      signed_execution_payload_envelope:
+        $ref: "#/Gloas/SignedExecutionPayloadEnvelope"
+      kzg_proofs:
+        $ref: "../fulu/block_contents.yaml#/Fulu/KZGProofs"
+      blobs:
+        $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
