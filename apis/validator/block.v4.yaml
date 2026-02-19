@@ -53,7 +53,7 @@ get:
 
         When `false`, only the beacon block is returned and the beacon node caches the execution
         payload envelope and blobs internally. The validator client must then fetch them separately
-        via `GET /eth/v1/validator/execution_payload_envelope/{slot}/{builder_index}`. This saves
+        via `GET /eth/v1/validator/execution_payload_envelope/{slot}`. This saves
         bandwidth but requires the validator client to publish via the same beacon node that
         produced the block (stateful operation).
 

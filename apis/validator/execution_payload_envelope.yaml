@@ -2,9 +2,15 @@ get:
   operationId: getExecutionPayloadEnvelope
   summary: Get execution payload envelope
   description: |
-    Retrieves execution payload envelope for a given slot and builder, which can then be signed by a validator. The envelope contains the full
-    execution payload along with associated metadata. Depending on `Accept` header, it can be returned
-    either as json or as bytes serialized by SSZ.
+    Retrieves the cached execution payload envelope for the current proposer's slot, which can
+    then be signed and published by the validator. The envelope contains the full execution payload
+    along with associated metadata.
+
+    The beacon node only caches the envelope for the current slot's self-built payload. Requests for
+    older slots or slots where no envelope has been cached will return a 404 error. This endpoint does
+    not fetch payloads from the execution layer.
+
+    Depending on `Accept` header, the response can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Validator
     - ValidatorRequiredApi
@@ -15,12 +21,16 @@ get:
       description: "Slot for which the execution payload envelope is requested."
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-    - name: builder_index
-      in: path
-      required: true
-      description: "Index of the builder from which the execution payload envelope is requested.  For self-building, it will be `BUILDER_INDEX_SELF_BUILD`."
+    - name: beacon_block_root
+      in: query
+      required: false
+      description: |
+        Optional root of the beacon block associated with this execution payload envelope.
+        When provided, the beacon node will verify that the cached envelope matches the
+        given block root, returning a 404 if there is no match. This is useful for
+        disambiguation in fork scenarios where the same slot may have multiple competing blocks.
       schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
   responses:
     "200":
       description: "Successful response"
@@ -51,16 +61,16 @@ get:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 400
-            message: "Invalid slot or builder_index parameter"
+            message: "Invalid slot parameter"
     "404":
-      description: "Execution payload envelope not available for the requested slot and builder"
+      description: "No cached execution payload envelope available for the requested slot. The beacon node only caches the envelope for the current proposer's self-built payload."
       content:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 404
-            message: "Execution payload envelope not available for slot and builder"
+            message: "Execution payload envelope not available for slot"
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
