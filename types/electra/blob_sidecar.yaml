@@ -1,7 +1,0 @@
-Electra:
-  BlobSidecars:
-    type: array
-    items:
-      $ref: "../deneb/blob_sidecar.yaml#/Deneb/BlobSidecar"
-    minItems: 0
-    maxItems: 9
