@@ -1,0 +1,70 @@
+post:
+  operationId: getExecutionPayloadEnvelope
+  summary: Get execution payload envelope for signing
+  description: |
+    Builder-facing endpoint that accepts the components needed to construct an
+    `ExecutionPayloadEnvelope`. The beacon node computes the `beacon_block_root`
+    from the supplied `SignedBeaconBlock` and derives the post-execution
+    `state_root`, returning a complete `ExecutionPayloadEnvelope` ready for the
+    builder to sign and broadcast.
+  tags:
+    - Beacon
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version for the supplied data."
+  requestBody:
+    description: "Components required to construct the `ExecutionPayloadEnvelope`."
+    required: true
+    content:
+      application/json:
+        schema:
+          title: GetExecutionPayloadEnvelopeRequest
+          type: object
+          required: [signed_beacon_block, execution_payload, execution_requests, builder_index, slot]
+          properties:
+            signed_beacon_block:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
+            execution_payload:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.ExecutionPayload"
+            execution_requests:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.ExecutionRequests"
+            builder_index:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+              description: "Builder index of the builder submitting the payload"
+            slot:
+              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+              description: "Slot for which the execution payload envelope is being constructed"
+  responses:
+    "200":
+      description: "Successfully constructed execution payload envelope"
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetExecutionPayloadEnvelopeResponse
+            type: object
+            required: [version, data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              data:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
+    "400":
+      description: "Invalid request: malformed input or failed validation"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid request body"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

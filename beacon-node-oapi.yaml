@@ -108,6 +108,10 @@ paths:
     $ref: "./apis/beacon/execution_payload/bid.yaml"
   /eth/v1/beacon/execution_payload_envelope/{block_id}:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
+  /eth/v1/beacon/execution_payload_envelope:
+    $ref: "./apis/beacon/execution_payload/envelope_publish.yaml"
+  /eth/v1/beacon/builder/get_execution_payload_envelope:
+    $ref: "./apis/beacon/builder/get_execution_payload_envelope.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -387,6 +391,8 @@ components:
       $ref: './types/deneb/block.yaml#/Deneb/SignedBeaconBlock'
     Deneb.SignedBlockContents:
       $ref: './types/deneb/block_contents.yaml#/Deneb/SignedBlockContents'
+    Deneb.ExecutionPayload:
+      $ref: './types/deneb/execution_payload.yaml#/Deneb/ExecutionPayload'
     Deneb.BlindedBeaconBlock:
       $ref: './types/deneb/block.yaml#/Deneb/BlindedBeaconBlock'
     Deneb.SignedBlindedBeaconBlock:
@@ -439,6 +445,8 @@ components:
       $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Electra.ExecutionRequests:
+      $ref: './types/electra/execution_requests.yaml#/Electra/ExecutionRequests'
     Fulu.BeaconState:
       $ref: './types/fulu/state.yaml#/Fulu/BeaconState'
     Gloas.BeaconBlock:
