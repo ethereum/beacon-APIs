@@ -45,6 +45,8 @@ servers:
 tags:
   - name: Beacon
     description: Set of endpoints to query beacon chain.
+  - name: Builder
+    description: Set of endpoints specific to block building.
   - name: Config
     description: Endpoints to query chain configuration, specification, and fork schedules.
   - name: Debug
@@ -110,8 +112,6 @@ paths:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
   /eth/v1/beacon/execution_payload_envelope:
     $ref: "./apis/beacon/execution_payload/envelope_publish.yaml"
-  /eth/v1/beacon/builder/get_execution_payload_envelope:
-    $ref: "./apis/beacon/builder/get_execution_payload_envelope.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -152,6 +152,9 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exits.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+
+  /eth/v1/builder/get_execution_payload_envelope:
+    $ref: "./apis/builder/get_execution_payload_envelope.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'

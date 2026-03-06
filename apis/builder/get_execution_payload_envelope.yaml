@@ -9,6 +9,7 @@ post:
     builder to sign and broadcast.
   tags:
     - Beacon
+    - Builder
   parameters:
     - in: header
       schema:
