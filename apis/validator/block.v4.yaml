@@ -67,15 +67,16 @@ get:
       in: query
       required: false
       description: |
-        Percentage multiplier to apply to the builder's payload value when choosing between a
-        builder payload header and payload from the paired execution node. This parameter is only
+        Percentage multiplier to apply to the builder's bid value when choosing between a
+        builder bid and payload from the paired execution node. This parameter is only
         relevant if the beacon node is connected to a builder, deems it safe to produce a builder
         payload, and receives valid responses from both the builder endpoint _and_ the paired
         execution node. When these preconditions are met, the server MUST act as follows:
 
         * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`,
-          then return a full (unblinded) block containing the execution node payload.
-        * otherwise, return a blinded block containing the builder payload header.
+          then return a block committing to the local bid (including execution node payload if `include_payload` parameter is set to true)
+        * otherwise, return a block committing to the builder's bid (without execution payload,
+          as it is not yet available).
 
         Servers must support the following values of the boost factor which encode common
         preferences:
@@ -89,8 +90,8 @@ get:
 
         Servers should use saturating arithmetic or another technique to ensure that large values of
         the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
-        provided and the beacon node is not configured with a builder then the beacon node MUST
-        respond with a full block, which the caller can choose to reject if it wishes.
+        provided and no external builder bid is available, the beacon node MUST respond with a
+        block committing to the local bid, which the caller can choose to reject if it wishes.
         If the value is provided but out of range for a 64-bit unsigned integer, then an error
         response with status code 400 MUST be returned.
       schema:
