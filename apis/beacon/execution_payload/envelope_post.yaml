@@ -5,6 +5,11 @@ post:
     Instructs the beacon node to broadcast a signed execution payload envelope to the network,
     to be gossiped for payload validation. A success response (20x) indicates
     that the envelope passed gossip validation and was successfully broadcast onto the network.
+    The beacon node is also expected to integrate the envelope into the state, but may broadcast it
+    before doing so, so as to aid timely delivery of the envelope. Should the envelope fail full
+    validation, a separate success response code (202) is used to indicate that the envelope was
+    successfully broadcast but failed integration. The broadcast behaviour may be adjusted via
+    the `broadcast_validation` query parameter.
 
     The request body can be either:
     - A `SignedExecutionPayloadEnvelopeContents` object containing the signed envelope along with
@@ -17,6 +22,29 @@ post:
     - Beacon
     - ValidatorRequiredApi
   parameters:
+    - name: broadcast_validation
+      in: query
+      required: false
+      description: |
+        Level of validation that must be applied to an envelope before it is broadcast.
+
+        Possible values:
+        - **`gossip`** (default): lightweight gossip checks only
+        - **`consensus`**: full consensus checks, including validation of all signatures and
+          envelope fields.
+        - **`consensus_and_equivocation`**: the same as `consensus`, with an extra check that
+          the envelope's beacon block is not an equivocation. If the block is found to be an
+          equivocation, validation fails. This is recommended for builders to protect against
+          unbundling attacks where a malicious proposer publishes equivocating blocks to extract
+          payload contents from honest builders.
+
+        If the envelope fails the requested level of validation, a 400 status MUST be returned
+        immediately and the envelope MUST NOT be broadcast to the network.
+
+        If validation succeeds, the envelope must still be fully verified before it is
+        incorporated into the state and a 20x status is returned to the caller.
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BroadcastValidation'
     - in: header
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
@@ -37,9 +65,11 @@ post:
           description: "SSZ serialized `SignedExecutionPayloadEnvelopeContents` or `SignedExecutionPayloadEnvelope` bytes. Use Content-Type header to specify this format"
   responses:
     "200":
-      description: "The envelope was validated successfully and has been broadcast."
+      description: "The envelope was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
+    "202":
+      description: "The envelope could not be integrated into the beacon node's database as it failed validation, but was successfully broadcast."
     "400":
-      description: "The SignedExecutionPayloadEnvelope object is invalid or failed gossip validation"
+      description: "The SignedExecutionPayloadEnvelope object is invalid or broadcast validation failed"
       content:
         application/json:
           schema:
