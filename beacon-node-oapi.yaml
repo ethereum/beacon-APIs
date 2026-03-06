@@ -151,8 +151,8 @@ paths:
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
 
-  /eth/v1/builder/get_execution_payload_envelope:
-    $ref: "./apis/builder/get_execution_payload_envelope.yaml"
+  /eth/v1/builder/execution_payload_envelope:
+    $ref: "./apis/builder/execution_payload_envelope.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
