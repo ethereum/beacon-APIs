@@ -32,12 +32,6 @@ post:
               $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Deneb.ExecutionPayload"
             execution_requests:
               $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.ExecutionRequests"
-            builder_index:
-              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-              description: "Builder index of the builder submitting the payload"
-            slot:
-              $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-              description: "Slot for which the execution payload envelope is being constructed"
   responses:
     "200":
       description: "Successfully constructed execution payload envelope"
