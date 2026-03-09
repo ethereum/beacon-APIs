@@ -24,7 +24,7 @@ post:
         schema:
           title: ConstructExecutionPayloadEnvelopeRequest
           type: object
-          required: [signed_beacon_block, execution_payload, execution_requests, builder_index, slot]
+          required: [signed_beacon_block, execution_payload, execution_requests]
           properties:
             signed_beacon_block:
               $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
