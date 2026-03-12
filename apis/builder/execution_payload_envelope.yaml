@@ -3,10 +3,10 @@ post:
   summary: Construct the execution payload envelope for signing and broadcasting
   description: |
     Builder-facing endpoint that accepts the components needed to construct an
-    `ExecutionPayloadEnvelope`. The beacon node computes the `beacon_block_root`
-    from the supplied `SignedBeaconBlock` and derives the post-execution
-    `state_root`, returning a complete `ExecutionPayloadEnvelope` ready for the
-    builder to sign and broadcast.
+    `ExecutionPayloadEnvelope`. The beacon node uses the supplied
+    `beacon_block_root` and derives the post-execution `state_root`, returning
+    a complete `ExecutionPayloadEnvelope` ready for the builder to sign and
+    broadcast.
   tags:
     - Builder
   parameters:
@@ -32,10 +32,10 @@ post:
               example: "gloas"
             data:
               type: object
-              required: [signed_beacon_block, execution_payload, execution_requests]
+              required: [beacon_block_root, execution_payload, execution_requests]
               properties:
-                signed_beacon_block:
-                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
+                beacon_block_root:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
                 execution_payload:
                   $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.ExecutionPayload"
                 execution_requests:
