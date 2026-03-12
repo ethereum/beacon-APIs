@@ -15,7 +15,7 @@ post:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
       required: true
       name: Eth-Consensus-Version
-      description: "The active consensus version for the supplied data."
+      description: "The active consensus version for the supplied data to construct the execution payload envelope."
   requestBody:
     description: "Components required to construct the `ExecutionPayloadEnvelope`."
     required: true
@@ -24,14 +24,22 @@ post:
         schema:
           title: ConstructExecutionPayloadEnvelopeRequest
           type: object
-          required: [signed_beacon_block, execution_payload, execution_requests]
+          required: [version, data]
           properties:
-            signed_beacon_block:
-              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
-            execution_payload:
-              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.ExecutionPayload"
-            execution_requests:
-              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.ExecutionRequests"
+            version:
+              type: string
+              enum: [gloas]
+              example: "gloas"
+            data:
+              type: object
+              required: [signed_beacon_block, execution_payload, execution_requests]
+              properties:
+                signed_beacon_block:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
+                execution_payload:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Deneb.ExecutionPayload"
+                execution_requests:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Electra.ExecutionRequests"
   responses:
     "200":
       description: "Successfully constructed the execution payload envelope"
