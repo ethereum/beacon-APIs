@@ -8,12 +8,10 @@ post:
     which should be performed by validators, for a particular epoch.
 
     Duties should only need to be checked once per epoch,
-    however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur, resulting in a change of duties. For full safety,
+    however a chain reorganization could occur, resulting in a change of duties. For full safety,
     you should monitor head events and confirm the dependent root in this response matches:
 
       - event.previous_duty_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
-
-      - event.current_duty_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
 
       - event.block otherwise
 
@@ -22,7 +20,7 @@ post:
     or the genesis block root in the case of underflow."
   parameters:
     - name: epoch
-      description: "Should only be allowed 1 epoch ahead"
+      description: "Epoch for which to obtain PTC duties. Must not be greater than the current epoch"
       in: path
       required: true
       schema:
