@@ -1,0 +1,96 @@
+get:
+  operationId: getPoolProposerPreferences
+  summary: Get proposer preferences from operations pool
+  description: Retrieves proposer preferences known by the node but not necessarily incorporated into any block
+  parameters:
+    - name: slot
+      in: query
+      required: false
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetPoolProposerPreferencesResponse
+            type: object
+            required: [version, data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              data:
+                type: array
+                items:
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedProposerPreferences"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `List[SignedProposerPreferences]` bytes. Use Accept header to choose this response type"
+    "400":
+      description: "The slot could not be parsed"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid slot parameter"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
+
+post:
+  operationId: submitSignedProposerPreferences
+  summary: Submit signed proposer preferences
+  description: |
+    Submits signed proposer preferences to the beacon node.
+
+    The beacon node will validate each signed proposer preferences according to the gossip validation rules
+    and, if valid, store it in the pool and broadcast it globally to the network.
+
+    A success response indicates that the signed proposer preferences passed validation and was
+    successfully stored and broadcast.
+
+    If one or more signed proposer preferences fail validation, the node MUST return a 400 error with details of which messages have failed, and why.
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the signed proposer preferences being submitted belongs."
+  tags:
+    - Beacon
+    - ValidatorRequiredApi
+  requestBody:
+    description: "Array of `SignedProposerPreferences` objects to be submitted."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedProposerPreferences"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedProposerPreferences]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
+  responses:
+    "200":
+      description: "Signed proposer preferences are stored in pool and broadcasted to the network"
+    "400":
+      description: "Errors with one or more signed proposer preferences"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+    "415":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

@@ -41,6 +41,7 @@ get:
             - execution_payload_available
             - execution_payload_bid
             - payload_attestation_message
+            - proposer_preferences
   responses:
     "200":
       description: Opened SSE stream.
@@ -170,6 +171,11 @@ get:
               value: |
                 event: payload_attestation_message
                 data: {"version":"gloas", "data":{"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
+            proposer_preferences:
+              description: The node has received a `SignedProposerPreferences` (from P2P or API) that passes gossip validation on the `proposer_preferences` topic
+              value: |
+                event: proposer_preferences
+                data: {"version":"gloas", "data":{"message": {"proposal_slot": "32", "validator_index": "123", "fee_recipient": "0x0000000000000000000000000000000000000000", "gas_limit": "30000000"}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
     "400":
       description: "The topics supplied could not be parsed"
       content:

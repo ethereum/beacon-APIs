@@ -138,6 +138,8 @@ paths:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/payload_attestations:
     $ref: "./apis/beacon/pool/payload_attestations.yaml"
+  /eth/v1/beacon/pool/proposer_preferences:
+    $ref: "./apis/beacon/pool/proposer_preferences.yaml"
   /eth/v2/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
@@ -459,6 +461,10 @@ components:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.ProposerPreferences:
+      $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
+    Gloas.SignedProposerPreferences:
+      $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/SignedProposerPreferences"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
