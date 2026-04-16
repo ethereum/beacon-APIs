@@ -161,12 +161,12 @@ get:
               description: The node has received a `SignedExecutionPayloadEnvelope` (from P2P or API) that is successfully imported on the fork-choice `on_execution_payload` handler
               value: |
                 event: execution_payload
-                data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state_root":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "execution_optimistic": false}
+                data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false}
             execution_payload_gossip:
               description: The node has received a `SignedExecutionPayloadEnvelope` (from P2P or API) that passes validation rules of the `execution_payload` topic
               value: |
                 event: execution_payload_gossip
-                data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state_root":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9"}
+                data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}
             execution_payload_available:
               description: The node has verified that the execution payload and blobs for a block are available and ready for payload attestation
               value: |
@@ -192,4 +192,4 @@ get:
             code: 400
             message: "Invalid topic: weather_forecast"
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
