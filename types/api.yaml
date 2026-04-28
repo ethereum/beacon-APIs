@@ -53,6 +53,20 @@ ValidatorStatus:
     - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
     - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
+    SSZ encoding (single `byte`, used in `application/octet-stream` responses):
+    | Value  | Status                |
+    | ------ | --------------------- |
+    | `0x00` | unknown               |
+    | `0x01` | pending_initialized   |
+    | `0x02` | pending_queued        |
+    | `0x03` | active_ongoing        |
+    | `0x04` | active_exiting        |
+    | `0x05` | active_slashed        |
+    | `0x06` | exited_unslashed      |
+    | `0x07` | exited_slashed        |
+    | `0x08` | withdrawal_possible   |
+    | `0x09` | withdrawal_done       |
+
     [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
   enum: ["pending_initialized", "pending_queued", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
   example: "active_ongoing"

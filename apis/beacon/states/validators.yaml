@@ -8,6 +8,8 @@ get:
     match any known validator, no information will be returned but this will not cause an error.  There are no guarantees for the
     returned data in terms of ordering; both the index and public key are returned for each validator, and can be used to confirm
     for which inputs a response has been returned.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
@@ -55,6 +57,14 @@ get:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
+        application/octet-stream:
+          schema:
+            description: |
+              SSZ serialized `List[ValidatorResponse, VALIDATOR_REGISTRY_LIMIT]` bytes.
+
+              Each `ValidatorResponse` is the SSZ container `{ index: uint64, balance: uint64, status: byte, validator: Validator }`,
+              where `status` is a single byte encoded according to the table in the `ValidatorStatus` schema and
+              `Validator` is the consensus spec object. Use `Accept` header to choose this response type.
     "400":
       description: "Invalid state or validator ID, or status"
       content:
@@ -73,6 +83,8 @@ get:
           example:
             code: 404
             message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "414":
       description: "Too many validator IDs"
       content:
@@ -97,6 +109,8 @@ post:
 
     The POST variant of this endpoint has the same semantics as the GET endpoint but passes
     the lists of IDs and statuses via a POST body in order to enable larger requests.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
@@ -150,6 +164,14 @@ post:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
+        application/octet-stream:
+          schema:
+            description: |
+              SSZ serialized `List[ValidatorResponse, VALIDATOR_REGISTRY_LIMIT]` bytes.
+
+              Each `ValidatorResponse` is the SSZ container `{ index: uint64, balance: uint64, status: byte, validator: Validator }`,
+              where `status` is a single byte encoded according to the table in the `ValidatorStatus` schema and
+              `Validator` is the consensus spec object. Use `Accept` header to choose this response type.
     "400":
       description: "Invalid state or validator ID, or status"
       content:
@@ -168,5 +190,7 @@ post:
           example:
             code: 404
             message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
