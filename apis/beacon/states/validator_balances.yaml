@@ -8,6 +8,8 @@ get:
     match any known validator, no balance will be returned but this will not cause an error. There are no guarantees for the
     returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
     response has been returned.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
@@ -44,6 +46,12 @@ get:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorBalanceResponse'
+        application/octet-stream:
+          schema:
+            description: |
+              SSZ serialized `List[ValidatorBalanceResponse, VALIDATOR_REGISTRY_LIMIT]` bytes.
+
+              Each `ValidatorBalanceResponse` is the SSZ container `{ index: uint64, balance: uint64 }`. Use `Accept` header to choose this response type.
     "400":
       description: "Invalid state or validator ID"
       content:
@@ -62,6 +70,8 @@ get:
           example:
             code: 404
             message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "414":
       description: "Too many validator IDs"
       content:
@@ -83,6 +93,8 @@ post:
     match any known validator, no balance will be returned but this will not cause an error. There are no guarantees for the
     returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
     response has been returned.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
@@ -121,6 +133,12 @@ post:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorBalanceResponse'
+        application/octet-stream:
+          schema:
+            description: |
+              SSZ serialized `List[ValidatorBalanceResponse, VALIDATOR_REGISTRY_LIMIT]` bytes.
+
+              Each `ValidatorBalanceResponse` is the SSZ container `{ index: uint64, balance: uint64 }`. Use `Accept` header to choose this response type.
     "400":
       description: "Invalid state ID or malformed request"
       content:
@@ -139,5 +157,7 @@ post:
           example:
             code: 404
             message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

@@ -1,7 +1,10 @@
 get:
   operationId: "getStateValidator"
   summary: "Get validator from state by id"
-  description: "Returns validator specified by state and id or public key along with status and balance."
+  description: |
+    Returns validator specified by state and id or public key along with status and balance.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
     - ValidatorRequiredApi
@@ -32,6 +35,14 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorResponse'
+        application/octet-stream:
+          schema:
+            description: |
+              SSZ serialized `ValidatorResponse` bytes.
+
+              `ValidatorResponse` is the SSZ container `{ index: uint64, balance: uint64, status: byte, validator: Validator }`,
+              where `status` is a single byte encoded according to the table in the `ValidatorStatus` schema and
+              `Validator` is the consensus spec object. Use `Accept` header to choose this response type.
     "400":
       description: "Invalid state or validator ID"
       content:
@@ -56,7 +67,8 @@ get:
               value:
                 code: 404
                 message: Validator not found
-
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
 
