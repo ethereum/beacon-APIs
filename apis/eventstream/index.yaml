@@ -37,8 +37,9 @@ get:
             - light_client_finality_update
             - light_client_optimistic_update
             - payload_attributes
-            - blob_sidecar
             - data_column_sidecar
+            - execution_payload
+            - execution_payload_gossip
             - execution_payload_available
             - execution_payload_bid
             - payload_attestation_message
@@ -151,16 +152,21 @@ get:
               value: |
                 event: payload_attributes
                 data: {"version": "electra", "data": {"proposer_index": "123", "proposal_slot": "10", "parent_block_number": "9", "parent_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "parent_block_hash": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "payload_attributes": {"timestamp": "123456", "prev_randao": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "suggested_fee_recipient": "0x0000000000000000000000000000000000000000", "withdrawals": [{"index": "5", "validator_index": "10", "address": "0x0000000000000000000000000000000000000000", "amount": "15640"}], "parent_beacon_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}}
-            blob_sidecar:
-              description: The node has received a BlobSidecar (from P2P or API) that passes all gossip validations on the blob_sidecar_{subnet_id} topic
-              value: |
-                event: blob_sidecar
-                data: {"block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "index": "1", "slot": "1", "kzg_commitment": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505", "versioned_hash": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}
             data_column_sidecar:
               description: The node has received a DataColumnSidecar (from P2P or API) that passes all gossip validations on the data_column_sidecar_{subnet_id} topic
               value: |
                 event: data_column_sidecar
-                data: {"block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "index": "1", "slot": "1", "kzg_commitments": ["0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"]}
+                data: {"block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "index": "1", "slot": "1"}
+            execution_payload:
+              description: The node has received a `SignedExecutionPayloadEnvelope` (from P2P or API) that is successfully imported on the fork-choice `on_execution_payload_envelope` handler
+              value: |
+                event: execution_payload
+                data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false}
+            execution_payload_gossip:
+              description: The node has received a `SignedExecutionPayloadEnvelope` (from P2P or API) that passes validation rules of the `execution_payload` topic
+              value: |
+                event: execution_payload_gossip
+                data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}
             execution_payload_available:
               description: The node has verified that the execution payload and blobs for a block are available and ready for payload attestation
               value: |
@@ -170,12 +176,12 @@ get:
               description: The node has received a `SignedExecutionPayloadBid` (from P2P or API) that passes gossip validation on the `execution_payload_bid` topic
               value: |
                 event: execution_payload_bid
-                data: {"message": {"parent_block_hash": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "parent_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "block_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "prev_randao": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "fee_recipient": "0x0000000000000000000000000000000000000000", "gas_limit": "30000000", "builder_index": "42", "slot": "10", "value": "1000000000", "execution_payment": "0", "blob_kzg_commitments": ["0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2"]}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
+                data: {"version":"gloas", "data":{"message": {"parent_block_hash": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "parent_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "block_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "prev_randao": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "fee_recipient": "0x0000000000000000000000000000000000000000", "gas_limit": "30000000", "builder_index": "42", "slot": "10", "value": "1000000000", "execution_payment": "0", "blob_kzg_commitments": ["0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2"]}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
             payload_attestation_message:
               description: The node has received a `PayloadAttestationMessage` that passes validation rules of the `payload_attestation_message` topic
               value: |
                 event: payload_attestation_message
-                data: {"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}
+                data: {"version":"gloas", "data":{"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
     "400":
       description: "The topics supplied could not be parsed"
       content:
@@ -186,4 +192,4 @@ get:
             code: 400
             message: "Invalid topic: weather_forecast"
     "500":
-      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
