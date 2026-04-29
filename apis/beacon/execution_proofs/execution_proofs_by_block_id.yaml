@@ -8,6 +8,8 @@ get:
     Proofs are returned as an ordered list of `SignedExecutionProof` objects signed by validators.
 
     Proofs are only available for recent blocks within the proof retention period.
+
+    Beacon nodes running without an attached proof engine MUST return `501 Not Implemented`.
   tags:
     - Beacon
   parameters:
@@ -58,3 +60,5 @@ get:
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "501":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotImplementedError'

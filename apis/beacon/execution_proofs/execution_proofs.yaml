@@ -10,6 +10,8 @@ post:
     Proofs whose proof engine verification status is `VALID` or `ACCEPTED` are gossiped.
     Proofs reported as `INVALID` cause a `400` response. `SYNCING` and `NOT_SUPPORTED`
     proofs are ignored.
+
+    Beacon nodes running without an attached proof engine MUST return `501 Not Implemented`.
   tags:
     - Beacon
   requestBody:
@@ -31,13 +33,15 @@ post:
     "200":
       description: "Proofs received and validated successfully"
     "400":
-      description: "One or more proofs failed validation, or the proof engine is not configured"
+      description: "One or more proofs failed validation"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 400
-            message: "Proof engine not configured. Start with --proof-engine-endpoint to enable EIP-8025."
+            message: "Proof validation failed"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "501":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotImplementedError'
