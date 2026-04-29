@@ -2,7 +2,7 @@ get:
   operationId: getExecutionProofs
   summary: Get execution proofs
   description: |
-    Retrieves execution proofs for a given block id.
+    Retrieves signed execution proofs for a given block id.
     Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ.
 
     Proofs are returned as an ordered list of `SignedExecutionProof` objects signed by validators.

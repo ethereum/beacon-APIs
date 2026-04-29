@@ -3,13 +3,13 @@ post:
   summary: Submit signed execution proofs
   description: |
     Receives validator-signed execution proofs (typically from a validator client).
-    The beacon node verifies each proof's BLS signature, requests the execution engine
+    The beacon node verifies each proof's BLS signature, requests the proof engine
     to validate the proof against the associated `NewPayloadRequest`, stores accepted
     proofs, and broadcasts them on the `execution_proof` gossip topic.
 
-    Proofs whose execution-engine status is `VALID` or `ACCEPTED` are gossiped.
+    Proofs whose proof engine verification status is `VALID` or `ACCEPTED` are gossiped.
     Proofs reported as `INVALID` cause a `400` response. `SYNCING` and `NOT_SUPPORTED`
-    proofs are silently dropped.
+    proofs are ignored.
   tags:
     - Beacon
   requestBody:
