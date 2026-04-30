@@ -8,7 +8,7 @@ post:
     proofs, and broadcasts them on the `execution_proof` gossip topic.
 
     Proofs whose proof engine verification status is `VALID` or `ACCEPTED` are gossiped.
-    Proofs reported as `INVALID` cause a `400` response. `SYNCING` and `NOT_SUPPORTED`
+    Proofs reported as `INVALID` cause a `400 Bad Request` response. `SYNCING` and `NOT_SUPPORTED`
     proofs are ignored.
 
     Beacon nodes running without an attached proof engine MUST return `501 Not Implemented`.
