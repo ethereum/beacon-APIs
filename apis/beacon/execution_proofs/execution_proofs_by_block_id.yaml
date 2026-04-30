@@ -5,7 +5,7 @@ get:
     Retrieves signed execution proofs for a given block id.
     Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ.
 
-    Proofs are returned as an ordered list of `SignedExecutionProof` objects signed by validators.
+    Proofs are returned as a list of `SignedExecutionProof` objects signed by validators. The list order is not specified and clients MUST NOT rely on it.
 
     Proofs are only available for recent blocks within the proof retention period.
 
