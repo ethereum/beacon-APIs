@@ -23,12 +23,13 @@ get:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: beacon_block_root
       in: query
-      required: false
+      required: true
       description: |
-        Optional root of the beacon block associated with this execution payload envelope.
-        When provided, the beacon node will verify that the cached envelope matches the
-        given block root, returning a 404 if there is no match. This is useful for
-        disambiguation in fork scenarios where the same slot may have multiple competing blocks.
+        Root of the beacon block associated with this execution payload envelope. The beacon
+        node will verify that the cached envelope matches the given block root, returning a
+        404 if there is no match. Requiring the block root makes the lookup re-org resistant:
+        if a re-org occurs between block production and envelope retrieval, the validator client
+        will receive a 404 rather than an envelope committed to a stale block.
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
   responses:
