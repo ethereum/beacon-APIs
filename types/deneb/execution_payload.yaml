@@ -30,9 +30,9 @@ Deneb:
       base_fee_per_gas:
         $ref: '../primitive.yaml#/Uint256'
       blob_gas_used:
-        $ref: '../primitive.yaml#/Uint256'
+        $ref: '../primitive.yaml#/Uint64'
       excess_blob_gas:
-        $ref: '../primitive.yaml#/Uint256'  
+        $ref: '../primitive.yaml#/Uint64'
       block_hash:
         $ref: '../primitive.yaml#/Root'
 
