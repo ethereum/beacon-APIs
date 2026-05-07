@@ -64,7 +64,7 @@ Fulu:
       current_epoch_participation:
         $ref: "../altair/epoch_participation.yaml#/Altair/EpochParticipation"
       justification_bits:
-        $ref: "../primitive.yaml#/BitList"
+        $ref: "../primitive.yaml#/Bitvector"
         description: "Bit set for every recent justified epoch"
       previous_justified_checkpoint:
         $ref: "../misc.yaml#/Checkpoint"
