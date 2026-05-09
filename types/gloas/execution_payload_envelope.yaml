@@ -2,7 +2,7 @@ Gloas:
   ExecutionPayloadEnvelope:
     type: object
     description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec."
-    required: [payload, execution_requests, builder_index, beacon_block_root, slot, state_root]
+    required: [payload, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root, slot, state_root]
     properties:
       payload:
         $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
@@ -14,6 +14,9 @@ Gloas:
       beacon_block_root:
         $ref: "../primitive.yaml#/Root"
         description: "Root of the beacon block for this payload"
+      parent_beacon_block_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Root of the parent beacon block"
       slot:
         $ref: "../primitive.yaml#/Uint64"
         description: "Slot number for this execution payload"
