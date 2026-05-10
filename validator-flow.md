@@ -55,7 +55,7 @@ If reorg is detected, ask for new attester duties and proceed from 1..
 
 ### PTC Attesting
 
-On start of every epoch beginning with the Gloas fork, validator should [fetch PTC duties](#/Validator/getPtcDuties) for the current epoch.
+On start of every epoch beginning with the Gloas fork, validator should [fetch PTC duties](#/Validator/getPtcDuties) for the current and next epoch.
 Result are array of objects with validator index and assigned slot for payload timeliness committee participation.
 
 PTC Attesting:
