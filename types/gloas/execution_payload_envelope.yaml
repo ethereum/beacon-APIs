@@ -28,3 +28,54 @@ Gloas:
       signature:
         $ref: "../primitive.yaml#/Signature"
         description: "BLS signature of the execution payload envelope"
+
+  SignedExecutionPayloadEnvelopeContents:
+    type: object
+    description: |
+      Wrapper used when publishing a `SignedExecutionPayloadEnvelope` over the REST API.
+
+      The `blobs` and `kzg_proofs` arrays carry the raw blob data and corresponding cell
+      KZG proofs that the beacon node uses to derive and broadcast `DataColumnSidecar`s
+      for the revealed payload (the envelope itself, gossiped on the `execution_payload`
+      topic, does not contain blobs).
+
+      The arrays MAY be empty only when the beacon node already has the corresponding
+      blobs and proofs in its local self-build cache — i.e. when the payload was built
+      by the same beacon node that is now being asked to publish the envelope. In that
+      case the beacon node MUST reconstruct the data from the cache and MUST reject the
+      publish with a 400 if it cannot.
+
+      External builders that built the `ExecutionPayload` out-of-process MUST supply the
+      full `blobs` and `kzg_proofs` arrays — the beacon node has no other source for
+      this data at envelope-publish time.
+
+      When non-empty:
+      - `blobs.length` and `kzg_proofs.length` MUST both equal
+        `ExecutionPayloadBid.blob_kzg_commitments.length`.
+      - The entries MUST appear in the same order as the bid commitments.
+      - The beacon node MUST verify that the blobs match the committed commitments
+        before broadcasting.
+
+      Each `kzg_proofs` entry is a cell proof, matching the
+      [`compute_cells_and_kzg_proofs`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.7/specs/_features/eip7594/polynomial-commitments-sampling.md#compute_cells_and_kzg_proofs)
+      output used by `DataColumnSidecar`.
+    required: [signed_execution_payload_envelope, blobs, kzg_proofs]
+    properties:
+      signed_execution_payload_envelope:
+        $ref: "#/Gloas/SignedExecutionPayloadEnvelope"
+      blobs:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/Blob"
+        description: |
+          Raw blobs in the same order as the committed `blob_kzg_commitments`. MAY be
+          empty only when the beacon node built the payload itself and can reconstruct
+          the blobs from its local self-build cache.
+      kzg_proofs:
+        type: array
+        items:
+          $ref: "../primitive.yaml#/KZGProof"
+        description: |
+          Cell KZG proofs in the same order as the committed `blob_kzg_commitments`.
+          MAY be empty only when the beacon node built the payload itself and can
+          reconstruct the proofs from its local self-build cache.

@@ -1,0 +1,97 @@
+post:
+  operationId: publishExecutionPayloadEnvelope
+  summary: Publish signed execution payload envelope
+  description: |
+    Instructs the beacon node to broadcast a builder-signed `SignedExecutionPayloadEnvelope`
+    on the `execution_payload` global gossip topic, fulfilling a previously published
+    `SignedExecutionPayloadBid` commitment.
+
+    A success response (20x) indicates that the envelope passed gossip validation
+    (`gossip_validation_signed_execution_payload_envelope` from the Gloas p2p-interface spec)
+    and was successfully broadcast onto the network. The beacon node is also expected to
+    integrate the envelope into the state via the `on_execution_payload_envelope` fork-choice
+    handler, but may broadcast it before doing so to aid timely delivery.
+
+    The request body wraps the signed envelope together with the `blobs` and `kzg_proofs`
+    arrays the beacon node uses to derive and broadcast the `DataColumnSidecar`s for the
+    revealed payload. The envelope itself, gossiped on the `execution_payload` topic, does
+    not contain blobs — they ride on `DataColumnSidecar` gossip derived from these arrays.
+
+    Two modes:
+
+    - **External builder.** The builder built the `ExecutionPayload` out-of-process and
+      MUST supply the full `blobs` and `kzg_proofs` arrays. This is the primary use case
+      for the endpoint.
+    - **Self-build over REST.** The same beacon node built the payload and is being asked
+      to publish the envelope via REST (e.g. when the validator client or a sidecar
+      process drives the publish). The builder MAY send empty `blobs` and `kzg_proofs`
+      arrays; the beacon node MUST reconstruct the data from its local self-build cache
+      and MUST reject with a 400 if it cannot.
+
+    When `blobs` and `kzg_proofs` are non-empty, they MUST have the same length as
+    `ExecutionPayloadBid.blob_kzg_commitments`, appear in the same order, and the beacon
+    node MUST verify them against the committed commitments before broadcasting.
+
+    **Encoding.** This endpoint is on the reveal hot path. A full-blob payload wrapper
+    runs into the megabyte range, so beacon nodes MUST accept SSZ-encoded request bodies
+    via `Content-Type: application/octet-stream`; external builders SHOULD prefer SSZ
+    in production to minimize serialization and parsing overhead. JSON is supported for
+    debugging and tooling convenience.
+  tags:
+    - Beacon
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the execution payload envelope being submitted belongs."
+  requestBody:
+    description: |
+      The `SignedExecutionPayloadEnvelopeContents` object, wrapping the
+      `SignedExecutionPayloadEnvelope` together with `blobs` and `kzg_proofs` arrays
+      the beacon node uses to derive `DataColumnSidecar`s for the revealed payload.
+      The arrays MAY be empty only when the beacon node itself built the payload and
+      can reconstruct them from its local self-build cache.
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelopeContents"
+      application/octet-stream:
+        schema:
+          description: "SSZ-serialized `SignedExecutionPayloadEnvelopeContents` bytes. Use `Content-Type: application/octet-stream` to indicate SSZ. RECOMMENDED on the reveal hot path."
+  responses:
+    "200":
+      description: "The envelope was validated successfully and has been broadcast."
+    "202":
+      description: |
+        The envelope could not be integrated into the beacon node's database as it failed
+        validation, but was successfully broadcast.
+    "400":
+      description: |
+        The `SignedExecutionPayloadEnvelopeContents` object is invalid, failed gossip
+        validation, supplied `blobs`/`kzg_proofs` did not match the committed
+        commitments, or `blobs`/`kzg_proofs` were omitted and the beacon node could
+        not reconstruct the committed payload data from its local caches.
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidEnvelope:
+              value:
+                code: 400
+                message: "Invalid signed execution payload envelope"
+            MissingLocalBlobs:
+              value:
+                code: 400
+                message: "Blobs not supplied and not available locally"
+            BlobCommitmentMismatch:
+              value:
+                code: 400
+                message: "Supplied blobs do not match committed blob_kzg_commitments"
+    "415":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
