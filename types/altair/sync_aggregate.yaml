@@ -5,7 +5,7 @@ Altair:
     required: [sync_committee_bits, sync_committee_signature]
     properties:
       sync_committee_bits:
-        $ref: "../primitive.yaml#/BitList"
+        $ref: "../primitive.yaml#/Bitvector"
         description: "Aggregation bits of sync"
       sync_committee_signature:
         $ref: '../primitive.yaml#/Signature'
