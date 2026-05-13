@@ -155,7 +155,7 @@ paths:
     $ref: './apis/debug/heads.v2.yaml'
   /eth/v1/debug/fork_choice:
     $ref: './apis/debug/fork_choice.yaml'
-  /eth/v1/debug/node/peers/scores:
+  /eth/v1/debug/node/peer_scores:
     $ref: './apis/debug/peer_scores.yaml'
 
   /eth/v1/node/identity:
