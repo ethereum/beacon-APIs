@@ -1,0 +1,55 @@
+get:
+  operationId: getDebugPeerScores
+  summary: Get per-peer scoring details (debug)
+  description: |
+    Retrieves the consensus client's current per-peer scoring snapshot. Returns
+    one entry per known peer (connected or recently disconnected) with the
+    client-native blended score, the per-subsystem score components the client
+    chooses to expose, the most recent score-affecting action (if any), and the
+    most recent disconnect (if any).
+
+    This endpoint is intentionally permissive about what each client surfaces:
+
+    - `components` is a flexible map. A client SHOULD include `gossipsub` when
+      it has visibility into the underlying libp2p-gossipsub score, but MAY
+      omit it when the application layer has no access to libp2p internals
+      (e.g. nim-libp2p does not currently expose per-peer gossip scores to the
+      eth2 application).
+    - `last_action` and `last_disconnect` MAY be omitted for a peer if no such
+      event has been observed.
+    - `score_range` is REQUIRED so consumers can normalize across clients with
+      wildly different internal score scales (e.g. `[-100, +100]` for
+      Lighthouse / Lodestar / Grandine, `[-10, +20]` for Teku,
+      `[0, 1000]` for Nimbus, `[-100, +1]` for Prysm).
+
+    Reason codes (`last_action.reason` and `last_disconnect.reason`) are drawn
+    from a controlled vocabulary that captures the most common cross-client
+    downscore and disconnect causes. The original client-side string is
+    preserved in the matching `native_reason` field so consumers can
+    distinguish e.g. multiple `rpc_*` flavors that map to the same controlled
+    code.
+  tags:
+    - Debug
+  responses:
+    "200":
+      description: Request successful
+      content:
+        application/json:
+          schema:
+            title: GetDebugPeerScoresResponse
+            type: object
+            required: [generated_at, data]
+            properties:
+              generated_at:
+                description: |
+                  Server time (in milliseconds since the unix epoch) at which
+                  the snapshot was produced. Clients consuming the endpoint via
+                  polling can use this to compute the freshness of the data.
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+                example: 1715600000000
+              data:
+                type: array
+                items:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/PeerScore"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

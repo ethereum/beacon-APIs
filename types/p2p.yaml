@@ -80,3 +80,304 @@ Multiaddr:
   type: string
   description: "[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
   example: "/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
+
+PeerScore:
+  type: object
+  description: |
+    Per-peer scoring snapshot. The `score` field is in the client-native
+    range advertised in `score_range`; consumers that need cross-client
+    comparable values should normalize against that range. Components
+    are an optional flexible map - clients vary on which sub-scores they
+    can expose, but at minimum SHOULD include `reputation` when their
+    scoring model has a notion of application-level reputation.
+  required: [peer_id, state, score, score_range, components]
+  properties:
+    peer_id:
+      $ref: "./p2p.yaml#/PeerId"
+    state:
+      $ref: "./p2p.yaml#/PeerConnectionState"
+    direction:
+      description: |
+        Direction of the connection, when known. MAY be omitted for
+        peers that have been disconnected long enough that the client
+        no longer tracks the original direction.
+      $ref: "./p2p.yaml#/PeerConnectionDirection"
+    agent_version:
+      type: string
+      description: |
+        The peer's libp2p agent version string, as obtained from the
+        libp2p identify protocol. MAY be omitted if not yet observed.
+      example: "Lighthouse/v8.1.3-66919c2/aarch64-linux"
+    client_kind:
+      type: string
+      description: |
+        Optional pre-resolved consensus-client family of the peer, when
+        the implementation can infer it (typically from `agent_version`).
+        Saves consumers from regex-matching the agent string. Common
+        values include `lighthouse`, `lodestar`, `nimbus`, `prysm`,
+        `teku`, `grandine`, `caplin`. Implementations MAY omit this
+        field or use values outside this list.
+      example: "lighthouse"
+    score:
+      type: number
+      format: double
+      description: |
+        Client-native blended score. The exact meaning depends on the
+        implementation - see `score_range` for the boundary thresholds.
+        For libp2p-gossipsub-blended models (Lighthouse, Lodestar,
+        Grandine), this is the value the client uses for disconnect
+        decisions.
+      example: -17.4828
+    score_range:
+      $ref: "./p2p.yaml#/PeerScoreRange"
+    components:
+      $ref: "./p2p.yaml#/PeerScoreComponents"
+    last_action:
+      description: |
+        Most recent score-affecting event observed for this peer (if any).
+      $ref: "./p2p.yaml#/PeerScoreAction"
+    last_disconnect:
+      description: |
+        Most recent disconnect observed for this peer (if any). MAY be
+        omitted even for disconnected peers when the disconnect was
+        driven by libp2p internals that the eth2 application layer does
+        not have visibility into (typical for gossipsub-score-driven
+        disconnects).
+      $ref: "./p2p.yaml#/PeerDisconnectAction"
+
+PeerScoreRange:
+  type: object
+  description: |
+    Boundary metadata for the client's score range, so consumers can
+    interpret the raw `score` value without hardcoding per-client
+    constants. All values are in the same client-native units as
+    `PeerScore.score`.
+  required: [min, max, disconnect_threshold, ban_threshold]
+  properties:
+    min:
+      type: number
+      format: double
+      description: "Minimum score the client will report. Scores at or near this value indicate the worst possible reputation."
+      example: -100.0
+    max:
+      type: number
+      format: double
+      description: "Maximum score the client will report."
+      example: 100.0
+    disconnect_threshold:
+      type: number
+      format: double
+      description: "Score at or below which the client will normally disconnect from a peer."
+      example: -20.0
+    ban_threshold:
+      type: number
+      format: double
+      description: "Score at or below which the client will normally ban a peer (refusing reconnections for some implementation-defined period)."
+      example: -50.0
+
+PeerScoreComponents:
+  type: object
+  description: |
+    Per-subsystem score breakdown. All fields are OPTIONAL. The set of
+    keys a client populates is implementation-specific - the spec
+    enumerates well-known ones below, but implementations MAY add
+    additional keys for their own internal scorers.
+  properties:
+    gossipsub:
+      type: number
+      format: double
+      description: |
+        Raw libp2p-gossipsub score. Note this value uses libp2p's own
+        scale, not necessarily the same as `score`. MAY be omitted when
+        the application layer has no access to libp2p internals (e.g.
+        Nimbus).
+      example: -38.6417
+    reputation:
+      type: number
+      format: double
+      description: |
+        Application-level reputation score driven by the client's own
+        downscore actions (RPC errors, invalid gossip, sync failures,
+        etc.). The scale here matches the client-native range in
+        `score_range`.
+      example: 0.0
+    bad_responses:
+      type: number
+      format: double
+      description: |
+        Component contributed by a bad-responses scorer (Prysm-style).
+      example: 0.0
+    peer_status:
+      type: number
+      format: double
+      description: |
+        Component contributed by a peer-status scorer (Prysm-style).
+      example: 1.0
+    block_provider:
+      type: number
+      format: double
+      description: |
+        Component contributed by a block-provider scorer (Prysm-style,
+        rewarding peers that supply blocks during sync).
+    behaviour_penalty:
+      type: number
+      format: double
+      description: |
+        Running libp2p-gossipsub P7 behaviour-penalty counter.
+      example: 0.0
+    ip_colocation:
+      type: number
+      format: double
+      description: |
+        Running libp2p-gossipsub P6 ip-colocation-factor counter.
+
+PeerScoreAction:
+  type: object
+  description: |
+    A discrete score-affecting event recorded against a peer.
+  required: [reason, native_reason]
+  properties:
+    reason:
+      $ref: "./p2p.yaml#/PeerScoreReason"
+    native_reason:
+      type: string
+      description: |
+        The original client-side reason tag, preserved for fidelity.
+        Useful when multiple native tags collapse into a single
+        controlled `reason` code.
+      example: "rpc_io_error"
+    delta:
+      type: number
+      format: double
+      description: |
+        Change applied to `score` as a result of this event (negative for
+        downscores, positive for rewards). MAY be omitted when the event
+        was a state transition (e.g. ban) without a precise score
+        contribution.
+      example: -1.0
+    topic:
+      type: string
+      description: |
+        Gossipsub topic associated with the event, if applicable.
+      example: "/eth2/4a26c58b/beacon_block/ssz_snappy"
+    seconds_ago:
+      description: "Seconds elapsed since the event was observed, clamped to a non-negative value."
+      $ref: "./primitive.yaml#/Uint64"
+      example: 12
+
+PeerDisconnectAction:
+  type: object
+  description: |
+    The most recent disconnect event observed for a peer.
+  required: [reason, native_reason, direction]
+  properties:
+    reason:
+      $ref: "./p2p.yaml#/PeerDisconnectReason"
+    native_reason:
+      type: string
+      description: "The client-native disconnect reason, preserved for fidelity."
+      example: "BadScore"
+    goodbye_code:
+      description: |
+        The numeric Goodbye code exchanged on the wire, when one was
+        sent or received. Codes 0-127 are reserved by the consensus
+        p2p-interface spec; 128+ are implementation-defined extensions
+        (e.g. 128=UnableToVerifyNetwork, 129=TooManyPeers, 250=BadScore,
+        251=Banned, 252=BannedIP).
+      $ref: "./primitive.yaml#/Uint64"
+      example: 250
+    direction:
+      type: string
+      enum: ["sent", "received"]
+      description: |
+        Whether the disconnect was initiated by this client (`sent`) or
+        the peer (`received`).
+    seconds_ago:
+      $ref: "./primitive.yaml#/Uint64"
+      example: 120
+
+PeerScoreReason:
+  type: string
+  description: |
+    Controlled vocabulary for a score-affecting event. Implementations
+    MUST emit one of these values. New codes will be added through the
+    spec process; consumers SHOULD tolerate unknown values and fall back
+    to the `category` derivable from the code's prefix.
+  enum:
+    - rpc_invalid_request
+    - rpc_invalid_response_ssz
+    - rpc_response_timeout
+    - rpc_server_error
+    - rpc_resource_unavailable
+    - rpc_rate_limited
+    - rpc_unsupported_protocol
+    - rpc_incomplete_stream
+    - rpc_dial_error
+    - rpc_io_error
+    - rpc_stream_timeout
+    - rpc_invalid_data
+    - rpc_handler_rejected
+    - rpc_disconnected
+    - rpc_internal_error
+    - rpc_bad_blocks_by_range
+    - rpc_bad_blocks_by_root
+    - rpc_bad_blobs
+    - rpc_bad_data_columns
+    - rpc_other
+    - gossip_invalid_block
+    - gossip_invalid_attestation
+    - gossip_invalid_sync_message
+    - gossip_invalid_blob_sidecar
+    - gossip_invalid_data_column_sidecar
+    - gossip_invalid_slashing
+    - gossip_invalid_voluntary_exit
+    - gossip_invalid_bls_change
+    - gossip_other
+    - sync_bad_batch
+    - sync_chain_invalid
+    - sync_lookup_failed
+    - sync_max_processing_attempts
+    - sync_other
+    - status_bad_fork_digest
+    - status_invalid_finalized_root
+    - status_unviable_fork
+    - status_low_head
+    - status_stale
+    - status_other
+    - colocation
+    - behaviour_penalty
+    - das_bad_column_intersection
+    - gossipsub_low
+    - bad_responses_accumulated
+    - peer_status_failed
+    - reward_good_response
+    - reward_good_status
+    - reward_block_provider
+    - unknown
+
+PeerDisconnectReason:
+  type: string
+  description: |
+    Controlled vocabulary for a disconnect cause. See `goodbye_code` for
+    the numeric wire code when one was exchanged.
+  enum:
+    - client_shutdown
+    - too_many_peers
+    - duplicate_connection
+    - irrelevant_network
+    - unable_to_verify_network
+    - unviable_fork
+    - bad_score
+    - banned
+    - banned_ip
+    - rate_limited
+    - fault
+    - unresponsive
+    - no_status_received
+    - invalid_handshake
+    - dial_error
+    - io_error
+    - stream_timeout
+    - connection_lost
+    - other
+    - unknown
