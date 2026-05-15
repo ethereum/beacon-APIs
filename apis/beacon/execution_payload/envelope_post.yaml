@@ -13,7 +13,7 @@ post:
 
     The request body can be either:
     - A `SignedExecutionPayloadEnvelopeContents` object containing the signed envelope along with
-      blobs and KZG proofs. This is used in stateless operation (multi-BN setups, DVs, failover)
+      blobs and KZG proofs. This is used in stateless operation (multi-BN setups, distributed validators, failover)
       where the receiving beacon node does not have the blobs cached.
     - A `SignedExecutionPayloadEnvelope` object containing only the signed envelope. This is used
       in stateful operation where the beacon node already has the blobs and KZG proofs cached

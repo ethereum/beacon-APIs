@@ -49,7 +49,7 @@ get:
 
         When `true` (default), the response includes the full block contents: beacon block,
         execution payload envelope, blobs, and KZG proofs. This enables stateless operation
-        where the validator client can use multiple beacon nodes (multi-BN setups, DVs, failover).
+        where the validator client can use multiple beacon nodes (multi-BN setups, distributed validators, failover).
 
         When `false`, only the beacon block is returned and the beacon node caches the execution
         payload envelope and blobs internally. The validator client must then fetch them separately
