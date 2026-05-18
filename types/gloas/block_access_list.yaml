@@ -1,0 +1,6 @@
+Gloas:
+  BlockAccessList:
+    type: string
+    format: hex
+    description: "The [`BlockAccessList`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.9/specs/gloas/beacon-chain.md#custom-types) custom type from the CL Gloas spec. RLP encoded block access list as defined in [EIP-7928](https://eips.ethereum.org/EIPS/eip-7928)."
+    pattern: "^0x[a-fA-F0-9]{0,2147483648}$"
