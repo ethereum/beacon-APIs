@@ -1,0 +1,23 @@
+Gloas:
+  Builder:
+    type: object
+    description: "The [`Builder`](https://github.com/ethereum/consensus-specs/blob/dev/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec."
+    required: [pubkey, version, execution_address, balance, deposit_epoch, withdrawable_epoch]
+    properties:
+      pubkey:
+        $ref: '../primitive.yaml#/Pubkey'
+      version:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Withdrawal credential version prefix for this builder."
+      execution_address:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+        description: "Execution-layer address that receives builder withdrawals."
+      balance:
+        $ref: "../primitive.yaml#/Gwei"
+        description: "Current builder balance in gwei."
+      deposit_epoch:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Epoch when the builder's deposit was processed."
+      withdrawable_epoch:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Epoch when the builder can withdraw. `FAR_FUTURE_EPOCH` if the builder has not initiated exit."

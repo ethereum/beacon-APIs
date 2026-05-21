@@ -1,0 +1,60 @@
+get:
+  operationId: "getStateBuilder"
+  summary: "Get builder from state by id"
+  description: "Returns builder specified by state and id or public key along with status and balance."
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: builder_id
+      description: "Either hex encoded public key (any bytes48 with 0x prefix) or builder index"
+      in: path
+      required: true
+      schema:
+        type: string
+
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateBuilderResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderResponse'
+    "400":
+      description: "Invalid state or builder ID"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "Not Found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            StateNotFound:
+              value:
+                code: 404
+                message: State not found
+            BuilderNotFound:
+              value:
+                code: 404
+                message: Builder not found
+
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

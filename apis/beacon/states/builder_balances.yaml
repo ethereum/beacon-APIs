@@ -1,0 +1,143 @@
+get:
+  operationId: "getStateBuilderBalances"
+  summary: "Get builder balances from state"
+  description: |
+    Returns filterable list of builder balances.
+
+    Balances will be returned for all indices or public keys that match known builders. If an index or public key does not
+    match any known builder, no balance will be returned but this will not cause an error. There are no guarantees for the
+    returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
+    response has been returned.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: id
+      description: "Either hex encoded public key (any bytes48 with 0x prefix) or builder index"
+      in: query
+      required: false
+      schema:
+        type: array
+        maxItems: 64
+        uniqueItems: true
+        items:
+          description: "Either hex encoded public key (any bytes48 with 0x prefix) or builder index"
+          type: string
+
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateBuilderBalancesResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderBalanceResponse'
+    "400":
+      description: "Invalid state or builder ID"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "414":
+      description: "Too many builder IDs"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 414
+            message: "Too many builder IDs in request"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+post:
+  operationId: "postStateBuilderBalances"
+  summary: "Get builder balances from state"
+  description: |
+    Returns filterable list of builder balances.
+
+    Balances will be returned for all indices or public keys that match known builders. If an index or public key does not
+    match any known builder, no balance will be returned but this will not cause an error. There are no guarantees for the
+    returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
+    response has been returned.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  requestBody:
+    description: |
+      An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a builder index.
+
+      If the supplied list is empty (i.e. the body is `[]`) or no body is supplied then balances will be returned for all builders.
+    required: false
+    content:
+      application/json:
+        schema:
+          type: array
+          uniqueItems: true
+          items:
+            description: "Either hex encoded public key (any bytes48 with 0x prefix) or builder index"
+            type: string
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateBuilderBalancesResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderBalanceResponse'
+    "400":
+      description: "Invalid state ID or malformed request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
