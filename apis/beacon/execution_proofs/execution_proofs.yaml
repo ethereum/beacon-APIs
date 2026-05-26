@@ -1,0 +1,47 @@
+post:
+  operationId: submitExecutionProofs
+  summary: Submit signed execution proofs
+  description: |
+    Receives validator-signed execution proofs (typically from a validator client).
+    The beacon node verifies each proof's BLS signature, requests the proof engine
+    to validate the proof against the associated `NewPayloadRequest`, stores accepted
+    proofs, and broadcasts them on the `execution_proof` gossip topic.
+
+    Proofs whose proof engine verification status is `VALID` or `ACCEPTED` are gossiped.
+    Proofs reported as `INVALID` cause a `400 Bad Request` response. `SYNCING` and `NOT_SUPPORTED`
+    proofs are ignored.
+
+    Beacon nodes running without an attached proof engine MUST return `501 Not Implemented`.
+  tags:
+    - Beacon
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [proofs]
+          properties:
+            proofs:
+              type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/EIP8025.SignedExecutionProof'
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedExecutionProof, MAX_EXECUTION_PROOFS_PER_PAYLOAD]` bytes. Use Content-Type header to choose this request type"
+  responses:
+    "200":
+      description: "Proofs received and validated successfully"
+    "400":
+      description: "One or more proofs failed validation"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Proof validation failed"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "501":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotImplementedError'
