@@ -5,7 +5,7 @@ Gloas:
     required: [dependent_root, proposal_slot, validator_index, fee_recipient, target_gas_limit]
     properties:
       dependent_root:
-        description: "Block root the message is anchored to. Used by gossip validation to dedup and to anchor signature verification to the checkpoint state at `epoch(proposal_slot) - 1`."
+        description: "Block root the message is anchored to. Used by gossip validation to de-duplicate and to anchor signature verification to the checkpoint state at `epoch(proposal_slot) - 1`."
         $ref: "../primitive.yaml#/Root"
       proposal_slot:
         $ref: "../primitive.yaml#/Uint64"

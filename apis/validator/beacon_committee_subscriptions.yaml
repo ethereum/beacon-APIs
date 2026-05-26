@@ -10,8 +10,8 @@ post:
     - aggregate attestations received on that subnet
 
     From the Gloas fork onwards, beacon nodes use the set of validators that have submitted
-    subscriptions via this endpoint to identify which validators are using the node for duties,
-    and adjust the node's custody group count (CGC) accordingly. Validator clients SHOULD
+    subscriptions via this endpoint to determine which validators are using the node for duties
+    and to calculate the node's required custody group count (CGC). Validator clients SHOULD
     submit one entry per attached active validator per attestation duty, including when
     multiple validators share the same `(slot, committee_index)`, so the beacon node tracks
     every attached validator rather than only one per subnet.
