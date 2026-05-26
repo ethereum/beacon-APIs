@@ -16,8 +16,8 @@ EIP8025:
       proof_data:
         type: string
         format: hex
-        pattern: "^0x[a-fA-F0-9]{0,819200}$"
-        description: "Proof data, max 400 KiB (409600 bytes = 819200 hex chars)"
+        pattern: "^0x[a-fA-F0-9]{0,2752512}$"
+        description: "Proof data, max 1344 KiB (1376256 bytes = 2752512 hex chars)"
         example: "0x1234567890abcdef"
       proof_type:
         $ref: '../primitive.yaml#/Uint8'
