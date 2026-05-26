@@ -22,7 +22,7 @@ post:
     or the genesis block root in the case of underflow."
   parameters:
     - name: epoch
-      description: "Should only be allowed 1 epoch ahead"
+      description: "Epoch for which to obtain PTC duties. Must not be greater than the next epoch"
       in: path
       required: true
       schema:

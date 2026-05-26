@@ -27,8 +27,9 @@ get:
       deprecated: true
       description: |
         The committee index for which an attestation data should be created. For `slot`s in
-        Electra and later, this parameter MAY always be set to 0. For `slot`s in Gloas and
-        later, this parameter MAY be omitted.
+        Electra and later, this parameter MAY always be set to 0.
+        For `slot`s in Gloas and later, this parameter SHOULD be omitted, as the Beacon node
+        SHOULD be setting the index based on network rules.
       required: false
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
