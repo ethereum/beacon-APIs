@@ -10,6 +10,13 @@ get:
     This endpoint is used by PTC validators to obtain the data structure they need to attest to
     regarding payload presence and blob data availability for a specific slot.
 
+    A 404 error must be returned if no canonical beacon block has been seen for the
+    requested slot. Per the
+    [honest validator specification](https://github.com/ethereum/consensus-specs/blob/dev/specs/gloas/validator.md#constructing-a-payload-attestation),
+    a PTC member must not submit a payload attestation when no block has been seen for the
+    assigned slot. Empty slots are common, so callers should treat 404 as the expected
+    "no block" signal and skip submission rather than retry.
+
     A 503 error must be returned if the beacon node is currently syncing.
   parameters:
     - name: slot
@@ -42,6 +49,15 @@ get:
             description: "SSZ serialized `PayloadAttestationData` bytes. Use Accept header to choose this response type"
     "400":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
+    "404":
+      description: "No canonical block has been seen for the requested slot."
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "No canonical block found at slot=1234"
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
