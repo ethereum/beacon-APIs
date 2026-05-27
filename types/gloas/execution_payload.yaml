@@ -9,7 +9,7 @@ Gloas:
           block_access_list:
             type: string
             format: hex
-            description: "RLP encoded `BlockAccessList` as defined in [EIP-7928]"
+            description: "RLP encoded `BlockAccessList` as defined in [EIP-7928](https://eips.ethereum.org/EIPS/eip-7928)"
             pattern: "^0x[a-fA-F0-9]{0,2147483648}$"
           slot_number:
             $ref: "../primitive.yaml#/Uint64"
