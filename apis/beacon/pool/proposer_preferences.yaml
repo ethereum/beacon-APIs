@@ -1,5 +1,5 @@
 get:
-  operationId: getPoolProposerPreferences
+  operationId: getProposerPreferences
   summary: Get proposer preferences from operations pool
   description: Retrieves proposer preferences known by the node.
   parameters:
