@@ -1,7 +1,7 @@
 Gloas:
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.9/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
     required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, signed_execution_payload_bid, payload_attestations, parent_execution_requests]
     properties:
       randao_reveal:

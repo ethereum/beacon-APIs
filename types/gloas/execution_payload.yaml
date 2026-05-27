@@ -1,12 +1,15 @@
 Gloas:
   ExecutionPayload:
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.9/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
     allOf:
       - $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
       - type: object
         required: [block_access_list, slot_number]
         properties:
           block_access_list:
-            $ref: "./block_access_list.yaml#/Gloas/BlockAccessList"
+            type: string
+            format: hex
+            description: "RLP encoded `BlockAccessList` as defined in [EIP-7928]"
+            pattern: "^0x[a-fA-F0-9]{0,2147483648}$"
           slot_number:
             $ref: "../primitive.yaml#/Uint64"
