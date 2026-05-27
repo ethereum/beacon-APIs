@@ -5,7 +5,7 @@ Gloas:
     required: [payload, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root]
     properties:
       payload:
-        $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
+        $ref: "./execution_payload.yaml#/Gloas/ExecutionPayload"
       execution_requests:
         $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
       builder_index:

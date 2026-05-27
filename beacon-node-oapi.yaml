@@ -453,6 +453,8 @@ components:
       $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
     Gloas.BlockContents:
       $ref: "./types/gloas/block_contents.yaml#/Gloas/BlockContents"
+    Gloas.ExecutionPayload:
+      $ref: "./types/gloas/execution_payload.yaml#/Gloas/ExecutionPayload"
     Gloas.ExecutionPayloadBid:
       $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
     Gloas.SignedExecutionPayloadBid:
