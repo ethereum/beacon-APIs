@@ -1,5 +1,5 @@
 post:
-  operationId: submitSignedProposerPreferences
+  operationId: submitProposerPreferences
   summary: Submit signed proposer preferences
   description: |
     Verifies given signed proposer preferences and publishes them on the `proposer_preferences`
