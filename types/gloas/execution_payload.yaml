@@ -1,46 +1,12 @@
 Gloas:
-  ExecutionPayloadCommon:
-    # An abstract object to collect the common fields between the ExecutionPayload and the ExecutionPayloadHeader objects.
-    allOf:
-      - $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayloadCommon"
-      - type: object
-        required: [slot_number]
-        properties:
-          slot_number:
-            $ref: "../primitive.yaml#/Uint64"
-
   ExecutionPayload:
     description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
     allOf:
-      - $ref: "#/Gloas/ExecutionPayloadCommon"
+      - $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
       - type: object
-        required: [transactions, withdrawals, block_access_list]
+        required: [block_access_list, slot_number]
         properties:
-          transactions:
-            $ref: "../bellatrix/transactions.yaml#/Bellatrix/Transactions"
-          withdrawals:
-            $ref: "../capella/withdrawals.yaml#/Capella/Withdrawals"
           block_access_list:
             $ref: "../primitive.yaml#/BlockAccessList"
-
-  ExecutionPayloadHeader:
-    description: |
-      Header form of `Gloas.ExecutionPayload`, with the large variable-size fields
-      (`transactions`, `withdrawals`, `block_access_list`) replaced by their hash tree roots.
-      Defined as a beacon-API construct (the Gloas consensus spec removed
-      `ExecutionPayloadHeader`), used in the stateful publishing flow so the validator client
-      can sign a payload-bearing envelope without re-uploading data the beacon node has
-      already cached. By construction
-      `hash_tree_root(Gloas.ExecutionPayloadHeader) == hash_tree_root(Gloas.ExecutionPayload)`
-      when the roots match the corresponding fields.
-    allOf:
-      - $ref: "#/Gloas/ExecutionPayloadCommon"
-      - type: object
-        required: [transactions_root, withdrawals_root, block_access_list_root]
-        properties:
-          transactions_root:
-            $ref: "../primitive.yaml#/Root"
-          withdrawals_root:
-            $ref: "../primitive.yaml#/Root"
-          block_access_list_root:
-            $ref: "../primitive.yaml#/Root"
+          slot_number:
+            $ref: "../primitive.yaml#/Uint64"
