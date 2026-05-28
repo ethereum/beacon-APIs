@@ -531,7 +531,11 @@ components:
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
     Eth-Execution-Payload-Blinded:
-      description: Required in response so client can deserialize returned json or ssz data to the correct object.
+      description: |
+        Indicates whether the execution payload (or envelope) is in blinded form. Sent in
+        responses so clients can deserialize returned JSON or SSZ data to the correct object,
+        and sent in requests on endpoints that accept either blinded or full forms so the
+        server can select the correct request schema.
       required: true
       schema:
         type: boolean

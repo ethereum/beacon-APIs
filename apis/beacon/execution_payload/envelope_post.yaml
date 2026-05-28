@@ -56,16 +56,17 @@ post:
       name: Eth-Consensus-Version
       description: "The active consensus version to which the execution payload envelope being submitted belongs."
     - in: header
+      name: Eth-Execution-Payload-Blinded
+      required: true
       schema:
         type: boolean
-      required: true
-      name: Eth-Execution-Payload-Blinded
       description: |
-        Indicates which body schema is submitted. When `false`, the body is a
-        `SignedExecutionPayloadEnvelopeContents` (full envelope plus blobs and KZG proofs,
-        stateless flow). When `true`, the body is a `SignedBlindedExecutionPayloadEnvelope`
-        (blinded envelope only, stateful flow; the beacon node must have cached the full
-        envelope and blobs from block production).
+        Indicates which body schema is submitted (see the
+        [`Eth-Execution-Payload-Blinded`](#/components/headers/Eth-Execution-Payload-Blinded)
+        header). When `false`, the body is a `SignedExecutionPayloadEnvelopeContents` (full
+        envelope plus blobs and KZG proofs, stateless flow). When `true`, the body is a
+        `SignedBlindedExecutionPayloadEnvelope` (blinded envelope only, stateful flow; the
+        beacon node must have cached the full envelope and blobs from block production).
   requestBody:
     description: "The `SignedExecutionPayloadEnvelopeContents` or `SignedBlindedExecutionPayloadEnvelope` object to be broadcast, selected via the `Eth-Execution-Payload-Blinded` header."
     required: true
