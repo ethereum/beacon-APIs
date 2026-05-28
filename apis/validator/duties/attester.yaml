@@ -9,14 +9,12 @@ post:
 
     Duties should only need to be checked once per epoch,
     however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur,
-    resulting in a change of duties. For full safety, you should monitor head events and confirm the
+    resulting in a change of duties. For full safety, you should monitor head_v2 events and confirm the
     dependent root in this response matches:
 
-      - event.previous_duty_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
+      - event.current_epoch_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
 
-      - event.current_duty_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
-
-      - event.block otherwise
+      - event.next_epoch_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
 
 
     The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
