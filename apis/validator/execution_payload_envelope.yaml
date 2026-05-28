@@ -22,7 +22,7 @@ get:
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: beacon_block_root
-      in: query
+      in: path
       required: true
       description: |
         Root of the beacon block associated with this execution payload envelope. The beacon
