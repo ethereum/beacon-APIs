@@ -2,20 +2,16 @@ get:
   operationId: getExecutionPayloadEnvelope
   summary: Get execution payload envelope
   description: |
-    Retrieves the cached execution payload envelope for the current proposer's slot. Returned
-    in blinded form by default (the `transactions`, `withdrawals`, and `block_access_list`
-    fields are replaced by their hash tree roots); pass `blinded=false` to receive the full
-    envelope instead. The hash tree root of `BlindedExecutionPayloadEnvelope` matches the
-    hash tree root of the corresponding full `ExecutionPayloadEnvelope`, so a signature
-    produced over either form is valid against the other.
+    Retrieves the cached execution payload envelope for the current proposer's slot as a
+    `BlindedExecutionPayloadEnvelope` (the `transactions`, `withdrawals`, and
+    `block_access_list` fields are replaced by their hash tree roots). The hash tree root of
+    `BlindedExecutionPayloadEnvelope` matches the hash tree root of the corresponding full
+    `ExecutionPayloadEnvelope`, so a signature produced over the blinded form is valid
+    against the full envelope.
 
     The beacon node only caches the envelope for the current slot's self-built payload.
     Requests for older slots or slots where no envelope has been cached will return a 404
     error. This endpoint does not fetch payloads from the execution layer.
-
-    The response form is indicated by the `Eth-Execution-Payload-Blinded` header and the
-    `execution_payload_blinded` field; clients should use this signal to select the
-    deserialization schema.
 
     Depending on `Accept` header, the response can be returned either as JSON or as bytes serialized by SSZ.
   tags:
@@ -39,49 +35,28 @@ get:
         will receive a 404 rather than an envelope committed to a stale block.
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
-    - name: blinded
-      in: query
-      required: false
-      description: |
-        Caller preference for the envelope form. When `true` (default), the beacon node
-        returns a `BlindedExecutionPayloadEnvelope` (transactions, withdrawals, and block
-        access list replaced by their hash tree roots), recommended for the stateful
-        publishing flow where the beacon node already has the full data cached. When `false`,
-        the beacon node returns the full `ExecutionPayloadEnvelope`. The actually returned
-        form is reported in the `Eth-Execution-Payload-Blinded` response header.
-      schema:
-        type: boolean
-        default: true
   responses:
     "200":
       description: "Successful response"
       headers:
         Eth-Consensus-Version:
           $ref: "../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
-        Eth-Execution-Payload-Blinded:
-          $ref: "../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Blinded"
       content:
         application/json:
           schema:
             title: GetExecutionPayloadEnvelopeResponse
             type: object
-            required: [version, execution_payload_blinded, data]
+            required: [version, data]
             properties:
               version:
                 type: string
                 enum: [gloas]
                 example: "gloas"
-              execution_payload_blinded:
-                type: boolean
-                description: "Indicates which envelope form is returned. `true` for `BlindedExecutionPayloadEnvelope`, `false` for the full `ExecutionPayloadEnvelope`."
-                example: true
               data:
-                anyOf:
-                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BlindedExecutionPayloadEnvelope"
-                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BlindedExecutionPayloadEnvelope"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `BlindedExecutionPayloadEnvelope` or `ExecutionPayloadEnvelope` bytes; use the `Eth-Execution-Payload-Blinded` response header to select the schema."
+            description: "SSZ serialized `BlindedExecutionPayloadEnvelope` bytes. Use Accept header to choose this response type"
     "400":
       description: "Invalid execution payload envelope request"
       content:
