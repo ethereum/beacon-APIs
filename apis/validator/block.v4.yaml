@@ -68,32 +68,34 @@ get:
       required: false
       description: |
         Percentage multiplier to apply to the builder's bid value when choosing between a
-        builder bid and payload from the paired execution node. This parameter is only
-        relevant if the beacon node is connected to a builder, deems it safe to produce a builder
-        payload, and receives valid responses from both the builder endpoint _and_ the paired
-        execution node. When these preconditions are met, the server MUST act as follows:
+        builder bid and payload from the paired execution node. This parameter is only relevant
+        if the beacon node has at least one viable builder `ExecutionPayloadBid` available and
+        receives a valid response from the paired execution node. When these preconditions are
+        met, the server MUST act as follows:
 
-        * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`,
-          then return a block committing to the local bid (including execution node payload if `include_payload` parameter is set to true)
-        * otherwise, return a block committing to the builder's bid (without execution payload,
+        * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`
+          for the highest builder bid known to the beacon node, then return a block committing
+          to the local execution node payload (with the payload itself included if
+          `include_payload` is set to true).
+        * otherwise, return a block committing to the builder bid (without execution payload,
           as it is not yet available).
 
         Servers must support the following values of the boost factor which encode common
         preferences:
 
-        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes it
-          unviable.
-        * `builder_boost_factor=100`: profit maximization mode; choose whichever
-          payload pays more.
-        * `builder_boost_factor=2**64 - 1`: prefer the external builder payload unless an error or
-          beacon node health check makes it unviable.
+        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes
+          it unviable.
+        * `builder_boost_factor=100`: profit maximization mode; choose whichever payload pays
+          more.
+        * `builder_boost_factor=2**64 - 1`: prefer the builder bid unless an error or beacon node
+          health check makes it unviable.
 
-        Servers should use saturating arithmetic or another technique to ensure that large values of
-        the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
-        provided and no external builder bid is available, the beacon node MUST respond with a
-        block committing to the local bid, which the caller can choose to reject if it wishes.
-        If the value is provided but out of range for a 64-bit unsigned integer, then an error
-        response with status code 400 MUST be returned.
+        Servers should use saturating arithmetic or another technique to ensure that large values
+        of the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
+        provided and no builder bid is available, the beacon node MUST respond with a block
+        committing to the local execution node payload, which the caller can choose to reject if
+        it wishes. If the value is provided but out of range for a 64-bit unsigned integer, then
+        an error response with status code 400 MUST be returned.
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
