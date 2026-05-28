@@ -7,10 +7,6 @@ Gloas:
         required: [block_access_list, slot_number]
         properties:
           block_access_list:
-            type: string
-            format: hex
-            description: "RLP encoded `BlockAccessList` as defined in [EIP-7928](https://eips.ethereum.org/EIPS/eip-7928)"
-            example: "0xe5e494abcf8e0d4e9587369b2301d0790347320302cc09c0c0cac90187b1a2bc2ec50000c0c0"
-            pattern: "^0x[a-fA-F0-9]{0,2147483648}$"
+            $ref: "../primitive.yaml#/BlockAccessList"
           slot_number:
             $ref: "../primitive.yaml#/Uint64"
