@@ -14,11 +14,10 @@ post:
       preferences supersede both endpoints as the source of proposer fee recipient and gas
       limit preferences.
     - For validators served by the beacon node, if no signed proposer preferences are available
-      for a given proposal slot, the beacon node should fall back to its configured default fee
-      recipient and target gas limit when constructing or accepting bids for that validator.
-      Bids whose fee recipient or gas limit do not match a validator's preferences will be
-      rejected at gossip validation, so applying sensible local defaults reduces missed
-      proposals during the transition.
+      for a given proposal slot, the beacon node should fall back to the parent block's gas limit
+      when constructing or accepting bids for that validator. Bids whose fee recipient or gas
+      limit do not match a validator's preferences will be rejected at gossip validation, so
+      applying sensible defaults reduces missed proposals during the transition.
   parameters:
     - in: header
       schema:
