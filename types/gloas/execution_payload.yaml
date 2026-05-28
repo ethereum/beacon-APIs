@@ -1,6 +1,6 @@
 Gloas:
   ExecutionPayload:
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.7/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
     allOf:
       - $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
       - type: object
