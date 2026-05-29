@@ -71,10 +71,10 @@ ValidatorStatus:
 
 BuilderStatus:
   description: |
-    Possible statuses:
-    - **0** - pending
-    - **1** - active
-    - **2** - withdrawn
+    Possible statuses derived from the builder registry entry:
+    - **0** - pending: `builder.deposit_epoch == FAR_FUTURE_EPOCH`
+    - **1** - active: `builder.deposit_epoch != FAR_FUTURE_EPOCH` and `builder.withdrawable_epoch == FAR_FUTURE_EPOCH`
+    - **2** - exited: `builder.withdrawable_epoch != FAR_FUTURE_EPOCH`
   type: integer
   enum: [0, 1, 2]
   example: 1

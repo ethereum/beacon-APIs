@@ -1,5 +1,5 @@
 post:
-  operationId: "postStateBuilders"
+  operationId: "getStateBuilders"
   summary: "Get builders from state"
   description: |
     Returns filterable list of builders with their status and index.
@@ -42,7 +42,7 @@ post:
       content:
         application/json:
           schema:
-            title: PostStateBuildersResponse
+            title: GetStateBuildersResponse
             type: object
             required: [execution_optimistic, finalized, data]
             properties:
