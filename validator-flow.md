@@ -19,7 +19,7 @@ If proposing block, then at immediate start of slot:
    - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
    - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
      - `include_payload=true` (default): returns `BlockContents` (beacon block, execution payload envelope,
-       blobs, and KZG proofs). Enables stateless operation (multi-BN setups, DVs, failover).
+       blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When using an external builder's bid, only the `BeaconBlock` is returned regardless of `include_payload`.
