@@ -1,0 +1,81 @@
+post:
+  operationId: "postStateBuilders"
+  summary: "Get builders from state"
+  description: |
+    Returns filterable list of builders with their status and index.
+
+    Information will be returned for all indices or public keys that match known builders. If an index or public key does not
+    match any known builder, no information will be returned but this will not cause an error. There are no guarantees for the
+    returned data in terms of ordering; both the index and public key are returned for each builder, and can be used to confirm
+    for which inputs a response has been returned.
+
+    Returns 400 if the requested state is prior to Gloas.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  requestBody:
+    description: "The list of builder IDs to filter on. Values are either hex encoded public keys (any bytes48 with 0x prefix) or builder indices. If no body is supplied then all builders will be returned."
+    required: false
+    content:
+      application/json:
+        schema:
+          type: object
+          required: []
+          properties:
+            ids:
+              type: array
+              uniqueItems: true
+              description: |
+                An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a builder index.
+
+                If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then all builders will be returned.
+              items:
+                type: string
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: PostStateBuildersResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderResponse'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized results. Use Accept header to choose this response type"
+    "400":
+      description: "Invalid state ID, builder ID, or malformed request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
