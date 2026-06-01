@@ -1,8 +1,8 @@
 Gloas:
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
-    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, signed_execution_payload_bid, payload_attestations]
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, signed_execution_payload_bid, payload_attestations, parent_execution_requests]
     properties:
       randao_reveal:
         $ref: "../primitive.yaml#/Signature"
@@ -46,6 +46,8 @@ Gloas:
           $ref: "./payload_attestation.yaml#/Gloas/PayloadAttestation"
         minItems: 0
         maxItems: 4
+      parent_execution_requests:
+        $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
 
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
