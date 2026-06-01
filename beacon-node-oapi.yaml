@@ -106,7 +106,7 @@ paths:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
   /eth/v1/beacon/execution_payload_bids:
     $ref: "./apis/beacon/execution_payload/bid.yaml"
-  /eth/v1/beacon/execution_payload_envelope:
+  /eth/v1/beacon/execution_payload_envelopes:
     $ref: "./apis/beacon/execution_payload/envelope_post.yaml"
   /eth/v1/beacon/execution_payload_envelopes/{block_id}:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
@@ -224,7 +224,7 @@ paths:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_bids/{slot}/{builder_index}:
     $ref: "./apis/validator/execution_payload_bid.yaml"
-  /eth/v1/validator/execution_payload_envelope/{slot}/{beacon_block_root}:
+  /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
     $ref: "./apis/validator/execution_payload_envelope.yaml"
 
   /eth/v1/events:
