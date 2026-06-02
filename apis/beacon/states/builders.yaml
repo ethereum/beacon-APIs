@@ -19,7 +19,7 @@ post:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
-    description: "The list of builder IDs to filter on. Values are either hex encoded public keys (any bytes48 with 0x prefix) or builder indices. If no body is supplied then all builders will be returned."
+    description: "The lists of builder IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired. If no body is supplied then all builders will be returned. To return all active builders, omit `ids` and set `statuses` to `[1]`."
     required: false
     content:
       application/json:
@@ -36,6 +36,17 @@ post:
                 If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then all builders will be returned.
               items:
                 type: string
+            statuses:
+              type: array
+              uniqueItems: true
+              description: |
+                An array of builder statuses to filter on.
+
+                If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then builders with all statuses will be returned.
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
+        example:
+          statuses: [1]
   responses:
     "200":
       description: Success
