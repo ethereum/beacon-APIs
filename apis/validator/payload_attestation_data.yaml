@@ -50,7 +50,7 @@ get:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 404
-            message: "No canonical block found at slot=1234"
+            message: "No canonical block found at slot. Used to signal validator to not cast any payload attestation."
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
