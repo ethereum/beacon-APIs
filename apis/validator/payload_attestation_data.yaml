@@ -43,14 +43,14 @@ get:
     "400":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
     "404":
-      description: "No canonical block has been seen for the requested slot."
+      description: "No block has been seen for the requested slot."
       content:
         application/json:
           schema:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 404
-            message: "No canonical block found at slot. Used to signal validator to not cast any payload attestation."
+            message: "No block found at slot. Used to signal validator to not cast any payload attestation."
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
