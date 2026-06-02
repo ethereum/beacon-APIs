@@ -155,6 +155,8 @@ paths:
     $ref: './apis/debug/heads.v2.yaml'
   /eth/v1/debug/fork_choice:
     $ref: './apis/debug/fork_choice.yaml'
+  /eth/v2/debug/fork_choice:
+    $ref: './apis/debug/fork_choice.v2.yaml'
 
   /eth/v1/node/identity:
     $ref: "./apis/node/identity.yaml"
@@ -471,6 +473,10 @@ components:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
       $ref: './types/fork_choice.yaml#/ExtraData'
+    NodeV2:
+      $ref: './types/fork_choice.yaml#/NodeV2'
+    NodeV2ExtraData:
+      $ref: './types/fork_choice.yaml#/NodeV2ExtraData'
     SyncCommitteeRewards:
       $ref: './types/rewards.yaml#/SyncCommitteeRewards'
     BlockRewards:
