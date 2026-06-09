@@ -190,10 +190,10 @@ get:
                 event: payload_attestation_message
                 data: {"version":"gloas", "data":{"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
             fast_confirmation:
-              description: The node has executed fast confirmation algorithm. The root and the slot of the most recent confirmed block are sent
+              description: The node has executed the fast confirmation algorithm. This event should be emitted every time the algorithm is run, regardless of whether the most recent confirmed block has changed since the previous run. `block` is the root and `slot` is the slot of the most recent confirmed block, and `current_slot` is the wall-clock slot at which the algorithm was executed.
               value: |
                 event: fast_confirmation
-                data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1"}
+                data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1", "current_slot": "2"}
     "400":
       description: "The topics supplied could not be parsed"
       content:
