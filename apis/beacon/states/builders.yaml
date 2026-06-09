@@ -1,0 +1,168 @@
+get:
+  operationId: "getStateBuilders"
+  summary: "Get builders from state"
+  description: |
+    Returns filterable list of builders with their balance, status and index.
+
+    Information will be returned for all indices or public keys that match known builders.  If an index or public key does not
+    match any known builder, no information will be returned but this will not cause an error.  There are no guarantees for the
+    returned data in terms of ordering; both the index and public key are returned for each builder, and can be used to confirm
+    for which inputs a response has been returned.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: id
+      description: "Either hex encoded public key (any bytes48 with 0x prefix) or builder index"
+      in: query
+      required: false
+      schema:
+        type: array
+        maxItems: 64
+        uniqueItems: true
+        items:
+          description: "Either hex encoded public key (any bytes48 with 0x prefix) or builder index"
+          type: string
+    - name: status
+      description: "Builder status filter"
+      in: query
+      required: false
+      schema:
+        type: array
+        uniqueItems: true
+        items:
+          $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
+
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateBuildersResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderResponse'
+    "400":
+      description: "Invalid state or builder ID, or status"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "414":
+      description: "Too many builder IDs"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 414
+            message: "Too many builder IDs in request"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
+post:
+  operationId: "postStateBuilders"
+  summary: "Get builders from state"
+  description: |
+    Returns filterable list of builders with their balance, status and index.
+
+    Information will be returned for all indices or public keys that match known builders.  If an index or public key does not
+    match any known builder, no information will be returned but this will not cause an error.  There are no guarantees for the
+    returned data in terms of ordering; both the index and public key are returned for each builder, and can be used to confirm
+    for which inputs a response has been returned.
+
+    The POST variant of this endpoint has the same semantics as the GET endpoint but passes
+    the lists of IDs and statuses via a POST body in order to enable larger requests.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  requestBody:
+    description: "The lists of builder IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          required: []
+          properties:
+            ids:
+              type: array
+              uniqueItems: true
+              description: |
+                An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a builder index.
+
+                If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then all builders will be returned.
+              items:
+                type: string
+            statuses:
+              type: array
+              uniqueItems: true
+              description: |
+                An array of builder statuses to filter on.
+
+                If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then builders with all statuses will be returned.
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStateBuildersResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderResponse'
+    "400":
+      description: "Invalid state or builder ID, or status"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid state ID: current"
+    "404":
+      description: "State not found"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "State not found"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

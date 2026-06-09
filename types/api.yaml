@@ -58,6 +58,55 @@ ValidatorStatus:
   example: "active_ongoing"
 
 
+BuilderResponse:
+  type: object
+  required: [index, balance, status, builder]
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of builder in the builder registry."
+    balance:
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current builder balance in gwei."
+    status:
+      $ref: "#/BuilderStatus"
+    builder:
+      $ref: "./gloas/builder.yaml#/Gloas/Builder"
+
+BuilderBalanceResponse:
+  type: object
+  required: [index, balance]
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of builder in the builder registry."
+    balance:
+      $ref: "./primitive.yaml#/Gwei"
+      description: "Current builder balance in gwei."
+
+BuilderIdentityResponse:
+  type: object
+  required: [index, pubkey, deposit_epoch]
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of builder in the builder registry."
+    pubkey:
+      $ref: './primitive.yaml#/Pubkey'
+      description: "Public key of builder."
+    deposit_epoch:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "Epoch when the builder's deposit was processed."
+
+BuilderStatus:
+  description: |
+    Possible statuses:
+    - **active** - Builder's deposit epoch is finalized and the builder has not initiated exit (`withdrawable_epoch == FAR_FUTURE_EPOCH`). Corresponds to the `is_active_builder` predicate in the consensus-specs.
+    - **withdrawable** - Builder has a finite `withdrawable_epoch` (i.e. has initiated exit or already become withdrawable).
+  enum: ["active", "withdrawable"]
+  example: "active"
+
+
 Committee:
   description: Group of validators assigned to attest at specific slot and that have the same committee index (shard in phase 1)
   type: object
