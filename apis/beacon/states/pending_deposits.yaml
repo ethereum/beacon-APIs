@@ -3,6 +3,8 @@ get:
   summary: "Get State Pending Deposits"
   description: |
     Returns pending deposits for state with given 'stateId'. Should return 400 if the state retrieved is prior to Electra.
+
+    A pubkey present here but absent from `state.validators` is in the deposit-pipeline state `deposit_inqueue` — it has no `ValidatorStatus` yet. This is the real churn-limited wait before a deposit becomes a validator.
   tags:
     - Beacon
   parameters:
