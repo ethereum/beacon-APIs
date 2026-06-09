@@ -30,3 +30,58 @@ Node:
 ExtraData:
   type: object
   description: 'Optional extra data that clients may provide, which could differ from client to client.'
+
+NodeV2:
+  type: object
+  description: "fork choice node attributes (Gloas-aware). One node is emitted per `(block_root, payload_status)` tuple, so a single block root may appear multiple times with different payload statuses."
+  required: [payload_status, slot, block_root, parent_root, weight, validity, execution_block_hash]
+  properties:
+    payload_status:
+      type: string
+      enum: [pending, empty, full]
+      description: |
+        The fork choice payload status of this node, as introduced by Gloas (EIP-7732):
+          - `pending`: the block is present but its execution payload has not yet been revealed.
+          - `empty`: the execution payload was not revealed (the slot is treated as having an empty payload).
+          - `full`: the execution payload was revealed and is present.
+        For pre-Gloas blocks the status is always `full`.
+    slot:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot to which this block corresponds."
+    block_root:
+      $ref: './primitive.yaml#/Root'
+      description: "The signing merkle root of the `BeaconBlock`."
+    parent_root:
+      $ref: './primitive.yaml#/Root'
+      description: "The signing merkle root of the parent `BeaconBlock`."
+    weight:
+      $ref: './primitive.yaml#/Uint64'
+    validity:
+      type: string
+      enum: [valid, invalid, optimistic]
+    execution_block_hash:
+      $ref: './primitive.yaml#/Root'
+      description: "The `block_hash` from the `execution_payload` of the `BeaconBlock`"
+    extra_data:
+      $ref: '#/NodeV2ExtraData'
+
+NodeV2ExtraData:
+  type: object
+  additionalProperties: true
+  description: 'Optional extra data that clients may provide, which could differ from client to client. The properties documented below are commonly provided; clients may add their own.'
+  properties:
+    execution_optimistic:
+      type: boolean
+      description: "True if the block is optimistically imported."
+    timestamp:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot start time of this node."
+    payload_attester_count:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Number of PTC (Payload Timeliness Committee) members that voted for this payload. Gloas only."
+    payload_availability_yes_count:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Number of PTC members that voted the payload as available. Gloas only."
+    payload_data_availability_yes_count:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Number of PTC members that voted the payload's data as available. Gloas only."
