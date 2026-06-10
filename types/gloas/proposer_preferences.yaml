@@ -1,0 +1,27 @@
+Gloas:
+  ProposerPreferences:
+    type: object
+    description: "The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/p2p-interface.md#proposerpreferences) object from the CL Gloas spec."
+    required: [dependent_root, proposal_slot, validator_index, fee_recipient, target_gas_limit]
+    properties:
+      dependent_root:
+        description: "Block root the message is anchored to. Used by gossip validation to de-duplicate and to anchor signature verification to the checkpoint state at `epoch(proposal_slot) - 1`."
+        $ref: "../primitive.yaml#/Root"
+      proposal_slot:
+        $ref: "../primitive.yaml#/Uint64"
+      validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+      fee_recipient:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+      target_gas_limit:
+        $ref: "../primitive.yaml#/Uint64"
+
+  SignedProposerPreferences:
+    type: object
+    description: "The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/master/specs/gloas/p2p-interface.md#signedproposerpreferences) object from the CL Gloas spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/ProposerPreferences"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
