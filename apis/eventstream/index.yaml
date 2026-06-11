@@ -23,6 +23,7 @@ get:
           type: string
           enum:
             - head
+            - head_v2
             - block
             - block_gossip
             - attestation
@@ -54,10 +55,15 @@ get:
             description: https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format
           examples:
             head:
-              description: The node has finished processing, resulting in a new head. previous_duty_dependent_root is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)` and current_duty_dependent_root is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch) - 1)`. Both dependent roots use the genesis block root in the case of underflow.
+              description: Deprecated, use `head_v2` instead.
               value: |
                 event: head
                 data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "epoch_transition":false, "previous_duty_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "current_duty_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "execution_optimistic": false}
+            head_v2:
+              description: The node's fork choice has selected a new head consisting of a beacon block and its `payload_status`. The node may emit a second head event for the same beacon block and slot if there is an update in the `payload_status` from empty to full. `slot` is the slot of the head block. `current_epoch_dependent_root` is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)` and `next_epoch_dependent_root` is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch) - 1)`, where `epoch` is obtained by `compute_epoch_at_slot(slot)`. All dependent roots use the genesis block root in the case of underflow.
+              value: |
+                event: head_v2
+                data: {"version": "gloas", "data":{"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "payload_status": "empty", "epoch_transition":false, "current_epoch_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "next_epoch_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "execution_optimistic": false}}
             block:
               description: The node has received a block (from P2P or API) that is successfully imported on the fork-choice `on_block` handler
               value: |
@@ -184,10 +190,10 @@ get:
                 event: payload_attestation_message
                 data: {"version":"gloas", "data":{"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
             fast_confirmation:
-              description: The node has executed fast confirmation algorithm
+              description: The node has executed the fast confirmation algorithm. This event should be emitted every time the algorithm is run, regardless of whether the most recent confirmed block has changed since the previous run. `block` is the root and `slot` is the slot of the most recent confirmed block, and `current_slot` is the wall-clock slot at which the algorithm was executed.
               value: |
                 event: fast_confirmation
-                data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1"}
+                data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1", "current_slot": "2"}
     "400":
       description: "The topics supplied could not be parsed"
       content:
