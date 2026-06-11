@@ -57,6 +57,40 @@ Peer:
       $ref: "./p2p.yaml#/PeerConnectionState"
     direction:
       $ref: "./p2p.yaml#/PeerConnectionDirection"
+    agent_version:
+      type: string
+      description: |
+        The peer's libp2p agent version string (from the libp2p identify
+        protocol). OPTIONAL; clients MAY omit if not yet observed.
+      example: "Lighthouse/v8.1.3-66919c2/aarch64-linux"
+    score:
+      type: number
+      format: double
+      description: |
+        Client-native peer score. OPTIONAL. The scale and meaning is
+        implementation-defined - consumers SHOULD treat it as a relative
+        signal within a single client, not directly comparable across
+        clients. Lower values indicate worse standing. Clients that do
+        not maintain a per-peer score MAY omit this field.
+      example: -17.4828
+    disconnect_reason:
+      description: |
+        Reason the client last disconnected from this peer. OPTIONAL.
+        MUST only be populated when `state` is `disconnected` or
+        `disconnecting`. Clients MAY omit when no specific reason is
+        known.
+      $ref: "./p2p.yaml#/PeerDisconnectReason"
+    downscore_reasons:
+      type: array
+      description: |
+        Score-affecting events observed for this peer within the
+        client's recent-history window (implementation-defined,
+        typically the last few minutes). OPTIONAL. The most recent
+        event SHOULD appear first. Clients MAY omit if no events
+        within the window or if event tracking is not implemented.
+      items:
+        $ref: "./p2p.yaml#/PeerScoreReason"
+      example: ["rpc_bad_blocks_by_range", "rpc_rate_limited"]
 
 PeerConnectionState:
   type: string
@@ -80,3 +114,46 @@ Multiaddr:
   type: string
   description: "[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
   example: "/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
+
+PeerScoreReason:
+  type: string
+  description: |
+    Controlled vocabulary for a score-affecting event recorded against
+    a peer. Implementations populating `Peer.downscore_reasons` MUST
+    emit values from this list. Consumers SHOULD tolerate unknown
+    values for forward compatibility. The intent is a small,
+    cross-client-meaningful set - clients with finer-grained internal
+    tags are expected to map them onto the closest value here.
+  enum:
+    - rpc_invalid_request
+    - rpc_invalid_response
+    - rpc_rate_limited
+    - rpc_timeout
+    - rpc_io_error
+    - rpc_bad_blocks_by_range
+    - rpc_bad_blocks_by_root
+    - gossip_invalid_block
+    - gossip_invalid_attestation
+    - gossip_invalid_blob_sidecar
+    - gossip_invalid_data_column_sidecar
+    - sync_bad_batch
+    - status_unviable_fork
+    - behaviour_penalty
+    - unknown
+
+PeerDisconnectReason:
+  type: string
+  description: |
+    Controlled vocabulary for the reason a client disconnected from a
+    peer. Implementations populating `Peer.disconnect_reason` MUST emit
+    values from this list. Consumers SHOULD tolerate unknown values for
+    forward compatibility.
+  enum:
+    - bad_score
+    - irrelevant_network
+    - unviable_fork
+    - too_many_peers
+    - rate_limited
+    - io_error
+    - client_shutdown
+    - unknown
