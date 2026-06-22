@@ -196,7 +196,7 @@ get:
                 event: fast_confirmation
                 data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1", "current_slot": "2"}
             inclusion_list:
-              description: (Heze) The node has received a SignedInclusionList (from P2P or API) that passes validation rules of the `inclusion_list` topic
+              description: The node has received a SignedInclusionList (from P2P or API) that passes validation rules of the `inclusion_list` topic
               value: |
                 event: inclusion_list
                 data: {"version": "heze", "data": {"message": {"slot": "0", "validator_index": "0", "inclusion_list_committee_root": "0x0000000000000000000000000000000000000000000000000000000000000000", "transactions": ["0x0000000000000000000000000000000000000000000000000000000000000000"]}, "signature": "0x000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"}}
