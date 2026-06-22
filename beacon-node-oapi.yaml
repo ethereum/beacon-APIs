@@ -361,7 +361,7 @@ components:
       $ref: './types/bellatrix/transactions.yaml#/Bellatrix/Transactions'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, heze]
       example: "gloas"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
