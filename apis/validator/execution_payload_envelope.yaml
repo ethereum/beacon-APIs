@@ -3,8 +3,8 @@ get:
   summary: Get execution payload envelope
   description: |
     Retrieves the cached execution payload envelope for the current proposer's slot as a
-    `BlindedExecutionPayloadEnvelope` (the `transactions`, `withdrawals`, and
-    `block_access_list` fields are replaced by their hash tree roots). The hash tree root of
+    `BlindedExecutionPayloadEnvelope` (the `payload` field is replaced by `payload_root`, the
+    hash tree root of the full execution payload). The hash tree root of
     `BlindedExecutionPayloadEnvelope` matches the hash tree root of the corresponding full
     `ExecutionPayloadEnvelope`, so a signature produced over the blinded form is valid
     against the full envelope.
