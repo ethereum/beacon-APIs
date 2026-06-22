@@ -55,19 +55,16 @@ If reorg is detected, ask for new attester duties and proceed from 1..
 
 ### PTC Attesting
 
-On start of every epoch beginning with the Gloas fork, validator should [fetch PTC duties](#/Validator/getPtcDuties) for the current and next epoch.
-Result are array of objects with validator index and assigned slot for payload timeliness committee participation.
+Beginning with the Gloas fork, PTC duties are served per slot rather than per epoch, since payload attestations may be required on non-canonical branches.
 
-PTC Attesting:
-1. Wait for execution payload and blobs to become available for the assigned slot (either stream updates or poll)
-    - Max wait [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/validator.md#time-parameters) seconds into the assigned slot
-2. [Fetch PayloadAttestationData](#/ValidatorRequiredApi/producePayloadAttestationData) for the assigned slot
-3. Sign `PayloadAttestationData` to create `PayloadAttestationMessage`
-4. [Submit PayloadAttestationMessages](#/ValidatorRequiredApi/submitPayloadAttestationMessages)
-    - Attestation indicates whether execution payload envelope has been seen for the block and if blobs were received
-
-Monitor chain block reorganization events (TBD) as they could change PTC assignments.
-If reorg is detected, ask for new PTC duties and proceed from 1..
+PTC Attesting, every slot:
+1. [Fetch PTC duties](#/ValidatorRequiredApi/getPTCDuties) for the slot
+    - The beacon node returns one entry per processed block, each with the subset of your validators that should sign it
+    - Wait at most [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/validator.md#time-parameters) seconds into the slot
+2. For each entry, the listed validators sign the `PayloadAttestationData` to create a `PayloadAttestationMessage`
+    - Attestation indicates whether the execution payload envelope has been seen for the block and if blobs were received
+    - A validator may appear in more than one entry when competing blocks exist for the slot. It must only sign at most one payload attestation per slot.
+3. [Submit PayloadAttestationMessages](#/ValidatorRequiredApi/submitPayloadAttestationMessages)
 
 ### Builder (Optional)
 
