@@ -30,8 +30,8 @@ If proposing block, then at immediate start of slot:
     Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
     (envelope + blobs + KZG proofs).
   - Stateful (`include_payload=false`): [fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope)
-    from the same beacon node. Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
-    (beacon node has blobs cached).
+    from the same beacon node (blinded form by default). Sign envelope and [submit `SignedBlindedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
+    (beacon node reconstructs the full envelope from its cache).
   - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) of slot duration
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
@@ -95,10 +95,10 @@ Building:
 2. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
 3. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
 4. If bid is selected by proposer in their block:
-    - [Fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from beacon node
+    - [Fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from beacon node (blinded form by default)
     - Sign envelope and submit to network via [publishExecutionPayloadEnvelope](#/Beacon/publishExecutionPayloadEnvelope):
       - Stateless (multi-BN): submit `SignedExecutionPayloadEnvelopeContents` (envelope + blobs + KZG proofs)
-      - Stateful (single BN): submit `SignedExecutionPayloadEnvelope` (beacon node has blobs cached)
+      - Stateful (single BN): submit `SignedBlindedExecutionPayloadEnvelope` (beacon node reconstructs full envelope from cache)
     - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) of slot duration
 
 Monitor for block proposals containing your bid to trigger envelope release.

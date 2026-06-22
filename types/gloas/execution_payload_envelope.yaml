@@ -43,3 +43,45 @@ Gloas:
         $ref: "../fulu/block_contents.yaml#/Fulu/KZGProofs"
       blobs:
         $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"
+
+  BlindedExecutionPayloadEnvelope:
+    type: object
+    description: |
+      Blinded form of `ExecutionPayloadEnvelope` used in the stateful publishing flow. The
+      `payload` field is replaced with `payload_root`, the hash tree root of the full
+      execution payload. By construction `hash_tree_root(BlindedExecutionPayloadEnvelope) ==
+      hash_tree_root(ExecutionPayloadEnvelope)` when `payload_root` equals
+      `hash_tree_root(payload)`, so a validator signature over the blinded envelope is also
+      valid over the full envelope. Used when the beacon node has already cached the full
+      envelope and blobs from block production, avoiding the bandwidth cost of re-uploading
+      transactions and blobs in the publish request.
+    required: [payload_root, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root]
+    properties:
+      payload_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the full `Gloas.ExecutionPayload`"
+      execution_requests:
+        $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
+      builder_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the builder that created this execution payload"
+      beacon_block_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Root of the beacon block for this payload"
+      parent_beacon_block_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Root of the parent beacon block"
+
+  SignedBlindedExecutionPayloadEnvelope:
+    type: object
+    description: |
+      Signed form of `BlindedExecutionPayloadEnvelope`. The signature is produced over the
+      hash tree root of the message, which by construction matches the hash tree root of the
+      corresponding full `ExecutionPayloadEnvelope`.
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/BlindedExecutionPayloadEnvelope"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS signature of the blinded execution payload envelope"
