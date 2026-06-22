@@ -62,6 +62,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: Heze
+    description: "Endpoints required for Heze: Fork-choice enforced Inclusion Lists (FOCIL, EIP-7805)"
 
 paths:
 
@@ -190,6 +192,8 @@ paths:
     $ref: "./apis/validator/duties/sync.yaml"
   /eth/v1/validator/duties/ptc/{epoch}:
     $ref: "./apis/validator/duties/ptc.yaml"
+  /eth/v1/validator/duties/inclusion_list/{epoch}:
+    $ref: "./apis/validator/duties/inclusion_list.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
@@ -220,6 +224,8 @@ paths:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_bids/{slot}/{builder_index}:
     $ref: "./apis/validator/execution_payload_bid.yaml"
+  /eth/v1/validator/inclusion_list:
+    $ref: "./apis/validator/inclusion_list.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -247,6 +253,8 @@ components:
       $ref: './types/duty.yaml#/PtcDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
+    Heze.InclusionListDuty:
+      $ref: './types/duty.yaml#/Heze/InclusionListDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -349,9 +357,11 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
+    Bellatrix.Transactions:
+      $ref: './types/bellatrix/transactions.yaml#/Bellatrix/Transactions'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, heze]
       example: "gloas"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -469,6 +479,10 @@ components:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
     Gloas.DataColumnSidecars:
       $ref: "./types/gloas/data_column_sidecar.yaml#/Gloas/DataColumnSidecars"
+    Heze.InclusionList:
+      $ref: './types/heze/inclusion_list.yaml#/Heze/InclusionList'
+    Heze.SignedInclusionList:
+      $ref: './types/heze/inclusion_list.yaml#/Heze/SignedInclusionList'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
