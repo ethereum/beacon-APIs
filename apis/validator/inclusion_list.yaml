@@ -1,6 +1,6 @@
 get:
   tags:
-    - EIP-7805
+    - Heze
   operationId: "produceInclusionList"
   summary: "Produce an inclusion list"
   description: Requests the beacon node to produce an inclusion list.
@@ -32,7 +32,7 @@ get:
 
 post:
   tags:
-    - EIP-7805
+    - Heze
   operationId: "publishInclusionList"
   summary: "Publish an inclusion list"
   description: "Verifies given inclusion list and publishes it on appropriate gossipsub topic."
@@ -52,7 +52,7 @@ post:
           required: [data]
           properties:
             data:
-              $ref: "../../beacon-node-oapi.yaml#/components/schemas/EIP7805.SignedInclusionList"
+              $ref: "../../beacon-node-oapi.yaml#/components/schemas/Heze.SignedInclusionList"
   responses:
     "200":
       description: "Successful response"

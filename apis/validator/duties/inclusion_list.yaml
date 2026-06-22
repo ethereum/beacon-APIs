@@ -1,6 +1,6 @@
 post:
   tags:
-    - EIP-7805
+    - Heze
   summary: "Get inclusion list committee duties"
   operationId: "getInclusionListCommitteeDuties"
   description:
@@ -55,7 +55,7 @@ post:
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/EIP7805.InclusionListDuty"
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Heze.InclusionListDuty"
     "400":
       description: "Invalid epoch or index"
       content:
