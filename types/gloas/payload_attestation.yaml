@@ -42,3 +42,17 @@ Gloas:
       signature:
         $ref: "../primitive.yaml#/Signature"
         description: "BLS signature of the payload attestation data"
+
+  PTCDuty:
+    type: object
+    required: [data, validator_indices]
+    properties:
+      data:
+        $ref: "#/Gloas/PayloadAttestationData"
+      validator_indices:
+        type: array
+        description: "Validator indices that should sign `data`."
+        minItems: 1
+        uniqueItems: true
+        items:
+          $ref: "../primitive.yaml#/Uint64"

@@ -1,69 +1,52 @@
-post:
+get:
   tags:
-    - Validator
     - ValidatorRequiredApi
+    - Validator
+  operationId: "getPTCDuties"
   summary: "Get PTC duties"
-  operationId: "getPtcDuties"
-  description: "Requests the beacon node to provide a set of Payload Timeliness Committee (PTC) duties,
-    which should be performed by validators, for a particular epoch.
+  description: |
+    Requests the beacon node to provide a set of `PayloadAttestationData` for the given slot, each with the
+    validator indices that should sign it.
 
-    Duties should only need to be checked once per epoch,
-    however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur, resulting in a change of duties. For full safety,
-    you should monitor head_v2 events and confirm the dependent root in this response matches:
+    This endpoint is used by PTC validators to obtain the data structure they need to attest to
+    regarding payload presence and blob data availability for a specific slot.
 
-      - event.current_epoch_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
-
-      - event.next_epoch_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
-
-
-    The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
-    or the genesis block root in the case of underflow."
+    A 503 error must be returned if the beacon node is currently syncing.
   parameters:
-    - name: epoch
-      description: "Epoch for which to obtain PTC duties. Must not be greater than the next epoch"
+    - name: slot
       in: path
       required: true
+      description: "The slot for which to obtain PTC duties."
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-  requestBody:
-    description: "An array of the validator indices for which to obtain the duties."
-    required: true
-    content:
-      application/json:
-        schema:
-          title: GetPtcDutiesBody
-          type: array
-          minItems: 1
-          uniqueItems: true
-          items:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   responses:
     "200":
-      description: Success response
+      description: "Success response"
+      headers:
+        Eth-Consensus-Version:
+          $ref: "../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version"
       content:
         application/json:
           schema:
-            title: GetPtcDutiesResponse
+            title: GetPTCDutiesResponse
             type: object
-            required: [dependent_root, execution_optimistic, data]
+            required: [version, execution_optimistic, data]
             properties:
-              dependent_root:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/DependentRoot"
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               data:
                 type: array
                 items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/PtcDuty"
-    "400":
-      description: "Invalid epoch or index"
-      content:
-        application/json:
+                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PTCDuty"
+        application/octet-stream:
           schema:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
-          example:
-            code: 400
-            message: "Invalid epoch: -2"
+            description: "SSZ serialized `List[PTCDuty]` bytes. Use Accept header to choose this response type"
+    "400":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
     "503":

@@ -188,14 +188,12 @@ paths:
     $ref: "./apis/validator/duties/proposer.v2.yaml"
   /eth/v1/validator/duties/sync/{epoch}:
     $ref: "./apis/validator/duties/sync.yaml"
-  /eth/v1/validator/duties/ptc/{epoch}:
+  /eth/v1/validator/duties/ptc/{slot}:
     $ref: "./apis/validator/duties/ptc.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
-  /eth/v1/validator/payload_attestation_data/{slot}:
-    $ref: "./apis/validator/payload_attestation_data.yaml"
   /eth/v2/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
   /eth/v2/validator/aggregate_and_proofs:
@@ -243,8 +241,6 @@ components:
       $ref: './types/duty.yaml#/AttesterDuty'
     ProposerDuty:
       $ref: './types/duty.yaml#/ProposerDuty'
-    PtcDuty:
-      $ref: './types/duty.yaml#/PtcDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
     BeaconCommitteeSelection:
@@ -461,6 +457,8 @@ components:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.PTCDuty:
+      $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PTCDuty"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
