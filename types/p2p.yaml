@@ -67,27 +67,19 @@ Peer:
       type: number
       format: double
       description: |
-        Client-native peer score. OPTIONAL. The scale and meaning is
-        implementation-defined - consumers SHOULD treat it as a relative
-        signal within a single client, not directly comparable across
-        clients. Lower values indicate worse standing. Clients that do
-        not maintain a per-peer score MAY omit this field.
+        Client-native peer score. OPTIONAL. 
+        This number is not consistent between clients,
+        but can be compared to other peers on the same client.
       example: -17.4828
     disconnect_reason:
       description: |
         Reason the client last disconnected from this peer. OPTIONAL.
-        MUST only be populated when `state` is `disconnected` or
-        `disconnecting`. Clients MAY omit when no specific reason is
-        known.
+        This field MUST only be set if the connection status is disconnected or disconnecting.
       $ref: "./p2p.yaml#/PeerDisconnectReason"
     downscore_reasons:
       type: array
       description: |
-        Score-affecting events observed for this peer within the
-        client's recent-history window (implementation-defined,
-        typically the last few minutes). OPTIONAL. The most recent
-        event SHOULD appear first. Clients MAY omit if no events
-        within the window or if event tracking is not implemented.
+        Reasons that the client has been down scored in their current session. OPTIONAL.
       items:
         $ref: "./p2p.yaml#/PeerScoreReason"
       example: ["rpc_bad_blocks_by_range", "rpc_rate_limited"]
@@ -118,13 +110,11 @@ Multiaddr:
 PeerScoreReason:
   type: string
   description: |
-    Controlled vocabulary for a score-affecting event recorded against
-    a peer. Implementations populating `Peer.downscore_reasons` MUST
+    Limited set of peer downscore reasons that may be returned.
+    Implementations populating `Peer.downscore_reasons` MUST
     emit values from this list. Consumers SHOULD tolerate unknown
-    values for forward compatibility. The intent is a small,
-    cross-client-meaningful set - clients with finer-grained internal
-    tags are expected to map them onto the closest value here.
-  enum:
+    values for forward compatibility.
+  example:
     - rpc_invalid_request
     - rpc_invalid_response
     - rpc_rate_limited
@@ -144,11 +134,10 @@ PeerScoreReason:
 PeerDisconnectReason:
   type: string
   description: |
-    Controlled vocabulary for the reason a client disconnected from a
-    peer. Implementations populating `Peer.disconnect_reason` MUST emit
+    Implementations populating `Peer.disconnect_reason` MUST emit
     values from this list. Consumers SHOULD tolerate unknown values for
     forward compatibility.
-  enum:
+  example:
     - bad_score
     - irrelevant_network
     - unviable_fork
