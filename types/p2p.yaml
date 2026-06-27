@@ -80,6 +80,7 @@ Peer:
       type: array
       description: |
         Reasons that the client has been down scored in their current session. OPTIONAL.
+        SHOULD be a distinct set of downscare reasons.
       items:
         $ref: "./p2p.yaml#/PeerScoreReason"
       example: ["rpc_bad_blocks_by_range", "rpc_rate_limited"]
