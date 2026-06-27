@@ -39,7 +39,7 @@ post:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedProposerPreferences"
       application/octet-stream:
         schema:
-          description: "SSZ serialized `List[SignedProposerPreferences]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
+          description: "SSZ serialized `List[SignedProposerPreferences, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: "Signed proposer preferences are stored in pool and broadcasted to the network"
