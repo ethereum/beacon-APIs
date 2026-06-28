@@ -65,9 +65,6 @@ post:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderResponse'
-        application/octet-stream:
-          schema:
-            description: "SSZ serialized results. Use Accept header to choose this response type"
     "400":
       description: "Invalid state ID, builder ID, or malformed request"
       content:
@@ -86,7 +83,5 @@ post:
           example:
             code: 404
             message: "State not found"
-    "406":
-      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
