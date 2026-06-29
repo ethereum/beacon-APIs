@@ -5,20 +5,20 @@ Gloas:
     required: [dependent_root, proposal_slot, validator_index, fee_recipient, target_gas_limit]
     properties:
       dependent_root:
-        description: "Shuffling dependent root for the epoch of `proposal_slot`, based on the validator's head."
         $ref: "../primitive.yaml#/Root"
+        description: "Shuffling dependent root for the epoch of `proposal_slot`, based on the validator's head."
       proposal_slot:
+        $ref: "../primitive.yaml#/Uint64"
         description: "Slot for which the validator is the proposer."
-        $ref: "../primitive.yaml#/Uint64"
       validator_index:
+        $ref: "../primitive.yaml#/Uint64"
         description: "Index of the proposing validator."
-        $ref: "../primitive.yaml#/Uint64"
       fee_recipient:
-        description: "Address to receive the builder payment."
         $ref: "../primitive.yaml#/ExecutionAddress"
+        description: "Address to receive the builder payment."
       target_gas_limit:
-        description: "Preferred gas limit for the execution payload."
         $ref: "../primitive.yaml#/Uint64"
+        description: "Preferred gas limit for the execution payload."
 
   SignedProposerPreferences:
     type: object
