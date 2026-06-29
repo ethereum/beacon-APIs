@@ -349,10 +349,6 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
-    Bellatrix.PayloadAttributesEventData:
-      $ref: './types/bellatrix/payload_attributes_event.yaml#/Bellatrix/PayloadAttributesEventData'
-    Gloas.PayloadAttributesEventData:
-      $ref: './types/gloas/payload_attributes_event.yaml#/Gloas/PayloadAttributesEventData'
     ConsensusVersion:
       type: string
       enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
