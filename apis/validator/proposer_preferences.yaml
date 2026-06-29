@@ -7,7 +7,8 @@ post:
 
     Notes:
     - Validator clients SHOULD begin submitting signed proposer preferences one epoch before the
-      Gloas fork activates, so the proposer preference caches are warm at the fork boundary.
+      Gloas fork activates, so the proposer preference caches kept by both beacon nodes and builders
+      are warm at the fork boundary, letting builders prepare valid bids for the first Gloas slots.
     - Until the Gloas fork activates, beacon nodes MUST continue to honor fee recipient and gas
       limit information supplied via `POST /eth/v1/validator/prepare_beacon_proposer` and
       `POST /eth/v1/validator/register_validator`. From the Gloas fork onwards, signed proposer
