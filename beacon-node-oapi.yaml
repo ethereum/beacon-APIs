@@ -81,6 +81,8 @@ paths:
     $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/validator_identities:
     $ref: "./apis/beacon/states/validator_identities.yaml"
+  /eth/v1/beacon/states/{state_id}/builders:
+    $ref: "./apis/beacon/states/builders.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
@@ -243,8 +245,12 @@ components:
       $ref: './types/api.yaml#/ValidatorBalanceResponse'
     ValidatorIdentityResponse:
       $ref: './types/api.yaml#/ValidatorIdentityResponse'
+    BuilderResponse:
+      $ref: './types/api.yaml#/BuilderResponse'
     ValidatorStatus:
       $ref: './types/api.yaml#/ValidatorStatus'
+    BuilderStatus:
+      $ref: './types/api.yaml#/BuilderStatus'
     Committee:
       $ref: './types/api.yaml#/Committee'
     AttesterDuty:
@@ -453,6 +459,8 @@ components:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
+    Gloas.Builder:
+      $ref: "./types/gloas/builder.yaml#/Gloas/Builder"
     Gloas.BlockContents:
       $ref: "./types/gloas/block_contents.yaml#/Gloas/BlockContents"
     Gloas.ExecutionPayloadBid:
