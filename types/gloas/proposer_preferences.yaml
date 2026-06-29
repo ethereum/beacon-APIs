@@ -1,0 +1,31 @@
+Gloas:
+  ProposerPreferences:
+    type: object
+    description: "The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec."
+    required: [dependent_root, proposal_slot, validator_index, fee_recipient, target_gas_limit]
+    properties:
+      dependent_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Shuffling dependent root for the epoch of `proposal_slot`, based on the validator's head."
+      proposal_slot:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Slot for which the validator is the proposer."
+      validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the proposing validator."
+      fee_recipient:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+        description: "Address to receive the builder payment."
+      target_gas_limit:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Preferred gas limit for the execution payload."
+
+  SignedProposerPreferences:
+    type: object
+    description: "The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/ProposerPreferences"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
