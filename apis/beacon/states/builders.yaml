@@ -19,7 +19,7 @@ post:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
-    description: "The lists of builder IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired. If no body is supplied then all builders will be returned. To return all active builders, omit `ids` and set `statuses` to `[1]`."
+    description: "The lists of builder IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired. If no body is supplied then all builders will be returned. To return all active builders, omit `ids` and set `statuses` to `["active"]`."
     required: false
     content:
       application/json:
@@ -46,7 +46,7 @@ post:
               items:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
         example:
-          statuses: [1]
+          statuses: ["active"]
   responses:
     "200":
       description: Success
