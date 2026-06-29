@@ -1,7 +1,7 @@
 Gloas:
   Builder:
     type: object
-    description: "The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec."
+    description: "The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec."
     required: [pubkey, version, execution_address, balance, deposit_epoch, withdrawable_epoch]
     properties:
       pubkey:
