@@ -10,8 +10,6 @@ post:
     for which inputs a response has been returned.
 
     Returns 400 if the requested state is prior to Gloas.
-
-    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
@@ -19,7 +17,9 @@ post:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
-    description: "The lists of builder IDs and statuses to filter on. Either or both may be `null` to signal that no filtering on that attribute is desired. If no body is supplied then all builders will be returned. To return all active builders, omit `ids` and set `statuses` to `["active"]`."
+    description: |
+      The lists of builder IDs and statuses to filter on.
+      If no body is supplied then all builders will be returned. To return all active builders, omit `ids` and set `statuses` to `["active"]`.
     required: false
     content:
       application/json:
@@ -44,7 +44,8 @@ post:
 
                 If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then builders with all statuses will be returned.
               items:
-                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
+                oneOf:
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
         example:
           statuses: ["active"]
   responses:

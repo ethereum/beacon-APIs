@@ -71,11 +71,10 @@ ValidatorStatus:
 
 BuilderStatus:
   description: |
-    Possible statuses derived from the builder registry entry and `is_active_builder(state, index)`.
-    Evaluate `exited` first; otherwise use `is_active_builder` to distinguish active builders from pending builders.
-    - **pending** - `builder.withdrawable_epoch == FAR_FUTURE_EPOCH` and `is_active_builder(state, index)` returns `False`
-    - **active** - `is_active_builder(state, index)` returns `True`, i.e. `builder.deposit_epoch < state.finalized_checkpoint.epoch` and `builder.withdrawable_epoch == FAR_FUTURE_EPOCH`
-    - **exited** - `builder.withdrawable_epoch != FAR_FUTURE_EPOCH`
+    Possible statuses:
+    - **pending** - When builder has not exited and is not yet active; `builder.withdrawable_epoch == FAR_FUTURE_EPOCH` and `is_active_builder(state, index)` returns `False`.
+    - **active** - When builder is active; `is_active_builder(state, index)` returns `True`, i.e. `builder.deposit_epoch < state.finalized_checkpoint.epoch` and `builder.withdrawable_epoch == FAR_FUTURE_EPOCH`.
+    - **exited** - When builder has exited; `builder.withdrawable_epoch != FAR_FUTURE_EPOCH`.
   enum: ["pending", "active", "exited"]
   example: "active"
 
