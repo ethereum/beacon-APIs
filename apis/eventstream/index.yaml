@@ -45,6 +45,7 @@ get:
             - execution_payload_bid
             - payload_attestation_message
             - fast_confirmation
+            - proposer_preferences
   responses:
     "200":
       description: Opened SSE stream.
@@ -194,6 +195,11 @@ get:
               value: |
                 event: fast_confirmation
                 data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1", "current_slot": "2"}
+            proposer_preferences:
+              description: The node has received a `SignedProposerPreferences` (from P2P or API) that passes gossip validation on the `proposer_preferences` topic
+              value: |
+                event: proposer_preferences
+                data: {"version":"gloas", "data":{"message": {"dependent_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "proposal_slot": "32", "validator_index": "123", "fee_recipient": "0x0000000000000000000000000000000000000000", "target_gas_limit": "60000000"}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
     "400":
       description: "The topics supplied could not be parsed"
       content:
