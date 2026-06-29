@@ -1,0 +1,37 @@
+get:
+  operationId: getDebugForkChoiceV2
+  summary: Get fork choice array (V2)
+  description: |
+    Retrieves all current fork choice context.
+
+    Unlike `GET /eth/v1/debug/fork_choice`, this version is Gloas (EIP-7732) aware: it emits
+    one fork choice node per `(block_root, payload_status)` tuple, so a single block root may
+    appear multiple times with different payload statuses, and it exposes individual PTC
+    (Payload Timeliness Committee) vote counts in each node's `extra_data`.
+  tags:
+    - Debug
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetForkChoiceResponseV2
+            type: object
+            description: "Debugging context of fork choice"
+            required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes]
+            properties:
+              justified_checkpoint:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+              finalized_checkpoint:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+              fork_choice_nodes:
+                type: array
+                description: "Fork choice nodes"
+                minItems: 1
+                items:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/NodeV2"
+              extra_data:
+                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExtraData"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
