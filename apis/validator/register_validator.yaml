@@ -3,9 +3,8 @@ post:
   summary: Provide beacon node with registrations for the given validators to the external builder network.
   deprecated: true
   description: |
-    Deprecated from Gloas onwards. Under Gloas, the external builder relay flow is replaced
-    by the in-protocol builder market; proposer fee recipient and gas limit preferences are
-    expressed via `POST /eth/v1/validator/proposer_preferences` instead. Beacon node support
+    Deprecated from Gloas onwards. Under Gloas, proposer fee recipient and gas limit preferences
+    are expressed via `POST /eth/v1/validator/proposer_preferences` instead. Beacon node support
     for this endpoint pre-Gloas is REQUIRED; post-Gloas support is OPTIONAL and the endpoint
     MAY be removed.
 
