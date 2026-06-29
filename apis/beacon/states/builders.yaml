@@ -45,8 +45,6 @@ post:
                 If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then builders with all statuses will be returned.
               items:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BuilderStatus'
-        example:
-          statuses: ["active"]
   responses:
     "200":
       description: Success
