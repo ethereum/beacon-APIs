@@ -67,6 +67,8 @@ get:
           example:
             code: 404
             message: "State not found"
+    "406":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "414":
       description: "Too many validator IDs"
       content:
