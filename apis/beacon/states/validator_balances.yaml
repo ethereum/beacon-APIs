@@ -90,6 +90,8 @@ post:
     match any known validator, no balance will be returned but this will not cause an error. There are no guarantees for the
     returned data in terms of ordering; the index is returned for each balance, and can be used to confirm for which inputs a
     response has been returned.
+
+    Depending on `Accept` header data can be returned either as JSON or as bytes serialized by SSZ.
   tags:
     - Beacon
   parameters:
@@ -128,6 +130,9 @@ post:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ValidatorBalanceResponse'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `List[Container{index: uint64, balance: uint64}, VALIDATOR_REGISTRY_LIMIT]` bytes. Use Accept header to choose this response type"
     "400":
       description: "Invalid state ID or malformed request"
       content:
