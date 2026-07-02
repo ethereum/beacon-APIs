@@ -42,6 +42,15 @@ get:
             description: "SSZ serialized `PayloadAttestationData` bytes. Use Accept header to choose this response type"
     "400":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
+    "404":
+      description: "No block has been seen for the requested slot."
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "No block found at slot. Used to signal validator to not cast any payload attestation."
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
