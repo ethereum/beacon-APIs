@@ -13,7 +13,8 @@ get:
     with previous forks.
 
     When self-building (local execution payload), the response will include the full block contents
-    including the beacon block, execution payload envelope, blobs, and KZG proofs.
+    including the beacon block, execution payload envelope, blobs, and KZG proofs, unless
+    `include_payload` is set to `false`.
     When using an external builder bid, only the `BeaconBlock` is returned as the beacon node
     does not have access to the builder's execution payload.
 
@@ -73,7 +74,7 @@ get:
         receives a valid response from the paired execution node. When these preconditions are
         met, the server MUST act as follows:
 
-        * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`
+        * if `exec_node_payload_value >= builder_boost_factor * (builder_bid_value // 100)`
           for the highest builder bid known to the beacon node, then return a block committing
           to the local execution node payload (with the payload itself included if
           `include_payload` is set to true).
@@ -85,8 +86,8 @@ get:
 
         * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes
           it unviable.
-        * `builder_boost_factor=100`: profit maximization mode; choose whichever payload pays
-          more.
+        * `builder_boost_factor=100`: profit maximization mode; choose whichever of the local
+          execution node payload and the builder bid pays more.
         * `builder_boost_factor=2**64 - 1`: prefer the builder bid unless an error or beacon node
           health check makes it unviable.
 
@@ -127,9 +128,9 @@ get:
                 type: boolean
                 description: |
                   Indicates whether the execution payload envelope is included in the response.
-                  When `true`, the `data` field contains the full
-                  execution payload envelope, blobs, and KZG proofs. When `false`, the `data`
-                  field contains only a `BeaconBlock`.
+                  When `true`, the `data` field contains a `BlockContents` object with the
+                  beacon block, execution payload envelope, KZG proofs, and blobs. When `false`,
+                  the `data` field contains only a `BeaconBlock`.
                 example: false
               data:
                 anyOf:
