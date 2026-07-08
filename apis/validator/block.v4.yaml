@@ -1,4 +1,4 @@
-get:
+post:
   tags:
     - Validator
     - ValidatorRequiredApi
@@ -6,6 +6,11 @@ get:
   summary: "Produce a new block, without signature."
   description: |
     Requests a beacon node to produce a valid block, which can then be signed by a validator.
+
+    The validator supplies in the request body a list of `BuilderPreferences`, one for each
+    builder that will be contacted, which the beacon node MUST apply when requesting bids from
+    external builders. The `builder_boost_factor` is expressed per builder in the request body
+    rather than as a query parameter.
 
     Post-Gloas, proposers submit execution payload bids rather than full execution payloads,
     so there is no longer a concept of blinded or unblinded blocks. Builders release the
@@ -63,41 +68,21 @@ get:
       schema:
         type: boolean
         default: true
-    - name: builder_boost_factor
-      in: query
-      required: false
-      description: |
-        Percentage multiplier to apply to the builder's bid value when choosing between a
-        builder bid and payload from the paired execution node. This parameter is only relevant
-        if the beacon node has at least one viable builder `ExecutionPayloadBid` available and
-        receives a valid response from the paired execution node. When these preconditions are
-        met, the server MUST act as follows:
-
-        * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`
-          for the highest builder bid known to the beacon node, then return a block committing
-          to the local execution node payload (with the payload itself included if
-          `include_payload` is set to true).
-        * otherwise, return a block committing to the builder bid (without execution payload,
-          as it is not yet available).
-
-        Servers must support the following values of the boost factor which encode common
-        preferences:
-
-        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes
-          it unviable.
-        * `builder_boost_factor=100`: profit maximization mode; choose whichever payload pays
-          more.
-        * `builder_boost_factor=2**64 - 1`: prefer the builder bid unless an error or beacon node
-          health check makes it unviable.
-
-        Servers should use saturating arithmetic or another technique to ensure that large values
-        of the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
-        provided and no builder bid is available, the beacon node MUST respond with a block
-        committing to the local execution node payload, which the caller can choose to reject if
-        it wishes. If the value is provided but out of range for a 64-bit unsigned integer, then
-        an error response with status code 400 MUST be returned.
-      schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  requestBody:
+    required: true
+    description: |
+      A list of `BuilderPreferences`, one entry for each builder that will be contacted. When
+      contacting a builder, the beacon node MUST apply the entry whose `url` matches the URL used
+      to contact that builder. An entry with an empty `url` string denotes the default preferences,
+      which the beacon node MUST apply to any contacted builder for which no matching entry was
+      supplied. At most one entry with an empty `url` may be supplied, and no two entries may share
+      the same `url`.
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/BuilderPreferences"
   responses:
     "200":
       description: Success response

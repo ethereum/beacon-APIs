@@ -47,3 +47,4 @@ produceBlockV
 stateful
 CGC
 RLP
+auth
