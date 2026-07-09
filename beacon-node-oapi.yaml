@@ -81,6 +81,8 @@ paths:
     $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/validator_identities:
     $ref: "./apis/beacon/states/validator_identities.yaml"
+  /eth/v1/beacon/states/{state_id}/builders:
+    $ref: "./apis/beacon/states/builders.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
@@ -106,6 +108,8 @@ paths:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
   /eth/v1/beacon/execution_payload_bids:
     $ref: "./apis/beacon/execution_payload/bid.yaml"
+  /eth/v1/beacon/execution_payload_envelopes:
+    $ref: "./apis/beacon/execution_payload/envelope_post.yaml"
   /eth/v1/beacon/execution_payload_envelopes/{block_id}:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
   /eth/v2/beacon/blocks/{block_id}:
@@ -192,6 +196,8 @@ paths:
     $ref: "./apis/validator/duties/ptc.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
+  /eth/v4/validator/blocks/{slot}:
+    $ref: "./apis/validator/block.v4.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/payload_attestation_data/{slot}:
@@ -216,10 +222,14 @@ paths:
     $ref: "./apis/validator/prepare_beacon_proposer.yaml"
   /eth/v1/validator/register_validator:
     $ref: "./apis/validator/register_validator.yaml"
+  /eth/v1/validator/proposer_preferences:
+    $ref: "./apis/validator/proposer_preferences.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_bids/{slot}/{builder_index}:
     $ref: "./apis/validator/execution_payload_bid.yaml"
+  /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
+    $ref: "./apis/validator/execution_payload_envelope.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -235,8 +245,12 @@ components:
       $ref: './types/api.yaml#/ValidatorBalanceResponse'
     ValidatorIdentityResponse:
       $ref: './types/api.yaml#/ValidatorIdentityResponse'
+    BuilderResponse:
+      $ref: './types/api.yaml#/BuilderResponse'
     ValidatorStatus:
       $ref: './types/api.yaml#/ValidatorStatus'
+    BuilderStatus:
+      $ref: './types/api.yaml#/BuilderStatus'
     Committee:
       $ref: './types/api.yaml#/Committee'
     AttesterDuty:
@@ -445,6 +459,10 @@ components:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
+    Gloas.Builder:
+      $ref: "./types/gloas/builder.yaml#/Gloas/Builder"
+    Gloas.BlockContents:
+      $ref: "./types/gloas/block_contents.yaml#/Gloas/BlockContents"
     Gloas.ExecutionPayloadBid:
       $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
     Gloas.SignedExecutionPayloadBid:
@@ -455,12 +473,22 @@ components:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
     Gloas.SignedExecutionPayloadEnvelope:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
+    Gloas.SignedExecutionPayloadEnvelopeContents:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelopeContents"
+    Gloas.BlindedExecutionPayloadEnvelope:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/BlindedExecutionPayloadEnvelope"
+    Gloas.SignedBlindedExecutionPayloadEnvelope:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedBlindedExecutionPayloadEnvelope"
     Gloas.PayloadAttestationData:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
     Gloas.PayloadAttestation:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.ProposerPreferences:
+      $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
+    Gloas.SignedProposerPreferences:
+      $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/SignedProposerPreferences"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
@@ -515,7 +543,11 @@ components:
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
     Eth-Execution-Payload-Blinded:
-      description: Required in response so client can deserialize returned json or ssz data to the correct object.
+      description: |
+        Indicates whether the execution payload (or envelope) is in blinded form. Sent in
+        responses so clients can deserialize returned JSON or SSZ data to the correct object,
+        and sent in requests on endpoints that accept either blinded or full forms so the
+        server can select the correct request schema.
       required: true
       schema:
         type: boolean
@@ -536,3 +568,9 @@ components:
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'
+    Eth-Execution-Payload-Included:
+      description: |
+        Indicates whether the execution payload envelope, blobs, and KZG proofs are included in the response. Required in response so client can deserialize returned data.
+      required: true
+      schema:
+        type: boolean

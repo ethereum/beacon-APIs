@@ -45,6 +45,7 @@ get:
             - execution_payload_bid
             - payload_attestation_message
             - fast_confirmation
+            - proposer_preferences
   responses:
     "200":
       description: Opened SSE stream.
@@ -141,7 +142,7 @@ get:
                 - `proposal_slot`: the slot at which a block using these payload attributes may be
                    built.
                 - `parent_block_root`: the beacon block root of the parent block to be built upon.
-                - `parent_block_number`: the execution block number of the parent block.
+                - `parent_block_number`: the execution block number of the parent block. Removed from `gloas` onwards.
                 - `parent_block_hash`: the execution block hash of the parent block.
                 - `proposer_index`: the validator index of the proposer at `proposal_slot` on
                    the chain identified by `parent_block_root`.
@@ -158,7 +159,7 @@ get:
                 ignored by block builders and most other API consumers.
               value: |
                 event: payload_attributes
-                data: {"version": "electra", "data": {"proposer_index": "123", "proposal_slot": "10", "parent_block_number": "9", "parent_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "parent_block_hash": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "payload_attributes": {"timestamp": "123456", "prev_randao": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "suggested_fee_recipient": "0x0000000000000000000000000000000000000000", "withdrawals": [{"index": "5", "validator_index": "10", "address": "0x0000000000000000000000000000000000000000", "amount": "15640"}], "parent_beacon_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}}
+                data: {"version": "gloas", "data": {"proposer_index": "123", "proposal_slot": "10", "parent_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "parent_block_hash": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "payload_attributes": {"timestamp": "123456", "prev_randao": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "suggested_fee_recipient": "0x0000000000000000000000000000000000000000", "withdrawals": [{"index": "5", "validator_index": "10", "address": "0x0000000000000000000000000000000000000000", "amount": "15640"}], "parent_beacon_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}}}
             data_column_sidecar:
               description: The node has received a DataColumnSidecar (from P2P or API) that passes all gossip validations on the data_column_sidecar_{subnet_id} topic
               value: |
@@ -190,10 +191,15 @@ get:
                 event: payload_attestation_message
                 data: {"version":"gloas", "data":{"validator_index": "123", "data": {"beacon_block_root": "0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "slot": "10", "payload_present": true, "blob_data_available": true}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
             fast_confirmation:
-              description: The node has executed fast confirmation algorithm. The root and the slot of the most recent confirmed block are sent
+              description: The node has executed the fast confirmation algorithm. This event should be emitted every time the algorithm is run, regardless of whether the most recent confirmed block has changed since the previous run. `block` is the root and `slot` is the slot of the most recent confirmed block, and `current_slot` is the wall-clock slot at which the algorithm was executed.
               value: |
                 event: fast_confirmation
-                data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1"}
+                data: {"block": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "slot": "1", "current_slot": "2"}
+            proposer_preferences:
+              description: The node has received a `SignedProposerPreferences` (from P2P or API) that passes gossip validation on the `proposer_preferences` topic
+              value: |
+                event: proposer_preferences
+                data: {"version":"gloas", "data":{"message": {"dependent_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "proposal_slot": "32", "validator_index": "123", "fee_recipient": "0x0000000000000000000000000000000000000000", "target_gas_limit": "60000000"}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
     "400":
       description: "The topics supplied could not be parsed"
       content:
