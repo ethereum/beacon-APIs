@@ -40,6 +40,8 @@ get:
         application/octet-stream:
           schema:
             description: "SSZ serialized `PayloadAttestationData` bytes. Use Accept header to choose this response type"
+    "204":
+      description: "No block has been seen for the requested slot. Used to signal validator to not cast any payload attestation."
     "400":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
     "406":
