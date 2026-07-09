@@ -1,0 +1,63 @@
+BuilderPreferences:
+  type: object
+  description: "Per-builder preferences supplied by a validator when requesting block production."
+  required: [url, builder_boost_factor, max_trusted_bid, min_bid]
+  properties:
+    signed_request_auth:
+      allOf:
+        - $ref: "./gloas/request_auth.yaml#/Gloas/SignedRequestAuthV1"
+        - description: |
+            Optional `SignedRequestAuthV1` object, as defined in the
+            [Builder API](https://ethereum.github.io/builder-specs/) specification, that the beacon
+            node MUST forward to the builder when requesting a bid so that the builder can
+            authenticate the request. If omitted, requests to this builder are sent without
+            authentication.
+    url:
+      type: string
+      description: |
+        URL that the beacon node should use to contact the builder. This URL MAY be equal to the
+        one contained in the `data` field of `signed_request_auth.message`, but it MAY also differ
+        from it. An empty string denotes the default preferences entry: these preferences are
+        applied to any contacted builder for which no entry with a matching `url` was supplied.
+      example: "https://builder.example.com"
+    builder_boost_factor:
+      allOf:
+        - $ref: "./primitive.yaml#/Uint64"
+        - description: |
+            Percentage multiplier to apply to this builder's bid value when choosing between a
+            builder bid and payload from the paired execution node. This value is only relevant
+            if the beacon node has a viable `ExecutionPayloadBid` available from this builder and
+            receives a valid response from the paired execution node. When these preconditions
+            are met, the server MUST act as follows:
+
+            * if `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`
+              for the highest builder bid known to the beacon node (each bid boosted by the
+              factor applicable to the builder it originates from), then return a block
+              committing to the local execution node payload.
+            * otherwise, return a block committing to the builder bid (without execution payload,
+              as it is not yet available).
+
+            Servers must support the following values of the boost factor which encode common
+            preferences:
+
+            * `builder_boost_factor=0`: prefer the local execution node payload unless an error
+              makes it unviable.
+            * `builder_boost_factor=100`: profit maximization mode; choose whichever payload pays
+              more.
+            * `builder_boost_factor=2**64 - 1`: prefer this builder's bid unless an error or
+              beacon node health check makes it unviable.
+
+            Servers should use saturating arithmetic or another technique to ensure that large
+            values of the `builder_boost_factor` do not trigger overflows or errors.
+    max_trusted_bid:
+      allOf:
+        - $ref: "./primitive.yaml#/Gwei"
+        - description: |
+            The maximum trusted bid, in Gwei, that will be accepted from this builder. Bids with a
+            value exceeding this amount MUST NOT be accepted.
+    min_bid:
+      allOf:
+        - $ref: "./primitive.yaml#/Gwei"
+        - description: |
+            The minimum bid, in Gwei, that the validator will accept from this builder. Bids with a
+            value lower than this amount MUST NOT be accepted.
