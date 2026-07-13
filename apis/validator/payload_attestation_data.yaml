@@ -13,7 +13,7 @@ get:
     A 503 error must be returned if the beacon node is currently syncing.
   parameters:
     - name: slot
-      in: path
+      in: query
       required: true
       description: "The slot for which payload attestation data should be created."
       schema:
@@ -40,6 +40,8 @@ get:
         application/octet-stream:
           schema:
             description: "SSZ serialized `PayloadAttestationData` bytes. Use Accept header to choose this response type"
+    "204":
+      description: "No block has been seen for the requested slot. Used to signal validator to not cast any payload attestation."
     "400":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InvalidRequest"
     "406":
