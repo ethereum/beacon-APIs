@@ -198,6 +198,8 @@ paths:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v4/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v4.yaml"
+  /eth/v4/validator/blocks/{slot}/with_bid:
+    $ref: "./apis/validator/block.v4_with_bid.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/payload_attestation_data/{slot}:

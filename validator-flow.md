@@ -18,6 +18,10 @@ If proposing block, then at immediate start of slot:
 1. Ask Beacon Node for BeaconBlock object:
    - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
    - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
+     - A validator client that already has a signed execution payload bid can instead use
+       [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid). Inclusion is best effort: the
+       beacon node may replace the supplied bid when it is invalid or when its circuit breaker
+       mechanism is active.
      - `include_payload=true` (default): returns `BlockContents` (beacon block, execution payload envelope,
        blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
