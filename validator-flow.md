@@ -32,7 +32,7 @@ If proposing block, then at immediate start of slot:
   - Stateful (`include_payload=false`): [fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope)
     from the same beacon node. Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
     (beacon node attaches blobs and KZG proofs from its cache).
-  - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
+  - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.
@@ -98,6 +98,6 @@ Building:
     - If the beacon node built the payload: [fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from that beacon node.
       Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope) to the same beacon node (it attaches blobs and KZG proofs from its cache)
     - If the payload was constructed outside the beacon node: sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope) (envelope + blobs + KZG proofs) via any beacon node
-    - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
+    - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
 
 Monitor for block proposals containing your bid to trigger envelope release.
