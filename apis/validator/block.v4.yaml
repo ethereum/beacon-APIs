@@ -43,7 +43,7 @@ get:
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
     - name: include_payload
       in: query
-      required: false
+      required: true
       description: |
         Controls whether the execution payload envelope and blobs are included in the response
         when self-building (using local execution payload).
@@ -57,8 +57,6 @@ get:
         via `GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`. This saves
         bandwidth but requires the validator client to publish via the same beacon node that
         produced the block (stateful operation).
-
-        If the parameter is omitted, the default behavior is up to the beacon node implementation.
 
         This parameter only affects self-building scenarios. When using an external builder's bid,
         only the beacon block is returned regardless of this parameter (the beacon node does not
