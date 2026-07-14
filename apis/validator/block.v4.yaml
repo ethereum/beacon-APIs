@@ -12,9 +12,9 @@ get:
     payload later. This endpoint is specific to the post-Gloas forks and is not backwards compatible
     with previous forks.
 
-    When self-building (local execution payload), the response will include the full block contents
-    including the beacon block, execution payload envelope, blobs, and KZG proofs, unless
-    `include_payload` is set to `false`.
+    When self-building (local execution payload), the response includes the full block contents
+    (beacon block, execution payload envelope, blobs, and KZG proofs) if `include_payload` is
+    set to `true`, otherwise only the `BeaconBlock` is returned.
     When using an external builder bid, only the `BeaconBlock` is returned as the beacon node
     does not have access to the builder's execution payload.
 
@@ -48,7 +48,7 @@ get:
         Controls whether the execution payload envelope and blobs are included in the response
         when self-building (using local execution payload).
 
-        When `true` (default), the response includes the full block contents: beacon block,
+        When `true`, the response includes the full block contents: beacon block,
         execution payload envelope, blobs, and KZG proofs. This enables stateless operation
         where the validator client can use multiple beacon nodes (multi-BN setups, distributed validators, failover).
 
@@ -58,12 +58,13 @@ get:
         bandwidth but requires the validator client to publish via the same beacon node that
         produced the block (stateful operation).
 
+        If the parameter is omitted, the default behavior is up to the beacon node implementation.
+
         This parameter only affects self-building scenarios. When using an external builder's bid,
         only the beacon block is returned regardless of this parameter (the beacon node does not
         have access to the builder's execution payload).
       schema:
         type: boolean
-        default: true
     - name: builder_boost_factor
       in: query
       required: false
