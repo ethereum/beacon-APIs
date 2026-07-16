@@ -475,10 +475,6 @@ components:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
     Gloas.SignedExecutionPayloadEnvelopeContents:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelopeContents"
-    Gloas.BlindedExecutionPayloadEnvelope:
-      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/BlindedExecutionPayloadEnvelope"
-    Gloas.SignedBlindedExecutionPayloadEnvelope:
-      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedBlindedExecutionPayloadEnvelope"
     Gloas.PayloadAttestationData:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
     Gloas.PayloadAttestation:
@@ -543,11 +539,7 @@ components:
       schema:
         $ref: '#/components/schemas/ConsensusVersion'
     Eth-Execution-Payload-Blinded:
-      description: |
-        Indicates whether the execution payload (or envelope) is in blinded form. Sent in
-        responses so clients can deserialize returned JSON or SSZ data to the correct object,
-        and sent in requests on endpoints that accept either blinded or full forms so the
-        server can select the correct request schema.
+      description: Required in response so client can deserialize returned json or ssz data to the correct object.
       required: true
       schema:
         type: boolean
