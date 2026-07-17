@@ -23,6 +23,10 @@ If proposing block, then at immediate start of slot:
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When using an external builder's bid, only the `BeaconBlock` is returned regardless of `include_payload`.
+     - A validator client that already has a signed execution payload bid can instead use
+         [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid). Inclusion is best effort: the
+         beacon node may replace the supplied bid when it is invalid or when its circuit breaker
+         mechanism is active.
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
 4. Post-Gloas, if self-building (proposer's own bid included in block):
