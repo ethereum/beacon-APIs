@@ -18,15 +18,15 @@ If proposing block, then at immediate start of slot:
 1. Ask Beacon Node for BeaconBlock object:
    - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
    - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
-     - A validator client that already has a signed execution payload bid can instead use
-       [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid). Inclusion is best effort: the
-       beacon node may replace the supplied bid when it is invalid or when its circuit breaker
-       mechanism is active.
-     - `include_payload=true` (default): returns `BlockContents` (beacon block, execution payload envelope,
+     - `include_payload=true`: returns `BlockContents` (beacon block, execution payload envelope,
        blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When using an external builder's bid, only the `BeaconBlock` is returned regardless of `include_payload`.
+     - A validator client that already has a signed execution payload bid can instead use
+         [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid). Inclusion is best effort: the
+         beacon node may replace the supplied bid when it is invalid or when its circuit breaker
+         mechanism is active.
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
 4. Post-Gloas, if self-building (proposer's own bid included in block):
@@ -34,9 +34,9 @@ If proposing block, then at immediate start of slot:
     Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
     (envelope + blobs + KZG proofs).
   - Stateful (`include_payload=false`): [fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope)
-    from the same beacon node (blinded form by default). Sign envelope and [submit `SignedBlindedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
-    (beacon node reconstructs the full envelope from its cache).
-  - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) of slot duration
+    from the same beacon node. Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
+    (beacon node attaches blobs and KZG proofs from its cache).
+  - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.
@@ -99,10 +99,9 @@ Building:
 2. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
 3. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
 4. If bid is selected by proposer in their block:
-    - [Fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from beacon node (blinded form by default)
-    - Sign envelope and submit to network via [publishExecutionPayloadEnvelope](#/Beacon/publishExecutionPayloadEnvelope):
-      - Stateless (multi-BN): submit `SignedExecutionPayloadEnvelopeContents` (envelope + blobs + KZG proofs)
-      - Stateful (single BN): submit `SignedBlindedExecutionPayloadEnvelope` (beacon node reconstructs full envelope from cache)
-    - Must submit early enough for PTC attestation by [PAYLOAD_ATTESTATION_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.2/specs/gloas/validator.md#time-parameters) of slot duration
+    - If the beacon node built the payload: [fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope) from that beacon node.
+      Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope) to the same beacon node (it attaches blobs and KZG proofs from its cache)
+    - If the payload was constructed outside the beacon node: sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope) (envelope + blobs + KZG proofs) via any beacon node
+    - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
 
 Monitor for block proposals containing your bid to trigger envelope release.
