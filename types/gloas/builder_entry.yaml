@@ -27,9 +27,11 @@ Gloas:
         type: string
         format: uri
         description: |
-          An optional proxy URL. When set, the beacon node sends the request to this URL instead of
-          to `url`, and sets the `Eth-Builder-Url` header to `url` so the proxy can forward the
-          request to the intended builder.
+          An optional proxy URL for reaching this builder. Some deployments place a sidecar between
+          the beacon node and its builders; when `proxy` is set the beacon node sends the request to
+          this URL and sets the `Eth-Builder-Url` header to `url` so the sidecar can forward it to the
+          intended builder. When `proxy` is unset the beacon node contacts the builder directly at
+          `url`.
         example: "http://side-car:9001"
       auth:
         allOf:

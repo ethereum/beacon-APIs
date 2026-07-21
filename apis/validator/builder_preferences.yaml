@@ -36,8 +36,9 @@ post:
     description: |
       An array of `BuilderPreferenceEntry` objects, one per builder the beacon node should submit
       preferences to. Each entry names a concrete builder `url`, and no two entries may share the
-      same `url`. The beacon node submits each entry independently, so a malformed entry does not
-      prevent the others from being submitted; a 400 response identifies the failing entries by index.
+      same `url`. Inclusion is best-effort: the beacon node submits each entry independently and skips
+      any entry it cannot submit rather than failing the whole request. Entries that were not
+      submitted are reported by index in a 400 response.
     content:
       application/json:
         schema:
@@ -48,7 +49,7 @@ post:
     "200":
       description: "The beacon node submitted the preferences to every builder."
     "400":
-      description: "One or more preference submissions were rejected. The index identifies the failing entry."
+      description: "Errors with one or more preference submissions; the failing entries are identified by index. Well-formed entries are still submitted."
       content:
         application/json:
           schema:

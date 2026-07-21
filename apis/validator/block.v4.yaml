@@ -108,11 +108,11 @@ post:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
         Eth-Builder-Url:
           description: |
-            For a block built on an external builder's bid, the `url` of the winning builder. The
+            When the winning bid came through the builder-API channel, the `url` of that builder. The
             validator echoes this value in the `Eth-Builder-Url` request header when publishing the
             signed block, so the beacon node can forward the block to the same builder via the
-            builder-API `submitSignedBeaconBlock`. Absent when the block was self-built (no external
-            builder bid was used).
+            builder-API `submitSignedBeaconBlock`. Absent when the block was self-built or the winning
+            bid came from the p2p network.
           required: false
           schema:
             type: string
@@ -148,9 +148,9 @@ post:
                 type: boolean
                 description: |
                   Indicates whether the execution payload envelope is included in the response.
-                  When `true`, the `data` field contains a `BlockContents` object with the beacon
-                  block, execution payload envelope, blobs, and KZG proofs. When `false`, the `data`
-                  field contains only a `BeaconBlock`.
+                  When `true`, the `data` field contains a `BlockContents` object with the
+                  beacon block, execution payload envelope, KZG proofs, and blobs. When `false`,
+                  the `data` field contains only a `BeaconBlock`.
                 example: false
               data:
                 anyOf:
