@@ -1,0 +1,80 @@
+Gloas:
+  BuilderEntry:
+    type: object
+    description: |
+      A per-builder input the validator supplies on a block-production request, one entry for each
+      external builder the beacon node should request a bid from. Each entry is the resolved form of
+      the validator's persistent `BuilderEntry` configuration from the keymanager
+      `/eth/v1/validator/config` API (`url`, `proxy`, `pubkey`, `max_execution_payment`, `min_bid`,
+      and `builder_boost_factor`), together with a per-slot `SignedRequestAuthV1` authenticating the
+      request to that builder. The validator resolves its configuration, applying any config-level
+      defaults, before sending, so each entry is self-contained.
+
+      The beacon node contacts each builder (at its `proxy` if set, otherwise its `url`), forwarding
+      the entry's `auth`, and applies `max_execution_payment`, `min_bid`, and `builder_boost_factor`
+      when comparing that builder's bid against its local build and any p2p bids.
+    required: [url]
+    properties:
+      url:
+        type: string
+        format: uri
+        description: |
+          The builder's URL, uniquely identifying it. The beacon node contacts the builder here
+          unless `proxy` is set, and sends this value as the `Eth-Builder-Url` header when routing
+          through a proxy.
+        example: "https://builder.example.com"
+      proxy:
+        type: string
+        format: uri
+        description: |
+          An optional proxy URL. When set, the beacon node sends the request to this URL instead of
+          to `url`, and sets the `Eth-Builder-Url` header to `url` so the proxy can forward the
+          request to the intended builder.
+        example: "http://side-car:9001"
+      auth:
+        allOf:
+          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuthV1"
+          - description: |
+              Optional `SignedRequestAuthV1` authenticating the request to this builder. The beacon
+              node MUST forward its `message` and `signature` byte-for-byte unchanged. Its `data` is
+              opaque and agreed with the builder out of band, and its `message.slot` is the proposal
+              slot the request is authorized for. If omitted, requests to this builder are sent
+              without authentication.
+      pubkey:
+        allOf:
+          - $ref: "../primitive.yaml#/Pubkey"
+          - description: |
+              Optional builder BLS public key. When set, binds trusted execution payments to this
+              builder's on-chain key: bids not signed by it MUST NOT be accepted.
+      max_execution_payment:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: |
+              Maximum trusted execution-layer payment, in Gwei, accepted from this builder. Bids
+              promising a trusted payment above this value MUST be rejected.
+            example: "1000000000"
+      min_bid:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: |
+              Minimum bid, in Gwei, accepted from this builder. Bids with a value below this amount
+              MUST be rejected.
+            example: "10000000"
+      builder_boost_factor:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: |
+              Percentage multiplier applied to this builder's bid value when choosing between the
+              builder's bid and the local execution node payload. When the beacon node has a valid
+              local payload and this builder returns a viable bid, it commits to the local payload if
+              `exec_node_payload_value >= builder_boost_factor * (builder_payload_value // 100)`, and to
+              the builder's bid otherwise; the highest-value candidate across the local payload, any
+              p2p bid, and every builder's boosted bid is chosen.
+
+              The reserved values encode common preferences: `0` prefers the local payload unless an
+              error makes it unviable; `100` is profit maximization (choose whichever pays more); and
+              `2**64 - 1` prefers this builder unless an error or beacon node health check makes it
+              unviable. Servers should use saturating arithmetic so that large values do not overflow.
+              A value out of range for a 64-bit unsigned integer makes the entry malformed, so the
+              beacon node ignores that entry.
+            example: "100"

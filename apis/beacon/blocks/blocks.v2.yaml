@@ -43,6 +43,30 @@ post:
       required: true
       name: Eth-Consensus-Version
       description: "The active consensus version to which the block being submitted belongs."
+    - name: Eth-Builder-Url
+      in: header
+      required: false
+      description: |
+        The `url` of the winning builder, as returned in the `Eth-Builder-Url` response header of
+        `produceBlockV4`. The beacon node forwards the signed block to this builder via the
+        builder-API `submitSignedBeaconBlock` so the builder can release the execution payload.
+        Omitted for a self-built block.
+      schema:
+        type: string
+        format: uri
+        example: "https://builder.example.com"
+    - name: Eth-Builder-Proxy
+      in: header
+      required: false
+      description: |
+        An optional proxy URL for the winning builder, as returned in the `Eth-Builder-Proxy`
+        response header of `produceBlockV4`. When set, the beacon node sends the request to this URL
+        and sets the `Eth-Builder-Url` header to the builder's `url` so the proxy can forward the
+        request to the intended builder; `Eth-Builder-Url` MUST therefore also be present.
+      schema:
+        type: string
+        format: uri
+        example: "http://side-car:9001"
   requestBody:
     description: "The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature."
     required: true

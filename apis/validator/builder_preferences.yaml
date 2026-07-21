@@ -1,0 +1,59 @@
+post:
+  operationId: "submitBuilderPreferences"
+  summary: "Submit builder preferences via the beacon node."
+  description: |
+    Submits a proposer's per-builder preferences to the builders on the validator's behalf, including
+    the `max_execution_payment` the proposer is willing to accept from each. The validator does not
+    contact builders directly: for each `BuilderPreferenceEntry` the beacon node makes one
+    `submitBuilderPreferences` builder-API call, contacting the builder at its `proxy` if set and its
+    `url` otherwise, forwarding the entry's `auth` unchanged, and submitting its
+    `max_execution_payment`. The `pubkey` path parameter is passed as the builder-API
+    `validator_pubkey`, and each entry's `auth.message.slot` is the proposal slot the preferences
+    apply to.
+
+    Validators MAY call this endpoint in the epoch prior to the epoch in which they will be proposing,
+    as determined from `state.proposer_lookahead`, so that builders have the preferences before the
+    bid request arrives.
+
+    `BuilderPreferencesRequestV1` is not fork-versioned, so no `Eth-Consensus-Version` header is
+    required.
+
+    This API is applicable from the Gloas fork onwards.
+  parameters:
+    - name: pubkey
+      in: path
+      required: true
+      description: |
+        The BLS public key of the proposing validator whose preferences these are. The beacon node
+        passes it as the `validator_pubkey` of each `submitBuilderPreferences` builder-API call, and
+        each entry's `auth` is signed by this key.
+      schema:
+        $ref: "../../types/primitive.yaml#/Pubkey"
+  tags:
+    - Validator
+  requestBody:
+    required: true
+    description: |
+      An array of `BuilderPreferenceEntry` objects, one per builder the beacon node should submit
+      preferences to. Each entry names a concrete builder `url`, and no two entries may share the
+      same `url`. The beacon node submits each entry independently, so a malformed entry does not
+      prevent the others from being submitted; a 400 response identifies the failing entries by index.
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderPreferenceEntry"
+  responses:
+    "200":
+      description: "The beacon node submitted the preferences to every builder."
+    "400":
+      description: "One or more preference submissions were rejected. The index identifies the failing entry."
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+    "503":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing"
