@@ -48,9 +48,10 @@ post:
       required: false
       description: |
         The `url` of the winning builder, as returned in the `Eth-Builder-Url` response header of
-        `produceBlockV4`. The beacon node forwards the signed block to this builder via the
-        builder-API `submitSignedBeaconBlock` so the builder can release the execution payload.
-        Omitted for a self-built block.
+        `produceBlockV4`. When `produceBlockV4` returns this header (and `Eth-Builder-Proxy` if
+        present), the validator MUST echo them here so the beacon node can forward the signed block to
+        the winning builder via the builder-API `submitSignedBeaconBlock`; without it the builder
+        never releases the execution payload. Omitted for a self-built block.
       schema:
         type: string
         format: uri
@@ -62,7 +63,8 @@ post:
         An optional proxy URL for the winning builder, as returned in the `Eth-Builder-Proxy`
         response header of `produceBlockV4`. When set, the beacon node sends the request to this URL
         and sets the `Eth-Builder-Url` header to the builder's `url` so the proxy can forward the
-        request to the intended builder; `Eth-Builder-Url` MUST therefore also be present.
+        request to the intended builder; `Eth-Builder-Url` MUST therefore also be present. The
+        validator echoes this value whenever `produceBlockV4` returned an `Eth-Builder-Proxy`.
       schema:
         type: string
         format: uri

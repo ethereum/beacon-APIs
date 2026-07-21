@@ -7,8 +7,11 @@ Gloas:
       the validator's persistent `BuilderEntry` configuration from the keymanager
       `/eth/v1/validator/config` API (`url`, `proxy`, `pubkey`, `max_execution_payment`, `min_bid`,
       and `builder_boost_factor`), together with a per-slot `SignedRequestAuthV1` authenticating the
-      request to that builder. The validator resolves its configuration, applying any config-level
-      defaults, before sending, so each entry is self-contained.
+      request to that builder. The validator resolves its configuration up the keymanager order
+      (`BuilderEntry` over `BuilderConfig` over `default_config`, per field) before sending, so each
+      entry is self-contained and every field, including `min_bid`, `max_execution_payment`, and
+      `builder_boost_factor`, applies only to this builder's bid. There is no global preference at
+      the bid-selection layer; any `default_config` value has already been resolved into each entry.
 
       The beacon node contacts each builder (at its `proxy` if set, otherwise its `url`), forwarding
       the entry's `auth`, and applies `max_execution_payment`, `min_bid`, and `builder_boost_factor`

@@ -86,10 +86,12 @@ post:
       names a concrete builder `url`, and no two entries may share the same `url`. For each entry the
       beacon node contacts the builder at its `proxy` if set, otherwise at its `url`; forwards the
       entry's `auth` unchanged; and applies the entry's `max_execution_payment`, `min_bid`, and
-      `builder_boost_factor` when comparing its bid. Malformed entries are ignored rather than failing
-      the request, so a single bad entry never blocks block production. When the body is omitted or
-      empty, or every entry is ignored, the beacon node contacts no external builders and chooses
-      between its local build and any p2p bid.
+      `builder_boost_factor` to that builder's own bid only. Each builder's bid is evaluated
+      independently under its own entry, and the highest-value candidate across those, the local
+      build, and any p2p bid wins; there is no cross-entry policy to reconcile. Malformed entries are
+      ignored rather than failing the request, so a single bad entry never blocks block production.
+      When the body is omitted or empty, or every entry is ignored, the beacon node contacts no
+      external builders and chooses between its local build and any p2p bid.
     content:
       application/json:
         schema:
