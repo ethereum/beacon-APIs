@@ -1,25 +1,37 @@
-get:
+post:
   tags:
     - Validator
     - ValidatorRequiredApi
   operationId: "produceBlockV4"
   summary: "Produce a new block, without signature."
   description: |
-    Requests a beacon node to produce a valid block, which can then be signed by a validator.
+    Requests a beacon node to produce a valid block, which the validator then signs.
 
-    Post-Gloas, proposers submit execution payload bids rather than full execution payloads,
-    so there is no longer a concept of blinded or unblinded blocks. Builders release the
-    payload later. This endpoint is specific to the post-Gloas forks and is not backwards compatible
-    with previous forks.
+    The beacon node always builds a local payload and considers any p2p bid. The validator
+    optionally supplies a list of `BuilderEntry` objects in the request body, one per builder-API
+    `getExecutionPayloadBid` call to make; the beacon node adds those bids to the comparison and
+    returns the highest-value candidate. It biases each builder's bid by the entry's
+    `builder_boost_factor` and rejects a bid that falls outside the entry's `min_bid` (floor) or
+    `max_execution_payment` (ceiling on the trusted execution payment). `builder_boost_factor` leans
+    the choice toward the local payload or a given builder without disabling either source.
 
-    When self-building (local execution payload), the response includes the full block contents
-    (beacon block, execution payload envelope, blobs, and KZG proofs) if `include_payload` is
-    set to `true`, otherwise only the `BeaconBlock` is returned.
-    When using an external builder bid, only the `BeaconBlock` is returned as the beacon node
-    does not have access to the builder's execution payload.
+    Post-Gloas, proposers submit execution payload bids rather than full execution payloads, so
+    there is no longer a blinded or unblinded distinction; builders release the payload later. This
+    endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
+    forks.
 
-    The `Eth-Execution-Payload-Included` header and `execution_payload_included` response field
-    indicate which response type was returned.
+    The beacon node returns the full block contents (beacon block, execution payload envelope,
+    blobs, and KZG proofs) only when it self-builds and `include_payload` is `true`; otherwise it
+    returns only the `BeaconBlock`. The `Eth-Execution-Payload-Included` header and
+    `execution_payload_included` field report which form was returned. For a block built on an
+    external builder's bid the beacon node has no payload to return, and the `Eth-Builder-Url`
+    response header identifies the winning builder for the validator to echo when publishing.
+
+    The two outcomes publish differently and never overlap. For an external builder's bid, the
+    validator publishes the signed block via `publishBlockV2`, echoing the `Eth-Builder-Url` header,
+    and the winning builder releases the execution payload envelope. For a self-built block, the
+    validator publishes the signed block via `publishBlockV2` and the execution payload envelope
+    via `publishExecutionPayloadEnvelope`.
   parameters:
     - name: slot
       in: path
@@ -45,59 +57,57 @@ get:
       in: query
       required: true
       description: |
-        Controls whether the execution payload envelope and blobs are included in the response
-        when self-building (using local execution payload).
+        Whether a self-built block's response carries the execution payload inline, or omits it for
+        the beacon node to cache and the validator to retrieve separately.
 
-        When `true`, the response includes the full block contents: beacon block,
-        execution payload envelope, blobs, and KZG proofs. This enables stateless operation
-        where the validator client can use multiple beacon nodes (multi-BN setups, distributed validators, failover).
+        When `true`, a self-built response includes the full block contents (beacon block, execution
+        payload envelope, blobs, and KZG proofs) and reports `Eth-Execution-Payload-Included: true`.
+        The validator holds the whole payload, so it can sign and publish the envelope through any
+        beacon node (stateless operation: multi-BN setups, distributed validators, failover).
 
-        When `false`, only the beacon block is returned and the beacon node caches the execution
-        payload envelope and blobs internally. The validator client must then fetch them separately
-        via `GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`. This saves
-        bandwidth but requires the validator client to publish via the same beacon node that
-        produced the block (stateful operation).
+        When `false`, a self-built response returns only the beacon block, reporting
+        `Eth-Execution-Payload-Included: false`; the beacon node caches the execution payload
+        envelope and blobs. The validator retrieves the envelope via `getExecutionPayloadEnvelope`
+        (`GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`), signs it,
+        and publishes it via `publishExecutionPayloadEnvelope`, and the producing beacon node
+        attaches its cached blobs and KZG proofs before broadcasting. This sends fewer bytes but
+        ties publishing to that one beacon node (stateful operation).
 
-        This parameter only affects self-building scenarios. When using an external builder's bid,
-        only the beacon block is returned regardless of this parameter (the beacon node does not
-        have access to the builder's execution payload).
+        This parameter is independent of the request body and only affects the self-built case: the
+        `BuilderEntry` list selects which external builders to consider, and when an external
+        builder's bid wins the beacon node returns only the beacon block regardless of this
+        parameter (it does not have that builder's execution payload).
       schema:
         type: boolean
-    - name: builder_boost_factor
-      in: query
-      required: false
-      description: |
-        Percentage multiplier to apply to the builder's bid value when choosing between a
-        builder bid and payload from the paired execution node. This parameter is only relevant
-        if the beacon node has at least one viable builder `ExecutionPayloadBid` available and
-        receives a valid response from the paired execution node. When these preconditions are
-        met, the server MUST act as follows:
+  requestBody:
+    required: false
+    description: |
+      An optional list of `BuilderEntry` objects, one per builder-API `getExecutionPayloadBid` call
+      the beacon node should make, added to the beacon node's local build and any p2p bid when
+      selecting a bid. Each entry names the builder `url` to contact; multiple entries MAY share a
+      `url`, and the beacon node makes one `getExecutionPayloadBid` call per entry. For each entry
+      the beacon node contacts the builder at its `url`; forwards the entry's `auth` unchanged; and
+      applies the entry's `max_execution_payment`, `min_bid`, and `builder_boost_factor` to that
+      builder's own bid only. Each builder's bid is evaluated independently under its own entry, and
+      the highest-value candidate across those, the local build, and any p2p bid wins; there is no
+      cross-entry policy to reconcile. Malformed entries are ignored rather than failing the
+      request, so a single bad entry never blocks block production. When the body is omitted or
+      empty, or every entry is ignored, the beacon node contacts no external builders and chooses
+      between its local build and any p2p bid.
 
-        * if `exec_node_payload_value >= builder_boost_factor * (builder_bid_value // 100)`
-          for the highest builder bid known to the beacon node, then return a block committing
-          to the local execution node payload (with the payload itself included if
-          `include_payload` is set to true).
-        * otherwise, return a block committing to the builder bid (without execution payload,
-          as it is not yet available).
-
-        Servers must support the following values of the boost factor which encode common
-        preferences:
-
-        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes
-          it unviable.
-        * `builder_boost_factor=100`: profit maximization mode; choose whichever of the local
-          execution node payload and the builder bid pays more.
-        * `builder_boost_factor=2**64 - 1`: prefer the builder bid unless an error or beacon node
-          health check makes it unviable.
-
-        Servers should use saturating arithmetic or another technique to ensure that large values
-        of the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
-        provided and no builder bid is available, the beacon node MUST respond with a block
-        committing to the local execution node payload, which the caller can choose to reject if
-        it wishes. If the value is provided but out of range for a 64-bit unsigned integer, then
-        an error response with status code 400 MUST be returned.
-      schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+      The body MAY be encoded as JSON (`Content-Type: application/json`) or SSZ
+      (`Content-Type: application/octet-stream`); the `BuilderEntry` list is not fork-versioned, so
+      no `Eth-Consensus-Version` header is required.
+    content:
+      application/json:
+        schema:
+          type: array
+          maxItems: 64  # MAX_BUILDER_ENTRIES
+          items:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderEntry"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[BuilderEntryV1, MAX_BUILDER_ENTRIES]` bytes (see the `BuilderEntry` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: Success response
@@ -108,6 +118,18 @@ get:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
         Eth-Execution-Payload-Included:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
+        Eth-Builder-Url:
+          description: |
+            When the winning bid came through the builder-API channel, the `url` of that builder.
+            The validator echoes this value in the `Eth-Builder-Url` request header when publishing
+            the signed block, so the beacon node can forward the block to the same builder via the
+            builder-API `submitSignedBeaconBlock`. Absent when the block was self-built or the
+            winning bid came from the p2p network.
+          required: false
+          schema:
+            type: string
+            format: uri
+            example: "https://builder.example.com"
       content:
         application/json:
           schema:
@@ -139,7 +161,9 @@ get:
           schema:
             description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and payload inclusion indicated by `Eth-Execution-Payload-Included` header."
     "400":
-      description: "Invalid block production request"
+      description: |
+        The request itself is invalid, for example an unparseable body or an invalid slot. An
+        individual malformed `BuilderEntry` is ignored, not a 400.
       content:
         application/json:
           schema:
@@ -151,6 +175,8 @@ get:
                 message: "Invalid request to produce a block"
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":

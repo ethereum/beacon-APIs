@@ -1,0 +1,98 @@
+Gloas:
+  BuilderEntry:
+    type: object
+    description: |
+      A per-builder input the validator supplies on a block-production request, one entry for each
+      builder-API `getExecutionPayloadBid` call the beacon node should make. Each entry carries the
+      validator's persistent `BuilderEntry` configuration from the keymanager
+      `/eth/v1/validator/config` API (`url`, `auth_data`, `pubkey`, `max_execution_payment`,
+      `min_bid`, and `builder_boost_factor`), together with a per-slot `SignedRequestAuthV1`
+      authenticating the request to that builder, whose `message.data` carries the entry's
+      configured `auth_data`. Entries arrive fully resolved: configuration is written that way
+      (there are no per-builder fallback fields), every field except `pubkey` is present on every
+      entry, and the beacon node applies each field as sent, never substituting defaults. Each entry
+      is self-contained: `min_bid`, `max_execution_payment`, and `builder_boost_factor` apply only
+      to this builder's bid, and there is no global preference at the bid-selection layer.
+
+      The beacon node contacts each builder at its `url`, forwarding the entry's `auth`, and applies
+      `max_execution_payment`, `min_bid`, and `builder_boost_factor` when comparing that builder's
+      bid against its local build and any p2p bids.
+
+      SSZ request encoding. The `application/octet-stream` request body of `produceBlockV4` is the
+      SSZ serialization of `List[BuilderEntryV1, MAX_BUILDER_ENTRIES]`. This type description is
+      the normative home of the container and its constants; `SignedRequestAuthV1` is the container
+      defined in the [Builder API](https://ethereum.github.io/builder-specs/) Gloas spec.
+
+          MAX_BUILDER_ENTRIES = 64
+          MAX_BUILDER_URL_SIZE = 2048
+
+          class BuilderEntryV1(Container):
+              url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+              auth: SignedRequestAuthV1
+              pubkey: BLSPubkey
+              max_execution_payment: Gwei
+              min_bid: Gwei
+              builder_boost_factor: uint64
+
+      An all-zero `pubkey`, which is not a valid BLS public key, is treated as unset in either
+      encoding; SSZ, which cannot express absence, represents an absent `pubkey` as the all-zero
+      value.
+    required: [url, auth, max_execution_payment, min_bid, builder_boost_factor]
+    properties:
+      url:
+        type: string
+        format: uri
+        description: |
+          The URL the beacon node sends this entry's `getExecutionPayloadBid` call to. Multiple
+          entries MAY share a `url`; the beacon node makes one call per entry.
+        example: "https://builder.example.com"
+      auth:
+        description: |
+          `SignedRequestAuthV1` authenticating the request to this builder. The beacon node MUST
+          forward its `message` and `signature` byte-for-byte unchanged; the builder verifies
+          them. Its `data` is opaque and agreed with the builder out of band, and its
+          `message.slot` is the proposal slot the request is authorized for.
+        allOf:
+          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuthV1"
+      pubkey:
+        description: |
+          Optional builder BLS public key. When set, binds trusted execution payments to this
+          builder's on-chain key: bids not signed by it MUST NOT be accepted. _48-bytes, hex
+          encoded with 0x prefix, case insensitive._
+        allOf:
+          - $ref: "../primitive.yaml#/Pubkey"
+      max_execution_payment:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: |
+              Maximum trusted execution-layer payment, in Gwei, accepted from this builder. Bids
+              promising a trusted payment above this value MUST be rejected.
+            example: "1000000000"
+      min_bid:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: |
+              Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus
+              `execution_payment` is below this amount MUST be rejected.
+            example: "10000000"
+      builder_boost_factor:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: |
+              Percentage multiplier applied to this builder's bid when choosing between the
+              builder's bid and the local execution node payload. `builder_payload_value` is the
+              bid's total payment to the proposer, its `value` plus its `execution_payment`, and the
+              factor applies only to bids that passed the `max_execution_payment` and `min_bid`
+              checks. When the beacon node has a valid local payload and this builder returns a
+              viable bid, it commits to the local payload if `exec_node_payload_value >=
+              builder_boost_factor * (builder_payload_value // 100)`, and to the builder's bid
+              otherwise; the highest-value candidate across the local payload, any p2p bid, and
+              every builder's boosted bid is chosen.
+
+              The reserved values encode common preferences: `0` prefers the local payload unless an
+              error makes it unviable; `100` is profit maximization (choose whichever pays more);
+              and `2**64 - 1` prefers this builder unless an error or beacon node health check makes
+              it unviable. Servers should use saturating arithmetic so that large values do not
+              overflow. A value out of range for a 64-bit unsigned integer makes the entry
+              malformed, so the beacon node ignores that entry.
+            example: "100"

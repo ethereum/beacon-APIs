@@ -1,0 +1,50 @@
+Gloas:
+  BuilderPreferenceEntry:
+    type: object
+    description: |
+      Per-builder preference the validator asks the beacon node to submit to a builder ahead of the
+      bid request, one entry per preference submission. Each entry names the builder `url` to
+      contact. For each entry the beacon node makes one `submitBuilderPreferences` builder-API
+      call: it contacts the builder at its `url`, forwards `auth` unchanged, and submits
+      `max_execution_payment`.
+
+      Unlike the block-production `BuilderEntry`, this carries only what a builder is allowed to
+      see. The proposer's private bid-filtering strategy (`min_bid` and `builder_boost_factor`) is
+      never sent to a builder; the beacon node applies those locally when selecting a bid.
+
+      SSZ request encoding. The `application/octet-stream` request body of the beacon-node
+      `submitBuilderPreferences` endpoint is the SSZ serialization of
+      `List[BuilderPreferenceEntryV1, MAX_BUILDER_ENTRIES]`, using the constants defined on
+      `BuilderEntry` and the `SignedRequestAuthV1` container from the [Builder
+      API](https://ethereum.github.io/builder-specs/) Gloas spec:
+
+          class BuilderPreferenceEntryV1(Container):
+              url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+              auth: SignedRequestAuthV1
+              max_execution_payment: Gwei
+    required: [url, auth, max_execution_payment]
+    properties:
+      url:
+        type: string
+        format: uri
+        description: |
+          The URL the beacon node submits this entry's preferences to. Multiple entries MAY share a
+          `url`; the beacon node makes one submission per entry.
+        example: "https://builder.example.com"
+      auth:
+        description: |
+          `SignedRequestAuthV1` authenticating the preference submission to this builder. The
+          beacon node MUST forward its `message` and `signature` byte-for-byte unchanged; the
+          builder verifies them. Its `data` is opaque and agreed with the builder out of band,
+          and its `message.slot` is the proposal slot the preferences apply to.
+        allOf:
+          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuthV1"
+      max_execution_payment:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: |
+              Maximum trusted execution-layer payment, in Gwei, the proposer will accept from this
+              builder. It is submitted to the builder so the builder can shape its bid; the beacon
+              node enforces the `max_execution_payment` carried in the block-production
+              `BuilderEntry` when selecting a bid.
+            example: "1000000000"

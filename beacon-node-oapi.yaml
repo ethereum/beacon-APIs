@@ -224,6 +224,8 @@ paths:
     $ref: "./apis/validator/register_validator.yaml"
   /eth/v1/validator/proposer_preferences:
     $ref: "./apis/validator/proposer_preferences.yaml"
+  /eth/v1/validator/builder_preferences/{pubkey}:
+    $ref: "./apis/validator/builder_preferences.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_bids/{slot}/{builder_index}:
@@ -493,6 +495,14 @@ components:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
     Gloas.DataColumnSidecars:
       $ref: "./types/gloas/data_column_sidecar.yaml#/Gloas/DataColumnSidecars"
+    Gloas.RequestAuthV1:
+      $ref: "./types/gloas/request_auth.yaml#/Gloas/RequestAuthV1"
+    Gloas.SignedRequestAuthV1:
+      $ref: "./types/gloas/request_auth.yaml#/Gloas/SignedRequestAuthV1"
+    Gloas.BuilderEntry:
+      $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderEntry"
+    Gloas.BuilderPreferenceEntry:
+      $ref: "./types/gloas/builder_preference_entry.yaml#/Gloas/BuilderPreferenceEntry"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
