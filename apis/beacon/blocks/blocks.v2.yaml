@@ -5,16 +5,16 @@ post:
   summary: "Publish a signed block."
   operationId: "publishBlockV2"
   description: |
-    Instructs the beacon node to broadcast a newly signed beacon block to the beacon network,
-    to be included in the beacon chain. A success response (20x) indicates that the block
-    passed gossip validation and was successfully broadcast onto the network.
-    The beacon node is also expected to integrate the block into the state, but may broadcast it
-    before doing so, so as to aid timely delivery of the block. Should the block fail full
-    validation, a separate success response code (202) is used to indicate that the block was
-    successfully broadcast but failed integration. For Deneb/Electra/Fulu, this additionally instructs
-    the beacon node to broadcast all given blobs. For Gloas and later, blobs are broadcast as part
-    of the `ExecutionPayloadEnvelope` and are not submitted with the block. The broadcast behaviour
-    may be adjusted via the `broadcast_validation` query parameter.
+    Instructs the beacon node to broadcast a newly signed beacon block to the beacon network, to be
+    included in the beacon chain. A success response (20x) indicates that the block passed gossip
+    validation and was successfully broadcast onto the network. The beacon node is also expected to
+    integrate the block into the state, but may broadcast it before doing so, so as to aid timely
+    delivery of the block. Should the block fail full validation, a separate success response code
+    (202) is used to indicate that the block was successfully broadcast but failed integration. For
+    Deneb/Electra/Fulu, this additionally instructs the beacon node to broadcast all given blobs.
+    For Gloas and later, blobs are broadcast as part of the `ExecutionPayloadEnvelope` and are not
+    submitted with the block. The broadcast behaviour may be adjusted via the `broadcast_validation`
+    query parameter.
   parameters:
     - name: broadcast_validation
       in: query
@@ -48,27 +48,17 @@ post:
       required: false
       description: |
         The `url` of the winning builder, as returned in the `Eth-Builder-Url` response header of
-        `produceBlockV4`. When `produceBlockV4` returns this header (and `Eth-Builder-Proxy` if
-        present), the validator MUST echo them here so the beacon node can forward the signed block to
-        the winning builder via the builder-API `submitSignedBeaconBlock`; without it the builder
-        never releases the execution payload. Omitted for a self-built block.
+        `produceBlockV4`. When `produceBlockV4` returns this header, the validator MUST echo it here
+        so the beacon node can push the signed block directly to the winning builder via the
+        builder-API `submitSignedBeaconBlock`, letting the builder release the execution payload
+        without waiting for the block to arrive over gossip. The echo is what makes this work for
+        stateless setups: a beacon node that did not serve the `produceBlockV4` request has no other
+        way to map the winning bid to a builder `url`. Omitted for a self-built block or a block won
+        by a p2p bid.
       schema:
         type: string
         format: uri
         example: "https://builder.example.com"
-    - name: Eth-Builder-Proxy
-      in: header
-      required: false
-      description: |
-        An optional proxy URL for the winning builder, as returned in the `Eth-Builder-Proxy`
-        response header of `produceBlockV4`. When set, the beacon node sends the request to this URL
-        and sets the `Eth-Builder-Url` header to the builder's `url` so the proxy can forward the
-        request to the intended builder; `Eth-Builder-Url` MUST therefore also be present. The
-        validator echoes this value whenever `produceBlockV4` returned an `Eth-Builder-Proxy`.
-      schema:
-        type: string
-        format: uri
-        example: "http://side-car:9001"
   requestBody:
     description: "The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature."
     required: true

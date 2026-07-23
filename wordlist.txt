@@ -48,3 +48,10 @@ stateful
 CGC
 RLP
 auth
+RequestAuthV
+SignedRequestAuthV
+BuilderEntryV
+BuilderPreferenceEntryV
+UTF
+uri
+publishBlockV

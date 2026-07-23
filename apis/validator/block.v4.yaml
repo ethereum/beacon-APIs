@@ -7,30 +7,31 @@ post:
   description: |
     Requests a beacon node to produce a valid block, which the validator then signs.
 
-    The beacon node always builds a local payload and considers any p2p bid. The validator optionally
-    supplies a list of `BuilderEntry` objects in the request body, one per external builder to also
-    request a bid from; the beacon node adds those bids to the comparison and returns the
-    highest-value candidate. It biases each builder's bid by the entry's `builder_boost_factor` and
-    rejects a bid that falls outside the entry's `min_bid` (floor) or `max_execution_payment` (ceiling
-    on the trusted execution payment). `builder_boost_factor` leans the choice toward the local
-    payload or a given builder without disabling either source.
+    The beacon node always builds a local payload and considers any p2p bid. The validator
+    optionally supplies a list of `BuilderEntry` objects in the request body, one per builder-API
+    `getExecutionPayloadBid` call to make; the beacon node adds those bids to the comparison and
+    returns the highest-value candidate. It biases each builder's bid by the entry's
+    `builder_boost_factor` and rejects a bid that falls outside the entry's `min_bid` (floor) or
+    `max_execution_payment` (ceiling on the trusted execution payment). `builder_boost_factor` leans
+    the choice toward the local payload or a given builder without disabling either source.
 
-    Post-Gloas, proposers submit execution payload bids rather than full execution payloads, so there
-    is no longer a blinded or unblinded distinction; builders release the payload later. This endpoint
-    is specific to the post-Gloas forks and is not backwards compatible with previous forks.
+    Post-Gloas, proposers submit execution payload bids rather than full execution payloads, so
+    there is no longer a blinded or unblinded distinction; builders release the payload later. This
+    endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
+    forks.
 
-    The beacon node returns the full block contents (beacon block, execution payload envelope, blobs,
-    and KZG proofs) only when it self-builds and `include_payload` is `true`; otherwise it returns only
-    the `BeaconBlock`. The `Eth-Execution-Payload-Included` header and `execution_payload_included`
-    field report which form was returned. For a block built on an external builder's bid the beacon
-    node has no payload to return, and the `Eth-Builder-Url` response header (and the optional
-    `Eth-Builder-Proxy`) identifies the winning builder for the validator to echo when publishing.
+    The beacon node returns the full block contents (beacon block, execution payload envelope,
+    blobs, and KZG proofs) only when it self-builds and `include_payload` is `true`; otherwise it
+    returns only the `BeaconBlock`. The `Eth-Execution-Payload-Included` header and
+    `execution_payload_included` field report which form was returned. For a block built on an
+    external builder's bid the beacon node has no payload to return, and the `Eth-Builder-Url`
+    response header identifies the winning builder for the validator to echo when publishing.
 
     The two outcomes publish differently and never overlap. For an external builder's bid, the
-    validator publishes the signed block via `publishBlockV2`, echoing the builder headers, and the
-    winning builder releases the execution payload envelope. For a self-built block, the validator
-    publishes the signed block via `publishBlockV2` and the execution payload envelope via
-    `publishExecutionPayloadEnvelope`.
+    validator publishes the signed block via `publishBlockV2`, echoing the `Eth-Builder-Url` header,
+    and the winning builder releases the execution payload envelope. For a self-built block, the
+    validator publishes the signed block via `publishBlockV2` and the execution payload envelope
+    via `publishExecutionPayloadEnvelope`.
   parameters:
     - name: slot
       in: path
@@ -65,39 +66,48 @@ post:
         beacon node (stateless operation: multi-BN setups, distributed validators, failover).
 
         When `false`, a self-built response returns only the beacon block, reporting
-        `Eth-Execution-Payload-Included: false`; the beacon node caches the execution payload envelope
-        and blobs. The validator retrieves the envelope via `getExecutionPayloadEnvelope`
-        (`GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`), signs it, and
-        publishes it via `publishExecutionPayloadEnvelope`, and the producing beacon node attaches its
-        cached blobs and KZG proofs before broadcasting. This sends fewer bytes but ties publishing to
-        that one beacon node (stateful operation).
+        `Eth-Execution-Payload-Included: false`; the beacon node caches the execution payload
+        envelope and blobs. The validator retrieves the envelope via `getExecutionPayloadEnvelope`
+        (`GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`), signs it,
+        and publishes it via `publishExecutionPayloadEnvelope`, and the producing beacon node
+        attaches its cached blobs and KZG proofs before broadcasting. This sends fewer bytes but
+        ties publishing to that one beacon node (stateful operation).
 
         This parameter is independent of the request body and only affects the self-built case: the
-        `BuilderEntry` list selects which external builders to consider, and when an external builder's
-        bid wins the beacon node returns only the beacon block regardless of this parameter (it does
-        not have that builder's execution payload).
+        `BuilderEntry` list selects which external builders to consider, and when an external
+        builder's bid wins the beacon node returns only the beacon block regardless of this
+        parameter (it does not have that builder's execution payload).
       schema:
         type: boolean
   requestBody:
     required: false
     description: |
-      An optional list of `BuilderEntry` objects, one per external builder to request a bid from,
-      added to the beacon node's local build and any p2p bid when selecting a payload. Each entry
-      names a concrete builder `url`, and no two entries may share the same `url`. For each entry the
-      beacon node contacts the builder at its `proxy` if set, otherwise at its `url`; forwards the
-      entry's `auth` unchanged; and applies the entry's `max_execution_payment`, `min_bid`, and
-      `builder_boost_factor` to that builder's own bid only. Each builder's bid is evaluated
-      independently under its own entry, and the highest-value candidate across those, the local
-      build, and any p2p bid wins; there is no cross-entry policy to reconcile. Malformed entries are
-      ignored rather than failing the request, so a single bad entry never blocks block production.
-      When the body is omitted or empty, or every entry is ignored, the beacon node contacts no
-      external builders and chooses between its local build and any p2p bid.
+      An optional list of `BuilderEntry` objects, one per builder-API `getExecutionPayloadBid` call
+      the beacon node should make, added to the beacon node's local build and any p2p bid when
+      selecting a bid. Each entry names the builder `url` to contact; multiple entries MAY share a
+      `url`, and the beacon node makes one `getExecutionPayloadBid` call per entry. For each entry
+      the beacon node contacts the builder at its `url`; forwards the entry's `auth` unchanged; and
+      applies the entry's `max_execution_payment`, `min_bid`, and `builder_boost_factor` to that
+      builder's own bid only. Each builder's bid is evaluated independently under its own entry, and
+      the highest-value candidate across those, the local build, and any p2p bid wins; there is no
+      cross-entry policy to reconcile. Malformed entries are ignored rather than failing the
+      request, so a single bad entry never blocks block production. When the body is omitted or
+      empty, or every entry is ignored, the beacon node contacts no external builders and chooses
+      between its local build and any p2p bid.
+
+      The body MAY be encoded as JSON (`Content-Type: application/json`) or SSZ
+      (`Content-Type: application/octet-stream`); the `BuilderEntry` list is not fork-versioned, so
+      no `Eth-Consensus-Version` header is required.
     content:
       application/json:
         schema:
           type: array
+          maxItems: 64  # MAX_BUILDER_ENTRIES
           items:
             $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderEntry"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[BuilderEntryV1, MAX_BUILDER_ENTRIES]` bytes (see the `BuilderEntry` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: Success response
@@ -110,27 +120,16 @@ post:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
         Eth-Builder-Url:
           description: |
-            When the winning bid came through the builder-API channel, the `url` of that builder. The
-            validator echoes this value in the `Eth-Builder-Url` request header when publishing the
-            signed block, so the beacon node can forward the block to the same builder via the
-            builder-API `submitSignedBeaconBlock`. Absent when the block was self-built or the winning
-            bid came from the p2p network.
+            When the winning bid came through the builder-API channel, the `url` of that builder.
+            The validator echoes this value in the `Eth-Builder-Url` request header when publishing
+            the signed block, so the beacon node can forward the block to the same builder via the
+            builder-API `submitSignedBeaconBlock`. Absent when the block was self-built or the
+            winning bid came from the p2p network.
           required: false
           schema:
             type: string
             format: uri
             example: "https://builder.example.com"
-        Eth-Builder-Proxy:
-          description: |
-            The proxy URL the beacon node used to reach the winning builder, when it reached the
-            builder through a proxy. The validator echoes it in the `Eth-Builder-Proxy` request header
-            when publishing. Present only alongside `Eth-Builder-Url`. Absent for a builder contacted
-            directly at its `url`, and for a self-built block.
-          required: false
-          schema:
-            type: string
-            format: uri
-            example: "http://side-car:9001"
       content:
         application/json:
           schema:
@@ -163,8 +162,8 @@ post:
             description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and payload inclusion indicated by `Eth-Execution-Payload-Included` header."
     "400":
       description: |
-        The request itself is invalid, for example an unparseable body, an invalid slot, or two
-        entries sharing the same `url`. An individual malformed `BuilderEntry` is ignored, not a 400.
+        The request itself is invalid, for example an unparseable body or an invalid slot. An
+        individual malformed `BuilderEntry` is ignored, not a 400.
       content:
         application/json:
           schema:
@@ -176,6 +175,8 @@ post:
                 message: "Invalid request to produce a block"
     "406":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
     "503":
