@@ -129,8 +129,8 @@ get:
                 type: string
                 example: "12345"
                 description: |
-                  Execution payload value in Wei. The local execution node payload value when
-                  self-building, or the builder bid value when committing to a builder bid.
+                  Execution payload value in Wei. The value of the local execution payload when
+                  self-building, or the builder's bid value when committing to a builder bid.
               execution_payload_included:
                 type: boolean
                 description: |
