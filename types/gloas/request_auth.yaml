@@ -1,7 +1,7 @@
 Gloas:
   RequestAuthV1:
     type: object
-    description: "The `RequestAuthV1` object from the [Builder API](https://ethereum.github.io/builder-specs/) Gloas spec."
+    description: "The [`RequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#requestauthv1) object from the Builder API Gloas spec."
     required: [data, slot]
     properties:
       data:
@@ -23,7 +23,7 @@ Gloas:
 
   SignedRequestAuthV1:
     type: object
-    description: "The `SignedRequestAuthV1` object from the [Builder API](https://ethereum.github.io/builder-specs/) Gloas spec."
+    description: "The [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec."
     required: [message, signature]
     properties:
       message:

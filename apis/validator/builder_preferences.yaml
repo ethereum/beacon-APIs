@@ -1,22 +1,14 @@
 post:
   operationId: "submitBuilderPreferences"
-  summary: "Submit builder preferences via the beacon node."
+  summary: Submit builder preferences
   description: |
-    Submits a proposer's per-builder preferences to the builders on the validator's behalf,
-    including the `max_execution_payment` the proposer is willing to accept from each. The validator
-    does not contact builders directly: for each `BuilderPreferenceEntry` the beacon node makes one
-    `submitBuilderPreferences` builder-API call, contacting the builder at its `url`, forwarding the
-    entry's `auth` unchanged, and submitting its `max_execution_payment`. The `pubkey` path
-    parameter is passed as the builder-API `proposer_pubkey`, and each entry's `auth.message.slot`
-    is the proposal slot the preferences apply to.
+    Submits a proposer's per-builder preferences on the validator client's behalf, one builder-API
+    preference submission per entry. The validator client does not contact builders directly. Each
+    entry's `auth.message.slot` is the proposal slot the preferences apply to.
 
     Validators MAY call this endpoint in the epoch prior to the epoch in which they will be
     proposing, as determined from `state.proposer_lookahead`, so that builders have the preferences
     before the bid request arrives.
-
-    The request body MAY be encoded as JSON (`Content-Type: application/json`) or SSZ
-    (`Content-Type: application/octet-stream`). It is not fork-versioned, so no
-    `Eth-Consensus-Version` header is required.
 
     This API is applicable from the Gloas fork onwards.
   parameters:
@@ -25,8 +17,8 @@ post:
       required: true
       description: |
         The BLS public key of the proposing validator whose preferences these are. The beacon node
-        passes it as the `proposer_pubkey` of each `submitBuilderPreferences` builder-API call, and
-        each entry's `auth` is signed by this key.
+        passes it as the `proposer_pubkey` of each builder-API preference submission, and each
+        entry's `auth` is signed by this key.
       schema:
         $ref: "../../types/primitive.yaml#/Pubkey"
   tags:
@@ -34,12 +26,9 @@ post:
   requestBody:
     required: true
     description: |
-      An array of `BuilderPreferenceEntry` objects, one per preference submission the beacon node
-      should make. Each entry names the builder `url` to contact; multiple entries MAY share a
-      `url`, and the beacon node makes one submission per entry. Inclusion is best-effort: the
-      beacon node submits each entry independently and skips any entry it cannot submit rather than
-      failing the whole request. Entries that were not submitted are reported by index in a 400
-      response.
+      The `BuilderPreferenceEntry` objects to submit. Inclusion is best-effort: the beacon node
+      submits each entry independently and skips any entry it cannot submit rather than failing the
+      whole request. Entries that were not submitted are reported by index in a 400 response.
     content:
       application/json:
         schema:
@@ -52,9 +41,9 @@ post:
           description: "SSZ serialized `List[BuilderPreferenceEntryV1, MAX_BUILDER_ENTRIES]` bytes (see the `BuilderPreferenceEntry` type description for the container). Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
-      description: "The beacon node completed every preference submission."
+      description: "Every entry was submitted"
     "400":
-      description: "The request itself is invalid (for example an unparseable body), or errors occurred with one or more preference submissions; failing entries are identified by index. Well-formed entries are still submitted."
+      description: "Invalid request, or errors with one or more preference submissions"
       content:
         application/json:
           schema:
