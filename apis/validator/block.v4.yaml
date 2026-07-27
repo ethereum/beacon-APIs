@@ -31,10 +31,11 @@ post:
     `include_payload` is `true`; in every other case, including any bid win, it carries only the
     `BeaconBlock`.
 
-    Every block is published via `POST /eth/v2/beacon/blocks`. `Eth-Execution-Payload-Source` says
-    what else the validator client must do: on `local` it publishes the execution payload envelope
-    via `POST /eth/v1/beacon/execution_payload_envelopes`, on `builder` it echoes `Eth-Builder-Url`
-    and the winning builder releases the envelope, and on `p2p` the bidding builder releases it.
+    Every block is published via `POST /eth/v2/beacon/blocks`. A self-built block carries
+    `BUILDER_INDEX_SELF_BUILD` as its `builder_index`, and the validator client publishes its
+    execution payload envelope via `POST /eth/v1/beacon/execution_payload_envelopes`. When a bid
+    won, the winning builder releases the envelope instead, and the validator client echoes
+    `Eth-Builder-Url` if one was returned.
 
     This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
     forks.
@@ -135,8 +136,6 @@ post:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
         Eth-Execution-Payload-Included:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
-        Eth-Execution-Payload-Source:
-          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Source'
         Eth-Builder-Url:
           description: |
             When the winning bid came through the builder-API channel, the `url` of that builder.
@@ -178,7 +177,7 @@ post:
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BlockContents"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`, payload inclusion indicated by `Eth-Execution-Payload-Included` header and payload origin by `Eth-Execution-Payload-Source` header."
+            description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and payload inclusion indicated by `Eth-Execution-Payload-Included` header."
     "400":
       description: "Invalid block production request"
       content:
