@@ -576,3 +576,12 @@ components:
       required: true
       schema:
         type: boolean
+    Eth-Execution-Payload-Source:
+      description: |
+        Where this block's execution payload comes from: `local` when the beacon node built it,
+        `builder` when a builder-API bid won, and `p2p` when a p2p bid won. Required in response so
+        client can determine whether it must publish the execution payload envelope itself.
+      required: true
+      schema:
+        type: string
+        enum: [local, builder, p2p]

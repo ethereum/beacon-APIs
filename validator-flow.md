@@ -22,17 +22,20 @@ If proposing block, then at immediate start of slot:
 1. Ask Beacon Node for BeaconBlock object:
    - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
    - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
-     - Optionally supply `BuilderEntry` objects in the request body to solicit builder-API bids.
+     - Optionally supply `BuilderEntry` objects in the request body to solicit builder-API bids and
+       to set per-builder policy, including for p2p bids.
      - `include_payload=true`: returns `BlockContents` (beacon block, execution payload envelope,
        blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When a bid wins, only the `BeaconBlock` is returned regardless of `include_payload`, and
        `Eth-Builder-Url` names the builder if the bid came through the builder-API channel.
+     - `Eth-Execution-Payload-Source` is `local`, `builder`, or `p2p`, and determines which of
+       steps 4 and 5 applies.
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature),
    echoing the `Eth-Builder-Url` header if one was returned
-4. Post-Gloas, if self-building (proposer's own bid included in block):
+4. Post-Gloas, if self-building (`Eth-Execution-Payload-Source: local`):
   - Stateless (`include_payload=true`): envelope and blobs are already available from step 1.
     Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
     (envelope + blobs + KZG proofs).
@@ -41,8 +44,8 @@ If proposing block, then at immediate start of slot:
     (beacon node attaches blobs and KZG proofs from its cache).
   - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
 
-5. Post-Gloas, if a bid won: nothing further. The winning builder releases the execution payload
-   envelope.
+5. Post-Gloas, if a bid won (`Eth-Execution-Payload-Source: builder` or `p2p`): nothing further.
+   The winning builder releases the execution payload envelope.
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.

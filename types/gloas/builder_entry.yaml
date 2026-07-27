@@ -2,9 +2,21 @@ Gloas:
   BuilderEntry:
     type: object
     description: |
-      A per-builder input the validator client supplies on a block-production request, one entry per
-      builder-API bid request the beacon node should make. `auth` is the
-      [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec.
+      A per-builder input the validator client supplies on a block-production request. At least one
+      of `url` and `builder_pubkey` MUST be present.
+
+      An entry that contains a `url` MUST also contain an `auth`, which the builder requires on
+      every request; the beacon node MUST NOT send a bid request for an entry that contains a
+      `url` without one.
+
+      Entries are distinguished by `url`, `auth`'s `data` and `builder_pubkey` taken together, where
+      an absent field matches only another absent field. Several entries MAY share a `url` with
+      different `data`, and one request is made per entry. A `builder_pubkey` MUST NOT appear on
+      more than one entry, since two entries naming the same builder would leave its p2p bids
+      subject to both; if one does, the beacon node applies the first such entry and ignores the
+      rest.
+
+      `auth` is the [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec.
 
       A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
       container and constants are:
@@ -15,27 +27,28 @@ Gloas:
           class BuilderEntryV1(Container):
               url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
               auth: SignedRequestAuthV1
-              pubkey: BLSPubkey
+              builder_pubkey: BLSPubkey
               max_execution_payment: Gwei
               min_bid: Gwei
               builder_boost_factor: uint64
 
-      SSZ cannot express absence, so an all-zero `pubkey`, which is not a valid BLS public key, is
-      treated as unset in either encoding.
-    required: [url, auth, max_execution_payment, min_bid, builder_boost_factor]
+      SSZ cannot express absence, so each optional field has a value that means unset in either
+      encoding: a zero-length `url`, an all-zero `builder_pubkey`, which is not a valid BLS public
+      key, and an `auth` whose `data` is zero-length and whose `signature` is all-zero.
+    required: [max_execution_payment, min_bid, builder_boost_factor]
     properties:
       url:
         type: string
         format: uri
         maxLength: 2048  # MAX_BUILDER_URL_SIZE
-        description: "The URL this entry's bid request is sent to. Multiple entries MAY share a `url`; the beacon node makes one request per entry."
+        description: "Where this entry's bid request is sent. Omit it to supply policy for this builder's p2p bids without requesting one."
         example: "https://builder.example.com"
       auth:
-        description: "Authenticates this request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
+        description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged. Required when `url` is present; omit it only on an entry that requests no bid."
         allOf:
           - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuthV1"
-      pubkey:
-        description: "Optional builder BLS public key. When set, bids not signed by it MUST NOT be accepted."
+      builder_pubkey:
+        description: "The builder's BLS public key. When set, a builder-API bid not signed by it MUST NOT be accepted, and this entry also applies to that builder's p2p bids."
         allOf:
           - $ref: "../primitive.yaml#/Pubkey"
       max_execution_payment:
@@ -55,9 +68,9 @@ Gloas:
               Percentage multiplier applied to this builder's bid once it has passed the
               `max_execution_payment` and `min_bid` checks, giving
               `builder_boost_factor * (builder_payload_value // 100)`, where
-              `builder_payload_value` is the bid's `value` plus its `execution_payment`. All
-              candidates are compared in Gwei and the highest boosted value wins, so a factor below
-              `100` favours the local payload and one above `100` favours this builder.
+              `builder_payload_value` is the bid's `value` plus its `execution_payment`. The
+              highest boosted bid competes with the local payload in Gwei, so a factor below `100`
+              favors the local payload and one above `100` favors this builder.
 
               Servers must support the following values, which encode common preferences:
 

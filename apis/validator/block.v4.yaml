@@ -9,23 +9,32 @@ post:
 
     The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
     even when no bid is available. The validator client optionally supplies a list of `BuilderEntry`
-    objects in the request body, one per builder-API bid request to make. Each builder's bid is
-    rejected if it falls outside its own entry's `min_bid` or `max_execution_payment`, and is then
-    boosted by that entry's `builder_boost_factor`. The highest boosted bid, the local build and any
-    p2p bid are compared in Gwei, and the highest wins.
+    objects in the request body, one per builder. Each entry contains `url`, `builder_pubkey`, or
+    both:
+    - `url` only: a bid is requested from that address, and this entry applies to the bid it
+      returns. That builder's p2p bids are not matched to this entry.
+    - `builder_pubkey` only: no bid is requested, and this entry applies to that builder's p2p bids.
+    - both: a bid is requested, this entry applies to the bid it returns and to that builder's p2p
+      bids, and a returned bid not signed by `builder_pubkey` MUST NOT be accepted.
+
+    A bid is rejected if its total payment falls below the `min_bid` that applies to it, or if its
+    trusted `execution_payment` exceeds the `max_execution_payment` that applies to it. Every
+    surviving bid is then boosted by the `builder_boost_factor` that applies to it, and the highest
+    boosted bid competes with the local build in Gwei. The local build wins a tie.
+
+    A p2p bid is matched to an entry by resolving its `builder_index` through the builder registry.
+    A bid matching no entry takes its `min_bid` and `builder_boost_factor` from the
+    `default_min_bid` and `default_builder_boost_factor` query parameters. A p2p bid promises no
+    trusted `execution_payment`, so `max_execution_payment` never constrains one.
 
     The response carries the full block contents only when the beacon node self-built the block and
     `include_payload` is `true`; in every other case, including any bid win, it carries only the
-    `BeaconBlock`. Response metadata reports which form was returned and, when a builder-API bid
-    won, which builder won it.
+    `BeaconBlock`.
 
-    Notes:
-    - A self-built block is published via `POST /eth/v2/beacon/blocks`, and its envelope via
-      `POST /eth/v1/beacon/execution_payload_envelopes`.
-    - A block won through the builder-API channel is published via `POST /eth/v2/beacon/blocks`
-      echoing `Eth-Builder-Url`, and the winning builder releases the envelope.
-    - A block won by a p2p bid is published via `POST /eth/v2/beacon/blocks` without the header,
-      and the bidding builder releases the envelope.
+    Every block is published via `POST /eth/v2/beacon/blocks`. `Eth-Execution-Payload-Source` says
+    what else the validator client must do: on `local` it publishes the execution payload envelope
+    via `POST /eth/v1/beacon/execution_payload_envelopes`, on `builder` it echoes `Eth-Builder-Url`
+    and the winning builder releases the envelope, and on `p2p` the bidding builder releases it.
 
     This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
     forks.
@@ -50,6 +59,27 @@ post:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
     - name: skip_randao_verification
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
+    - name: default_min_bid
+      in: query
+      required: false
+      description: |
+        Minimum total payment, in Gwei, accepted from a bid that matches no `BuilderEntry`, which in
+        practice is a bid received over p2p. A bid whose `value` plus `execution_payment` is below
+        this MUST be rejected. When omitted, the beacon node applies its own configured value. If
+        the value is provided but out of range for a 64-bit unsigned integer, then an error response
+        with status code 400 MUST be returned.
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: default_builder_boost_factor
+      in: query
+      required: false
+      description: |
+        Percentage multiplier applied to a bid that matches no `BuilderEntry`, exactly as a
+        `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry. When omitted,
+        the beacon node applies its own configured value. If the value is provided but out of range
+        for a 64-bit unsigned integer, then an error response with status code 400 MUST be returned.
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: include_payload
       in: query
       required: true
@@ -77,11 +107,14 @@ post:
   requestBody:
     required: false
     description: |
-      The `BuilderEntry` objects to solicit bids from. Each entry's `auth.message.slot` is the
-      `slot` this request is for; the builder rejects a mismatch, so an entry naming a different slot
-      is one the beacon node does not use. An entry the beacon node cannot use, for any reason, MUST
-      NOT fail the request; it simply yields no bid, so one bad entry never costs the proposer its
-      slot. When the body is omitted or empty, no external builders are contacted.
+      The `BuilderEntry` objects for this request. When an entry contains an `auth`, its
+      `auth.message.slot` is the `slot` this request is for; the builder rejects a mismatch, so an
+      entry naming a different slot is one the beacon node does not use for a bid request. A body
+      that cannot be decoded is invalid and MUST fail with a 400. Every other failure is per entry:
+      an entry the beacon node rejects, or whose builder does not answer, yields no bid and MUST
+      NOT fail the request, so one bad entry never costs the proposer its slot. An entry that
+      yields no bid still supplies policy for its builder's p2p bids when it contains a
+      `builder_pubkey`. When the body is omitted or empty, no external builders are contacted.
     content:
       application/json:
         schema:
@@ -102,6 +135,8 @@ post:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
         Eth-Execution-Payload-Included:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
+        Eth-Execution-Payload-Source:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Source'
         Eth-Builder-Url:
           description: |
             When the winning bid came through the builder-API channel, the `url` of that builder.
@@ -143,7 +178,7 @@ post:
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BlockContents"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and payload inclusion indicated by `Eth-Execution-Payload-Included` header."
+            description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version`, payload inclusion indicated by `Eth-Execution-Payload-Included` header and payload origin by `Eth-Execution-Payload-Source` header."
     "400":
       description: "Invalid block production request"
       content:
