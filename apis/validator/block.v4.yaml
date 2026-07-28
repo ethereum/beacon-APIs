@@ -8,9 +8,10 @@ post:
     Requests a beacon node to produce a valid block, which the validator then signs.
 
     The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
-    even when no bid is available. The validator client optionally supplies a list of `BuilderEntry`
-    objects in the request body, one per builder. Each entry contains `url`, `builder_pubkey`, or
-    both:
+    even when no bid is available. The validator client optionally supplies a `BuilderConfig` in the
+    request body: a list of `BuilderEntry` objects in its `builders` field, one per builder, plus a
+    top-level `min_bid` and `builder_boost_factor` that apply to a bid matching no entry. Each entry
+    contains `url`, `builder_pubkey`, or both:
     - `url` only: a bid is requested from that address, and this entry applies to the bid it
       returns.
     - `builder_pubkey` only: no bid is requested, and this entry applies to that builder's p2p bids.
