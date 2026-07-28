@@ -31,5 +31,5 @@ Gloas:
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
-          - description: "Maximum trusted execution-layer payment, in Gwei, submitted to this builder so it can shape its bid. The beacon node enforces the block-production `BuilderEntry` value when selecting a bid."
+          - description: "Maximum execution-layer payment, in Gwei, submitted to this builder so it can shape its bid."
             example: "1000000000"

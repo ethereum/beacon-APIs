@@ -52,7 +52,7 @@ Gloas:
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
-          - description: "Maximum trusted execution-layer payment, in Gwei, accepted from this builder. A bid promising more MUST be rejected."
+          - description: "Maximum execution-layer payment, in Gwei, the proposer will accept from this builder. Its effect on bid selection is specified in the builder-specs."
             example: "1000000000"
       min_bid:
         allOf:
@@ -64,7 +64,7 @@ Gloas:
           - $ref: "../primitive.yaml#/Uint64"
           - description: |
               Percentage multiplier applied to this builder's bid once it has passed the
-              `max_execution_payment` and `min_bid` checks, giving
+              `min_bid` check, giving
               `builder_boost_factor * (builder_payload_value // 100)`, where
               `builder_payload_value` is the bid's `value` plus its `execution_payment`. The
               highest boosted bid competes with the local payload in Gwei, so a factor below `100`
