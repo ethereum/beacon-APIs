@@ -501,6 +501,8 @@ components:
       $ref: "./types/gloas/request_auth.yaml#/Gloas/SignedRequestAuthV1"
     Gloas.BuilderEntry:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderEntry"
+    Gloas.BuilderConfig:
+      $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferenceEntry:
       $ref: "./types/gloas/builder_preference_entry.yaml#/Gloas/BuilderPreferenceEntry"
     Node:

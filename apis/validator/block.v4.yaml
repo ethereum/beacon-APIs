@@ -26,7 +26,7 @@ post:
 
     A p2p bid is matched to an entry with no `url` by resolving its `builder_index` through the
     builder registry. A bid matching no entry takes its `min_bid` and `builder_boost_factor` from
-    the `default_min_bid` and `default_builder_boost_factor` query parameters. A p2p bid promises
+    the body's top-level `min_bid` and `builder_boost_factor`. A p2p bid promises
     no trusted `execution_payment`, so `max_execution_payment` never constrains one.
 
     The response carries the full block contents only when the beacon node self-built the block and
@@ -62,27 +62,6 @@ post:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
     - name: skip_randao_verification
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
-    - name: default_min_bid
-      in: query
-      required: false
-      description: |
-        Minimum total payment, in Gwei, accepted from a bid that matches no `BuilderEntry`, which in
-        practice is a bid received over p2p. A bid whose `value` plus `execution_payment` is below
-        this MUST be rejected. When omitted, the beacon node applies its own configured value. If
-        the value is provided but out of range for a 64-bit unsigned integer, then an error response
-        with status code 400 MUST be returned.
-      schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
-    - name: default_builder_boost_factor
-      in: query
-      required: false
-      description: |
-        Percentage multiplier applied to a bid that matches no `BuilderEntry`, exactly as a
-        `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry. When omitted,
-        the beacon node applies its own configured value. If the value is provided but out of range
-        for a 64-bit unsigned integer, then an error response with status code 400 MUST be returned.
-      schema:
-        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: include_payload
       in: query
       required: true
@@ -110,24 +89,24 @@ post:
   requestBody:
     required: false
     description: |
-      The `BuilderEntry` objects for this request. When an entry contains an `auth`, its
-      `auth.message.slot` is the `slot` this request is for; the builder rejects a mismatch, so an
-      entry naming a different slot is one the beacon node does not use for a bid request. A body
-      that cannot be decoded is invalid and MUST fail with a 400. Every other failure is per entry:
-      an entry the beacon node rejects, or whose builder does not answer, yields no bid and MUST
-      NOT fail the request, so one bad entry never costs the proposer its slot. An entry with no
-      `url` yields no bid by design and still supplies policy for its builder's p2p bids. When the
-      body is omitted or empty, no external builders are contacted.
+      A `BuilderConfig` for this request: the builder entries to solicit bids from, plus the
+      top-level `min_bid` and `builder_boost_factor` that apply to a p2p bid matching no entry.
+      When an entry contains an `auth`, its `auth.message.slot` is the `slot` this request is for;
+      the builder rejects a mismatch, so an entry naming a different slot is one the beacon node
+      does not use for a bid request. A body that cannot be decoded is invalid and MUST fail with a
+      400. Every other failure is per entry: an entry the beacon node rejects, or whose builder does
+      not answer, yields no bid and MUST NOT fail the request, so one bad entry never costs the
+      proposer its slot. An entry with no `url` requests no bid by design but supplies policy
+      for its builder's p2p bids. When the body is omitted the validator client has supplied no
+      builder config, so the beacon node requests no bids and returns its locally built block. A
+      client that wants a bid considered, over the builder API or p2p, supplies a `BuilderConfig`.
     content:
       application/json:
         schema:
-          type: array
-          maxItems: 64  # MAX_BUILDER_ENTRIES
-          items:
-            $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderEntry"
+          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderConfig"
       application/octet-stream:
         schema:
-          description: "SSZ serialized `List[BuilderEntryV1, MAX_BUILDER_ENTRIES]` bytes (see the `BuilderEntry` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
+          description: "SSZ serialized `BuilderConfigV1` bytes (see the `BuilderConfig` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: Success response

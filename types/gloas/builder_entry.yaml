@@ -79,3 +79,35 @@ Gloas:
 
               Servers should use saturating arithmetic so that large values do not overflow.
             example: "100"
+  BuilderConfig:
+    type: object
+    description: |
+      The resolved per-key builder config the validator client sends on a block-production request.
+      Entries arrive fully resolved, so a requested bid is governed by its own `BuilderEntry`; the
+      top-level `min_bid` and `builder_boost_factor` apply only to a bid that matches no entry,
+      which in practice is a bid received over p2p.
+
+      Its SSZ container is:
+
+          class BuilderConfigV1(Container):
+              builders: List[BuilderEntryV1, MAX_BUILDER_ENTRIES]
+              min_bid: Gwei
+              builder_boost_factor: uint64
+    required: [builders, min_bid, builder_boost_factor]
+    properties:
+      builders:
+        type: array
+        maxItems: 64  # MAX_BUILDER_ENTRIES
+        description: "The builders to request bids from, one `BuilderEntry` each. Empty means request none, so only p2p bids are considered."
+        items:
+          $ref: "#/Gloas/BuilderEntry"
+      min_bid:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: "Minimum total payment, in Gwei, accepted from a bid that matches no entry, which in practice is a p2p bid. A bid whose `value` plus `execution_payment` is below this MUST be rejected."
+            example: "10000000"
+      builder_boost_factor:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "Percentage multiplier applied to a bid that matches no entry, exactly as a `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry."
+            example: "100"
