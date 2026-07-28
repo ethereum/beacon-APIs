@@ -45465,6 +45465,14 @@ paths:
               schema:
                 type: string
                 example: '1'
+            Eth-Execution-Payload-Value:
+              description: |
+                Execution payload value in Wei. Required in response so client can determine relative value
+                of execution payloads.
+              required: true
+              schema:
+                type: string
+                example: '1'
             Eth-Execution-Payload-Included:
               description: |
                 Indicates whether the execution payload envelope, blobs, and KZG proofs are included in the response. Required in response so client can deserialize returned data.
@@ -45479,6 +45487,7 @@ paths:
                 required:
                   - version
                   - consensus_block_value
+                  - execution_payload_value
                   - execution_payload_included
                   - data
                 properties:
@@ -45491,6 +45500,12 @@ paths:
                     type: string
                     example: '12345'
                     description: Consensus rewards for this block in Wei
+                  execution_payload_value:
+                    type: string
+                    example: '12345'
+                    description: |
+                      Execution payload value in Wei. The value of the local execution payload when
+                      self-building, or the total value of the bid when committing to a builder bid.
                   execution_payload_included:
                     type: boolean
                     description: |
