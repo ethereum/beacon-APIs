@@ -1,23 +1,28 @@
 Gloas:
-  BuilderPreferenceEntry:
+  BuilderPreferencesEntry:
     type: object
     description: |
       A per-builder preference the validator client asks the beacon node to submit ahead of the bid
-      request, one entry per submission. Unlike the block-production `BuilderEntry` it carries only
-      what a builder may see: `min_bid` and `builder_boost_factor` are the proposer's private
-      bid-filtering strategy and are never sent to a builder.
+      request, one entry per builder per proposer. A single submission batches these across the
+      validator client's proposers, so each entry names the proposer it belongs to in
+      `proposer_pubkey`. It is a dedicated type, distinct from the block-production `BuilderEntry`.
 
       The entry pairs the beacon node's routing with the payload the builder receives, so like
       `BuilderEntry` it has no Builder API definition. Its SSZ container uses that type's constants
       and the
       [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec:
 
-          class BuilderPreferenceEntryV1(Container):
+          class BuilderPreferencesEntry(Container):
+              proposer_pubkey: BLSPubkey  # the proposer these preferences belong to
               url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
-              auth: SignedRequestAuthV1
+              auth: SignedRequestAuth
               max_execution_payment: Gwei
-    required: [url, auth, max_execution_payment]
+    required: [proposer_pubkey, url, auth, max_execution_payment]
     properties:
+      proposer_pubkey:
+        description: "The BLS public key of the proposer these preferences apply to."
+        allOf:
+          - $ref: "../primitive.yaml#/Pubkey"
       url:
         type: string
         format: uri
@@ -27,7 +32,7 @@ Gloas:
       auth:
         description: "Authenticates this submission to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
         allOf:
-          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuthV1"
+          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuth"
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"

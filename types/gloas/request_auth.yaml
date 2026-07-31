@@ -1,5 +1,5 @@
 Gloas:
-  RequestAuthV1:
+  RequestAuth:
     type: object
     description: "The [`RequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#requestauthv1) object from the Builder API Gloas spec."
     required: [data, slot]
@@ -21,12 +21,12 @@ Gloas:
           - $ref: "../primitive.yaml#/Uint64"
           - description: "The proposal slot this request is authorized for."
 
-  SignedRequestAuthV1:
+  SignedRequestAuth:
     type: object
     description: "The [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec."
     required: [message, signature]
     properties:
       message:
-        $ref: "#/Gloas/RequestAuthV1"
+        $ref: "#/Gloas/RequestAuth"
       signature:
         $ref: "../primitive.yaml#/Signature"

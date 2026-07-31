@@ -224,7 +224,7 @@ paths:
     $ref: "./apis/validator/register_validator.yaml"
   /eth/v1/validator/proposer_preferences:
     $ref: "./apis/validator/proposer_preferences.yaml"
-  /eth/v1/validator/builder_preferences/{pubkey}:
+  /eth/v1/validator/builder_preferences:
     $ref: "./apis/validator/builder_preferences.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
@@ -495,16 +495,16 @@ components:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
     Gloas.DataColumnSidecars:
       $ref: "./types/gloas/data_column_sidecar.yaml#/Gloas/DataColumnSidecars"
-    Gloas.RequestAuthV1:
-      $ref: "./types/gloas/request_auth.yaml#/Gloas/RequestAuthV1"
-    Gloas.SignedRequestAuthV1:
-      $ref: "./types/gloas/request_auth.yaml#/Gloas/SignedRequestAuthV1"
+    Gloas.RequestAuth:
+      $ref: "./types/gloas/request_auth.yaml#/Gloas/RequestAuth"
+    Gloas.SignedRequestAuth:
+      $ref: "./types/gloas/request_auth.yaml#/Gloas/SignedRequestAuth"
     Gloas.BuilderEntry:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderEntry"
     Gloas.BuilderConfig:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
-    Gloas.BuilderPreferenceEntry:
-      $ref: "./types/gloas/builder_preference_entry.yaml#/Gloas/BuilderPreferenceEntry"
+    Gloas.BuilderPreferencesEntry:
+      $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

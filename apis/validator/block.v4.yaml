@@ -105,7 +105,7 @@ post:
           $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderConfig"
       application/octet-stream:
         schema:
-          description: "SSZ serialized `BuilderConfigV1` bytes (see the `BuilderConfig` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
+          description: "SSZ serialized `BuilderConfig` bytes (see the `BuilderConfig` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: Success response
