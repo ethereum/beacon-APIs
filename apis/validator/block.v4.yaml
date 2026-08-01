@@ -114,6 +114,8 @@ post:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
         Eth-Consensus-Block-Value:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
+        Eth-Execution-Payload-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Value'
         Eth-Execution-Payload-Included:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
         Eth-Builder-Url:
@@ -133,7 +135,7 @@ post:
           schema:
             title: "ProduceBlockV4Response"
             type: object
-            required: [version, consensus_block_value, execution_payload_included, data]
+            required: [version, consensus_block_value, execution_payload_value, execution_payload_included, data]
             properties:
               version:
                 type: string
@@ -143,6 +145,12 @@ post:
                 type: string
                 example: "12345"
                 description: "Consensus rewards for this block in Wei"
+              execution_payload_value:
+                type: string
+                example: "12345"
+                description: |
+                  Execution payload value in Wei. The value of the local execution payload when
+                  self-building, or the total value of the bid when committing to a builder bid.
               execution_payload_included:
                 type: boolean
                 description: |
