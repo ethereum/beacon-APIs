@@ -65,8 +65,8 @@ Gloas:
           - description: |
               Percentage multiplier applied to this builder's bid once it has passed the
               `min_bid` check, giving
-              `builder_boost_factor * (builder_payload_value // 100)`, where
-              `builder_payload_value` is the bid's `value` plus its `execution_payment`. The
+              `builder_boost_factor * (builder_bid_value // 100)`, where
+              `builder_bid_value` is the bid's `value` plus its `execution_payment`. The
               highest boosted bid competes with the local payload in Gwei, so a factor below `100`
               favors the local payload and one above `100` favors this builder.
 
@@ -90,17 +90,11 @@ Gloas:
       Its SSZ container is:
 
           class BuilderConfig(Container):
-              builders: List[BuilderEntry, MAX_BUILDER_ENTRIES]
               min_bid: Gwei
               builder_boost_factor: uint64
-    required: [builders, min_bid, builder_boost_factor]
+              builders: List[BuilderEntry, MAX_BUILDER_ENTRIES]
+    required: [min_bid, builder_boost_factor, builders]
     properties:
-      builders:
-        type: array
-        maxItems: 64  # MAX_BUILDER_ENTRIES
-        description: "The builders to request bids from, one `BuilderEntry` each. Empty means request none, so only p2p bids are considered."
-        items:
-          $ref: "#/Gloas/BuilderEntry"
       min_bid:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
@@ -111,3 +105,9 @@ Gloas:
           - $ref: "../primitive.yaml#/Uint64"
           - description: "Percentage multiplier applied to a bid that matches no entry, exactly as a `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry."
             example: "100"
+      builders:
+        type: array
+        maxItems: 64  # MAX_BUILDER_ENTRIES
+        description: "The builders to request bids from, one `BuilderEntry` each. Empty means request none, so only p2p bids are considered."
+        items:
+          $ref: "#/Gloas/BuilderEntry"

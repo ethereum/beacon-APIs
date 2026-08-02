@@ -65,21 +65,18 @@ post:
       in: query
       required: true
       description: |
-        Whether a self-built block's response carries the execution payload inline, or omits it for
-        the beacon node to cache and the validator client to retrieve separately.
+        Controls whether the execution payload envelope and blobs are included in the response
+        when self-building (using local execution payload).
 
-        When `true`, a self-built response includes the full block contents (beacon block, execution
-        payload envelope, blobs, and KZG proofs) and reports `Eth-Execution-Payload-Included: true`.
-        The validator client holds the whole payload, so it can sign and publish the envelope through
-        any beacon node (stateless operation: multi-BN setups, distributed validators, failover).
+        When `true`, the response includes the full block contents: beacon block,
+        execution payload envelope, blobs, and KZG proofs. This enables stateless operation
+        where the validator client can use multiple beacon nodes (multi-BN setups, distributed validators, failover).
 
-        When `false`, a self-built response returns only the beacon block, reporting
-        `Eth-Execution-Payload-Included: false`; the beacon node caches the execution payload
-        envelope and blobs. The validator client retrieves the envelope via
-        `GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`, signs it, and
-        publishes it via `POST /eth/v1/beacon/execution_payload_envelopes`, and the producing beacon
-        node attaches its cached blobs and KZG proofs before broadcasting. This sends fewer bytes but
-        ties publishing to that one beacon node (stateful operation).
+        When `false`, only the beacon block is returned and the beacon node caches the execution
+        payload envelope and blobs internally. The validator client must then fetch them separately
+        via `GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`. This saves
+        bandwidth but requires the validator client to publish via the same beacon node that
+        produced the block (stateful operation).
 
         This parameter affects the self-built case only. When a bid wins, the beacon node does not
         hold that payload, so it returns only the beacon block regardless of this parameter.
