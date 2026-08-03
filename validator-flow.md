@@ -23,8 +23,8 @@ If proposing block, then at immediate start of slot:
    - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
    - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
      - Optionally supply a `BuilderConfig` in the request body: the builder entries to solicit
-       builder-API bids and set per-builder policy, plus the top-level `min_bid` and
-       `builder_boost_factor` that apply to p2p bids matching no entry.
+       builder-API bids, plus the top-level `min_bid` and `builder_boost_factor` that apply to
+       p2p bids.
      - `include_payload=true`: returns `BlockContents` (beacon block, execution payload envelope,
        blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload

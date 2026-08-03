@@ -9,24 +9,14 @@ post:
 
     The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
     even when no bid is available. The validator client optionally supplies a `BuilderConfig` in the
-    request body: a list of `BuilderEntry` objects in its `builders` field, one per builder, plus a
-    top-level `min_bid` and `builder_boost_factor` that apply to a bid matching no entry. Each entry
-    contains `url`, `builder_pubkey`, or both:
-    - `url` only: a bid is requested from that address, and this entry applies to the bid it
-      returns.
-    - `builder_pubkey` only: no bid is requested, and this entry applies to that builder's p2p bids.
-    - both: a bid is requested and this entry applies to the bid it returns, which MUST NOT be
-      accepted unless signed by `builder_pubkey`.
-
-    p2p policy comes only from entries with no `url`.
+    request body: a list of `BuilderEntry` objects in its `builders` field, one per bid request,
+    plus a top-level `min_bid` and `builder_boost_factor` that apply to p2p bids. Each entry
+    requests a bid from its `url`, and the entry applies to the bid that request returns; when the
+    entry also contains a `builder_pubkey`, that bid MUST NOT be accepted unless signed by it.
 
     A bid is rejected if its total payment falls below the `min_bid` that applies to it. Every
     surviving bid is then boosted by the `builder_boost_factor` that applies to it, and the highest
     boosted bid competes with the local build in Gwei. The local build wins a tie.
-
-    A p2p bid is matched to an entry with no `url` by resolving its `builder_index` through the
-    builder registry. A bid matching no entry takes its `min_bid` and `builder_boost_factor` from
-    the body's top-level `min_bid` and `builder_boost_factor`.
 
     The response carries the full block contents only when the beacon node self-built the block and
     `include_payload` is `true`; in every other case, including any bid win, it carries only the
@@ -86,14 +76,13 @@ post:
     required: false
     description: |
       A `BuilderConfig` for this request: the builder entries to solicit bids from, plus the
-      top-level `min_bid` and `builder_boost_factor` that apply to a p2p bid matching no entry.
-      When an entry contains an `auth`, its `auth.message.slot` is the `slot` this request is for;
+      top-level `min_bid` and `builder_boost_factor` that apply to p2p bids.
+      Each entry's `auth.message.slot` is the `slot` this request is for;
       the builder rejects a mismatch, so an entry naming a different slot is one the beacon node
       does not use for a bid request. A body that cannot be decoded is invalid and MUST fail with a
       400. Every other failure is per entry: an entry the beacon node rejects, or whose builder does
       not answer, yields no bid and MUST NOT fail the request, so one bad entry never costs the
-      proposer its slot. An entry with no `url` requests no bid by design but supplies policy
-      for its builder's p2p bids. When the body is omitted the validator client has supplied no
+      proposer its slot. When the body is omitted the validator client has supplied no
       builder config, so the beacon node requests no bids and returns its locally built block. A
       client that wants a bid considered, over the builder API or p2p, supplies a `BuilderConfig`.
     content:

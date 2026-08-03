@@ -2,17 +2,12 @@ Gloas:
   BuilderEntry:
     type: object
     description: |
-      A per-builder input the validator client supplies on a block-production request. At least one
-      of `url` and `builder_pubkey` MUST be present.
+      A per-builder input the validator client supplies on a block-production request.
 
-      An entry that contains a `url` is a bid request. It MUST also contain an `auth`, which the
-      builder requires on every request, and the beacon node MUST NOT send a request for an entry
-      that has a `url` without one. No two such entries may share both that `url` and their
+      Each entry is a bid request sent to its `url`, authenticated by its `auth`, which the
+      builder requires on every request. No two entries may share both their `url` and their
       `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
       different `data`.
-
-      An entry with no `url` supplies p2p policy instead, and no two of them may share a
-      `builder_pubkey`; if they do, the beacon node applies the first and ignores the rest.
 
       `auth` is the [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec.
 
@@ -30,23 +25,23 @@ Gloas:
               min_bid: Gwei
               builder_boost_factor: uint64
 
-      SSZ cannot express absence, so each optional field has a value that means unset in either
-      encoding: a zero-length `url`, an all-zero `builder_pubkey`, which is not a valid BLS public
-      key, and an `auth` whose `data` is zero-length and whose `signature` is all-zero.
-    required: [max_execution_payment, min_bid, builder_boost_factor]
+      SSZ cannot express absence, so an unset `builder_pubkey` is all-zero, which is not a valid
+      BLS public key. A zero-length `url` is equivalent to omitting it, so a body containing one is
+      invalid.
+    required: [url, auth, max_execution_payment, min_bid, builder_boost_factor]
     properties:
       url:
         type: string
         format: uri
         maxLength: 2048  # MAX_BUILDER_URL_SIZE
-        description: "Where this entry's bid request is sent. Omit it to supply policy for this builder's p2p bids without requesting one."
+        description: "Where this entry's bid request is sent."
         example: "https://builder.example.com"
       auth:
-        description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged. Required when `url` is present; omit it only on an entry that requests no bid."
+        description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
         allOf:
           - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuth"
       builder_pubkey:
-        description: "The builder's BLS public key. On an entry with a `url` it filters the response: a builder-API bid not signed by it MUST NOT be accepted. On an entry without one it identifies the builder whose p2p bids this entry applies to."
+        description: "The builder's BLS public key. When present it filters the response: a builder-API bid not signed by it MUST NOT be accepted."
         allOf:
           - $ref: "../primitive.yaml#/Pubkey"
       max_execution_payment:
@@ -84,8 +79,7 @@ Gloas:
     description: |
       The resolved per-key builder config the validator client sends on a block-production request.
       Entries arrive fully resolved, so a requested bid is governed by its own `BuilderEntry`; the
-      top-level `min_bid` and `builder_boost_factor` apply only to a bid that matches no entry,
-      which in practice is a bid received over p2p.
+      top-level `min_bid` and `builder_boost_factor` apply to bids received over p2p.
 
       Its SSZ container is:
 
@@ -98,12 +92,12 @@ Gloas:
       min_bid:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
-          - description: "Minimum total payment, in Gwei, accepted from a bid that matches no entry, which in practice is a p2p bid. A bid whose `value` plus `execution_payment` is below this MUST be rejected."
+          - description: "Minimum total payment, in Gwei, accepted from a p2p bid. A bid whose `value` plus `execution_payment` is below this MUST be rejected."
             example: "10000000"
       builder_boost_factor:
         allOf:
           - $ref: "../primitive.yaml#/Uint64"
-          - description: "Percentage multiplier applied to a bid that matches no entry, exactly as a `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry."
+          - description: "Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry."
             example: "100"
       builders:
         type: array
