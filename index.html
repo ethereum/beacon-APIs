@@ -44,16 +44,15 @@
     <script src="./dist/swagger-ui-bundle.js"> </script>
     <script src="./dist/swagger-ui-standalone-preset.js"> </script>
     <script>
-    // A plugin to render the schema description for binary media types in the RequestBody component.
+    // A plugin to render the schema description for application/octet-stream in the RequestBody component,
     // rather than showing "Example values are not available for <type> media types."
     const RequestBodySchemaDescription = () => ({
       wrapComponents: {
         RequestBody: (Original, system) => (props) => {
           const React = system.React
           const contentType = props.contentType || ""
-          const isBinaryMediaType = ["application/octet-stream", "image/", "audio/", "video/"]
-            .some((mediaType) => contentType.startsWith(mediaType))
-          const description = isBinaryMediaType && props.requestBody
+          const isOctetStreamType = contentType.startsWith("application/octet-stream")
+          const description = isOctetStreamType && props.requestBody
             ? props.requestBody.getIn(["content", contentType, "schema", "description"])
             : null
           if (!description) {
