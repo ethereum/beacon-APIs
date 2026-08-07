@@ -20640,7 +20640,7 @@ paths:
                         maxItems: 128
             application/octet-stream:
               schema:
-                description: SSZ serialized `DataColumnSidecars` bytes. Use Accept header to choose this response type
+                description: 'SSZ serialized `List[DataColumnSidecar, NUMBER_OF_COLUMNS]` bytes. Use Accept header to choose this response type'
         '400':
           description: The block ID supplied could not be parsed
           content:
