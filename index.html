@@ -44,6 +44,29 @@
     <script src="./dist/swagger-ui-bundle.js"> </script>
     <script src="./dist/swagger-ui-standalone-preset.js"> </script>
     <script>
+    // A plugin to render the schema description for application/octet-stream in the RequestBody component,
+    // rather than showing "Example values are not available for <type> media types."
+    const RequestBodySchemaDescription = () => ({
+      wrapComponents: {
+        RequestBody: (Original, system) => (props) => {
+          const React = system.React
+          const contentType = props.contentType || ""
+          const isOctetStreamType = contentType.startsWith("application/octet-stream")
+          const description = isOctetStreamType && props.requestBody
+            ? props.requestBody.getIn(["content", contentType, "schema", "description"])
+            : null
+          if (!description) {
+            return React.createElement(Original, props)
+          }
+          const Markdown = system.getComponent("Markdown", true)
+          return React.createElement("div", null,
+            React.createElement("div", {className: "request-body-schema-description"},
+              React.createElement(Markdown, {source: description})),
+            React.createElement(Original, props))
+        }
+      }
+    })
+
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
@@ -70,7 +93,8 @@
           SwaggerUIStandalonePreset
         ],
         plugins: [
-          SwaggerUIBundle.plugins.DownloadUrl
+          SwaggerUIBundle.plugins.DownloadUrl,
+          RequestBodySchemaDescription
         ],
         layout: "StandaloneLayout"
    })
