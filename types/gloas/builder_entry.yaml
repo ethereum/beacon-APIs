@@ -97,7 +97,12 @@ Gloas:
       builder_boost_factor:
         allOf:
           - $ref: "../primitive.yaml#/Uint64"
-          - description: "Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s `builder_boost_factor` is applied to a bid from that entry."
+          - description: |
+              Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s
+              `builder_boost_factor` is applied to a bid from that entry: `0` prefers the local
+              payload, `100` is profit maximization, and `2**64 - 1` prefers the bid, each unless
+              an error or health check makes the preferred payload unviable. Servers should use
+              saturating arithmetic so that large values do not overflow.
             example: "100"
       builders:
         type: array

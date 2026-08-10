@@ -8,7 +8,7 @@ post:
     Requests a beacon node to produce a valid block, which the validator then signs.
 
     The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
-    even when no bid is available. The validator client optionally supplies a `BuilderConfig` in the
+    even when no bid is available. The validator client supplies a `BuilderConfig` in the
     request body: a list of `BuilderEntry` objects in its `builders` field, one per bid request,
     plus a top-level `min_bid` and `builder_boost_factor` that apply to p2p bids. Each entry
     requests a bid from its `url`, and the entry applies to the bid that request returns; when the
@@ -72,19 +72,25 @@ post:
         hold that payload, so it returns only the beacon block regardless of this parameter.
       schema:
         type: boolean
+    - in: header
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the request belongs."
   requestBody:
-    required: false
+    required: true
     description: |
       A `BuilderConfig` for this request: the builder entries to solicit bids from, plus the
       top-level `min_bid` and `builder_boost_factor` that apply to p2p bids.
       Each entry's `auth.message.slot` is the `slot` this request is for;
       the builder rejects a mismatch, so an entry naming a different slot is one the beacon node
-      does not use for a bid request. A body that cannot be decoded is invalid and MUST fail with a
-      400. Every other failure is per entry: an entry the beacon node rejects, or whose builder does
-      not answer, yields no bid and MUST NOT fail the request, so one bad entry never costs the
-      proposer its slot. When the body is omitted the validator client has supplied no
-      builder config, so the beacon node requests no bids and returns its locally built block. A
-      client that wants a bid considered, over the builder API or p2p, supplies a `BuilderConfig`.
+      does not use for a bid request. A missing body, or one that cannot be decoded, is invalid and
+      MUST fail with a 400. Every other failure is per entry: an entry the beacon node rejects, or
+      whose builder does not answer, yields no bid and MUST NOT fail the request, so one bad entry
+      never costs the proposer its slot. A local-preferred build is requested with an empty
+      `builders` list and a `builder_boost_factor` of `0`, which prefers the local payload unless
+      an error makes it unviable.
     content:
       application/json:
         schema:
