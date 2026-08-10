@@ -17,6 +17,8 @@ Gloas:
               url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
               auth: SignedRequestAuth
               max_execution_payment: Gwei
+
+      In either encoding, a zero-length `url` is invalid.
     required: [proposer_pubkey, url, auth, max_execution_payment]
     properties:
       proposer_pubkey:

@@ -13,9 +13,9 @@ Gloas:
           exact bytes when it verifies. When no value has been agreed out of band, implementations
           SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
           advertised, so proposers with no prior relationship can construct an identical `data`
-          deterministically.
+          deterministically. A zero-length `data` is invalid.
         example: "0x1234567890abcdef"
-        pattern: "^0x(?:[a-fA-F0-9]{2}){0,4096}$"
+        pattern: "^0x(?:[a-fA-F0-9]{2}){1,4096}$"
       slot:
         allOf:
           - $ref: "../primitive.yaml#/Uint64"
