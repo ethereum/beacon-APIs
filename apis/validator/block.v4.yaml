@@ -8,25 +8,27 @@ post:
     Requests a beacon node to produce a valid block, which the validator then signs.
 
     The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
-    even when no bid is available. The validator client supplies a `BuilderConfig` in the
+    even when no builder bid is available. The validator client supplies a `BuilderConfig` in the
     request body: a list of `BuilderEntry` objects in its `builders` field, one per bid request,
     plus a top-level `min_bid` and `builder_boost_factor` that apply to p2p bids. Each entry
-    requests a bid from its `url`, and the entry applies to the bid that request returns; when the
-    entry also contains a `builder_pubkey`, that bid MUST NOT be accepted unless signed by it.
+    requests a bid from its `url`, and the entry applies to the bid that request returns; an empty
+    `builder_pubkeys` list accepts any builder, and a bid MUST NOT be accepted unless signed by
+    one of a non-empty list.
 
-    A bid is rejected if its total payment falls below the `min_bid` that applies to it. Every
-    surviving bid is then boosted by the `builder_boost_factor` that applies to it, and the highest
-    boosted bid competes with the local build in Gwei. The local build wins a tie.
+    A builder bid, over the builder API or p2p, is rejected if its total payment falls below the
+    `min_bid` that applies to it. Every surviving bid is then boosted by the
+    `builder_boost_factor` that applies to it, and the
+    highest boosted bid competes with the local build in Gwei. The local build wins a tie.
 
     The response carries the full block contents only when the beacon node self-built the block and
-    `include_payload` is `true`; in every other case, including any bid win, it carries only the
-    `BeaconBlock`.
+    `include_payload` is `true`; in every other case, including any builder bid win, it carries
+    only the `BeaconBlock`.
 
     Every block is published via `POST /eth/v2/beacon/blocks`. A self-built block carries
     `BUILDER_INDEX_SELF_BUILD` as its `builder_index`, and the validator client publishes its
-    execution payload envelope via `POST /eth/v1/beacon/execution_payload_envelopes`. When a bid
-    won, the winning builder releases the envelope instead, and the validator client echoes
-    `Eth-Builder-Url` if one was returned.
+    execution payload envelope via `POST /eth/v1/beacon/execution_payload_envelopes`. When a
+    builder bid won, the winning builder releases the envelope instead, and the validator client
+    echoes `Eth-Builder-Url` if one was returned.
 
     This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
     forks.
@@ -68,8 +70,9 @@ post:
         bandwidth but requires the validator client to publish via the same beacon node that
         produced the block (stateful operation).
 
-        This parameter affects the self-built case only. When a bid wins, the beacon node does not
-        hold that payload, so it returns only the beacon block regardless of this parameter.
+        This parameter affects the self-built case only. When a builder bid wins, the beacon node
+        does not hold that payload, so it returns only the beacon block regardless of this
+        parameter.
       schema:
         type: boolean
     - in: header
@@ -142,7 +145,7 @@ post:
                 example: "12345"
                 description: |
                   Execution payload value in Wei. The value of the local execution payload when
-                  self-building, or the total value of the bid when committing to a builder bid.
+                  self-building, or the total value of the builder bid when committing to one.
               execution_payload_included:
                 type: boolean
                 description: |

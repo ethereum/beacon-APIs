@@ -16,19 +16,18 @@ Gloas:
 
           MAX_BUILDER_ENTRIES = 64
           MAX_BUILDER_URL_SIZE = 2048
+          MAX_BUILDER_PUBKEYS = 64
 
           class BuilderEntry(Container):
               url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
               auth: SignedRequestAuth
-              builder_pubkey: BLSPubkey
+              builder_pubkeys: List[BLSPubkey, MAX_BUILDER_PUBKEYS]
               max_execution_payment: Gwei
               min_bid: Gwei
               builder_boost_factor: uint64
 
-      SSZ cannot express absence, so an unset `builder_pubkey` is all-zero, which is not a valid
-      BLS public key. A zero-length `url` is equivalent to omitting it, so a body containing one is
-      invalid.
-    required: [url, auth, max_execution_payment, min_bid, builder_boost_factor]
+      In either encoding, a zero-length `url` is invalid.
+    required: [url, auth, builder_pubkeys, max_execution_payment, min_bid, builder_boost_factor]
     properties:
       url:
         type: string
@@ -37,13 +36,17 @@ Gloas:
         description: "Where this entry's bid request is sent."
         example: "https://builder.example.com"
       auth:
-        description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
         allOf:
           - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuth"
-      builder_pubkey:
-        description: "The builder's BLS public key. When present it filters the response: a builder-API bid not signed by it MUST NOT be accepted."
-        allOf:
-          - $ref: "../primitive.yaml#/Pubkey"
+          - description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
+      builder_pubkeys:
+        type: array
+        maxItems: 64  # MAX_BUILDER_PUBKEYS
+        description: "The builder BLS public keys this entry accepts bids from. Empty accepts any builder; otherwise a bid not signed by one of them MUST NOT be accepted."
+        items:
+          allOf:
+            - $ref: "../primitive.yaml#/Pubkey"
+            - description: "A builder's BLS public key."
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
