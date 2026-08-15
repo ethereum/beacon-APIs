@@ -9,7 +9,7 @@ Gloas:
       `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
       different `data`.
 
-      `auth` is the [`SignedRequestAuthV1`](https://github.com/ethereum/builder-specs/blob/78a5546d9d8253beabf7db8baf988a58abdec87f/specs/gloas/validator.md#signedrequestauthv1) object from the Builder API Gloas spec.
+      `auth` is the [`SignedRequestAuth`](https://github.com/ethereum/builder-specs/blob/master/specs/gloas/validator.md#signedrequestauth) object from the Builder API Gloas spec.
 
       A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
       container and constants are:
