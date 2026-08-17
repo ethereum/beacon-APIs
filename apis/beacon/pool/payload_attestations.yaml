@@ -33,7 +33,7 @@ get:
                   $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestation"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[PayloadAttestation, MAX_PAYLOAD_ATTESTATIONS]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `ProgressiveList[PayloadAttestation]` bytes. Use Accept header to choose this response type"
     "400":
       description: "The slot could not be parsed"
       content:
