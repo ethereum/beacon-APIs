@@ -30250,7 +30250,7 @@ paths:
                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
             application/octet-stream:
               schema:
-                description: 'SSZ serialized `List[PayloadAttestation, MAX_PAYLOAD_ATTESTATIONS]` bytes. Use Accept header to choose this response type'
+                description: 'SSZ serialized `ProgressiveList[PayloadAttestation]` bytes. Use Accept header to choose this response type'
         '400':
           description: The slot could not be parsed
           content:
