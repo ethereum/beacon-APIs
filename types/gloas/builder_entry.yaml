@@ -63,7 +63,7 @@ Gloas:
           - description: |
               Percentage multiplier applied to this builder's bid once it has passed the
               `min_bid` check, giving
-              `builder_boost_factor * (builder_bid_value // 100)`, where
+              `(builder_boost_factor * builder_bid_value) // 100`, where
               `builder_bid_value` is the bid's `value` plus its `execution_payment`. The
               highest boosted bid competes with the local payload in Gwei, so a factor below `100`
               favors the local payload and one above `100` favors this builder.
