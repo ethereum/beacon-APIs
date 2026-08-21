@@ -50,12 +50,12 @@ Gloas:
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
-          - description: "Maximum execution-layer payment, in Gwei, the proposer will accept from this builder. Its effect on bid selection is specified in the builder-specs."
+          - description: "Cap, in Gwei, on the `execution_payment` counted. The builder's bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the boost comparison. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs."
             example: "1000000000"
       min_bid:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
-          - description: "Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus `execution_payment` is below this MUST be rejected."
+          - description: "Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus counted `execution_payment` (see `max_execution_payment`) is below this MUST be rejected."
             example: "10000000"
       builder_boost_factor:
         allOf:
@@ -64,7 +64,8 @@ Gloas:
               Percentage multiplier applied to this builder's bid once it has passed the
               `min_bid` check, giving
               `(builder_boost_factor * builder_bid_value) // 100`, where
-              `builder_bid_value` is the bid's `value` plus its `execution_payment`. The
+              `builder_bid_value` is the bid's `value` plus `min(execution_payment,
+              max_execution_payment)`. The
               highest boosted bid competes with the local payload in Gwei, so a factor below `100`
               favors the local payload and one above `100` favors this builder.
 

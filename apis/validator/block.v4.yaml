@@ -15,9 +15,11 @@ post:
     `builder_pubkeys` list accepts any builder, and a bid MUST NOT be accepted unless signed by
     one of a non-empty list.
 
-    A builder bid, over the builder API or p2p, is rejected if its total payment falls below the
-    `min_bid` that applies to it. Every surviving bid is then boosted by the
-    `builder_boost_factor` that applies to it, and the
+    A bid's total payment counts its `execution_payment` at most at the `max_execution_payment`
+    that applies to it; payment above that cap adds nothing to the bid's chances, though the
+    proposer still receives it if the builder honors the bid. A builder bid, over the builder API
+    or p2p, is rejected if its total payment falls below the `min_bid` that applies to it. Every
+    surviving bid is then boosted by the `builder_boost_factor` that applies to it, and the
     highest boosted bid competes with the local build in Gwei. The local build wins a tie.
 
     The response carries the full block contents only when the beacon node self-built the block and
