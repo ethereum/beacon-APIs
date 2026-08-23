@@ -47,11 +47,5 @@ produceBlockV
 stateful
 CGC
 RLP
-auth
-RequestAuth
-RequestAuthV
-SignedRequestAuth
-SignedRequestAuthV
-UTF
-uri
-publishBlockV
+ UTF
+ uri
