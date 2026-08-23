@@ -9,7 +9,7 @@ Gloas:
       `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
       different `data`.
 
-      `auth` is the [`SignedRequestAuth`](https://github.com/ethereum/builder-specs/blob/master/specs/gloas/validator.md#signedrequestauth) object from the Builder API Gloas spec.
+      `auth` is the [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/master/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.
 
       A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
       container and constants are:
@@ -20,7 +20,7 @@ Gloas:
 
           class BuilderEntry(Container):
               url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
-              auth: SignedRequestAuth
+              auth: SignedBuilderRequestAuth
               builder_pubkeys: List[BLSPubkey, MAX_BUILDER_PUBKEYS]
               max_execution_payment: Gwei
               min_bid: Gwei
@@ -37,7 +37,7 @@ Gloas:
         example: "https://builder.example.com"
       auth:
         allOf:
-          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuth"
+          - $ref: "./request_auth.yaml#/Gloas/SignedBuilderRequestAuth"
           - description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
       builder_pubkeys:
         type: array
@@ -50,7 +50,7 @@ Gloas:
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
-          - description: "Cap, in Gwei, on the `execution_payment` counted. The builder's bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the boost comparison. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs."
+          - description: "Cap, in Gwei, on the `execution_payment` counted. The builder's bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the bid weighting. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs."
             example: "1000000000"
       min_bid:
         allOf:
@@ -62,12 +62,13 @@ Gloas:
           - $ref: "../primitive.yaml#/Uint64"
           - description: |
               Percentage multiplier applied to this builder's bid once it has passed the
-              `min_bid` check, giving
-              `(builder_boost_factor * builder_bid_value) // 100`, where
+              `min_bid` check. Its weighted value is
+              `builder_boost_factor * builder_bid_value`, where
               `builder_bid_value` is the bid's `value` plus `min(execution_payment,
-              max_execution_payment)`. The
-              highest boosted bid competes with the local payload in Gwei, so a factor below `100`
-              favors the local payload and one above `100` favors this builder.
+              max_execution_payment)`, saturating at `2**64 - 1`, so the weighted value fits in
+              128 bits. Bids are compared by weighted value; against the local payload, the local
+              value is weighted by `100`, so a factor below `100` favors the local payload and one
+              above `100` favors this builder.
 
               Servers must support the following values, which encode common preferences:
 
@@ -76,7 +77,7 @@ Gloas:
               * `builder_boost_factor=2**64 - 1`: prefer this builder unless an error or health check
                 makes it unviable.
 
-              Servers should use saturating arithmetic so that large values do not overflow.
+              Servers should compute weighted values without overflow or loss of precision.
             example: "100"
   BuilderConfig:
     type: object
@@ -105,8 +106,7 @@ Gloas:
               Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s
               `builder_boost_factor` is applied to a bid from that entry: `0` prefers the local
               payload, `100` is profit maximization, and `2**64 - 1` prefers the bid, each unless
-              an error or health check makes the preferred payload unviable. Servers should use
-              saturating arithmetic so that large values do not overflow.
+              an error or health check makes the preferred payload unviable.
             example: "100"
       builders:
         type: array

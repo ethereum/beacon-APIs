@@ -10,12 +10,12 @@ Gloas:
       The entry pairs the beacon node's routing with the payload the builder receives, so like
       `BuilderEntry` it has no Builder API definition. Its SSZ container uses that type's constants
       and the
-      [`SignedRequestAuth`](https://github.com/ethereum/builder-specs/blob/master/specs/gloas/validator.md#signedrequestauth) object from the Builder API Gloas spec:
+      [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/master/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec:
 
           class BuilderPreferencesEntry(Container):
               proposer_pubkey: BLSPubkey  # the proposer these preferences belong to
               url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
-              auth: SignedRequestAuth
+              auth: SignedBuilderRequestAuth
               max_execution_payment: Gwei
 
       In either encoding, a zero-length `url` is invalid.
@@ -34,7 +34,7 @@ Gloas:
       auth:
         description: "Authenticates this submission to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
         allOf:
-          - $ref: "./request_auth.yaml#/Gloas/SignedRequestAuth"
+          - $ref: "./request_auth.yaml#/Gloas/SignedBuilderRequestAuth"
       max_execution_payment:
         allOf:
           - $ref: "../primitive.yaml#/Gwei"
