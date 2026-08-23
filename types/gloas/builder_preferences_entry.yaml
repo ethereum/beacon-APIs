@@ -10,7 +10,7 @@ Gloas:
       The entry pairs the beacon node's routing with the payload the builder receives, so like
       `BuilderEntry` it has no Builder API definition. Its SSZ container uses that type's constants
       and the
-      [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/master/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec:
+      [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec:
 
           class BuilderPreferencesEntry(Container):
               proposer_pubkey: BLSPubkey  # the proposer these preferences belong to
