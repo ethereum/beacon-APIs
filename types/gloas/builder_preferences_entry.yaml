@@ -1,0 +1,41 @@
+Gloas:
+  BuilderPreferencesEntry:
+    type: object
+    description: |
+      A per-builder preference the validator client asks the beacon node to submit ahead of the bid
+      request, one entry per builder per proposer. A single submission batches these across the
+      validator client's proposers, so each entry names the proposer it belongs to in
+      `proposer_pubkey`. It is a dedicated type, distinct from the block-production `BuilderEntry`.
+
+      The entry pairs the beacon node's routing with the payload the builder receives, so like
+      `BuilderEntry` it has no Builder API definition. Its SSZ container uses that type's constants
+      and the `SignedBuilderRequestAuth` object from the Builder API Gloas spec:
+
+          class BuilderPreferencesEntry(Container):
+              proposer_pubkey: BLSPubkey  # the proposer these preferences belong to
+              url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+              auth: SignedBuilderRequestAuth
+              max_execution_payment: Gwei
+
+      In either encoding, a zero-length `url` is invalid.
+    required: [proposer_pubkey, url, auth, max_execution_payment]
+    properties:
+      proposer_pubkey:
+        description: "The BLS public key of the proposer these preferences apply to."
+        allOf:
+          - $ref: "../primitive.yaml#/Pubkey"
+      url:
+        type: string
+        format: uri
+        maxLength: 2048  # MAX_BUILDER_URL_SIZE
+        description: "The URL this entry's preferences are submitted to. Multiple entries MAY share a `url`; the beacon node makes one submission per entry."
+        example: "https://builder.example.com"
+      auth:
+        description: "Authenticates this submission to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
+        allOf:
+          - $ref: "./request_auth.yaml#/Gloas/SignedBuilderRequestAuth"
+      max_execution_payment:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: "Maximum execution-layer payment, in Gwei, submitted to this builder so it can shape its bid."
+            example: "1000000000"

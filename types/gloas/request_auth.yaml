@@ -1,0 +1,32 @@
+Gloas:
+  BuilderRequestAuth:
+    type: object
+    description: "The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec."
+    required: [data, slot]
+    properties:
+      data:
+        type: string
+        format: hex
+        description: |
+          Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+          the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+          exact bytes when it verifies. When no value has been agreed out of band, implementations
+          SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+          advertised, so proposers with no prior relationship can construct an identical `data`
+          deterministically. A zero-length `data` is invalid.
+        example: "0x1234567890abcdef"
+        pattern: "^0x(?:[a-fA-F0-9]{2}){1,4096}$"
+      slot:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: "The proposal slot this request is authorized for."
+
+  SignedBuilderRequestAuth:
+    type: object
+    description: "The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/BuilderRequestAuth"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
