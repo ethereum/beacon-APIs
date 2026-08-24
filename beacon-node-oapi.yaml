@@ -7735,6 +7735,26 @@ paths:
           required: true
           name: Eth-Consensus-Version
           description: The active consensus version to which the block being submitted belongs.
+        - name: Eth-Builder-Url
+          in: header
+          required: false
+          description: |
+            The `url` of the winning builder, as returned by `POST /eth/v4/validator/blocks/{slot}`.
+            When that endpoint returns this header the validator client MUST echo it here, so the beacon
+            node can forward the signed block to the same builder and the builder can release the
+            payload without waiting for gossip. The echo is what lets a beacon node that did not serve
+            the block-production request still forward it. Omitted for a self-built block or a block won
+            by a p2p bid.
+
+            The URL is untrusted input and a server-side request forgery (SSRF) risk: the beacon
+            node issues only the builder-API `submitSignedBeaconBlock` request to it, over http(s),
+            and MUST NOT follow redirects. Deployments serving callers beyond their own validator
+            clients SHOULD also reject URLs that resolve to private address space, since a caller
+            can otherwise use the forwarded request to reach internal endpoints.
+          schema:
+            type: string
+            format: uri
+            example: 'https://builder.example.com'
       requestBody:
         description: The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature.
         required: true
@@ -45316,28 +45336,43 @@ paths:
                 code: 503
                 message: Beacon node is currently syncing and not serving request on that endpoint
   '/eth/v4/validator/blocks/{slot}':
-    get:
+    post:
       tags:
         - Validator
         - ValidatorRequiredApi
       operationId: produceBlockV4
       summary: 'Produce a new block, without signature.'
       description: |
-        Requests a beacon node to produce a valid block, which can then be signed by a validator.
+        Requests a beacon node to produce a valid block, which the validator then signs.
 
-        Post-Gloas, proposers submit execution payload bids rather than full execution payloads,
-        so there is no longer a concept of blinded or unblinded blocks. Builders release the
-        payload later. This endpoint is specific to the post-Gloas forks and is not backwards compatible
-        with previous forks.
+        The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
+        even when no builder bid is available. The validator client supplies a `BuilderConfig` in the
+        request body: a list of `BuilderEntry` objects in its `builders` field, one per bid request,
+        plus a top-level `min_bid` and `builder_boost_factor` that apply to p2p bids. Each entry
+        requests a bid from its `url`, and the entry applies to the bid that request returns; an empty
+        `builder_pubkeys` list accepts any builder, and a bid MUST NOT be accepted unless signed by
+        one of a non-empty list.
 
-        When self-building (local execution payload), the response includes the full block contents
-        (beacon block, execution payload envelope, blobs, and KZG proofs) if `include_payload` is
-        set to `true`, otherwise only the `BeaconBlock` is returned.
-        When using an external builder bid, only the `BeaconBlock` is returned as the beacon node
-        does not have access to the builder's execution payload.
+        A bid's total payment counts its `execution_payment` at most at the `max_execution_payment`
+        that applies to it; payment above that cap adds nothing to the bid's chances, though the
+        proposer still receives it if the builder honors the bid. A builder bid, over the builder API
+        or p2p, is rejected if its total payment falls below the `min_bid` that applies to it. Every
+        surviving bid is then weighted by the `builder_boost_factor` that applies to it, and the
+        highest weighted value competes with the local build's value weighted by `100`. The local
+        build wins a tie.
 
-        The `Eth-Execution-Payload-Included` header and `execution_payload_included` response field
-        indicate which response type was returned.
+        The response carries the full block contents only when the beacon node self-built the block and
+        `include_payload` is `true`; in every other case, including any builder bid win, it carries
+        only the `BeaconBlock`.
+
+        Every block is published via `POST /eth/v2/beacon/blocks`. A self-built block carries
+        `BUILDER_INDEX_SELF_BUILD` as its `builder_index`, and the validator client publishes its
+        execution payload envelope via `POST /eth/v1/beacon/execution_payload_envelopes`. When a
+        builder bid won, the winning builder releases the envelope instead, and the validator client
+        echoes `Eth-Builder-Url` if one was returned.
+
+        This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
+        forks.
       parameters:
         - name: slot
           in: path
@@ -45392,47 +45427,210 @@ paths:
             bandwidth but requires the validator client to publish via the same beacon node that
             produced the block (stateful operation).
 
-            This parameter only affects self-building scenarios. When using an external builder's bid,
-            only the beacon block is returned regardless of this parameter (the beacon node does not
-            have access to the builder's execution payload).
+            This parameter affects the self-built case only. When a builder bid wins, the beacon node
+            does not hold that payload, so it returns only the beacon block regardless of this
+            parameter.
           schema:
             type: boolean
-        - name: builder_boost_factor
-          in: query
-          required: false
-          description: |
-            Percentage multiplier to apply to the builder's bid value when choosing between a
-            builder bid and payload from the paired execution node. This parameter is only relevant
-            if the beacon node has at least one viable builder `ExecutionPayloadBid` available and
-            receives a valid response from the paired execution node. When these preconditions are
-            met, the server MUST act as follows:
-
-            * if `exec_node_payload_value >= builder_boost_factor * (builder_bid_value // 100)`
-              for the highest builder bid known to the beacon node, then return a block committing
-              to the local execution node payload (with the payload itself included if
-              `include_payload` is set to true).
-            * otherwise, return a block committing to the builder bid (without execution payload,
-              as it is not yet available).
-
-            Servers must support the following values of the boost factor which encode common
-            preferences:
-
-            * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes
-              it unviable.
-            * `builder_boost_factor=100`: profit maximization mode; choose whichever of the local
-              execution node payload and the builder bid pays more.
-            * `builder_boost_factor=2**64 - 1`: prefer the builder bid unless an error or beacon node
-              health check makes it unviable.
-
-            Servers should use saturating arithmetic or another technique to ensure that large values
-            of the `builder_boost_factor` do not trigger overflows or errors. If this parameter is
-            provided and no builder bid is available, the beacon node MUST respond with a block
-            committing to the local execution node payload, which the caller can choose to reject if
-            it wishes. If the value is provided but out of range for a 64-bit unsigned integer, then
-            an error response with status code 400 MUST be returned.
+        - in: header
           schema:
             type: string
-            example: '1'
+            enum:
+              - phase0
+              - altair
+              - bellatrix
+              - capella
+              - deneb
+              - electra
+              - fulu
+              - gloas
+            example: gloas
+          required: true
+          name: Eth-Consensus-Version
+          description: The active consensus version to which the request belongs.
+      requestBody:
+        required: true
+        description: |
+          A `BuilderConfig` for this request: the builder entries to solicit bids from, plus the
+          top-level `min_bid` and `builder_boost_factor` that apply to p2p bids.
+          Each entry's `auth.message.slot` is the `slot` this request is for;
+          the builder rejects a mismatch, so an entry naming a different slot is one the beacon node
+          does not use for a bid request. A missing body, or one that cannot be decoded, is invalid and
+          MUST fail with a 400. Every other failure is per entry: an entry the beacon node rejects, or
+          whose builder does not answer, yields no bid and MUST NOT fail the request, so one bad entry
+          never costs the proposer its slot. A local-preferred build is requested with an empty
+          `builders` list and a `builder_boost_factor` of `0`, which prefers the local payload unless
+          an error makes it unviable.
+        content:
+          application/json:
+            schema:
+              type: object
+              description: |
+                The resolved per-key builder config the validator client sends on a block-production request.
+                Entries arrive fully resolved, so a requested bid is governed by its own `BuilderEntry`; the
+                top-level `min_bid` and `builder_boost_factor` apply to bids received over p2p.
+
+                Its SSZ container is:
+
+                    class BuilderConfig(Container):
+                        min_bid: Gwei
+                        builder_boost_factor: uint64
+                        builders: List[BuilderEntry, MAX_BUILDER_ENTRIES]
+              required:
+                - min_bid
+                - builder_boost_factor
+                - builders
+              properties:
+                min_bid:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - description: 'Minimum total payment, in Gwei, accepted from a p2p bid. A bid whose `value` plus `execution_payment` is below this MUST be rejected.'
+                      example: '10000000'
+                builder_boost_factor:
+                  allOf:
+                    - type: string
+                      example: '1'
+                    - description: |
+                        Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s
+                        `builder_boost_factor` is applied to a bid from that entry: `0` prefers the local
+                        payload, `100` is profit maximization, and `2**64 - 1` prefers the bid, each unless
+                        an error or health check makes the preferred payload unviable.
+                      example: '100'
+                builders:
+                  type: array
+                  maxItems: 64
+                  description: 'The builders to request bids from, one `BuilderEntry` each. Empty means request none, so only p2p bids are considered.'
+                  items:
+                    type: object
+                    description: |
+                      A per-builder input the validator client supplies on a block-production request.
+
+                      Each entry is a bid request sent to its `url`, authenticated by its `auth`, which the
+                      builder requires on every request. No two entries may share both their `url` and their
+                      `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
+                      different `data`.
+
+                      `auth` is the `SignedBuilderRequestAuth` object from the Builder API Gloas spec.
+
+                      A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
+                      container and constants are:
+
+                          MAX_BUILDER_ENTRIES = 64
+                          MAX_BUILDER_URL_SIZE = 2048
+                          MAX_BUILDER_PUBKEYS = 64
+
+                          class BuilderEntry(Container):
+                              url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+                              auth: SignedBuilderRequestAuth
+                              builder_pubkeys: List[BLSPubkey, MAX_BUILDER_PUBKEYS]
+                              max_execution_payment: Gwei
+                              min_bid: Gwei
+                              builder_boost_factor: uint64
+
+                      In either encoding, a zero-length `url` is invalid.
+                    required:
+                      - url
+                      - auth
+                      - builder_pubkeys
+                      - max_execution_payment
+                      - min_bid
+                      - builder_boost_factor
+                    properties:
+                      url:
+                        type: string
+                        format: uri
+                        maxLength: 2048
+                        description: Where this entry's bid request is sent.
+                        example: 'https://builder.example.com'
+                      auth:
+                        allOf:
+                          - type: object
+                            description: 'The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.'
+                            required:
+                              - message
+                              - signature
+                            properties:
+                              message:
+                                type: object
+                                description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+                                required:
+                                  - data
+                                  - slot
+                                properties:
+                                  data:
+                                    type: string
+                                    format: hex
+                                    description: |
+                                      Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+                                      the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+                                      exact bytes when it verifies. When no value has been agreed out of band, implementations
+                                      SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+                                      advertised, so proposers with no prior relationship can construct an identical `data`
+                                      deterministically. A zero-length `data` is invalid.
+                                    example: '0x1234567890abcdef'
+                                    pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+                                  slot:
+                                    allOf:
+                                      - type: string
+                                        example: '1'
+                                      - description: The proposal slot this request is authorized for.
+                              signature:
+                                type: string
+                                format: hex
+                                pattern: '^0x[a-fA-F0-9]{192}$'
+                                example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                          - description: Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged.
+                      builder_pubkeys:
+                        type: array
+                        maxItems: 64
+                        description: The builder BLS public keys this entry accepts bids from. Empty accepts any builder; otherwise a bid not signed by one of them MUST NOT be accepted.
+                        items:
+                          allOf:
+                            - type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{96}$'
+                              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                            - description: A builder's BLS public key.
+                      max_execution_payment:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - description: 'Cap, in Gwei, on the `execution_payment` counted. The builder''s bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the bid weighting. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs.'
+                            example: '1000000000'
+                      min_bid:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - description: 'Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus counted `execution_payment` (see `max_execution_payment`) is below this MUST be rejected.'
+                            example: '10000000'
+                      builder_boost_factor:
+                        allOf:
+                          - type: string
+                            example: '1'
+                          - description: |
+                              Percentage multiplier applied to this builder's bid once it has passed the `min_bid`
+                              check. Its weighted value is `builder_boost_factor * builder_bid_value`, where
+                              `builder_bid_value` is the bid's `value` plus `min(execution_payment, max_execution_payment)`.
+                              The sum saturates at `2**64 - 1`, so the weighted value fits in 128 bits.
+
+                              Bids are compared by weighted value. Against the local payload, the local value is
+                              weighted by `100`, so a factor below `100` favors the local payload and one above
+                              `100` favors this builder.
+
+                              Servers must support the following values, which encode common preferences:
+
+                              * `builder_boost_factor=0`: prefer the local payload unless an error makes it unviable.
+                              * `builder_boost_factor=100`: profit maximization mode; choose whichever pays more.
+                              * `builder_boost_factor=2**64 - 1`: prefer this builder unless an error or health check
+                                makes it unviable.
+
+                              Servers should compute weighted values without overflow or loss of precision.
+                            example: '100'
+          application/octet-stream:
+            schema:
+              description: SSZ serialized `BuilderConfig` bytes (see the `BuilderConfig` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body.
       responses:
         '200':
           description: Success response
@@ -45479,6 +45677,18 @@ paths:
               required: true
               schema:
                 type: boolean
+            Eth-Builder-Url:
+              description: |
+                When the winning bid came through the builder-API channel, the `url` of that builder.
+                The validator echoes this value in the `Eth-Builder-Url` request header when publishing
+                the signed block, so the beacon node can forward the block to the same builder via the
+                builder-API `submitSignedBeaconBlock`. Absent when the block was self-built or the
+                winning bid came from the p2p network.
+              required: false
+              schema:
+                type: string
+                format: uri
+                example: 'https://builder.example.com'
           content:
             application/json:
               schema:
@@ -45505,7 +45715,7 @@ paths:
                     example: '12345'
                     description: |
                       Execution payload value in Wei. The value of the local execution payload when
-                      self-building, or the total value of the bid when committing to a builder bid.
+                      self-building, or the total value of the builder bid when committing to one.
                   execution_payload_included:
                     type: boolean
                     description: |
@@ -47478,6 +47688,31 @@ paths:
               example:
                 code: 406
                 message: Accepted media type not supported
+        '415':
+          description: Supplied content-type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
+                    type: number
+                    example: 415
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 415
+                message: Cannot read the supplied content type.
         '500':
           description: Beacon node internal error.
           content:
@@ -49921,6 +50156,253 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  /eth/v1/validator/builder_preferences:
+    post:
+      operationId: submitBuilderPreferences
+      summary: Submit builder preferences
+      description: |
+        Submits per-builder preferences for one or more proposers. The request body is a flat list of
+        `BuilderPreferencesEntry` objects, each naming the proposer in `proposer_pubkey`; the beacon
+        node submits each to the builder-API `submitBuilderPreferences` endpoint at the entry's `url`.
+        Applicable from the Gloas fork onwards.
+
+        Notes:
+        - Each entry targets one builder `url`, to which the beacon node makes one submission.
+        - Entries are identified by `proposer_pubkey`, so several proposers MAY submit to the same `url`.
+        - The beacon node routes each entry by its `url` and submits to that builder's
+          `submitBuilderPreferences` for the entry's `proposer_pubkey`, forwarding the `auth` and
+          `max_execution_payment`.
+        - Validators MAY submit in the epoch prior to proposing (from `state.proposer_lookahead`), so
+          builders hold the preferences before the bid request arrives.
+      parameters:
+        - in: header
+          schema:
+            type: string
+            enum:
+              - phase0
+              - altair
+              - bellatrix
+              - capella
+              - deneb
+              - electra
+              - fulu
+              - gloas
+            example: gloas
+          required: true
+          name: Eth-Consensus-Version
+          description: The active consensus version to which the submitted builder preferences belong.
+      tags:
+        - Validator
+      requestBody:
+        required: true
+        description: 'Array of `BuilderPreferencesEntry` objects to submit, one per builder per proposer.'
+        content:
+          application/json:
+            schema:
+              type: array
+              maxItems: 4096
+              items:
+                type: object
+                description: |
+                  A per-builder preference the validator client asks the beacon node to submit ahead of the bid
+                  request, one entry per builder per proposer. A single submission batches these across the
+                  validator client's proposers, so each entry names the proposer it belongs to in
+                  `proposer_pubkey`. It is a dedicated type, distinct from the block-production `BuilderEntry`.
+
+                  The entry pairs the beacon node's routing with the payload the builder receives, so like
+                  `BuilderEntry` it has no Builder API definition. Its SSZ container uses that type's constants
+                  and the `SignedBuilderRequestAuth` object from the Builder API Gloas spec:
+
+                      class BuilderPreferencesEntry(Container):
+                          proposer_pubkey: BLSPubkey  # the proposer these preferences belong to
+                          url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+                          auth: SignedBuilderRequestAuth
+                          max_execution_payment: Gwei
+
+                  In either encoding, a zero-length `url` is invalid.
+                required:
+                  - proposer_pubkey
+                  - url
+                  - auth
+                  - max_execution_payment
+                properties:
+                  proposer_pubkey:
+                    description: The BLS public key of the proposer these preferences apply to.
+                    allOf:
+                      - type: string
+                        format: hex
+                        pattern: '^0x[a-fA-F0-9]{96}$'
+                        description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                        example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                  url:
+                    type: string
+                    format: uri
+                    maxLength: 2048
+                    description: The URL this entry's preferences are submitted to. Multiple entries MAY share a `url`; the beacon node makes one submission per entry.
+                    example: 'https://builder.example.com'
+                  auth:
+                    description: Authenticates this submission to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged.
+                    allOf:
+                      - type: object
+                        description: 'The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.'
+                        required:
+                          - message
+                          - signature
+                        properties:
+                          message:
+                            type: object
+                            description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+                            required:
+                              - data
+                              - slot
+                            properties:
+                              data:
+                                type: string
+                                format: hex
+                                description: |
+                                  Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+                                  the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+                                  exact bytes when it verifies. When no value has been agreed out of band, implementations
+                                  SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+                                  advertised, so proposers with no prior relationship can construct an identical `data`
+                                  deterministically. A zero-length `data` is invalid.
+                                example: '0x1234567890abcdef'
+                                pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+                              slot:
+                                allOf:
+                                  - type: string
+                                    example: '1'
+                                  - description: The proposal slot this request is authorized for.
+                          signature:
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{192}$'
+                            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                  max_execution_payment:
+                    allOf:
+                      - type: string
+                        example: '1'
+                      - description: 'Maximum execution-layer payment, in Gwei, submitted to this builder so it can shape its bid.'
+                        example: '1000000000'
+          application/octet-stream:
+            schema:
+              description: 'SSZ serialized `List[BuilderPreferencesEntry, MAX_BUILDER_ENTRIES * (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body.'
+      responses:
+        '200':
+          description: Every entry was submitted and its builder accepted it
+        '400':
+          description: |
+            One or more entries failed; the others were still submitted. Each failure is reported by the
+            entry's index via `IndexedErrorMessage`, proxying the builder's error for that entry.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                  - failures
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                    example: some failures
+                  failures:
+                    description: List of individual items that have failed
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - index
+                        - message
+                      properties:
+                        index:
+                          description: Index of item in the request list that caused the error
+                          type: number
+                          example: 3
+                        message:
+                          description: Message describing error
+                          type: string
+                          example: invalid signature
+        '415':
+          description: Supplied content-type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Content-Type" header is unsupported, and the request has been rejected. This occurs when a HTTP request supplies a payload in a content-type that the server is not able to handle.'
+                    type: number
+                    example: 415
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 415
+                message: Cannot read the supplied content type.
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+        '503':
+          description: 'Beacon node is currently syncing, try again later.'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 503
+                message: Beacon node is currently syncing and not serving request on that endpoint
   '/eth/v1/validator/liveness/{epoch}':
     post:
       tags:
@@ -81940,6 +82422,441 @@ components:
             pattern: '^0x[a-fA-F0-9]{64}$'
       minItems: 0
       maxItems: 128
+    Gloas.BuilderRequestAuth:
+      type: object
+      description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+      required:
+        - data
+        - slot
+      properties:
+        data:
+          type: string
+          format: hex
+          description: |
+            Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+            the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+            exact bytes when it verifies. When no value has been agreed out of band, implementations
+            SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+            advertised, so proposers with no prior relationship can construct an identical `data`
+            deterministically. A zero-length `data` is invalid.
+          example: '0x1234567890abcdef'
+          pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+        slot:
+          allOf:
+            - type: string
+              example: '1'
+            - description: The proposal slot this request is authorized for.
+    Gloas.SignedBuilderRequestAuth:
+      type: object
+      description: 'The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.'
+      required:
+        - message
+        - signature
+      properties:
+        message:
+          type: object
+          description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+          required:
+            - data
+            - slot
+          properties:
+            data:
+              type: string
+              format: hex
+              description: |
+                Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+                the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+                exact bytes when it verifies. When no value has been agreed out of band, implementations
+                SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+                advertised, so proposers with no prior relationship can construct an identical `data`
+                deterministically. A zero-length `data` is invalid.
+              example: '0x1234567890abcdef'
+              pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+            slot:
+              allOf:
+                - type: string
+                  example: '1'
+                - description: The proposal slot this request is authorized for.
+        signature:
+          type: string
+          format: hex
+          pattern: '^0x[a-fA-F0-9]{192}$'
+          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+    Gloas.BuilderEntry:
+      type: object
+      description: |
+        A per-builder input the validator client supplies on a block-production request.
+
+        Each entry is a bid request sent to its `url`, authenticated by its `auth`, which the
+        builder requires on every request. No two entries may share both their `url` and their
+        `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
+        different `data`.
+
+        `auth` is the `SignedBuilderRequestAuth` object from the Builder API Gloas spec.
+
+        A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
+        container and constants are:
+
+            MAX_BUILDER_ENTRIES = 64
+            MAX_BUILDER_URL_SIZE = 2048
+            MAX_BUILDER_PUBKEYS = 64
+
+            class BuilderEntry(Container):
+                url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+                auth: SignedBuilderRequestAuth
+                builder_pubkeys: List[BLSPubkey, MAX_BUILDER_PUBKEYS]
+                max_execution_payment: Gwei
+                min_bid: Gwei
+                builder_boost_factor: uint64
+
+        In either encoding, a zero-length `url` is invalid.
+      required:
+        - url
+        - auth
+        - builder_pubkeys
+        - max_execution_payment
+        - min_bid
+        - builder_boost_factor
+      properties:
+        url:
+          type: string
+          format: uri
+          maxLength: 2048
+          description: Where this entry's bid request is sent.
+          example: 'https://builder.example.com'
+        auth:
+          allOf:
+            - type: object
+              description: 'The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.'
+              required:
+                - message
+                - signature
+              properties:
+                message:
+                  type: object
+                  description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+                  required:
+                    - data
+                    - slot
+                  properties:
+                    data:
+                      type: string
+                      format: hex
+                      description: |
+                        Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+                        the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+                        exact bytes when it verifies. When no value has been agreed out of band, implementations
+                        SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+                        advertised, so proposers with no prior relationship can construct an identical `data`
+                        deterministically. A zero-length `data` is invalid.
+                      example: '0x1234567890abcdef'
+                      pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The proposal slot this request is authorized for.
+                signature:
+                  type: string
+                  format: hex
+                  pattern: '^0x[a-fA-F0-9]{192}$'
+                  example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+            - description: Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged.
+        builder_pubkeys:
+          type: array
+          maxItems: 64
+          description: The builder BLS public keys this entry accepts bids from. Empty accepts any builder; otherwise a bid not signed by one of them MUST NOT be accepted.
+          items:
+            allOf:
+              - type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              - description: A builder's BLS public key.
+        max_execution_payment:
+          allOf:
+            - type: string
+              example: '1'
+            - description: 'Cap, in Gwei, on the `execution_payment` counted. The builder''s bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the bid weighting. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs.'
+              example: '1000000000'
+        min_bid:
+          allOf:
+            - type: string
+              example: '1'
+            - description: 'Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus counted `execution_payment` (see `max_execution_payment`) is below this MUST be rejected.'
+              example: '10000000'
+        builder_boost_factor:
+          allOf:
+            - type: string
+              example: '1'
+            - description: |
+                Percentage multiplier applied to this builder's bid once it has passed the `min_bid`
+                check. Its weighted value is `builder_boost_factor * builder_bid_value`, where
+                `builder_bid_value` is the bid's `value` plus `min(execution_payment, max_execution_payment)`.
+                The sum saturates at `2**64 - 1`, so the weighted value fits in 128 bits.
+
+                Bids are compared by weighted value. Against the local payload, the local value is
+                weighted by `100`, so a factor below `100` favors the local payload and one above
+                `100` favors this builder.
+
+                Servers must support the following values, which encode common preferences:
+
+                * `builder_boost_factor=0`: prefer the local payload unless an error makes it unviable.
+                * `builder_boost_factor=100`: profit maximization mode; choose whichever pays more.
+                * `builder_boost_factor=2**64 - 1`: prefer this builder unless an error or health check
+                  makes it unviable.
+
+                Servers should compute weighted values without overflow or loss of precision.
+              example: '100'
+    Gloas.BuilderConfig:
+      type: object
+      description: |
+        The resolved per-key builder config the validator client sends on a block-production request.
+        Entries arrive fully resolved, so a requested bid is governed by its own `BuilderEntry`; the
+        top-level `min_bid` and `builder_boost_factor` apply to bids received over p2p.
+
+        Its SSZ container is:
+
+            class BuilderConfig(Container):
+                min_bid: Gwei
+                builder_boost_factor: uint64
+                builders: List[BuilderEntry, MAX_BUILDER_ENTRIES]
+      required:
+        - min_bid
+        - builder_boost_factor
+        - builders
+      properties:
+        min_bid:
+          allOf:
+            - type: string
+              example: '1'
+            - description: 'Minimum total payment, in Gwei, accepted from a p2p bid. A bid whose `value` plus `execution_payment` is below this MUST be rejected.'
+              example: '10000000'
+        builder_boost_factor:
+          allOf:
+            - type: string
+              example: '1'
+            - description: |
+                Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s
+                `builder_boost_factor` is applied to a bid from that entry: `0` prefers the local
+                payload, `100` is profit maximization, and `2**64 - 1` prefers the bid, each unless
+                an error or health check makes the preferred payload unviable.
+              example: '100'
+        builders:
+          type: array
+          maxItems: 64
+          description: 'The builders to request bids from, one `BuilderEntry` each. Empty means request none, so only p2p bids are considered.'
+          items:
+            type: object
+            description: |
+              A per-builder input the validator client supplies on a block-production request.
+
+              Each entry is a bid request sent to its `url`, authenticated by its `auth`, which the
+              builder requires on every request. No two entries may share both their `url` and their
+              `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
+              different `data`.
+
+              `auth` is the `SignedBuilderRequestAuth` object from the Builder API Gloas spec.
+
+              A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
+              container and constants are:
+
+                  MAX_BUILDER_ENTRIES = 64
+                  MAX_BUILDER_URL_SIZE = 2048
+                  MAX_BUILDER_PUBKEYS = 64
+
+                  class BuilderEntry(Container):
+                      url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+                      auth: SignedBuilderRequestAuth
+                      builder_pubkeys: List[BLSPubkey, MAX_BUILDER_PUBKEYS]
+                      max_execution_payment: Gwei
+                      min_bid: Gwei
+                      builder_boost_factor: uint64
+
+              In either encoding, a zero-length `url` is invalid.
+            required:
+              - url
+              - auth
+              - builder_pubkeys
+              - max_execution_payment
+              - min_bid
+              - builder_boost_factor
+            properties:
+              url:
+                type: string
+                format: uri
+                maxLength: 2048
+                description: Where this entry's bid request is sent.
+                example: 'https://builder.example.com'
+              auth:
+                allOf:
+                  - type: object
+                    description: 'The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.'
+                    required:
+                      - message
+                      - signature
+                    properties:
+                      message:
+                        type: object
+                        description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+                        required:
+                          - data
+                          - slot
+                        properties:
+                          data:
+                            type: string
+                            format: hex
+                            description: |
+                              Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+                              the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+                              exact bytes when it verifies. When no value has been agreed out of band, implementations
+                              SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+                              advertised, so proposers with no prior relationship can construct an identical `data`
+                              deterministically. A zero-length `data` is invalid.
+                            example: '0x1234567890abcdef'
+                            pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+                          slot:
+                            allOf:
+                              - type: string
+                                example: '1'
+                              - description: The proposal slot this request is authorized for.
+                      signature:
+                        type: string
+                        format: hex
+                        pattern: '^0x[a-fA-F0-9]{192}$'
+                        example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                  - description: Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged.
+              builder_pubkeys:
+                type: array
+                maxItems: 64
+                description: The builder BLS public keys this entry accepts bids from. Empty accepts any builder; otherwise a bid not signed by one of them MUST NOT be accepted.
+                items:
+                  allOf:
+                    - type: string
+                      format: hex
+                      pattern: '^0x[a-fA-F0-9]{96}$'
+                      description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                      example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                    - description: A builder's BLS public key.
+              max_execution_payment:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: 'Cap, in Gwei, on the `execution_payment` counted. The builder''s bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the bid weighting. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs.'
+                    example: '1000000000'
+              min_bid:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: 'Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus counted `execution_payment` (see `max_execution_payment`) is below this MUST be rejected.'
+                    example: '10000000'
+              builder_boost_factor:
+                allOf:
+                  - type: string
+                    example: '1'
+                  - description: |
+                      Percentage multiplier applied to this builder's bid once it has passed the `min_bid`
+                      check. Its weighted value is `builder_boost_factor * builder_bid_value`, where
+                      `builder_bid_value` is the bid's `value` plus `min(execution_payment, max_execution_payment)`.
+                      The sum saturates at `2**64 - 1`, so the weighted value fits in 128 bits.
+
+                      Bids are compared by weighted value. Against the local payload, the local value is
+                      weighted by `100`, so a factor below `100` favors the local payload and one above
+                      `100` favors this builder.
+
+                      Servers must support the following values, which encode common preferences:
+
+                      * `builder_boost_factor=0`: prefer the local payload unless an error makes it unviable.
+                      * `builder_boost_factor=100`: profit maximization mode; choose whichever pays more.
+                      * `builder_boost_factor=2**64 - 1`: prefer this builder unless an error or health check
+                        makes it unviable.
+
+                      Servers should compute weighted values without overflow or loss of precision.
+                    example: '100'
+    Gloas.BuilderPreferencesEntry:
+      type: object
+      description: |
+        A per-builder preference the validator client asks the beacon node to submit ahead of the bid
+        request, one entry per builder per proposer. A single submission batches these across the
+        validator client's proposers, so each entry names the proposer it belongs to in
+        `proposer_pubkey`. It is a dedicated type, distinct from the block-production `BuilderEntry`.
+
+        The entry pairs the beacon node's routing with the payload the builder receives, so like
+        `BuilderEntry` it has no Builder API definition. Its SSZ container uses that type's constants
+        and the `SignedBuilderRequestAuth` object from the Builder API Gloas spec:
+
+            class BuilderPreferencesEntry(Container):
+                proposer_pubkey: BLSPubkey  # the proposer these preferences belong to
+                url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+                auth: SignedBuilderRequestAuth
+                max_execution_payment: Gwei
+
+        In either encoding, a zero-length `url` is invalid.
+      required:
+        - proposer_pubkey
+        - url
+        - auth
+        - max_execution_payment
+      properties:
+        proposer_pubkey:
+          description: The BLS public key of the proposer these preferences apply to.
+          allOf:
+            - type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{96}$'
+              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+        url:
+          type: string
+          format: uri
+          maxLength: 2048
+          description: The URL this entry's preferences are submitted to. Multiple entries MAY share a `url`; the beacon node makes one submission per entry.
+          example: 'https://builder.example.com'
+        auth:
+          description: Authenticates this submission to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged.
+          allOf:
+            - type: object
+              description: 'The [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.'
+              required:
+                - message
+                - signature
+              properties:
+                message:
+                  type: object
+                  description: 'The [`BuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#builderrequestauth) object from the Builder API Gloas spec.'
+                  required:
+                    - data
+                    - slot
+                  properties:
+                    data:
+                      type: string
+                      format: hex
+                      description: |
+                        Opaque authentication data unique to the builder, agreed upon out of band. The meaning of
+                        the up to `MAX_BUILDER_AUTH_DATA_SIZE` (4096) bytes is left to the two parties; the builder checks the
+                        exact bytes when it verifies. When no value has been agreed out of band, implementations
+                        SHOULD default to the UTF-8 bytes of the builder's own advertised URL, exactly as
+                        advertised, so proposers with no prior relationship can construct an identical `data`
+                        deterministically. A zero-length `data` is invalid.
+                      example: '0x1234567890abcdef'
+                      pattern: '^0x(?:[a-fA-F0-9]{2}){1,4096}$'
+                    slot:
+                      allOf:
+                        - type: string
+                          example: '1'
+                        - description: The proposal slot this request is authorized for.
+                signature:
+                  type: string
+                  format: hex
+                  pattern: '^0x[a-fA-F0-9]{192}$'
+                  example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+        max_execution_payment:
+          allOf:
+            - type: string
+              example: '1'
+            - description: 'Maximum execution-layer payment, in Gwei, submitted to this builder so it can shape its bid.'
+              example: '1000000000'
     Node:
       type: object
       description: fork choice node attributes
