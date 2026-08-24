@@ -14,22 +14,31 @@ Detail explanation how validator should utilize this API to perform his regular 
 On start of every epoch, validator should [fetch proposer duties](#/Validator/getProposerDuties).
 Result is array of objects, each containing proposer pubkey and slot at which he is suppose to propose.
 
+Post-Gloas, in the epoch prior to a proposal the validator MAY
+[submit builder preferences](#/Validator/submitBuilderPreferences) so builders hold them before the
+bid request arrives.
+
 If proposing block, then at immediate start of slot:
 1. Ask Beacon Node for BeaconBlock object:
    - Pre-Gloas forks: [produceBlockV3](#/Validator/produceBlockV3)
    - Post-Gloas fork: [produceBlockV4](#/Validator/produceBlockV4)
+     - Supply a `BuilderConfig` in the required request body, with the `Eth-Consensus-Version`
+       header: the builder entries to solicit builder-API bids, plus the top-level `min_bid` and
+       `builder_boost_factor` that apply to p2p bids.
      - `include_payload=true`: returns `BlockContents` (beacon block, execution payload envelope,
        blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
-     - When using an external builder's bid, only the `BeaconBlock` is returned regardless of `include_payload`.
+     - When a bid wins, only the `BeaconBlock` is returned regardless of `include_payload`, and
+       `Eth-Builder-Url` names the builder if the bid came through the builder-API channel.
      - A validator client that already has a signed execution payload bid can instead use
          [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid). Inclusion is best effort: the
          beacon node may replace the supplied bid when it is invalid or when its circuit breaker
          mechanism is active.
 2. Sign block
-3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature)
-4. Post-Gloas, if self-building (proposer's own bid included in block):
+3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature),
+   echoing the `Eth-Builder-Url` header if one was returned
+4. Post-Gloas, if self-building (the block's `builder_index` is [BUILDER_INDEX_SELF_BUILD](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/beacon-chain.md#misc)):
   - Stateless (`include_payload=true`): envelope and blobs are already available from step 1.
     Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
     (envelope + blobs + KZG proofs).
@@ -37,6 +46,9 @@ If proposing block, then at immediate start of slot:
     from the same beacon node. Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
     (beacon node attaches blobs and KZG proofs from its cache).
   - Must submit before [PAYLOAD_DUE_BPS](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/validator.md#time-parameters) of slot duration for the PTC to attest the payload as present
+
+5. Post-Gloas, if a bid won (any other `builder_index`): nothing further. The winning builder
+   releases the execution payload envelope.
 
 Monitor chain block reorganization events (TBD) as they could change block proposers.
 If reorg is detected, ask for new proposer duties and proceed from 1.
