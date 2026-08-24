@@ -8,7 +8,7 @@ post:
     Requests a beacon node to produce a valid block with best-effort inclusion of the supplied
     signed execution payload bid.
 
-    The beacon node SHOULD replace the supplied bid when its circuit breaker mechanism is active, or
+    The beacon node MUST replace the supplied bid when its circuit breaker mechanism is active, or
     when the supplied bid is invalid. If the supplied bid is well-formed but fails validation,
     the beacon node MUST continue block production using another viable bid or a local execution
     payload.
