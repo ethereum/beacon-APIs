@@ -31,13 +31,17 @@ If proposing block, then at immediate start of slot:
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When a bid wins, only the `BeaconBlock` is returned regardless of `include_payload`, and
        `Eth-Builder-Url` names the builder if the bid came through the builder-API channel.
-     - A validator client that already has a signed execution payload bid can instead use
-         [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid). Inclusion is best effort: the
-         beacon node may replace the supplied bid when it is invalid or when its circuit breaker
-         mechanism is active.
+     - A validator client may perform bid selection locally. It then supplies the selected execution payload bid
+       and requests block production using the [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid)
+       endpoint. In this case, the validator should also monitor the `execution_payload_bid` SSE topic
+       for trustless bids. Inclusion of the supplied bid is best effort: the beacon node may
+       replace it if the bid is considered invalid or if its circuit breaker mechanism is active.
 2. Sign block
 3. [Submit SignedBeaconBlock](#/ValidatorRequiredApi/publishBlock) (BeaconBlock + signature),
    echoing the `Eth-Builder-Url` header if one was returned
+   - if the validator client handles bid selection locally, and an external builder bid
+     is being used, the validator client should submit the SignedBeaconBlock directly to
+     the builder too.
 4. Post-Gloas, if self-building (the block's `builder_index` is [BUILDER_INDEX_SELF_BUILD](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.12/specs/gloas/beacon-chain.md#misc)):
   - Stateless (`include_payload=true`): envelope and blobs are already available from step 1.
     Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
