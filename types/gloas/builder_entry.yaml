@@ -9,7 +9,7 @@ Gloas:
       `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
       different `data`.
 
-      `auth` is the [`SignedBuilderRequestAuth`](https://github.com/ethereum/builder-specs/blob/main/specs/gloas/validator.md#signedbuilderrequestauth) object from the Builder API Gloas spec.
+      `auth` is the `SignedBuilderRequestAuth` object from the Builder API Gloas spec.
 
       A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
       container and constants are:
@@ -61,14 +61,14 @@ Gloas:
         allOf:
           - $ref: "../primitive.yaml#/Uint64"
           - description: |
-              Percentage multiplier applied to this builder's bid once it has passed the
-              `min_bid` check. Its weighted value is
-              `builder_boost_factor * builder_bid_value`, where
-              `builder_bid_value` is the bid's `value` plus `min(execution_payment,
-              max_execution_payment)`, saturating at `2**64 - 1`, so the weighted value fits in
-              128 bits. Bids are compared by weighted value; against the local payload, the local
-              value is weighted by `100`, so a factor below `100` favors the local payload and one
-              above `100` favors this builder.
+              Percentage multiplier applied to this builder's bid once it has passed the `min_bid`
+              check. Its weighted value is `builder_boost_factor * builder_bid_value`, where
+              `builder_bid_value` is the bid's `value` plus `min(execution_payment, max_execution_payment)`.
+              The sum saturates at `2**64 - 1`, so the weighted value fits in 128 bits.
+
+              Bids are compared by weighted value. Against the local payload, the local value is
+              weighted by `100`, so a factor below `100` favors the local payload and one above
+              `100` favors this builder.
 
               Servers must support the following values, which encode common preferences:
 
