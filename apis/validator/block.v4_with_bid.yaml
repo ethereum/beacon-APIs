@@ -46,6 +46,27 @@ post:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
     - name: skip_randao_verification
       $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
+    - name: builder_boost_factor
+      in: query
+      required: true
+      description: |
+        Percentage multiplier to apply to the supplied bid value when choosing between
+        the supplied bid and local payload from the paired execution node.
+
+        Servers must support the following values of the boost factor which encode common
+        preferences:
+
+        * `builder_boost_factor=0`: prefer the local execution node payload unless an error makes it
+          unviable.
+        * `builder_boost_factor=100`: profit maximization mode; choose whichever
+          pays more.
+        * `builder_boost_factor=2**64 - 1`: prefer the supplied builder bid unless an error or
+          beacon node health check makes it unviable.
+
+        Servers should use saturating arithmetic or another technique to ensure that large values of
+        the `builder_boost_factor` do not trigger overflows or errors.
+        If the value is provided but out of range for a 64-bit unsigned integer, then an error
+        response with status code 400 MUST be returned.
     - name: include_payload
       in: query
       required: true
