@@ -119,9 +119,9 @@ post:
         Eth-Builder-Url:
           description: |
             The `url` of a winning builder when the bid was retrieved via the builder-API.
-            The validator client MUST echo this value in the `Eth-Builder-Url` request header when publishing
-            the signed block, so the beacon node can forward the block to the same builder via
-            `submitSignedBeaconBlock`. Absent for a self-built block or a bid won over p2p.
+            The validator client MUST echo this value in the `Eth-Builder-Url` request header when
+            publishing the signed block, so the beacon node can forward the block to the same builder
+            via `submitSignedBeaconBlock`. Absent for a self-built block or a bid won over p2p.
           required: false
           schema:
             type: string
