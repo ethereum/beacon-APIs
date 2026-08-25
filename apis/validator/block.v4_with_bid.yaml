@@ -67,6 +67,8 @@ post:
         the `builder_boost_factor` do not trigger overflows or errors.
         If the value is provided but out of range for a 64-bit unsigned integer, then an error
         response with status code 400 MUST be returned.
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
     - name: include_payload
       in: query
       required: true
