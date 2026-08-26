@@ -45679,11 +45679,10 @@ paths:
                 type: boolean
             Eth-Builder-Url:
               description: |
-                When the winning bid came through the builder-API channel, the `url` of that builder.
-                The validator echoes this value in the `Eth-Builder-Url` request header when publishing
-                the signed block, so the beacon node can forward the block to the same builder via the
-                builder-API `submitSignedBeaconBlock`. Absent when the block was self-built or the
-                winning bid came from the p2p network.
+                The `url` of a winning builder when the bid was retrieved via the builder-API.
+                The validator client MUST echo this value in the `Eth-Builder-Url` request header when
+                publishing the signed block, so the beacon node can forward the block to the same builder
+                via `submitSignedBeaconBlock`. Absent for a self-built block or a bid won over p2p.
               required: false
               schema:
                 type: string
