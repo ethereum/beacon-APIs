@@ -135,17 +135,7 @@ get:
                 The node has computed new payload attributes for execution payload building.
 
                 This event gives block builders and relays sufficient information to construct or
-                verify a block at `proposal_slot`.
-
-                From `gloas` onwards a block at `proposal_slot` may build on either the parent's delivered
-                payload (full) or the parent's own execution parent (empty), and which one the proposer
-                uses is decided at proposal time. Nodes SHOULD emit this event once per distinct
-                `(parent_block_root, parent_block_hash)` as soon as that parent becomes buildable:
-                the empty variant when the parent block is imported, the full variant when the parent's
-                payload is imported. Nodes MAY emit the same variant again, for example at a fixed point
-                in the slot. Consumers MUST deduplicate by `(proposal_slot, parent_block_root, parent_block_hash)`.
-
-                The meanings of the fields are:
+                verify a block at `proposal_slot`. The meanings of the fields are:
 
                 - `version`: the identifier of the beacon hard fork at `proposal_slot`, e.g.
                   `"bellatrix"`, `"capella"`.
