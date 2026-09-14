@@ -75,19 +75,23 @@ get:
                 `builder_index` is a quoted decimal uint64. `block_hash` is the `0x`-prefixed 32-byte execution block hash, not the beacon block root in `block`.
                 Self-built blocks also include both fields, with `builder_index` set to `BUILDER_INDEX_SELF_BUILD` (`"18446744073709551615"`).
                 The existing `slot`, `block`, and `execution_optimistic` fields are unchanged.
+
+                The response example uses the pre-Gloas shape. The following examples show the same `block` event from Gloas onwards.
+
+                External Builder:
+                ```text
+                event: block
+                data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false, "builder_index":"42", "block_hash":"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76"}
+                ```
+
+                Self-build:
+                ```text
+                event: block
+                data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false, "builder_index":"18446744073709551615", "block_hash":"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76"}
+                ```
               value: |
                 event: block
                 data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false}
-            block_gloas:
-              description: A Gloas or later block containing an external Builder's bid was successfully imported.
-              value: |
-                event: block
-                data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false, "builder_index":"42", "block_hash":"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76"}
-            block_gloas_self_build:
-              description: A Gloas or later self-built block was successfully imported.
-              value: |
-                event: block
-                data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false, "builder_index":"18446744073709551615", "block_hash":"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76"}
             block_gossip:
               description: The node has received a block (from P2P or API) that passes validation rules of the `beacon_block` topic
               value: |
