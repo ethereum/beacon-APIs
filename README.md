@@ -22,27 +22,26 @@ to perform validator related tasks, called "duties", on the beacon chain.
 
 The goal of this specification is to promote interoperability between various beacon node implementations.
 
-## Render
-To render spec in browser you will need any http server to load `index.html` file
-in root of the repo.
+## Build and Serve Locally
 
-##### Python
+The easiest way to build and serve the API spec locally is using the provided Makefile:
+
+```bash
+# Build and serve the spec (default)
+make
+
+# Build only
+make build
+
+# Serve only (after building)
+make serve
+
+# Run linting
+make lint
+
+# Clean build artifacts
+make clean
 ```
-python -m http.server 8080
-```
-And api spec will render on [http://localhost:8080](http://localhost:8080).
-
-##### NodeJs
-```
-npm install simplehttpserver -g
-
-# OR
-
-yarn global add simplehttpserver
-
-simplehttpserver
-```
-And api spec will render on [http://localhost:8000](http://localhost:8000).
 
 ### Usage
 
@@ -53,17 +52,9 @@ Users may need to tick the "Disable Cache" box in their browser's developer tool
 ## Contributing
 Api spec is checked for lint errors before merge.
 
-To run lint locally, install linter with
+To run lint locally, run
 ```
-npm install -g @redocly/cli
-
-# OR
-
-yarn global add @redocly/cli
-```
-and run lint with
-```
-redocly lint beacon-node-oapi.yaml
+make lint
 ```
 
 ## Releasing
