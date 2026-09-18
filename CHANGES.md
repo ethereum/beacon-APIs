@@ -39,6 +39,7 @@ There are likely to be descriptions etc outside of the list below, but new query
 | [#608](https://github.com/ethereum/beacon-APIs/pull/608) `POST /eth/v1/validator/prepare_beacon_proposer` deprecated         |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#608](https://github.com/ethereum/beacon-APIs/pull/608) `POST /eth/v1/validator/register_validator` deprecated         |                                                  |                                                  |                                                    |                                                 |                                           |
 | [#608](https://github.com/ethereum/beacon-APIs/pull/608) `POST /eth/v1/validator/beacon_committee_subscriptions` updated         |                                                  |                                                  |                                                    |                                                 |                                           |
+| [#641](https://github.com/ethereum/beacon-APIs/pull/641) `block EVENT` includes `builder_index` and `block_hash` from Gloas | | | | | |
 
 The Following are no longer in the Standard API, removed since the latest version.
 
