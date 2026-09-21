@@ -28,7 +28,7 @@ Gloas:
           $ref: "./attestation.yaml#/Gloas/Attestation"
       deposits:
         type: array
-        description: "Legacy deposits are disabled in Gloas; this list must be empty."
+        description: "Legacy deposits are disabled in Gloas. This list must be empty."
         maxItems: 0
         items:
           $ref: "../phase0/deposit.yaml#/Phase0/Deposit"

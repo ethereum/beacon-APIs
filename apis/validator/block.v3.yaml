@@ -16,7 +16,7 @@ get:
 
     Metadata in the response indicates the type of block produced.
 
-    This endpoint only supports forks through Fulu; use `POST /eth/v4/validator/blocks/{slot}`
+    This endpoint only supports forks through Fulu. Use `POST /eth/v4/validator/blocks/{slot}`
     for Gloas and later forks.
   parameters:
     - name: slot
