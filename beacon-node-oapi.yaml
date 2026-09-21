@@ -481,6 +481,12 @@ components:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.Attestation:
+      $ref: "./types/gloas/attestation.yaml#/Gloas/Attestation"
+    Gloas.AttesterSlashing:
+      $ref: "./types/gloas/attester_slashing.yaml#/Gloas/AttesterSlashing"
+    Gloas.SignedAggregateAndProof:
+      $ref: "./types/gloas/validator.yaml#/Gloas/SignedAggregateAndProof"
     Gloas.ProposerPreferences:
       $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
     Gloas.SignedProposerPreferences:

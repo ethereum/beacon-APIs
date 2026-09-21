@@ -1,7 +1,7 @@
 Gloas:
   BeaconBlockBody:
     type: object
-    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec."
     required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, voluntary_exits, sync_aggregate, bls_to_execution_changes, signed_execution_payload_bid, payload_attestations, parent_execution_requests]
     properties:
       randao_reveal:
@@ -13,44 +13,50 @@ Gloas:
         $ref: "../primitive.yaml#/Graffiti"
       proposer_slashings:
         type: array
+        maxItems: 16
         items:
           $ref: "../phase0/proposer_slashing.yaml#/Phase0/ProposerSlashing"
       attester_slashings:
         type: array
+        maxItems: 1
         items:
-          $ref: "../electra/attester_slashing.yaml#/Electra/AttesterSlashing"
+          $ref: "./attester_slashing.yaml#/Gloas/AttesterSlashing"
       attestations:
         type: array
+        maxItems: 8
         items:
-          $ref: "../electra/attestation.yaml#/Electra/Attestation"
+          $ref: "./attestation.yaml#/Gloas/Attestation"
       deposits:
         type: array
+        description: "Legacy deposits are disabled in Gloas; this list must be empty."
+        maxItems: 0
         items:
           $ref: "../phase0/deposit.yaml#/Phase0/Deposit"
       voluntary_exits:
         type: array
+        maxItems: 16
         items:
           $ref: "../phase0/voluntary_exit.yaml#/Phase0/SignedVoluntaryExit"
       sync_aggregate:
         $ref: "../altair/sync_aggregate.yaml#/Altair/SyncAggregate"
       bls_to_execution_changes:
         type: array
+        maxItems: 16
         items:
           $ref: "../capella/bls_to_execution_change.yaml#/Capella/SignedBLSToExecutionChange"
       signed_execution_payload_bid:
         $ref: "./execution_payload_bid.yaml#/Gloas/SignedExecutionPayloadBid"
       payload_attestations:
         type: array
-        description: "Array of payload attestations from gloas."
+        maxItems: 4
+        description: "Payload attestations for the parent beacon block."
         items:
           $ref: "./payload_attestation.yaml#/Gloas/PayloadAttestation"
-        minItems: 0
-        maxItems: 4
       parent_execution_requests:
         $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
 
   BeaconBlock:
-    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
+    description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
     allOf:
       - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
       - type: object
@@ -61,7 +67,7 @@ Gloas:
 
   SignedBeaconBlock:
     type: object
-    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec."
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec."
     required: [message, signature]
     properties:
       message:
