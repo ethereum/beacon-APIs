@@ -143,6 +143,7 @@ Gloas:
       execution_payload_availability:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192) on the mainnet preset."
+        # 8192 bits = 1024 bytes = 2048 hex characters, plus the 0x prefix.
         minLength: 2050
         maxLength: 2050
       builder_pending_payments:
