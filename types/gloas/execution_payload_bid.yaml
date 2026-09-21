@@ -26,6 +26,7 @@ Gloas:
         $ref: "../primitive.yaml#/Gwei"
       blob_kzg_commitments:
         type: array
+        maxItems: 4096
         items:
           $ref: '../primitive.yaml#/KZGCommitment'
       execution_requests_root:

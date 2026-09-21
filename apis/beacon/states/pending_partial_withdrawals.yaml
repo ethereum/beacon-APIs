@@ -25,7 +25,7 @@ get:
             properties:
               version:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
-                example: "fulu"
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
@@ -34,10 +34,19 @@ get:
                 type: array
                 items:
                   $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingPartialWithdrawal"
-                maxItems: 134217728
+            oneOf:
+              - properties:
+                  version:
+                    enum: [electra, fulu]
+                  data:
+                    type: array
+                    maxItems: 134217728
+              - properties:
+                  version:
+                    enum: [gloas]
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[PendingPartialWithdrawals, PENDING_PARTIAL_WITHDRAWALS_LIMIT]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[PendingPartialWithdrawal, PENDING_PARTIAL_WITHDRAWALS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingPartialWithdrawal]` bytes from Gloas onwards. Use the `Eth-Consensus-Version` response header to select the type."
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
@@ -46,4 +55,3 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
-
