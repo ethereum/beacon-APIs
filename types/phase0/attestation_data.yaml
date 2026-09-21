@@ -9,7 +9,6 @@ Phase0:
       index:
         $ref: "../primitive.yaml#/Uint64"
         example: "0"
-        description: "Committee index before Electra. Zero in Electra and Fulu. Payload status from Gloas onwards."
       beacon_block_root:
         $ref: '../primitive.yaml#/Root'
         description: "LMD GHOST vote."
