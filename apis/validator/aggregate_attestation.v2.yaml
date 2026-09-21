@@ -62,3 +62,5 @@ get:
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
