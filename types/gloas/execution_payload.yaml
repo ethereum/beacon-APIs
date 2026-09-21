@@ -39,6 +39,7 @@ Gloas:
         $ref: "../primitive.yaml#/Hash32"
       transactions:
         type: array
+        maxItems: 1048576
         description: "Progressive list of transactions."
         items:
           $ref: "#/Gloas/Transaction"
