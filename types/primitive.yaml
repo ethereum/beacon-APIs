@@ -105,7 +105,7 @@ Bitvector:
 Uint8:
   type: string
   description: "Unsigned 8 bit integer, max value 255"
-  pattern: "^[1-2]?[0-9]{1,2}$"
+  pattern: "^([0-9]{1,2}|1[0-9]{2}|2[0-4][0-9]|25[0-5])$"
   example: "0"
 
 ExecutionAddress:
