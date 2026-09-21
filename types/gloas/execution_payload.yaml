@@ -2,7 +2,7 @@ Gloas:
   Transaction:
     type: string
     format: hex
-    description: "A transaction encoded as a Gloas `ProgressiveByteList`."
+    description: "A transaction encoded as a `ProgressiveByteList`."
     example: "0x02f878831469668303f51d843b9ac9f9843b9aca0082520894c93269b73096998db66be0441e836d873535cb9c8894a19041886f000080c001a031cc29234036afbf9a1fb9476b463367cb1f957ac0b919b69bbc798436e604aaa018c4e9c3914eb27aadd0b91e10b18655739fcf8c1fc398763a9f1beecb8ddc86"
     pattern: "^0x([a-fA-F0-9]{2})*$"
 
