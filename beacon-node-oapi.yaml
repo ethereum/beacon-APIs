@@ -228,8 +228,6 @@ paths:
     $ref: "./apis/validator/builder_preferences.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
-  /eth/v1/validator/execution_payload_bids/{slot}/{builder_index}:
-    $ref: "./apis/validator/execution_payload_bid.yaml"
   /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
     $ref: "./apis/validator/execution_payload_envelope.yaml"
 
