@@ -19,7 +19,7 @@ get:
       content:
         application/json:
           schema:
-            title: GetPendingDepositsResponse
+            title: GetPendingConsolidationsResponse
             type: object
             required: [version, execution_optimistic, finalized, data]
             properties:
