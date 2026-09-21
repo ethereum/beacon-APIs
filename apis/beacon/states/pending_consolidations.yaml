@@ -36,7 +36,7 @@ get:
                   - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingConsolidations"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` or `ProgressiveList[PendingConsolidation]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingConsolidation]` bytes from Gloas onwards."
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
