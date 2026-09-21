@@ -1,12 +1,58 @@
 Gloas:
+  Transaction:
+    type: string
+    format: hex
+    description: "A transaction encoded as a Gloas `ProgressiveByteList`."
+    example: "0x02f878831469668303f51d843b9ac9f9843b9aca0082520894c93269b73096998db66be0441e836d873535cb9c8894a19041886f000080c001a031cc29234036afbf9a1fb9476b463367cb1f957ac0b919b69bbc798436e604aaa018c4e9c3914eb27aadd0b91e10b18655739fcf8c1fc398763a9f1beecb8ddc86"
+    pattern: "^0x([a-fA-F0-9]{2})*$"
+
   ExecutionPayload:
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
-    allOf:
-      - $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
-      - type: object
-        required: [block_access_list, slot_number]
-        properties:
-          block_access_list:
-            $ref: "../primitive.yaml#/BlockAccessList"
-          slot_number:
-            $ref: "../primitive.yaml#/Uint64"
+    type: object
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) progressive container from the CL Gloas spec."
+    required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, block_hash, transactions, withdrawals, blob_gas_used, excess_blob_gas, block_access_list, slot_number]
+    properties:
+      parent_hash:
+        $ref: "../primitive.yaml#/Hash32"
+      fee_recipient:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+      state_root:
+        $ref: "../primitive.yaml#/Bytes32"
+      receipts_root:
+        $ref: "../primitive.yaml#/Bytes32"
+      logs_bloom:
+        $ref: "../primitive.yaml#/LogsBloom"
+      prev_randao:
+        $ref: "../primitive.yaml#/Bytes32"
+      block_number:
+        $ref: "../primitive.yaml#/Uint64"
+      gas_limit:
+        $ref: "../primitive.yaml#/Uint64"
+      gas_used:
+        $ref: "../primitive.yaml#/Uint64"
+      timestamp:
+        $ref: "../primitive.yaml#/Uint64"
+      extra_data:
+        $ref: "../primitive.yaml#/ExtraData"
+      base_fee_per_gas:
+        $ref: "../primitive.yaml#/Uint256"
+      block_hash:
+        $ref: "../primitive.yaml#/Hash32"
+      transactions:
+        type: array
+        description: "Progressive list of transactions."
+        items:
+          $ref: "#/Gloas/Transaction"
+      withdrawals:
+        type: array
+        maxItems: 16
+        description: "Progressive list of withdrawals."
+        items:
+          $ref: "../capella/withdrawal.yaml#/Capella/Withdrawal"
+      blob_gas_used:
+        $ref: "../primitive.yaml#/Uint64"
+      excess_blob_gas:
+        $ref: "../primitive.yaml#/Uint64"
+      block_access_list:
+        $ref: "../primitive.yaml#/BlockAccessList"
+      slot_number:
+        $ref: "../primitive.yaml#/Uint64"
