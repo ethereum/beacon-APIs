@@ -33,9 +33,10 @@ Phase0:
         $ref: "./eth1.yaml#/Phase0/Eth1Data"
       eth1_data_votes:
         type: array
-        description: "Fixed length of 1024 items"
+        description: "Variable length list, maximum 2048 items on the mainnet preset."
         items:
           $ref: './eth1.yaml#/Phase0/Eth1Data'
+        maxItems: 2048
       eth1_deposit_index:
         $ref: "../primitive.yaml#/Uint64"
       validators:
