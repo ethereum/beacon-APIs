@@ -1,7 +1,7 @@
 Gloas:
   ExecutionPayloadEnvelope:
     type: object
-    description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) progressive container from the CL Gloas spec."
+    description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec."
     required: [payload, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root]
     properties:
       payload:

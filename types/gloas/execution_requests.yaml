@@ -30,7 +30,7 @@ Gloas:
 
   ExecutionRequests:
     type: object
-    description: "The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) progressive container from the CL Gloas spec."
+    description: "The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec."
     required: [deposits, withdrawals, consolidations, builder_deposits, builder_exits]
     properties:
       deposits:

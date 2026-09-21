@@ -8,7 +8,7 @@ Gloas:
 
   ExecutionPayload:
     type: object
-    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) progressive container from the CL Gloas spec."
+    description: "The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec."
     required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, block_hash, transactions, withdrawals, blob_gas_used, excess_blob_gas, block_access_list, slot_number]
     properties:
       parent_hash:

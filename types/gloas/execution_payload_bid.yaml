@@ -1,7 +1,7 @@
 Gloas:
   ExecutionPayloadBid:
     type: object
-    description: "The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) progressive container from the CL Gloas spec."
+    description: "The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec."
     required: [parent_block_hash, parent_block_root, block_hash, prev_randao, fee_recipient, gas_limit, builder_index, slot, value, execution_payment, blob_kzg_commitments, execution_requests_root]
     properties:
       parent_block_hash:
