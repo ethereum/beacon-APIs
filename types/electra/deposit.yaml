@@ -38,3 +38,9 @@ Electra:
       slot:
         $ref: "../primitive.yaml#/Uint64"
         description: "The slot at which the deposit request was processed."
+
+  PendingDeposits:
+    type: array
+    items:
+      $ref: "#/Electra/PendingDeposit"
+    maxItems: 134217728

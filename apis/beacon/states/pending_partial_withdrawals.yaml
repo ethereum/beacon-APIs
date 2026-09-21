@@ -32,18 +32,17 @@ get:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
                 type: array
-                items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingPartialWithdrawal"
             oneOf:
               - properties:
                   version:
                     enum: [electra, fulu]
                   data:
-                    type: array
-                    maxItems: 134217728
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingPartialWithdrawals"
               - properties:
                   version:
                     enum: [gloas]
+                  data:
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingPartialWithdrawals"
         application/octet-stream:
           schema:
             description: "SSZ serialized `List[PendingPartialWithdrawal, PENDING_PARTIAL_WITHDRAWALS_LIMIT]` or `ProgressiveList[PendingPartialWithdrawal]` bytes. Use Accept header to choose this response type"

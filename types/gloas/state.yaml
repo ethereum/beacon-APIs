@@ -121,20 +121,11 @@ Gloas:
       earliest_consolidation_epoch:
         $ref: "../primitive.yaml#/Uint64"
       pending_deposits:
-        type: array
-        description: "Progressive list of pending deposits."
-        items:
-          $ref: "../electra/deposit.yaml#/Electra/PendingDeposit"
+        $ref: "./deposit.yaml#/Gloas/PendingDeposits"
       pending_partial_withdrawals:
-        type: array
-        description: "Progressive list of pending partial withdrawals."
-        items:
-          $ref: "../electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal"
+        $ref: "./withdrawal.yaml#/Gloas/PendingPartialWithdrawals"
       pending_consolidations:
-        type: array
-        description: "Progressive list of pending consolidations."
-        items:
-          $ref: "../electra/consolidation.yaml#/Electra/PendingConsolidation"
+        $ref: "./consolidation.yaml#/Gloas/PendingConsolidations"
       proposer_lookahead:
         type: array
         description: "Fixed vector of proposer indices for the current and next epoch."
