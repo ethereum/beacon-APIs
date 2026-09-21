@@ -25,7 +25,7 @@ Gloas:
       aggregation_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Fixed vector of PTC_SIZE (512) bits on the mainnet preset."
-        # 512 bits = 64 bytes = 128 hex characters, plus the 0x prefix.
+        # 512 bits = 64 bytes = 128 hex characters, plus the 0x prefix
         minLength: 130
         maxLength: 130
       data:

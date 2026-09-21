@@ -3,6 +3,7 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
+  deprecated: true
   operationId: "publishBlindedBlockV2"
   description: |
     Instructs the beacon node to use the components of the `SignedBlindedBeaconBlock` to construct and publish a 
@@ -14,8 +15,10 @@ post:
     therefore validate the block internally, however blocks which fail the validation are still
     broadcast but a different status code is returned (202). Before Bellatrix, this endpoint will accept 
     a `SignedBeaconBlock`. The broadcast behaviour may be adjusted via the `broadcast_validation`
-    query parameter. This endpoint only supports forks through Fulu. Gloas blocks do not have a
-    blinded form and MUST be published through `POST /eth/v2/beacon/blocks`.
+    query parameter.
+
+    This endpoint only supports forks through Fulu. Gloas blocks do not have a blinded form and
+    MUST be published through `POST /eth/v2/beacon/blocks`.
   parameters:
     - name: broadcast_validation
       in: query

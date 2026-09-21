@@ -24,7 +24,7 @@ Gloas:
       aggregation_bits:
         $ref: "../primitive.yaml#/BitList"
         description: "Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits on the mainnet preset."
-        # 131072 bits plus a delimiter = 16385 bytes = 32770 hex characters, plus the 0x prefix.
+        # 131072 bits plus a delimiter = 16385 bytes = 32770 hex characters, plus the 0x prefix
         maxLength: 32772
       data:
         $ref: "../phase0/attestation_data.yaml#/Phase0/AttestationData"
@@ -34,7 +34,7 @@ Gloas:
       committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits on the mainnet preset."
-        # 64 bits = 8 bytes = 16 hex characters, plus the 0x prefix.
+        # 64 bits = 8 bytes = 16 hex characters, plus the 0x prefix
         minLength: 18
         maxLength: 18
         example: "0x0000000000000001"

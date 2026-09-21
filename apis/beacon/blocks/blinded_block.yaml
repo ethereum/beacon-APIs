@@ -1,9 +1,11 @@
 get:
   operationId: getBlindedBlock
   summary: Get blinded block
+  deprecated: true
   description: |
     Retrieves blinded block for given block ID.
     Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ.
+
     This endpoint only supports forks through Fulu. Gloas blocks do not have a blinded form;
     use `GET /eth/v2/beacon/blocks/{block_id}` instead.
   tags:
