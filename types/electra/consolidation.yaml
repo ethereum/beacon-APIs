@@ -28,6 +28,7 @@ Electra:
 
   PendingConsolidations:
     type: array
+    description: "List of pending consolidations."
     items:
       $ref: "#/Electra/PendingConsolidation"
     maxItems: 262144

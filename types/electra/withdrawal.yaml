@@ -31,6 +31,7 @@ Electra:
 
   PendingPartialWithdrawals:
     type: array
+    description: "List of pending partial withdrawals."
     items:
       $ref: "#/Electra/PendingPartialWithdrawal"
     maxItems: 134217728
