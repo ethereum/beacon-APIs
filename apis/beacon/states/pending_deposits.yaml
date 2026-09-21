@@ -31,18 +31,9 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-            oneOf:
-              - properties:
-                  version:
-                    enum: [electra, fulu]
-                  data:
-                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingDeposits"
-              - properties:
-                  version:
-                    enum: [gloas]
-                  data:
-                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingDeposits"
+                anyOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingDeposits"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingDeposits"
         application/octet-stream:
           schema:
             description: "SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` or `ProgressiveList[PendingDeposit]` bytes. Use Accept header to choose this response type"

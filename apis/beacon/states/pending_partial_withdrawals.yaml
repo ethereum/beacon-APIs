@@ -31,18 +31,9 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-            oneOf:
-              - properties:
-                  version:
-                    enum: [electra, fulu]
-                  data:
-                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingPartialWithdrawals"
-              - properties:
-                  version:
-                    enum: [gloas]
-                  data:
-                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingPartialWithdrawals"
+                anyOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingPartialWithdrawals"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingPartialWithdrawals"
         application/octet-stream:
           schema:
             description: "SSZ serialized `List[PendingPartialWithdrawal, PENDING_PARTIAL_WITHDRAWALS_LIMIT]` or `ProgressiveList[PendingPartialWithdrawal]` bytes. Use Accept header to choose this response type"
