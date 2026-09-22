@@ -33,10 +33,10 @@ Fulu:
         $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
       eth1_data_votes:
         type: array
-        description: "Fixed length of 1024 items"
+        description: "Variable length list, maximum 2048 items."
         items:
           $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
-        maxItems: 1024
+        maxItems: 2048
       eth1_deposit_index:
         $ref: "../primitive.yaml#/Uint64"
       validators:
