@@ -5,6 +5,8 @@ info:
   description: |
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
+    The schemas in this specification assume the `mainnet` preset from the consensus specifications.
+
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
     and "Accept: application/json" headers.  In addition, some requests can send and receive data in the SSZ format.  The header
     "Content-Type: application/octet-stream" should be set in requests that contain SSZ data; a preference to receive SSZ data in
@@ -27,7 +29,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-alpha.8"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-beta.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -449,12 +451,26 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Electra.PendingDeposit:
       $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
+    Electra.PendingDeposits:
+      $ref: './types/electra/deposit.yaml#/Electra/PendingDeposits'
     Electra.PendingConsolidation:
       $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
+    Electra.PendingConsolidations:
+      $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidations'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Electra.PendingPartialWithdrawals:
+      $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawals'
     Fulu.BeaconState:
       $ref: './types/fulu/state.yaml#/Fulu/BeaconState'
+    Gloas.PendingDeposits:
+      $ref: './types/gloas/deposit.yaml#/Gloas/PendingDeposits'
+    Gloas.PendingPartialWithdrawals:
+      $ref: './types/gloas/withdrawal.yaml#/Gloas/PendingPartialWithdrawals'
+    Gloas.PendingConsolidations:
+      $ref: './types/gloas/consolidation.yaml#/Gloas/PendingConsolidations'
+    Gloas.BeaconState:
+      $ref: './types/gloas/state.yaml#/Gloas/BeaconState'
     Gloas.BeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:
@@ -481,6 +497,12 @@ components:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.Attestation:
+      $ref: "./types/gloas/attestation.yaml#/Gloas/Attestation"
+    Gloas.AttesterSlashing:
+      $ref: "./types/gloas/attester_slashing.yaml#/Gloas/AttesterSlashing"
+    Gloas.SignedAggregateAndProof:
+      $ref: "./types/gloas/validator.yaml#/Gloas/SignedAggregateAndProof"
     Gloas.ProposerPreferences:
       $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
     Gloas.SignedProposerPreferences:
