@@ -1,0 +1,180 @@
+Gloas:
+  BeaconState:
+    type: object
+    description: "The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec."
+    required: [genesis_time, genesis_validators_root, slot, fork, latest_block_header, block_roots, state_roots, historical_roots, eth1_data, eth1_data_votes, eth1_deposit_index, validators, balances, randao_mixes, slashings, previous_epoch_participation, current_epoch_participation, justification_bits, previous_justified_checkpoint, current_justified_checkpoint, finalized_checkpoint, inactivity_scores, current_sync_committee, next_sync_committee, latest_block_hash, next_withdrawal_index, next_withdrawal_validator_index, historical_summaries, deposit_requests_start_index, deposit_balance_to_consume, exit_balance_to_consume, earliest_exit_epoch, consolidation_balance_to_consume, earliest_consolidation_epoch, pending_deposits, pending_partial_withdrawals, pending_consolidations, proposer_lookahead, builders, next_withdrawal_builder_index, execution_payload_availability, builder_pending_payments, builder_pending_withdrawals, latest_execution_payload_bid, payload_expected_withdrawals, ptc_window]
+    properties:
+      genesis_time:
+        $ref: "../primitive.yaml#/Uint64"
+      genesis_validators_root:
+        $ref: "../primitive.yaml#/Root"
+      slot:
+        $ref: "../primitive.yaml#/Uint64"
+      fork:
+        $ref: "../misc.yaml#/Fork"
+      latest_block_header:
+        $ref: "../phase0/block.yaml#/Phase0/BeaconBlockHeader"
+      block_roots:
+        type: array
+        description: "Fixed vector of 8192 roots."
+        items:
+          $ref: "../primitive.yaml#/Root"
+        minItems: 8192
+        maxItems: 8192
+      state_roots:
+        type: array
+        description: "Fixed vector of 8192 roots."
+        items:
+          $ref: "../primitive.yaml#/Root"
+        minItems: 8192
+        maxItems: 8192
+      historical_roots:
+        type: array
+        description: "Variable length list, maximum 16777216 items. Frozen in Capella, replaced by `historical_summaries`."
+        items:
+          $ref: "../primitive.yaml#/Root"
+        maxItems: 16777216
+      eth1_data:
+        $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
+      eth1_data_votes:
+        type: array
+        description: "Variable length list, maximum 2048 items."
+        items:
+          $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
+        maxItems: 2048
+      eth1_deposit_index:
+        $ref: "../primitive.yaml#/Uint64"
+      validators:
+        type: array
+        description: "Progressive list of validators."
+        items:
+          $ref: "../phase0/validator.yaml#/Phase0/Validator"
+      balances:
+        type: array
+        description: "Progressive list of validator balances in gwei."
+        items:
+          $ref: "../primitive.yaml#/Gwei"
+      randao_mixes:
+        type: array
+        description: "Fixed vector of 65536 roots."
+        items:
+          $ref: "../primitive.yaml#/Bytes32"
+        minItems: 65536
+        maxItems: 65536
+      slashings:
+        type: array
+        description: "Fixed vector of 8192 per-epoch slashed effective balance totals."
+        items:
+          $ref: "../primitive.yaml#/Gwei"
+        minItems: 8192
+        maxItems: 8192
+      previous_epoch_participation:
+        type: array
+        description: "Progressive list of validator participation flags for the previous epoch."
+        items:
+          $ref: "../primitive.yaml#/Uint8"
+      current_epoch_participation:
+        type: array
+        description: "Progressive list of validator participation flags for the current epoch."
+        items:
+          $ref: "../primitive.yaml#/Uint8"
+      justification_bits:
+        $ref: "../primitive.yaml#/Bitvector"
+        description: "Bit set for every recent justified epoch."
+      previous_justified_checkpoint:
+        $ref: "../misc.yaml#/Checkpoint"
+      current_justified_checkpoint:
+        $ref: "../misc.yaml#/Checkpoint"
+      finalized_checkpoint:
+        $ref: "../misc.yaml#/Checkpoint"
+      inactivity_scores:
+        type: array
+        description: "Progressive list of per-validator inactivity scores."
+        items:
+          $ref: "../primitive.yaml#/Uint64"
+      current_sync_committee:
+        $ref: "../altair/sync_committee.yaml#/Altair/SyncCommittee"
+      next_sync_committee:
+        $ref: "../altair/sync_committee.yaml#/Altair/SyncCommittee"
+      latest_block_hash:
+        $ref: "../primitive.yaml#/Hash32"
+      next_withdrawal_index:
+        $ref: "../primitive.yaml#/Uint64"
+      next_withdrawal_validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+      historical_summaries:
+        type: array
+        description: "Variable length list, maximum 16777216 items."
+        items:
+          $ref: "../capella/historical_summary.yaml#/Capella/HistoricalSummary"
+        maxItems: 16777216
+      deposit_requests_start_index:
+        $ref: "../primitive.yaml#/Uint64"
+      deposit_balance_to_consume:
+        $ref: "../primitive.yaml#/Gwei"
+      exit_balance_to_consume:
+        $ref: "../primitive.yaml#/Gwei"
+      earliest_exit_epoch:
+        $ref: "../primitive.yaml#/Uint64"
+      consolidation_balance_to_consume:
+        $ref: "../primitive.yaml#/Gwei"
+      earliest_consolidation_epoch:
+        $ref: "../primitive.yaml#/Uint64"
+      pending_deposits:
+        $ref: "./deposit.yaml#/Gloas/PendingDeposits"
+      pending_partial_withdrawals:
+        $ref: "./withdrawal.yaml#/Gloas/PendingPartialWithdrawals"
+      pending_consolidations:
+        $ref: "./consolidation.yaml#/Gloas/PendingConsolidations"
+      proposer_lookahead:
+        type: array
+        description: "Fixed vector of proposer indices for the current and next epoch."
+        items:
+          $ref: "../primitive.yaml#/Uint64"
+        minItems: 64
+        maxItems: 64
+      builders:
+        type: array
+        description: "Progressive list of builders."
+        items:
+          $ref: "./builder.yaml#/Gloas/Builder"
+      next_withdrawal_builder_index:
+        $ref: "../primitive.yaml#/Uint64"
+      execution_payload_availability:
+        $ref: "../primitive.yaml#/Bitvector"
+        description: "Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192)."
+        # 8192 bits = 1024 bytes = 2048 hex characters, plus the 0x prefix
+        minLength: 2050
+        maxLength: 2050
+      builder_pending_payments:
+        type: array
+        description: "Fixed vector of pending builder payments covering two epochs."
+        items:
+          $ref: "./builder.yaml#/Gloas/BuilderPendingPayment"
+        minItems: 64
+        maxItems: 64
+      builder_pending_withdrawals:
+        type: array
+        description: "Progressive list of pending builder withdrawals."
+        items:
+          $ref: "./builder.yaml#/Gloas/BuilderPendingWithdrawal"
+      latest_execution_payload_bid:
+        $ref: "./execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
+      payload_expected_withdrawals:
+        type: array
+        maxItems: 16
+        description: "Progressive list of withdrawals expected in the next execution payload."
+        items:
+          $ref: "../capella/withdrawal.yaml#/Capella/Withdrawal"
+      ptc_window:
+        type: array
+        description: "Fixed vector of 96 payload-timeliness committees."
+        items:
+          type: array
+          description: "Fixed vector of 512 validator indices."
+          items:
+            $ref: "../primitive.yaml#/Uint64"
+          minItems: 512
+          maxItems: 512
+        minItems: 96
+        maxItems: 96
