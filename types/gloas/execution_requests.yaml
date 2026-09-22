@@ -1,0 +1,64 @@
+Gloas:
+  BuilderDepositRequest:
+    type: object
+    description: "The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec."
+    required: [pubkey, withdrawal_credentials, amount, signature]
+    properties:
+      pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+        description: "BLS public key of builder."
+      withdrawal_credentials:
+        $ref: "../primitive.yaml#/Bytes32"
+        description: "The withdrawal credentials."
+      amount:
+        $ref: "../primitive.yaml#/Gwei"
+        description: "The value to be deposited (gwei)."
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+
+  BuilderExitRequest:
+    type: object
+    description: "The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec."
+    required: [source_address, pubkey]
+    properties:
+      source_address:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+        description: "Execution address which sent the request."
+      pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+        description: "BLS public key of builder."
+
+  ExecutionRequests:
+    type: object
+    description: "The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec."
+    required: [deposits, withdrawals, consolidations, builder_deposits, builder_exits]
+    properties:
+      deposits:
+        type: array
+        description: "Progressive list of deposit requests."
+        items:
+          $ref: "../electra/deposit.yaml#/Electra/DepositRequest"
+      withdrawals:
+        type: array
+        description: "Progressive list of withdrawal requests."
+        maxItems: 16
+        items:
+          $ref: "../electra/withdrawal.yaml#/Electra/WithdrawalRequest"
+      consolidations:
+        type: array
+        description: "Progressive list of consolidation requests."
+        maxItems: 2
+        items:
+          $ref: "../electra/consolidation.yaml#/Electra/ConsolidationRequest"
+      builder_deposits:
+        type: array
+        description: "Progressive list of builder deposit requests."
+        maxItems: 64
+        items:
+          $ref: "#/Gloas/BuilderDepositRequest"
+      builder_exits:
+        type: array
+        description: "Progressive list of builder exit requests."
+        maxItems: 16
+        items:
+          $ref: "#/Gloas/BuilderExitRequest"
