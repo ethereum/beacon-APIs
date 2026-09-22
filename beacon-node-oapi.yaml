@@ -451,12 +451,26 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Electra.PendingDeposit:
       $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
+    Electra.PendingDeposits:
+      $ref: './types/electra/deposit.yaml#/Electra/PendingDeposits'
     Electra.PendingConsolidation:
       $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
+    Electra.PendingConsolidations:
+      $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidations'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Electra.PendingPartialWithdrawals:
+      $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawals'
     Fulu.BeaconState:
       $ref: './types/fulu/state.yaml#/Fulu/BeaconState'
+    Gloas.PendingDeposits:
+      $ref: './types/gloas/deposit.yaml#/Gloas/PendingDeposits'
+    Gloas.PendingPartialWithdrawals:
+      $ref: './types/gloas/withdrawal.yaml#/Gloas/PendingPartialWithdrawals'
+    Gloas.PendingConsolidations:
+      $ref: './types/gloas/consolidation.yaml#/Gloas/PendingConsolidations'
+    Gloas.BeaconState:
+      $ref: './types/gloas/state.yaml#/Gloas/BeaconState'
     Gloas.BeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:

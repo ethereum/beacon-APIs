@@ -25,3 +25,10 @@ Electra:
       target_index:
         $ref: "../primitive.yaml#/Uint64"
         description: "Index of validator to consolidate to."
+
+  PendingConsolidations:
+    type: array
+    description: "List of pending consolidations."
+    items:
+      $ref: "#/Electra/PendingConsolidation"
+    maxItems: 262144

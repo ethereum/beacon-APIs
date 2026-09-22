@@ -1,0 +1,6 @@
+Gloas:
+  PendingDeposits:
+    type: array
+    description: "Progressive list of pending deposits."
+    items:
+      $ref: "../electra/deposit.yaml#/Electra/PendingDeposit"
