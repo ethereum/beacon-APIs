@@ -6,16 +6,13 @@ permalink: /validator-flow/
 
 # Validator Flow
 
-How validators use this API for block proposals, attestations and payload timeliness committee duties.
+Detail explanation how validator should utilize this API to perform his regular BeaconChain duties.
 
-Monitor [`head_v2` events](#/Events/eventstream) as described by the duty endpoints. When a dependent
-root changes, refresh outstanding duties and update subnet subscriptions and proposer preferences.
 
 ### Block Proposing
 
-At startup and the start of each epoch, [fetch proposer duties](#/Validator/getProposerDutiesV2)
-for the current epoch. From Fulu onwards, also fetch the next epoch's duties.
-Each duty contains the proposer's public key and assigned slot.
+On start of every epoch, validator should [fetch proposer duties](#/Validator/getProposerDutiesV2).
+Result is array of objects, each containing proposer pubkey and slot at which he is suppose to propose.
 
 [Submit signed proposer preferences](#/Validator/submitProposerPreferences) for upcoming Gloas
 proposal slots, starting one epoch before the fork.
@@ -38,11 +35,11 @@ If proposing block, then at immediate start of slot:
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When a bid wins, only the `BeaconBlock` is returned regardless of `include_payload`, and
        `Eth-Builder-Url` names the builder if the bid came through the builder-API channel.
-2. Sign the returned block
+2. Sign block
 3. Submit the signed block via [`publishBlindedBlockV2`](#/ValidatorRequiredApi/publishBlindedBlockV2) if blinded,
    otherwise [`publishBlockV2`](#/ValidatorRequiredApi/publishBlockV2). For unblinded Deneb through Fulu blocks,
    use `SignedBlockContents`. Echo the `Eth-Builder-Url` header if one was returned
-4. Post-Gloas, if self-building (the bid's `builder_index` is [BUILDER_INDEX_SELF_BUILD](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#misc)):
+4. Post-Gloas, if self-building (the block's `builder_index` is [BUILDER_INDEX_SELF_BUILD](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#misc)):
    - Stateless (`include_payload=true`): envelope and blobs are already available from step 1.
      Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
      (envelope + blobs + KZG proofs) with `Eth-Blob-Data-Included: true`.
@@ -54,20 +51,22 @@ If proposing block, then at immediate start of slot:
 5. Post-Gloas, if a bid won (any other `builder_index`): nothing further. The winning builder
    releases the execution payload envelope.
 
+Monitor [chain reorganization events](#/Events/eventstream) as they could change block proposers.
+If reorg is detected, refresh outstanding proposer duties.
+
 ### Attestation
 
-At startup, [fetch attester duties](#/Validator/getAttesterDuties) for the current and next epoch.
-At the start of each subsequent epoch, fetch duties for the next epoch.
-Each duty identifies the validator, committee and attestation slot.
+On start of every epoch, validator should ask for attester duties for epoch + 1.
+Result are array of objects with validator, his committee and attestation slot.
 
 Attesting:
 
 1. Upon receiving duty, have beacon node prepare committee subnet
-    - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/validator.md#attestation-aggregation)
+    - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#attestation-aggregation)
     - [Ask beacon node to prepare your subnet](#/ValidatorRequiredApi/prepareBeaconCommitteeSubnet)
       - Submit one entry per validator per attestation duty, with `is_aggregator` set to `true`
         for aggregators
-2. Wait for a valid beacon block for the assigned slot (either stream updates or poll)
+2. Wait for new BeaconBlock for the assigned slot (either stream updates or poll)
     - Pre-Gloas forks: Max wait [`get_attestation_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/fork-choice.md#get_attestation_due_ms) milliseconds into the assigned slot
     - Post-Gloas forks: Max wait [`get_attestation_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#modified-get_attestation_due_ms) milliseconds into the assigned slot
 3. [Fetch AttestationData](#/ValidatorRequiredApi/produceAttestationData)
@@ -80,20 +79,26 @@ Attesting:
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestationV2) from Beacon Node you've subscribed to your subnet
     - Construct and sign `AggregateAndProof`, then [publish `SignedAggregateAndProof`](#/ValidatorRequiredApi/publishAggregateAndProofsV2)
 
+Monitor [chain reorganization events](#/Events/eventstream) as they could change attesters and aggregators.
+If reorg is detected, refresh outstanding attester duties and subnet subscriptions.
+
 ### PTC Attesting
 
-From Gloas onwards, at startup and the start of each epoch,
-[fetch PTC duties](#/Validator/getPtcDuties) for the current and next epoch.
-Each duty contains the validator index and assigned slot for payload timeliness committee participation.
+On start of every epoch beginning with the Gloas fork, validator should [fetch PTC duties](#/Validator/getPtcDuties) for the current and next epoch.
+Result are array of objects with validator index and assigned slot for payload timeliness committee participation.
 
 PTC Attesting:
 
-1. Wait for the beacon node to receive the payload envelope and confirm blob data availability for the assigned slot
+1. Wait for the execution payload envelope and blob data availability for the assigned slot (either stream updates or poll)
     - Max wait [`get_payload_attestation_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#new-get_payload_attestation_due_ms) milliseconds into the assigned slot
 2. [Fetch PayloadAttestationData](#/ValidatorRequiredApi/producePayloadAttestationData) for the assigned slot
     - On `204` (no block seen), skip signing and submission
 3. Sign `PayloadAttestationData` to create `PayloadAttestationMessage`
 4. [Submit PayloadAttestationMessages](#/ValidatorRequiredApi/submitPayloadAttestationMessages)
+    - Attestation indicates timely payload receipt and blob data availability
+
+Monitor [chain reorganization events](#/Events/eventstream) as they could change PTC assignments.
+If reorg is detected, refresh outstanding PTC duties.
 
 ### Builder (Optional)
 
@@ -107,7 +112,7 @@ Building:
 2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope)
 3. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
 4. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
-5. If a valid block includes your bid, sign the envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
+5. If bid is selected by proposer in their block, sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
    (envelope + blobs + KZG proofs) with `Eth-Blob-Data-Included: true` via any beacon node
     - Must submit before [`get_payload_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#new-get_payload_due_ms) milliseconds into the slot
 
