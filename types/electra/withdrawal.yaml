@@ -28,3 +28,10 @@ Electra:
       withdrawable_epoch:
         $ref: "../primitive.yaml#/Uint64"
         description: "The epoch when the amount is withdrawable."
+
+  PendingPartialWithdrawals:
+    type: array
+    description: "List of pending partial withdrawals."
+    items:
+      $ref: "#/Electra/PendingPartialWithdrawal"
+    maxItems: 134217728
