@@ -25,19 +25,18 @@ get:
             properties:
               version:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
-                example: "fulu"
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-                items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingDeposit"
-                maxItems: 134217728
+                anyOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingDeposits"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingDeposits"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingDeposit]` bytes from Gloas onwards."
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
@@ -46,4 +45,3 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
-

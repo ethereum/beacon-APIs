@@ -105,17 +105,8 @@ Electra:
       earliest_consolidation_epoch:
         $ref: "../primitive.yaml#/Uint64"
       pending_deposits:
-        type: array
-        items:
-          $ref: "./deposit.yaml#/Electra/PendingDeposit"
-        maxItems: 134217728
+        $ref: "./deposit.yaml#/Electra/PendingDeposits"
       pending_partial_withdrawals:
-        type: array
-        items:
-          $ref: "./withdrawal.yaml#/Electra/PendingPartialWithdrawal"
-        maxItems: 134217728
+        $ref: "./withdrawal.yaml#/Electra/PendingPartialWithdrawals"
       pending_consolidations:
-        type: array
-        items:
-          $ref: "./consolidation.yaml#/Electra/PendingConsolidation"
-        maxItems: 262144
+        $ref: "./consolidation.yaml#/Electra/PendingConsolidations"
