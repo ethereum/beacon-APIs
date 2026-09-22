@@ -2022,7 +2022,7 @@ paths:
                           example: active
                         builder:
                           type: object
-                          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+                          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
                           required:
                             - pubkey
                             - version
@@ -2613,7 +2613,7 @@ paths:
           content:
             application/json:
               schema:
-                title: GetPendingDepositsResponse
+                title: GetPendingConsolidationsResponse
                 type: object
                 required:
                   - version
@@ -2642,26 +2642,45 @@ paths:
                     example: false
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    type: array
-                    items:
-                      type: object
-                      description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
-                      required:
-                        - source_index
-                        - target_index
-                      properties:
-                        source_index:
-                          type: string
-                          example: '1'
-                          description: Index of validator to consolidate from.
-                        target_index:
-                          type: string
-                          example: '1'
-                          description: Index of validator to consolidate to.
-                    maxItems: 262144
+                    anyOf:
+                      - type: array
+                        description: Progressive list of pending consolidations.
+                        items:
+                          type: object
+                          description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
+                          required:
+                            - source_index
+                            - target_index
+                          properties:
+                            source_index:
+                              type: string
+                              example: '1'
+                              description: Index of validator to consolidate from.
+                            target_index:
+                              type: string
+                              example: '1'
+                              description: Index of validator to consolidate to.
+                      - type: array
+                        description: List of pending consolidations.
+                        items:
+                          type: object
+                          description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
+                          required:
+                            - source_index
+                            - target_index
+                          properties:
+                            source_index:
+                              type: string
+                              example: '1'
+                              description: Index of validator to consolidate from.
+                            target_index:
+                              type: string
+                              example: '1'
+                              description: Index of validator to consolidate to.
+                        maxItems: 262144
             application/octet-stream:
               schema:
-                description: 'SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes. Use Accept header to choose this response type'
+                description: 'SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingConsolidation]` bytes from Gloas onwards.'
         '400':
           description: Invalid request syntax.
           content:
@@ -2828,46 +2847,85 @@ paths:
                     example: false
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    type: array
-                    items:
-                      type: object
-                      description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
-                      required:
-                        - pubkey
-                        - withdrawal_credentials
-                        - amount
-                        - signature
-                        - slot
-                      properties:
-                        pubkey:
-                          type: string
-                          format: hex
-                          pattern: '^0x[a-fA-F0-9]{96}$'
-                          description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
-                          example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
-                        withdrawal_credentials:
-                          type: string
-                          format: hex
-                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
-                          pattern: '^0x[a-fA-F0-9]{64}$'
-                          description: The withdrawal credentials.
-                        amount:
-                          description: The value to be deposited (gwei).
-                          type: string
-                          example: '1'
-                        signature:
-                          type: string
-                          format: hex
-                          pattern: '^0x[a-fA-F0-9]{192}$'
-                          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                        slot:
-                          type: string
-                          example: '1'
-                          description: The slot at which the deposit request was processed.
-                    maxItems: 134217728
+                    anyOf:
+                      - type: array
+                        description: Progressive list of pending deposits.
+                        items:
+                          type: object
+                          description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
+                          required:
+                            - pubkey
+                            - withdrawal_credentials
+                            - amount
+                            - signature
+                            - slot
+                          properties:
+                            pubkey:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{96}$'
+                              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                            withdrawal_credentials:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                              description: The withdrawal credentials.
+                            amount:
+                              description: The value to be deposited (gwei).
+                              type: string
+                              example: '1'
+                            signature:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{192}$'
+                              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                            slot:
+                              type: string
+                              example: '1'
+                              description: The slot at which the deposit request was processed.
+                      - type: array
+                        description: List of pending deposits.
+                        items:
+                          type: object
+                          description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
+                          required:
+                            - pubkey
+                            - withdrawal_credentials
+                            - amount
+                            - signature
+                            - slot
+                          properties:
+                            pubkey:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{96}$'
+                              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                            withdrawal_credentials:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                              description: The withdrawal credentials.
+                            amount:
+                              description: The value to be deposited (gwei).
+                              type: string
+                              example: '1'
+                            signature:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{192}$'
+                              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                            slot:
+                              type: string
+                              example: '1'
+                              description: The slot at which the deposit request was processed.
+                        maxItems: 134217728
             application/octet-stream:
               schema:
-                description: 'SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` bytes. Use Accept header to choose this response type'
+                description: 'SSZ serialized `List[PendingDeposit, PENDING_DEPOSITS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingDeposit]` bytes from Gloas onwards.'
         '400':
           description: Invalid request syntax.
           content:
@@ -3034,31 +3092,55 @@ paths:
                     example: false
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
-                    type: array
-                    items:
-                      type: object
-                      description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
-                      required:
-                        - validator_index
-                        - amount
-                        - withdrawable_epoch
-                      properties:
-                        validator_index:
-                          type: string
-                          example: '1'
-                          description: Index of validator in validator registry.
-                        amount:
-                          type: string
-                          example: '1'
-                          description: The value to be withdrawn (gwei).
-                        withdrawable_epoch:
-                          type: string
-                          example: '1'
-                          description: The epoch when the amount is withdrawable.
-                    maxItems: 134217728
+                    anyOf:
+                      - type: array
+                        description: Progressive list of pending partial withdrawals.
+                        items:
+                          type: object
+                          description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
+                          required:
+                            - validator_index
+                            - amount
+                            - withdrawable_epoch
+                          properties:
+                            validator_index:
+                              type: string
+                              example: '1'
+                              description: Index of validator in validator registry.
+                            amount:
+                              type: string
+                              example: '1'
+                              description: The value to be withdrawn (gwei).
+                            withdrawable_epoch:
+                              type: string
+                              example: '1'
+                              description: The epoch when the amount is withdrawable.
+                      - type: array
+                        description: List of pending partial withdrawals.
+                        items:
+                          type: object
+                          description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
+                          required:
+                            - validator_index
+                            - amount
+                            - withdrawable_epoch
+                          properties:
+                            validator_index:
+                              type: string
+                              example: '1'
+                              description: Index of validator in validator registry.
+                            amount:
+                              type: string
+                              example: '1'
+                              description: The value to be withdrawn (gwei).
+                            withdrawable_epoch:
+                              type: string
+                              example: '1'
+                              description: The epoch when the amount is withdrawable.
+                        maxItems: 134217728
             application/octet-stream:
               schema:
-                description: 'SSZ serialized `List[PendingPartialWithdrawals, PENDING_PARTIAL_WITHDRAWALS_LIMIT]` bytes. Use Accept header to choose this response type'
+                description: 'SSZ serialized `List[PendingPartialWithdrawal, PENDING_PARTIAL_WITHDRAWALS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingPartialWithdrawal]` bytes from Gloas onwards.'
         '400':
           description: Invalid request syntax.
           content:
@@ -3229,10 +3311,11 @@ paths:
                     items:
                       type: string
                       example: '1'
+                    minItems: 64
                     maxItems: 64
             application/octet-stream:
               schema:
-                description: 'SSZ serialized `List[Uint64, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type'
+                description: 'SSZ serialized `Vector[ValidatorIndex, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type'
         '400':
           description: Invalid request syntax.
           content:
@@ -8406,6 +8489,7 @@ paths:
                                           example: '1'
                                         blob_kzg_commitments:
                                           type: array
+                                          maxItems: 4096
                                           items:
                                             type: string
                                             format: hex
@@ -13595,6 +13679,7 @@ paths:
                       example: '1'
                     blob_kzg_commitments:
                       type: array
+                      maxItems: 4096
                       items:
                         type: string
                         format: hex
@@ -15655,6 +15740,7 @@ paths:
                                                 example: '1'
                                               blob_kzg_commitments:
                                                 type: array
+                                                maxItems: 4096
                                                 items:
                                                   type: string
                                                   format: hex
@@ -32120,7 +32206,8 @@ paths:
                       - deneb
                       - electra
                       - fulu
-                    example: fulu
+                      - gloas
+                    example: gloas
                   execution_optimistic:
                     type: boolean
                     example: false
@@ -32131,6 +32218,775 @@ paths:
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     anyOf:
+                      - type: object
+                        description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec.'
+                        required:
+                          - genesis_time
+                          - genesis_validators_root
+                          - slot
+                          - fork
+                          - latest_block_header
+                          - block_roots
+                          - state_roots
+                          - historical_roots
+                          - eth1_data
+                          - eth1_data_votes
+                          - eth1_deposit_index
+                          - validators
+                          - balances
+                          - randao_mixes
+                          - slashings
+                          - previous_epoch_participation
+                          - current_epoch_participation
+                          - justification_bits
+                          - previous_justified_checkpoint
+                          - current_justified_checkpoint
+                          - finalized_checkpoint
+                          - inactivity_scores
+                          - current_sync_committee
+                          - next_sync_committee
+                          - latest_block_hash
+                          - next_withdrawal_index
+                          - next_withdrawal_validator_index
+                          - historical_summaries
+                          - deposit_requests_start_index
+                          - deposit_balance_to_consume
+                          - exit_balance_to_consume
+                          - earliest_exit_epoch
+                          - consolidation_balance_to_consume
+                          - earliest_consolidation_epoch
+                          - pending_deposits
+                          - pending_partial_withdrawals
+                          - pending_consolidations
+                          - proposer_lookahead
+                          - builders
+                          - next_withdrawal_builder_index
+                          - execution_payload_availability
+                          - builder_pending_payments
+                          - builder_pending_withdrawals
+                          - latest_execution_payload_bid
+                          - payload_expected_withdrawals
+                          - ptc_window
+                        properties:
+                          genesis_time:
+                            type: string
+                            example: '1'
+                          genesis_validators_root:
+                            type: string
+                            format: hex
+                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                            pattern: '^0x[a-fA-F0-9]{64}$'
+                          slot:
+                            type: string
+                            example: '1'
+                          fork:
+                            type: object
+                            description: 'The [`Fork`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#fork) object from the CL spec.'
+                            required:
+                              - previous_version
+                              - current_version
+                              - epoch
+                            properties:
+                              previous_version:
+                                type: string
+                                format: hex
+                                description: a fork version number
+                                example: '0x00000000'
+                                pattern: '^0x[a-fA-F0-9]{8}$'
+                              current_version:
+                                type: string
+                                format: hex
+                                description: a fork version number
+                                example: '0x00000000'
+                                pattern: '^0x[a-fA-F0-9]{8}$'
+                              epoch:
+                                type: string
+                                example: '1'
+                          latest_block_header:
+                            description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+                            allOf:
+                              - type: object
+                                required:
+                                  - slot
+                                  - proposer_index
+                                  - parent_root
+                                  - state_root
+                                properties:
+                                  slot:
+                                    type: string
+                                    example: '1'
+                                    description: The slot to which this block corresponds.
+                                  proposer_index:
+                                    type: string
+                                    example: '1'
+                                    description: Index of validator in validator registry.
+                                  parent_root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                                    description: The signing merkle root of the parent `BeaconBlock`.
+                                  state_root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                                    description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+                              - type: object
+                                required:
+                                  - body_root
+                                properties:
+                                  body_root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                                    description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+                          block_roots:
+                            type: array
+                            description: Fixed vector of 8192 roots.
+                            items:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            minItems: 8192
+                            maxItems: 8192
+                          state_roots:
+                            type: array
+                            description: Fixed vector of 8192 roots.
+                            items:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            minItems: 8192
+                            maxItems: 8192
+                          historical_roots:
+                            type: array
+                            description: 'Variable length list, maximum 16777216 items. Frozen in Capella, replaced by `historical_summaries`.'
+                            items:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            maxItems: 16777216
+                          eth1_data:
+                            type: object
+                            description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+                            required:
+                              - deposit_root
+                              - deposit_count
+                              - block_hash
+                            properties:
+                              deposit_root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                                description: Root of the deposit tree.
+                              deposit_count:
+                                type: string
+                                example: '1'
+                                description: Total number of deposits.
+                              block_hash:
+                                description: Ethereum 1.x block hash.
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                          eth1_data_votes:
+                            type: array
+                            description: 'Variable length list, maximum 2048 items.'
+                            items:
+                              type: object
+                              description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+                              required:
+                                - deposit_root
+                                - deposit_count
+                                - block_hash
+                              properties:
+                                deposit_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                  description: Root of the deposit tree.
+                                deposit_count:
+                                  type: string
+                                  example: '1'
+                                  description: Total number of deposits.
+                                block_hash:
+                                  description: Ethereum 1.x block hash.
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                            maxItems: 2048
+                          eth1_deposit_index:
+                            type: string
+                            example: '1'
+                          validators:
+                            type: array
+                            description: Progressive list of validators.
+                            items:
+                              type: object
+                              description: 'The [`Validator`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#validator) object from the CL spec.'
+                              required:
+                                - pubkey
+                                - withdrawal_credentials
+                                - effective_balance
+                                - slashed
+                                - activation_eligibility_epoch
+                                - activation_epoch
+                                - exit_epoch
+                                - withdrawable_epoch
+                              properties:
+                                pubkey:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                withdrawal_credentials:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                  description: Root of withdrawal credentials
+                                effective_balance:
+                                  description: Balance at stake in Gwei.
+                                  type: string
+                                  example: '1'
+                                slashed:
+                                  type: boolean
+                                  example: false
+                                  description: Was validator slashed (not longer active).
+                                activation_eligibility_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: When criteria for activation were met.
+                                activation_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+                                exit_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+                                withdrawable_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+                          balances:
+                            type: array
+                            description: Progressive list of validator balances in gwei.
+                            items:
+                              type: string
+                              example: '1'
+                          randao_mixes:
+                            type: array
+                            description: Fixed vector of 65536 roots.
+                            items:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                            minItems: 65536
+                            maxItems: 65536
+                          slashings:
+                            type: array
+                            description: Fixed vector of 8192 per-epoch slashed effective balance totals.
+                            items:
+                              type: string
+                              example: '1'
+                            minItems: 8192
+                            maxItems: 8192
+                          previous_epoch_participation:
+                            type: array
+                            description: Progressive list of validator participation flags for the previous epoch.
+                            items:
+                              type: string
+                              description: 'Unsigned 8 bit integer, max value 255'
+                              pattern: '^[1-2]?[0-9]{1,2}$'
+                              example: '0'
+                          current_epoch_participation:
+                            type: array
+                            description: Progressive list of validator participation flags for the current epoch.
+                            items:
+                              type: string
+                              description: 'Unsigned 8 bit integer, max value 255'
+                              pattern: '^[1-2]?[0-9]{1,2}$'
+                              example: '0'
+                          justification_bits:
+                            type: string
+                            format: hex
+                            example: '0x01'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
+                            description: Bit set for every recent justified epoch.
+                          previous_justified_checkpoint:
+                            type: object
+                            description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                            required:
+                              - epoch
+                              - root
+                            properties:
+                              epoch:
+                                type: string
+                                example: '1'
+                              root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                          current_justified_checkpoint:
+                            type: object
+                            description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                            required:
+                              - epoch
+                              - root
+                            properties:
+                              epoch:
+                                type: string
+                                example: '1'
+                              root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                          finalized_checkpoint:
+                            type: object
+                            description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                            required:
+                              - epoch
+                              - root
+                            properties:
+                              epoch:
+                                type: string
+                                example: '1'
+                              root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                          inactivity_scores:
+                            type: array
+                            description: Progressive list of per-validator inactivity scores.
+                            items:
+                              type: string
+                              example: '1'
+                          current_sync_committee:
+                            type: object
+                            required:
+                              - pubkeys
+                              - aggregate_pubkey
+                            properties:
+                              pubkeys:
+                                type: array
+                                items:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                minItems: 512
+                                maxItems: 512
+                              aggregate_pubkey:
+                                type: string
+                                format: hex
+                                pattern: '^0x[a-fA-F0-9]{96}$'
+                                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                          next_sync_committee:
+                            type: object
+                            required:
+                              - pubkeys
+                              - aggregate_pubkey
+                            properties:
+                              pubkeys:
+                                type: array
+                                items:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                minItems: 512
+                                maxItems: 512
+                              aggregate_pubkey:
+                                type: string
+                                format: hex
+                                pattern: '^0x[a-fA-F0-9]{96}$'
+                                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                          latest_block_hash:
+                            type: string
+                            format: hex
+                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                            pattern: '^0x[a-fA-F0-9]{64}$'
+                          next_withdrawal_index:
+                            type: string
+                            example: '1'
+                          next_withdrawal_validator_index:
+                            type: string
+                            example: '1'
+                          historical_summaries:
+                            type: array
+                            description: 'Variable length list, maximum 16777216 items.'
+                            items:
+                              type: object
+                              description: 'The [`HistoricalSummary`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#historicalsummary) object from the CL Capella spec.'
+                              required:
+                                - block_summary_root
+                                - state_summary_root
+                              properties:
+                                block_summary_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                state_summary_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                            maxItems: 16777216
+                          deposit_requests_start_index:
+                            type: string
+                            example: '1'
+                          deposit_balance_to_consume:
+                            type: string
+                            example: '1'
+                          exit_balance_to_consume:
+                            type: string
+                            example: '1'
+                          earliest_exit_epoch:
+                            type: string
+                            example: '1'
+                          consolidation_balance_to_consume:
+                            type: string
+                            example: '1'
+                          earliest_consolidation_epoch:
+                            type: string
+                            example: '1'
+                          pending_deposits:
+                            type: array
+                            description: Progressive list of pending deposits.
+                            items:
+                              type: object
+                              description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
+                              required:
+                                - pubkey
+                                - withdrawal_credentials
+                                - amount
+                                - signature
+                                - slot
+                              properties:
+                                pubkey:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                withdrawal_credentials:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                  description: The withdrawal credentials.
+                                amount:
+                                  description: The value to be deposited (gwei).
+                                  type: string
+                                  example: '1'
+                                signature:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{192}$'
+                                  example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                                slot:
+                                  type: string
+                                  example: '1'
+                                  description: The slot at which the deposit request was processed.
+                          pending_partial_withdrawals:
+                            type: array
+                            description: Progressive list of pending partial withdrawals.
+                            items:
+                              type: object
+                              description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
+                              required:
+                                - validator_index
+                                - amount
+                                - withdrawable_epoch
+                              properties:
+                                validator_index:
+                                  type: string
+                                  example: '1'
+                                  description: Index of validator in validator registry.
+                                amount:
+                                  type: string
+                                  example: '1'
+                                  description: The value to be withdrawn (gwei).
+                                withdrawable_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: The epoch when the amount is withdrawable.
+                          pending_consolidations:
+                            type: array
+                            description: Progressive list of pending consolidations.
+                            items:
+                              type: object
+                              description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
+                              required:
+                                - source_index
+                                - target_index
+                              properties:
+                                source_index:
+                                  type: string
+                                  example: '1'
+                                  description: Index of validator to consolidate from.
+                                target_index:
+                                  type: string
+                                  example: '1'
+                                  description: Index of validator to consolidate to.
+                          proposer_lookahead:
+                            type: array
+                            description: Fixed vector of proposer indices for the current and next epoch.
+                            items:
+                              type: string
+                              example: '1'
+                            minItems: 64
+                            maxItems: 64
+                          builders:
+                            type: array
+                            description: Progressive list of builders.
+                            items:
+                              type: object
+                              description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+                              required:
+                                - pubkey
+                                - version
+                                - execution_address
+                                - balance
+                                - deposit_epoch
+                                - withdrawable_epoch
+                              properties:
+                                pubkey:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                                version:
+                                  description: Builder version.
+                                  type: string
+                                  pattern: '^[1-2]?[0-9]{1,2}$'
+                                  example: '0'
+                                execution_address:
+                                  description: Execution-layer address that receives builder withdrawals.
+                                  type: string
+                                  format: hex
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                                  pattern: '^0x[a-fA-F0-9]{40}$'
+                                balance:
+                                  description: Current builder balance in gwei.
+                                  type: string
+                                  example: '1'
+                                deposit_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: Epoch when the builder deposit was processed.
+                                withdrawable_epoch:
+                                  type: string
+                                  example: '1'
+                                  description: Epoch when the builder can withdraw. 'FAR_FUTURE_EPOCH' if not exiting.
+                          next_withdrawal_builder_index:
+                            type: string
+                            example: '1'
+                          execution_payload_availability:
+                            type: string
+                            format: hex
+                            example: '0x01'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
+                            description: Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192).
+                            minLength: 2050
+                            maxLength: 2050
+                          builder_pending_payments:
+                            type: array
+                            description: Fixed vector of pending builder payments covering two epochs.
+                            items:
+                              type: object
+                              description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+                              required:
+                                - weight
+                                - withdrawal
+                                - proposer_index
+                              properties:
+                                weight:
+                                  type: string
+                                  example: '1'
+                                withdrawal:
+                                  type: object
+                                  description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                                  required:
+                                    - fee_recipient
+                                    - amount
+                                    - builder_index
+                                  properties:
+                                    fee_recipient:
+                                      type: string
+                                      format: hex
+                                      description: An address on the execution (Ethereum 1) network.
+                                      example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                                      pattern: '^0x[a-fA-F0-9]{40}$'
+                                    amount:
+                                      type: string
+                                      example: '1'
+                                    builder_index:
+                                      type: string
+                                      example: '1'
+                                proposer_index:
+                                  type: string
+                                  example: '1'
+                            minItems: 64
+                            maxItems: 64
+                          builder_pending_withdrawals:
+                            type: array
+                            description: Progressive list of pending builder withdrawals.
+                            items:
+                              type: object
+                              description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                              required:
+                                - fee_recipient
+                                - amount
+                                - builder_index
+                              properties:
+                                fee_recipient:
+                                  type: string
+                                  format: hex
+                                  description: An address on the execution (Ethereum 1) network.
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                                  pattern: '^0x[a-fA-F0-9]{40}$'
+                                amount:
+                                  type: string
+                                  example: '1'
+                                builder_index:
+                                  type: string
+                                  example: '1'
+                          latest_execution_payload_bid:
+                            type: object
+                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                            required:
+                              - parent_block_hash
+                              - parent_block_root
+                              - block_hash
+                              - prev_randao
+                              - fee_recipient
+                              - gas_limit
+                              - builder_index
+                              - slot
+                              - value
+                              - execution_payment
+                              - blob_kzg_commitments
+                              - execution_requests_root
+                            properties:
+                              parent_block_hash:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                              parent_block_root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                              block_hash:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                              prev_randao:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                              fee_recipient:
+                                type: string
+                                format: hex
+                                description: An address on the execution (Ethereum 1) network.
+                                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                                pattern: '^0x[a-fA-F0-9]{40}$'
+                              gas_limit:
+                                type: string
+                                example: '1'
+                              builder_index:
+                                type: string
+                                example: '1'
+                              slot:
+                                type: string
+                                example: '1'
+                              value:
+                                type: string
+                                example: '1'
+                              execution_payment:
+                                type: string
+                                example: '1'
+                              blob_kzg_commitments:
+                                type: array
+                                maxItems: 4096
+                                items:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{96}$'
+                                  description: A G1 curve point. Same as BLS standard "is valid pubkey" check but also allows `0x00..00` for point-at-infinity
+                                  example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+                              execution_requests_root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                          payload_expected_withdrawals:
+                            type: array
+                            maxItems: 16
+                            description: Progressive list of withdrawals expected in the next execution payload.
+                            items:
+                              type: object
+                              required:
+                                - index
+                                - validator_index
+                                - address
+                                - amount
+                              properties:
+                                index:
+                                  type: string
+                                  example: '1'
+                                  description: The index of the withdrawal.
+                                validator_index:
+                                  type: string
+                                  example: '1'
+                                  description: The index of the withdrawing validator.
+                                address:
+                                  type: string
+                                  format: hex
+                                  description: An address on the execution (Ethereum 1) network.
+                                  example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                                  pattern: '^0x[a-fA-F0-9]{40}$'
+                                amount:
+                                  type: string
+                                  example: '1'
+                                  description: The value withdrawn (gwei).
+                          ptc_window:
+                            type: array
+                            description: Fixed vector of 96 payload-timeliness committees.
+                            items:
+                              type: array
+                              description: Fixed vector of 512 validator indices.
+                              items:
+                                type: string
+                                example: '1'
+                              minItems: 512
+                              maxItems: 512
+                            minItems: 96
+                            maxItems: 96
                       - type: object
                         description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.6.0/specs/fulu/beacon-chain.md#beaconstate) object from the CL Fulu spec.'
                         required:
@@ -32661,6 +33517,7 @@ paths:
                             example: '1'
                           pending_deposits:
                             type: array
+                            description: List of pending deposits.
                             items:
                               type: object
                               description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
@@ -32699,6 +33556,7 @@ paths:
                             maxItems: 134217728
                           pending_partial_withdrawals:
                             type: array
+                            description: List of pending partial withdrawals.
                             items:
                               type: object
                               description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
@@ -32722,6 +33580,7 @@ paths:
                             maxItems: 134217728
                           pending_consolidations:
                             type: array
+                            description: List of pending consolidations.
                             items:
                               type: object
                               description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
@@ -33274,6 +34133,7 @@ paths:
                             example: '1'
                           pending_deposits:
                             type: array
+                            description: List of pending deposits.
                             items:
                               type: object
                               description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
@@ -33312,6 +34172,7 @@ paths:
                             maxItems: 134217728
                           pending_partial_withdrawals:
                             type: array
+                            description: List of pending partial withdrawals.
                             items:
                               type: object
                               description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
@@ -33335,6 +34196,7 @@ paths:
                             maxItems: 134217728
                           pending_consolidations:
                             type: array
+                            description: List of pending consolidations.
                             items:
                               type: object
                               description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
@@ -46363,6 +47225,7 @@ paths:
                                             example: '1'
                                           blob_kzg_commitments:
                                             type: array
+                                            maxItems: 4096
                                             items:
                                               type: string
                                               format: hex
@@ -47178,6 +48041,7 @@ paths:
                                                 example: '1'
                                               blob_kzg_commitments:
                                                 type: array
+                                                maxItems: 4096
                                                 items:
                                                   type: string
                                                   format: hex
@@ -51388,7 +52252,7 @@ components:
           example: active
         builder:
           type: object
-          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
           required:
             - pubkey
             - version
@@ -69818,6 +70682,7 @@ components:
           example: '1'
         pending_deposits:
           type: array
+          description: List of pending deposits.
           items:
             type: object
             description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
@@ -69856,6 +70721,7 @@ components:
           maxItems: 134217728
         pending_partial_withdrawals:
           type: array
+          description: List of pending partial withdrawals.
           items:
             type: object
             description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
@@ -69879,6 +70745,7 @@ components:
           maxItems: 134217728
         pending_consolidations:
           type: array
+          description: List of pending consolidations.
           items:
             type: object
             description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
@@ -75572,6 +76439,45 @@ components:
           type: string
           example: '1'
           description: The slot at which the deposit request was processed.
+    Electra.PendingDeposits:
+      type: array
+      description: List of pending deposits.
+      items:
+        type: object
+        description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
+        required:
+          - pubkey
+          - withdrawal_credentials
+          - amount
+          - signature
+          - slot
+        properties:
+          pubkey:
+            type: string
+            format: hex
+            pattern: '^0x[a-fA-F0-9]{96}$'
+            description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+            example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+          withdrawal_credentials:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+            description: The withdrawal credentials.
+          amount:
+            description: The value to be deposited (gwei).
+            type: string
+            example: '1'
+          signature:
+            type: string
+            format: hex
+            pattern: '^0x[a-fA-F0-9]{192}$'
+            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+          slot:
+            type: string
+            example: '1'
+            description: The slot at which the deposit request was processed.
+      maxItems: 134217728
     Electra.PendingConsolidation:
       type: object
       description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
@@ -75587,6 +76493,25 @@ components:
           type: string
           example: '1'
           description: Index of validator to consolidate to.
+    Electra.PendingConsolidations:
+      type: array
+      description: List of pending consolidations.
+      items:
+        type: object
+        description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
+        required:
+          - source_index
+          - target_index
+        properties:
+          source_index:
+            type: string
+            example: '1'
+            description: Index of validator to consolidate from.
+          target_index:
+            type: string
+            example: '1'
+            description: Index of validator to consolidate to.
+      maxItems: 262144
     Electra.PendingPartialWithdrawal:
       type: object
       description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
@@ -75607,6 +76532,30 @@ components:
           type: string
           example: '1'
           description: The epoch when the amount is withdrawable.
+    Electra.PendingPartialWithdrawals:
+      type: array
+      description: List of pending partial withdrawals.
+      items:
+        type: object
+        description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
+        required:
+          - validator_index
+          - amount
+          - withdrawable_epoch
+        properties:
+          validator_index:
+            type: string
+            example: '1'
+            description: Index of validator in validator registry.
+          amount:
+            type: string
+            example: '1'
+            description: The value to be withdrawn (gwei).
+          withdrawable_epoch:
+            type: string
+            example: '1'
+            description: The epoch when the amount is withdrawable.
+      maxItems: 134217728
     Fulu.BeaconState:
       type: object
       description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.6.0/specs/fulu/beacon-chain.md#beaconstate) object from the CL Fulu spec.'
@@ -76138,6 +77087,7 @@ components:
           example: '1'
         pending_deposits:
           type: array
+          description: List of pending deposits.
           items:
             type: object
             description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
@@ -76176,6 +77126,7 @@ components:
           maxItems: 134217728
         pending_partial_withdrawals:
           type: array
+          description: List of pending partial withdrawals.
           items:
             type: object
             description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
@@ -76199,6 +77150,7 @@ components:
           maxItems: 134217728
         pending_consolidations:
           type: array
+          description: List of pending consolidations.
           items:
             type: object
             description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
@@ -76222,6 +77174,855 @@ components:
             example: '1'
           minItems: 64
           maxItems: 64
+    Gloas.PendingDeposits:
+      type: array
+      description: Progressive list of pending deposits.
+      items:
+        type: object
+        description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
+        required:
+          - pubkey
+          - withdrawal_credentials
+          - amount
+          - signature
+          - slot
+        properties:
+          pubkey:
+            type: string
+            format: hex
+            pattern: '^0x[a-fA-F0-9]{96}$'
+            description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+            example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+          withdrawal_credentials:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+            description: The withdrawal credentials.
+          amount:
+            description: The value to be deposited (gwei).
+            type: string
+            example: '1'
+          signature:
+            type: string
+            format: hex
+            pattern: '^0x[a-fA-F0-9]{192}$'
+            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+          slot:
+            type: string
+            example: '1'
+            description: The slot at which the deposit request was processed.
+    Gloas.PendingPartialWithdrawals:
+      type: array
+      description: Progressive list of pending partial withdrawals.
+      items:
+        type: object
+        description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
+        required:
+          - validator_index
+          - amount
+          - withdrawable_epoch
+        properties:
+          validator_index:
+            type: string
+            example: '1'
+            description: Index of validator in validator registry.
+          amount:
+            type: string
+            example: '1'
+            description: The value to be withdrawn (gwei).
+          withdrawable_epoch:
+            type: string
+            example: '1'
+            description: The epoch when the amount is withdrawable.
+    Gloas.PendingConsolidations:
+      type: array
+      description: Progressive list of pending consolidations.
+      items:
+        type: object
+        description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
+        required:
+          - source_index
+          - target_index
+        properties:
+          source_index:
+            type: string
+            example: '1'
+            description: Index of validator to consolidate from.
+          target_index:
+            type: string
+            example: '1'
+            description: Index of validator to consolidate to.
+    Gloas.BeaconState:
+      type: object
+      description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec.'
+      required:
+        - genesis_time
+        - genesis_validators_root
+        - slot
+        - fork
+        - latest_block_header
+        - block_roots
+        - state_roots
+        - historical_roots
+        - eth1_data
+        - eth1_data_votes
+        - eth1_deposit_index
+        - validators
+        - balances
+        - randao_mixes
+        - slashings
+        - previous_epoch_participation
+        - current_epoch_participation
+        - justification_bits
+        - previous_justified_checkpoint
+        - current_justified_checkpoint
+        - finalized_checkpoint
+        - inactivity_scores
+        - current_sync_committee
+        - next_sync_committee
+        - latest_block_hash
+        - next_withdrawal_index
+        - next_withdrawal_validator_index
+        - historical_summaries
+        - deposit_requests_start_index
+        - deposit_balance_to_consume
+        - exit_balance_to_consume
+        - earliest_exit_epoch
+        - consolidation_balance_to_consume
+        - earliest_consolidation_epoch
+        - pending_deposits
+        - pending_partial_withdrawals
+        - pending_consolidations
+        - proposer_lookahead
+        - builders
+        - next_withdrawal_builder_index
+        - execution_payload_availability
+        - builder_pending_payments
+        - builder_pending_withdrawals
+        - latest_execution_payload_bid
+        - payload_expected_withdrawals
+        - ptc_window
+      properties:
+        genesis_time:
+          type: string
+          example: '1'
+        genesis_validators_root:
+          type: string
+          format: hex
+          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+          pattern: '^0x[a-fA-F0-9]{64}$'
+        slot:
+          type: string
+          example: '1'
+        fork:
+          type: object
+          description: 'The [`Fork`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#fork) object from the CL spec.'
+          required:
+            - previous_version
+            - current_version
+            - epoch
+          properties:
+            previous_version:
+              type: string
+              format: hex
+              description: a fork version number
+              example: '0x00000000'
+              pattern: '^0x[a-fA-F0-9]{8}$'
+            current_version:
+              type: string
+              format: hex
+              description: a fork version number
+              example: '0x00000000'
+              pattern: '^0x[a-fA-F0-9]{8}$'
+            epoch:
+              type: string
+              example: '1'
+        latest_block_header:
+          description: 'The [`BeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#beaconblockheader) object from the CL spec.'
+          allOf:
+            - type: object
+              required:
+                - slot
+                - proposer_index
+                - parent_root
+                - state_root
+              properties:
+                slot:
+                  type: string
+                  example: '1'
+                  description: The slot to which this block corresponds.
+                proposer_index:
+                  type: string
+                  example: '1'
+                  description: Index of validator in validator registry.
+                parent_root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+                  description: The signing merkle root of the parent `BeaconBlock`.
+                state_root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+                  description: The tree hash merkle root of the `BeaconState` for the `BeaconBlock`.
+            - type: object
+              required:
+                - body_root
+              properties:
+                body_root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+                  description: The tree hash merkle root of the `BeaconBlockBody` for the `BeaconBlock`
+        block_roots:
+          type: array
+          description: Fixed vector of 8192 roots.
+          items:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+          minItems: 8192
+          maxItems: 8192
+        state_roots:
+          type: array
+          description: Fixed vector of 8192 roots.
+          items:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+          minItems: 8192
+          maxItems: 8192
+        historical_roots:
+          type: array
+          description: 'Variable length list, maximum 16777216 items. Frozen in Capella, replaced by `historical_summaries`.'
+          items:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+          maxItems: 16777216
+        eth1_data:
+          type: object
+          description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+          required:
+            - deposit_root
+            - deposit_count
+            - block_hash
+          properties:
+            deposit_root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+              description: Root of the deposit tree.
+            deposit_count:
+              type: string
+              example: '1'
+              description: Total number of deposits.
+            block_hash:
+              description: Ethereum 1.x block hash.
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+        eth1_data_votes:
+          type: array
+          description: 'Variable length list, maximum 2048 items.'
+          items:
+            type: object
+            description: 'The [`Eth1Data`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#eth1data) object from the CL spec.'
+            required:
+              - deposit_root
+              - deposit_count
+              - block_hash
+            properties:
+              deposit_root:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+                description: Root of the deposit tree.
+              deposit_count:
+                type: string
+                example: '1'
+                description: Total number of deposits.
+              block_hash:
+                description: Ethereum 1.x block hash.
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+          maxItems: 2048
+        eth1_deposit_index:
+          type: string
+          example: '1'
+        validators:
+          type: array
+          description: Progressive list of validators.
+          items:
+            type: object
+            description: 'The [`Validator`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#validator) object from the CL spec.'
+            required:
+              - pubkey
+              - withdrawal_credentials
+              - effective_balance
+              - slashed
+              - activation_eligibility_epoch
+              - activation_epoch
+              - exit_epoch
+              - withdrawable_epoch
+            properties:
+              pubkey:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              withdrawal_credentials:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+                description: Root of withdrawal credentials
+              effective_balance:
+                description: Balance at stake in Gwei.
+                type: string
+                example: '1'
+              slashed:
+                type: boolean
+                example: false
+                description: Was validator slashed (not longer active).
+              activation_eligibility_epoch:
+                type: string
+                example: '1'
+                description: When criteria for activation were met.
+              activation_epoch:
+                type: string
+                example: '1'
+                description: Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated
+              exit_epoch:
+                type: string
+                example: '1'
+                description: Epoch when validator exited. 'FAR_FUTURE_EPOCH' if not exited.
+              withdrawable_epoch:
+                type: string
+                example: '1'
+                description: When validator can withdraw or transfer funds. 'FAR_FUTURE_EPOCH' if not defined
+        balances:
+          type: array
+          description: Progressive list of validator balances in gwei.
+          items:
+            type: string
+            example: '1'
+        randao_mixes:
+          type: array
+          description: Fixed vector of 65536 roots.
+          items:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+          minItems: 65536
+          maxItems: 65536
+        slashings:
+          type: array
+          description: Fixed vector of 8192 per-epoch slashed effective balance totals.
+          items:
+            type: string
+            example: '1'
+          minItems: 8192
+          maxItems: 8192
+        previous_epoch_participation:
+          type: array
+          description: Progressive list of validator participation flags for the previous epoch.
+          items:
+            type: string
+            description: 'Unsigned 8 bit integer, max value 255'
+            pattern: '^[1-2]?[0-9]{1,2}$'
+            example: '0'
+        current_epoch_participation:
+          type: array
+          description: Progressive list of validator participation flags for the current epoch.
+          items:
+            type: string
+            description: 'Unsigned 8 bit integer, max value 255'
+            pattern: '^[1-2]?[0-9]{1,2}$'
+            example: '0'
+        justification_bits:
+          type: string
+          format: hex
+          example: '0x01'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
+          description: Bit set for every recent justified epoch.
+        previous_justified_checkpoint:
+          type: object
+          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+          required:
+            - epoch
+            - root
+          properties:
+            epoch:
+              type: string
+              example: '1'
+            root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+        current_justified_checkpoint:
+          type: object
+          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+          required:
+            - epoch
+            - root
+          properties:
+            epoch:
+              type: string
+              example: '1'
+            root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+        finalized_checkpoint:
+          type: object
+          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+          required:
+            - epoch
+            - root
+          properties:
+            epoch:
+              type: string
+              example: '1'
+            root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+        inactivity_scores:
+          type: array
+          description: Progressive list of per-validator inactivity scores.
+          items:
+            type: string
+            example: '1'
+        current_sync_committee:
+          type: object
+          required:
+            - pubkeys
+            - aggregate_pubkey
+          properties:
+            pubkeys:
+              type: array
+              items:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              minItems: 512
+              maxItems: 512
+            aggregate_pubkey:
+              type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{96}$'
+              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+        next_sync_committee:
+          type: object
+          required:
+            - pubkeys
+            - aggregate_pubkey
+          properties:
+            pubkeys:
+              type: array
+              items:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              minItems: 512
+              maxItems: 512
+            aggregate_pubkey:
+              type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{96}$'
+              description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+              example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+        latest_block_hash:
+          type: string
+          format: hex
+          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+          pattern: '^0x[a-fA-F0-9]{64}$'
+        next_withdrawal_index:
+          type: string
+          example: '1'
+        next_withdrawal_validator_index:
+          type: string
+          example: '1'
+        historical_summaries:
+          type: array
+          description: 'Variable length list, maximum 16777216 items.'
+          items:
+            type: object
+            description: 'The [`HistoricalSummary`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#historicalsummary) object from the CL Capella spec.'
+            required:
+              - block_summary_root
+              - state_summary_root
+            properties:
+              block_summary_root:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+              state_summary_root:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+          maxItems: 16777216
+        deposit_requests_start_index:
+          type: string
+          example: '1'
+        deposit_balance_to_consume:
+          type: string
+          example: '1'
+        exit_balance_to_consume:
+          type: string
+          example: '1'
+        earliest_exit_epoch:
+          type: string
+          example: '1'
+        consolidation_balance_to_consume:
+          type: string
+          example: '1'
+        earliest_consolidation_epoch:
+          type: string
+          example: '1'
+        pending_deposits:
+          type: array
+          description: Progressive list of pending deposits.
+          items:
+            type: object
+            description: 'The [`PendingDeposit`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingdeposit) object from the CL Electra spec.'
+            required:
+              - pubkey
+              - withdrawal_credentials
+              - amount
+              - signature
+              - slot
+            properties:
+              pubkey:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              withdrawal_credentials:
+                type: string
+                format: hex
+                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                pattern: '^0x[a-fA-F0-9]{64}$'
+                description: The withdrawal credentials.
+              amount:
+                description: The value to be deposited (gwei).
+                type: string
+                example: '1'
+              signature:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{192}$'
+                example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+              slot:
+                type: string
+                example: '1'
+                description: The slot at which the deposit request was processed.
+        pending_partial_withdrawals:
+          type: array
+          description: Progressive list of pending partial withdrawals.
+          items:
+            type: object
+            description: 'The [`PendingPartialWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingpartialwithdrawal) object from the CL Electra spec.'
+            required:
+              - validator_index
+              - amount
+              - withdrawable_epoch
+            properties:
+              validator_index:
+                type: string
+                example: '1'
+                description: Index of validator in validator registry.
+              amount:
+                type: string
+                example: '1'
+                description: The value to be withdrawn (gwei).
+              withdrawable_epoch:
+                type: string
+                example: '1'
+                description: The epoch when the amount is withdrawable.
+        pending_consolidations:
+          type: array
+          description: Progressive list of pending consolidations.
+          items:
+            type: object
+            description: 'The [`PendingConsolidation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#pendingconsolidation) object from the CL Electra spec.'
+            required:
+              - source_index
+              - target_index
+            properties:
+              source_index:
+                type: string
+                example: '1'
+                description: Index of validator to consolidate from.
+              target_index:
+                type: string
+                example: '1'
+                description: Index of validator to consolidate to.
+        proposer_lookahead:
+          type: array
+          description: Fixed vector of proposer indices for the current and next epoch.
+          items:
+            type: string
+            example: '1'
+          minItems: 64
+          maxItems: 64
+        builders:
+          type: array
+          description: Progressive list of builders.
+          items:
+            type: object
+            description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+            required:
+              - pubkey
+              - version
+              - execution_address
+              - balance
+              - deposit_epoch
+              - withdrawable_epoch
+            properties:
+              pubkey:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+              version:
+                description: Builder version.
+                type: string
+                pattern: '^[1-2]?[0-9]{1,2}$'
+                example: '0'
+              execution_address:
+                description: Execution-layer address that receives builder withdrawals.
+                type: string
+                format: hex
+                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                pattern: '^0x[a-fA-F0-9]{40}$'
+              balance:
+                description: Current builder balance in gwei.
+                type: string
+                example: '1'
+              deposit_epoch:
+                type: string
+                example: '1'
+                description: Epoch when the builder deposit was processed.
+              withdrawable_epoch:
+                type: string
+                example: '1'
+                description: Epoch when the builder can withdraw. 'FAR_FUTURE_EPOCH' if not exiting.
+        next_withdrawal_builder_index:
+          type: string
+          example: '1'
+        execution_payload_availability:
+          type: string
+          format: hex
+          example: '0x01'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
+          description: Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192).
+          minLength: 2050
+          maxLength: 2050
+        builder_pending_payments:
+          type: array
+          description: Fixed vector of pending builder payments covering two epochs.
+          items:
+            type: object
+            description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+            required:
+              - weight
+              - withdrawal
+              - proposer_index
+            properties:
+              weight:
+                type: string
+                example: '1'
+              withdrawal:
+                type: object
+                description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                required:
+                  - fee_recipient
+                  - amount
+                  - builder_index
+                properties:
+                  fee_recipient:
+                    type: string
+                    format: hex
+                    description: An address on the execution (Ethereum 1) network.
+                    example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                    pattern: '^0x[a-fA-F0-9]{40}$'
+                  amount:
+                    type: string
+                    example: '1'
+                  builder_index:
+                    type: string
+                    example: '1'
+              proposer_index:
+                type: string
+                example: '1'
+          minItems: 64
+          maxItems: 64
+        builder_pending_withdrawals:
+          type: array
+          description: Progressive list of pending builder withdrawals.
+          items:
+            type: object
+            description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+            required:
+              - fee_recipient
+              - amount
+              - builder_index
+            properties:
+              fee_recipient:
+                type: string
+                format: hex
+                description: An address on the execution (Ethereum 1) network.
+                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                pattern: '^0x[a-fA-F0-9]{40}$'
+              amount:
+                type: string
+                example: '1'
+              builder_index:
+                type: string
+                example: '1'
+        latest_execution_payload_bid:
+          type: object
+          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+          required:
+            - parent_block_hash
+            - parent_block_root
+            - block_hash
+            - prev_randao
+            - fee_recipient
+            - gas_limit
+            - builder_index
+            - slot
+            - value
+            - execution_payment
+            - blob_kzg_commitments
+            - execution_requests_root
+          properties:
+            parent_block_hash:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            parent_block_root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            block_hash:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            prev_randao:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+            fee_recipient:
+              type: string
+              format: hex
+              description: An address on the execution (Ethereum 1) network.
+              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+              pattern: '^0x[a-fA-F0-9]{40}$'
+            gas_limit:
+              type: string
+              example: '1'
+            builder_index:
+              type: string
+              example: '1'
+            slot:
+              type: string
+              example: '1'
+            value:
+              type: string
+              example: '1'
+            execution_payment:
+              type: string
+              example: '1'
+            blob_kzg_commitments:
+              type: array
+              maxItems: 4096
+              items:
+                type: string
+                format: hex
+                pattern: '^0x[a-fA-F0-9]{96}$'
+                description: A G1 curve point. Same as BLS standard "is valid pubkey" check but also allows `0x00..00` for point-at-infinity
+                example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
+            execution_requests_root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+        payload_expected_withdrawals:
+          type: array
+          maxItems: 16
+          description: Progressive list of withdrawals expected in the next execution payload.
+          items:
+            type: object
+            required:
+              - index
+              - validator_index
+              - address
+              - amount
+            properties:
+              index:
+                type: string
+                example: '1'
+                description: The index of the withdrawal.
+              validator_index:
+                type: string
+                example: '1'
+                description: The index of the withdrawing validator.
+              address:
+                type: string
+                format: hex
+                description: An address on the execution (Ethereum 1) network.
+                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                pattern: '^0x[a-fA-F0-9]{40}$'
+              amount:
+                type: string
+                example: '1'
+                description: The value withdrawn (gwei).
+        ptc_window:
+          type: array
+          description: Fixed vector of 96 payload-timeliness committees.
+          items:
+            type: array
+            description: Fixed vector of 512 validator indices.
+            items:
+              type: string
+              example: '1'
+            minItems: 512
+            maxItems: 512
+          minItems: 96
+          maxItems: 96
     Gloas.BeaconBlock:
       description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
       allOf:
@@ -76860,6 +78661,7 @@ components:
                           example: '1'
                         blob_kzg_commitments:
                           type: array
+                          maxItems: 4096
                           items:
                             type: string
                             format: hex
@@ -77671,6 +79473,7 @@ components:
                               example: '1'
                             blob_kzg_commitments:
                               type: array
+                              maxItems: 4096
                               items:
                                 type: string
                                 format: hex
@@ -77844,7 +79647,7 @@ components:
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.Builder:
       type: object
-      description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+      description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
       required:
         - pubkey
         - version
@@ -78532,6 +80335,7 @@ components:
                               example: '1'
                             blob_kzg_commitments:
                               type: array
+                              maxItems: 4096
                               items:
                                 type: string
                                 format: hex
@@ -79047,6 +80851,7 @@ components:
           example: '1'
         blob_kzg_commitments:
           type: array
+          maxItems: 4096
           items:
             type: string
             format: hex
@@ -79125,6 +80930,7 @@ components:
               example: '1'
             blob_kzg_commitments:
               type: array
+              maxItems: 4096
               items:
                 type: string
                 format: hex
