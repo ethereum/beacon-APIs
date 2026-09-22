@@ -47,7 +47,7 @@ Gloas:
         minItems: 0
         maxItems: 4
       parent_execution_requests:
-        $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
+        $ref: "./execution_requests.yaml#/Gloas/ExecutionRequests"
 
   BeaconBlock:
     description: "The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec."
