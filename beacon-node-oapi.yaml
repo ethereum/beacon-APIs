@@ -4,6 +4,8 @@ info:
   description: |
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
+    The schemas in this specification assume the `mainnet` preset from the consensus specifications.
+
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
     and "Accept: application/json" headers.  In addition, some requests can send and receive data in the SSZ format.  The header
     "Content-Type: application/octet-stream" should be set in requests that contain SSZ data; a preference to receive SSZ data in
