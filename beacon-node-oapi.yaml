@@ -3761,6 +3761,7 @@ paths:
         - Beacon
         - ValidatorRequiredApi
       summary: Publish a signed block.
+      deprecated: true
       operationId: publishBlindedBlockV2
       description: |
         Instructs the beacon node to use the components of the `SignedBlindedBeaconBlock` to construct and publish a 
@@ -3773,6 +3774,9 @@ paths:
         broadcast but a different status code is returned (202). Before Bellatrix, this endpoint will accept 
         a `SignedBeaconBlock`. The broadcast behaviour may be adjusted via the `broadcast_validation`
         query parameter.
+
+        This endpoint only supports forks through Fulu. Gloas blocks do not have a blinded form and
+        MUST be published through `POST /eth/v2/beacon/blocks`.
       parameters:
         - name: broadcast_validation
           in: query
@@ -3811,8 +3815,7 @@ paths:
               - deneb
               - electra
               - fulu
-              - gloas
-            example: gloas
+            example: fulu
           required: true
           name: Eth-Consensus-Version
           description: The active consensus version to which the block being submitted belongs.
@@ -7851,13 +7854,13 @@ paths:
             schema:
               anyOf:
                 - type: object
-                  description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
+                  description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
                   required:
                     - message
                     - signature
                   properties:
                     message:
-                      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                       allOf:
                         - type: object
                           required:
@@ -7892,7 +7895,7 @@ paths:
                           properties:
                             body:
                               type: object
-                              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                               required:
                                 - randao_reveal
                                 - eth1_data
@@ -7945,6 +7948,7 @@ paths:
                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                 proposer_slashings:
                                   type: array
+                                  maxItems: 16
                                   items:
                                     type: object
                                     description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -8058,16 +8062,17 @@ paths:
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                 attester_slashings:
                                   type: array
+                                  maxItems: 1
                                   items:
                                     type: object
-                                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                     required:
                                       - attestation_1
                                       - attestation_2
                                     properties:
                                       attestation_1:
                                         type: object
-                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                         required:
                                           - attesting_indices
                                           - data
@@ -8076,7 +8081,7 @@ paths:
                                           attesting_indices:
                                             type: array
                                             maxItems: 131072
-                                            description: Attesting validator indices
+                                            description: Progressive list of attesting validator indices.
                                             items:
                                               type: string
                                               example: '1'
@@ -8137,10 +8142,10 @@ paths:
                                             format: hex
                                             pattern: '^0x[a-fA-F0-9]{192}$'
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                            description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                            description: The BLS signature of the indexed attestation.
                                       attestation_2:
                                         type: object
-                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                         required:
                                           - attesting_indices
                                           - data
@@ -8149,7 +8154,7 @@ paths:
                                           attesting_indices:
                                             type: array
                                             maxItems: 131072
-                                            description: Attesting validator indices
+                                            description: Progressive list of attesting validator indices.
                                             items:
                                               type: string
                                               example: '1'
@@ -8210,12 +8215,13 @@ paths:
                                             format: hex
                                             pattern: '^0x[a-fA-F0-9]{192}$'
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                            description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                            description: The BLS signature of the indexed attestation.
                                 attestations:
                                   type: array
+                                  maxItems: 8
                                   items:
                                     type: object
-                                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                     required:
                                       - aggregation_bits
                                       - data
@@ -8223,7 +8229,8 @@ paths:
                                       - committee_bits
                                     properties:
                                       aggregation_bits:
-                                        description: Attester aggregation bits.
+                                        description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                                        maxLength: 32772
                                         type: string
                                         format: hex
                                         example: '0x01'
@@ -8287,13 +8294,17 @@ paths:
                                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                         description: BLS aggregate signature.
                                       committee_bits:
-                                        description: Committee bits.
+                                        description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                                        minLength: 18
+                                        maxLength: 18
                                         example: '0x0000000000000001'
                                         type: string
                                         format: hex
                                         pattern: '^0x[a-fA-F0-9]{2,}$'
                                 deposits:
                                   type: array
+                                  description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                                  maxItems: 0
                                   items:
                                     type: object
                                     description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -8344,6 +8355,7 @@ paths:
                                             description: Container self-signature.
                                 voluntary_exits:
                                   type: array
+                                  maxItems: 16
                                   items:
                                     type: object
                                     description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -8391,6 +8403,7 @@ paths:
                                       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                 bls_to_execution_changes:
                                   type: array
+                                  maxItems: 16
                                   items:
                                     type: object
                                     description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -8513,23 +8526,27 @@ paths:
                                       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                 payload_attestations:
                                   type: array
-                                  description: Array of payload attestations from gloas.
+                                  maxItems: 4
+                                  description: Payload attestations for the parent beacon block.
                                   items:
                                     type: object
-                                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                     required:
                                       - aggregation_bits
                                       - data
                                       - signature
                                     properties:
                                       aggregation_bits:
+                                        description: Fixed vector of PTC_SIZE (512) bits.
+                                        minLength: 130
+                                        maxLength: 130
                                         type: string
                                         format: hex
                                         example: '0x01'
                                         pattern: '^0x[a-fA-F0-9]{2,}$'
                                       data:
                                         type: object
-                                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                         required:
                                           - beacon_block_root
                                           - slot
@@ -8557,8 +8574,6 @@ paths:
                                         format: hex
                                         pattern: '^0x[a-fA-F0-9]{192}$'
                                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                  minItems: 0
-                                  maxItems: 4
                                 parent_execution_requests:
                                   type: object
                                   description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -15331,13 +15346,13 @@ paths:
                   data:
                     anyOf:
                       - type: object
-                        description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
+                        description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
                         required:
                           - message
                           - signature
                         properties:
                           message:
-                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                             allOf:
                               - type: object
                                 required:
@@ -15372,7 +15387,7 @@ paths:
                                 properties:
                                   body:
                                     type: object
-                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                                     required:
                                       - randao_reveal
                                       - eth1_data
@@ -15425,6 +15440,7 @@ paths:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                       proposer_slashings:
                                         type: array
+                                        maxItems: 16
                                         items:
                                           type: object
                                           description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -15538,16 +15554,17 @@ paths:
                                                   example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       attester_slashings:
                                         type: array
+                                        maxItems: 1
                                         items:
                                           type: object
-                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                           required:
                                             - attestation_1
                                             - attestation_2
                                           properties:
                                             attestation_1:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -15556,7 +15573,7 @@ paths:
                                                 attesting_indices:
                                                   type: array
                                                   maxItems: 131072
-                                                  description: Attesting validator indices
+                                                  description: Progressive list of attesting validator indices.
                                                   items:
                                                     type: string
                                                     example: '1'
@@ -15617,10 +15634,10 @@ paths:
                                                   format: hex
                                                   pattern: '^0x[a-fA-F0-9]{192}$'
                                                   example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                                  description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                                  description: The BLS signature of the indexed attestation.
                                             attestation_2:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -15629,7 +15646,7 @@ paths:
                                                 attesting_indices:
                                                   type: array
                                                   maxItems: 131072
-                                                  description: Attesting validator indices
+                                                  description: Progressive list of attesting validator indices.
                                                   items:
                                                     type: string
                                                     example: '1'
@@ -15690,12 +15707,13 @@ paths:
                                                   format: hex
                                                   pattern: '^0x[a-fA-F0-9]{192}$'
                                                   example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                                  description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                                  description: The BLS signature of the indexed attestation.
                                       attestations:
                                         type: array
+                                        maxItems: 8
                                         items:
                                           type: object
-                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
@@ -15703,7 +15721,8 @@ paths:
                                             - committee_bits
                                           properties:
                                             aggregation_bits:
-                                              description: Attester aggregation bits.
+                                              description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                                              maxLength: 32772
                                               type: string
                                               format: hex
                                               example: '0x01'
@@ -15767,13 +15786,17 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                               description: BLS aggregate signature.
                                             committee_bits:
-                                              description: Committee bits.
+                                              description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                                              minLength: 18
+                                              maxLength: 18
                                               example: '0x0000000000000001'
                                               type: string
                                               format: hex
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                       deposits:
                                         type: array
+                                        description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                                        maxItems: 0
                                         items:
                                           type: object
                                           description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -15824,6 +15847,7 @@ paths:
                                                   description: Container self-signature.
                                       voluntary_exits:
                                         type: array
+                                        maxItems: 16
                                         items:
                                           type: object
                                           description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -15871,6 +15895,7 @@ paths:
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       bls_to_execution_changes:
                                         type: array
+                                        maxItems: 16
                                         items:
                                           type: object
                                           description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -15993,23 +16018,27 @@ paths:
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       payload_attestations:
                                         type: array
-                                        description: Array of payload attestations from gloas.
+                                        maxItems: 4
+                                        description: Payload attestations for the parent beacon block.
                                         items:
                                           type: object
-                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
                                             - signature
                                           properties:
                                             aggregation_bits:
+                                              description: Fixed vector of PTC_SIZE (512) bits.
+                                              minLength: 130
+                                              maxLength: 130
                                               type: string
                                               format: hex
                                               example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             data:
                                               type: object
-                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                               required:
                                                 - beacon_block_root
                                                 - slot
@@ -16037,8 +16066,6 @@ paths:
                                               format: hex
                                               pattern: '^0x[a-fA-F0-9]{192}$'
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                        minItems: 0
-                                        maxItems: 4
                                       parent_execution_requests:
                                         type: object
                                         description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -20404,7 +20431,8 @@ paths:
                       - deneb
                       - electra
                       - fulu
-                    example: fulu
+                      - gloas
+                    example: gloas
                   execution_optimistic:
                     type: boolean
                     example: false
@@ -20415,6 +20443,89 @@ paths:
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     anyOf:
+                      - type: array
+                        items:
+                          type: object
+                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                          required:
+                            - aggregation_bits
+                            - data
+                            - signature
+                            - committee_bits
+                          properties:
+                            aggregation_bits:
+                              description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                              maxLength: 32772
+                              type: string
+                              format: hex
+                              example: '0x01'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
+                            data:
+                              type: object
+                              description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                              required:
+                                - slot
+                                - index
+                                - beacon_block_root
+                                - source
+                                - target
+                              properties:
+                                slot:
+                                  type: string
+                                  example: '1'
+                                index:
+                                  type: string
+                                  example: '1'
+                                beacon_block_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                  description: LMD GHOST vote.
+                                source:
+                                  type: object
+                                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                  required:
+                                    - epoch
+                                    - root
+                                  properties:
+                                    epoch:
+                                      type: string
+                                      example: '1'
+                                    root:
+                                      type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                target:
+                                  type: object
+                                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                  required:
+                                    - epoch
+                                    - root
+                                  properties:
+                                    epoch:
+                                      type: string
+                                      example: '1'
+                                    root:
+                                      type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                            signature:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{192}$'
+                              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                              description: BLS aggregate signature.
+                            committee_bits:
+                              description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                              minLength: 18
+                              maxLength: 18
+                              example: '0x0000000000000001'
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                       - type: array
                         items:
                           type: object
@@ -21656,9 +21767,13 @@ paths:
     get:
       operationId: getBlindedBlock
       summary: Get blinded block
+      deprecated: true
       description: |
         Retrieves blinded block for given block ID.
-        Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ
+        Depending on `Accept` header it can be returned either as JSON or as bytes serialized by SSZ.
+
+        This endpoint only supports forks through Fulu. Gloas blocks do not have a blinded form.
+        Use `GET /eth/v2/beacon/blocks/{block_id}` instead.
       tags:
         - Beacon
       parameters:
@@ -30077,9 +30192,93 @@ paths:
                       - deneb
                       - electra
                       - fulu
-                    example: fulu
+                      - gloas
+                    example: gloas
                   data:
                     anyOf:
+                      - type: array
+                        items:
+                          type: object
+                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                          required:
+                            - aggregation_bits
+                            - data
+                            - signature
+                            - committee_bits
+                          properties:
+                            aggregation_bits:
+                              description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                              maxLength: 32772
+                              type: string
+                              format: hex
+                              example: '0x01'
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
+                            data:
+                              type: object
+                              description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                              required:
+                                - slot
+                                - index
+                                - beacon_block_root
+                                - source
+                                - target
+                              properties:
+                                slot:
+                                  type: string
+                                  example: '1'
+                                index:
+                                  type: string
+                                  example: '1'
+                                beacon_block_root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                                  description: LMD GHOST vote.
+                                source:
+                                  type: object
+                                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                  required:
+                                    - epoch
+                                    - root
+                                  properties:
+                                    epoch:
+                                      type: string
+                                      example: '1'
+                                    root:
+                                      type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                target:
+                                  type: object
+                                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                  required:
+                                    - epoch
+                                    - root
+                                  properties:
+                                    epoch:
+                                      type: string
+                                      example: '1'
+                                    root:
+                                      type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                            signature:
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{192}$'
+                              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                              description: BLS aggregate signature.
+                            committee_bits:
+                              description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                              minLength: 18
+                              maxLength: 18
+                              example: '0x0000000000000001'
+                              type: string
+                              format: hex
+                              pattern: '^0x[a-fA-F0-9]{2,}$'
                       - type: array
                         items:
                           type: object
@@ -30614,20 +30813,23 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                       required:
                         - aggregation_bits
                         - data
                         - signature
                       properties:
                         aggregation_bits:
+                          description: Fixed vector of PTC_SIZE (512) bits.
+                          minLength: 130
+                          maxLength: 130
                           type: string
                           format: hex
                           example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         data:
                           type: object
-                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                           required:
                             - beacon_block_root
                             - slot
@@ -30750,7 +30952,7 @@ paths:
               type: array
               items:
                 type: object
-                description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
+                description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
                 required:
                   - validator_index
                   - data
@@ -30762,7 +30964,7 @@ paths:
                     description: Index of the validator submitting the payload attestation
                   data:
                     type: object
-                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                     required:
                       - beacon_block_root
                       - slot
@@ -30930,9 +31132,164 @@ paths:
                       - deneb
                       - electra
                       - fulu
-                    example: fulu
+                      - gloas
+                    example: gloas
                   data:
                     anyOf:
+                      - type: array
+                        items:
+                          type: object
+                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                          required:
+                            - attestation_1
+                            - attestation_2
+                          properties:
+                            attestation_1:
+                              type: object
+                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                              required:
+                                - attesting_indices
+                                - data
+                                - signature
+                              properties:
+                                attesting_indices:
+                                  type: array
+                                  maxItems: 131072
+                                  description: Progressive list of attesting validator indices.
+                                  items:
+                                    type: string
+                                    example: '1'
+                                data:
+                                  type: object
+                                  description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                                  required:
+                                    - slot
+                                    - index
+                                    - beacon_block_root
+                                    - source
+                                    - target
+                                  properties:
+                                    slot:
+                                      type: string
+                                      example: '1'
+                                    index:
+                                      type: string
+                                      example: '1'
+                                    beacon_block_root:
+                                      type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                      description: LMD GHOST vote.
+                                    source:
+                                      type: object
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                      required:
+                                        - epoch
+                                        - root
+                                      properties:
+                                        epoch:
+                                          type: string
+                                          example: '1'
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                    target:
+                                      type: object
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                      required:
+                                        - epoch
+                                        - root
+                                      properties:
+                                        epoch:
+                                          type: string
+                                          example: '1'
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                signature:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{192}$'
+                                  example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                                  description: The BLS signature of the indexed attestation.
+                            attestation_2:
+                              type: object
+                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                              required:
+                                - attesting_indices
+                                - data
+                                - signature
+                              properties:
+                                attesting_indices:
+                                  type: array
+                                  maxItems: 131072
+                                  description: Progressive list of attesting validator indices.
+                                  items:
+                                    type: string
+                                    example: '1'
+                                data:
+                                  type: object
+                                  description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                                  required:
+                                    - slot
+                                    - index
+                                    - beacon_block_root
+                                    - source
+                                    - target
+                                  properties:
+                                    slot:
+                                      type: string
+                                      example: '1'
+                                    index:
+                                      type: string
+                                      example: '1'
+                                    beacon_block_root:
+                                      type: string
+                                      format: hex
+                                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                      pattern: '^0x[a-fA-F0-9]{64}$'
+                                      description: LMD GHOST vote.
+                                    source:
+                                      type: object
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                      required:
+                                        - epoch
+                                        - root
+                                      properties:
+                                        epoch:
+                                          type: string
+                                          example: '1'
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                    target:
+                                      type: object
+                                      description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                      required:
+                                        - epoch
+                                        - root
+                                      properties:
+                                        epoch:
+                                          type: string
+                                          example: '1'
+                                        root:
+                                          type: string
+                                          format: hex
+                                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                          pattern: '^0x[a-fA-F0-9]{64}$'
+                                signature:
+                                  type: string
+                                  format: hex
+                                  pattern: '^0x[a-fA-F0-9]{192}$'
+                                  example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                                  description: The BLS signature of the indexed attestation.
                       - type: array
                         items:
                           type: object
@@ -31295,6 +31652,158 @@ paths:
           application/json:
             schema:
               anyOf:
+                - type: object
+                  description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                  required:
+                    - attestation_1
+                    - attestation_2
+                  properties:
+                    attestation_1:
+                      type: object
+                      description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                      required:
+                        - attesting_indices
+                        - data
+                        - signature
+                      properties:
+                        attesting_indices:
+                          type: array
+                          maxItems: 131072
+                          description: Progressive list of attesting validator indices.
+                          items:
+                            type: string
+                            example: '1'
+                        data:
+                          type: object
+                          description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                          required:
+                            - slot
+                            - index
+                            - beacon_block_root
+                            - source
+                            - target
+                          properties:
+                            slot:
+                              type: string
+                              example: '1'
+                            index:
+                              type: string
+                              example: '1'
+                            beacon_block_root:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                              description: LMD GHOST vote.
+                            source:
+                              type: object
+                              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                              required:
+                                - epoch
+                                - root
+                              properties:
+                                epoch:
+                                  type: string
+                                  example: '1'
+                                root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                            target:
+                              type: object
+                              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                              required:
+                                - epoch
+                                - root
+                              properties:
+                                epoch:
+                                  type: string
+                                  example: '1'
+                                root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                        signature:
+                          type: string
+                          format: hex
+                          pattern: '^0x[a-fA-F0-9]{192}$'
+                          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                          description: The BLS signature of the indexed attestation.
+                    attestation_2:
+                      type: object
+                      description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                      required:
+                        - attesting_indices
+                        - data
+                        - signature
+                      properties:
+                        attesting_indices:
+                          type: array
+                          maxItems: 131072
+                          description: Progressive list of attesting validator indices.
+                          items:
+                            type: string
+                            example: '1'
+                        data:
+                          type: object
+                          description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                          required:
+                            - slot
+                            - index
+                            - beacon_block_root
+                            - source
+                            - target
+                          properties:
+                            slot:
+                              type: string
+                              example: '1'
+                            index:
+                              type: string
+                              example: '1'
+                            beacon_block_root:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                              description: LMD GHOST vote.
+                            source:
+                              type: object
+                              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                              required:
+                                - epoch
+                                - root
+                              properties:
+                                epoch:
+                                  type: string
+                                  example: '1'
+                                root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                            target:
+                              type: object
+                              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                              required:
+                                - epoch
+                                - root
+                              properties:
+                                epoch:
+                                  type: string
+                                  example: '1'
+                                root:
+                                  type: string
+                                  format: hex
+                                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                  pattern: '^0x[a-fA-F0-9]{64}$'
+                        signature:
+                          type: string
+                          format: hex
+                          pattern: '^0x[a-fA-F0-9]{192}$'
+                          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                          description: The BLS signature of the indexed attestation.
                 - type: object
                   description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                   required:
@@ -32820,11 +33329,11 @@ paths:
                               pattern: '^[1-2]?[0-9]{1,2}$'
                               example: '0'
                           justification_bits:
+                            description: Bit set for every recent justified epoch.
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch.
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -33104,13 +33613,13 @@ paths:
                             type: string
                             example: '1'
                           execution_payload_availability:
+                            description: Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192).
+                            minLength: 2050
+                            maxLength: 2050
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192).
-                            minLength: 2050
-                            maxLength: 2050
                           builder_pending_payments:
                             type: array
                             description: Fixed vector of pending builder payments covering two epochs.
@@ -33572,11 +34081,11 @@ paths:
                               example: '0'
                             maxItems: 1099511627776
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -34188,11 +34697,11 @@ paths:
                               example: '0'
                             maxItems: 1099511627776
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -34788,11 +35297,11 @@ paths:
                               example: '0'
                             maxItems: 1099511627776
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -35288,11 +35797,11 @@ paths:
                               example: '0'
                             maxItems: 1099511627776
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -35777,11 +36286,11 @@ paths:
                               example: '0'
                             maxItems: 1099511627776
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -36232,11 +36741,11 @@ paths:
                               example: '0'
                             maxItems: 1099511627776
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -36732,11 +37241,11 @@ paths:
                                   type: string
                                   example: '1'
                           justification_bits:
+                            description: Bit set for every recent justified epoch
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: Bit set for every recent justified epoch
                           previous_justified_checkpoint:
                             type: object
                             description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -37144,17 +37653,17 @@ paths:
                             example: '1'
                             description: 'Uint64 starting at 0 used to version the node''s metadata. If any other field in the local MetaData changes, the node MUST increment seq_number by 1.'
                           attnets:
-                            type: string
-                            format: hex
-                            example: '0x01'
-                            pattern: '^0x[a-fA-F0-9]{2,}$'
                             description: Bitvector representing the node's persistent attestation subnet subscriptions.
-                          syncnets:
+                            example: '0x0000000000000000'
                             type: string
                             format: hex
-                            example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
+                          syncnets:
                             description: 'Bitvector representing the node''s sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair.'
+                            example: '0x0f'
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                           custody_group_count:
                             type: string
                             example: '1'
@@ -38773,6 +39282,7 @@ paths:
         - Validator
       operationId: produceBlockV3
       summary: 'Produce a new block, without signature.'
+      deprecated: true
       description: |
         Requests a beacon node to produce a valid block, which can then be signed by a validator. The
         returned block may be blinded or unblinded, depending on the current state of the network as
@@ -38782,8 +39292,10 @@ paths:
         paired execution node. It must only return a blinded block if it obtains the execution payload
         header from an MEV relay.
 
-        Metadata in the response indicates the type of block produced, and the supported types of block
-        are for all pre-Gloas forks.  This endpoint is not forwards compatible after the Gloas fork.
+        Metadata in the response indicates the type of block produced.
+
+        This endpoint only supports forks through Fulu. Use `POST /eth/v4/validator/blocks/{slot}`
+        for Gloas and later forks.
       parameters:
         - name: slot
           in: path
@@ -46898,7 +47410,7 @@ paths:
                     example: false
                   data:
                     anyOf:
-                      - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                      - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                         allOf:
                           - type: object
                             required:
@@ -46933,7 +47445,7 @@ paths:
                             properties:
                               body:
                                 type: object
-                                description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                                description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                                 required:
                                   - randao_reveal
                                   - eth1_data
@@ -46986,6 +47498,7 @@ paths:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                   proposer_slashings:
                                     type: array
+                                    maxItems: 16
                                     items:
                                       type: object
                                       description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -47099,16 +47612,17 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                   attester_slashings:
                                     type: array
+                                    maxItems: 1
                                     items:
                                       type: object
-                                      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                       required:
                                         - attestation_1
                                         - attestation_2
                                       properties:
                                         attestation_1:
                                           type: object
-                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                           required:
                                             - attesting_indices
                                             - data
@@ -47117,7 +47631,7 @@ paths:
                                             attesting_indices:
                                               type: array
                                               maxItems: 131072
-                                              description: Attesting validator indices
+                                              description: Progressive list of attesting validator indices.
                                               items:
                                                 type: string
                                                 example: '1'
@@ -47178,10 +47692,10 @@ paths:
                                               format: hex
                                               pattern: '^0x[a-fA-F0-9]{192}$'
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                              description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                              description: The BLS signature of the indexed attestation.
                                         attestation_2:
                                           type: object
-                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                           required:
                                             - attesting_indices
                                             - data
@@ -47190,7 +47704,7 @@ paths:
                                             attesting_indices:
                                               type: array
                                               maxItems: 131072
-                                              description: Attesting validator indices
+                                              description: Progressive list of attesting validator indices.
                                               items:
                                                 type: string
                                                 example: '1'
@@ -47251,12 +47765,13 @@ paths:
                                               format: hex
                                               pattern: '^0x[a-fA-F0-9]{192}$'
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                              description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                              description: The BLS signature of the indexed attestation.
                                   attestations:
                                     type: array
+                                    maxItems: 8
                                     items:
                                       type: object
-                                      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                                      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                       required:
                                         - aggregation_bits
                                         - data
@@ -47264,7 +47779,8 @@ paths:
                                         - committee_bits
                                       properties:
                                         aggregation_bits:
-                                          description: Attester aggregation bits.
+                                          description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                                          maxLength: 32772
                                           type: string
                                           format: hex
                                           example: '0x01'
@@ -47328,13 +47844,17 @@ paths:
                                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                           description: BLS aggregate signature.
                                         committee_bits:
-                                          description: Committee bits.
+                                          description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                                          minLength: 18
+                                          maxLength: 18
                                           example: '0x0000000000000001'
                                           type: string
                                           format: hex
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                   deposits:
                                     type: array
+                                    description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                                    maxItems: 0
                                     items:
                                       type: object
                                       description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -47385,6 +47905,7 @@ paths:
                                               description: Container self-signature.
                                   voluntary_exits:
                                     type: array
+                                    maxItems: 16
                                     items:
                                       type: object
                                       description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -47432,6 +47953,7 @@ paths:
                                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                   bls_to_execution_changes:
                                     type: array
+                                    maxItems: 16
                                     items:
                                       type: object
                                       description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -47554,23 +48076,27 @@ paths:
                                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                   payload_attestations:
                                     type: array
-                                    description: Array of payload attestations from gloas.
+                                    maxItems: 4
+                                    description: Payload attestations for the parent beacon block.
                                     items:
                                       type: object
-                                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                       required:
                                         - aggregation_bits
                                         - data
                                         - signature
                                       properties:
                                         aggregation_bits:
+                                          description: Fixed vector of PTC_SIZE (512) bits.
+                                          minLength: 130
+                                          maxLength: 130
                                           type: string
                                           format: hex
                                           example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         data:
                                           type: object
-                                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                           required:
                                             - beacon_block_root
                                             - slot
@@ -47598,8 +48124,6 @@ paths:
                                           format: hex
                                           pattern: '^0x[a-fA-F0-9]{192}$'
                                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                    minItems: 0
-                                    maxItems: 4
                                   parent_execution_requests:
                                     type: object
                                     description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -47775,7 +48299,7 @@ paths:
                           - blobs
                         properties:
                           block:
-                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                             allOf:
                               - type: object
                                 required:
@@ -47810,7 +48334,7 @@ paths:
                                 properties:
                                   body:
                                     type: object
-                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                                     required:
                                       - randao_reveal
                                       - eth1_data
@@ -47863,6 +48387,7 @@ paths:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                       proposer_slashings:
                                         type: array
+                                        maxItems: 16
                                         items:
                                           type: object
                                           description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -47976,16 +48501,17 @@ paths:
                                                   example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       attester_slashings:
                                         type: array
+                                        maxItems: 1
                                         items:
                                           type: object
-                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                           required:
                                             - attestation_1
                                             - attestation_2
                                           properties:
                                             attestation_1:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -47994,7 +48520,7 @@ paths:
                                                 attesting_indices:
                                                   type: array
                                                   maxItems: 131072
-                                                  description: Attesting validator indices
+                                                  description: Progressive list of attesting validator indices.
                                                   items:
                                                     type: string
                                                     example: '1'
@@ -48055,10 +48581,10 @@ paths:
                                                   format: hex
                                                   pattern: '^0x[a-fA-F0-9]{192}$'
                                                   example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                                  description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                                  description: The BLS signature of the indexed attestation.
                                             attestation_2:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -48067,7 +48593,7 @@ paths:
                                                 attesting_indices:
                                                   type: array
                                                   maxItems: 131072
-                                                  description: Attesting validator indices
+                                                  description: Progressive list of attesting validator indices.
                                                   items:
                                                     type: string
                                                     example: '1'
@@ -48128,12 +48654,13 @@ paths:
                                                   format: hex
                                                   pattern: '^0x[a-fA-F0-9]{192}$'
                                                   example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                                  description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                                  description: The BLS signature of the indexed attestation.
                                       attestations:
                                         type: array
+                                        maxItems: 8
                                         items:
                                           type: object
-                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
@@ -48141,7 +48668,8 @@ paths:
                                             - committee_bits
                                           properties:
                                             aggregation_bits:
-                                              description: Attester aggregation bits.
+                                              description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                                              maxLength: 32772
                                               type: string
                                               format: hex
                                               example: '0x01'
@@ -48205,13 +48733,17 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                               description: BLS aggregate signature.
                                             committee_bits:
-                                              description: Committee bits.
+                                              description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                                              minLength: 18
+                                              maxLength: 18
                                               example: '0x0000000000000001'
                                               type: string
                                               format: hex
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                       deposits:
                                         type: array
+                                        description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                                        maxItems: 0
                                         items:
                                           type: object
                                           description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -48262,6 +48794,7 @@ paths:
                                                   description: Container self-signature.
                                       voluntary_exits:
                                         type: array
+                                        maxItems: 16
                                         items:
                                           type: object
                                           description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -48309,6 +48842,7 @@ paths:
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       bls_to_execution_changes:
                                         type: array
+                                        maxItems: 16
                                         items:
                                           type: object
                                           description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -48431,23 +48965,27 @@ paths:
                                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       payload_attestations:
                                         type: array
-                                        description: Array of payload attestations from gloas.
+                                        maxItems: 4
+                                        description: Payload attestations for the parent beacon block.
                                         items:
                                           type: object
-                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
                                             - signature
                                           properties:
                                             aggregation_bits:
+                                              description: Fixed vector of PTC_SIZE (512) bits.
+                                              minLength: 130
+                                              maxLength: 130
                                               type: string
                                               format: hex
                                               example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             data:
                                               type: object
-                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                               required:
                                                 - beacon_block_root
                                                 - slot
@@ -48475,8 +49013,6 @@ paths:
                                               format: hex
                                               pattern: '^0x[a-fA-F0-9]{192}$'
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                        minItems: 0
-                                        maxItems: 4
                                       parent_execution_requests:
                                         type: object
                                         description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -49123,7 +49659,7 @@ paths:
       description: |
         Requests that the beacon node produce an `AttestationData`.
 
-        For `slot`s in Electra and later, this `AttestationData` must have an `index` of `0`.
+        For `slot`s in Electra and Fulu, this `AttestationData` must have an `index` of `0`.
 
         For `slot`s in Gloas and later, the `index` in `AttestationData` is used to signal
         payload availability which is determined and set by the beacon node.
@@ -49373,7 +49909,7 @@ paths:
                     example: gloas
                   data:
                     type: object
-                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                     required:
                       - beacon_block_root
                       - slot
@@ -49576,9 +50112,91 @@ paths:
                       - deneb
                       - electra
                       - fulu
-                    example: fulu
+                      - gloas
+                    example: gloas
                   data:
                     anyOf:
+                      - type: object
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                        required:
+                          - aggregation_bits
+                          - data
+                          - signature
+                          - committee_bits
+                        properties:
+                          aggregation_bits:
+                            description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                            maxLength: 32772
+                            type: string
+                            format: hex
+                            example: '0x01'
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
+                          data:
+                            type: object
+                            description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                            required:
+                              - slot
+                              - index
+                              - beacon_block_root
+                              - source
+                              - target
+                            properties:
+                              slot:
+                                type: string
+                                example: '1'
+                              index:
+                                type: string
+                                example: '1'
+                              beacon_block_root:
+                                type: string
+                                format: hex
+                                example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                pattern: '^0x[a-fA-F0-9]{64}$'
+                                description: LMD GHOST vote.
+                              source:
+                                type: object
+                                description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                required:
+                                  - epoch
+                                  - root
+                                properties:
+                                  epoch:
+                                    type: string
+                                    example: '1'
+                                  root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                              target:
+                                type: object
+                                description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                required:
+                                  - epoch
+                                  - root
+                                properties:
+                                  epoch:
+                                    type: string
+                                    example: '1'
+                                  root:
+                                    type: string
+                                    format: hex
+                                    example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                    pattern: '^0x[a-fA-F0-9]{64}$'
+                          signature:
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{192}$'
+                            example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                            description: BLS aggregate signature.
+                          committee_bits:
+                            description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                            minLength: 18
+                            maxLength: 18
+                            example: '0x0000000000000001'
+                            type: string
+                            format: hex
+                            pattern: '^0x[a-fA-F0-9]{2,}$'
                       - type: object
                         description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
                         required:
@@ -49859,6 +50477,121 @@ paths:
           application/json:
             schema:
               anyOf:
+                - type: array
+                  items:
+                    type: object
+                    description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#signedaggregateandproof) object'
+                    required:
+                      - message
+                      - signature
+                    properties:
+                      message:
+                        allOf:
+                          - type: object
+                            description: 'The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#aggregateandproof) without selection_proof'
+                            required:
+                              - aggregator_index
+                              - aggregate
+                            properties:
+                              aggregator_index:
+                                type: string
+                                example: '1'
+                              aggregate:
+                                type: object
+                                description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                                required:
+                                  - aggregation_bits
+                                  - data
+                                  - signature
+                                  - committee_bits
+                                properties:
+                                  aggregation_bits:
+                                    description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                                    maxLength: 32772
+                                    type: string
+                                    format: hex
+                                    example: '0x01'
+                                    pattern: '^0x[a-fA-F0-9]{2,}$'
+                                  data:
+                                    type: object
+                                    description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                                    required:
+                                      - slot
+                                      - index
+                                      - beacon_block_root
+                                      - source
+                                      - target
+                                    properties:
+                                      slot:
+                                        type: string
+                                        example: '1'
+                                      index:
+                                        type: string
+                                        example: '1'
+                                      beacon_block_root:
+                                        type: string
+                                        format: hex
+                                        example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                        pattern: '^0x[a-fA-F0-9]{64}$'
+                                        description: LMD GHOST vote.
+                                      source:
+                                        type: object
+                                        description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                        required:
+                                          - epoch
+                                          - root
+                                        properties:
+                                          epoch:
+                                            type: string
+                                            example: '1'
+                                          root:
+                                            type: string
+                                            format: hex
+                                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                            pattern: '^0x[a-fA-F0-9]{64}$'
+                                      target:
+                                        type: object
+                                        description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                                        required:
+                                          - epoch
+                                          - root
+                                        properties:
+                                          epoch:
+                                            type: string
+                                            example: '1'
+                                          root:
+                                            type: string
+                                            format: hex
+                                            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                                            pattern: '^0x[a-fA-F0-9]{64}$'
+                                  signature:
+                                    type: string
+                                    format: hex
+                                    pattern: '^0x[a-fA-F0-9]{192}$'
+                                    example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                                    description: BLS aggregate signature.
+                                  committee_bits:
+                                    description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                                    minLength: 18
+                                    maxLength: 18
+                                    example: '0x0000000000000001'
+                                    type: string
+                                    format: hex
+                                    pattern: '^0x[a-fA-F0-9]{2,}$'
+                          - type: object
+                            required:
+                              - selection_proof
+                            properties:
+                              selection_proof:
+                                type: string
+                                format: hex
+                                pattern: '^0x[a-fA-F0-9]{192}$'
+                                example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                      signature:
+                        type: string
+                        format: hex
+                        pattern: '^0x[a-fA-F0-9]{192}$'
+                        example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 - type: array
                   items:
                     type: object
@@ -50637,11 +51370,11 @@ paths:
                         example: '1'
                         description: The index of the subcommittee that the contribution pertains to.
                       aggregation_bits:
+                        description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
+                        example: '0xffffffffffffffffffffffffffffffff'
                         type: string
                         format: hex
-                        example: '0x01'
                         pattern: '^0x[a-fA-F0-9]{2,}$'
-                        description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
                       signature:
                         type: string
                         format: hex
@@ -50990,11 +51723,11 @@ paths:
                             example: '1'
                             description: The index of the subcommittee that the contribution pertains to.
                           aggregation_bits:
+                            description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
+                            example: '0xffffffffffffffffffffffffffffffff'
                             type: string
                             format: hex
-                            example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
-                            description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
                           signature:
                             type: string
                             format: hex
@@ -53123,17 +53856,17 @@ components:
               example: '1'
               description: 'Uint64 starting at 0 used to version the node''s metadata. If any other field in the local MetaData changes, the node MUST increment seq_number by 1.'
             attnets:
-              type: string
-              format: hex
-              example: '0x01'
-              pattern: '^0x[a-fA-F0-9]{2,}$'
               description: Bitvector representing the node's persistent attestation subnet subscriptions.
-            syncnets:
+              example: '0x0000000000000000'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
+            syncnets:
               description: 'Bitvector representing the node''s sync committee subnet subscriptions. This metadata is not present in phase0, but will be present in Altair.'
+              example: '0x0f'
+              type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{2,}$'
             custody_group_count:
               type: string
               example: '1'
@@ -53724,11 +54457,11 @@ components:
                 type: string
                 example: '1'
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -57140,11 +57873,11 @@ components:
             example: '0'
           maxItems: 1099511627776
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -57323,11 +58056,11 @@ components:
               example: '1'
               description: The index of the subcommittee that the contribution pertains to.
             aggregation_bits:
+              description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
+              example: '0xffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
-              description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
             signature:
               type: string
               format: hex
@@ -57380,11 +58113,11 @@ components:
                   example: '1'
                   description: The index of the subcommittee that the contribution pertains to.
                 aggregation_bits:
+                  description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
+                  example: '0xffffffffffffffffffffffffffffffff'
                   type: string
                   format: hex
-                  example: '0x01'
                   pattern: '^0x[a-fA-F0-9]{2,}$'
-                  description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
                 signature:
                   type: string
                   format: hex
@@ -57420,11 +58153,11 @@ components:
           example: '1'
           description: The index of the subcommittee that the contribution pertains to.
         aggregation_bits:
+          description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
+          example: '0xffffffffffffffffffffffffffffffff'
           type: string
           format: hex
-          example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: A bit is set if a signature from the validator at the corresponding index in the subcommittee is present in the aggregate `signature`.
         signature:
           type: string
           format: hex
@@ -57729,11 +58462,11 @@ components:
             example: '0'
           maxItems: 1099511627776
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -60727,11 +61460,11 @@ components:
             example: '0'
           maxItems: 1099511627776
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -65069,11 +65802,11 @@ components:
             example: '0'
           maxItems: 1099511627776
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -70976,11 +71709,11 @@ components:
             example: '0'
           maxItems: 1099511627776
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -77396,11 +78129,11 @@ components:
             example: '0'
           maxItems: 1099511627776
         justification_bits:
+          description: Bit set for every recent justified epoch
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -78110,11 +78843,11 @@ components:
             pattern: '^[1-2]?[0-9]{1,2}$'
             example: '0'
         justification_bits:
+          description: Bit set for every recent justified epoch.
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Bit set for every recent justified epoch.
         previous_justified_checkpoint:
           type: object
           description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
@@ -78394,13 +79127,13 @@ components:
           type: string
           example: '1'
         execution_payload_availability:
+          description: Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192).
+          minLength: 2050
+          maxLength: 2050
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
-          description: Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192).
-          minLength: 2050
-          maxLength: 2050
         builder_pending_payments:
           type: array
           description: Fixed vector of pending builder payments covering two epochs.
@@ -78579,7 +79312,7 @@ components:
           minItems: 96
           maxItems: 96
     Gloas.BeaconBlock:
-      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
       allOf:
         - type: object
           required:
@@ -78614,7 +79347,7 @@ components:
           properties:
             body:
               type: object
-              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
               required:
                 - randao_reveal
                 - eth1_data
@@ -78667,6 +79400,7 @@ components:
                   pattern: '^0x[a-fA-F0-9]{64}$'
                 proposer_slashings:
                   type: array
+                  maxItems: 16
                   items:
                     type: object
                     description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -78780,16 +79514,17 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 attester_slashings:
                   type: array
+                  maxItems: 1
                   items:
                     type: object
-                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                     required:
                       - attestation_1
                       - attestation_2
                     properties:
                       attestation_1:
                         type: object
-                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                         required:
                           - attesting_indices
                           - data
@@ -78798,7 +79533,7 @@ components:
                           attesting_indices:
                             type: array
                             maxItems: 131072
-                            description: Attesting validator indices
+                            description: Progressive list of attesting validator indices.
                             items:
                               type: string
                               example: '1'
@@ -78859,10 +79594,10 @@ components:
                             format: hex
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                            description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                            description: The BLS signature of the indexed attestation.
                       attestation_2:
                         type: object
-                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                         required:
                           - attesting_indices
                           - data
@@ -78871,7 +79606,7 @@ components:
                           attesting_indices:
                             type: array
                             maxItems: 131072
-                            description: Attesting validator indices
+                            description: Progressive list of attesting validator indices.
                             items:
                               type: string
                               example: '1'
@@ -78932,12 +79667,13 @@ components:
                             format: hex
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                            description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                            description: The BLS signature of the indexed attestation.
                 attestations:
                   type: array
+                  maxItems: 8
                   items:
                     type: object
-                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                     required:
                       - aggregation_bits
                       - data
@@ -78945,7 +79681,8 @@ components:
                       - committee_bits
                     properties:
                       aggregation_bits:
-                        description: Attester aggregation bits.
+                        description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                        maxLength: 32772
                         type: string
                         format: hex
                         example: '0x01'
@@ -79009,13 +79746,17 @@ components:
                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                         description: BLS aggregate signature.
                       committee_bits:
-                        description: Committee bits.
+                        description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                        minLength: 18
+                        maxLength: 18
                         example: '0x0000000000000001'
                         type: string
                         format: hex
                         pattern: '^0x[a-fA-F0-9]{2,}$'
                 deposits:
                   type: array
+                  description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                  maxItems: 0
                   items:
                     type: object
                     description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -79066,6 +79807,7 @@ components:
                             description: Container self-signature.
                 voluntary_exits:
                   type: array
+                  maxItems: 16
                   items:
                     type: object
                     description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -79113,6 +79855,7 @@ components:
                       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 bls_to_execution_changes:
                   type: array
+                  maxItems: 16
                   items:
                     type: object
                     description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -79235,23 +79978,27 @@ components:
                       example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 payload_attestations:
                   type: array
-                  description: Array of payload attestations from gloas.
+                  maxItems: 4
+                  description: Payload attestations for the parent beacon block.
                   items:
                     type: object
-                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                     required:
                       - aggregation_bits
                       - data
                       - signature
                     properties:
                       aggregation_bits:
+                        description: Fixed vector of PTC_SIZE (512) bits.
+                        minLength: 130
+                        maxLength: 130
                         type: string
                         format: hex
                         example: '0x01'
                         pattern: '^0x[a-fA-F0-9]{2,}$'
                       data:
                         type: object
-                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                         required:
                           - beacon_block_root
                           - slot
@@ -79279,8 +80026,6 @@ components:
                         format: hex
                         pattern: '^0x[a-fA-F0-9]{192}$'
                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                  minItems: 0
-                  maxItems: 4
                 parent_execution_requests:
                   type: object
                   description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -79446,13 +80191,13 @@ components:
                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
     Gloas.SignedBeaconBlock:
       type: object
-      description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
+      description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
       required:
         - message
         - signature
       properties:
         message:
-          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
           allOf:
             - type: object
               required:
@@ -79487,7 +80232,7 @@ components:
               properties:
                 body:
                   type: object
-                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                   required:
                     - randao_reveal
                     - eth1_data
@@ -79540,6 +80285,7 @@ components:
                       pattern: '^0x[a-fA-F0-9]{64}$'
                     proposer_slashings:
                       type: array
+                      maxItems: 16
                       items:
                         type: object
                         description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -79653,16 +80399,17 @@ components:
                                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     attester_slashings:
                       type: array
+                      maxItems: 1
                       items:
                         type: object
-                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                         required:
                           - attestation_1
                           - attestation_2
                         properties:
                           attestation_1:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -79671,7 +80418,7 @@ components:
                               attesting_indices:
                                 type: array
                                 maxItems: 131072
-                                description: Attesting validator indices
+                                description: Progressive list of attesting validator indices.
                                 items:
                                   type: string
                                   example: '1'
@@ -79732,10 +80479,10 @@ components:
                                 format: hex
                                 pattern: '^0x[a-fA-F0-9]{192}$'
                                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                description: The BLS signature of the indexed attestation.
                           attestation_2:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -79744,7 +80491,7 @@ components:
                               attesting_indices:
                                 type: array
                                 maxItems: 131072
-                                description: Attesting validator indices
+                                description: Progressive list of attesting validator indices.
                                 items:
                                   type: string
                                   example: '1'
@@ -79805,12 +80552,13 @@ components:
                                 format: hex
                                 pattern: '^0x[a-fA-F0-9]{192}$'
                                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                description: The BLS signature of the indexed attestation.
                     attestations:
                       type: array
+                      maxItems: 8
                       items:
                         type: object
-                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -79818,7 +80566,8 @@ components:
                           - committee_bits
                         properties:
                           aggregation_bits:
-                            description: Attester aggregation bits.
+                            description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                            maxLength: 32772
                             type: string
                             format: hex
                             example: '0x01'
@@ -79882,13 +80631,17 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                             description: BLS aggregate signature.
                           committee_bits:
-                            description: Committee bits.
+                            description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                            minLength: 18
+                            maxLength: 18
                             example: '0x0000000000000001'
                             type: string
                             format: hex
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                     deposits:
                       type: array
+                      description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                      maxItems: 0
                       items:
                         type: object
                         description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -79939,6 +80692,7 @@ components:
                                 description: Container self-signature.
                     voluntary_exits:
                       type: array
+                      maxItems: 16
                       items:
                         type: object
                         description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -79986,6 +80740,7 @@ components:
                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     bls_to_execution_changes:
                       type: array
+                      maxItems: 16
                       items:
                         type: object
                         description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -80108,23 +80863,27 @@ components:
                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     payload_attestations:
                       type: array
-                      description: Array of payload attestations from gloas.
+                      maxItems: 4
+                      description: Payload attestations for the parent beacon block.
                       items:
                         type: object
-                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
                           - signature
                         properties:
                           aggregation_bits:
+                            description: Fixed vector of PTC_SIZE (512) bits.
+                            minLength: 130
+                            maxLength: 130
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                           data:
                             type: object
-                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                             required:
                               - beacon_block_root
                               - slot
@@ -80152,8 +80911,6 @@ components:
                             format: hex
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                      minItems: 0
-                      maxItems: 4
                     parent_execution_requests:
                       type: object
                       description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -80375,7 +81132,7 @@ components:
         - blobs
       properties:
         block:
-          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
           allOf:
             - type: object
               required:
@@ -80410,7 +81167,7 @@ components:
               properties:
                 body:
                   type: object
-                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                   required:
                     - randao_reveal
                     - eth1_data
@@ -80463,6 +81220,7 @@ components:
                       pattern: '^0x[a-fA-F0-9]{64}$'
                     proposer_slashings:
                       type: array
+                      maxItems: 16
                       items:
                         type: object
                         description: 'The [`ProposerSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#proposerslashing) object from the CL spec.'
@@ -80576,16 +81334,17 @@ components:
                                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     attester_slashings:
                       type: array
+                      maxItems: 1
                       items:
                         type: object
-                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                         required:
                           - attestation_1
                           - attestation_2
                         properties:
                           attestation_1:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -80594,7 +81353,7 @@ components:
                               attesting_indices:
                                 type: array
                                 maxItems: 131072
-                                description: Attesting validator indices
+                                description: Progressive list of attesting validator indices.
                                 items:
                                   type: string
                                   example: '1'
@@ -80655,10 +81414,10 @@ components:
                                 format: hex
                                 pattern: '^0x[a-fA-F0-9]{192}$'
                                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                description: The BLS signature of the indexed attestation.
                           attestation_2:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#indexedattestation) object from the CL spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -80667,7 +81426,7 @@ components:
                               attesting_indices:
                                 type: array
                                 maxItems: 131072
-                                description: Attesting validator indices
+                                description: Progressive list of attesting validator indices.
                                 items:
                                   type: string
                                   example: '1'
@@ -80728,12 +81487,13 @@ components:
                                 format: hex
                                 pattern: '^0x[a-fA-F0-9]{192}$'
                                 example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                                description: 'The BLS signature of the `IndexedAttestation`, created by the validator of the attestation.'
+                                description: The BLS signature of the indexed attestation.
                     attestations:
                       type: array
+                      maxItems: 8
                       items:
                         type: object
-                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.5.0/specs/electra/beacon-chain.md#attestation) object from the CL spec.'
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -80741,7 +81501,8 @@ components:
                           - committee_bits
                         properties:
                           aggregation_bits:
-                            description: Attester aggregation bits.
+                            description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                            maxLength: 32772
                             type: string
                             format: hex
                             example: '0x01'
@@ -80805,13 +81566,17 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                             description: BLS aggregate signature.
                           committee_bits:
-                            description: Committee bits.
+                            description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                            minLength: 18
+                            maxLength: 18
                             example: '0x0000000000000001'
                             type: string
                             format: hex
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                     deposits:
                       type: array
+                      description: Legacy deposits have been disabled since Fulu. This list must be empty.
+                      maxItems: 0
                       items:
                         type: object
                         description: 'The [`Deposit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#deposit) object from the CL spec.'
@@ -80862,6 +81627,7 @@ components:
                                 description: Container self-signature.
                     voluntary_exits:
                       type: array
+                      maxItems: 16
                       items:
                         type: object
                         description: 'The [`SignedVoluntaryExit`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#signedvoluntaryexit) object from the CL spec.'
@@ -80909,6 +81675,7 @@ components:
                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     bls_to_execution_changes:
                       type: array
+                      maxItems: 16
                       items:
                         type: object
                         description: 'The [`SignedBLSToExecutionChange`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/capella/beacon-chain.md#signedblstoexecutionchange) object from the CL spec.'
@@ -81031,23 +81798,27 @@ components:
                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     payload_attestations:
                       type: array
-                      description: Array of payload attestations from gloas.
+                      maxItems: 4
+                      description: Payload attestations for the parent beacon block.
                       items:
                         type: object
-                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
                           - signature
                         properties:
                           aggregation_bits:
+                            description: Fixed vector of PTC_SIZE (512) bits.
+                            minLength: 130
+                            maxLength: 130
                             type: string
                             format: hex
                             example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                           data:
                             type: object
-                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                             required:
                               - beacon_block_root
                               - slot
@@ -81075,8 +81846,6 @@ components:
                             format: hex
                             pattern: '^0x[a-fA-F0-9]{192}$'
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
-                      minItems: 0
-                      maxItems: 4
                     parent_execution_requests:
                       type: object
                       description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
@@ -82907,7 +83676,7 @@ components:
           maxItems: 4096
     Gloas.PayloadAttestationData:
       type: object
-      description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+      description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
       required:
         - beacon_block_root
         - slot
@@ -82932,20 +83701,23 @@ components:
           description: True if blob data is available for this block
     Gloas.PayloadAttestation:
       type: object
-      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
       required:
         - aggregation_bits
         - data
         - signature
       properties:
         aggregation_bits:
+          description: Fixed vector of PTC_SIZE (512) bits.
+          minLength: 130
+          maxLength: 130
           type: string
           format: hex
           example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
         data:
           type: object
-          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
           required:
             - beacon_block_root
             - slot
@@ -82975,7 +83747,7 @@ components:
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.PayloadAttestationMessage:
       type: object
-      description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
+      description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
       required:
         - validator_index
         - data
@@ -82987,7 +83759,7 @@ components:
           description: Index of the validator submitting the payload attestation
         data:
           type: object
-          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.8/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
           required:
             - beacon_block_root
             - slot
@@ -83016,6 +83788,355 @@ components:
           pattern: '^0x[a-fA-F0-9]{192}$'
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
           description: BLS signature of the payload attestation data
+    Gloas.Attestation:
+      type: object
+      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+      required:
+        - aggregation_bits
+        - data
+        - signature
+        - committee_bits
+      properties:
+        aggregation_bits:
+          description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+          maxLength: 32772
+          type: string
+          format: hex
+          example: '0x01'
+          pattern: '^0x[a-fA-F0-9]{2,}$'
+        data:
+          type: object
+          description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+          required:
+            - slot
+            - index
+            - beacon_block_root
+            - source
+            - target
+          properties:
+            slot:
+              type: string
+              example: '1'
+            index:
+              type: string
+              example: '1'
+            beacon_block_root:
+              type: string
+              format: hex
+              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+              pattern: '^0x[a-fA-F0-9]{64}$'
+              description: LMD GHOST vote.
+            source:
+              type: object
+              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+              required:
+                - epoch
+                - root
+              properties:
+                epoch:
+                  type: string
+                  example: '1'
+                root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+            target:
+              type: object
+              description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+              required:
+                - epoch
+                - root
+              properties:
+                epoch:
+                  type: string
+                  example: '1'
+                root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+        signature:
+          type: string
+          format: hex
+          pattern: '^0x[a-fA-F0-9]{192}$'
+          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+          description: BLS aggregate signature.
+        committee_bits:
+          description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+          minLength: 18
+          maxLength: 18
+          example: '0x0000000000000001'
+          type: string
+          format: hex
+          pattern: '^0x[a-fA-F0-9]{2,}$'
+    Gloas.AttesterSlashing:
+      type: object
+      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+      required:
+        - attestation_1
+        - attestation_2
+      properties:
+        attestation_1:
+          type: object
+          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+          required:
+            - attesting_indices
+            - data
+            - signature
+          properties:
+            attesting_indices:
+              type: array
+              maxItems: 131072
+              description: Progressive list of attesting validator indices.
+              items:
+                type: string
+                example: '1'
+            data:
+              type: object
+              description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+              required:
+                - slot
+                - index
+                - beacon_block_root
+                - source
+                - target
+              properties:
+                slot:
+                  type: string
+                  example: '1'
+                index:
+                  type: string
+                  example: '1'
+                beacon_block_root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+                  description: LMD GHOST vote.
+                source:
+                  type: object
+                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                  required:
+                    - epoch
+                    - root
+                  properties:
+                    epoch:
+                      type: string
+                      example: '1'
+                    root:
+                      type: string
+                      format: hex
+                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                      pattern: '^0x[a-fA-F0-9]{64}$'
+                target:
+                  type: object
+                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                  required:
+                    - epoch
+                    - root
+                  properties:
+                    epoch:
+                      type: string
+                      example: '1'
+                    root:
+                      type: string
+                      format: hex
+                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                      pattern: '^0x[a-fA-F0-9]{64}$'
+            signature:
+              type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{192}$'
+              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+              description: The BLS signature of the indexed attestation.
+        attestation_2:
+          type: object
+          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+          required:
+            - attesting_indices
+            - data
+            - signature
+          properties:
+            attesting_indices:
+              type: array
+              maxItems: 131072
+              description: Progressive list of attesting validator indices.
+              items:
+                type: string
+                example: '1'
+            data:
+              type: object
+              description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+              required:
+                - slot
+                - index
+                - beacon_block_root
+                - source
+                - target
+              properties:
+                slot:
+                  type: string
+                  example: '1'
+                index:
+                  type: string
+                  example: '1'
+                beacon_block_root:
+                  type: string
+                  format: hex
+                  example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                  pattern: '^0x[a-fA-F0-9]{64}$'
+                  description: LMD GHOST vote.
+                source:
+                  type: object
+                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                  required:
+                    - epoch
+                    - root
+                  properties:
+                    epoch:
+                      type: string
+                      example: '1'
+                    root:
+                      type: string
+                      format: hex
+                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                      pattern: '^0x[a-fA-F0-9]{64}$'
+                target:
+                  type: object
+                  description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                  required:
+                    - epoch
+                    - root
+                  properties:
+                    epoch:
+                      type: string
+                      example: '1'
+                    root:
+                      type: string
+                      format: hex
+                      example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                      pattern: '^0x[a-fA-F0-9]{64}$'
+            signature:
+              type: string
+              format: hex
+              pattern: '^0x[a-fA-F0-9]{192}$'
+              example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+              description: The BLS signature of the indexed attestation.
+    Gloas.SignedAggregateAndProof:
+      type: object
+      description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#signedaggregateandproof) object'
+      required:
+        - message
+        - signature
+      properties:
+        message:
+          allOf:
+            - type: object
+              description: 'The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#aggregateandproof) without selection_proof'
+              required:
+                - aggregator_index
+                - aggregate
+              properties:
+                aggregator_index:
+                  type: string
+                  example: '1'
+                aggregate:
+                  type: object
+                  description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                  required:
+                    - aggregation_bits
+                    - data
+                    - signature
+                    - committee_bits
+                  properties:
+                    aggregation_bits:
+                      description: 'Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits.'
+                      maxLength: 32772
+                      type: string
+                      format: hex
+                      example: '0x01'
+                      pattern: '^0x[a-fA-F0-9]{2,}$'
+                    data:
+                      type: object
+                      description: 'The [`AttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#attestationdata) object from the CL spec.'
+                      required:
+                        - slot
+                        - index
+                        - beacon_block_root
+                        - source
+                        - target
+                      properties:
+                        slot:
+                          type: string
+                          example: '1'
+                        index:
+                          type: string
+                          example: '1'
+                        beacon_block_root:
+                          type: string
+                          format: hex
+                          example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                          pattern: '^0x[a-fA-F0-9]{64}$'
+                          description: LMD GHOST vote.
+                        source:
+                          type: object
+                          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                          required:
+                            - epoch
+                            - root
+                          properties:
+                            epoch:
+                              type: string
+                              example: '1'
+                            root:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                        target:
+                          type: object
+                          description: 'The [`Checkpoint`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/beacon-chain.md#checkpoint) object from the CL spec.'
+                          required:
+                            - epoch
+                            - root
+                          properties:
+                            epoch:
+                              type: string
+                              example: '1'
+                            root:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                    signature:
+                      type: string
+                      format: hex
+                      pattern: '^0x[a-fA-F0-9]{192}$'
+                      example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+                      description: BLS aggregate signature.
+                    committee_bits:
+                      description: 'Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits.'
+                      minLength: 18
+                      maxLength: 18
+                      example: '0x0000000000000001'
+                      type: string
+                      format: hex
+                      pattern: '^0x[a-fA-F0-9]{2,}$'
+            - type: object
+              required:
+                - selection_proof
+              properties:
+                selection_proof:
+                  type: string
+                  format: hex
+                  pattern: '^0x[a-fA-F0-9]{192}$'
+                  example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+        signature:
+          type: string
+          format: hex
+          pattern: '^0x[a-fA-F0-9]{192}$'
+          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.ProposerPreferences:
       type: object
       description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
