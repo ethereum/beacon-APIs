@@ -3245,7 +3245,8 @@ paths:
       operationId: getProposerLookahead
       summary: Get State Proposer Lookahead
       description: |
-        Returns proposer lookahead for state with given 'stateId'. Should return 400 if the state retrieved is prior to Fulu.
+        Returns [proposer lookahead](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/fulu/beacon-chain.md#new-proposerlookahead) for the state with the given `state_id`.
+        Should return 400 if the state retrieved is prior to Fulu.
       tags:
         - Beacon
       parameters:
