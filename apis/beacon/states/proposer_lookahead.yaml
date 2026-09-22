@@ -2,7 +2,8 @@ get:
   operationId: "getProposerLookahead"
   summary: "Get State Proposer Lookahead"
   description: |
-    Returns proposer lookahead for state with given 'stateId'. Should return 400 if the state retrieved is prior to Fulu.
+    Returns [proposer lookahead](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/fulu/beacon-chain.md#new-proposerlookahead) for the state with the given `state_id`.
+    Should return 400 if the state retrieved is prior to Fulu.
   tags:
     - Beacon
   parameters:
@@ -25,7 +26,7 @@ get:
             properties:
               version:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
-                example: "fulu"
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
@@ -34,10 +35,11 @@ get:
                 type: array
                 items:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+                minItems: 64
                 maxItems: 64
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[Uint64, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `Vector[ValidatorIndex, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type"
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":
@@ -46,4 +48,3 @@ get:
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
-
