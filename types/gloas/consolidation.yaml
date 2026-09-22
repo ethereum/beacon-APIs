@@ -1,0 +1,6 @@
+Gloas:
+  PendingConsolidations:
+    type: array
+    description: "Progressive list of pending consolidations."
+    items:
+      $ref: "../electra/consolidation.yaml#/Electra/PendingConsolidation"
