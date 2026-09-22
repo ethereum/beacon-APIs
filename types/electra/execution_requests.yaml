@@ -21,4 +21,4 @@ Electra:
         description: "List of consolidation requests."
         items:
           $ref: "./consolidation.yaml#/Electra/ConsolidationRequest"
-        maxItems: 1
+        maxItems: 2
