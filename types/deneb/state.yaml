@@ -33,7 +33,7 @@ Deneb:
         $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
       eth1_data_votes:
         type: array
-        description: "Variable length list, maximum 2048 items on the mainnet preset."
+        description: "Variable length list, maximum 2048 items."
         items:
           $ref: '../phase0/eth1.yaml#/Phase0/Eth1Data'
         maxItems: 2048
