@@ -43,13 +43,13 @@ get:
                     header:
                       $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlockHeader"
     "400":
-      description: "The block ID supplied could not be parsed"
+      description: "The slot or parent root supplied could not be parsed"
       content:
         application/json:
           schema:
             $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
           example:
             code: 400
-            message: "Invalid block ID: current"
+            message: "Invalid slot: current"
     "500":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"

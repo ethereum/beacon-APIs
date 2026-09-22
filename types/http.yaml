@@ -29,7 +29,7 @@ InternalError:
           code:
             description: "Either specific error code in case of invalid request or http status code"
             type: number
-            example: 404
+            example: 500
           message:
             description: "Message describing error"
             type: string
@@ -75,7 +75,7 @@ CurrentlySyncing:
           code:
             description: "Either specific error code in case of invalid request or http status code"
             type: number
-            example: 404
+            example: 503
           message:
             description: "Message describing error"
             type: string
