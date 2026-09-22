@@ -140,7 +140,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -264,7 +264,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -401,7 +401,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -568,7 +568,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -853,7 +853,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -1122,7 +1122,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -1338,7 +1338,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -1539,7 +1539,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -1717,7 +1717,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -1902,7 +1902,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -2125,7 +2125,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -2283,7 +2283,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -2424,7 +2424,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -2563,7 +2563,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -2768,7 +2768,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -3013,7 +3013,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -3228,7 +3228,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -3404,7 +3404,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -3528,7 +3528,7 @@ paths:
                               pattern: '^0x[a-fA-F0-9]{192}$'
                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
         '400':
-          description: The slot or parent root supplied could not be parsed
+          description: The block ID supplied could not be parsed
           content:
             application/json:
               schema:
@@ -3551,7 +3551,7 @@ paths:
                       type: string
               example:
                 code: 400
-                message: 'Invalid slot: current'
+                message: 'Invalid block ID: current'
         '500':
           description: Beacon node internal error.
           content:
@@ -3565,7 +3565,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -3744,7 +3744,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -7729,7 +7729,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -7754,7 +7754,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -13631,7 +13631,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -13656,7 +13656,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -13853,7 +13853,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -14731,7 +14731,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -14756,7 +14756,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -15261,7 +15261,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -20237,7 +20237,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -20361,7 +20361,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -20743,7 +20743,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -20914,7 +20914,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -21245,7 +21245,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -21390,7 +21390,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -21546,7 +21546,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -21752,7 +21752,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -25762,7 +25762,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -26592,7 +26592,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -28067,7 +28067,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -29372,7 +29372,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -30121,7 +30121,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -30471,7 +30471,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -30749,7 +30749,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -30899,7 +30899,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -31074,7 +31074,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -31612,7 +31612,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32150,7 +32150,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32306,7 +32306,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32480,7 +32480,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32589,7 +32589,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32661,7 +32661,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32751,7 +32751,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32832,7 +32832,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -32944,7 +32944,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37383,7 +37383,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37447,7 +37447,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37583,7 +37583,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37682,7 +37682,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37797,7 +37797,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37933,7 +37933,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -37996,7 +37996,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38049,7 +38049,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38210,7 +38210,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38280,7 +38280,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38373,7 +38373,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38444,7 +38444,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38503,7 +38503,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38653,7 +38653,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38678,7 +38678,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38796,7 +38796,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38821,7 +38821,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38938,7 +38938,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -38963,7 +38963,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -39083,7 +39083,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -39108,7 +39108,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -39239,7 +39239,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -39264,7 +39264,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -46917,7 +46917,7 @@ paths:
                                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
             application/octet-stream:
               schema:
-                description: 'SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Execution-Payload-Blinded`.'
+                description: 'SSZ serialized block or blinded block bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and block type in `Eth-Blinded-Payload`.'
         '400':
           description: Invalid block production request
           content:
@@ -46983,7 +46983,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -47008,7 +47008,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -49613,7 +49613,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -49638,7 +49638,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -49814,7 +49814,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -49839,7 +49839,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -49998,7 +49998,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -50023,7 +50023,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -50435,7 +50435,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -50447,31 +50447,6 @@ paths:
               example:
                 code: 500
                 message: Internal server error
-        '503':
-          description: 'Beacon node is currently syncing, try again later.'
-          content:
-            application/json:
-              schema:
-                type: object
-                required:
-                  - code
-                  - message
-                properties:
-                  code:
-                    description: Either specific error code in case of invalid request or http status code
-                    type: number
-                    example: 503
-                  message:
-                    description: Message describing error
-                    type: string
-                  stacktraces:
-                    description: 'Optional stacktraces, sent when node is in debug mode'
-                    type: array
-                    items:
-                      type: string
-              example:
-                code: 503
-                message: Beacon node is currently syncing and not serving request on that endpoint
   /eth/v2/validator/aggregate_and_proofs:
     post:
       operationId: publishAggregateAndProofsV2
@@ -50915,7 +50890,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51022,7 +50997,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51047,7 +51022,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51135,7 +51110,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51259,7 +51234,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51309,7 +51284,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51467,7 +51442,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51492,7 +51467,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51627,7 +51602,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51677,7 +51652,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51817,7 +51792,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -51918,7 +51893,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -52064,7 +52039,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -52253,7 +52228,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -52476,7 +52451,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -52501,7 +52476,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -52602,7 +52577,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -52627,7 +52602,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 503
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -53128,7 +53103,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -53381,7 +53356,7 @@ paths:
                   code:
                     description: Either specific error code in case of invalid request or http status code
                     type: number
-                    example: 500
+                    example: 404
                   message:
                     description: Message describing error
                     type: string
@@ -86875,7 +86850,7 @@ components:
               code:
                 description: Either specific error code in case of invalid request or http status code
                 type: number
-                example: 500
+                example: 404
               message:
                 description: Message describing error
                 type: string
@@ -86925,7 +86900,7 @@ components:
               code:
                 description: Either specific error code in case of invalid request or http status code
                 type: number
-                example: 503
+                example: 404
               message:
                 description: Message describing error
                 type: string
