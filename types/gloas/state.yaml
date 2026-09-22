@@ -38,7 +38,7 @@ Gloas:
         $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
       eth1_data_votes:
         type: array
-        description: "Variable length list, maximum 2048 items on the mainnet preset."
+        description: "Variable length list, maximum 2048 items."
         items:
           $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
         maxItems: 2048
@@ -142,7 +142,7 @@ Gloas:
         $ref: "../primitive.yaml#/Uint64"
       execution_payload_availability:
         $ref: "../primitive.yaml#/Bitvector"
-        description: "Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192) on the mainnet preset."
+        description: "Payload availability for the slots in SLOTS_PER_HISTORICAL_ROOT (8192)."
         # 8192 bits = 1024 bytes = 2048 hex characters, plus the 0x prefix
         minLength: 2050
         maxLength: 2050
@@ -168,7 +168,7 @@ Gloas:
           $ref: "../capella/withdrawal.yaml#/Capella/Withdrawal"
       ptc_window:
         type: array
-        description: "Fixed vector of 96 payload-timeliness committees on the mainnet preset."
+        description: "Fixed vector of 96 payload-timeliness committees."
         items:
           type: array
           description: "Fixed vector of 512 validator indices."
