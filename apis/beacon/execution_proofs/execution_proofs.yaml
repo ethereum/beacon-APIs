@@ -1,0 +1,49 @@
+post:
+  operationId: submitExecutionProofs
+  summary: Submit signed execution proof envelopes
+  description: |
+    Receives validator-signed execution proof envelopes (typically from a validator client).
+    The beacon node verifies each envelope exactly as it would from the `execution_proof`
+    gossip topic (BLS signature, the signing validator is active at the referenced block, and
+    the proof engine verifies the reconstructed execution proof), publishes accepted envelopes
+    on the `execution_proof` gossip topic, and caches them.
+
+    A `200` response means every envelope is on the network, either published by this request or
+    already known. Envelopes that gossip would drop (invalid signature, unsupported proof type,
+    proof-engine rejection, unknown block, and similar) are reported per index in a `400`
+    response; the remaining envelopes in the batch are still published. A proof-engine or
+    beacon-node fault returns `500`.
+
+    Beacon nodes running without an attached proof engine MUST return `501 Not Implemented`.
+  tags:
+    - Beacon
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: '../../../beacon-node-oapi.yaml#/components/schemas/EIP8025.SignedExecutionProofEnvelope'
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedExecutionProofEnvelope, MAX_EXECUTION_PROOFS_PER_PAYLOAD]` bytes. Use Content-Type header to choose this request type"
+  responses:
+    "200":
+      description: "Envelopes received; every envelope is on the network, published now or already known"
+    "400":
+      description: "One or more execution proof envelopes failed validation; failures are listed by index"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+          example:
+            code: 400
+            message: "error processing execution proofs"
+            failures:
+              - index: 0
+                message: "Invalid proof"
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "501":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotImplementedError'

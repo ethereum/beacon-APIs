@@ -154,6 +154,10 @@ paths:
     $ref: "./apis/beacon/pool/voluntary_exits.yaml"
   /eth/v1/beacon/pool/bls_to_execution_changes:
     $ref: "./apis/beacon/pool/bls_to_execution_changes.yaml"
+  /eth/v1/beacon/execution_proofs:
+    $ref: "./apis/beacon/execution_proofs/execution_proofs.yaml"
+  /eth/v1/beacon/execution_proofs/{block_id}:
+    $ref: "./apis/beacon/execution_proofs/execution_proofs_by_block_id.yaml"
 
   /eth/v2/debug/beacon/states/{state_id}:
     $ref: './apis/debug/state.v2.yaml'
@@ -525,6 +529,10 @@ components:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferencesEntry:
       $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
+    EIP8025.ExecutionProofEnvelope:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/ExecutionProofEnvelope'
+    EIP8025.SignedExecutionProofEnvelope:
+      $ref: './types/eip8025/execution_proof.yaml#/EIP8025/SignedExecutionProofEnvelope'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
