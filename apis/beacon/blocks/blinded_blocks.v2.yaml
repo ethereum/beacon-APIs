@@ -3,6 +3,7 @@ post:
     - Beacon
     - ValidatorRequiredApi
   summary: "Publish a signed block."
+  deprecated: true
   operationId: "publishBlindedBlockV2"
   description: |
     Instructs the beacon node to use the components of the `SignedBlindedBeaconBlock` to construct and publish a 
@@ -15,6 +16,9 @@ post:
     broadcast but a different status code is returned (202). Before Bellatrix, this endpoint will accept 
     a `SignedBeaconBlock`. The broadcast behaviour may be adjusted via the `broadcast_validation`
     query parameter.
+
+    This endpoint only supports forks through Fulu. Gloas blocks do not have a blinded form and
+    MUST be published through `POST /eth/v2/beacon/blocks`.
   parameters:
     - name: broadcast_validation
       in: query
@@ -39,7 +43,9 @@ post:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/BroadcastValidation'
     - in: header
       schema:
-        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
+        type: string
+        enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
+        example: "fulu"
       required: true
       name: Eth-Consensus-Version
       description: "The active consensus version to which the block being submitted belongs."
