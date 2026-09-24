@@ -1,0 +1,47 @@
+get:
+  operationId: "getBuilderPendingPayments"
+  summary: "Get State Builder Pending Payments"
+  description: |
+    Returns pending builder payments for state with given 'stateId'. Should return 400 if the state retrieved is prior to Gloas.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version to which the pending builder payments belong."
+      content:
+        application/json:
+          schema:
+            title: GetBuilderPendingPaymentsResponse
+            type: object
+            required: [version, execution_optimistic, finalized, data]
+            properties:
+              version:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+                example: "gloas"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: "../../../types/gloas/builder.yaml#/Gloas/BuilderPendingPayment"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `Vector[BuilderPendingPayment, 2 * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type"
+    "400":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "406":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
