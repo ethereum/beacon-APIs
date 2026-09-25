@@ -529,6 +529,10 @@ components:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferencesEntry:
       $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
+    Gloas.BuilderPendingWithdrawal:
+      $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingWithdrawal"
+    Gloas.BuilderPendingPayment:
+      $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingPayment"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
