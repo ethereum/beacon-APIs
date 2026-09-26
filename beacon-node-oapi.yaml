@@ -99,6 +99,10 @@ paths:
     $ref: "./apis/beacon/states/pending_partial_withdrawals.yaml"
   /eth/v1/beacon/states/{state_id}/proposer_lookahead:
     $ref: "./apis/beacon/states/proposer_lookahead.yaml"
+  /eth/v1/beacon/states/{state_id}/builder_pending_withdrawals:
+    $ref: "./apis/beacon/states/builder_pending_withdrawals.yaml"
+  /eth/v1/beacon/states/{state_id}/builder_pending_payments:
+    $ref: "./apis/beacon/states/builder_pending_payments.yaml"
 
   /eth/v1/beacon/headers:
     $ref: "./apis/beacon/blocks/headers.yaml"
@@ -525,6 +529,14 @@ components:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferencesEntry:
       $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
+    Gloas.BuilderPendingWithdrawal:
+      $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingWithdrawal"
+    Gloas.BuilderPendingWithdrawals:
+      $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingWithdrawals"
+    Gloas.BuilderPendingPayment:
+      $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingPayment"
+    Gloas.BuilderPendingPayments:
+      $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingPayments"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
