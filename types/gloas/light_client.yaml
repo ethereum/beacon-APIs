@@ -6,6 +6,7 @@ Gloas:
       $ref: '../primitive.yaml#/Root'
     minItems: 11
     maxItems: 11
+
   FinalityBranch:
     type: array
     description: "Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
@@ -13,6 +14,7 @@ Gloas:
       $ref: '../primitive.yaml#/Root'
     minItems: 9
     maxItems: 9
+
   CurrentSyncCommitteeBranch:
     type: array
     description: "Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
@@ -20,6 +22,7 @@ Gloas:
       $ref: '../primitive.yaml#/Root'
     minItems: 11
     maxItems: 11
+
   NextSyncCommitteeBranch:
     type: array
     description: "Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
@@ -50,6 +53,7 @@ Gloas:
         $ref: '../altair/sync_committee.yaml#/Altair/SyncCommittee'
       current_sync_committee_branch:
         $ref: '#/Gloas/CurrentSyncCommitteeBranch'
+
   LightClientUpdate:
     type: object
     required: [attested_header, next_sync_committee, next_sync_committee_branch, finalized_header, finality_branch, sync_aggregate, signature_slot]
@@ -68,6 +72,7 @@ Gloas:
         $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
       signature_slot:
         $ref: '../primitive.yaml#/Uint64'
+
   LightClientFinalityUpdate:
     type: object
     required: [attested_header, finalized_header, finality_branch, sync_aggregate, signature_slot]
@@ -82,6 +87,7 @@ Gloas:
         $ref: '../altair/sync_aggregate.yaml#/Altair/SyncAggregate'
       signature_slot:
         $ref: '../primitive.yaml#/Uint64'
+
   LightClientOptimisticUpdate:
     type: object
     required: [attested_header, sync_aggregate, signature_slot]
