@@ -31,9 +31,7 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-                items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderPendingPayment"
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderPendingPayments"
         application/octet-stream:
           schema:
             description: "SSZ serialized `Vector[BuilderPendingPayment, 2 * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type"
