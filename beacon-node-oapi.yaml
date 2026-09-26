@@ -89,6 +89,8 @@ paths:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
     $ref: "./apis/beacon/states/sync_committees.yaml"
+  /eth/v1/beacon/states/{state_id}/ptc:
+    $ref: "./apis/beacon/states/ptc.yaml"
   /eth/v1/beacon/states/{state_id}/randao:
     $ref: "./apis/beacon/states/randao.yaml"
   /eth/v1/beacon/states/{state_id}/pending_consolidations:
@@ -493,6 +495,8 @@ components:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelopeContents"
     Gloas.PayloadAttestationData:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
+    Gloas.PayloadTimelinessCommittee:
+      $ref: "./types/gloas/payload_timeliness_committee.yaml#/Gloas/PayloadTimelinessCommittee"
     Gloas.PayloadAttestation:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
