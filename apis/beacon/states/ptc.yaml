@@ -17,7 +17,6 @@ get:
         `get_current_epoch(state) + MIN_SEED_LOOKAHEAD`, inclusive.
       in: query
       required: false
-      allowEmptyValue: false
       schema:
         $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
