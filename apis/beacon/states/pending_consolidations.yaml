@@ -19,25 +19,24 @@ get:
       content:
         application/json:
           schema:
-            title: GetPendingDepositsResponse
+            title: GetPendingConsolidationsResponse
             type: object
             required: [version, execution_optimistic, finalized, data]
             properties:
               version:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
-                example: "fulu"
+                example: "gloas"
               execution_optimistic:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                type: array
-                items:
-                  $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingConsolidation"
-                maxItems: 262144
+                anyOf:
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PendingConsolidations"
+                  - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.PendingConsolidations"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `List[PendingConsolidation, PENDING_CONSOLIDATIONS_LIMIT]` bytes before Gloas or `ProgressiveList[PendingConsolidation]` bytes from Gloas onwards."
     "400":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":

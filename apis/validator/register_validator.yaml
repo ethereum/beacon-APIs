@@ -1,7 +1,13 @@
 post:
   operationId: "registerValidator"
   summary: Provide beacon node with registrations for the given validators to the external builder network.
+  deprecated: true
   description: |
+    Deprecated from Gloas onwards. Under Gloas, proposer fee recipient and gas limit preferences
+    are expressed via `POST /eth/v1/validator/proposer_preferences` instead. Beacon node support
+    for this endpoint pre-Gloas is REQUIRED; post-Gloas support is OPTIONAL and the endpoint
+    MAY be removed.
+
     Prepares the beacon node for engaging with external builders. The
     information must be sent by the beacon node to the builder network. It is
     expected that the validator client will send this information periodically

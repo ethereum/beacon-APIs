@@ -6,16 +6,19 @@ Electra:
     properties:
       deposits:
         type: array
+        description: "List of deposit requests."
         items:
           $ref: "./deposit.yaml#/Electra/DepositRequest"
         maxItems: 8192
       withdrawals:
         type: array
+        description: "List of withdrawal requests."
         items:
           $ref: "./withdrawal.yaml#/Electra/WithdrawalRequest"
         maxItems: 16
       consolidations:
         type: array
+        description: "List of consolidation requests."
         items:
           $ref: "./consolidation.yaml#/Electra/ConsolidationRequest"
-        maxItems: 1
+        maxItems: 2

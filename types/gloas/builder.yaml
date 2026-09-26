@@ -1,0 +1,47 @@
+Gloas:
+  Builder:
+    type: object
+    description: "The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec."
+    required: [pubkey, version, execution_address, balance, deposit_epoch, withdrawable_epoch]
+    properties:
+      pubkey:
+        $ref: "../primitive.yaml#/Pubkey"
+      version:
+        $ref: "../primitive.yaml#/Uint8"
+        description: "Builder version."
+      execution_address:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+        description: "Execution-layer address that receives builder withdrawals."
+      balance:
+        $ref: "../primitive.yaml#/Gwei"
+        description: "Current builder balance in gwei."
+      deposit_epoch:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Epoch when the builder deposit was processed."
+      withdrawable_epoch:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Epoch when the builder can withdraw. 'FAR_FUTURE_EPOCH' if not exiting."
+
+  BuilderPendingWithdrawal:
+    type: object
+    description: "The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec."
+    required: [fee_recipient, amount, builder_index]
+    properties:
+      fee_recipient:
+        $ref: "../primitive.yaml#/ExecutionAddress"
+      amount:
+        $ref: "../primitive.yaml#/Gwei"
+      builder_index:
+        $ref: "../primitive.yaml#/Uint64"
+
+  BuilderPendingPayment:
+    type: object
+    description: "The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec."
+    required: [weight, withdrawal, proposer_index]
+    properties:
+      weight:
+        $ref: "../primitive.yaml#/Gwei"
+      withdrawal:
+        $ref: "#/Gloas/BuilderPendingWithdrawal"
+      proposer_index:
+        $ref: "../primitive.yaml#/Uint64"

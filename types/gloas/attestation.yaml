@@ -1,0 +1,40 @@
+Gloas:
+  IndexedAttestation:
+    type: object
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec."
+    required: [attesting_indices, data, signature]
+    properties:
+      attesting_indices:
+        type: array
+        maxItems: 131072
+        description: "Progressive list of attesting validator indices."
+        items:
+          $ref: "../primitive.yaml#/Uint64"
+      data:
+        $ref: "../phase0/attestation_data.yaml#/Phase0/AttestationData"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+        description: "The BLS signature of the indexed attestation."
+
+  Attestation:
+    type: object
+    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec."
+    required: [aggregation_bits, data, signature, committee_bits]
+    properties:
+      aggregation_bits:
+        $ref: "../primitive.yaml#/BitList"
+        description: "Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT (131072) bits."
+        # 131072 bits plus a delimiter = 16385 bytes = 32770 hex characters, plus the 0x prefix
+        maxLength: 32772
+      data:
+        $ref: "../phase0/attestation_data.yaml#/Phase0/AttestationData"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS aggregate signature."
+      committee_bits:
+        $ref: "../primitive.yaml#/Bitvector"
+        description: "Committee bits, a fixed vector of MAX_COMMITTEES_PER_SLOT (64) bits."
+        # 64 bits = 8 bytes = 16 hex characters, plus the 0x prefix
+        minLength: 18
+        maxLength: 18
+        example: "0x0000000000000001"
