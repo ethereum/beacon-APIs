@@ -45,10 +45,11 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu]
-                example: "fulu"
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+                example: "gloas"
               data:
                 anyOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Gloas.Attestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
         application/octet-stream:
@@ -62,3 +63,5 @@ get:
       $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
     "500":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'
