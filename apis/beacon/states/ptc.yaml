@@ -13,8 +13,8 @@ get:
     - name: slot
       description: |
         Slot for which to retrieve the committee. Defaults to the state's slot.
-        The slot's epoch must be between `state_epoch - 1` and `state_epoch + MIN_SEED_LOOKAHEAD`, inclusive,
-        where `state_epoch` is the epoch of the requested state.
+        The slot's epoch must be between `get_current_epoch(state) - 1` and
+        `get_current_epoch(state) + MIN_SEED_LOOKAHEAD`, inclusive.
       in: query
       required: false
       allowEmptyValue: false
