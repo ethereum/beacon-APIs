@@ -1,0 +1,8 @@
+Gloas:
+  PayloadTimelinessCommittee:
+    type: array
+    description: "The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates."
+    items:
+      $ref: '../primitive.yaml#/Uint64'
+    minItems: 512
+    maxItems: 512
