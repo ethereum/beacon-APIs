@@ -20,7 +20,7 @@ Node:
       $ref: './primitive.yaml#/Uint64'
     validity:
       type: string
-      enum: [valid, invalid, optimistic]
+      enum: [valid, invalid, optimistic, not_yet_revealed]
     execution_block_hash:
       $ref: './primitive.yaml#/Hash32'
       description: "The `block_hash` from the `execution_payload` of the `BeaconBlock`"
