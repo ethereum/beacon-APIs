@@ -33,27 +33,33 @@ ExtraData:
 
 NodeV2:
   type: object
-  description: "fork choice node attributes (Gloas-aware). One node is emitted per `(block_root, payload_status)` tuple, so a single block root may appear multiple times with different payload statuses."
-  required: [slot, block_root, payload_status, parent_root, justified_epoch, finalized_epoch, weight, validity, execution_block_hash, payload_attester_count, payload_availability_yes_count, payload_data_availability_yes_count, extra_data]
+  description: "A fork choice node, identified by its block root and payload status."
+  required: [slot, block_root, payload_status, parent_root, parent_payload_status, justified_epoch, finalized_epoch, weight, validity, execution_block_hash, payload_attester_count, payload_availability_yes_count, payload_data_availability_yes_count, extra_data]
   properties:
     slot:
       $ref: './primitive.yaml#/Uint64'
-      description: "The slot to which this block corresponds."
+      description: "The slot of the beacon block."
     block_root:
       $ref: './primitive.yaml#/Root'
-      description: "The signing merkle root of the `BeaconBlock`."
+      description: "The hash tree root of the beacon block."
     payload_status:
       type: string
       enum: [pending, empty, full]
       description: |
-        The fork choice payload status of this node, as introduced by Gloas (EIP-7732):
-          - `pending`: the block is present but its execution payload has not yet been revealed.
-          - `empty`: the execution payload was not revealed (the slot is treated as having an empty payload).
-          - `full`: the execution payload was revealed and is present.
-        For pre-Gloas blocks the status is always `full`.
+        - `pending`: the beacon block before choosing whether to include its payload. This node remains after the payload is received.
+        - `empty`: the path that excludes this block's payload, even if the payload has been received.
+        - `full`: the path that includes this block's payload.
     parent_root:
       $ref: './primitive.yaml#/Root'
-      description: "The signing merkle root of the parent `BeaconBlock`."
+      description: |
+        The block root of the parent fork choice node. For Gloas `empty` and `full` nodes, this equals
+        `block_root`, pointing to the same block's `pending` node. Otherwise, it is the beacon block's `parent_root`.
+    parent_payload_status:
+      description: "The payload status of the parent fork choice node. Null if the parent is not retained in the fork choice tree."
+      oneOf:
+        - type: "null"
+        - type: string
+          enum: [pending, empty, full]
     justified_epoch:
       $ref: './primitive.yaml#/Uint64'
     finalized_epoch:
@@ -63,9 +69,12 @@ NodeV2:
     validity:
       type: string
       enum: [valid, invalid, optimistic]
+      description: "The execution validity of the chain ending at `execution_block_hash`. For pre-merge blocks, this is `valid`."
     execution_block_hash:
-      $ref: './primitive.yaml#/Root'
-      description: "The `block_hash` from the `execution_payload` of the `BeaconBlock`"
+      $ref: './primitive.yaml#/Hash32'
+      description: |
+        For `full` nodes, the block's execution payload hash. For Gloas `pending` and `empty` nodes,
+        the bid's `parent_block_hash`. Zero for pre-merge blocks.
     payload_attester_count:
       $ref: './primitive.yaml#/Uint64'
       description: "Number of PTC positions for which a vote has been received."
