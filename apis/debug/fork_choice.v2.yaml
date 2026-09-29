@@ -1,6 +1,6 @@
 get:
   operationId: getDebugForkChoiceV2
-  summary: Get fork choice array (V2)
+  summary: Get fork choice array
   description: |
     Retrieves all current fork choice context.
 
@@ -18,20 +18,22 @@ get:
           schema:
             title: GetForkChoiceResponseV2
             type: object
-            description: "Debugging context of fork choice"
-            required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes]
+            required: [data]
             properties:
-              justified_checkpoint:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
-              finalized_checkpoint:
-                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
-              fork_choice_nodes:
-                type: array
-                description: "Fork choice nodes"
-                minItems: 1
-                items:
-                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/NodeV2"
-              extra_data:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExtraData"
+              data:
+                type: object
+                required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes]
+                properties:
+                  justified_checkpoint:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  finalized_checkpoint:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  fork_choice_nodes:
+                    type: array
+                    minItems: 1
+                    items:
+                      $ref: "../../beacon-node-oapi.yaml#/components/schemas/NodeV2"
+                  extra_data:
+                    $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExtraData"
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
