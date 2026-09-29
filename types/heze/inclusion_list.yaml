@@ -2,13 +2,13 @@ Heze:
   InclusionList:
     type: object
     description: "The [`InclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/heze/beacon-chain.md#inclusionlist) object from the CL Heze spec."
-    required: [slot, validator_index, inclusion_list_committee_root, transactions]
+    required: [slot, validator_index, dependent_root, transactions]
     properties:
       slot:
         $ref: "../primitive.yaml#/Uint64"
       validator_index:
         $ref: "../primitive.yaml#/Uint64"
-      inclusion_list_committee_root:
+      dependent_root:
         $ref: "../primitive.yaml#/Root"
       transactions:
         $ref: "../bellatrix/transactions.yaml#/Bellatrix/Transactions"
