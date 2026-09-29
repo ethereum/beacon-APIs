@@ -43,6 +43,26 @@ post:
       required: true
       name: Eth-Consensus-Version
       description: "The active consensus version to which the block being submitted belongs."
+    - name: Eth-Builder-Url
+      in: header
+      required: false
+      description: |
+        The `url` of the winning builder, as returned by `POST /eth/v4/validator/blocks/{slot}`.
+        When that endpoint returns this header the validator client MUST echo it here, so the beacon
+        node can forward the signed block to the same builder and the builder can release the
+        payload without waiting for gossip. The echo is what lets a beacon node that did not serve
+        the block-production request still forward it. Omitted for a self-built block or a block won
+        by a p2p bid.
+
+        The URL is untrusted input and a server-side request forgery (SSRF) risk: the beacon
+        node issues only the builder-API `submitSignedBeaconBlock` request to it, over http(s),
+        and MUST NOT follow redirects. Deployments serving callers beyond their own validator
+        clients SHOULD also reject URLs that resolve to private address space, since a caller
+        can otherwise use the forwarded request to reach internal endpoints.
+      schema:
+        type: string
+        format: uri
+        example: "https://builder.example.com"
   requestBody:
     description: "The `SignedBeaconBlock` object composed of `BeaconBlock` object (produced by beacon node) and validator signature."
     required: true

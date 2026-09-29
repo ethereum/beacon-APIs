@@ -1,0 +1,6 @@
+Gloas:
+  PendingPartialWithdrawals:
+    type: array
+    description: "Progressive list of pending partial withdrawals."
+    items:
+      $ref: "../electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal"

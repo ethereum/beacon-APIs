@@ -5,6 +5,8 @@ info:
   description: |
     API specification for the beacon node, which enables users to query and participate in Ethereum 2.0 phase 0 beacon chain.
 
+    The schemas in this specification assume the `mainnet` preset from the consensus specifications.
+
     All requests by default send and receive JSON, and as such should have either or both of the "Content-Type: application/json"
     and "Accept: application/json" headers.  In addition, some requests can send and receive data in the SSZ format.  The header
     "Content-Type: application/octet-stream" should be set in requests that contain SSZ data; a preference to receive SSZ data in
@@ -27,7 +29,7 @@ info:
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
 
-  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-alpha.8"
+  version: "Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-beta.0"
   contact:
     name: Ethereum Github
     url: https://github.com/ethereum/beacon-apis/issues
@@ -83,6 +85,8 @@ paths:
     $ref: "./apis/beacon/states/validator_balances.yaml"
   /eth/v1/beacon/states/{state_id}/validator_identities:
     $ref: "./apis/beacon/states/validator_identities.yaml"
+  /eth/v1/beacon/states/{state_id}/builders:
+    $ref: "./apis/beacon/states/builders.yaml"
   /eth/v1/beacon/states/{state_id}/committees:
     $ref: "./apis/beacon/states/committee.yaml"
   /eth/v1/beacon/states/{state_id}/sync_committees:
@@ -108,6 +112,8 @@ paths:
     $ref: "./apis/beacon/blocks/blocks.v2.yaml"
   /eth/v1/beacon/execution_payload_bids:
     $ref: "./apis/beacon/execution_payload/bid.yaml"
+  /eth/v1/beacon/execution_payload_envelopes:
+    $ref: "./apis/beacon/execution_payload/envelope_post.yaml"
   /eth/v1/beacon/execution_payload_envelopes/{block_id}:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
   /eth/v2/beacon/blocks/{block_id}:
@@ -196,9 +202,11 @@ paths:
     $ref: "./apis/validator/duties/inclusion_list.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
+  /eth/v4/validator/blocks/{slot}:
+    $ref: "./apis/validator/block.v4.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
-  /eth/v1/validator/payload_attestation_data/{slot}:
+  /eth/v1/validator/payload_attestation_data:
     $ref: "./apis/validator/payload_attestation_data.yaml"
   /eth/v2/validator/aggregate_attestation:
     $ref: "./apis/validator/aggregate_attestation.v2.yaml"
@@ -220,10 +228,14 @@ paths:
     $ref: "./apis/validator/prepare_beacon_proposer.yaml"
   /eth/v1/validator/register_validator:
     $ref: "./apis/validator/register_validator.yaml"
+  /eth/v1/validator/proposer_preferences:
+    $ref: "./apis/validator/proposer_preferences.yaml"
+  /eth/v1/validator/builder_preferences:
+    $ref: "./apis/validator/builder_preferences.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
-  /eth/v1/validator/execution_payload_bids/{slot}/{builder_index}:
-    $ref: "./apis/validator/execution_payload_bid.yaml"
+  /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
+    $ref: "./apis/validator/execution_payload_envelope.yaml"
   /eth/v1/validator/inclusion_list:
     $ref: "./apis/validator/inclusion_list.yaml"
 
@@ -241,8 +253,12 @@ components:
       $ref: './types/api.yaml#/ValidatorBalanceResponse'
     ValidatorIdentityResponse:
       $ref: './types/api.yaml#/ValidatorIdentityResponse'
+    BuilderResponse:
+      $ref: './types/api.yaml#/BuilderResponse'
     ValidatorStatus:
       $ref: './types/api.yaml#/ValidatorStatus'
+    BuilderStatus:
+      $ref: './types/api.yaml#/BuilderStatus'
     Committee:
       $ref: './types/api.yaml#/Committee'
     AttesterDuty:
@@ -445,16 +461,34 @@ components:
       $ref: './types/electra/light_client.yaml#/Electra/LightClientOptimisticUpdate'
     Electra.PendingDeposit:
       $ref: './types/electra/deposit.yaml#/Electra/PendingDeposit'
+    Electra.PendingDeposits:
+      $ref: './types/electra/deposit.yaml#/Electra/PendingDeposits'
     Electra.PendingConsolidation:
       $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidation'
+    Electra.PendingConsolidations:
+      $ref: './types/electra/consolidation.yaml#/Electra/PendingConsolidations'
     Electra.PendingPartialWithdrawal:
       $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawal'
+    Electra.PendingPartialWithdrawals:
+      $ref: './types/electra/withdrawal.yaml#/Electra/PendingPartialWithdrawals'
     Fulu.BeaconState:
       $ref: './types/fulu/state.yaml#/Fulu/BeaconState'
+    Gloas.PendingDeposits:
+      $ref: './types/gloas/deposit.yaml#/Gloas/PendingDeposits'
+    Gloas.PendingPartialWithdrawals:
+      $ref: './types/gloas/withdrawal.yaml#/Gloas/PendingPartialWithdrawals'
+    Gloas.PendingConsolidations:
+      $ref: './types/gloas/consolidation.yaml#/Gloas/PendingConsolidations'
+    Gloas.BeaconState:
+      $ref: './types/gloas/state.yaml#/Gloas/BeaconState'
     Gloas.BeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/SignedBeaconBlock"
+    Gloas.Builder:
+      $ref: "./types/gloas/builder.yaml#/Gloas/Builder"
+    Gloas.BlockContents:
+      $ref: "./types/gloas/block_contents.yaml#/Gloas/BlockContents"
     Gloas.ExecutionPayloadBid:
       $ref: "./types/gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
     Gloas.SignedExecutionPayloadBid:
@@ -465,12 +499,24 @@ components:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
     Gloas.SignedExecutionPayloadEnvelope:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
+    Gloas.SignedExecutionPayloadEnvelopeContents:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelopeContents"
     Gloas.PayloadAttestationData:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
     Gloas.PayloadAttestation:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.Attestation:
+      $ref: "./types/gloas/attestation.yaml#/Gloas/Attestation"
+    Gloas.AttesterSlashing:
+      $ref: "./types/gloas/attester_slashing.yaml#/Gloas/AttesterSlashing"
+    Gloas.SignedAggregateAndProof:
+      $ref: "./types/gloas/validator.yaml#/Gloas/SignedAggregateAndProof"
+    Gloas.ProposerPreferences:
+      $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
+    Gloas.SignedProposerPreferences:
+      $ref: "./types/gloas/proposer_preferences.yaml#/Gloas/SignedProposerPreferences"
     Fulu.BlockContents:
       $ref: "./types/fulu/block_contents.yaml#/Fulu/BlockContents"
     Fulu.SignedBlockContents:
@@ -479,6 +525,16 @@ components:
       $ref: "./types/fulu/data_column_sidecar.yaml#/Fulu/DataColumnSidecars"
     Gloas.DataColumnSidecars:
       $ref: "./types/gloas/data_column_sidecar.yaml#/Gloas/DataColumnSidecars"
+    Gloas.BuilderRequestAuth:
+      $ref: "./types/gloas/request_auth.yaml#/Gloas/BuilderRequestAuth"
+    Gloas.SignedBuilderRequestAuth:
+      $ref: "./types/gloas/request_auth.yaml#/Gloas/SignedBuilderRequestAuth"
+    Gloas.BuilderEntry:
+      $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderEntry"
+    Gloas.BuilderConfig:
+      $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
+    Gloas.BuilderPreferencesEntry:
+      $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
     Heze.InclusionList:
       $ref: './types/heze/inclusion_list.yaml#/Heze/InclusionList'
     Heze.SignedInclusionList:
@@ -550,3 +606,9 @@ components:
       required: true
       schema:
         $ref: './types/primitive.yaml#/Wei'
+    Eth-Execution-Payload-Included:
+      description: |
+        Indicates whether the execution payload envelope, blobs, and KZG proofs are included in the response. Required in response so client can deserialize returned data.
+      required: true
+      schema:
+        type: boolean

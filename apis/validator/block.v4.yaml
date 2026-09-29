@@ -1,0 +1,184 @@
+post:
+  tags:
+    - Validator
+    - ValidatorRequiredApi
+  operationId: "produceBlockV4"
+  summary: "Produce a new block, without signature."
+  description: |
+    Requests a beacon node to produce a valid block, which the validator then signs.
+
+    The beacon node always builds a local payload and MAY consider a p2p bid, so a block is returned
+    even when no builder bid is available. The validator client supplies a `BuilderConfig` in the
+    request body: a list of `BuilderEntry` objects in its `builders` field, one per bid request,
+    plus a top-level `min_bid` and `builder_boost_factor` that apply to p2p bids. Each entry
+    requests a bid from its `url`, and the entry applies to the bid that request returns; an empty
+    `builder_pubkeys` list accepts any builder, and a bid MUST NOT be accepted unless signed by
+    one of a non-empty list.
+
+    A bid's total payment counts its `execution_payment` at most at the `max_execution_payment`
+    that applies to it; payment above that cap adds nothing to the bid's chances, though the
+    proposer still receives it if the builder honors the bid. A builder bid, over the builder API
+    or p2p, is rejected if its total payment falls below the `min_bid` that applies to it. Every
+    surviving bid is then weighted by the `builder_boost_factor` that applies to it, and the
+    highest weighted value competes with the local build's value weighted by `100`. The local
+    build wins a tie.
+
+    The response carries the full block contents only when the beacon node self-built the block and
+    `include_payload` is `true`; in every other case, including any builder bid win, it carries
+    only the `BeaconBlock`.
+
+    Every block is published via `POST /eth/v2/beacon/blocks`. A self-built block carries
+    `BUILDER_INDEX_SELF_BUILD` as its `builder_index`, and the validator client publishes its
+    execution payload envelope via `POST /eth/v1/beacon/execution_payload_envelopes`. When a
+    builder bid won, the winning builder releases the envelope instead, and the validator client
+    echoes `Eth-Builder-Url` if one was returned.
+
+    This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
+    forks.
+  parameters:
+    - name: slot
+      in: path
+      required: true
+      description: "The slot for which the block should be proposed."
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: randao_reveal
+      in: query
+      required: true
+      description: "The validator's randao reveal value."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+    - name: graffiti
+      in: query
+      required: false
+      description: "Arbitrary data validator wants to include in block."
+      schema:
+        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Graffiti'
+    - name: skip_randao_verification
+      $ref: '../../beacon-node-oapi.yaml#/components/parameters/SkipRandaoVerification'
+    - name: include_payload
+      in: query
+      required: true
+      description: |
+        Controls whether the execution payload envelope and blobs are included in the response
+        when self-building (using local execution payload).
+
+        When `true`, the response includes the full block contents: beacon block,
+        execution payload envelope, blobs, and KZG proofs. This enables stateless operation
+        where the validator client can use multiple beacon nodes (multi-BN setups, distributed validators, failover).
+
+        When `false`, only the beacon block is returned and the beacon node caches the execution
+        payload envelope and blobs internally. The validator client must then fetch them separately
+        via `GET /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}`. This saves
+        bandwidth but requires the validator client to publish via the same beacon node that
+        produced the block (stateful operation).
+
+        This parameter affects the self-built case only. When a builder bid wins, the beacon node
+        does not hold that payload, so it returns only the beacon block regardless of this
+        parameter.
+      schema:
+        type: boolean
+    - in: header
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the request belongs."
+  requestBody:
+    required: true
+    description: |
+      A `BuilderConfig` for this request: the builder entries to solicit bids from, plus the
+      top-level `min_bid` and `builder_boost_factor` that apply to p2p bids.
+      Each entry's `auth.message.slot` is the `slot` this request is for;
+      the builder rejects a mismatch, so an entry naming a different slot is one the beacon node
+      does not use for a bid request. A missing body, or one that cannot be decoded, is invalid and
+      MUST fail with a 400. Every other failure is per entry: an entry the beacon node rejects, or
+      whose builder does not answer, yields no bid and MUST NOT fail the request, so one bad entry
+      never costs the proposer its slot. A local-preferred build is requested with an empty
+      `builders` list and a `builder_boost_factor` of `0`, which prefers the local payload unless
+      an error makes it unviable.
+    content:
+      application/json:
+        schema:
+          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BuilderConfig"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `BuilderConfig` bytes (see the `BuilderConfig` type description for the container and constants). Use Content-Type header to indicate that SSZ data is contained in the request body."
+  responses:
+    "200":
+      description: Success response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+        Eth-Consensus-Block-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Block-Value'
+        Eth-Execution-Payload-Value:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Value'
+        Eth-Execution-Payload-Included:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Execution-Payload-Included'
+        Eth-Builder-Url:
+          description: |
+            The `url` of a winning builder when the bid was retrieved via the builder-API.
+            The validator client MUST echo this value in the `Eth-Builder-Url` request header when
+            publishing the signed block, so the beacon node can forward the block to the same builder
+            via `submitSignedBeaconBlock`. Absent for a self-built block or a bid won over p2p.
+          required: false
+          schema:
+            type: string
+            format: uri
+            example: "https://builder.example.com"
+      content:
+        application/json:
+          schema:
+            title: "ProduceBlockV4Response"
+            type: object
+            required: [version, consensus_block_value, execution_payload_value, execution_payload_included, data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              consensus_block_value:
+                type: string
+                example: "12345"
+                description: "Consensus rewards for this block in Wei"
+              execution_payload_value:
+                type: string
+                example: "12345"
+                description: |
+                  Execution payload value in Wei. The value of the local execution payload when
+                  self-building, or the total value of the builder bid when committing to one.
+              execution_payload_included:
+                type: boolean
+                description: |
+                  Indicates whether the execution payload envelope is included in the response.
+                  When `true`, the `data` field contains a `BlockContents` object with the
+                  beacon block, execution payload envelope, KZG proofs, and blobs. When `false`,
+                  the `data` field contains only a `BeaconBlock`.
+                example: false
+              data:
+                anyOf:
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BeaconBlock"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BlockContents"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `BeaconBlock` or `BlockContents` bytes. Use Accept header to choose this response type, version string is sent in header `Eth-Consensus-Version` and payload inclusion indicated by `Eth-Execution-Payload-Included` header."
+    "400":
+      description: "Invalid block production request"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          examples:
+            InvalidRequest:
+              value:
+                code: 400
+                message: "Invalid request to produce a block"
+    "406":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/NotAcceptable"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/InternalError'
+    "503":
+      $ref: '../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing'

@@ -20,6 +20,9 @@ post:
           anyOf:
             - type: array
               items:
+                $ref: '../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedAggregateAndProof'
+            - type: array
+              items:
                 $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedAggregateAndProof'
             - type: array
               items:

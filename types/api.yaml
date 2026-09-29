@@ -40,6 +40,18 @@ ValidatorIdentityResponse:
       $ref: "./primitive.yaml#/Uint64"
       description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
 
+BuilderResponse:
+  type: object
+  required: [index, status, builder]
+  properties:
+    index:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Index of builder in builder registry."
+    status:
+      $ref: "#/BuilderStatus"
+    builder:
+      $ref: "./gloas/builder.yaml#/Gloas/Builder"
+
 ValidatorStatus:
   description: |
     Possible statuses:
@@ -56,6 +68,15 @@ ValidatorStatus:
     [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
   enum: ["pending_initialized", "pending_queued", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
   example: "active_ongoing"
+
+BuilderStatus:
+  description: |
+    Possible statuses:
+    - **pending** - When builder has not exited and is not yet active; `builder.withdrawable_epoch == FAR_FUTURE_EPOCH` and `is_active_builder(state, index)` returns `False`.
+    - **active** - When builder is active; `is_active_builder(state, index)` returns `True`, i.e. `builder.deposit_epoch < state.finalized_checkpoint.epoch` and `builder.withdrawable_epoch == FAR_FUTURE_EPOCH`.
+    - **exited** - When builder has exited; `builder.withdrawable_epoch != FAR_FUTURE_EPOCH`.
+  enum: ["pending", "active", "exited"]
+  example: "active"
 
 
 Committee:

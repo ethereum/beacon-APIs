@@ -1,0 +1,116 @@
+Gloas:
+  BuilderEntry:
+    type: object
+    description: |
+      A per-builder input the validator client supplies on a block-production request.
+
+      Each entry is a bid request sent to its `url`, authenticated by its `auth`, which the
+      builder requires on every request. No two entries may share both their `url` and their
+      `auth`'s `data`, and one request is made per entry, so several MAY share a `url` with
+      different `data`.
+
+      `auth` is the `SignedBuilderRequestAuth` object from the Builder API Gloas spec.
+
+      A `BuilderEntry` never reaches a builder, so it has no Builder API definition. Its SSZ
+      container and constants are:
+
+          MAX_BUILDER_ENTRIES = 64
+          MAX_BUILDER_URL_SIZE = 2048
+          MAX_BUILDER_PUBKEYS = 64
+
+          class BuilderEntry(Container):
+              url: ByteList[MAX_BUILDER_URL_SIZE]  # UTF-8 bytes of `url`, exactly as in JSON
+              auth: SignedBuilderRequestAuth
+              builder_pubkeys: List[BLSPubkey, MAX_BUILDER_PUBKEYS]
+              max_execution_payment: Gwei
+              min_bid: Gwei
+              builder_boost_factor: uint64
+
+      In either encoding, a zero-length `url` is invalid.
+    required: [url, auth, builder_pubkeys, max_execution_payment, min_bid, builder_boost_factor]
+    properties:
+      url:
+        type: string
+        format: uri
+        maxLength: 2048  # MAX_BUILDER_URL_SIZE
+        description: "Where this entry's bid request is sent."
+        example: "https://builder.example.com"
+      auth:
+        allOf:
+          - $ref: "./request_auth.yaml#/Gloas/SignedBuilderRequestAuth"
+          - description: "Authenticates this entry's bid request to the builder. The beacon node MUST forward `message` and `signature` byte-for-byte unchanged."
+      builder_pubkeys:
+        type: array
+        maxItems: 64  # MAX_BUILDER_PUBKEYS
+        description: "The builder BLS public keys this entry accepts bids from. Empty accepts any builder; otherwise a bid not signed by one of them MUST NOT be accepted."
+        items:
+          allOf:
+            - $ref: "../primitive.yaml#/Pubkey"
+            - description: "A builder's BLS public key."
+      max_execution_payment:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: "Cap, in Gwei, on the `execution_payment` counted. The builder's bid is valued at `value` plus `min(execution_payment, max_execution_payment)`, for both the `min_bid` floor and the bid weighting. A builder with stored preferences MUST NOT set `execution_payment` above it, per the builder-specs."
+            example: "1000000000"
+      min_bid:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: "Minimum total payment, in Gwei, accepted from this builder. A bid whose `value` plus counted `execution_payment` (see `max_execution_payment`) is below this MUST be rejected."
+            example: "10000000"
+      builder_boost_factor:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: |
+              Percentage multiplier applied to this builder's bid once it has passed the `min_bid`
+              check. Its weighted value is `builder_boost_factor * builder_bid_value`, where
+              `builder_bid_value` is the bid's `value` plus `min(execution_payment, max_execution_payment)`.
+              The sum saturates at `2**64 - 1`, so the weighted value fits in 128 bits.
+
+              Bids are compared by weighted value. Against the local payload, the local value is
+              weighted by `100`, so a factor below `100` favors the local payload and one above
+              `100` favors this builder.
+
+              Servers must support the following values, which encode common preferences:
+
+              * `builder_boost_factor=0`: prefer the local payload unless an error makes it unviable.
+              * `builder_boost_factor=100`: profit maximization mode; choose whichever pays more.
+              * `builder_boost_factor=2**64 - 1`: prefer this builder unless an error or health check
+                makes it unviable.
+
+              Servers should compute weighted values without overflow or loss of precision.
+            example: "100"
+  BuilderConfig:
+    type: object
+    description: |
+      The resolved per-key builder config the validator client sends on a block-production request.
+      Entries arrive fully resolved, so a requested bid is governed by its own `BuilderEntry`; the
+      top-level `min_bid` and `builder_boost_factor` apply to bids received over p2p.
+
+      Its SSZ container is:
+
+          class BuilderConfig(Container):
+              min_bid: Gwei
+              builder_boost_factor: uint64
+              builders: List[BuilderEntry, MAX_BUILDER_ENTRIES]
+    required: [min_bid, builder_boost_factor, builders]
+    properties:
+      min_bid:
+        allOf:
+          - $ref: "../primitive.yaml#/Gwei"
+          - description: "Minimum total payment, in Gwei, accepted from a p2p bid. A bid whose `value` plus `execution_payment` is below this MUST be rejected."
+            example: "10000000"
+      builder_boost_factor:
+        allOf:
+          - $ref: "../primitive.yaml#/Uint64"
+          - description: |
+              Percentage multiplier applied to a p2p bid, exactly as a `BuilderEntry`'s
+              `builder_boost_factor` is applied to a bid from that entry: `0` prefers the local
+              payload, `100` is profit maximization, and `2**64 - 1` prefers the bid, each unless
+              an error or health check makes the preferred payload unviable.
+            example: "100"
+      builders:
+        type: array
+        maxItems: 64  # MAX_BUILDER_ENTRIES
+        description: "The builders to request bids from, one `BuilderEntry` each. Empty means request none, so only p2p bids are considered."
+        items:
+          $ref: "#/Gloas/BuilderEntry"
