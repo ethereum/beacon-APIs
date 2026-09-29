@@ -1,7 +1,7 @@
 Heze:
   InclusionList:
     type: object
-    description: "The [`InclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/heze/beacon-chain.md#inclusionlist) object from the CL Heze spec."
+    description: "The [`InclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.2/specs/heze/beacon-chain.md#inclusionlist) object from the CL Heze spec."
     required: [slot, validator_index, dependent_root, transactions]
     properties:
       slot:
@@ -15,7 +15,7 @@ Heze:
 
   SignedInclusionList:
     type: object
-    description: "The [`SignedInclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.11/specs/heze/beacon-chain.md#signedinclusionlist) object from the CL Heze spec."
+    description: "The [`SignedInclusionList`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.2/specs/heze/beacon-chain.md#signedinclusionlist) object from the CL Heze spec."
     required: [message, signature]
     properties:
       message:
