@@ -64,8 +64,6 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
-  - name: Heze
-    description: "Endpoints required for Heze: Fork-choice enforced Inclusion Lists (FOCIL, EIP-7805)"
 
 paths:
 
