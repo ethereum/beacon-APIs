@@ -2,12 +2,10 @@ get:
   operationId: getDebugForkChoiceV2
   summary: Get fork choice array
   description: |
-    Retrieves all current fork choice context.
+    Retrieves all current fork choice context, with one node per `(block_root, payload_status)` pair.
 
-    Unlike `GET /eth/v1/debug/fork_choice`, this version is Gloas (EIP-7732) aware: it emits
-    one fork choice node per `(block_root, payload_status)` tuple, so a single block root may
-    appear multiple times with different payload statuses, and it exposes individual PTC
-    (Payload Timeliness Committee) vote counts in each node's `extra_data`.
+    PTC counts are per committee position, including repeated validator indices, and are the same for all
+    nodes of a block. They are zero for pre-Gloas blocks.
   tags:
     - Debug
   responses:
@@ -22,7 +20,7 @@ get:
             properties:
               data:
                 type: object
-                required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes]
+                required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes, extra_data]
                 properties:
                   justified_checkpoint:
                     $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'

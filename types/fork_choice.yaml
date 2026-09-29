@@ -29,13 +29,19 @@ Node:
 
 ExtraData:
   type: object
-  description: 'Optional extra data that clients may provide, which could differ from client to client.'
+  description: 'Extra data that may differ between clients. May be empty.'
 
 NodeV2:
   type: object
   description: "fork choice node attributes (Gloas-aware). One node is emitted per `(block_root, payload_status)` tuple, so a single block root may appear multiple times with different payload statuses."
-  required: [payload_status, slot, block_root, parent_root, weight, validity, execution_block_hash]
+  required: [slot, block_root, payload_status, parent_root, justified_epoch, finalized_epoch, weight, validity, execution_block_hash, payload_attester_count, payload_availability_yes_count, payload_data_availability_yes_count, extra_data]
   properties:
+    slot:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot to which this block corresponds."
+    block_root:
+      $ref: './primitive.yaml#/Root'
+      description: "The signing merkle root of the `BeaconBlock`."
     payload_status:
       type: string
       enum: [pending, empty, full]
@@ -45,15 +51,13 @@ NodeV2:
           - `empty`: the execution payload was not revealed (the slot is treated as having an empty payload).
           - `full`: the execution payload was revealed and is present.
         For pre-Gloas blocks the status is always `full`.
-    slot:
-      $ref: './primitive.yaml#/Uint64'
-      description: "The slot to which this block corresponds."
-    block_root:
-      $ref: './primitive.yaml#/Root'
-      description: "The signing merkle root of the `BeaconBlock`."
     parent_root:
       $ref: './primitive.yaml#/Root'
       description: "The signing merkle root of the parent `BeaconBlock`."
+    justified_epoch:
+      $ref: './primitive.yaml#/Uint64'
+    finalized_epoch:
+      $ref: './primitive.yaml#/Uint64'
     weight:
       $ref: './primitive.yaml#/Uint64'
     validity:
@@ -62,26 +66,14 @@ NodeV2:
     execution_block_hash:
       $ref: './primitive.yaml#/Root'
       description: "The `block_hash` from the `execution_payload` of the `BeaconBlock`"
-    extra_data:
-      $ref: '#/NodeV2ExtraData'
-
-NodeV2ExtraData:
-  type: object
-  additionalProperties: true
-  description: 'Optional extra data that clients may provide, which could differ from client to client. The properties documented below are commonly provided; clients may add their own.'
-  properties:
-    execution_optimistic:
-      type: boolean
-      description: "True if the block is optimistically imported."
-    timestamp:
-      $ref: './primitive.yaml#/Uint64'
-      description: "The slot start time of this node."
     payload_attester_count:
       $ref: './primitive.yaml#/Uint64'
-      description: "Number of PTC (Payload Timeliness Committee) members that voted for this payload. Gloas only."
+      description: "Number of PTC positions for which a vote has been received."
     payload_availability_yes_count:
       $ref: './primitive.yaml#/Uint64'
-      description: "Number of PTC members that voted the payload as available. Gloas only."
+      description: "Number of PTC positions voting that the payload is present."
     payload_data_availability_yes_count:
       $ref: './primitive.yaml#/Uint64'
-      description: "Number of PTC members that voted the payload's data as available. Gloas only."
+      description: "Number of PTC positions voting that the blob data is available."
+    extra_data:
+      $ref: '#/ExtraData'
