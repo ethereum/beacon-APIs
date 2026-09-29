@@ -154,6 +154,10 @@ get:
                    `execution-apis` with two differences: 1) `snake_case` identifiers must be used
                    rather than `camelCase`; 2) integers must be encoded as quoted decimals rather
                    than big-endian hex.
+                - `inclusion_list_bits`: the node's view of the inclusion lists for `proposal_slot - 1`,
+                   encoded as `InclusionListBits` (a hex-encoded `BitVector[INCLUSION_LIST_COMMITTEE_SIZE]`),
+                   which a builder sets as `inclusion_list_bits` on its `ExecutionPayloadBid`. Reflects the
+                   node's view at the time the event is emitted. Added from `heze` onwards.
 
                 The frequency at which this event is sent may depend on beacon node configuration.
                 The fee recipient may also be set via beacon node config, but should likely be
