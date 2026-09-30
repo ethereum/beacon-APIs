@@ -65,7 +65,8 @@ NodeV2:
     finalized_epoch:
       $ref: './primitive.yaml#/Uint64'
     weight:
-      $ref: './primitive.yaml#/Uint64'
+      $ref: './primitive.yaml#/Gwei'
+      description: "The raw stored weight of this fork choice node in Gwei."
     validity:
       type: string
       enum: [valid, invalid, optimistic]
