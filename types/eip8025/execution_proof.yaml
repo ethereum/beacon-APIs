@@ -1,0 +1,32 @@
+EIP8025:
+  ExecutionProofEnvelope:
+    type: object
+    description: "Execution proof envelope binding opaque proof bytes to a beacon block, as propagated on the `execution_proof` gossip topic"
+    required: [proof_data, proof_type, beacon_block_root]
+    properties:
+      proof_data:
+        type: string
+        format: hex
+        pattern: "^0x[a-fA-F0-9]{0,8388608}$"
+        description: "Proof data, max 4 MiB (4194304 bytes = 8388608 hex chars)"
+        example: "0x1234567890abcdef"
+      proof_type:
+        $ref: '../primitive.yaml#/Uint8'
+        description: "Type identifier for the proof system"
+      beacon_block_root:
+        $ref: '../primitive.yaml#/Root'
+        description: "Root of the beacon block whose execution payload is proven"
+
+  SignedExecutionProofEnvelope:
+    type: object
+    description: "Execution proof envelope signed by a validator"
+    required: [message, validator_index, signature]
+    properties:
+      message:
+        $ref: '#/EIP8025/ExecutionProofEnvelope'
+      validator_index:
+        $ref: '../primitive.yaml#/Uint64'
+        description: "Index of the validator who signed this envelope"
+      signature:
+        $ref: '../primitive.yaml#/Signature'
+        description: "BLS signature over the execution proof envelope"
