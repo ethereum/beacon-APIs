@@ -66,10 +66,12 @@ get:
                 event: head_v2
                 data: {"version": "gloas", "data":{"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "state":"0x600e852a08c1200654ddf11025f1ceacb3c2e74bdd5c630cde0838b2591b69f9", "payload_status": "empty", "epoch_transition":false, "current_epoch_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "next_epoch_dependent_root":"0x5e0043f107cb57913498fbf2f99ff55e730bf1e151f02f221e977c91a90a0e91", "execution_optimistic": false}}
             block:
-              description: The node has received a block (from P2P or API) that is successfully imported on the fork-choice `on_block` handler
+              description: |
+                The node has received a block (from P2P or API) that is successfully imported on the fork-choice `on_block` handler.
+                From Gloas onwards, the event includes `builder_index` and `block_hash` from the block's `signed_execution_payload_bid.message`.
               value: |
                 event: block
-                data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false}
+                data: {"slot":"10", "block":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false, "builder_index":"42", "block_hash":"0x76262e91970d375a19bfe8a867288d7b9cde43c8635f598d93d39d041706fc76"}
             block_gossip:
               description: The node has received a block (from P2P or API) that passes validation rules of the `beacon_block` topic
               value: |
