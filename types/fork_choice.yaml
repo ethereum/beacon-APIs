@@ -81,7 +81,7 @@ NodeV2:
       description: "Number of PTC positions with a recorded vote."
     payload_availability_yes_count:
       $ref: './primitive.yaml#/Uint64'
-      description: "Number of PTC positions voting that the payload is present."
+      description: "Number of PTC positions voting that the payload was received on time."
     payload_data_availability_yes_count:
       $ref: './primitive.yaml#/Uint64'
       description: "Number of PTC positions voting that the blob data is available."
