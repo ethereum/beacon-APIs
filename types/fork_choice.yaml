@@ -47,8 +47,8 @@ NodeV2:
       enum: [pending, empty, full]
       description: |
         - `pending`: the parent of this block's `empty` and `full` nodes. This node remains after the payload is received.
-        - `empty`: the path that excludes this block's payload, even if the payload has been received.
-        - `full`: the path that includes this block's payload.
+        - `empty`: the node representing this block without its execution payload, even if the payload has been received.
+        - `full`: the node representing this block with its execution payload.
     parent_root:
       $ref: './primitive.yaml#/Root'
       description: |
