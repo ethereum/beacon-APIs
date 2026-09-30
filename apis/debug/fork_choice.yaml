@@ -5,7 +5,7 @@ get:
   description: |
     Retrieves all current fork choice context.
 
-    Use `GET /eth/v2/debug/fork_choice` for Gloas payload branches.
+    Use `GET /eth/v2/debug/fork_choice` for Gloas and later forks.
   tags:
     - Debug
   responses:

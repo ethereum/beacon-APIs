@@ -4,10 +4,10 @@ get:
   description: |
     Retrieves all current fork choice context, with one node per `(block_root, payload_status)` pair.
     Parent links follow the [fork choice tree](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#modified-get_node_children).
-    Before Gloas, each block has a single `full` node.
+    Each pre-Gloas block has a single `full` node.
 
-    PTC counts are per committee position, including repeated validator indices, and are the same for all
-    nodes of a block. They are zero for pre-Gloas blocks.
+    Payload Timeliness Committee (PTC) counts are per committee position, including repeated validator
+    indices, and are the same for all nodes of a block. They are zero for pre-Gloas blocks.
   tags:
     - Debug
   responses:

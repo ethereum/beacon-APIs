@@ -46,7 +46,7 @@ NodeV2:
       type: string
       enum: [pending, empty, full]
       description: |
-        - `pending`: the beacon block before choosing whether to include its payload. This node remains after the payload is received.
+        - `pending`: the parent of this block's `empty` and `full` nodes. This node remains after the payload is received.
         - `empty`: the path that excludes this block's payload, even if the payload has been received.
         - `full`: the path that includes this block's payload.
     parent_root:
@@ -78,7 +78,7 @@ NodeV2:
         the bid's `parent_block_hash`. Zero for pre-merge blocks.
     payload_attester_count:
       $ref: './primitive.yaml#/Uint64'
-      description: "Number of PTC positions for which a vote has been received."
+      description: "Number of PTC positions with a recorded vote."
     payload_availability_yes_count:
       $ref: './primitive.yaml#/Uint64'
       description: "Number of PTC positions voting that the payload is present."
