@@ -29,7 +29,7 @@ Node:
 
 ExtraData:
   type: object
-  description: 'Extra data that may differ between clients. May be empty.'
+  description: 'Extra data that may differ between clients, or an empty object if none is provided.'
 
 NodeV2:
   type: object
