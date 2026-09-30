@@ -196,6 +196,8 @@ paths:
     $ref: "./apis/validator/duties/sync.yaml"
   /eth/v1/validator/duties/ptc/{epoch}:
     $ref: "./apis/validator/duties/ptc.yaml"
+  /eth/v1/validator/duties/inclusion_list/{epoch}:
+    $ref: "./apis/validator/duties/inclusion_list.yaml"
   /eth/v3/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v4/validator/blocks/{slot}:
@@ -232,6 +234,8 @@ paths:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
     $ref: "./apis/validator/execution_payload_envelope.yaml"
+  /eth/v1/validator/inclusion_list:
+    $ref: "./apis/validator/inclusion_list.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -263,6 +267,8 @@ components:
       $ref: './types/duty.yaml#/PtcDuty'
     Altair.SyncDuty:
       $ref: './types/duty.yaml#/Altair/SyncDuty'
+    Heze.InclusionListDuty:
+      $ref: './types/duty.yaml#/Heze/InclusionListDuty'
     BeaconCommitteeSelection:
       $ref: './types/selection.yaml#/BeaconCommitteeSelection'
     SyncCommitteeSelection:
@@ -365,9 +371,11 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/BlindedBeaconBlock'
     Bellatrix.SignedBlindedBeaconBlock:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
+    Bellatrix.Transactions:
+      $ref: './types/bellatrix/transactions.yaml#/Bellatrix/Transactions'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, heze]
       example: "gloas"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -533,6 +541,10 @@ components:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferencesEntry:
       $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
+    Heze.InclusionList:
+      $ref: './types/heze/inclusion_list.yaml#/Heze/InclusionList'
+    Heze.SignedInclusionList:
+      $ref: './types/heze/inclusion_list.yaml#/Heze/SignedInclusionList'
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
