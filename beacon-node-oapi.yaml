@@ -471,6 +471,14 @@ components:
       $ref: './types/gloas/consolidation.yaml#/Gloas/PendingConsolidations'
     Gloas.BeaconState:
       $ref: './types/gloas/state.yaml#/Gloas/BeaconState'
+    Gloas.LightClientBootstrap:
+      $ref: './types/gloas/light_client.yaml#/Gloas/LightClientBootstrap'
+    Gloas.LightClientUpdate:
+      $ref: './types/gloas/light_client.yaml#/Gloas/LightClientUpdate'
+    Gloas.LightClientFinalityUpdate:
+      $ref: './types/gloas/light_client.yaml#/Gloas/LightClientFinalityUpdate'
+    Gloas.LightClientOptimisticUpdate:
+      $ref: './types/gloas/light_client.yaml#/Gloas/LightClientOptimisticUpdate'
     Gloas.BeaconBlock:
       $ref: "./types/gloas/block.yaml#/Gloas/BeaconBlock"
     Gloas.SignedBeaconBlock:
