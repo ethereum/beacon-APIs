@@ -70,12 +70,12 @@ NodeV2:
     validity:
       type: string
       enum: [valid, invalid, optimistic]
-      description: "The execution validity of the chain ending at `execution_block_hash`. For pre-merge blocks, this is `valid`."
+      description: "The execution validity of the chain ending at `execution_block_hash`."
     execution_block_hash:
       $ref: './primitive.yaml#/Hash32'
       description: |
         For `full` nodes, the block's execution payload hash. For Gloas `pending` and `empty` nodes,
-        the bid's `parent_block_hash`. Zero for pre-merge blocks.
+        the bid's `parent_block_hash`.
     payload_attester_count:
       $ref: './primitive.yaml#/Uint64'
       description: "Number of PTC positions with a recorded vote."
