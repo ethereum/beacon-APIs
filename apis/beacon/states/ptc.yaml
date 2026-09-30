@@ -1,0 +1,56 @@
+get:
+  operationId: "getStatePtc"
+  summary: "Get the payload timeliness committee for a slot."
+  description: |
+    Returns the [payload timeliness committee](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-get_ptc) for the requested slot from the state with the given `state_id`.
+    Should return 400 if the state retrieved or the requested slot is prior to Gloas.
+  tags:
+    - Beacon
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+    - name: slot
+      description: |
+        Slot for which to retrieve the committee. Defaults to the state's slot.
+        The slot's epoch must be between `get_current_epoch(state) - 1` and
+        `get_current_epoch(state) + MIN_SEED_LOOKAHEAD`, inclusive.
+      in: query
+      required: false
+      schema:
+        $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Uint64'
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetStatePtcResponse
+            type: object
+            required: [execution_optimistic, finalized, data]
+            properties:
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: object
+                required: [slot, validators]
+                properties:
+                  slot:
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+                  validators:
+                    $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadTimelinessCommittee"
+    "400":
+      description: "Invalid state ID or slot, pre-Gloas state or slot, or slot outside the PTC window"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Slot is outside the PTC window of the state"
+    "404":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'

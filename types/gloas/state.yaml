@@ -170,11 +170,6 @@ Gloas:
         type: array
         description: "Fixed vector of 96 payload-timeliness committees."
         items:
-          type: array
-          description: "Fixed vector of 512 validator indices."
-          items:
-            $ref: "../primitive.yaml#/Uint64"
-          minItems: 512
-          maxItems: 512
+          $ref: "./payload_timeliness_committee.yaml#/Gloas/PayloadTimelinessCommittee"
         minItems: 96
         maxItems: 96
