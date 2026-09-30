@@ -55,8 +55,8 @@ BuilderResponse:
 ValidatorStatus:
   description: |
     Possible statuses:
-    - **pending_initialized** - When the first deposit is processed, but not enough funds are available (or not yet the end of the first epoch) to get validator into the activation queue.
-    - **pending_queued** - When validator is waiting to get activated, and have enough funds etc. while in the queue, validator activation epoch keeps changing until it gets to the front and make it through (finalization is a requirement here too).
+    - **pending_minBalance** - The validator exists in `state.validators` but its effective balance has not reached `MIN_ACTIVATION_BALANCE` (32 ETH), so it is not yet eligible for activation. Condition: `activation_eligibility_epoch == FAR_FUTURE_EPOCH`. (Formerly `pending_initialized`.)
+    - **pending_lookahead** - The validator is eligible (`activation_eligibility_epoch` is set and finalized) and its `activation_epoch` is assigned but in the future. Post-Electra (EIP-7251) this is a fixed `1 + MAX_SEED_LOOKAHEAD` delay, not a churn-limited queue: the `activation_epoch` does not change. Condition: `(activation_eligibility_epoch < FAR_FUTURE_EPOCH) and (activation_epoch > current_epoch)`. (Formerly `pending_queued`.)
     - **active_ongoing** - When validator must be attesting, and have not initiated any exit.
     - **active_exiting** - When validator is still active, but filed a voluntary request to exit.
     - **active_slashed** - When validator is still active, but have a slashed status and is scheduled to exit.
@@ -65,8 +65,10 @@ ValidatorStatus:
     - **withdrawal_possible** - After validator has exited, a while later is permitted to move funds, and is truly out of the system.
     - **withdrawal_done** - (not possible in phase0, except slashing full balance) - actually having moved funds away
 
+    Note: post-Electra (EIP-6110), a deposit that is in `state.pending_deposits` but not yet in `state.validators` is not represented by a `ValidatorStatus` (there is no validator object yet). This deposit-pipeline state — referred to as `deposit_inqueue` — is the real churn-limited wait and is observable via the `getPendingDeposits` endpoint, not via this enum.
+
     [Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)
-  enum: ["pending_initialized", "pending_queued", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
+  enum: ["pending_minBalance", "pending_lookahead", "active_ongoing", "active_exiting", "active_slashed", "exited_unslashed", "exited_slashed", "withdrawal_possible", "withdrawal_done"]
   example: "active_ongoing"
 
 BuilderStatus:
