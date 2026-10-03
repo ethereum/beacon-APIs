@@ -1,0 +1,53 @@
+get:
+  operationId: getProposerPreferences
+  summary: Get signed proposer preferences
+  description: |
+    Retrieves signed proposer preferences known by the node for upcoming proposal slots.
+
+    Signed proposer preferences are only broadcast once per proposal slot. This allows builders
+    to retrieve the ones that were broadcast before they subscribed to the `proposer_preferences`
+    event.
+  parameters:
+    - name: slot
+      in: query
+      required: false
+      description: "Only return signed proposer preferences for this proposal slot."
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+  tags:
+    - Beacon
+  responses:
+    "200":
+      description: Successful response
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+      content:
+        application/json:
+          schema:
+            title: GetProposerPreferencesResponse
+            type: object
+            required: [version, data]
+            properties:
+              version:
+                type: string
+                enum: [gloas]
+                example: "gloas"
+              data:
+                type: array
+                items:
+                  $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedProposerPreferences"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `ProgressiveList[SignedProposerPreferences]` bytes. Use Accept header to choose this response type"
+    "400":
+      description: "The slot could not be parsed"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 400
+            message: "Invalid slot parameter"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
