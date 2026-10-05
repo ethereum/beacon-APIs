@@ -144,6 +144,8 @@ paths:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/payload_attestations:
     $ref: "./apis/beacon/pool/payload_attestations.yaml"
+  /eth/v1/beacon/pool/execution_proofs:
+    $ref: "./apis/beacon/pool/execution_proofs.yaml"
   /eth/v2/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
@@ -505,6 +507,12 @@ components:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
+    Gloas.PublicInput:
+      $ref: "./types/gloas/execution_proof.yaml#/Gloas/PublicInput"
+    Gloas.ExecutionProof:
+      $ref: "./types/gloas/execution_proof.yaml#/Gloas/ExecutionProof"
+    Gloas.SignedExecutionProof:
+      $ref: "./types/gloas/execution_proof.yaml#/Gloas/SignedExecutionProof"
     Gloas.Attestation:
       $ref: "./types/gloas/attestation.yaml#/Gloas/Attestation"
     Gloas.AttesterSlashing:

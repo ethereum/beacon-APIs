@@ -1,0 +1,49 @@
+Gloas:
+  PublicInput:
+    type: object
+    description: "The [`PublicInput`](https://eips.ethereum.org/EIPS/eip-8025) object from EIP-8025."
+    required: [new_payload_request_root]
+    properties:
+      new_payload_request_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the `NewPayloadRequest` the proof attests to"
+
+  ExecutionProof:
+    type: object
+    description: |
+      The [`ExecutionProof`](https://eips.ethereum.org/EIPS/eip-8025) object from EIP-8025.
+
+      `beacon_block_root` is not in the EIP's container. It names the beacon block whose envelope committed the payload, so a node can resolve the proof without an index from `new_payload_request_root` to a block root.
+    required: [proof_data, proof_type, public_input, beacon_block_root]
+    properties:
+      proof_data:
+        type: string
+        format: hex
+        description: |
+          Opaque proof bytes, interpreted by the proof system named in `proof_type`.
+
+          The bound here is `4194304` bytes rather than the `307200` of the EIP's `MAX_PROOF_SIZE`. Proofs published by the proving services running today measure from `250000` to `2100000` bytes, so most of them do not fit the EIP's bound.
+        pattern: "^0x[a-fA-F0-9]{0,8388608}$"
+        example: "0x00"
+      proof_type:
+        $ref: "../primitive.yaml#/Uint8"
+        description: "Identifier of the proof system that produced `proof_data`"
+      public_input:
+        $ref: "#/Gloas/PublicInput"
+      beacon_block_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the beacon block whose envelope committed the proven payload"
+
+  SignedExecutionProof:
+    type: object
+    description: "The [`SignedExecutionProof`](https://eips.ethereum.org/EIPS/eip-8025) object from EIP-8025."
+    required: [message, validator_index, signature]
+    properties:
+      message:
+        $ref: "#/Gloas/ExecutionProof"
+      validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the validator submitting the proof"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS signature of the `ExecutionProof`"

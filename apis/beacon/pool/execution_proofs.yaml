@@ -1,0 +1,35 @@
+post:
+  operationId: submitPoolExecutionProofs
+  summary: Submit execution proofs
+  description: |
+    Submits EIP-8025 execution proofs to the beacon node.
+
+    This is how proofs enter the network. A proving service signs a proof and submits it here on its own schedule; the beacon node validates each one against the gossip validation rules and, if valid, broadcasts it globally and caches it.
+
+    A success response indicates that the proofs passed validation and were broadcast. A proof the node has already processed is not an error: a submitter retrying the same bytes has nothing to do differently.
+
+    If one or more proofs fail validation, the node MUST return a 400 error with details of which proofs have failed, and why.
+
+    The request body is SSZ only. Proofs run to megabytes, which JSON encoding would inflate for no benefit to a submitter that already holds SSZ bytes.
+  tags:
+    - Beacon
+  requestBody:
+    description: "SSZ serialized `List[SignedExecutionProof, MAX_PROOFS_PER_REQUEST]` bytes."
+    required: true
+    content:
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedExecutionProof, MAX_PROOFS_PER_REQUEST]` bytes. Use the Content-Type header to indicate that SSZ data is contained in the request body."
+  responses:
+    "200":
+      description: "Execution proofs are broadcast to the network"
+    "400":
+      description: "Errors with one or more execution proofs"
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+    "415":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../../beacon-node-oapi.yaml#/components/responses/InternalError"
