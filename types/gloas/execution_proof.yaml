@@ -10,19 +10,16 @@ Gloas:
 
   ExecutionProof:
     type: object
-    description: |
-      The [`ExecutionProof`](https://eips.ethereum.org/EIPS/eip-8025) object from EIP-8025.
-
-      `beacon_block_root` is not in the EIP's container. It names the beacon block whose envelope committed the payload, so a node can resolve the proof without an index from `new_payload_request_root` to a block root.
+    description: "The [`ExecutionProof`](https://eips.ethereum.org/EIPS/eip-8025) object from EIP-8025."
     required: [proof_data, proof_type, public_input, beacon_block_root]
     properties:
       proof_data:
         type: string
         format: hex
         description: |
-          Opaque proof bytes, interpreted by the proof system named in `proof_type`.
+          Opaque bytes, interpreted by the proof system named in `proof_type`.
 
-          The bound here is `4194304` bytes rather than the `307200` of the EIP's `MAX_PROOF_SIZE`. Proofs published by the proving services running today measure from `250000` to `2100000` bytes, so most of them do not fit the EIP's bound.
+          Bounded at `4194304` bytes, not the EIP's `MAX_PROOF_SIZE` of `307200`: proofs published today run from `250000` to `2100000` bytes.
         pattern: "^0x[a-fA-F0-9]{0,8388608}$"
         example: "0x00"
       proof_type:

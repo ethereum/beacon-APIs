@@ -4,17 +4,15 @@ post:
   description: |
     Submits EIP-8025 execution proofs to the beacon node.
 
-    This is how proofs enter the network. A proving service signs a proof and submits it here on its own schedule; the beacon node validates each one against the gossip validation rules and, if valid, broadcasts it globally and caches it.
-
-    A success response indicates that the proofs passed validation and were broadcast. A proof the node has already processed is not an error: a submitter retrying the same bytes has nothing to do differently.
+    This is how proofs enter the network: a proving service signs a proof and submits it on its own schedule. The node validates each one against the gossip validation rules and, if valid, broadcasts and caches it. A proof it has already processed is not an error.
 
     If one or more proofs fail validation, the node MUST return a 400 error with details of which proofs have failed, and why.
 
-    The request body is SSZ only. Proofs run to megabytes, which JSON encoding would inflate for no benefit to a submitter that already holds SSZ bytes.
+    The body is SSZ only: proofs run to megabytes, which JSON would inflate for no benefit.
   tags:
     - Beacon
   requestBody:
-    description: "SSZ serialized `List[SignedExecutionProof, MAX_PROOFS_PER_REQUEST]` bytes."
+    description: "Execution proofs to be submitted."
     required: true
     content:
       application/octet-stream:
