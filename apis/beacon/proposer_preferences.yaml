@@ -14,6 +14,12 @@ get:
       description: "Only return signed proposer preferences for this proposal slot."
       schema:
         $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
+    - name: dependent_root
+      in: query
+      required: false
+      description: "Only return signed proposer preferences with this dependent root."
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
   tags:
     - Beacon
   responses:
@@ -41,7 +47,7 @@ get:
           schema:
             description: "SSZ serialized `ProgressiveList[SignedProposerPreferences]` bytes. Use Accept header to choose this response type"
     "400":
-      description: "The slot could not be parsed"
+      description: "The slot or dependent root could not be parsed"
       content:
         application/json:
           schema:
