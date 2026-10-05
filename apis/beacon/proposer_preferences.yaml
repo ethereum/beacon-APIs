@@ -4,8 +4,8 @@ get:
   description: |
     Retrieves signed proposer preferences known by the node for upcoming proposal slots.
 
-    Signed proposer preferences are only broadcast once per proposal slot and dependent root. This
-    allows builders to retrieve the ones that were broadcast before they subscribed to the
+    Signed proposer preferences are only broadcast once per proposal slot and dependent root.
+    This allows builders to retrieve the ones that were broadcast before they subscribed to the
     `proposer_preferences` event.
   parameters:
     - name: slot
