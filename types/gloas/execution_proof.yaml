@@ -19,7 +19,7 @@ Gloas:
         description: |
           Opaque bytes, interpreted by the proof system named in `proof_type`.
 
-          Bounded at `4194304` bytes, not the EIP's `MAX_PROOF_SIZE` of `307200`: proofs published today run from `250000` to `2100000` bytes.
+          Bounded at `4194304` bytes, not the `MAX_PROOF_SIZE` of `307200` set by EIP-8025: proofs published today run from `250000` to `2100000` bytes.
         pattern: "^0x[a-fA-F0-9]{0,8388608}$"
         example: "0x00"
       proof_type:
