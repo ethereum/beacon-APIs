@@ -28,6 +28,7 @@ get:
       headers:
         Eth-Consensus-Version:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version at the proposal slot of the returned proposer preferences."
       content:
         application/json:
           schema:
