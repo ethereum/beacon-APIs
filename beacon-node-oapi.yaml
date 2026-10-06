@@ -64,6 +64,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: Experimental
+    description: Endpoints that are not stable or fully implemented by each client.
 
 paths:
 
@@ -114,6 +116,8 @@ paths:
     $ref: "./apis/beacon/execution_payload/envelope_post.yaml"
   /eth/v1/beacon/execution_payload_envelopes/{block_id}:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
+  /eth/v1/beacon/execution_proofs:
+    $ref: "./apis/beacon/execution_proofs/execution_proofs.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -533,6 +537,10 @@ components:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferencesEntry:
       $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
+    EIP8025.ExecutionProofEnvelope:
+      $ref: "./types/eip8025/execution_proof.yaml#/EIP8025/ExecutionProofEnvelope"
+    EIP8025.SignedExecutionProofEnvelope:
+      $ref: "./types/eip8025/execution_proof.yaml#/EIP8025/SignedExecutionProofEnvelope"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
