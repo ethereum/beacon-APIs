@@ -3416,6 +3416,404 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  '/eth/v1/beacon/states/{state_id}/builder_pending_withdrawals':
+    get:
+      operationId: getBuilderPendingWithdrawals
+      summary: Get State Builder Pending Withdrawals
+      description: |
+        Returns pending builder withdrawals for state with given 'stateId'. Should return 400 if the state retrieved is prior to Gloas.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+      responses:
+        '200':
+          description: Success
+          headers:
+            Eth-Consensus-Version:
+              description: The active consensus version to which the pending builder withdrawals belong.
+              required: true
+              schema:
+                type: string
+                enum:
+                  - phase0
+                  - altair
+                  - bellatrix
+                  - capella
+                  - deneb
+                  - electra
+                  - fulu
+                  - gloas
+                example: gloas
+          content:
+            application/json:
+              schema:
+                title: GetBuilderPendingWithdrawalsResponse
+                type: object
+                required:
+                  - version
+                  - execution_optimistic
+                  - finalized
+                  - data
+                properties:
+                  version:
+                    type: string
+                    enum:
+                      - phase0
+                      - altair
+                      - bellatrix
+                      - capella
+                      - deneb
+                      - electra
+                      - fulu
+                      - gloas
+                    example: gloas
+                  execution_optimistic:
+                    type: boolean
+                    example: false
+                    description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    type: boolean
+                    example: false
+                    description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: array
+                    description: Progressive list of pending builder withdrawals.
+                    items:
+                      type: object
+                      description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                      required:
+                        - fee_recipient
+                        - amount
+                        - builder_index
+                      properties:
+                        fee_recipient:
+                          type: string
+                          format: hex
+                          description: An address on the execution (Ethereum 1) network.
+                          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                          pattern: '^0x[a-fA-F0-9]{40}$'
+                        amount:
+                          type: string
+                          example: '1'
+                        builder_index:
+                          type: string
+                          example: '1'
+            application/octet-stream:
+              schema:
+                description: 'SSZ serialized `ProgressiveList[BuilderPendingWithdrawal]` bytes. Use Accept header to choose this response type'
+        '400':
+          description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 404
+                message: Requested item not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 500
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
+  '/eth/v1/beacon/states/{state_id}/builder_pending_payments':
+    get:
+      operationId: getBuilderPendingPayments
+      summary: Get State Builder Pending Payments
+      description: |
+        Returns pending builder payments for state with given 'stateId'. Should return 400 if the state retrieved is prior to Gloas.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+      responses:
+        '200':
+          description: Success
+          headers:
+            Eth-Consensus-Version:
+              description: The active consensus version to which the pending builder payments belong.
+              required: true
+              schema:
+                type: string
+                enum:
+                  - phase0
+                  - altair
+                  - bellatrix
+                  - capella
+                  - deneb
+                  - electra
+                  - fulu
+                  - gloas
+                example: gloas
+          content:
+            application/json:
+              schema:
+                title: GetBuilderPendingPaymentsResponse
+                type: object
+                required:
+                  - version
+                  - execution_optimistic
+                  - finalized
+                  - data
+                properties:
+                  version:
+                    type: string
+                    enum:
+                      - phase0
+                      - altair
+                      - bellatrix
+                      - capella
+                      - deneb
+                      - electra
+                      - fulu
+                      - gloas
+                    example: gloas
+                  execution_optimistic:
+                    type: boolean
+                    example: false
+                    description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    type: boolean
+                    example: false
+                    description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: array
+                    description: Fixed vector of pending builder payments covering two epochs.
+                    items:
+                      type: object
+                      description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+                      required:
+                        - weight
+                        - withdrawal
+                        - proposer_index
+                      properties:
+                        weight:
+                          type: string
+                          example: '1'
+                        withdrawal:
+                          type: object
+                          description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                          required:
+                            - fee_recipient
+                            - amount
+                            - builder_index
+                          properties:
+                            fee_recipient:
+                              type: string
+                              format: hex
+                              description: An address on the execution (Ethereum 1) network.
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                              pattern: '^0x[a-fA-F0-9]{40}$'
+                            amount:
+                              type: string
+                              example: '1'
+                            builder_index:
+                              type: string
+                              example: '1'
+                        proposer_index:
+                          type: string
+                          example: '1'
+                    minItems: 64
+                    maxItems: 64
+            application/octet-stream:
+              schema:
+                description: 'SSZ serialized `Vector[BuilderPendingPayment, 2 * SLOTS_PER_EPOCH]` bytes. Use Accept header to choose this response type'
+        '400':
+          description: Invalid request syntax.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 400
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 404
+                message: Requested item not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 500
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   /eth/v1/beacon/headers:
     get:
       operationId: getBlockHeaders
@@ -4311,9 +4709,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: Amount in Gwei.
                                                 type: string
                                                 example: '1'
+                                                description: Amount in Gwei.
                                               signature:
                                                 type: string
                                                 format: hex
@@ -4395,9 +4793,9 @@ paths:
                                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                               to_execution_address:
-                                                description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
+                                                description: An address on the execution (Ethereum 1) network.
                                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
@@ -4552,9 +4950,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: The value to be deposited (gwei).
                                                 type: string
                                                 example: '1'
+                                                description: The value to be deposited (gwei).
                                               signature:
                                                 type: string
                                                 format: hex
@@ -4589,9 +4987,9 @@ paths:
                                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                               amount:
-                                                description: The value to be withdrawn (gwei).
                                                 type: string
                                                 example: '1'
+                                                description: The value to be withdrawn (gwei).
                                           maxItems: 16
                                         consolidations:
                                           type: array
@@ -5105,9 +5503,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: Amount in Gwei.
                                                 type: string
                                                 example: '1'
+                                                description: Amount in Gwei.
                                               signature:
                                                 type: string
                                                 format: hex
@@ -5189,9 +5587,9 @@ paths:
                                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                               to_execution_address:
-                                                description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
+                                                description: An address on the execution (Ethereum 1) network.
                                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
@@ -5791,9 +6189,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: Amount in Gwei.
                                                 type: string
                                                 example: '1'
+                                                description: Amount in Gwei.
                                               signature:
                                                 type: string
                                                 format: hex
@@ -5875,9 +6273,9 @@ paths:
                                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                               to_execution_address:
-                                                description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
+                                                description: An address on the execution (Ethereum 1) network.
                                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
@@ -6460,9 +6858,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: Amount in Gwei.
                                                 type: string
                                                 example: '1'
+                                                description: Amount in Gwei.
                                               signature:
                                                 type: string
                                                 format: hex
@@ -7083,9 +7481,9 @@ paths:
                                             pattern: '^0x[a-fA-F0-9]{64}$'
                                             description: The withdrawal credentials.
                                           amount:
-                                            description: Amount in Gwei.
                                             type: string
                                             example: '1'
+                                            description: Amount in Gwei.
                                           signature:
                                             type: string
                                             format: hex
@@ -7615,9 +8013,9 @@ paths:
                                             pattern: '^0x[a-fA-F0-9]{64}$'
                                             description: The withdrawal credentials.
                                           amount:
-                                            description: Amount in Gwei.
                                             type: string
                                             example: '1'
+                                            description: Amount in Gwei.
                                           signature:
                                             type: string
                                             format: hex
@@ -8345,9 +8743,9 @@ paths:
                                             pattern: '^0x[a-fA-F0-9]{64}$'
                                             description: The withdrawal credentials.
                                           amount:
-                                            description: Amount in Gwei.
                                             type: string
                                             example: '1'
+                                            description: Amount in Gwei.
                                           signature:
                                             type: string
                                             format: hex
@@ -8431,9 +8829,9 @@ paths:
                                             description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                           to_execution_address:
-                                            description: Execution address to which the credentials will be changed.
                                             type: string
                                             format: hex
+                                            description: An address on the execution (Ethereum 1) network.
                                             example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                             pattern: '^0x[a-fA-F0-9]{40}$'
                                       signature:
@@ -8611,9 +9009,9 @@ paths:
                                             pattern: '^0x[a-fA-F0-9]{64}$'
                                             description: The withdrawal credentials.
                                           amount:
-                                            description: The value to be deposited (gwei).
                                             type: string
                                             example: '1'
+                                            description: The value to be deposited (gwei).
                                           signature:
                                             type: string
                                             format: hex
@@ -8648,9 +9046,9 @@ paths:
                                             description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                           amount:
-                                            description: The value to be withdrawn (gwei).
                                             type: string
                                             example: '1'
+                                            description: The value to be withdrawn (gwei).
                                     consolidations:
                                       type: array
                                       description: Progressive list of consolidation requests.
@@ -9234,9 +9632,9 @@ paths:
                                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                                     description: The withdrawal credentials.
                                                   amount:
-                                                    description: Amount in Gwei.
                                                     type: string
                                                     example: '1'
+                                                    description: Amount in Gwei.
                                                   signature:
                                                     type: string
                                                     format: hex
@@ -9318,9 +9716,9 @@ paths:
                                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                   to_execution_address:
-                                                    description: Execution address to which the credentials will be changed.
                                                     type: string
                                                     format: hex
+                                                    description: An address on the execution (Ethereum 1) network.
                                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                               signature:
@@ -9502,9 +9900,9 @@ paths:
                                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                                     description: The withdrawal credentials.
                                                   amount:
-                                                    description: The value to be deposited (gwei).
                                                     type: string
                                                     example: '1'
+                                                    description: The value to be deposited (gwei).
                                                   signature:
                                                     type: string
                                                     format: hex
@@ -9539,9 +9937,9 @@ paths:
                                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                   amount:
-                                                    description: The value to be withdrawn (gwei).
                                                     type: string
                                                     example: '1'
+                                                    description: The value to be withdrawn (gwei).
                                               maxItems: 16
                                             consolidations:
                                               type: array
@@ -10088,9 +10486,9 @@ paths:
                                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                                     description: The withdrawal credentials.
                                                   amount:
-                                                    description: Amount in Gwei.
                                                     type: string
                                                     example: '1'
+                                                    description: Amount in Gwei.
                                                   signature:
                                                     type: string
                                                     format: hex
@@ -10172,9 +10570,9 @@ paths:
                                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                   to_execution_address:
-                                                    description: Execution address to which the credentials will be changed.
                                                     type: string
                                                     format: hex
+                                                    description: An address on the execution (Ethereum 1) network.
                                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                               signature:
@@ -10356,9 +10754,9 @@ paths:
                                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                                     description: The withdrawal credentials.
                                                   amount:
-                                                    description: The value to be deposited (gwei).
                                                     type: string
                                                     example: '1'
+                                                    description: The value to be deposited (gwei).
                                                   signature:
                                                     type: string
                                                     format: hex
@@ -10393,9 +10791,9 @@ paths:
                                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                   amount:
-                                                    description: The value to be withdrawn (gwei).
                                                     type: string
                                                     example: '1'
+                                                    description: The value to be withdrawn (gwei).
                                               maxItems: 16
                                             consolidations:
                                               type: array
@@ -10934,9 +11332,9 @@ paths:
                                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                                     description: The withdrawal credentials.
                                                   amount:
-                                                    description: Amount in Gwei.
                                                     type: string
                                                     example: '1'
+                                                    description: Amount in Gwei.
                                                   signature:
                                                     type: string
                                                     format: hex
@@ -11018,9 +11416,9 @@ paths:
                                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                   to_execution_address:
-                                                    description: Execution address to which the credentials will be changed.
                                                     type: string
                                                     format: hex
+                                                    description: An address on the execution (Ethereum 1) network.
                                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                     pattern: '^0x[a-fA-F0-9]{40}$'
                                               signature:
@@ -11664,9 +12062,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: Amount in Gwei.
                                                 type: string
                                                 example: '1'
+                                                description: Amount in Gwei.
                                               signature:
                                                 type: string
                                                 format: hex
@@ -11748,9 +12146,9 @@ paths:
                                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                               to_execution_address:
-                                                description: Execution address to which the credentials will be changed.
                                                 type: string
                                                 format: hex
+                                                description: An address on the execution (Ethereum 1) network.
                                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                 pattern: '^0x[a-fA-F0-9]{40}$'
                                           signature:
@@ -12359,9 +12757,9 @@ paths:
                                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                                 description: The withdrawal credentials.
                                               amount:
-                                                description: Amount in Gwei.
                                                 type: string
                                                 example: '1'
+                                                description: Amount in Gwei.
                                               signature:
                                                 type: string
                                                 format: hex
@@ -12985,9 +13383,9 @@ paths:
                                             pattern: '^0x[a-fA-F0-9]{64}$'
                                             description: The withdrawal credentials.
                                           amount:
-                                            description: Amount in Gwei.
                                             type: string
                                             example: '1'
+                                            description: Amount in Gwei.
                                           signature:
                                             type: string
                                             format: hex
@@ -13517,9 +13915,9 @@ paths:
                                             pattern: '^0x[a-fA-F0-9]{64}$'
                                             description: The withdrawal credentials.
                                           amount:
-                                            description: Amount in Gwei.
                                             type: string
                                             example: '1'
+                                            description: Amount in Gwei.
                                           signature:
                                             type: string
                                             format: hex
@@ -14153,9 +14551,9 @@ paths:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                         description: The withdrawal credentials.
                                       amount:
-                                        description: The value to be deposited (gwei).
                                         type: string
                                         example: '1'
+                                        description: The value to be deposited (gwei).
                                       signature:
                                         type: string
                                         format: hex
@@ -14190,9 +14588,9 @@ paths:
                                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                       amount:
-                                        description: The value to be withdrawn (gwei).
                                         type: string
                                         example: '1'
+                                        description: The value to be withdrawn (gwei).
                                 consolidations:
                                   type: array
                                   description: Progressive list of consolidation requests.
@@ -14508,9 +14906,9 @@ paths:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: The value to be deposited (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be deposited (gwei).
                                   signature:
                                     type: string
                                     format: hex
@@ -14545,9 +14943,9 @@ paths:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   amount:
-                                    description: The value to be withdrawn (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be withdrawn (gwei).
                             consolidations:
                               type: array
                               description: Progressive list of consolidation requests.
@@ -15021,9 +15419,9 @@ paths:
                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                       description: The withdrawal credentials.
                                     amount:
-                                      description: The value to be deposited (gwei).
                                       type: string
                                       example: '1'
+                                      description: The value to be deposited (gwei).
                                     signature:
                                       type: string
                                       format: hex
@@ -15058,9 +15456,9 @@ paths:
                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                     amount:
-                                      description: The value to be withdrawn (gwei).
                                       type: string
                                       example: '1'
+                                      description: The value to be withdrawn (gwei).
                               consolidations:
                                 type: array
                                 description: Progressive list of consolidation requests.
@@ -15837,9 +16235,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -15923,9 +16321,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 to_execution_address:
-                                                  description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
+                                                  description: An address on the execution (Ethereum 1) network.
                                                   example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
@@ -16103,9 +16501,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: The value to be deposited (gwei).
                                                   type: string
                                                   example: '1'
+                                                  description: The value to be deposited (gwei).
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -16140,9 +16538,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 amount:
-                                                  description: The value to be withdrawn (gwei).
                                                   type: string
                                                   example: '1'
+                                                  description: The value to be withdrawn (gwei).
                                           consolidations:
                                             type: array
                                             description: Progressive list of consolidation requests.
@@ -16718,9 +17116,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -16802,9 +17200,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -16986,9 +17384,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: The value to be deposited (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be deposited (gwei).
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -17023,9 +17421,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     amount:
-                                                      description: The value to be withdrawn (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be withdrawn (gwei).
                                                 maxItems: 16
                                               consolidations:
                                                 type: array
@@ -17538,9 +17936,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -17622,9 +18020,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -18250,9 +18648,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -18334,9 +18732,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -18945,9 +19343,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -19571,9 +19969,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -20103,9 +20501,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -22324,9 +22722,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -22408,9 +22806,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -22565,9 +22963,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: The value to be deposited (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be deposited (gwei).
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -22602,9 +23000,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     amount:
-                                                      description: The value to be withdrawn (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be withdrawn (gwei).
                                                 maxItems: 16
                                               consolidations:
                                                 type: array
@@ -23118,9 +23516,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -23202,9 +23600,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -23804,9 +24202,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -23888,9 +24286,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -24473,9 +24871,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -25096,9 +25494,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -25628,9 +26026,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -33365,9 +33763,9 @@ paths:
                               description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                               example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                             to_execution_address:
-                              description: Execution address to which the credentials will be changed.
                               type: string
                               format: hex
+                              description: An address on the execution (Ethereum 1) network.
                               example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                               pattern: '^0x[a-fA-F0-9]{40}$'
                         signature:
@@ -33438,9 +33836,9 @@ paths:
                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                       to_execution_address:
-                        description: Execution address to which the credentials will be changed.
                         type: string
                         format: hex
+                        description: An address on the execution (Ethereum 1) network.
                         example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                         pattern: '^0x[a-fA-F0-9]{40}$'
                   signature:
@@ -40488,9 +40886,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -40572,9 +40970,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -40756,9 +41154,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: The value to be deposited (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be deposited (gwei).
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -40793,9 +41191,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     amount:
-                                                      description: The value to be withdrawn (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be withdrawn (gwei).
                                                 maxItems: 16
                                               consolidations:
                                                 type: array
@@ -41330,9 +41728,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -41414,9 +41812,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -41598,9 +41996,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: The value to be deposited (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be deposited (gwei).
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -41635,9 +42033,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     amount:
-                                                      description: The value to be withdrawn (gwei).
                                                       type: string
                                                       example: '1'
+                                                      description: The value to be withdrawn (gwei).
                                                 maxItems: 16
                                               consolidations:
                                                 type: array
@@ -42164,9 +42562,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -42248,9 +42646,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 to_execution_address:
-                                                  description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
+                                                  description: An address on the execution (Ethereum 1) network.
                                                   example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
@@ -42405,9 +42803,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: The value to be deposited (gwei).
                                                   type: string
                                                   example: '1'
+                                                  description: The value to be deposited (gwei).
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -42442,9 +42840,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 amount:
-                                                  description: The value to be withdrawn (gwei).
                                                   type: string
                                                   example: '1'
+                                                  description: The value to be withdrawn (gwei).
                                             maxItems: 16
                                           consolidations:
                                             type: array
@@ -42953,9 +43351,9 @@ paths:
                                                       pattern: '^0x[a-fA-F0-9]{64}$'
                                                       description: The withdrawal credentials.
                                                     amount:
-                                                      description: Amount in Gwei.
                                                       type: string
                                                       example: '1'
+                                                      description: Amount in Gwei.
                                                     signature:
                                                       type: string
                                                       format: hex
@@ -43037,9 +43435,9 @@ paths:
                                                       description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                       example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                     to_execution_address:
-                                                      description: Execution address to which the credentials will be changed.
                                                       type: string
                                                       format: hex
+                                                      description: An address on the execution (Ethereum 1) network.
                                                       example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                       pattern: '^0x[a-fA-F0-9]{40}$'
                                                 signature:
@@ -43674,9 +44072,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -43758,9 +44156,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 to_execution_address:
-                                                  description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
+                                                  description: An address on the execution (Ethereum 1) network.
                                                   example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
@@ -44347,9 +44745,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -44431,9 +44829,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 to_execution_address:
-                                                  description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
+                                                  description: An address on the execution (Ethereum 1) network.
                                                   example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
@@ -45032,9 +45430,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -45116,9 +45514,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 to_execution_address:
-                                                  description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
+                                                  description: An address on the execution (Ethereum 1) network.
                                                   example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
@@ -45688,9 +46086,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -46304,9 +46702,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -46915,9 +47313,9 @@ paths:
                                               pattern: '^0x[a-fA-F0-9]{64}$'
                                               description: The withdrawal credentials.
                                             amount:
-                                              description: Amount in Gwei.
                                               type: string
                                               example: '1'
+                                              description: Amount in Gwei.
                                             signature:
                                               type: string
                                               format: hex
@@ -47435,9 +47833,9 @@ paths:
                                               pattern: '^0x[a-fA-F0-9]{64}$'
                                               description: The withdrawal credentials.
                                             amount:
-                                              description: Amount in Gwei.
                                               type: string
                                               example: '1'
+                                              description: Amount in Gwei.
                                             signature:
                                               type: string
                                               format: hex
@@ -48453,9 +48851,9 @@ paths:
                                               pattern: '^0x[a-fA-F0-9]{64}$'
                                               description: The withdrawal credentials.
                                             amount:
-                                              description: Amount in Gwei.
                                               type: string
                                               example: '1'
+                                              description: Amount in Gwei.
                                             signature:
                                               type: string
                                               format: hex
@@ -48539,9 +48937,9 @@ paths:
                                               description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                               example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                             to_execution_address:
-                                              description: Execution address to which the credentials will be changed.
                                               type: string
                                               format: hex
+                                              description: An address on the execution (Ethereum 1) network.
                                               example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                               pattern: '^0x[a-fA-F0-9]{40}$'
                                         signature:
@@ -48719,9 +49117,9 @@ paths:
                                               pattern: '^0x[a-fA-F0-9]{64}$'
                                               description: The withdrawal credentials.
                                             amount:
-                                              description: The value to be deposited (gwei).
                                               type: string
                                               example: '1'
+                                              description: The value to be deposited (gwei).
                                             signature:
                                               type: string
                                               format: hex
@@ -48756,9 +49154,9 @@ paths:
                                               description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                               example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                             amount:
-                                              description: The value to be withdrawn (gwei).
                                               type: string
                                               example: '1'
+                                              description: The value to be withdrawn (gwei).
                                       consolidations:
                                         type: array
                                         description: Progressive list of consolidation requests.
@@ -49342,9 +49740,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: Amount in Gwei.
                                                   type: string
                                                   example: '1'
+                                                  description: Amount in Gwei.
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -49428,9 +49826,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 to_execution_address:
-                                                  description: Execution address to which the credentials will be changed.
                                                   type: string
                                                   format: hex
+                                                  description: An address on the execution (Ethereum 1) network.
                                                   example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                                   pattern: '^0x[a-fA-F0-9]{40}$'
                                             signature:
@@ -49608,9 +50006,9 @@ paths:
                                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                                   description: The withdrawal credentials.
                                                 amount:
-                                                  description: The value to be deposited (gwei).
                                                   type: string
                                                   example: '1'
+                                                  description: The value to be deposited (gwei).
                                                 signature:
                                                   type: string
                                                   format: hex
@@ -49645,9 +50043,9 @@ paths:
                                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                                 amount:
-                                                  description: The value to be withdrawn (gwei).
                                                   type: string
                                                   example: '1'
+                                                  description: The value to be withdrawn (gwei).
                                           consolidations:
                                             type: array
                                             description: Progressive list of consolidation requests.
@@ -49917,9 +50315,9 @@ paths:
                                           pattern: '^0x[a-fA-F0-9]{64}$'
                                           description: The withdrawal credentials.
                                         amount:
-                                          description: The value to be deposited (gwei).
                                           type: string
                                           example: '1'
+                                          description: The value to be deposited (gwei).
                                         signature:
                                           type: string
                                           format: hex
@@ -49954,9 +50352,9 @@ paths:
                                           description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                           example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                         amount:
-                                          description: The value to be withdrawn (gwei).
                                           type: string
                                           example: '1'
+                                          description: The value to be withdrawn (gwei).
                                   consolidations:
                                     type: array
                                     description: Progressive list of consolidation requests.
@@ -53452,9 +53850,9 @@ paths:
                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                   description: The withdrawal credentials.
                                 amount:
-                                  description: The value to be deposited (gwei).
                                   type: string
                                   example: '1'
+                                  description: The value to be deposited (gwei).
                                 signature:
                                   type: string
                                   format: hex
@@ -53489,9 +53887,9 @@ paths:
                                   description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                 amount:
-                                  description: The value to be withdrawn (gwei).
                                   type: string
                                   example: '1'
+                                  description: The value to be withdrawn (gwei).
                           consolidations:
                             type: array
                             description: Progressive list of consolidation requests.
@@ -55557,9 +55955,9 @@ components:
                             pattern: '^0x[a-fA-F0-9]{64}$'
                             description: The withdrawal credentials.
                           amount:
-                            description: Amount in Gwei.
                             type: string
                             example: '1'
+                            description: Amount in Gwei.
                           signature:
                             type: string
                             format: hex
@@ -56067,9 +56465,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -57147,9 +57545,9 @@ components:
                             pattern: '^0x[a-fA-F0-9]{64}$'
                             description: The withdrawal credentials.
                           amount:
-                            description: Amount in Gwei.
                             type: string
                             example: '1'
+                            description: Amount in Gwei.
                           signature:
                             type: string
                             format: hex
@@ -57676,9 +58074,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -59701,9 +60099,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -60324,9 +60722,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -60946,9 +61344,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -61567,9 +61965,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -62732,9 +63130,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -62816,9 +63214,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -63424,9 +63822,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -63508,9 +63906,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -64115,9 +64513,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -64199,9 +64597,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -64781,9 +65179,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -64865,9 +65263,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -66077,9 +66475,9 @@ components:
               description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
               example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
             to_execution_address:
-              description: Execution address to which the credentials will be changed.
               type: string
               format: hex
+              description: An address on the execution (Ethereum 1) network.
               example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
               pattern: '^0x[a-fA-F0-9]{40}$'
         signature:
@@ -67084,9 +67482,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -67168,9 +67566,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -67795,9 +68193,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -67879,9 +68277,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -68523,9 +68921,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -68607,9 +69005,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -69246,9 +69644,9 @@ components:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                         description: The withdrawal credentials.
                                       amount:
-                                        description: Amount in Gwei.
                                         type: string
                                         example: '1'
+                                        description: Amount in Gwei.
                                       signature:
                                         type: string
                                         format: hex
@@ -69330,9 +69728,9 @@ components:
                                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                       to_execution_address:
-                                        description: Execution address to which the credentials will be changed.
                                         type: string
                                         format: hex
+                                        description: An address on the execution (Ethereum 1) network.
                                         example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                   signature:
@@ -69973,9 +70371,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -70057,9 +70455,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -70657,9 +71055,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -70741,9 +71139,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -73106,9 +73504,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -73190,9 +73588,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -73374,9 +73772,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: The value to be deposited (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be deposited (gwei).
                                   signature:
                                     type: string
                                     format: hex
@@ -73411,9 +73809,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   amount:
-                                    description: The value to be withdrawn (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be withdrawn (gwei).
                               maxItems: 16
                             consolidations:
                               type: array
@@ -73947,9 +74345,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -74031,9 +74429,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -74215,9 +74613,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: The value to be deposited (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be deposited (gwei).
                                   signature:
                                     type: string
                                     format: hex
@@ -74252,9 +74650,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   amount:
-                                    description: The value to be withdrawn (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be withdrawn (gwei).
                               maxItems: 16
                             consolidations:
                               type: array
@@ -74783,9 +75181,9 @@ components:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                         description: The withdrawal credentials.
                                       amount:
-                                        description: Amount in Gwei.
                                         type: string
                                         example: '1'
+                                        description: Amount in Gwei.
                                       signature:
                                         type: string
                                         format: hex
@@ -74867,9 +75265,9 @@ components:
                                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                       to_execution_address:
-                                        description: Execution address to which the credentials will be changed.
                                         type: string
                                         format: hex
+                                        description: An address on the execution (Ethereum 1) network.
                                         example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                   signature:
@@ -75051,9 +75449,9 @@ components:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                         description: The withdrawal credentials.
                                       amount:
-                                        description: The value to be deposited (gwei).
                                         type: string
                                         example: '1'
+                                        description: The value to be deposited (gwei).
                                       signature:
                                         type: string
                                         format: hex
@@ -75088,9 +75486,9 @@ components:
                                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                       amount:
-                                        description: The value to be withdrawn (gwei).
                                         type: string
                                         example: '1'
+                                        description: The value to be withdrawn (gwei).
                                   maxItems: 16
                                 consolidations:
                                   type: array
@@ -75623,9 +76021,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -75707,9 +76105,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -75864,9 +76262,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: The value to be deposited (gwei).
                                 type: string
                                 example: '1'
+                                description: The value to be deposited (gwei).
                               signature:
                                 type: string
                                 format: hex
@@ -75901,9 +76299,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               amount:
-                                description: The value to be withdrawn (gwei).
                                 type: string
                                 example: '1'
+                                description: The value to be withdrawn (gwei).
                           maxItems: 16
                         consolidations:
                           type: array
@@ -76420,9 +76818,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -76504,9 +76902,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -76661,9 +77059,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: The value to be deposited (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be deposited (gwei).
                                   signature:
                                     type: string
                                     format: hex
@@ -76698,9 +77096,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   amount:
-                                    description: The value to be withdrawn (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be withdrawn (gwei).
                               maxItems: 16
                             consolidations:
                               type: array
@@ -80941,9 +81339,9 @@ components:
                             pattern: '^0x[a-fA-F0-9]{64}$'
                             description: The withdrawal credentials.
                           amount:
-                            description: Amount in Gwei.
                             type: string
                             example: '1'
+                            description: Amount in Gwei.
                           signature:
                             type: string
                             format: hex
@@ -81027,9 +81425,9 @@ components:
                             description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                           to_execution_address:
-                            description: Execution address to which the credentials will be changed.
                             type: string
                             format: hex
+                            description: An address on the execution (Ethereum 1) network.
                             example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                             pattern: '^0x[a-fA-F0-9]{40}$'
                       signature:
@@ -81207,9 +81605,9 @@ components:
                             pattern: '^0x[a-fA-F0-9]{64}$'
                             description: The withdrawal credentials.
                           amount:
-                            description: The value to be deposited (gwei).
                             type: string
                             example: '1'
+                            description: The value to be deposited (gwei).
                           signature:
                             type: string
                             format: hex
@@ -81244,9 +81642,9 @@ components:
                             description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                           amount:
-                            description: The value to be withdrawn (gwei).
                             type: string
                             example: '1'
+                            description: The value to be withdrawn (gwei).
                     consolidations:
                       type: array
                       description: Progressive list of consolidation requests.
@@ -81826,9 +82224,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -81912,9 +82310,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -82092,9 +82490,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: The value to be deposited (gwei).
                                 type: string
                                 example: '1'
+                                description: The value to be deposited (gwei).
                               signature:
                                 type: string
                                 format: hex
@@ -82129,9 +82527,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               amount:
-                                description: The value to be withdrawn (gwei).
                                 type: string
                                 example: '1'
+                                description: The value to be withdrawn (gwei).
                         consolidations:
                           type: array
                           description: Progressive list of consolidation requests.
@@ -82761,9 +83159,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: Amount in Gwei.
                                 type: string
                                 example: '1'
+                                description: Amount in Gwei.
                               signature:
                                 type: string
                                 format: hex
@@ -82847,9 +83245,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               to_execution_address:
-                                description: Execution address to which the credentials will be changed.
                                 type: string
                                 format: hex
+                                description: An address on the execution (Ethereum 1) network.
                                 example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                 pattern: '^0x[a-fA-F0-9]{40}$'
                           signature:
@@ -83027,9 +83425,9 @@ components:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                                 description: The withdrawal credentials.
                               amount:
-                                description: The value to be deposited (gwei).
                                 type: string
                                 example: '1'
+                                description: The value to be deposited (gwei).
                               signature:
                                 type: string
                                 format: hex
@@ -83064,9 +83462,9 @@ components:
                                 description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                               amount:
-                                description: The value to be withdrawn (gwei).
                                 type: string
                                 example: '1'
+                                description: The value to be withdrawn (gwei).
                         consolidations:
                           type: array
                           description: Progressive list of consolidation requests.
@@ -83336,9 +83734,9 @@ components:
                         pattern: '^0x[a-fA-F0-9]{64}$'
                         description: The withdrawal credentials.
                       amount:
-                        description: The value to be deposited (gwei).
                         type: string
                         example: '1'
+                        description: The value to be deposited (gwei).
                       signature:
                         type: string
                         format: hex
@@ -83373,9 +83771,9 @@ components:
                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                       amount:
-                        description: The value to be withdrawn (gwei).
                         type: string
                         example: '1'
+                        description: The value to be withdrawn (gwei).
                 consolidations:
                   type: array
                   description: Progressive list of consolidation requests.
@@ -83971,9 +84369,9 @@ components:
                     pattern: '^0x[a-fA-F0-9]{64}$'
                     description: The withdrawal credentials.
                   amount:
-                    description: The value to be deposited (gwei).
                     type: string
                     example: '1'
+                    description: The value to be deposited (gwei).
                   signature:
                     type: string
                     format: hex
@@ -84008,9 +84406,9 @@ components:
                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                   amount:
-                    description: The value to be withdrawn (gwei).
                     type: string
                     example: '1'
+                    description: The value to be withdrawn (gwei).
             consolidations:
               type: array
               description: Progressive list of consolidation requests.
@@ -84303,9 +84701,9 @@ components:
                         pattern: '^0x[a-fA-F0-9]{64}$'
                         description: The withdrawal credentials.
                       amount:
-                        description: The value to be deposited (gwei).
                         type: string
                         example: '1'
+                        description: The value to be deposited (gwei).
                       signature:
                         type: string
                         format: hex
@@ -84340,9 +84738,9 @@ components:
                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                       amount:
-                        description: The value to be withdrawn (gwei).
                         type: string
                         example: '1'
+                        description: The value to be withdrawn (gwei).
                 consolidations:
                   type: array
                   description: Progressive list of consolidation requests.
@@ -84652,9 +85050,9 @@ components:
                             pattern: '^0x[a-fA-F0-9]{64}$'
                             description: The withdrawal credentials.
                           amount:
-                            description: The value to be deposited (gwei).
                             type: string
                             example: '1'
+                            description: The value to be deposited (gwei).
                           signature:
                             type: string
                             format: hex
@@ -84689,9 +85087,9 @@ components:
                             description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                           amount:
-                            description: The value to be withdrawn (gwei).
                             type: string
                             example: '1'
+                            description: The value to be withdrawn (gwei).
                     consolidations:
                       type: array
                       description: Progressive list of consolidation requests.
@@ -85847,9 +86245,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: Amount in Gwei.
                                     type: string
                                     example: '1'
+                                    description: Amount in Gwei.
                                   signature:
                                     type: string
                                     format: hex
@@ -85931,9 +86329,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   to_execution_address:
-                                    description: Execution address to which the credentials will be changed.
                                     type: string
                                     format: hex
+                                    description: An address on the execution (Ethereum 1) network.
                                     example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                     pattern: '^0x[a-fA-F0-9]{40}$'
                               signature:
@@ -86115,9 +86513,9 @@ components:
                                     pattern: '^0x[a-fA-F0-9]{64}$'
                                     description: The withdrawal credentials.
                                   amount:
-                                    description: The value to be deposited (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be deposited (gwei).
                                   signature:
                                     type: string
                                     format: hex
@@ -86152,9 +86550,9 @@ components:
                                     description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                     example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                   amount:
-                                    description: The value to be withdrawn (gwei).
                                     type: string
                                     example: '1'
+                                    description: The value to be withdrawn (gwei).
                               maxItems: 16
                             consolidations:
                               type: array
@@ -86697,9 +87095,9 @@ components:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                         description: The withdrawal credentials.
                                       amount:
-                                        description: Amount in Gwei.
                                         type: string
                                         example: '1'
+                                        description: Amount in Gwei.
                                       signature:
                                         type: string
                                         format: hex
@@ -86781,9 +87179,9 @@ components:
                                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                       to_execution_address:
-                                        description: Execution address to which the credentials will be changed.
                                         type: string
                                         format: hex
+                                        description: An address on the execution (Ethereum 1) network.
                                         example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
                                         pattern: '^0x[a-fA-F0-9]{40}$'
                                   signature:
@@ -86965,9 +87363,9 @@ components:
                                         pattern: '^0x[a-fA-F0-9]{64}$'
                                         description: The withdrawal credentials.
                                       amount:
-                                        description: The value to be deposited (gwei).
                                         type: string
                                         example: '1'
+                                        description: The value to be deposited (gwei).
                                       signature:
                                         type: string
                                         format: hex
@@ -87002,9 +87400,9 @@ components:
                                         description: 'The validator''s BLS public key, uniquely identifying them. _48-bytes, hex encoded with 0x prefix, case insensitive._'
                                         example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                                       amount:
-                                        description: The value to be withdrawn (gwei).
                                         type: string
                                         example: '1'
+                                        description: The value to be withdrawn (gwei).
                                   maxItems: 16
                                 consolidations:
                                   type: array
@@ -87650,6 +88048,122 @@ components:
               example: '1'
             - description: 'Maximum execution-layer payment, in Gwei, submitted to this builder so it can shape its bid.'
               example: '1000000000'
+    Gloas.BuilderPendingWithdrawal:
+      type: object
+      description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+      required:
+        - fee_recipient
+        - amount
+        - builder_index
+      properties:
+        fee_recipient:
+          type: string
+          format: hex
+          description: An address on the execution (Ethereum 1) network.
+          example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+          pattern: '^0x[a-fA-F0-9]{40}$'
+        amount:
+          type: string
+          example: '1'
+        builder_index:
+          type: string
+          example: '1'
+    Gloas.BuilderPendingWithdrawals:
+      type: array
+      description: Progressive list of pending builder withdrawals.
+      items:
+        type: object
+        description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+        required:
+          - fee_recipient
+          - amount
+          - builder_index
+        properties:
+          fee_recipient:
+            type: string
+            format: hex
+            description: An address on the execution (Ethereum 1) network.
+            example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+            pattern: '^0x[a-fA-F0-9]{40}$'
+          amount:
+            type: string
+            example: '1'
+          builder_index:
+            type: string
+            example: '1'
+    Gloas.BuilderPendingPayment:
+      type: object
+      description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+      required:
+        - weight
+        - withdrawal
+        - proposer_index
+      properties:
+        weight:
+          type: string
+          example: '1'
+        withdrawal:
+          type: object
+          description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+          required:
+            - fee_recipient
+            - amount
+            - builder_index
+          properties:
+            fee_recipient:
+              type: string
+              format: hex
+              description: An address on the execution (Ethereum 1) network.
+              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+              pattern: '^0x[a-fA-F0-9]{40}$'
+            amount:
+              type: string
+              example: '1'
+            builder_index:
+              type: string
+              example: '1'
+        proposer_index:
+          type: string
+          example: '1'
+    Gloas.BuilderPendingPayments:
+      type: array
+      description: Fixed vector of pending builder payments covering two epochs.
+      items:
+        type: object
+        description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+        required:
+          - weight
+          - withdrawal
+          - proposer_index
+        properties:
+          weight:
+            type: string
+            example: '1'
+          withdrawal:
+            type: object
+            description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+            required:
+              - fee_recipient
+              - amount
+              - builder_index
+            properties:
+              fee_recipient:
+                type: string
+                format: hex
+                description: An address on the execution (Ethereum 1) network.
+                example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                pattern: '^0x[a-fA-F0-9]{40}$'
+              amount:
+                type: string
+                example: '1'
+              builder_index:
+                type: string
+                example: '1'
+          proposer_index:
+            type: string
+            example: '1'
+      minItems: 64
+      maxItems: 64
     Node:
       type: object
       description: fork choice node attributes
