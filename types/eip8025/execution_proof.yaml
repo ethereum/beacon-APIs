@@ -1,0 +1,35 @@
+EIP8025:
+  ExecutionProofEnvelope:
+    type: object
+    description: "The [`ExecutionProofEnvelope`](https://github.com/ethereum/consensus-specs/blob/master/specs/_features/eip8025/beacon-chain.md#new-executionproofenvelope) object from the EIP-8025 spec."
+    required: [proof_data, proof_type, beacon_block_root]
+    properties:
+      proof_data:
+        type: string
+        format: hex
+        description: |
+          Opaque bytes, interpreted by the proof system named in `proof_type`.
+
+          Bounded at `MAX_PROOF_SIZE` (`4194304` bytes).
+        pattern: "^0x(?:[a-fA-F0-9]{2}){1,4194304}$"
+        example: "0x00"
+      proof_type:
+        $ref: "../primitive.yaml#/Uint8"
+        description: "Identifier of the proof system that produced `proof_data`"
+      beacon_block_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the beacon block whose envelope committed the proven payload"
+
+  SignedExecutionProofEnvelope:
+    type: object
+    description: "The [`SignedExecutionProofEnvelope`](https://github.com/ethereum/consensus-specs/blob/master/specs/_features/eip8025/beacon-chain.md#new-signedexecutionproofenvelope) object from the EIP-8025 spec."
+    required: [message, validator_index, signature]
+    properties:
+      message:
+        $ref: "#/EIP8025/ExecutionProofEnvelope"
+      validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the validator submitting the proof"
+      signature:
+        $ref: "../primitive.yaml#/Signature"
+        description: "BLS signature of the `ExecutionProofEnvelope`"

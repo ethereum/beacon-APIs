@@ -1,5 +1,5 @@
 post:
-  operationId: submitPoolExecutionProofs
+  operationId: submitExecutionProofs
   summary: Submit execution proofs
   description: |
     Submits EIP-8025 execution proofs to the beacon node.
@@ -18,7 +18,7 @@ post:
     content:
       application/octet-stream:
         schema:
-          description: "SSZ serialized `List[SignedExecutionProof, MAX_PROOFS_PER_REQUEST]` bytes. Use the Content-Type header to indicate that SSZ data is contained in the request body."
+          description: "SSZ serialized `ProgressiveList[SignedExecutionProofEnvelope]` bytes. Use the Content-Type header to indicate that SSZ data is contained in the request body."
   responses:
     "200":
       description: "Execution proofs are broadcast to the network"

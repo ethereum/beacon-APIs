@@ -116,6 +116,8 @@ paths:
     $ref: "./apis/beacon/execution_payload/envelope_post.yaml"
   /eth/v1/beacon/execution_payload_envelopes/{block_id}:
     $ref: "./apis/beacon/execution_payload/envelope_get.yaml"
+  /eth/v1/beacon/execution_proofs:
+    $ref: "./apis/beacon/execution_proofs/execution_proofs.yaml"
   /eth/v2/beacon/blocks/{block_id}:
     $ref: "./apis/beacon/blocks/block.v2.yaml"
   /eth/v1/beacon/blocks/{block_id}/root:
@@ -146,8 +148,6 @@ paths:
     $ref: "./apis/beacon/pool/attestations.v2.yaml"
   /eth/v1/beacon/pool/payload_attestations:
     $ref: "./apis/beacon/pool/payload_attestations.yaml"
-  /eth/v1/beacon/pool/execution_proofs:
-    $ref: "./apis/beacon/pool/execution_proofs.yaml"
   /eth/v2/beacon/pool/attester_slashings:
     $ref: "./apis/beacon/pool/attester_slashings.v2.yaml"
   /eth/v1/beacon/pool/proposer_slashings:
@@ -509,12 +509,6 @@ components:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestation"
     Gloas.PayloadAttestationMessage:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationMessage"
-    Gloas.PublicInput:
-      $ref: "./types/gloas/execution_proof.yaml#/Gloas/PublicInput"
-    Gloas.ExecutionProof:
-      $ref: "./types/gloas/execution_proof.yaml#/Gloas/ExecutionProof"
-    Gloas.SignedExecutionProof:
-      $ref: "./types/gloas/execution_proof.yaml#/Gloas/SignedExecutionProof"
     Gloas.Attestation:
       $ref: "./types/gloas/attestation.yaml#/Gloas/Attestation"
     Gloas.AttesterSlashing:
@@ -543,6 +537,10 @@ components:
       $ref: "./types/gloas/builder_entry.yaml#/Gloas/BuilderConfig"
     Gloas.BuilderPreferencesEntry:
       $ref: "./types/gloas/builder_preferences_entry.yaml#/Gloas/BuilderPreferencesEntry"
+    EIP8025.ExecutionProofEnvelope:
+      $ref: "./types/eip8025/execution_proof.yaml#/EIP8025/ExecutionProofEnvelope"
+    EIP8025.SignedExecutionProofEnvelope:
+      $ref: "./types/eip8025/execution_proof.yaml#/EIP8025/SignedExecutionProofEnvelope"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
