@@ -15671,6 +15671,171 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  /eth/v1/beacon/proposer_preferences:
+    get:
+      operationId: getProposerPreferences
+      summary: Get signed proposer preferences
+      description: |
+        Retrieves signed proposer preferences known by the node for upcoming proposal slots.
+
+        Signed proposer preferences are only broadcast once per proposal slot and dependent root.
+        This allows builders to retrieve the ones that were broadcast before they subscribed to the
+        `proposer_preferences` event.
+      parameters:
+        - name: slot
+          in: query
+          required: false
+          description: Only return signed proposer preferences for this proposal slot.
+          schema:
+            type: string
+            example: '1'
+        - name: dependent_root
+          in: query
+          required: false
+          description: Only return signed proposer preferences with this dependent root.
+          schema:
+            type: string
+            format: hex
+            example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+            pattern: '^0x[a-fA-F0-9]{64}$'
+      tags:
+        - Beacon
+      responses:
+        '200':
+          description: Successful response
+          headers:
+            Eth-Consensus-Version:
+              description: |
+                The active consensus version to which the data belongs. Required in response so client can deserialize returned json or ssz data
+                more effectively.
+              required: true
+              schema:
+                type: string
+                enum:
+                  - phase0
+                  - altair
+                  - bellatrix
+                  - capella
+                  - deneb
+                  - electra
+                  - fulu
+                  - gloas
+                example: gloas
+          content:
+            application/json:
+              schema:
+                title: GetProposerPreferencesResponse
+                type: object
+                required:
+                  - version
+                  - data
+                properties:
+                  version:
+                    type: string
+                    enum:
+                      - gloas
+                    example: gloas
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
+                      required:
+                        - message
+                        - signature
+                      properties:
+                        message:
+                          type: object
+                          description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
+                          required:
+                            - dependent_root
+                            - proposal_slot
+                            - validator_index
+                            - fee_recipient
+                            - target_gas_limit
+                          properties:
+                            dependent_root:
+                              type: string
+                              format: hex
+                              example: '0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2'
+                              pattern: '^0x[a-fA-F0-9]{64}$'
+                              description: 'Shuffling dependent root for the epoch of `proposal_slot`, based on the validator''s head.'
+                            proposal_slot:
+                              type: string
+                              example: '1'
+                              description: Slot for which the validator is the proposer.
+                            validator_index:
+                              type: string
+                              example: '1'
+                              description: Index of the proposing validator.
+                            fee_recipient:
+                              type: string
+                              format: hex
+                              description: An address on the execution (Ethereum 1) network.
+                              example: '0xAbcF8e0d4e9587369b2301D0790347320302cc09'
+                              pattern: '^0x[a-fA-F0-9]{40}$'
+                            target_gas_limit:
+                              type: string
+                              example: '1'
+                              description: Preferred gas limit for the execution payload.
+                        signature:
+                          type: string
+                          format: hex
+                          pattern: '^0x[a-fA-F0-9]{192}$'
+                          example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
+            application/octet-stream:
+              schema:
+                description: 'SSZ serialized `ProgressiveList[SignedProposerPreferences]` bytes. Use Accept header to choose this response type'
+        '400':
+          description: The slot or dependent root could not be parsed
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 400
+                message: Invalid slot parameter
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 500
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v2/beacon/blocks/{block_id}':
     get:
       operationId: getBlockV2
