@@ -34,6 +34,12 @@ Gloas:
       builder_index:
         $ref: "../primitive.yaml#/Uint64"
 
+  BuilderPendingWithdrawals:
+    type: array
+    description: "Progressive list of pending builder withdrawals."
+    items:
+      $ref: "#/Gloas/BuilderPendingWithdrawal"
+
   BuilderPendingPayment:
     type: object
     description: "The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec."
@@ -45,3 +51,11 @@ Gloas:
         $ref: "#/Gloas/BuilderPendingWithdrawal"
       proposer_index:
         $ref: "../primitive.yaml#/Uint64"
+
+  BuilderPendingPayments:
+    type: array
+    description: "Fixed vector of pending builder payments covering two epochs."
+    items:
+      $ref: "#/Gloas/BuilderPendingPayment"
+    minItems: 64
+    maxItems: 64
