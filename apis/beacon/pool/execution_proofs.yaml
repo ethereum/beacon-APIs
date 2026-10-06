@@ -11,6 +11,7 @@ post:
     The body is SSZ only: proofs run to megabytes, which JSON would inflate for no benefit.
   tags:
     - Beacon
+    - Experimental
   requestBody:
     description: "Execution proofs to be submitted."
     required: true
