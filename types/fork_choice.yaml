@@ -29,4 +29,63 @@ Node:
 
 ExtraData:
   type: object
-  description: 'Optional extra data that clients may provide, which could differ from client to client.'
+  description: 'Extra data that may differ between clients, or an empty object if none is provided.'
+
+NodeV2:
+  type: object
+  description: "A fork choice node, identified by its block root and payload status."
+  required: [slot, block_root, payload_status, parent_root, parent_payload_status, justified_checkpoint, finalized_checkpoint, weight, validity, execution_block_hash, payload_attester_count, payload_availability_yes_count, payload_data_availability_yes_count, extra_data]
+  properties:
+    slot:
+      $ref: './primitive.yaml#/Uint64'
+      description: "The slot of the beacon block."
+    block_root:
+      $ref: './primitive.yaml#/Root'
+      description: "The hash tree root of the beacon block."
+    payload_status:
+      type: string
+      enum: [pending, empty, full]
+      description: |
+        - `pending`: the parent of this block's `empty` and `full` nodes. This node remains after the payload is received.
+        - `empty`: the node representing this block without its execution payload, even if the payload has been received.
+        - `full`: the node representing this block with its execution payload.
+    parent_root:
+      $ref: './primitive.yaml#/Root'
+      description: |
+        The block root of the parent fork choice node. For Gloas `empty` and `full` nodes, this equals
+        `block_root`, pointing to the same block's `pending` node. Otherwise, it is the beacon block's `parent_root`.
+    parent_payload_status:
+      description: "The payload status of the parent fork choice node. Null if the parent is not retained in the fork choice tree."
+      oneOf:
+        - type: "null"
+        - type: string
+          enum: [pending, empty, full]
+    justified_checkpoint:
+      $ref: './misc.yaml#/Checkpoint'
+      description: "The justified checkpoint recorded for this fork choice node."
+    finalized_checkpoint:
+      $ref: './misc.yaml#/Checkpoint'
+      description: "The finalized checkpoint recorded for this fork choice node."
+    weight:
+      $ref: './primitive.yaml#/Gwei'
+      description: "The raw stored weight of this fork choice node in Gwei."
+    validity:
+      type: string
+      enum: [valid, invalid, optimistic]
+      description: "The execution validity of the chain ending at `execution_block_hash`."
+    execution_block_hash:
+      $ref: './primitive.yaml#/Hash32'
+      description: |
+        For `full` nodes, the block's execution payload hash. For Gloas `pending` and `empty` nodes,
+        the bid's `parent_block_hash`.
+    payload_attester_count:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Number of PTC positions with a recorded vote."
+    payload_availability_yes_count:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Number of PTC positions voting that the payload was received on time."
+    payload_data_availability_yes_count:
+      $ref: './primitive.yaml#/Uint64'
+      description: "Number of PTC positions voting that the blob data is available."
+    extra_data:
+      $ref: '#/ExtraData'

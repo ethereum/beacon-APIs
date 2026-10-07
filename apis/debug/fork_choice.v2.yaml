@@ -1,0 +1,39 @@
+get:
+  operationId: getDebugForkChoiceV2
+  summary: Get fork choice array
+  description: |
+    Retrieves all current fork choice context, with one node per `(block_root, payload_status)` pair.
+    Parent links follow the [fork choice tree](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#modified-get_node_children).
+    Each pre-Gloas block has a single `full` node.
+
+    Payload Timeliness Committee (PTC) counts are per committee position, including repeated validator
+    indices, and are the same for all nodes of a block. They are zero for pre-Gloas blocks.
+  tags:
+    - Debug
+  responses:
+    "200":
+      description: Success
+      content:
+        application/json:
+          schema:
+            title: GetForkChoiceResponseV2
+            type: object
+            required: [data]
+            properties:
+              data:
+                type: object
+                required: [justified_checkpoint, finalized_checkpoint, fork_choice_nodes, extra_data]
+                properties:
+                  justified_checkpoint:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  finalized_checkpoint:
+                    $ref: '../../beacon-node-oapi.yaml#/components/schemas/Checkpoint'
+                  fork_choice_nodes:
+                    type: array
+                    minItems: 1
+                    items:
+                      $ref: "../../beacon-node-oapi.yaml#/components/schemas/NodeV2"
+                  extra_data:
+                    $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExtraData"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
