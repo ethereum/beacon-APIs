@@ -42,6 +42,9 @@ get:
                     $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
                   validators:
                     $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadTimelinessCommittee"
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized `Container{slot: Slot, validators: Vector[ValidatorIndex, PTC_SIZE]}` bytes. Use Accept header to choose this response type"
     "400":
       description: "Invalid state ID or slot, pre-Gloas state or slot, or slot outside the PTC window"
       content:
@@ -53,5 +56,7 @@ get:
             message: "Slot is outside the PTC window of the state"
     "404":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "406":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
     "500":
       $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
