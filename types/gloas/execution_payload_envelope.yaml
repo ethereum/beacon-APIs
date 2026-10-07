@@ -1,13 +1,13 @@
 Gloas:
   ExecutionPayloadEnvelope:
     type: object
-    description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.7/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec."
+    description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec."
     required: [payload, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root]
     properties:
       payload:
-        $ref: "../deneb/execution_payload.yaml#/Deneb/ExecutionPayload"
+        $ref: "./execution_payload.yaml#/Gloas/ExecutionPayload"
       execution_requests:
-        $ref: "../electra/execution_requests.yaml#/Electra/ExecutionRequests"
+        $ref: "./execution_requests.yaml#/Gloas/ExecutionRequests"
       builder_index:
         $ref: "../primitive.yaml#/Uint64"
         description: "Index of the builder that created this execution payload"
@@ -20,7 +20,7 @@ Gloas:
 
   SignedExecutionPayloadEnvelope:
     type: object
-    description: "The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-alpha.7/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec."
+    description: "The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec."
     required: [message, signature]
     properties:
       message:
@@ -28,3 +28,18 @@ Gloas:
       signature:
         $ref: "../primitive.yaml#/Signature"
         description: "BLS signature of the execution payload envelope"
+
+  SignedExecutionPayloadEnvelopeContents:
+    type: object
+    description: |
+      Signed execution payload envelope bundled with blobs and KZG proofs for stateless
+      publishing. Used when the validator client publishes to a beacon node that does not
+      have the blobs cached (e.g. multi-BN setups, distributed validators, failover).
+    required: [signed_execution_payload_envelope, kzg_proofs, blobs]
+    properties:
+      signed_execution_payload_envelope:
+        $ref: "#/Gloas/SignedExecutionPayloadEnvelope"
+      kzg_proofs:
+        $ref: "../fulu/block_contents.yaml#/Fulu/KZGProofs"
+      blobs:
+        $ref: "../deneb/block_contents.yaml#/Deneb/Blobs"

@@ -1,7 +1,13 @@
 post:
   operationId: "prepareBeaconProposer"
   summary: Provide beacon node with proposals for the given validators.
+  deprecated: true
   description: |
+    Deprecated from Gloas onwards in favor of
+    `POST /eth/v1/validator/proposer_preferences`, which supersedes both fee recipient and
+    gas limit preferences. Beacon node support for this endpoint pre-Gloas is REQUIRED;
+    post-Gloas support is OPTIONAL and the endpoint MAY be removed.
+
     Prepares the beacon node for potential proposers by supplying information
     required when proposing blocks for the given validators.  The information
     supplied for each validator index will persist through the epoch in which

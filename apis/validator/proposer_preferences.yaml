@@ -1,0 +1,58 @@
+post:
+  operationId: submitProposerPreferences
+  summary: Submit signed proposer preferences
+  description: |
+    Verifies given signed proposer preferences and publishes them on the `proposer_preferences`
+    gossipsub topic.
+
+    Notes:
+    - Validator clients SHOULD begin submitting signed proposer preferences one epoch before the
+      Gloas fork activates, so the proposer preference caches kept by both beacon nodes and
+      builders are warm at the fork boundary, letting builders prepare valid bids for the first
+      Gloas slots.
+    - Until the Gloas fork activates, beacon nodes MUST continue to honor fee recipient and gas
+      limit information supplied via `POST /eth/v1/validator/prepare_beacon_proposer` and
+      `POST /eth/v1/validator/register_validator`. From the Gloas fork onwards, signed proposer
+      preferences supersede both endpoints as the source of proposer fee recipient and gas
+      limit preferences.
+    - For validators served by the beacon node, if no signed proposer preferences are available
+      for a given proposal slot, the beacon node SHOULD fall back to the parent block's gas limit
+      when preparing the local payload or accepting bids for that validator. On the p2p network,
+      bids whose fee recipient or gas limit do not match a validator's preferences are rejected at
+      gossip validation, while bids for a slot with no available preferences are ignored; applying
+      sensible defaults reduces missed proposals during the transition.
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the signed proposer preferences being submitted belongs."
+  tags:
+    - Validator
+    - ValidatorRequiredApi
+  requestBody:
+    description: "Array of `SignedProposerPreferences` objects to be submitted."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          items:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedProposerPreferences"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedProposerPreferences, (MIN_SEED_LOOKAHEAD + 1) * SLOTS_PER_EPOCH]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
+  responses:
+    "200":
+      description: "Signed proposer preferences are stored in pool and broadcasted to the network"
+    "400":
+      description: "Errors with one or more signed proposer preferences"
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"

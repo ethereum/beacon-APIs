@@ -6,7 +6,7 @@ Capella:
     required: [parent_hash, fee_recipient, state_root, receipts_root, logs_bloom, prev_randao, block_number, gas_limit, gas_used, timestamp, extra_data, base_fee_per_gas, block_hash]
     properties:
       parent_hash:
-        $ref: '../primitive.yaml#/Root'
+        $ref: '../primitive.yaml#/Hash32'
       fee_recipient:
         $ref: '../primitive.yaml#/ExecutionAddress'
       state_root:
@@ -30,7 +30,7 @@ Capella:
       base_fee_per_gas:
         $ref: '../primitive.yaml#/Uint256'
       block_hash:
-        $ref: '../primitive.yaml#/Root'
+        $ref: '../primitive.yaml#/Hash32'
 
 
   ExecutionPayload:
