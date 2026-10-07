@@ -2504,6 +2504,9 @@ paths:
                           example: '1'
                         minItems: 512
                         maxItems: 512
+            application/octet-stream:
+              schema:
+                description: 'SSZ serialized `Container{slot: Slot, validators: Vector[ValidatorIndex, PTC_SIZE]}` bytes. Use Accept header to choose this response type'
         '400':
           description: 'Invalid state ID or slot, pre-Gloas state or slot, or slot outside the PTC window'
           content:
@@ -2554,6 +2557,31 @@ paths:
               example:
                 code: 404
                 message: Requested item not found
+        '406':
+          description: Accepted media type is not supported.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: 'The media type in "Accept" header is unsupported, and the request has been rejected. This occurs when the server cannot produce a response in the format accepted by the client.'
+                    type: number
+                    example: 406
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 406
+                message: Accepted media type not supported
         '500':
           description: Beacon node internal error.
           content:
