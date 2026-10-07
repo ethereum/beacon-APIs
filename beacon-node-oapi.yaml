@@ -2436,6 +2436,149 @@ paths:
               example:
                 code: 500
                 message: Internal server error
+  '/eth/v1/beacon/states/{state_id}/ptc':
+    get:
+      operationId: getStatePtc
+      summary: Get the payload timeliness committee for a slot.
+      description: |
+        Returns the [payload timeliness committee](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-get_ptc) for the requested slot from the state with the given `state_id`.
+        Should return 400 if the state retrieved or the requested slot is prior to Gloas.
+      tags:
+        - Beacon
+      parameters:
+        - name: state_id
+          in: path
+          required: true
+          example: head
+          schema:
+            type: string
+          description: |
+            State identifier.
+            Can be one of: "head" (canonical head in node's view), "genesis", "finalized", "justified", \<slot\>, \<hex encoded stateRoot with 0x prefix\>.
+        - name: slot
+          description: |
+            Slot for which to retrieve the committee. Defaults to the state's slot.
+            The slot's epoch must be between `get_current_epoch(state) - 1`
+            (or the genesis epoch in the case of underflow) and
+            `get_current_epoch(state) + MIN_SEED_LOOKAHEAD`, inclusive.
+          in: query
+          required: false
+          schema:
+            type: string
+            example: '1'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                title: GetStatePtcResponse
+                type: object
+                required:
+                  - execution_optimistic
+                  - finalized
+                  - data
+                properties:
+                  execution_optimistic:
+                    type: boolean
+                    example: false
+                    description: 'True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.'
+                  finalized:
+                    type: boolean
+                    example: false
+                    description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
+                  data:
+                    type: object
+                    required:
+                      - slot
+                      - validators
+                    properties:
+                      slot:
+                        type: string
+                        example: '1'
+                      validators:
+                        type: array
+                        description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
+                        items:
+                          type: string
+                          example: '1'
+                        minItems: 512
+                        maxItems: 512
+        '400':
+          description: 'Invalid state ID or slot, pre-Gloas state or slot, or slot outside the PTC window'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 400
+                message: Slot is outside the PTC window of the state
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 404
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 404
+                message: Requested item not found
+        '500':
+          description: Beacon node internal error.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    description: Either specific error code in case of invalid request or http status code
+                    type: number
+                    example: 500
+                  message:
+                    description: Message describing error
+                    type: string
+                  stacktraces:
+                    description: 'Optional stacktraces, sent when node is in debug mode'
+                    type: array
+                    items:
+                      type: string
+              example:
+                code: 500
+                message: Internal server error
   '/eth/v1/beacon/states/{state_id}/randao':
     get:
       operationId: getStateRandao
@@ -34909,7 +35052,7 @@ paths:
                             description: Fixed vector of 96 payload-timeliness committees.
                             items:
                               type: array
-                              description: Fixed vector of 512 validator indices.
+                              description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
                               items:
                                 type: string
                                 example: '1'
@@ -80674,7 +80817,7 @@ components:
           description: Fixed vector of 96 payload-timeliness committees.
           items:
             type: array
-            description: Fixed vector of 512 validator indices.
+            description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
             items:
               type: string
               example: '1'
@@ -85629,6 +85772,14 @@ components:
         blob_data_available:
           type: boolean
           description: True if blob data is available for this block
+    Gloas.PayloadTimelinessCommittee:
+      type: array
+      description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
+      items:
+        type: string
+        example: '1'
+      minItems: 512
+      maxItems: 512
     Gloas.PayloadAttestation:
       type: object
       description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
