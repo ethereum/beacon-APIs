@@ -147,17 +147,9 @@ Gloas:
         minLength: 2050
         maxLength: 2050
       builder_pending_payments:
-        type: array
-        description: "Fixed vector of pending builder payments covering two epochs."
-        items:
-          $ref: "./builder.yaml#/Gloas/BuilderPendingPayment"
-        minItems: 64
-        maxItems: 64
+        $ref: "./builder.yaml#/Gloas/BuilderPendingPayments"
       builder_pending_withdrawals:
-        type: array
-        description: "Progressive list of pending builder withdrawals."
-        items:
-          $ref: "./builder.yaml#/Gloas/BuilderPendingWithdrawal"
+        $ref: "./builder.yaml#/Gloas/BuilderPendingWithdrawals"
       latest_execution_payload_bid:
         $ref: "./execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
       payload_expected_withdrawals:
