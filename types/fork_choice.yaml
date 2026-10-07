@@ -34,7 +34,7 @@ ExtraData:
 NodeV2:
   type: object
   description: "A fork choice node, identified by its block root and payload status."
-  required: [slot, block_root, payload_status, parent_root, parent_payload_status, justified_epoch, finalized_epoch, weight, validity, execution_block_hash, payload_attester_count, payload_availability_yes_count, payload_data_availability_yes_count, extra_data]
+  required: [slot, block_root, payload_status, parent_root, parent_payload_status, justified_checkpoint, finalized_checkpoint, weight, validity, execution_block_hash, payload_attester_count, payload_availability_yes_count, payload_data_availability_yes_count, extra_data]
   properties:
     slot:
       $ref: './primitive.yaml#/Uint64'
@@ -60,10 +60,12 @@ NodeV2:
         - type: "null"
         - type: string
           enum: [pending, empty, full]
-    justified_epoch:
-      $ref: './primitive.yaml#/Uint64'
-    finalized_epoch:
-      $ref: './primitive.yaml#/Uint64'
+    justified_checkpoint:
+      $ref: './misc.yaml#/Checkpoint'
+      description: "The justified checkpoint recorded for this fork choice node."
+    finalized_checkpoint:
+      $ref: './misc.yaml#/Checkpoint'
+      description: "The finalized checkpoint recorded for this fork choice node."
     weight:
       $ref: './primitive.yaml#/Gwei'
       description: "The raw stored weight of this fork choice node in Gwei."
