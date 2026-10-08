@@ -27,7 +27,7 @@ info:
         increase in the version number
 
     Note that it is possible for a field to be added to an endpoint's data or metadata without an increase in the version number.
-  version: Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-beta.0
+  version: Dev - Ethereum Proof-of-Stake Consensus Specification v1.7.0-beta.3
   contact:
     name: Ethereum Github
     url: 'https://github.com/ethereum/beacon-apis/issues'
@@ -2024,7 +2024,7 @@ paths:
                           example: active
                         builder:
                           type: object
-                          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+                          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
                           required:
                             - pubkey
                             - version
@@ -2441,7 +2441,7 @@ paths:
       operationId: getStatePtc
       summary: Get the payload timeliness committee for a slot.
       description: |
-        Returns the [payload timeliness committee](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-get_ptc) for the requested slot from the state with the given `state_id`.
+        Returns the [payload timeliness committee](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#new-get_ptc) for the requested slot from the state with the given `state_id`.
         Should return 400 if the state retrieved or the requested slot is prior to Gloas.
       tags:
         - Beacon
@@ -2498,7 +2498,7 @@ paths:
                         example: '1'
                       validators:
                         type: array
-                        description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
+                        description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
                         items:
                           type: string
                           example: '1'
@@ -3416,7 +3416,7 @@ paths:
       operationId: getProposerLookahead
       summary: Get State Proposer Lookahead
       description: |
-        Returns [proposer lookahead](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/fulu/beacon-chain.md#new-proposerlookahead) for the state with the given `state_id`.
+        Returns [proposer lookahead](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/fulu/beacon-chain.md#new-proposerlookahead) for the state with the given `state_id`.
         Should return 400 if the state retrieved is prior to Fulu.
       tags:
         - Beacon
@@ -3660,7 +3660,7 @@ paths:
                     description: Progressive list of pending builder withdrawals.
                     items:
                       type: object
-                      description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                      description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
                       required:
                         - fee_recipient
                         - amount
@@ -3851,7 +3851,7 @@ paths:
                     description: Fixed vector of pending builder payments covering two epochs.
                     items:
                       type: object
-                      description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+                      description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
                       required:
                         - weight
                         - withdrawal
@@ -3862,7 +3862,7 @@ paths:
                           example: '1'
                         withdrawal:
                           type: object
-                          description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                          description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
                           required:
                             - fee_recipient
                             - amount
@@ -8424,13 +8424,13 @@ paths:
             schema:
               anyOf:
                 - type: object
-                  description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
+                  description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
                   required:
                     - message
                     - signature
                   properties:
                     message:
-                      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                       allOf:
                         - type: object
                           required:
@@ -8465,7 +8465,7 @@ paths:
                           properties:
                             body:
                               type: object
-                              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                               required:
                                 - randao_reveal
                                 - eth1_data
@@ -8635,14 +8635,14 @@ paths:
                                   maxItems: 1
                                   items:
                                     type: object
-                                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                     required:
                                       - attestation_1
                                       - attestation_2
                                     properties:
                                       attestation_1:
                                         type: object
-                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                         required:
                                           - attesting_indices
                                           - data
@@ -8715,7 +8715,7 @@ paths:
                                             description: The BLS signature of the indexed attestation.
                                       attestation_2:
                                         type: object
-                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                         required:
                                           - attesting_indices
                                           - data
@@ -8791,7 +8791,7 @@ paths:
                                   maxItems: 8
                                   items:
                                     type: object
-                                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                     required:
                                       - aggregation_bits
                                       - data
@@ -9012,14 +9012,14 @@ paths:
                                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                 signed_execution_payload_bid:
                                   type: object
-                                  description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                                  description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                                   required:
                                     - message
                                     - signature
                                   properties:
                                     message:
                                       type: object
-                                      description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                                      description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                                       required:
                                         - parent_block_hash
                                         - parent_block_root
@@ -9100,7 +9100,7 @@ paths:
                                   description: Payload attestations for the parent beacon block.
                                   items:
                                     type: object
-                                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                     required:
                                       - aggregation_bits
                                       - data
@@ -9116,7 +9116,7 @@ paths:
                                         pattern: '^0x[a-fA-F0-9]{2,}$'
                                       data:
                                         type: object
-                                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                         required:
                                           - beacon_block_root
                                           - slot
@@ -9146,7 +9146,7 @@ paths:
                                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                 parent_execution_requests:
                                   type: object
-                                  description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                                  description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                                   required:
                                     - deposits
                                     - withdrawals
@@ -9256,7 +9256,7 @@ paths:
                                       maxItems: 64
                                       items:
                                         type: object
-                                        description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                        description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                         required:
                                           - pubkey
                                           - withdrawal_credentials
@@ -9290,7 +9290,7 @@ paths:
                                       maxItems: 16
                                       items:
                                         type: object
-                                        description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                        description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                         required:
                                           - source_address
                                           - pubkey
@@ -14271,14 +14271,14 @@ paths:
           application/json:
             schema:
               type: object
-              description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+              description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
               required:
                 - message
                 - signature
               properties:
                 message:
                   type: object
-                  description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                  description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                   required:
                     - parent_block_hash
                     - parent_block_root
@@ -14535,14 +14535,14 @@ paths:
                   properties:
                     signed_execution_payload_envelope:
                       type: object
-                      description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
+                      description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
                       required:
                         - message
                         - signature
                       properties:
                         message:
                           type: object
-                          description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+                          description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
                           required:
                             - payload
                             - execution_requests
@@ -14552,7 +14552,7 @@ paths:
                           properties:
                             payload:
                               type: object
-                              description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+                              description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
                               required:
                                 - parent_hash
                                 - fee_recipient
@@ -14688,7 +14688,7 @@ paths:
                                   example: '1'
                             execution_requests:
                               type: object
-                              description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                              description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                               required:
                                 - deposits
                                 - withdrawals
@@ -14798,7 +14798,7 @@ paths:
                                   maxItems: 64
                                   items:
                                     type: object
-                                    description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                    description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                     required:
                                       - pubkey
                                       - withdrawal_credentials
@@ -14832,7 +14832,7 @@ paths:
                                   maxItems: 16
                                   items:
                                     type: object
-                                    description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                    description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                     required:
                                       - source_address
                                       - pubkey
@@ -14890,14 +14890,14 @@ paths:
                       minItems: 0
                       maxItems: 4096
                 - type: object
-                  description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
+                  description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
                   required:
                     - message
                     - signature
                   properties:
                     message:
                       type: object
-                      description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+                      description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
                       required:
                         - payload
                         - execution_requests
@@ -14907,7 +14907,7 @@ paths:
                       properties:
                         payload:
                           type: object
-                          description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+                          description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
                           required:
                             - parent_hash
                             - fee_recipient
@@ -15043,7 +15043,7 @@ paths:
                               example: '1'
                         execution_requests:
                           type: object
-                          description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                          description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                           required:
                             - deposits
                             - withdrawals
@@ -15153,7 +15153,7 @@ paths:
                               maxItems: 64
                               items:
                                 type: object
-                                description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                 required:
                                   - pubkey
                                   - withdrawal_credentials
@@ -15187,7 +15187,7 @@ paths:
                               maxItems: 16
                               items:
                                 type: object
-                                description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                 required:
                                   - source_address
                                   - pubkey
@@ -15403,14 +15403,14 @@ paths:
                     description: 'True if the response references the finalized history of the chain, as determined by fork choice. If the field is not present, additional calls are necessary to compare the epoch of the requested information with the finalized checkpoint.'
                   data:
                     type: object
-                    description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
+                    description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
                     required:
                       - message
                       - signature
                     properties:
                       message:
                         type: object
-                        description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+                        description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
                         required:
                           - payload
                           - execution_requests
@@ -15420,7 +15420,7 @@ paths:
                         properties:
                           payload:
                             type: object
-                            description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+                            description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
                             required:
                               - parent_hash
                               - fee_recipient
@@ -15556,7 +15556,7 @@ paths:
                                 example: '1'
                           execution_requests:
                             type: object
-                            description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                            description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                             required:
                               - deposits
                               - withdrawals
@@ -15666,7 +15666,7 @@ paths:
                                 maxItems: 64
                                 items:
                                   type: object
-                                  description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                  description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                   required:
                                     - pubkey
                                     - withdrawal_credentials
@@ -15700,7 +15700,7 @@ paths:
                                 maxItems: 16
                                 items:
                                   type: object
-                                  description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                  description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                   required:
                                     - source_address
                                     - pubkey
@@ -15910,14 +15910,14 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
+                      description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
                       required:
                         - message
                         - signature
                       properties:
                         message:
                           type: object
-                          description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
+                          description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
                           required:
                             - dependent_root
                             - proposal_slot
@@ -16081,13 +16081,13 @@ paths:
                   data:
                     anyOf:
                       - type: object
-                        description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
+                        description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
                         required:
                           - message
                           - signature
                         properties:
                           message:
-                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                             allOf:
                               - type: object
                                 required:
@@ -16122,7 +16122,7 @@ paths:
                                 properties:
                                   body:
                                     type: object
-                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                                     required:
                                       - randao_reveal
                                       - eth1_data
@@ -16292,14 +16292,14 @@ paths:
                                         maxItems: 1
                                         items:
                                           type: object
-                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                           required:
                                             - attestation_1
                                             - attestation_2
                                           properties:
                                             attestation_1:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -16372,7 +16372,7 @@ paths:
                                                   description: The BLS signature of the indexed attestation.
                                             attestation_2:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -16448,7 +16448,7 @@ paths:
                                         maxItems: 8
                                         items:
                                           type: object
-                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
@@ -16669,14 +16669,14 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       signed_execution_payload_bid:
                                         type: object
-                                        description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                                        description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                                         required:
                                           - message
                                           - signature
                                         properties:
                                           message:
                                             type: object
-                                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                                             required:
                                               - parent_block_hash
                                               - parent_block_root
@@ -16757,7 +16757,7 @@ paths:
                                         description: Payload attestations for the parent beacon block.
                                         items:
                                           type: object
-                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
@@ -16773,7 +16773,7 @@ paths:
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             data:
                                               type: object
-                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                               required:
                                                 - beacon_block_root
                                                 - slot
@@ -16803,7 +16803,7 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       parent_execution_requests:
                                         type: object
-                                        description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                                        description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                                         required:
                                           - deposits
                                           - withdrawals
@@ -16913,7 +16913,7 @@ paths:
                                             maxItems: 64
                                             items:
                                               type: object
-                                              description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                              description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                               required:
                                                 - pubkey
                                                 - withdrawal_credentials
@@ -16947,7 +16947,7 @@ paths:
                                             maxItems: 16
                                             items:
                                               type: object
-                                              description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                              description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                               required:
                                                 - source_address
                                                 - pubkey
@@ -21181,7 +21181,7 @@ paths:
                       - type: array
                         items:
                           type: object
-                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                           required:
                             - aggregation_bits
                             - data
@@ -21743,7 +21743,7 @@ paths:
                       - type: array
                         items:
                           type: object
-                          description: 'The [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#modified-datacolumnsidecar) object from the CL Gloas spec.'
+                          description: 'The [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#modified-datacolumnsidecar) object from the CL Gloas spec.'
                           required:
                             - index
                             - column
@@ -26583,7 +26583,7 @@ paths:
                         properties:
                           header:
                             type: object
-                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
                             required:
                               - beacon
                               - execution_block_hash
@@ -26636,7 +26636,7 @@ paths:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                               execution_branch:
                                 type: array
-                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                                 items:
                                   type: string
                                   format: hex
@@ -26668,7 +26668,7 @@ paths:
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                           current_sync_committee_branch:
                             type: array
-                            description: 'Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                            description: 'Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                             items:
                               type: string
                               format: hex
@@ -27503,7 +27503,7 @@ paths:
                           properties:
                             attested_header:
                               type: object
-                              description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+                              description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
                               required:
                                 - beacon
                                 - execution_block_hash
@@ -27556,7 +27556,7 @@ paths:
                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                 execution_branch:
                                   type: array
-                                  description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                                  description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                                   items:
                                     type: string
                                     format: hex
@@ -27588,7 +27588,7 @@ paths:
                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                             next_sync_committee_branch:
                               type: array
-                              description: 'Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                              description: 'Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                               items:
                                 type: string
                                 format: hex
@@ -27598,7 +27598,7 @@ paths:
                               maxItems: 11
                             finalized_header:
                               type: object
-                              description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+                              description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
                               required:
                                 - beacon
                                 - execution_block_hash
@@ -27651,7 +27651,7 @@ paths:
                                   pattern: '^0x[a-fA-F0-9]{64}$'
                                 execution_branch:
                                   type: array
-                                  description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                                  description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                                   items:
                                     type: string
                                     format: hex
@@ -27661,7 +27661,7 @@ paths:
                                   maxItems: 11
                             finality_branch:
                               type: array
-                              description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                              description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                               items:
                                 type: string
                                 format: hex
@@ -29179,7 +29179,7 @@ paths:
                         properties:
                           attested_header:
                             type: object
-                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
                             required:
                               - beacon
                               - execution_block_hash
@@ -29232,7 +29232,7 @@ paths:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                               execution_branch:
                                 type: array
-                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                                 items:
                                   type: string
                                   format: hex
@@ -29242,7 +29242,7 @@ paths:
                                 maxItems: 11
                           finalized_header:
                             type: object
-                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
                             required:
                               - beacon
                               - execution_block_hash
@@ -29295,7 +29295,7 @@ paths:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                               execution_branch:
                                 type: array
-                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                                 items:
                                   type: string
                                   format: hex
@@ -29305,7 +29305,7 @@ paths:
                                 maxItems: 11
                           finality_branch:
                             type: array
-                            description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                            description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                             items:
                               type: string
                               format: hex
@@ -30647,7 +30647,7 @@ paths:
                         properties:
                           attested_header:
                             type: object
-                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+                            description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
                             required:
                               - beacon
                               - execution_block_hash
@@ -30700,7 +30700,7 @@ paths:
                                 pattern: '^0x[a-fA-F0-9]{64}$'
                               execution_branch:
                                 type: array
-                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+                                description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
                                 items:
                                   type: string
                                   format: hex
@@ -31490,7 +31490,7 @@ paths:
                       - type: array
                         items:
                           type: object
-                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                           required:
                             - aggregation_bits
                             - data
@@ -32104,7 +32104,7 @@ paths:
                     type: array
                     items:
                       type: object
-                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                       required:
                         - aggregation_bits
                         - data
@@ -32120,7 +32120,7 @@ paths:
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         data:
                           type: object
-                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                           required:
                             - beacon_block_root
                             - slot
@@ -32243,7 +32243,7 @@ paths:
               type: array
               items:
                 type: object
-                description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
+                description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
                 required:
                   - validator_index
                   - data
@@ -32255,7 +32255,7 @@ paths:
                     description: Index of the validator submitting the payload attestation
                   data:
                     type: object
-                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                     required:
                       - beacon_block_root
                       - slot
@@ -32430,14 +32430,14 @@ paths:
                       - type: array
                         items:
                           type: object
-                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                           required:
                             - attestation_1
                             - attestation_2
                           properties:
                             attestation_1:
                               type: object
-                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                               required:
                                 - attesting_indices
                                 - data
@@ -32510,7 +32510,7 @@ paths:
                                   description: The BLS signature of the indexed attestation.
                             attestation_2:
                               type: object
-                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                               required:
                                 - attesting_indices
                                 - data
@@ -32944,14 +32944,14 @@ paths:
             schema:
               anyOf:
                 - type: object
-                  description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                  description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                   required:
                     - attestation_1
                     - attestation_2
                   properties:
                     attestation_1:
                       type: object
-                      description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                      description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                       required:
                         - attesting_indices
                         - data
@@ -33024,7 +33024,7 @@ paths:
                           description: The BLS signature of the indexed attestation.
                     attestation_2:
                       type: object
-                      description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                      description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                       required:
                         - attesting_indices
                         - data
@@ -34320,7 +34320,7 @@ paths:
                   data:
                     anyOf:
                       - type: object
-                        description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec.'
+                        description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec.'
                         required:
                           - genesis_time
                           - genesis_validators_root
@@ -34862,7 +34862,7 @@ paths:
                             description: Progressive list of builders.
                             items:
                               type: object
-                              description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+                              description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
                               required:
                                 - pubkey
                                 - version
@@ -34916,7 +34916,7 @@ paths:
                             description: Fixed vector of pending builder payments covering two epochs.
                             items:
                               type: object
-                              description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+                              description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
                               required:
                                 - weight
                                 - withdrawal
@@ -34927,7 +34927,7 @@ paths:
                                   example: '1'
                                 withdrawal:
                                   type: object
-                                  description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                                  description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
                                   required:
                                     - fee_recipient
                                     - amount
@@ -34955,7 +34955,7 @@ paths:
                             description: Progressive list of pending builder withdrawals.
                             items:
                               type: object
-                              description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                              description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
                               required:
                                 - fee_recipient
                                 - amount
@@ -34975,7 +34975,7 @@ paths:
                                   example: '1'
                           latest_execution_payload_bid:
                             type: object
-                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                             required:
                               - parent_block_hash
                               - parent_block_root
@@ -35080,7 +35080,7 @@ paths:
                             description: Fixed vector of 96 payload-timeliness committees.
                             items:
                               type: array
-                              description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
+                              description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
                               items:
                                 type: string
                                 example: '1'
@@ -38897,7 +38897,7 @@ paths:
       summary: Get fork choice array
       description: |
         Retrieves all current fork choice context, with one node per `(block_root, payload_status)` pair.
-        Parent links follow the [fork choice tree](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#modified-get_node_children).
+        Parent links follow the [fork choice tree](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#modified-get_node_children).
         Each pre-Gloas block has a single `full` node.
 
         Payload Timeliness Committee (PTC) counts are per committee position, including repeated validator
@@ -48920,7 +48920,7 @@ paths:
                     example: false
                   data:
                     anyOf:
-                      - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                      - description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                         allOf:
                           - type: object
                             required:
@@ -48955,7 +48955,7 @@ paths:
                             properties:
                               body:
                                 type: object
-                                description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                                description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                                 required:
                                   - randao_reveal
                                   - eth1_data
@@ -49125,14 +49125,14 @@ paths:
                                     maxItems: 1
                                     items:
                                       type: object
-                                      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                       required:
                                         - attestation_1
                                         - attestation_2
                                       properties:
                                         attestation_1:
                                           type: object
-                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                           required:
                                             - attesting_indices
                                             - data
@@ -49205,7 +49205,7 @@ paths:
                                               description: The BLS signature of the indexed attestation.
                                         attestation_2:
                                           type: object
-                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                           required:
                                             - attesting_indices
                                             - data
@@ -49281,7 +49281,7 @@ paths:
                                     maxItems: 8
                                     items:
                                       type: object
-                                      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                                      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                       required:
                                         - aggregation_bits
                                         - data
@@ -49502,14 +49502,14 @@ paths:
                                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                   signed_execution_payload_bid:
                                     type: object
-                                    description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                                    description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                                     required:
                                       - message
                                       - signature
                                     properties:
                                       message:
                                         type: object
-                                        description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                                        description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                                         required:
                                           - parent_block_hash
                                           - parent_block_root
@@ -49590,7 +49590,7 @@ paths:
                                     description: Payload attestations for the parent beacon block.
                                     items:
                                       type: object
-                                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                       required:
                                         - aggregation_bits
                                         - data
@@ -49606,7 +49606,7 @@ paths:
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         data:
                                           type: object
-                                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                           required:
                                             - beacon_block_root
                                             - slot
@@ -49636,7 +49636,7 @@ paths:
                                           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                   parent_execution_requests:
                                     type: object
-                                    description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                                    description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                                     required:
                                       - deposits
                                       - withdrawals
@@ -49746,7 +49746,7 @@ paths:
                                         maxItems: 64
                                         items:
                                           type: object
-                                          description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                          description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                           required:
                                             - pubkey
                                             - withdrawal_credentials
@@ -49780,7 +49780,7 @@ paths:
                                         maxItems: 16
                                         items:
                                           type: object
-                                          description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                          description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                           required:
                                             - source_address
                                             - pubkey
@@ -49809,7 +49809,7 @@ paths:
                           - blobs
                         properties:
                           block:
-                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+                            description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
                             allOf:
                               - type: object
                                 required:
@@ -49844,7 +49844,7 @@ paths:
                                 properties:
                                   body:
                                     type: object
-                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                                    description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                                     required:
                                       - randao_reveal
                                       - eth1_data
@@ -50014,14 +50014,14 @@ paths:
                                         maxItems: 1
                                         items:
                                           type: object
-                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                                          description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                                           required:
                                             - attestation_1
                                             - attestation_2
                                           properties:
                                             attestation_1:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -50094,7 +50094,7 @@ paths:
                                                   description: The BLS signature of the indexed attestation.
                                             attestation_2:
                                               type: object
-                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                                              description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                                               required:
                                                 - attesting_indices
                                                 - data
@@ -50170,7 +50170,7 @@ paths:
                                         maxItems: 8
                                         items:
                                           type: object
-                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                                          description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
@@ -50391,14 +50391,14 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       signed_execution_payload_bid:
                                         type: object
-                                        description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                                        description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                                         required:
                                           - message
                                           - signature
                                         properties:
                                           message:
                                             type: object
-                                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                                            description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                                             required:
                                               - parent_block_hash
                                               - parent_block_root
@@ -50479,7 +50479,7 @@ paths:
                                         description: Payload attestations for the parent beacon block.
                                         items:
                                           type: object
-                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                                          description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                                           required:
                                             - aggregation_bits
                                             - data
@@ -50495,7 +50495,7 @@ paths:
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             data:
                                               type: object
-                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                                              description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                                               required:
                                                 - beacon_block_root
                                                 - slot
@@ -50525,7 +50525,7 @@ paths:
                                               example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                                       parent_execution_requests:
                                         type: object
-                                        description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                                        description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                                         required:
                                           - deposits
                                           - withdrawals
@@ -50635,7 +50635,7 @@ paths:
                                             maxItems: 64
                                             items:
                                               type: object
-                                              description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                              description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                               required:
                                                 - pubkey
                                                 - withdrawal_credentials
@@ -50669,7 +50669,7 @@ paths:
                                             maxItems: 16
                                             items:
                                               type: object
-                                              description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                              description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                               required:
                                                 - source_address
                                                 - pubkey
@@ -50688,7 +50688,7 @@ paths:
                                                   example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
                           execution_payload_envelope:
                             type: object
-                            description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+                            description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
                             required:
                               - payload
                               - execution_requests
@@ -50698,7 +50698,7 @@ paths:
                             properties:
                               payload:
                                 type: object
-                                description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+                                description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
                                 required:
                                   - parent_hash
                                   - fee_recipient
@@ -50834,7 +50834,7 @@ paths:
                                     example: '1'
                               execution_requests:
                                 type: object
-                                description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                                description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                                 required:
                                   - deposits
                                   - withdrawals
@@ -50944,7 +50944,7 @@ paths:
                                     maxItems: 64
                                     items:
                                       type: object
-                                      description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                                      description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                                       required:
                                         - pubkey
                                         - withdrawal_credentials
@@ -50978,7 +50978,7 @@ paths:
                                     maxItems: 16
                                     items:
                                       type: object
-                                      description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                                      description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                                       required:
                                         - source_address
                                         - pubkey
@@ -51419,7 +51419,7 @@ paths:
                     example: gloas
                   data:
                     type: object
-                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                    description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                     required:
                       - beacon_block_root
                       - slot
@@ -51627,7 +51627,7 @@ paths:
                   data:
                     anyOf:
                       - type: object
-                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -52015,7 +52015,7 @@ paths:
                 - type: array
                   items:
                     type: object
-                    description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#signedaggregateandproof) object'
+                    description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/validator.md#signedaggregateandproof) object'
                     required:
                       - message
                       - signature
@@ -52023,7 +52023,7 @@ paths:
                       message:
                         allOf:
                           - type: object
-                            description: 'The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#aggregateandproof) without selection_proof'
+                            description: 'The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/validator.md#aggregateandproof) without selection_proof'
                             required:
                               - aggregator_index
                               - aggregate
@@ -52033,7 +52033,7 @@ paths:
                                 example: '1'
                               aggregate:
                                 type: object
-                                description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                                description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                                 required:
                                   - aggregation_bits
                                   - data
@@ -53638,14 +53638,14 @@ paths:
               type: array
               items:
                 type: object
-                description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
+                description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
                 required:
                   - message
                   - signature
                 properties:
                   message:
                     type: object
-                    description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
+                    description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
                     required:
                       - dependent_root
                       - proposal_slot
@@ -54223,7 +54223,7 @@ paths:
                     example: gloas
                   data:
                     type: object
-                    description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+                    description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
                     required:
                       - payload
                       - execution_requests
@@ -54233,7 +54233,7 @@ paths:
                     properties:
                       payload:
                         type: object
-                        description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+                        description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
                         required:
                           - parent_hash
                           - fee_recipient
@@ -54369,7 +54369,7 @@ paths:
                             example: '1'
                       execution_requests:
                         type: object
-                        description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                        description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                         required:
                           - deposits
                           - withdrawals
@@ -54479,7 +54479,7 @@ paths:
                             maxItems: 64
                             items:
                               type: object
-                              description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                              description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                               required:
                                 - pubkey
                                 - withdrawal_credentials
@@ -54513,7 +54513,7 @@ paths:
                             maxItems: 16
                             items:
                               type: object
-                              description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                              description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                               required:
                                 - source_address
                                 - pubkey
@@ -55065,7 +55065,7 @@ components:
           example: active
         builder:
           type: object
-          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+          description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
           required:
             - pubkey
             - version
@@ -80085,7 +80085,7 @@ components:
             description: Index of validator to consolidate to.
     Gloas.BeaconState:
       type: object
-      description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec.'
+      description: 'The [`BeaconState`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconstate) object from the CL Gloas spec.'
       required:
         - genesis_time
         - genesis_validators_root
@@ -80627,7 +80627,7 @@ components:
           description: Progressive list of builders.
           items:
             type: object
-            description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+            description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
             required:
               - pubkey
               - version
@@ -80681,7 +80681,7 @@ components:
           description: Fixed vector of pending builder payments covering two epochs.
           items:
             type: object
-            description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+            description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
             required:
               - weight
               - withdrawal
@@ -80692,7 +80692,7 @@ components:
                 example: '1'
               withdrawal:
                 type: object
-                description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+                description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
                 required:
                   - fee_recipient
                   - amount
@@ -80720,7 +80720,7 @@ components:
           description: Progressive list of pending builder withdrawals.
           items:
             type: object
-            description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+            description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
             required:
               - fee_recipient
               - amount
@@ -80740,7 +80740,7 @@ components:
                 example: '1'
         latest_execution_payload_bid:
           type: object
-          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
           required:
             - parent_block_hash
             - parent_block_root
@@ -80845,7 +80845,7 @@ components:
           description: Fixed vector of 96 payload-timeliness committees.
           items:
             type: array
-            description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
+            description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
             items:
               type: string
               example: '1'
@@ -80862,7 +80862,7 @@ components:
       properties:
         header:
           type: object
-          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
           required:
             - beacon
             - execution_block_hash
@@ -80915,7 +80915,7 @@ components:
               pattern: '^0x[a-fA-F0-9]{64}$'
             execution_branch:
               type: array
-              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
               items:
                 type: string
                 format: hex
@@ -80947,7 +80947,7 @@ components:
               example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
         current_sync_committee_branch:
           type: array
-          description: 'Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+          description: 'Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
           items:
             type: string
             format: hex
@@ -80968,7 +80968,7 @@ components:
       properties:
         attested_header:
           type: object
-          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
           required:
             - beacon
             - execution_block_hash
@@ -81021,7 +81021,7 @@ components:
               pattern: '^0x[a-fA-F0-9]{64}$'
             execution_branch:
               type: array
-              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
               items:
                 type: string
                 format: hex
@@ -81053,7 +81053,7 @@ components:
               example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
         next_sync_committee_branch:
           type: array
-          description: 'Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+          description: 'Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
           items:
             type: string
             format: hex
@@ -81063,7 +81063,7 @@ components:
           maxItems: 11
         finalized_header:
           type: object
-          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
           required:
             - beacon
             - execution_block_hash
@@ -81116,7 +81116,7 @@ components:
               pattern: '^0x[a-fA-F0-9]{64}$'
             execution_branch:
               type: array
-              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
               items:
                 type: string
                 format: hex
@@ -81126,7 +81126,7 @@ components:
               maxItems: 11
         finality_branch:
           type: array
-          description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+          description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
           items:
             type: string
             format: hex
@@ -81166,7 +81166,7 @@ components:
       properties:
         attested_header:
           type: object
-          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
           required:
             - beacon
             - execution_block_hash
@@ -81219,7 +81219,7 @@ components:
               pattern: '^0x[a-fA-F0-9]{64}$'
             execution_branch:
               type: array
-              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
               items:
                 type: string
                 format: hex
@@ -81229,7 +81229,7 @@ components:
               maxItems: 11
         finalized_header:
           type: object
-          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
           required:
             - beacon
             - execution_block_hash
@@ -81282,7 +81282,7 @@ components:
               pattern: '^0x[a-fA-F0-9]{64}$'
             execution_branch:
               type: array
-              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
               items:
                 type: string
                 format: hex
@@ -81292,7 +81292,7 @@ components:
               maxItems: 11
         finality_branch:
           type: array
-          description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+          description: 'Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
           items:
             type: string
             format: hex
@@ -81330,7 +81330,7 @@ components:
       properties:
         attested_header:
           type: object
-          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
+          description: 'The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec.'
           required:
             - beacon
             - execution_block_hash
@@ -81383,7 +81383,7 @@ components:
               pattern: '^0x[a-fA-F0-9]{64}$'
             execution_branch:
               type: array
-              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
+              description: 'Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots'
               items:
                 type: string
                 format: hex
@@ -81413,7 +81413,7 @@ components:
           type: string
           example: '1'
     Gloas.BeaconBlock:
-      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+      description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
       allOf:
         - type: object
           required:
@@ -81448,7 +81448,7 @@ components:
           properties:
             body:
               type: object
-              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+              description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
               required:
                 - randao_reveal
                 - eth1_data
@@ -81618,14 +81618,14 @@ components:
                   maxItems: 1
                   items:
                     type: object
-                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                    description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                     required:
                       - attestation_1
                       - attestation_2
                     properties:
                       attestation_1:
                         type: object
-                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                         required:
                           - attesting_indices
                           - data
@@ -81698,7 +81698,7 @@ components:
                             description: The BLS signature of the indexed attestation.
                       attestation_2:
                         type: object
-                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                        description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                         required:
                           - attesting_indices
                           - data
@@ -81774,7 +81774,7 @@ components:
                   maxItems: 8
                   items:
                     type: object
-                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                    description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                     required:
                       - aggregation_bits
                       - data
@@ -81995,14 +81995,14 @@ components:
                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 signed_execution_payload_bid:
                   type: object
-                  description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                  description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                   required:
                     - message
                     - signature
                   properties:
                     message:
                       type: object
-                      description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                      description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                       required:
                         - parent_block_hash
                         - parent_block_root
@@ -82083,7 +82083,7 @@ components:
                   description: Payload attestations for the parent beacon block.
                   items:
                     type: object
-                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                    description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                     required:
                       - aggregation_bits
                       - data
@@ -82099,7 +82099,7 @@ components:
                         pattern: '^0x[a-fA-F0-9]{2,}$'
                       data:
                         type: object
-                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                        description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                         required:
                           - beacon_block_root
                           - slot
@@ -82129,7 +82129,7 @@ components:
                         example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                 parent_execution_requests:
                   type: object
-                  description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                  description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                   required:
                     - deposits
                     - withdrawals
@@ -82239,7 +82239,7 @@ components:
                       maxItems: 64
                       items:
                         type: object
-                        description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                        description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                         required:
                           - pubkey
                           - withdrawal_credentials
@@ -82273,7 +82273,7 @@ components:
                       maxItems: 16
                       items:
                         type: object
-                        description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                        description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                         required:
                           - source_address
                           - pubkey
@@ -82292,13 +82292,13 @@ components:
                             example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
     Gloas.SignedBeaconBlock:
       type: object
-      description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
+      description: 'The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#signedbeaconblock) object envelope from the CL Gloas spec.'
       required:
         - message
         - signature
       properties:
         message:
-          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
           allOf:
             - type: object
               required:
@@ -82333,7 +82333,7 @@ components:
               properties:
                 body:
                   type: object
-                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                   required:
                     - randao_reveal
                     - eth1_data
@@ -82503,14 +82503,14 @@ components:
                       maxItems: 1
                       items:
                         type: object
-                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                         required:
                           - attestation_1
                           - attestation_2
                         properties:
                           attestation_1:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -82583,7 +82583,7 @@ components:
                                 description: The BLS signature of the indexed attestation.
                           attestation_2:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -82659,7 +82659,7 @@ components:
                       maxItems: 8
                       items:
                         type: object
-                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -82880,14 +82880,14 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     signed_execution_payload_bid:
                       type: object
-                      description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                      description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                       required:
                         - message
                         - signature
                       properties:
                         message:
                           type: object
-                          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                           required:
                             - parent_block_hash
                             - parent_block_root
@@ -82968,7 +82968,7 @@ components:
                       description: Payload attestations for the parent beacon block.
                       items:
                         type: object
-                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -82984,7 +82984,7 @@ components:
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                           data:
                             type: object
-                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                             required:
                               - beacon_block_root
                               - slot
@@ -83014,7 +83014,7 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     parent_execution_requests:
                       type: object
-                      description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                      description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                       required:
                         - deposits
                         - withdrawals
@@ -83124,7 +83124,7 @@ components:
                           maxItems: 64
                           items:
                             type: object
-                            description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                            description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                             required:
                               - pubkey
                               - withdrawal_credentials
@@ -83158,7 +83158,7 @@ components:
                           maxItems: 16
                           items:
                             type: object
-                            description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                            description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                             required:
                               - source_address
                               - pubkey
@@ -83182,7 +83182,7 @@ components:
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.Builder:
       type: object
-      description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
+      description: 'The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec.'
       required:
         - pubkey
         - version
@@ -83233,7 +83233,7 @@ components:
         - blobs
       properties:
         block:
-          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
+          description: 'The [`BeaconBlock`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/beacon-chain.md#beaconblock) object from the CL Gloas spec.'
           allOf:
             - type: object
               required:
@@ -83268,7 +83268,7 @@ components:
               properties:
                 body:
                   type: object
-                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
+                  description: 'The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#beaconblockbody) object from the CL Gloas spec.'
                   required:
                     - randao_reveal
                     - eth1_data
@@ -83438,14 +83438,14 @@ components:
                       maxItems: 1
                       items:
                         type: object
-                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+                        description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
                         required:
                           - attestation_1
                           - attestation_2
                         properties:
                           attestation_1:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -83518,7 +83518,7 @@ components:
                                 description: The BLS signature of the indexed attestation.
                           attestation_2:
                             type: object
-                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+                            description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
                             required:
                               - attesting_indices
                               - data
@@ -83594,7 +83594,7 @@ components:
                       maxItems: 8
                       items:
                         type: object
-                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                        description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -83815,14 +83815,14 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     signed_execution_payload_bid:
                       type: object
-                      description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+                      description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
                       required:
                         - message
                         - signature
                       properties:
                         message:
                           type: object
-                          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+                          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
                           required:
                             - parent_block_hash
                             - parent_block_root
@@ -83903,7 +83903,7 @@ components:
                       description: Payload attestations for the parent beacon block.
                       items:
                         type: object
-                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+                        description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
                         required:
                           - aggregation_bits
                           - data
@@ -83919,7 +83919,7 @@ components:
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                           data:
                             type: object
-                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+                            description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
                             required:
                               - beacon_block_root
                               - slot
@@ -83949,7 +83949,7 @@ components:
                             example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
                     parent_execution_requests:
                       type: object
-                      description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                      description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                       required:
                         - deposits
                         - withdrawals
@@ -84059,7 +84059,7 @@ components:
                           maxItems: 64
                           items:
                             type: object
-                            description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                            description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                             required:
                               - pubkey
                               - withdrawal_credentials
@@ -84093,7 +84093,7 @@ components:
                           maxItems: 16
                           items:
                             type: object
-                            description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                            description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                             required:
                               - source_address
                               - pubkey
@@ -84112,7 +84112,7 @@ components:
                                 example: '0x93247f2209abcacf57b75a51dafae777f9dd38bc7053d1af526f220a7489a6d3a2753e5f3e8b1cfe39b56f43611df74a'
         execution_payload_envelope:
           type: object
-          description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+          description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
           required:
             - payload
             - execution_requests
@@ -84122,7 +84122,7 @@ components:
           properties:
             payload:
               type: object
-              description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+              description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
               required:
                 - parent_hash
                 - fee_recipient
@@ -84258,7 +84258,7 @@ components:
                   example: '1'
             execution_requests:
               type: object
-              description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+              description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
               required:
                 - deposits
                 - withdrawals
@@ -84368,7 +84368,7 @@ components:
                   maxItems: 64
                   items:
                     type: object
-                    description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                    description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                     required:
                       - pubkey
                       - withdrawal_credentials
@@ -84402,7 +84402,7 @@ components:
                   maxItems: 16
                   items:
                     type: object
-                    description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                    description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                     required:
                       - source_address
                       - pubkey
@@ -84455,7 +84455,7 @@ components:
           maxItems: 4096
     Gloas.ExecutionPayloadBid:
       type: object
-      description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+      description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
       required:
         - parent_block_hash
         - parent_block_root
@@ -84527,14 +84527,14 @@ components:
           pattern: '^0x[a-fA-F0-9]{64}$'
     Gloas.SignedExecutionPayloadBid:
       type: object
-      description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
+      description: 'The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadbid) object from the CL Gloas spec.'
       required:
         - message
         - signature
       properties:
         message:
           type: object
-          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
+          description: 'The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec.'
           required:
             - parent_block_hash
             - parent_block_root
@@ -84611,7 +84611,7 @@ components:
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.ExecutionPayload:
       type: object
-      description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+      description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
       required:
         - parent_hash
         - fee_recipient
@@ -84747,7 +84747,7 @@ components:
           example: '1'
     Gloas.ExecutionPayloadEnvelope:
       type: object
-      description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+      description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
       required:
         - payload
         - execution_requests
@@ -84757,7 +84757,7 @@ components:
       properties:
         payload:
           type: object
-          description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+          description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
           required:
             - parent_hash
             - fee_recipient
@@ -84893,7 +84893,7 @@ components:
               example: '1'
         execution_requests:
           type: object
-          description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+          description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
           required:
             - deposits
             - withdrawals
@@ -85003,7 +85003,7 @@ components:
               maxItems: 64
               items:
                 type: object
-                description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                 required:
                   - pubkey
                   - withdrawal_credentials
@@ -85037,7 +85037,7 @@ components:
               maxItems: 16
               items:
                 type: object
-                description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                 required:
                   - source_address
                   - pubkey
@@ -85072,14 +85072,14 @@ components:
           description: Root of the parent beacon block
     Gloas.SignedExecutionPayloadEnvelope:
       type: object
-      description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
+      description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
       required:
         - message
         - signature
       properties:
         message:
           type: object
-          description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+          description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
           required:
             - payload
             - execution_requests
@@ -85089,7 +85089,7 @@ components:
           properties:
             payload:
               type: object
-              description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+              description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
               required:
                 - parent_hash
                 - fee_recipient
@@ -85225,7 +85225,7 @@ components:
                   example: '1'
             execution_requests:
               type: object
-              description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+              description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
               required:
                 - deposits
                 - withdrawals
@@ -85335,7 +85335,7 @@ components:
                   maxItems: 64
                   items:
                     type: object
-                    description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                    description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                     required:
                       - pubkey
                       - withdrawal_credentials
@@ -85369,7 +85369,7 @@ components:
                   maxItems: 16
                   items:
                     type: object
-                    description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                    description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                     required:
                       - source_address
                       - pubkey
@@ -85421,14 +85421,14 @@ components:
       properties:
         signed_execution_payload_envelope:
           type: object
-          description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
+          description: 'The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec.'
           required:
             - message
             - signature
           properties:
             message:
               type: object
-              description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
+              description: 'The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec.'
               required:
                 - payload
                 - execution_requests
@@ -85438,7 +85438,7 @@ components:
               properties:
                 payload:
                   type: object
-                  description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
+                  description: 'The [`ExecutionPayload`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayload) object from the CL Gloas spec.'
                   required:
                     - parent_hash
                     - fee_recipient
@@ -85574,7 +85574,7 @@ components:
                       example: '1'
                 execution_requests:
                   type: object
-                  description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
+                  description: 'The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionrequests) object from the CL Gloas spec.'
                   required:
                     - deposits
                     - withdrawals
@@ -85684,7 +85684,7 @@ components:
                       maxItems: 64
                       items:
                         type: object
-                        description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
+                        description: 'The [`BuilderDepositRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderdepositrequest) object from the CL Gloas spec.'
                         required:
                           - pubkey
                           - withdrawal_credentials
@@ -85718,7 +85718,7 @@ components:
                       maxItems: 16
                       items:
                         type: object
-                        description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
+                        description: 'The [`BuilderExitRequest`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderexitrequest) object from the CL Gloas spec.'
                         required:
                           - source_address
                           - pubkey
@@ -85777,7 +85777,7 @@ components:
           maxItems: 4096
     Gloas.PayloadAttestationData:
       type: object
-      description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+      description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
       required:
         - beacon_block_root
         - slot
@@ -85802,7 +85802,7 @@ components:
           description: True if blob data is available for this block
     Gloas.PayloadTimelinessCommittee:
       type: array
-      description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
+      description: 'The [`PayloadTimelinessCommittee`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#new-payloadtimelinesscommittee) vector from the CL Gloas spec. Validator indices are in committee order and may contain duplicates.'
       items:
         type: string
         example: '1'
@@ -85810,7 +85810,7 @@ components:
       maxItems: 512
     Gloas.PayloadAttestation:
       type: object
-      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
+      description: 'The [`PayloadAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestation) object from the CL Gloas spec.'
       required:
         - aggregation_bits
         - data
@@ -85826,7 +85826,7 @@ components:
           pattern: '^0x[a-fA-F0-9]{2,}$'
         data:
           type: object
-          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
           required:
             - beacon_block_root
             - slot
@@ -85856,7 +85856,7 @@ components:
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.PayloadAttestationMessage:
       type: object
-      description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
+      description: 'The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationmessage) object from the CL Gloas spec.'
       required:
         - validator_index
         - data
@@ -85868,7 +85868,7 @@ components:
           description: Index of the validator submitting the payload attestation
         data:
           type: object
-          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
+          description: 'The [`PayloadAttestationData`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#payloadattestationdata) object from the CL Gloas spec.'
           required:
             - beacon_block_root
             - slot
@@ -85899,7 +85899,7 @@ components:
           description: BLS signature of the payload attestation data
     Gloas.Attestation:
       type: object
-      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+      description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
       required:
         - aggregation_bits
         - data
@@ -85981,14 +85981,14 @@ components:
           pattern: '^0x[a-fA-F0-9]{2,}$'
     Gloas.AttesterSlashing:
       type: object
-      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
+      description: 'The [`AttesterSlashing`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/beacon-chain.md#attesterslashing) object from the CL spec.'
       required:
         - attestation_1
         - attestation_2
       properties:
         attestation_1:
           type: object
-          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
           required:
             - attesting_indices
             - data
@@ -86061,7 +86061,7 @@ components:
               description: The BLS signature of the indexed attestation.
         attestation_2:
           type: object
-          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
+          description: 'The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec.'
           required:
             - attesting_indices
             - data
@@ -86134,7 +86134,7 @@ components:
               description: The BLS signature of the indexed attestation.
     Gloas.SignedAggregateAndProof:
       type: object
-      description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#signedaggregateandproof) object'
+      description: 'The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/validator.md#signedaggregateandproof) object'
       required:
         - message
         - signature
@@ -86142,7 +86142,7 @@ components:
         message:
           allOf:
             - type: object
-              description: 'The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/electra/validator.md#aggregateandproof) without selection_proof'
+              description: 'The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/electra/validator.md#aggregateandproof) without selection_proof'
               required:
                 - aggregator_index
                 - aggregate
@@ -86152,7 +86152,7 @@ components:
                   example: '1'
                 aggregate:
                   type: object
-                  description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
+                  description: 'The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec.'
                   required:
                     - aggregation_bits
                     - data
@@ -86248,7 +86248,7 @@ components:
           example: '0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505'
     Gloas.ProposerPreferences:
       type: object
-      description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
+      description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
       required:
         - dependent_root
         - proposal_slot
@@ -86282,14 +86282,14 @@ components:
           description: Preferred gas limit for the execution payload.
     Gloas.SignedProposerPreferences:
       type: object
-      description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
+      description: 'The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-signedproposerpreferences) object from the CL Gloas spec.'
       required:
         - message
         - signature
       properties:
         message:
           type: object
-          description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
+          description: 'The [`ProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#new-proposerpreferences) object from the CL Gloas spec.'
           required:
             - dependent_root
             - proposal_slot
@@ -88135,7 +88135,7 @@ components:
       type: array
       items:
         type: object
-        description: 'The [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/p2p-interface.md#modified-datacolumnsidecar) object from the CL Gloas spec.'
+        description: 'The [`DataColumnSidecar`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/p2p-interface.md#modified-datacolumnsidecar) object from the CL Gloas spec.'
         required:
           - index
           - column
@@ -88616,7 +88616,7 @@ components:
               example: '1000000000'
     Gloas.BuilderPendingWithdrawal:
       type: object
-      description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+      description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
       required:
         - fee_recipient
         - amount
@@ -88639,7 +88639,7 @@ components:
       description: Progressive list of pending builder withdrawals.
       items:
         type: object
-        description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+        description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
         required:
           - fee_recipient
           - amount
@@ -88659,7 +88659,7 @@ components:
             example: '1'
     Gloas.BuilderPendingPayment:
       type: object
-      description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+      description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
       required:
         - weight
         - withdrawal
@@ -88670,7 +88670,7 @@ components:
           example: '1'
         withdrawal:
           type: object
-          description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+          description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
           required:
             - fee_recipient
             - amount
@@ -88696,7 +88696,7 @@ components:
       description: Fixed vector of pending builder payments covering two epochs.
       items:
         type: object
-        description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
+        description: 'The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec.'
         required:
           - weight
           - withdrawal
@@ -88707,7 +88707,7 @@ components:
             example: '1'
           withdrawal:
             type: object
-            description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
+            description: 'The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec.'
             required:
               - fee_recipient
               - amount
