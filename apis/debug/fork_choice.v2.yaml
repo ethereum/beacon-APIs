@@ -3,7 +3,7 @@ get:
   summary: Get fork choice array
   description: |
     Retrieves all current fork choice context, with one node per `(block_root, payload_status)` pair.
-    Parent links follow the [fork choice tree](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/fork-choice.md#modified-get_node_children).
+    Parent links follow the [fork choice tree](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#modified-get_node_children).
     Each pre-Gloas block has a single `full` node.
 
     Payload Timeliness Committee (PTC) counts are per committee position, including repeated validator

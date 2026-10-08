@@ -2,7 +2,7 @@ get:
   operationId: "getStatePtc"
   summary: "Get the payload timeliness committee for a slot."
   description: |
-    Returns the [payload timeliness committee](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#new-get_ptc) for the requested slot from the state with the given `state_id`.
+    Returns the [payload timeliness committee](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#new-get_ptc) for the requested slot from the state with the given `state_id`.
     Should return 400 if the state retrieved or the requested slot is prior to Gloas.
   tags:
     - Beacon

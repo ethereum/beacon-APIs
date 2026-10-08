@@ -1,7 +1,7 @@
 Gloas:
   ExecutionBranch:
     type: array
-    description: "Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
+    description: "Merkle proof consisting of [`floorlog2(EXECUTION_BLOCK_HASH_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
     items:
       $ref: '../primitive.yaml#/Root'
     minItems: 11
@@ -9,7 +9,7 @@ Gloas:
 
   FinalityBranch:
     type: array
-    description: "Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
+    description: "Merkle proof consisting of [`floorlog2(FINALIZED_ROOT_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
     items:
       $ref: '../primitive.yaml#/Root'
     minItems: 9
@@ -17,7 +17,7 @@ Gloas:
 
   CurrentSyncCommitteeBranch:
     type: array
-    description: "Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
+    description: "Merkle proof consisting of [`floorlog2(CURRENT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
     items:
       $ref: '../primitive.yaml#/Root'
     minItems: 11
@@ -25,7 +25,7 @@ Gloas:
 
   NextSyncCommitteeBranch:
     type: array
-    description: "Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
+    description: "Merkle proof consisting of [`floorlog2(NEXT_SYNC_COMMITTEE_GINDEX_GLOAS)`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#new-constants) roots"
     items:
       $ref: '../primitive.yaml#/Root'
     minItems: 11
@@ -33,7 +33,7 @@ Gloas:
 
   LightClientHeader:
     type: object
-    description: "The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec."
+    description: "The [`LightClientHeader`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/light-client/sync-protocol.md#modified-lightclientheader) object from the CL Gloas spec."
     required: [beacon, execution_block_hash, execution_branch]
     properties:
       beacon:

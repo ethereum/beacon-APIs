@@ -1,7 +1,7 @@
 Gloas:
   Builder:
     type: object
-    description: "The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec."
+    description: "The [`Builder`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builder) object from the CL Gloas spec."
     required: [pubkey, version, execution_address, balance, deposit_epoch, withdrawable_epoch]
     properties:
       pubkey:
@@ -24,7 +24,7 @@ Gloas:
 
   BuilderPendingWithdrawal:
     type: object
-    description: "The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec."
+    description: "The [`BuilderPendingWithdrawal`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingwithdrawal) object from the CL Gloas spec."
     required: [fee_recipient, amount, builder_index]
     properties:
       fee_recipient:
@@ -42,7 +42,7 @@ Gloas:
 
   BuilderPendingPayment:
     type: object
-    description: "The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec."
+    description: "The [`BuilderPendingPayment`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#builderpendingpayment) object from the CL Gloas spec."
     required: [weight, withdrawal, proposer_index]
     properties:
       weight:
