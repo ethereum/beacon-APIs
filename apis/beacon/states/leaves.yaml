@@ -4,8 +4,6 @@ get:
   description: |
     Returns the `hash_tree_root` of every active field of the state with the given `state_id`, in field order.
 
-    From Gloas the state is an [EIP-7688](https://eips.ethereum.org/EIPS/eip-7688) progressive container, whose root is computed from exactly these field roots and in which the position of a field does not change between forks. A consumer that holds the value of a field can check it against the root at that position, instead of downloading the whole state to learn it.
-
     Should return 400 if the state retrieved is prior to Gloas.
   tags:
     - Beacon
