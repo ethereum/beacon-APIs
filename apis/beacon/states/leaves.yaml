@@ -9,6 +9,7 @@ get:
     Should return 400 if the state retrieved is prior to Gloas.
   tags:
     - Beacon
+    - Experimental
   parameters:
     - name: state_id
       in: path
