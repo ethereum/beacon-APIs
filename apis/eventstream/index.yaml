@@ -46,6 +46,7 @@ get:
             - payload_attestation_message
             - fast_confirmation
             - proposer_preferences
+            - execution_proof
   responses:
     "200":
       description: Opened SSE stream.
@@ -205,6 +206,11 @@ get:
               value: |
                 event: proposer_preferences
                 data: {"version":"gloas", "data":{"message": {"dependent_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2", "proposal_slot": "32", "validator_index": "123", "fee_recipient": "0x0000000000000000000000000000000000000000", "target_gas_limit": "60000000"}, "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
+            execution_proof:
+              description: The node has received a `SignedExecutionProofEnvelope` that passes gossip validation on the `execution_proof` topic and whose proof has been verified. `version` is the fork of the block identified by `beacon_block_root`. Only emitted by nodes verifying EIP-8025 execution proofs.
+              value: |
+                event: execution_proof
+                data: {"version":"gloas", "data":{"message": {"proof_data": "0x00", "proof_type": "1", "beacon_block_root": "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"}, "validator_index": "123", "signature": "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"}}
     "400":
       description: "The topics supplied could not be parsed"
       content:
