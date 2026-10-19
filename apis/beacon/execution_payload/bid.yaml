@@ -3,10 +3,10 @@ post:
   summary: Publish signed execution payload bid
   description: |
     Instructs the beacon node to broadcast a signed execution payload bid to the network,
-    to be gossiped for potential inclusion in block building. The beacon node MAY run gossip
-    validation on the bid before broadcasting it, but is not required to do so as the builder
-    submitting the bid is a trusted component which is expected to only produce valid bids.
-    A success response (20x) indicates that the bid was successfully broadcast onto the network.
+    to be gossiped for potential inclusion in block building. The beacon node SHOULD run gossip
+    validation on the bid before broadcasting it, but MAY skip validation to reduce publishing
+    latency. A success response (20x) indicates that the bid was successfully broadcast onto the
+    network.
   tags:
     - Beacon
   parameters:
@@ -30,7 +30,7 @@ post:
     "200":
       description: "The bid has been broadcast."
     "400":
-      description: "The `SignedExecutionPayloadBid` object is invalid or, if the beacon node validates bids, failed gossip validation"
+      description: "The `SignedExecutionPayloadBid` object is invalid or failed gossip validation"
       content:
         application/json:
           schema:
