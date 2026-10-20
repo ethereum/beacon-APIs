@@ -1,0 +1,48 @@
+get:
+  operationId: "getStateLeaves"
+  summary: "Get State Leaves"
+  description: |
+    Returns the `hash_tree_root` of every active field of the state with the given `state_id`, in field order.
+  tags:
+    - Beacon
+    - Experimental
+  parameters:
+    - name: state_id
+      in: path
+      $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
+  responses:
+    "200":
+      description: Success
+      headers:
+        Eth-Consensus-Version:
+          $ref: '../../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
+          description: "The active consensus version to which the state leaves belong."
+      content:
+        application/json:
+          schema:
+            title: GetStateLeavesResponse
+            type: object
+            required: [version, execution_optimistic, finalized, data]
+            properties:
+              version:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+                example: "gloas"
+              execution_optimistic:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+              finalized:
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
+              data:
+                type: array
+                items:
+                  $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Root'
+        application/octet-stream:
+          schema:
+            description: "SSZ serialized bytes, one 32 byte root per active field. Use Accept header to choose this response type"
+    "400":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
+    "404":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotFound'
+    "406":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/NotAcceptable'
+    "500":
+      $ref: '../../../beacon-node-oapi.yaml#/components/responses/InternalError'
