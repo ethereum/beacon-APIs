@@ -1,0 +1,60 @@
+post:
+  operationId: feedExecutionPayloadBids
+  summary: Feed execution payload bids
+  description: |
+    Submits signed execution payload bids to the beacon node's bid pool, so the beacon node
+    considers them in `produceBlockV4` alongside p2p bids and the local payload. Applicable from the
+    Gloas fork onwards.
+
+    Notes:
+    - The beacon node MUST NOT broadcast a fed bid.
+    - The beacon node MUST validate each bid against the `execution_payload_bid` gossip conditions,
+      except that a fed bid MAY carry a non-zero `execution_payment` and MAY share its slot, parent
+      and builder with an earlier bid.
+    - The beacon node selects the best bid based on its configuration, and emits a
+      `best_execution_payload_bid` event when it changes.
+  parameters:
+    - in: header
+      schema:
+        $ref: "../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion"
+      required: true
+      name: Eth-Consensus-Version
+      description: "The active consensus version to which the bids being fed belong."
+  tags:
+    - Validator
+  requestBody:
+    description: "Array of `SignedExecutionPayloadBid` objects to add to the bid pool."
+    required: true
+    content:
+      application/json:
+        schema:
+          type: array
+          maxItems: 64
+          items:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadBid"
+      application/octet-stream:
+        schema:
+          description: "SSZ serialized `List[SignedExecutionPayloadBid, 64]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."
+  responses:
+    "200":
+      description: "Every bid passed validation and was added to the bid pool"
+    "400":
+      description: |
+        One or more bids failed validation; the others were still added to the bid pool. Each
+        failure is reported by the bid's index via `IndexedErrorMessage`.
+      content:
+        application/json:
+          schema:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/IndexedErrorMessage"
+          example:
+            code: 400
+            message: "some failures"
+            failures:
+              - index: 0
+                message: "builder cannot cover bid value"
+    "415":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
+    "500":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
+    "503":
+      $ref: "../../beacon-node-oapi.yaml#/components/responses/CurrentlySyncing"
