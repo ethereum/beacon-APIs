@@ -3,16 +3,26 @@ post:
     - Experimental
     - Validator
     - ValidatorRequiredApi
-  operationId: "produceBlockV4WithBid"
-  summary: "Produce a new block with best-effort inclusion of a supplied execution payload bid, without signature."
+  operationId: "produceBlockV4WithBids"
+  summary: "Produce a new block considering supplied execution payload bids, without signature."
   description: |
-    Requests a beacon node to produce a valid block with best-effort inclusion of the supplied
-    signed execution payload bid.
+    Requests a valid block considering supplied signed execution payload bids.
 
-    The beacon node MUST replace the supplied bid when its circuit breaker mechanism is active, or
-    when the supplied bid is invalid. If the supplied bid is well-formed but fails validation,
-    the beacon node MUST continue block production using another viable bid or a local execution
-    payload.
+    Bids MUST satisfy the [bid validation requirements](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/validator.md#signed-execution-payload-bid)
+    for the parent node selected for block production.
+    Invalid bids MUST be skipped without failing the request.
+
+    Unless its circuit breaker is active, the beacon node MUST:
+
+    1. Select the first valid supplied bid, in request order.
+    2. Replace it with the best valid bid from its p2p bid pool if that bid has a
+       higher `value`, or if no supplied bid is valid.
+    3. Compare the selected bid's `(value + execution_payment) * builder_boost_factor` against
+       the local payload value multiplied by `100`. Use the higher-value option, with
+       the selected bid winning a tie. If no valid bid was selected, use the local payload.
+
+    Behavior while the circuit breaker is active is intentionally not defined and may differ
+    per implementation.
 
     The response carries the full block contents only when the beacon node self-built the block and
     `include_payload` is `true`; in every other case, including any builder bid, it carries
@@ -51,8 +61,8 @@ post:
       in: query
       required: true
       description: |
-        Percentage multiplier to apply to the supplied bid value when choosing between
-        the supplied bid and local payload from the paired execution node.
+        Percentage multiplier to apply to the selected builder bid when comparing it to the local
+        payload from the paired execution node.
 
         Servers must support the following values of the boost factor which encode common
         preferences:
@@ -99,15 +109,20 @@ post:
       name: Eth-Consensus-Version
       description: "The active consensus version to which the request belongs."
   requestBody:
-    description: "The `SignedExecutionPayloadBid` to consider for best-effort inclusion in the block."
+    description: |
+      A non-empty array of `SignedExecutionPayloadBid` objects ordered by validator client preference,
+      most preferred first. With no bids, use the `produceBlockV4` endpoint instead.
     required: true
     content:
       application/json:
         schema:
-          $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadBid"
+          type: array
+          minItems: 1
+          items:
+            $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadBid"
       application/octet-stream:
         schema:
-          description: "SSZ serialized `SignedExecutionPayloadBid` bytes. Use Content-Type header to specify this format."
+          description: "SSZ serialized `ProgressiveList[SignedExecutionPayloadBid]` bytes. Use Content-Type header to specify this format."
   responses:
     "200":
       description: Success response
@@ -123,7 +138,7 @@ post:
       content:
         application/json:
           schema:
-            title: "ProduceBlockV4WithBidResponse"
+            title: "ProduceBlockV4WithBidsResponse"
             type: object
             required: [version, consensus_block_value, execution_payload_value, execution_payload_included, data]
             properties:

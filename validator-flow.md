@@ -35,11 +35,10 @@ If proposing block, then at immediate start of slot:
        envelope and blobs internally (stateful operation, must publish via the same beacon node).
      - When a bid wins, only the `BeaconBlock` is returned regardless of `include_payload`, and
        `Eth-Builder-Url` names the builder if the bid came through the builder-API channel.
-     - A validator client may perform bid selection locally. It then supplies the selected execution payload bid
-       and requests block production using the [produceBlockV4WithBid](#/Validator/produceBlockV4WithBid)
-       endpoint. In this case, the validator should also monitor the `execution_payload_bid` SSE topic
-       for trustless bids. Inclusion of the supplied bid is best effort: the beacon node may
-       replace it if the bid is considered invalid or if its circuit breaker mechanism is active.
+     - A validator client may collect bids from builders and the `execution_payload_bid` SSE topic,
+       then supply them to each beacon node via [produceBlockV4WithBids](#/Validator/produceBlockV4WithBids)
+       in preference order. The beacon node uses the first valid supplied bid unless its pool has a better valid
+       bid, then compares the selected bid with the local payload using the request's `builder_boost_factor`.
 2. Sign block
 3. Submit the signed block via [`publishBlindedBlockV2`](#/ValidatorRequiredApi/publishBlindedBlockV2) if blinded,
    otherwise [`publishBlockV2`](#/ValidatorRequiredApi/publishBlockV2). For unblinded Deneb through Fulu blocks,
