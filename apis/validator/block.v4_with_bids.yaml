@@ -16,7 +16,7 @@ post:
 
     1. Select the first valid supplied bid, in request order.
     2. Replace it with the best valid bid from its p2p bid pool if that bid has a
-       higher `value`, or if no supplied bid is valid.
+       higher `value + execution_payment`, or if no supplied bid is valid.
     3. Compare the selected bid's `(value + execution_payment) * builder_boost_factor` against
        the local payload value multiplied by `100`. Use the higher-value option, with
        the selected bid winning a tie. If no valid bid was selected, use the local payload.
