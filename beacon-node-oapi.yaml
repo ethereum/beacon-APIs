@@ -14243,8 +14243,10 @@ paths:
       summary: Publish signed execution payload bid
       description: |
         Instructs the beacon node to broadcast a signed execution payload bid to the network,
-        to be gossiped for potential inclusion in block building. A success response (20x) indicates
-        that the bid passed gossip validation and was successfully broadcast onto the network.
+        to be gossiped for potential inclusion in block building. The beacon node SHOULD run gossip
+        validation on the bid before broadcasting it, but MAY skip validation for bids submitted by a
+        locally configured builder to reduce publishing latency. A success response (20x) indicates
+        that the bid was successfully broadcast onto the network.
       tags:
         - Beacon
       parameters:
@@ -14358,7 +14360,7 @@ paths:
               description: SSZ serialized `SignedExecutionPayloadBid` bytes. Use Content-Type header to specify this format
       responses:
         '200':
-          description: The bid was validated successfully and has been broadcast.
+          description: The bid has been broadcast.
         '400':
           description: The `SignedExecutionPayloadBid` object is invalid or failed gossip validation
           content:
