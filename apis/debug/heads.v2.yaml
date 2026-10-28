@@ -34,7 +34,7 @@ get:
                       type: string
                       enum: [empty, full]
                       description: |
-                        - `empty`: the node representing this block without its execution payload.
+                        - `empty`: the node representing this block without its execution payload, even if the payload has been received.
                         - `full`: the node representing this block with its execution payload.
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
