@@ -238,6 +238,8 @@ paths:
     $ref: "./apis/validator/proposer_preferences.yaml"
   /eth/v1/validator/builder_preferences:
     $ref: "./apis/validator/builder_preferences.yaml"
+  /eth/v1/validator/execution_payload_bids:
+    $ref: "./apis/validator/execution_payload_bids.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
   /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
