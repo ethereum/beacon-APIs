@@ -1,7 +1,11 @@
 get:
   operationId: getDebugChainHeadsV2
   summary: Get fork choice leaves
-  description: Retrieves all possible chain heads (leaves of fork choice tree).
+  description: |
+    Retrieves all possible chain heads (leaves of fork choice tree).
+
+    From Gloas onwards, a leaf is a `(root, payload_status)` node, so a block can be returned twice,
+    once as its `empty` and once as its `full` node. For pre-Gloas leaves, `payload_status` must be `full`.
   tags:
     - Debug
   responses:
@@ -18,7 +22,7 @@ get:
                 type: array
                 items:
                   type: object
-                  required: [root, slot, execution_optimistic]
+                  required: [root, slot, execution_optimistic, payload_status]
                   properties:
                     root:
                       $ref: "../../beacon-node-oapi.yaml#/components/schemas/Root"
@@ -26,5 +30,11 @@ get:
                       $ref: "../../beacon-node-oapi.yaml#/components/schemas/Uint64"
                     execution_optimistic:
                       $ref: "../../beacon-node-oapi.yaml#/components/schemas/ExecutionOptimistic"
+                    payload_status:
+                      type: string
+                      enum: [empty, full]
+                      description: |
+                        - `empty`: the node representing this block without its execution payload.
+                        - `full`: the node representing this block with its execution payload.
     "500":
       $ref: "../../beacon-node-oapi.yaml#/components/responses/InternalError"
