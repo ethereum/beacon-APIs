@@ -1,7 +1,7 @@
 Gloas:
   IndexedAttestation:
     type: object
-    description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec."
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#indexedattestation) object from the CL Gloas spec."
     required: [attesting_indices, data, signature]
     properties:
       attesting_indices:
@@ -18,7 +18,7 @@ Gloas:
 
   Attestation:
     type: object
-    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.0/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec."
+    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#attestation) object from the CL Gloas spec."
     required: [aggregation_bits, data, signature, committee_bits]
     properties:
       aggregation_bits:

@@ -25,6 +25,7 @@ get:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
               data:
                 anyOf:
+                  - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.LightClientFinalityUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientFinalityUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientFinalityUpdate'
                   - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientFinalityUpdate'

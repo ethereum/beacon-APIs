@@ -35,6 +35,7 @@ get:
                   $ref: '../../../beacon-node-oapi.yaml#/components/schemas/ConsensusVersion'
                 data:
                   anyOf:
+                    - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.LightClientUpdate'
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.LightClientUpdate'
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Deneb.LightClientUpdate'
                     - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Capella.LightClientUpdate'
@@ -64,7 +65,8 @@ get:
               | <nobr>`ALTAIR_FORK_VERSION` through `BELLATRIX_FORK_VERSION`</nobr> | `altair.LightClientUpdate`            |
               | <nobr>`CAPELLA_FORK_VERSION` </nobr>                                | `capella.LightClientUpdate`           |
               | <nobr>`DENEB_FORK_VERSION` </nobr>                                  | `deneb.LightClientUpdate`             |
-              | <nobr>`ELECTRA_FORK_VERSION` and later</nobr>                       | `electra.LightClientUpdate`           |
+              | <nobr>`ELECTRA_FORK_VERSION` through `FULU_FORK_VERSION`</nobr>     | `electra.LightClientUpdate`           |
+              | <nobr>`GLOAS_FORK_VERSION` and later</nobr>                         | `gloas.LightClientUpdate`             |
     "400":
       description: Malformed or missing request parameter
       content:
