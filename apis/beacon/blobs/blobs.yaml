@@ -5,8 +5,10 @@ get:
     Retrieves blobs for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
 
-    If the `versioned_hashes` parameter is specified, only the blobs for the specified versioned hashes will be returned. Blobs are 
-    returned as an ordered list matching the order of their corresponding KZG commitments in the block.
+    If the `versioned_hashes` parameter is specified, only the blobs for the specified versioned hashes will be returned.
+    The response contains one blob for each requested versioned hash that matches a KZG commitment in the block, also
+    when the block contains that commitment at more than one index. Blobs are returned as an ordered list matching the
+    order of the first occurrence of their corresponding KZG commitments in the block.
 
     After the Fulu fork, only supernodes (which custody all data columns) are required to return blobs. Clients may implement
     blob reconstruction logic for non-super nodes.
