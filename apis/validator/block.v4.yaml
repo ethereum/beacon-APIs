@@ -32,10 +32,12 @@ post:
     builder releases the execution payload envelope, and the validator client echoes
     `Eth-Builder-Url` if one was returned.
 
-    A beacon node which self-built a block MUST keep its execution payload envelope, blobs and
-    KZG proofs until the end of the slot, and MUST broadcast them as soon as it has broadcast or
-    imported that block, regardless of `include_payload` and of how the block reached it. The
-    envelope is not signed, so this needs no further request from the validator client.
+    A beacon node MUST keep the execution payload envelope, blobs and KZG proofs of each block
+    it self-built until the end of the slot, and MUST broadcast them as soon as it has broadcast
+    or imported that block, regardless of `include_payload` and of how the block reached it. The
+    envelope is not signed, so this needs no further request from the validator client. The
+    response to `POST /eth/v2/beacon/blocks` does not say whether the envelope was broadcast;
+    the `execution_payload_gossip` event does.
 
     This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
     forks.

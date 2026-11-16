@@ -2,14 +2,16 @@ post:
   operationId: publishExecutionPayloadEnvelope
   summary: Publish execution payload envelope
   description: |
-    Instructs the beacon node to broadcast an execution payload envelope to the network,
-    to be gossiped for payload validation. A success response (20x) indicates
-    that the envelope passed gossip validation and was successfully broadcast onto the network.
+    Instructs the beacon node to broadcast an execution payload envelope and its blobs to the
+    network, to be gossiped for payload validation. A success response (20x) indicates
+    that the envelope passed gossip validation and that the envelope and its blobs have been
+    broadcast onto the network, by this request or before it.
     The beacon node is also expected to integrate the envelope into the state, but may broadcast it
     before doing so, so as to aid timely delivery of the envelope. Should the envelope fail full
     validation, a separate success response code (202) is used to indicate that the envelope was
-    successfully broadcast but failed integration. The broadcast behaviour may be adjusted via
-    the `broadcast_validation` query parameter.
+    successfully broadcast but failed integration. As the envelope carries no signature, this
+    means that the execution payload or its blob data is invalid. The broadcast behaviour may be
+    adjusted via the `broadcast_validation` query parameter.
 
     The request body is an `ExecutionPayloadEnvelopeContents` object containing the envelope
     along with blobs and KZG proofs. The envelope is not signed: the beacon block with root
@@ -18,7 +20,14 @@ post:
     This endpoint is used by builders, and by a validator client which self-built a block
     with `include_payload=true`. A beacon node which self-built a block broadcasts the envelope
     itself, see `produceBlockV4`, so the beacon node may already have seen the envelope
-    submitted here. In that case it returns a 200 without broadcasting the envelope again.
+    submitted here. The beacon node MUST validate the submitted envelope in either case. If it
+    has already seen the envelope, it does not broadcast the envelope again, but it MUST still
+    broadcast the blob data of the request which it has not seen on the network, and then
+    returns a 200.
+
+    If the beacon node has not seen the beacon block with root `beacon_block_root`, it SHOULD
+    wait for the block before it responds, as the block may have been published through another
+    beacon node. If the block does not arrive, it returns a 404.
   tags:
     - Beacon
     - ValidatorRequiredApi
@@ -64,7 +73,7 @@ post:
           description: "SSZ serialized `ExecutionPayloadEnvelopeContents` bytes."
   responses:
     "200":
-      description: "The envelope was validated successfully and has been broadcast. It has also been integrated into the beacon node's database."
+      description: "The envelope was validated successfully and has been broadcast, by this request or before it. It has also been integrated into the beacon node's database."
     "202":
       description: "The envelope could not be integrated into the beacon node's database as it failed validation, but was successfully broadcast."
     "400":
@@ -76,6 +85,15 @@ post:
           example:
             code: 400
             message: "Invalid execution payload envelope"
+    "404":
+      description: "The beacon block of the envelope has not been seen."
+      content:
+        application/json:
+          schema:
+            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/ErrorMessage"
+          example:
+            code: 404
+            message: "Beacon block not found"
     "415":
       $ref: "../../../beacon-node-oapi.yaml#/components/responses/UnsupportedMediaType"
     "500":

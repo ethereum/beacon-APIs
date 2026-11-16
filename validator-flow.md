@@ -44,7 +44,7 @@ If proposing block, then at immediate start of slot:
      the signed block. The envelope is not signed.
    - Stateless (`include_payload=true`): envelope and blobs are already available from step 1.
      [Submit `ExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
-     (envelope + blobs + KZG proofs) as well, in case that beacon node has become unavailable. Must submit before
+     (envelope + blobs + KZG proofs) as well, in case that beacon node has become unavailable. Should submit before
      [`get_payload_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#new-get_payload_due_ms) milliseconds into the slot
    - Stateful (`include_payload=false`): nothing further to do.
 
