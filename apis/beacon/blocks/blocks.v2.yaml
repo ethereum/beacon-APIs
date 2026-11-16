@@ -15,6 +15,9 @@ post:
     the beacon node to broadcast all given blobs. For Gloas and later, blobs are broadcast as part
     of the `ExecutionPayloadEnvelope` and are not submitted with the block. The broadcast behaviour
     may be adjusted via the `broadcast_validation` query parameter.
+
+    For Gloas and later, a beacon node which self-built the block also broadcasts its
+    `ExecutionPayloadEnvelope` and blobs, see `produceBlockV4`.
   parameters:
     - name: broadcast_validation
       in: query

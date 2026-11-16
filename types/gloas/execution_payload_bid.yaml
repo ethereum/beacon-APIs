@@ -2,14 +2,20 @@ Gloas:
   ExecutionPayloadBid:
     type: object
     description: "The [`ExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadbid) object from the CL Gloas spec."
-    required: [parent_block_hash, parent_block_root, block_hash, prev_randao, fee_recipient, gas_limit, builder_index, slot, value, execution_payment, blob_kzg_commitments, execution_requests_root]
+    required: [parent_block_hash, parent_payload_root, parent_block_root, block_hash, payload_root, prev_randao, fee_recipient, gas_limit, builder_index, slot, value, execution_payment, blob_kzg_commitments, execution_requests_root]
     properties:
       parent_block_hash:
         $ref: "../primitive.yaml#/Hash32"
+      parent_payload_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the parent execution payload"
       parent_block_root:
         $ref: "../primitive.yaml#/Root"
       block_hash:
         $ref: "../primitive.yaml#/Hash32"
+      payload_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Hash tree root of the execution payload committed to by this bid"
       prev_randao:
         $ref: "../primitive.yaml#/Bytes32"
       fee_recipient:

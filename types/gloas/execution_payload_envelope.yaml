@@ -2,15 +2,12 @@ Gloas:
   ExecutionPayloadEnvelope:
     type: object
     description: "The [`ExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope) object from the CL Gloas spec."
-    required: [payload, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root]
+    required: [payload, execution_requests, beacon_block_root, parent_beacon_block_root]
     properties:
       payload:
         $ref: "./execution_payload.yaml#/Gloas/ExecutionPayload"
       execution_requests:
         $ref: "./execution_requests.yaml#/Gloas/ExecutionRequests"
-      builder_index:
-        $ref: "../primitive.yaml#/Uint64"
-        description: "Index of the builder that created this execution payload"
       beacon_block_root:
         $ref: "../primitive.yaml#/Root"
         description: "Root of the beacon block for this payload"
@@ -18,27 +15,16 @@ Gloas:
         $ref: "../primitive.yaml#/Root"
         description: "Root of the parent beacon block"
 
-  SignedExecutionPayloadEnvelope:
-    type: object
-    description: "The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL Gloas spec."
-    required: [message, signature]
-    properties:
-      message:
-        $ref: "#/Gloas/ExecutionPayloadEnvelope"
-      signature:
-        $ref: "../primitive.yaml#/Signature"
-        description: "BLS signature of the execution payload envelope"
-
-  SignedExecutionPayloadEnvelopeContents:
+  ExecutionPayloadEnvelopeContents:
     type: object
     description: |
-      Signed execution payload envelope bundled with blobs and KZG proofs for stateless
-      publishing. Used when the validator client publishes to a beacon node that does not
-      have the blobs cached (e.g. multi-BN setups, distributed validators, failover).
-    required: [signed_execution_payload_envelope, kzg_proofs, blobs]
+      Execution payload envelope bundled with blobs and KZG proofs for publishing. Used by
+      builders, and by a validator client which publishes to a beacon node that does not have
+      the payload cached (e.g. multi-BN setups, distributed validators, failover).
+    required: [execution_payload_envelope, kzg_proofs, blobs]
     properties:
-      signed_execution_payload_envelope:
-        $ref: "#/Gloas/SignedExecutionPayloadEnvelope"
+      execution_payload_envelope:
+        $ref: "#/Gloas/ExecutionPayloadEnvelope"
       kzg_proofs:
         $ref: "../fulu/block_contents.yaml#/Fulu/KZGProofs"
       blobs:

@@ -12,7 +12,7 @@ Gloas:
         description: "The slot for which the payload attestation is being made"
       payload_present:
         type: boolean
-        description: "True if a `SignedExecutionPayloadEnvelope` has been seen referencing this block"
+        description: "True if an `ExecutionPayloadEnvelope` has been seen referencing this block"
       blob_data_available:
         type: boolean
         description: "True if blob data is available for this block"
