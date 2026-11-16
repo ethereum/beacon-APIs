@@ -186,7 +186,7 @@ get:
                 event: execution_payload
                 data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "payload_root":"0x2234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf", "execution_optimistic": false}
             execution_payload_gossip:
-              description: The node has received an `ExecutionPayloadEnvelope` (from P2P or API) that passes validation rules of the `execution_payload` topic. The `builder_index` is that of the execution payload bid in the beacon block, and the `payload_root` is the hash tree root of the execution payload, which that bid commits to
+              description: The node has received an `ExecutionPayloadEnvelope` (from P2P or API) that passes validation rules of the `execution_payload` topic, or has broadcast the envelope of a block it self-built. The `builder_index` is that of the execution payload bid in the beacon block, and the `payload_root` is the hash tree root of the execution payload, which that bid commits to
               value: |
                 event: execution_payload_gossip
                 data: {"slot":"10", "builder_index":"42", "block_hash":"0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "payload_root":"0x2234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef", "block_root":"0x9a2fefd2fdb57f74993c7780ea5b9030d2897b615b89f808011ca5aebed54eaf"}

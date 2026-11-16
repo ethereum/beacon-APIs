@@ -15,19 +15,24 @@ post:
 
     The request body is an `ExecutionPayloadEnvelopeContents` object containing the envelope
     along with blobs and KZG proofs. The envelope is not signed: the beacon block with root
-    `beacon_block_root` commits to every field of the envelope.
+    `beacon_block_root` commits to every field of the envelope. Before it broadcasts or stores
+    anything from the request, the beacon node MUST check the envelope against the execution
+    payload bid of that block, and MUST verify the blobs and KZG proofs against the
+    `blob_kzg_commitments` of that bid. If either check fails, it returns a 400.
 
     This endpoint is used by builders, and by a validator client which self-built a block
     with `include_payload=true`. A beacon node which self-built a block broadcasts the envelope
     itself, see `produceBlockV4`, so the beacon node may already have seen the envelope
-    submitted here. The beacon node MUST validate the submitted envelope in either case. If it
-    has already seen the envelope, it does not broadcast the envelope again, but it MUST still
-    broadcast the blob data of the request which it has not seen on the network, and then
-    returns a 200.
+    submitted here. The checks above and the requested `broadcast_validation` apply in either
+    case, and a request which fails them is rejected with a 400 without anything being
+    broadcast. Otherwise, if the beacon node has already seen the envelope, it does not broadcast
+    the envelope again, but it MUST still broadcast the blob data of the request which it has not
+    seen on the network, and then returns a 200.
 
     If the beacon node has not seen the beacon block with root `beacon_block_root`, it SHOULD
     wait for the block before it responds, as the block may have been published through another
-    beacon node. If the block does not arrive, it returns a 404.
+    beacon node. It waits no longer than the end of the slot of the envelope, `payload.slot_number`,
+    and returns a 404 if the block has not arrived by then, or at once if that slot has passed.
   tags:
     - Beacon
     - ValidatorRequiredApi
@@ -77,7 +82,7 @@ post:
     "202":
       description: "The envelope could not be integrated into the beacon node's database as it failed validation, but was successfully broadcast."
     "400":
-      description: "The envelope object is invalid or broadcast validation failed."
+      description: "The envelope object is invalid, it or its blob data does not match the execution payload bid of its beacon block, or broadcast validation failed."
       content:
         application/json:
           schema:

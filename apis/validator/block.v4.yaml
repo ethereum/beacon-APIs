@@ -33,9 +33,11 @@ post:
     `Eth-Builder-Url` if one was returned.
 
     A beacon node MUST keep the execution payload envelope, blobs and KZG proofs of each block
-    it self-built until the end of the slot, and MUST broadcast them as soon as it has broadcast
-    or imported that block, regardless of `include_payload` and of how the block reached it. The
-    envelope is not signed, so this needs no further request from the validator client. The
+    it self-built until the end of the slot, and MUST broadcast them as soon as it has imported
+    that block, or broadcast it with a valid proposer signature, regardless of `include_payload`
+    and of how the block reached it. The envelope is not signed, so this needs no further request
+    from the validator client. The beacon node applies the gossip validation of the envelope
+    only, and need not broadcast the envelope once the slot of the block has passed. The
     response to `POST /eth/v2/beacon/blocks` does not say whether the envelope was broadcast;
     the `execution_payload_gossip` event does.
 
