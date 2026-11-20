@@ -4927,9 +4927,9 @@ paths:
                                       properties:
                                         sync_committee_bits:
                                           description: Aggregation bits of sync
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
@@ -5721,9 +5721,9 @@ paths:
                                       properties:
                                         sync_committee_bits:
                                           description: Aggregation bits of sync
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
@@ -6407,9 +6407,9 @@ paths:
                                       properties:
                                         sync_committee_bits:
                                           description: Aggregation bits of sync
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
@@ -7076,9 +7076,9 @@ paths:
                                       properties:
                                         sync_committee_bits:
                                           description: Aggregation bits of sync
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
@@ -7699,9 +7699,9 @@ paths:
                                   properties:
                                     sync_committee_bits:
                                       description: Aggregation bits of sync
+                                      example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                       type: string
                                       format: hex
-                                      example: '0x01'
                                       pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
@@ -8962,9 +8962,9 @@ paths:
                                   properties:
                                     sync_committee_bits:
                                       description: Aggregation bits of sync
+                                      example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                       type: string
                                       format: hex
-                                      example: '0x01'
                                       pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
@@ -9850,9 +9850,9 @@ paths:
                                           properties:
                                             sync_committee_bits:
                                               description: Aggregation bits of sync
+                                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                               type: string
                                               format: hex
-                                              example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             sync_committee_signature:
                                               type: string
@@ -10704,9 +10704,9 @@ paths:
                                           properties:
                                             sync_committee_bits:
                                               description: Aggregation bits of sync
+                                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                               type: string
                                               format: hex
-                                              example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             sync_committee_signature:
                                               type: string
@@ -11550,9 +11550,9 @@ paths:
                                           properties:
                                             sync_committee_bits:
                                               description: Aggregation bits of sync
+                                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                               type: string
                                               format: hex
-                                              example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             sync_committee_signature:
                                               type: string
@@ -12280,9 +12280,9 @@ paths:
                                       properties:
                                         sync_committee_bits:
                                           description: Aggregation bits of sync
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
@@ -12975,9 +12975,9 @@ paths:
                                       properties:
                                         sync_committee_bits:
                                           description: Aggregation bits of sync
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         sync_committee_signature:
                                           type: string
@@ -13601,9 +13601,9 @@ paths:
                                   properties:
                                     sync_committee_bits:
                                       description: Aggregation bits of sync
+                                      example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                       type: string
                                       format: hex
-                                      example: '0x01'
                                       pattern: '^0x[a-fA-F0-9]{2,}$'
                                     sync_committee_signature:
                                       type: string
@@ -16621,9 +16621,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -17501,9 +17501,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -18321,9 +18321,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -19033,9 +19033,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -19728,9 +19728,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -20354,9 +20354,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -23107,9 +23107,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -23901,9 +23901,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -24587,9 +24587,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -25256,9 +25256,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -25879,9 +25879,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -27680,9 +27680,9 @@ paths:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -28067,9 +28067,9 @@ paths:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -28454,9 +28454,9 @@ paths:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -28825,9 +28825,9 @@ paths:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -28988,9 +28988,9 @@ paths:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -29324,9 +29324,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -29677,9 +29677,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -30030,9 +30030,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -30367,9 +30367,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -30496,9 +30496,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -30719,9 +30719,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -30903,9 +30903,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -31087,9 +31087,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -31263,9 +31263,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -31335,9 +31335,9 @@ paths:
                             properties:
                               sync_committee_bits:
                                 description: Aggregation bits of sync
+                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                 type: string
                                 format: hex
-                                example: '0x01'
                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                               sync_committee_signature:
                                 type: string
@@ -41490,9 +41490,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -42332,9 +42332,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -43166,9 +43166,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -43955,9 +43955,9 @@ paths:
                                             properties:
                                               sync_committee_bits:
                                                 description: Aggregation bits of sync
+                                                example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                                 type: string
                                                 format: hex
-                                                example: '0x01'
                                                 pattern: '^0x[a-fA-F0-9]{2,}$'
                                               sync_committee_signature:
                                                 type: string
@@ -44676,9 +44676,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -45349,9 +45349,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -46034,9 +46034,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -46690,9 +46690,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -47306,9 +47306,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -47917,9 +47917,9 @@ paths:
                                     properties:
                                       sync_committee_bits:
                                         description: Aggregation bits of sync
+                                        example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                         type: string
                                         format: hex
-                                        example: '0x01'
                                         pattern: '^0x[a-fA-F0-9]{2,}$'
                                       sync_committee_signature:
                                         type: string
@@ -49456,9 +49456,9 @@ paths:
                                     properties:
                                       sync_committee_bits:
                                         description: Aggregation bits of sync
+                                        example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                         type: string
                                         format: hex
-                                        example: '0x01'
                                         pattern: '^0x[a-fA-F0-9]{2,}$'
                                       sync_committee_signature:
                                         type: string
@@ -50345,9 +50345,9 @@ paths:
                                         properties:
                                           sync_committee_bits:
                                             description: Aggregation bits of sync
+                                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                             type: string
                                             format: hex
-                                            example: '0x01'
                                             pattern: '^0x[a-fA-F0-9]{2,}$'
                                           sync_committee_signature:
                                             type: string
@@ -58162,9 +58162,9 @@ components:
                   properties:
                     sync_committee_bits:
                       description: Aggregation bits of sync
+                      example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                       type: string
                       format: hex
-                      example: '0x01'
                       pattern: '^0x[a-fA-F0-9]{2,}$'
                     sync_committee_signature:
                       type: string
@@ -58691,9 +58691,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -58941,9 +58941,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -59071,9 +59071,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -59144,9 +59144,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -60716,9 +60716,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -61339,9 +61339,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -61961,9 +61961,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -62582,9 +62582,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -63747,9 +63747,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -64439,9 +64439,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -65130,9 +65130,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -65796,9 +65796,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -66492,9 +66492,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -66830,9 +66830,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -67007,9 +67007,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -68099,9 +68099,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -68810,9 +68810,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -69538,9 +69538,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -70261,9 +70261,9 @@ components:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -70988,9 +70988,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -71672,9 +71672,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -72408,9 +72408,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -72762,9 +72762,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -72947,9 +72947,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -74121,9 +74121,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -74962,9 +74962,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -75798,9 +75798,9 @@ components:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
@@ -76638,9 +76638,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -77435,9 +77435,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -78695,9 +78695,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -79049,9 +79049,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -79234,9 +79234,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -81155,9 +81155,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -81321,9 +81321,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -81412,9 +81412,9 @@ components:
           properties:
             sync_committee_bits:
               description: Aggregation bits of sync
+              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
               type: string
               format: hex
-              example: '0x01'
               pattern: '^0x[a-fA-F0-9]{2,}$'
             sync_committee_signature:
               type: string
@@ -81957,9 +81957,9 @@ components:
                   properties:
                     sync_committee_bits:
                       description: Aggregation bits of sync
+                      example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                       type: string
                       format: hex
-                      example: '0x01'
                       pattern: '^0x[a-fA-F0-9]{2,}$'
                     sync_committee_signature:
                       type: string
@@ -82842,9 +82842,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -83777,9 +83777,9 @@ components:
                       properties:
                         sync_committee_bits:
                           description: Aggregation bits of sync
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         sync_committee_signature:
                           type: string
@@ -86870,9 +86870,9 @@ components:
                           properties:
                             sync_committee_bits:
                               description: Aggregation bits of sync
+                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                               type: string
                               format: hex
-                              example: '0x01'
                               pattern: '^0x[a-fA-F0-9]{2,}$'
                             sync_committee_signature:
                               type: string
@@ -87720,9 +87720,9 @@ components:
                               properties:
                                 sync_committee_bits:
                                   description: Aggregation bits of sync
+                                  example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                   type: string
                                   format: hex
-                                  example: '0x01'
                                   pattern: '^0x[a-fA-F0-9]{2,}$'
                                 sync_committee_signature:
                                   type: string
