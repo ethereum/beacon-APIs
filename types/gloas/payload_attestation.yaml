@@ -28,6 +28,7 @@ Gloas:
         # 512 bits = 64 bytes = 128 hex characters, plus the 0x prefix
         minLength: 130
         maxLength: 130
+        example: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       data:
         $ref: "#/Gloas/PayloadAttestationData"
       signature:
