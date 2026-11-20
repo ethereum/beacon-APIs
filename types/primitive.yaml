@@ -53,7 +53,13 @@ DependentRoot:
 ExecutionOptimistic:
   type: boolean
   example: false
-  description: "True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value."
+  description: |
+    True if the response references an unverified execution payload. Optimistic information may be invalidated at a later time. If the field is not present, assume the False value.
+
+    From Gloas onwards, the value is `is_optimistic` of the fork choice node the request resolves to:
+    - `(root, PENDING)` for a block, header or state, the payload the block builds on
+    - `(root, FULL)` for an execution payload envelope or its sidecars, the block's own payload
+    - `get_head(store)` for responses derived from the head, such as duties and head events
 
 Finalized:
   type: boolean
