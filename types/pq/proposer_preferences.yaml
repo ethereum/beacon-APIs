@@ -1,0 +1,10 @@
+Pq:
+  SignedProposerPreferences:
+    type: object
+    description: "The `SignedProposerPreferences` object from the CL PQ spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "../gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
+      signature:
+        $ref: "../primitive.yaml#/XmssSignature"

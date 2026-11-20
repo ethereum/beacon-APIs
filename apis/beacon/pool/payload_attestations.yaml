@@ -77,7 +77,9 @@ post:
         schema:
           type: array
           items:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+            oneOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Pq.PayloadAttestationMessage"
       application/octet-stream:
         schema:
           description: "SSZ serialized `List[PayloadAttestationMessage, PTC_SIZE]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."

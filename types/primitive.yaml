@@ -90,6 +90,32 @@ Signature:
   pattern: "^0x[a-fA-F0-9]{192}$"
   example: "0x1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505cc411d61252fb6cb3fa0017b679f8bb2305b26a285fa2737f175668d0dff91cc1b66ac1fb663c9bc59509846d6ec05345bd908eda73e670af888da41af171505"
 
+XmssPubkey:
+  type: string
+  format: hex
+  pattern: "^0x[a-fA-F0-9]{64}$"
+  description: "The validator's XMSS public key, uniquely identifying them from the PQ fork onwards. _32-bytes, hex encoded with 0x prefix, case insensitive._"
+  example: "0xcf8e0d4e9587369b2301d0790347320302cc0943d5a1884560367e8208d920f2"
+
+XmssSignature:
+  type: string
+  format: hex
+  pattern: "^0x[a-fA-F0-9]{4808}$"
+  description: "An XMSS signature. _2404-bytes, hex encoded with 0x prefix, case insensitive._"
+
+VrfProof:
+  type: string
+  format: hex
+  pattern: "^0x[a-fA-F0-9]{2048}$"
+  description: "SSZ serialized `Vector[Bytes32, VRF_TREE_DEPTH + 1]`: a leaf of the tree under the validator's `vrf_root` followed by its Merkle branch. _1024-bytes, hex encoded with 0x prefix, case insensitive._"
+
+AttestationProof:
+  type: string
+  format: hex
+  pattern: "^0x[a-fA-F0-9]{0,2097152}$"
+  description: "A STARK proof of the XMSS signatures of a set of attestations, limited to MAX_STARK_PROOF_SIZE (1048576) bytes. _Hex encoded with 0x prefix._"
+  example: "0x1234"
+
 BitList:
   type: string
   format: hex
