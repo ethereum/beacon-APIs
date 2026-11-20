@@ -6,6 +6,10 @@ get:
 
     If an epoch is not specified then the RANDAO mix for the state's current epoch will be returned.
 
+    The state only holds the mixes of epochs in the range
+    `current_epoch - EPOCHS_PER_HISTORICAL_VECTOR < epoch <= current_epoch`, where `current_epoch` is the
+    state's current epoch. A request for any other epoch MUST return a 400 error.
+
     By adjusting the `state_id` parameter you can query for any historic value of the RANDAO mix.
     Ordinarily states from the same epoch will mutate the RANDAO mix for that epoch as blocks are
     applied.
