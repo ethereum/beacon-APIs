@@ -1,0 +1,87 @@
+Pq:
+  ValidatorPreregistrationRequest:
+    type: object
+    description: "The `ValidatorPreregistrationRequest` object from the CL PQ spec."
+    required: [pubkey, withdrawal_credentials, vrf_root]
+    properties:
+      pubkey:
+        $ref: "../primitive.yaml#/XmssPubkey"
+      withdrawal_credentials:
+        $ref: "../primitive.yaml#/Bytes32"
+        description: "The withdrawal credentials."
+      vrf_root:
+        $ref: "../primitive.yaml#/Root"
+        description: "Root of the validator's VRF tree."
+
+  BuilderPreregistrationRequest:
+    type: object
+    description: "The `BuilderPreregistrationRequest` object from the CL PQ spec."
+    required: [pubkey, withdrawal_credentials]
+    properties:
+      pubkey:
+        $ref: "../primitive.yaml#/XmssPubkey"
+        description: "XMSS public key of builder."
+      withdrawal_credentials:
+        $ref: "../primitive.yaml#/Bytes32"
+        description: "The withdrawal credentials."
+
+  VoluntaryExitRequest:
+    type: object
+    description: "The `VoluntaryExitRequest` object from the CL PQ spec."
+    required: [pubkey]
+    properties:
+      pubkey:
+        $ref: "../primitive.yaml#/XmssPubkey"
+
+  ExecutionRequests:
+    type: object
+    description: "The `ExecutionRequests` object from the CL PQ spec."
+    required: [deposits, withdrawals, consolidations, builder_deposits, builder_exits, validator_preregistrations, builder_preregistrations, voluntary_exits]
+    properties:
+      deposits:
+        type: array
+        description: "Progressive list of deposit requests."
+        items:
+          $ref: "../electra/deposit.yaml#/Electra/DepositRequest"
+      withdrawals:
+        type: array
+        description: "Progressive list of withdrawal requests."
+        maxItems: 16
+        items:
+          $ref: "../electra/withdrawal.yaml#/Electra/WithdrawalRequest"
+      consolidations:
+        type: array
+        description: "Progressive list of consolidation requests."
+        maxItems: 2
+        items:
+          $ref: "../electra/consolidation.yaml#/Electra/ConsolidationRequest"
+      builder_deposits:
+        type: array
+        description: "Progressive list of builder deposit requests."
+        maxItems: 64
+        items:
+          $ref: "../gloas/execution_requests.yaml#/Gloas/BuilderDepositRequest"
+      builder_exits:
+        type: array
+        description: "Progressive list of builder exit requests."
+        maxItems: 16
+        items:
+          $ref: "../gloas/execution_requests.yaml#/Gloas/BuilderExitRequest"
+      validator_preregistrations:
+        type: array
+        description: "Progressive list of validator preregistration requests."
+        maxItems: 64
+        items:
+          $ref: "#/Pq/ValidatorPreregistrationRequest"
+      builder_preregistrations:
+        type: array
+        description: "Progressive list of builder preregistration requests."
+        maxItems: 4
+        items:
+          $ref: "#/Pq/BuilderPreregistrationRequest"
+      voluntary_exits:
+        type: array
+        description: "Progressive list of voluntary exit requests."
+        maxItems: 16
+        items:
+          $ref: "#/Pq/VoluntaryExitRequest"

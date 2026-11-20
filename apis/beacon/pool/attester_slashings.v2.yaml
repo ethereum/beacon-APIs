@@ -19,10 +19,13 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, pq]
                 example: "gloas"
               data:
                 anyOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Pq.AttesterSlashing'
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.AttesterSlashing'
@@ -54,6 +57,7 @@ post:
       application/json:
         schema:
           anyOf:
+           - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Pq.AttesterSlashing'
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.AttesterSlashing'
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.AttesterSlashing'
            - $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Phase0.AttesterSlashing'

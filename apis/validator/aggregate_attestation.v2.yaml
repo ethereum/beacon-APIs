@@ -10,6 +10,11 @@ get:
 
     A 404 error must be returned if no attestation is available for the requested
     `attestation_data_root`.
+
+    From the PQ fork onwards attestations carry no aggregatable signature. The beacon node
+    aggregates on behalf of the aggregators registered via
+    `POST /eth/v1/validator/beacon_committee_subscriptions` and returns the aggregated
+    `Attestation` together with the `AttestationProof` of its XMSS signatures.
   tags:
     - ValidatorRequiredApi
     - Validator
@@ -32,7 +37,7 @@ get:
         $ref: '../../beacon-node-oapi.yaml#/components/schemas/Uint64'
   responses:
     "200":
-      description: "Returns aggregated `Attestation` object with same `AttestationData` root, slot and committee index."
+      description: "Returns aggregated `Attestation` object with same `AttestationData` root, slot and committee index. From the PQ fork onwards returns an `AggregatedAttestation` object holding the aggregate and its proof."
       headers:
         Eth-Consensus-Version:
           $ref: '../../beacon-node-oapi.yaml#/components/headers/Eth-Consensus-Version'
@@ -45,16 +50,17 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, pq]
                 example: "gloas"
               data:
                 anyOf:
+                  - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Pq.AggregatedAttestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Gloas.Attestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Electra.Attestation'
                   - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Phase0.Attestation'
         application/octet-stream:
           schema:
-            description: "SSZ serialized `Attestation` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `Attestation` or `AggregatedAttestation` bytes. Use Accept header to choose this response type"
     "400":
       $ref: '../../beacon-node-oapi.yaml#/components/responses/InvalidRequest'
     "404":

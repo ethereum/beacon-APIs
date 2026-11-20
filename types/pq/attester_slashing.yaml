@@ -1,0 +1,10 @@
+Pq:
+  AttesterSlashing:
+    type: object
+    description: "The `AttesterSlashing` object from the CL PQ spec."
+    required: [attestation_1, attestation_2]
+    properties:
+      attestation_1:
+        $ref: "./attestation.yaml#/Pq/IndexedAttestation"
+      attestation_2:
+        $ref: "./attestation.yaml#/Pq/IndexedAttestation"

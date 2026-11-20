@@ -30,10 +30,13 @@ get:
             properties:
               version:
                 type: string
-                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+                enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, pq]
                 example: "gloas"
               data:
                 anyOf:
+                  - type: array
+                    items:
+                      $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Pq.Attestation'
                   - type: array
                     items:
                       $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Gloas.Attestation'
@@ -65,7 +68,7 @@ post:
 
     If one or more attestations fail validation, the node MUST return a 400 error with details of which attestations have failed, and why.
 
-    Prior to the Electra hard fork, this endpoint MUST be sent Attestation objects only.  At and after the Electra hard fork, this endpoint MUST be sent SingleAttestation objects only.
+    Prior to the Electra hard fork, this endpoint MUST be sent Attestation objects only.  At and after the Electra hard fork, this endpoint MUST be sent SingleAttestation objects only.  From the PQ fork onwards the SingleAttestation signature is an XMSS signature.
   parameters:
     - in: header
       schema:
@@ -82,6 +85,9 @@ post:
       application/json:
         schema:
           oneOf:
+            - type: array
+              items:
+                $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Pq.SingleAttestation'
             - type: array
               items:
                 $ref: '../../../beacon-node-oapi.yaml#/components/schemas/Electra.SingleAttestation'

@@ -1,0 +1,10 @@
+Pq:
+  SignedExecutionPayloadBid:
+    type: object
+    description: "The `SignedExecutionPayloadBid` object from the CL PQ spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "../gloas/execution_payload_bid.yaml#/Gloas/ExecutionPayloadBid"
+      signature:
+        $ref: "../primitive.yaml#/XmssSignature"

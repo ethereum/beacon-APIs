@@ -9,6 +9,11 @@ post:
     - announce subnet topic subscription on gossipsub
     - aggregate attestations received on that subnet
 
+    From the PQ fork onwards `is_aggregator` is taken from the attester duty. For such a
+    subscription the beacon node must additionally prove the aggregate, so that the aggregated
+    `Attestation` and its `AttestationProof` can be served by
+    `GET /eth/v2/validator/aggregate_attestation`.
+
     Beacon nodes SHOULD use the set of validators that have submitted subscriptions via this
     endpoint to determine which validators are using the node for duties and to calculate the
     node's required custody group count (CGC). Validator clients SHOULD submit one entry per

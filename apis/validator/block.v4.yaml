@@ -35,6 +35,9 @@ post:
 
     This endpoint is specific to the post-Gloas forks and is not backwards compatible with previous
     forks.
+
+    From the PQ fork onwards every RANDAO reveal is verified, so a request that sets
+    `skip_randao_verification` MUST fail with a 400.
   parameters:
     - name: slot
       in: path
@@ -45,9 +48,13 @@ post:
     - name: randao_reveal
       in: query
       required: true
-      description: "The validator's randao reveal value."
+      description: |
+        The validator's randao reveal value. A BLS signature for Gloas; from the PQ fork onwards
+        the hex encoded SSZ `VRFProof` for the slot.
       schema:
-        $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+        oneOf:
+          - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
+          - $ref: '../../beacon-node-oapi.yaml#/components/schemas/VrfProof'
     - name: graffiti
       in: query
       required: false
@@ -136,7 +143,7 @@ post:
             properties:
               version:
                 type: string
-                enum: [gloas]
+                enum: [gloas, pq]
                 example: "gloas"
               consensus_block_value:
                 type: string
@@ -158,6 +165,8 @@ post:
                 example: false
               data:
                 anyOf:
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Pq.BeaconBlock"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Pq.BlockContents"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BeaconBlock"
                   - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.BlockContents"
         application/octet-stream:

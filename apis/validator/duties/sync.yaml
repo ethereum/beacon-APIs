@@ -4,7 +4,7 @@ post:
     - Validator
   summary: "Get sync committee duties"
   operationId: "getSyncCommitteeDuties"
-  description: "Requests the beacon node to provide a set of sync committee duties for a particular epoch."
+  description: "Requests the beacon node to provide a set of sync committee duties for a particular epoch. There are no sync committees from the PQ fork onwards and validator clients do not request these duties."
   parameters:
     - name: epoch
       description: "epoch // EPOCHS_PER_SYNC_COMMITTEE_PERIOD <= current_epoch // EPOCHS_PER_SYNC_COMMITTEE_PERIOD + 1"

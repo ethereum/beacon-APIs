@@ -46,10 +46,12 @@ get:
             properties:
               version:
                 type: string
-                enum: [gloas]
+                enum: [gloas, pq]
                 example: "gloas"
               data:
-                $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
+                anyOf:
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Pq.ExecutionPayloadEnvelope"
+                  - $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
         application/octet-stream:
           schema:
             description: "SSZ serialized `ExecutionPayloadEnvelope` bytes. Use Accept header to choose this response type"
