@@ -1,8 +1,8 @@
 get:
-  operationId: getSignedExecutionPayloadEnvelope
-  summary: Get signed execution payload envelope
+  operationId: getExecutionPayloadEnvelope
+  summary: Get execution payload envelope
   description: |
-    Retrieves signed execution payload envelope for a given block id.
+    Retrieves execution payload envelope for a given block id.
     Depending on `Accept` header it can be returned either as json or as bytes serialized by SSZ.
   tags:
     - Beacon
@@ -33,10 +33,10 @@ get:
               finalized:
                 $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Finalized"
               data:
-                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelope"
+                $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.ExecutionPayloadEnvelope"
         application/octet-stream:
           schema:
-            description: "SSZ serialized `SignedExecutionPayloadEnvelope` bytes. Use Accept header to choose this response type"
+            description: "SSZ serialized `ExecutionPayloadEnvelope` bytes. Use Accept header to choose this response type"
     "400":
       description: "The block ID supplied could not be parsed"
       content:

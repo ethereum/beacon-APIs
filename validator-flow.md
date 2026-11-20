@@ -32,7 +32,7 @@ If proposing block, then at immediate start of slot:
      - `include_payload=true`: returns `BlockContents` (beacon block, execution payload envelope,
        blobs, and KZG proofs). Enables stateless operation (multi-BN setups, distributed validators, failover).
      - `include_payload=false`: returns only the `BeaconBlock`. The beacon node caches the execution payload
-       envelope and blobs internally (stateful operation, must publish via the same beacon node).
+       envelope and blobs internally (stateful operation).
      - When a bid wins, only the `BeaconBlock` is returned regardless of `include_payload`, and
        `Eth-Builder-Url` names the builder if the bid came through the builder-API channel.
 2. Sign block
@@ -40,13 +40,13 @@ If proposing block, then at immediate start of slot:
    otherwise [`publishBlockV2`](#/ValidatorRequiredApi/publishBlockV2). For unblinded Deneb through Fulu blocks,
    use `SignedBlockContents`. Echo the `Eth-Builder-Url` header if one was returned
 4. Post-Gloas, if self-building (the block's `builder_index` is [BUILDER_INDEX_SELF_BUILD](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#misc)):
+   - The beacon node that produced the block publishes the envelope and blobs itself once it has seen
+     the signed block. The envelope is not signed.
    - Stateless (`include_payload=true`): envelope and blobs are already available from step 1.
-     Sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
-     (envelope + blobs + KZG proofs) with `Eth-Blob-Data-Included: true`.
-   - Stateful (`include_payload=false`): [fetch ExecutionPayloadEnvelope](#/Validator/getExecutionPayloadEnvelope)
-     from the same beacon node. Sign envelope and [submit `SignedExecutionPayloadEnvelope`](#/Beacon/publishExecutionPayloadEnvelope)
-     with `Eth-Blob-Data-Included: false` (beacon node attaches blobs and KZG proofs from its cache).
-   - Must submit before [`get_payload_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#new-get_payload_due_ms) milliseconds into the slot
+     [Submit `ExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
+     (envelope + blobs + KZG proofs) as well, in case that beacon node has become unavailable. Should submit before
+     [`get_payload_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#new-get_payload_due_ms) milliseconds into the slot
+   - Stateful (`include_payload=false`): nothing further to do.
 
 5. Post-Gloas, if a bid won (any other `builder_index`): nothing further. The winning builder
    releases the execution payload envelope.
@@ -112,8 +112,8 @@ Building:
 2. Cache fields required to form an [ExecutionPayloadEnvelope](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/beacon-chain.md#executionpayloadenvelope)
 3. Sign `ExecutionPayloadBid` to create `SignedExecutionPayloadBid`
 4. [Submit SignedExecutionPayloadBid](#/Beacon/publishExecutionPayloadBid) to network for proposer consideration
-5. If bid is selected by proposer in their block, sign envelope and [submit `SignedExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
-   (envelope + blobs + KZG proofs) with `Eth-Blob-Data-Included: true` via any beacon node
+5. If bid is selected by proposer in their block, [submit `ExecutionPayloadEnvelopeContents`](#/Beacon/publishExecutionPayloadEnvelope)
+   (envelope + blobs + KZG proofs) via any beacon node
     - Must submit before [`get_payload_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#new-get_payload_due_ms) milliseconds into the slot
 
 Monitor for block proposals containing your bid to trigger envelope release.

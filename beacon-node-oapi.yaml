@@ -240,8 +240,6 @@ paths:
     $ref: "./apis/validator/builder_preferences.yaml"
   /eth/v1/validator/liveness/{epoch}:
     $ref: "./apis/validator/liveness.yaml"
-  /eth/v1/validator/execution_payload_envelopes/{slot}/{beacon_block_root}:
-    $ref: "./apis/validator/execution_payload_envelope.yaml"
 
   /eth/v1/events:
     $ref: "./apis/eventstream/index.yaml"
@@ -505,10 +503,8 @@ components:
       $ref: "./types/gloas/execution_payload.yaml#/Gloas/ExecutionPayload"
     Gloas.ExecutionPayloadEnvelope:
       $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelope"
-    Gloas.SignedExecutionPayloadEnvelope:
-      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelope"
-    Gloas.SignedExecutionPayloadEnvelopeContents:
-      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/SignedExecutionPayloadEnvelopeContents"
+    Gloas.ExecutionPayloadEnvelopeContents:
+      $ref: "./types/gloas/execution_payload_envelope.yaml#/Gloas/ExecutionPayloadEnvelopeContents"
     Gloas.PayloadAttestationData:
       $ref: "./types/gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
     Gloas.PayloadTimelinessCommittee:
