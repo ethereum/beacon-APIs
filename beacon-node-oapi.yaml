@@ -9110,9 +9110,9 @@ paths:
                                         description: Fixed vector of PTC_SIZE (512) bits.
                                         minLength: 130
                                         maxLength: 130
+                                        example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                         type: string
                                         format: hex
-                                        example: '0x01'
                                         pattern: '^0x[a-fA-F0-9]{2,}$'
                                       data:
                                         type: object
@@ -16769,9 +16769,9 @@ paths:
                                               description: Fixed vector of PTC_SIZE (512) bits.
                                               minLength: 130
                                               maxLength: 130
+                                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                               type: string
                                               format: hex
-                                              example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             data:
                                               type: object
@@ -32116,9 +32116,9 @@ paths:
                           description: Fixed vector of PTC_SIZE (512) bits.
                           minLength: 130
                           maxLength: 130
+                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                           type: string
                           format: hex
-                          example: '0x01'
                           pattern: '^0x[a-fA-F0-9]{2,}$'
                         data:
                           type: object
@@ -49604,9 +49604,9 @@ paths:
                                           description: Fixed vector of PTC_SIZE (512) bits.
                                           minLength: 130
                                           maxLength: 130
+                                          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                           type: string
                                           format: hex
-                                          example: '0x01'
                                           pattern: '^0x[a-fA-F0-9]{2,}$'
                                         data:
                                           type: object
@@ -50493,9 +50493,9 @@ paths:
                                               description: Fixed vector of PTC_SIZE (512) bits.
                                               minLength: 130
                                               maxLength: 130
+                                              example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                                               type: string
                                               format: hex
-                                              example: '0x01'
                                               pattern: '^0x[a-fA-F0-9]{2,}$'
                                             data:
                                               type: object
@@ -82105,9 +82105,9 @@ components:
                         description: Fixed vector of PTC_SIZE (512) bits.
                         minLength: 130
                         maxLength: 130
+                        example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                         type: string
                         format: hex
-                        example: '0x01'
                         pattern: '^0x[a-fA-F0-9]{2,}$'
                       data:
                         type: object
@@ -82990,9 +82990,9 @@ components:
                             description: Fixed vector of PTC_SIZE (512) bits.
                             minLength: 130
                             maxLength: 130
+                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                             type: string
                             format: hex
-                            example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                           data:
                             type: object
@@ -83925,9 +83925,9 @@ components:
                             description: Fixed vector of PTC_SIZE (512) bits.
                             minLength: 130
                             maxLength: 130
+                            example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
                             type: string
                             format: hex
-                            example: '0x01'
                             pattern: '^0x[a-fA-F0-9]{2,}$'
                           data:
                             type: object
@@ -85832,9 +85832,9 @@ components:
           description: Fixed vector of PTC_SIZE (512) bits.
           minLength: 130
           maxLength: 130
+          example: '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
           type: string
           format: hex
-          example: '0x01'
           pattern: '^0x[a-fA-F0-9]{2,}$'
         data:
           type: object
