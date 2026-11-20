@@ -23,6 +23,9 @@ post:
     highest weighted value competes with the local build's value weighted by `100`. The local
     build wins a tie.
 
+    The beacon node MAY also consider bids fed via `feedExecutionPayloadBids`, based on its
+    configuration.
+
     The response carries the full block contents only when the beacon node self-built the block and
     `include_payload` is `true`; in every other case, including any builder bid win, it carries
     only the `BeaconBlock`.
