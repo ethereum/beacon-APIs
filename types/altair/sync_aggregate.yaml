@@ -7,5 +7,6 @@ Altair:
       sync_committee_bits:
         $ref: "../primitive.yaml#/Bitvector"
         description: "Aggregation bits of sync"
+        example: "0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
       sync_committee_signature:
         $ref: '../primitive.yaml#/Signature'
