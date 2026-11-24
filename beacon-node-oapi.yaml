@@ -40650,11 +40650,11 @@ paths:
       operationId: getPtcDuties
       description: |-
         Requests the beacon node to provide a set of Payload Timeliness Committee (PTC) duties, which should be performed by validators, for a particular epoch.
-        Duties should only need to be checked once per epoch, however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur, resulting in a change of duties. For full safety, you should monitor head_v2 events and confirm the dependent root in this response matches:
+        Duties should only need to be checked once per epoch, however a chain reorganization (of > MIN_SEED_LOOKAHEAD epochs) could occur, resulting in a change of duties. For full safety, you should monitor head_v2 events and confirm that, for `epoch > GLOAS_FORK_EPOCH`, the dependent root in this response matches:
         - event.current_epoch_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
         - event.next_epoch_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
 
-        The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)` or the genesis block root in the case of underflow.
+        For `epoch > GLOAS_FORK_EPOCH`, the dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)` or the genesis block root in the case of underflow.
 
         The PTC of `GLOAS_FORK_EPOCH` is computed at the fork from effective balances that are updated at the end of the previous epoch, so its duties can change until the last slot before the fork. For `epoch == GLOAS_FORK_EPOCH`, the dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch) - 1)` or the genesis block root in the case of underflow, and matches event.next_epoch_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`. Duties for this epoch are not available before the fork.
       parameters:
