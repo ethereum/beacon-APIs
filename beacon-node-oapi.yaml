@@ -39617,17 +39617,21 @@ paths:
                         properties:
                           code:
                             type: string
-                            description: 'A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md#clientcode).'
+                            description: 'A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/1ca0818569467cff85b7f41372f22e728d5daa14/src/engine/identification.md#clientcode).'
                             enum:
                               - BU
+                              - CN
                               - EJ
                               - EG
+                              - EX
                               - GE
                               - GR
+                              - LA
                               - LH
                               - LS
                               - NM
                               - NB
+                              - NE
                               - TE
                               - TK
                               - PM
@@ -39658,17 +39662,21 @@ paths:
                         properties:
                           code:
                             type: string
-                            description: 'A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md#clientcode).'
+                            description: 'A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/1ca0818569467cff85b7f41372f22e728d5daa14/src/engine/identification.md#clientcode).'
                             enum:
                               - BU
+                              - CN
                               - EJ
                               - EG
+                              - EX
                               - GE
                               - GR
+                              - LA
                               - LH
                               - LS
                               - NM
                               - NB
+                              - NE
                               - TE
                               - TK
                               - PM
@@ -55495,17 +55503,21 @@ components:
       properties:
         code:
           type: string
-          description: 'A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/dc4dbca37ef8697d782f431af19120beaf5517f5/src/engine/identification.md#clientcode).'
+          description: 'A two-character client code that uniquely maps to a client name as defined in the [Engine API](https://github.com/ethereum/execution-apis/blob/1ca0818569467cff85b7f41372f22e728d5daa14/src/engine/identification.md#clientcode).'
           enum:
             - BU
+            - CN
             - EJ
             - EG
+            - EX
             - GE
             - GR
+            - LA
             - LH
             - LS
             - NM
             - NB
+            - NE
             - TE
             - TK
             - PM
