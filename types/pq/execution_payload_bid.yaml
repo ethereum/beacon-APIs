@@ -1,7 +1,7 @@
 Pq:
   SignedExecutionPayloadBid:
     type: object
-    description: "The `SignedExecutionPayloadBid` object from the CL PQ spec."
+    description: "The [`SignedExecutionPayloadBid`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#signedexecutionpayloadbid) object from the CL PQ spec."
     required: [message, signature]
     properties:
       message:

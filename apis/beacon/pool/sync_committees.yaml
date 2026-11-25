@@ -10,6 +10,8 @@ post:
 
     If one or more sync committee signatures fail validation the node MUST return a 400 error with details of which sync committee signatures have failed, and why.
 
+    Not available from the PQ fork onwards, which removes sync committees.
+
   tags:
     - Beacon
     - ValidatorRequiredApi

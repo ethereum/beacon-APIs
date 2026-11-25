@@ -563,6 +563,8 @@ components:
       $ref: "./types/pq/block_contents.yaml#/Pq/BlockContents"
     Pq.Validator:
       $ref: "./types/pq/validator.yaml#/Pq/Validator"
+    Pq.Builder:
+      $ref: "./types/pq/builder.yaml#/Pq/Builder"
     Pq.Attestation:
       $ref: "./types/pq/attestation.yaml#/Pq/Attestation"
     Pq.SingleAttestation:
@@ -593,6 +595,8 @@ components:
       $ref: "./types/primitive.yaml#/XmssSignature"
     VrfProof:
       $ref: "./types/primitive.yaml#/VrfProof"
+    VrfProofSsz:
+      $ref: "./types/primitive.yaml#/VrfProofSsz"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:

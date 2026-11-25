@@ -1,7 +1,10 @@
 get:
   operationId: getPoolVoluntaryExits
   summary: Get SignedVoluntaryExit from operations pool
-  description: Retrieves voluntary exits known by the node but not necessarily incorporated into any block
+  description: |
+    Retrieves voluntary exits known by the node but not necessarily incorporated into any block
+
+    Not available from the PQ fork onwards: validators exit through execution layer `VoluntaryExitRequest`s and blocks no longer carry `voluntary_exits`.
   tags:
     - Beacon
   responses:
@@ -24,7 +27,10 @@ get:
 post:
   operationId: submitPoolVoluntaryExit
   summary: Submit SignedVoluntaryExit object to node's pool
-  description: Submits SignedVoluntaryExit object to node's pool and if passes validation node MUST broadcast it to network.
+  description: |
+    Submits SignedVoluntaryExit object to node's pool and if passes validation node MUST broadcast it to network.
+
+    Not available from the PQ fork onwards: validators exit through execution layer `VoluntaryExitRequest`s and blocks no longer carry `voluntary_exits`.
   tags:
     - Beacon
   requestBody:

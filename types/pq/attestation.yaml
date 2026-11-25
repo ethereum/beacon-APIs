@@ -1,13 +1,13 @@
 Pq:
   IndexedAttestation:
     type: object
-    description: "The `IndexedAttestation` object from the CL PQ spec."
+    description: "The [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#indexedattestation) object from the CL PQ spec."
     required: [attesting_indices, data, proof]
     properties:
       attesting_indices:
         type: array
-        maxItems: 131072
-        description: "Progressive list of attesting validator indices."
+        maxItems: 32768
+        description: "Progressive list of attesting validator indices, at most MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT_PQ (32768)."
         items:
           $ref: "../primitive.yaml#/Uint64"
       data:
@@ -18,12 +18,13 @@ Pq:
 
   Attestation:
     type: object
-    description: "The `Attestation` object from the CL PQ spec. It carries no signature; the signatures are covered by an `AttestationProof`."
+    description: "The [`Attestation`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#attestation) object from the CL PQ spec. It carries no signature; the signatures are covered by an `AttestationProof`."
     required: [aggregation_bits, data, committee_bits]
     properties:
       aggregation_bits:
         $ref: "../primitive.yaml#/BitList"
-        description: "Progressive bitlist of attester aggregation bits."
+        description: "Progressive bitlist of attester aggregation bits, limited to MAX_VALIDATORS_PER_COMMITTEE * MAX_COMMITTEES_PER_SLOT_PQ (32768) bits."
+        maxLength: 8196
       data:
         $ref: "../phase0/attestation_data.yaml#/Phase0/AttestationData"
       committee_bits:
@@ -35,7 +36,7 @@ Pq:
 
   SingleAttestation:
     type: object
-    description: "The `SingleAttestation` object from the CL PQ spec."
+    description: "The [`SingleAttestation`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#singleattestation) object from the CL PQ spec."
     required: [committee_index, attester_index, data, signature]
     properties:
       committee_index:
@@ -49,7 +50,13 @@ Pq:
 
   AggregatedAttestation:
     type: object
-    description: "An aggregated `Attestation` together with the STARK proof of its XMSS signatures, as produced by a beacon node for a subscribed aggregator."
+    description: |
+      An aggregated `Attestation` together with the STARK proof of its XMSS signatures, as produced
+      by a beacon node for a subscribed aggregator. It is not a CL spec type; its SSZ container is:
+
+          class AggregatedAttestation(Container):
+              aggregate: Attestation
+              proof: AttestationProof
     required: [aggregate, proof]
     properties:
       aggregate:

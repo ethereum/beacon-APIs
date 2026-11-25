@@ -1,7 +1,7 @@
 Pq:
   Validator:
     type: object
-    description: "The `Validator` object from the CL PQ spec."
+    description: "The [`Validator`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#validator) object from the CL PQ spec."
     required: [pubkey, vrf_root, withdrawal_credentials, effective_balance, slashed, activation_eligibility_epoch, activation_epoch, exit_epoch, withdrawable_epoch]
     properties:
       pubkey:
@@ -34,7 +34,7 @@ Pq:
 
   AggregateAndProof:
     type: object
-    description: "The `AggregateAndProof` object from the CL PQ spec. Aggregators are assigned by the beacon state, so there is no `selection_proof`."
+    description: "The [`AggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/validator.md#aggregateandproof) object from the CL PQ spec. Aggregators are assigned by the beacon state, so there is no `selection_proof`."
     required: [aggregator_index, aggregate, proof]
     properties:
       aggregator_index:
@@ -47,7 +47,7 @@ Pq:
 
   SignedAggregateAndProof:
     type: object
-    description: "The `SignedAggregateAndProof` object from the CL PQ spec."
+    description: "The [`SignedAggregateAndProof`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/validator.md#signedaggregateandproof) object from the CL PQ spec."
     required: [message, signature]
     properties:
       message:

@@ -1,7 +1,7 @@
 Pq:
   AttesterSlashing:
     type: object
-    description: "The `AttesterSlashing` object from the CL PQ spec."
+    description: "The `AttesterSlashing` object from the CL PQ spec, with PQ [`IndexedAttestation`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#indexedattestation)s."
     required: [attestation_1, attestation_2]
     properties:
       attestation_1:

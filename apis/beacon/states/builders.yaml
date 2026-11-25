@@ -31,7 +31,7 @@ post:
               type: array
               uniqueItems: true
               description: |
-                An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a builder index.
+                An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or a builder index.
 
                 If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then all builders will be returned.
               items:

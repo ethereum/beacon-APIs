@@ -54,7 +54,7 @@ post:
       schema:
         oneOf:
           - $ref: '../../beacon-node-oapi.yaml#/components/schemas/Signature'
-          - $ref: '../../beacon-node-oapi.yaml#/components/schemas/VrfProof'
+          - $ref: '../../beacon-node-oapi.yaml#/components/schemas/VrfProofSsz'
     - name: graffiti
       in: query
       required: false
@@ -104,6 +104,10 @@ post:
       never costs the proposer its slot. A local-preferred build is requested with an empty
       `builders` list and a `builder_boost_factor` of `0`, which prefers the local payload unless
       an error makes it unviable.
+
+      From the PQ fork onwards builders and proposers sign with XMSS keys, so a `BuilderEntry`
+      (BLS `builder_pubkeys` and a BLS-signed `auth`) cannot be used. The validator client SHOULD
+      send an empty `builders` list, and the beacon node MUST ignore any entries it receives.
     content:
       application/json:
         schema:

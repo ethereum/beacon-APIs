@@ -1,7 +1,7 @@
 Pq:
   ExecutionPayloadEnvelope:
     type: object
-    description: "The `ExecutionPayloadEnvelope` object from the CL PQ spec."
+    description: "The `ExecutionPayloadEnvelope` object from the CL PQ spec, with PQ [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#executionrequests)."
     required: [payload, execution_requests, builder_index, beacon_block_root, parent_beacon_block_root]
     properties:
       payload:
@@ -20,7 +20,7 @@ Pq:
 
   SignedExecutionPayloadEnvelope:
     type: object
-    description: "The `SignedExecutionPayloadEnvelope` object from the CL PQ spec."
+    description: "The [`SignedExecutionPayloadEnvelope`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#signedexecutionpayloadenvelope) object from the CL PQ spec."
     required: [message, signature]
     properties:
       message:

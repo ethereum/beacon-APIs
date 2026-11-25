@@ -55,3 +55,4 @@ XmssPubkey
 XmssSignature
 VRF
 VRFProof
+VrfProofSsz

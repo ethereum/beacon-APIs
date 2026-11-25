@@ -1,7 +1,7 @@
 Pq:
   PayloadAttestationMessage:
     type: object
-    description: "The `PayloadAttestationMessage` object from the CL PQ spec."
+    description: "The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#payloadattestationmessage) object from the CL PQ spec."
     required: [validator_index, data, signature]
     properties:
       validator_index:

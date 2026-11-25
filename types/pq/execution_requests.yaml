@@ -1,7 +1,7 @@
 Pq:
   ValidatorPreregistrationRequest:
     type: object
-    description: "The `ValidatorPreregistrationRequest` object from the CL PQ spec."
+    description: "The [`ValidatorPreregistrationRequest`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#validatorpreregistrationrequest) object from the CL PQ spec."
     required: [pubkey, withdrawal_credentials, vrf_root]
     properties:
       pubkey:
@@ -15,7 +15,7 @@ Pq:
 
   BuilderPreregistrationRequest:
     type: object
-    description: "The `BuilderPreregistrationRequest` object from the CL PQ spec."
+    description: "The [`BuilderPreregistrationRequest`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#builderpreregistrationrequest) object from the CL PQ spec."
     required: [pubkey, withdrawal_credentials]
     properties:
       pubkey:
@@ -27,7 +27,7 @@ Pq:
 
   VoluntaryExitRequest:
     type: object
-    description: "The `VoluntaryExitRequest` object from the CL PQ spec."
+    description: "The [`VoluntaryExitRequest`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#voluntaryexitrequest) object from the CL PQ spec."
     required: [pubkey]
     properties:
       pubkey:
@@ -35,7 +35,13 @@ Pq:
 
   ExecutionRequests:
     type: object
-    description: "The `ExecutionRequests` object from the CL PQ spec."
+    description: |
+      The [`ExecutionRequests`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#executionrequests) object from the CL PQ spec.
+
+      The 48-byte public keys of deposit, withdrawal, consolidation, builder deposit and builder exit
+      requests are `Bytes48` from the PQ fork onwards: 16 zero bytes (`XMSS_DEPOSIT_PREFIX`)
+      followed by the validator's or builder's XMSS public key. Deposit and builder deposit requests
+      MAY instead carry a legacy BLS public key, which the beacon chain maps to an XMSS public key.
     required: [deposits, withdrawals, consolidations, builder_deposits, builder_exits, validator_preregistrations, builder_preregistrations, voluntary_exits]
     properties:
       deposits:

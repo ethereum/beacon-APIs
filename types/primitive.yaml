@@ -104,15 +104,23 @@ XmssSignature:
   description: "An XMSS signature. _2404-bytes, hex encoded with 0x prefix, case insensitive._"
 
 VrfProof:
+  type: array
+  description: "The [`VRFProof`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#new-vrfproof) (`Vector[Bytes32, VRF_TREE_DEPTH + 1]`) from the CL PQ spec: a leaf of the tree under the validator's `vrf_root` followed by its Merkle branch."
+  items:
+    $ref: "./primitive.yaml#/Bytes32"
+  minItems: 32
+  maxItems: 32
+
+VrfProofSsz:
   type: string
   format: hex
   pattern: "^0x[a-fA-F0-9]{2048}$"
-  description: "SSZ serialized `Vector[Bytes32, VRF_TREE_DEPTH + 1]`: a leaf of the tree under the validator's `vrf_root` followed by its Merkle branch. _1024-bytes, hex encoded with 0x prefix, case insensitive._"
+  description: "SSZ serialized `VRFProof`, the 32 `Bytes32` values concatenated. _1024-bytes, hex encoded with 0x prefix, case insensitive._"
 
 AttestationProof:
   type: string
   format: hex
-  pattern: "^0x[a-fA-F0-9]{0,2097152}$"
+  pattern: "^0x(?:[a-fA-F0-9]{2}){0,1048576}$"
   description: "A STARK proof of the XMSS signatures of a set of attestations, limited to MAX_STARK_PROOF_SIZE (1048576) bytes. _Hex encoded with 0x prefix._"
   example: "0x1234"
 

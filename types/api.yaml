@@ -54,7 +54,9 @@ BuilderResponse:
     status:
       $ref: "#/BuilderStatus"
     builder:
-      $ref: "./gloas/builder.yaml#/Gloas/Builder"
+      oneOf:
+        - $ref: "./gloas/builder.yaml#/Gloas/Builder"
+        - $ref: "./pq/builder.yaml#/Pq/Builder"
 
 ValidatorStatus:
   description: |

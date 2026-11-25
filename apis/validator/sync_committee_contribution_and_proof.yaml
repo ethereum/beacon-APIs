@@ -1,7 +1,10 @@
 post:
   operationId: "publishContributionAndProofs"
   summary: "Publish multiple contribution and proofs"
-  description: "Publish multiple signed sync committee contribution and proofs"
+  description: |
+    Publish multiple signed sync committee contribution and proofs
+
+    Not available from the PQ fork onwards, which removes sync committees.
   tags:
     - ValidatorRequiredApi
     - Validator
