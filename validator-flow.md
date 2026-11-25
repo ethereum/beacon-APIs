@@ -63,6 +63,7 @@ Attesting:
 
 1. Upon receiving duty, have beacon node prepare committee subnet
     - [Check if aggregator by computing `slot_signature`](https://github.com/ethereum/consensus-specs/blob/v1.3.0/specs/phase0/validator.md#attestation-aggregation)
+      - From the PQ fork onwards: take `is_aggregator` from the attester duty instead
     - [Ask beacon node to prepare your subnet](#/ValidatorRequiredApi/prepareBeaconCommitteeSubnet)
       - Submit one entry per validator per attestation duty, with `is_aggregator` set to `true`
         for aggregators
@@ -75,7 +76,8 @@ Attesting:
     - From Electra onwards: use `SingleAttestation`
 5. If aggregator:
     - Pre-Gloas forks: Wait for [`get_aggregate_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/phase0/fork-choice.md#get_aggregate_due_ms) milliseconds into the assigned slot
-    - Post-Gloas forks: Wait for [`get_aggregate_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#modified-get_aggregate_due_ms) milliseconds into the assigned slot
+    - Post-Gloas forks before PQ: Wait for [`get_aggregate_due_ms()`](https://github.com/ethereum/consensus-specs/blob/v1.7.0-beta.3/specs/gloas/fork-choice.md#modified-get_aggregate_due_ms) milliseconds into the assigned slot
+    - From the PQ fork onwards: Wait for [`get_aggregate_due_ms(aggregator_position)`](https://github.com/ethereum/consensus-specs/blob/4c296784bb6ff54cbdcf72ebdda2a1057cce8893/specs/_features/pq/fork-choice.md#modified-get_aggregate_due_ms) milliseconds into the assigned slot, using `aggregator_position` from the attester duty
     - [Fetch aggregated Attestation](#/ValidatorRequiredApi/getAggregatedAttestationV2) from Beacon Node you've subscribed to your subnet
     - Construct and sign `AggregateAndProof`, then [publish `SignedAggregateAndProof`](#/ValidatorRequiredApi/publishAggregateAndProofsV2)
 

@@ -28,6 +28,9 @@ AttesterDuty:
     is_aggregator:
       type: boolean
       description: "[New in PQ] True if the validator is in the aggregation committee for this slot and committee. Aggregators are assigned by the beacon state, so no selection proof is computed. Absent before the PQ fork."
+    aggregator_position:
+      $ref: "./primitive.yaml#/Uint64"
+      description: "[New in PQ] The validator's index in `get_aggregation_committee(state, slot, committee_index)`, present only when `is_aggregator` is true. Aggregators are staggered by this position: the aggregator stops collecting attestations `get_aggregation_cutoff_ms(aggregator_position)` milliseconds into the slot and broadcasts its aggregate `get_aggregate_due_ms(aggregator_position)` milliseconds into the slot."
 
 ProposerDuty:
   type: object
