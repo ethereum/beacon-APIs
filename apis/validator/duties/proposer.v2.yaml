@@ -8,15 +8,21 @@ get:
 
     Duties should only need to be checked once per epoch,
     however a chain reorganization could occur that results in a change of duties. For full safety,
-    you should monitor head_v2 events and confirm the dependent root in this response matches:
+    you should monitor head_v2 events and confirm that, for `epoch > FULU_FORK_EPOCH`, the dependent root in this response matches:
 
       - event.current_epoch_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`
 
       - event.next_epoch_dependent_root when `compute_epoch_at_slot(event.slot) + 1 == epoch`
 
 
-    The dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
-    or the genesis block root in the case of underflow."
+    For `epoch > FULU_FORK_EPOCH`, the dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch - 1) - 1)`
+    or the genesis block root in the case of underflow.
+
+
+    The proposer lookahead of `FULU_FORK_EPOCH` is computed at the fork from effective balances that are updated at the end
+    of the previous epoch, so its duties can change until the last slot before the fork. For `epoch <= FULU_FORK_EPOCH`, the
+    dependent_root value is `get_block_root_at_slot(state, compute_start_slot_at_epoch(epoch) - 1)` or the genesis block
+    root in the case of underflow, and matches event.next_epoch_dependent_root when `compute_epoch_at_slot(event.slot) == epoch`."
   parameters:
     - name: epoch
       in: path
