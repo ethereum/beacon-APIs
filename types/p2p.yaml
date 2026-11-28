@@ -57,6 +57,32 @@ Peer:
       $ref: "./p2p.yaml#/PeerConnectionState"
     direction:
       $ref: "./p2p.yaml#/PeerConnectionDirection"
+    agent_version:
+      type: string
+      description: |
+        The peer's libp2p agent version string from the libp2p identify protocol.
+        OPTIONAL; clients MAY omit it if not yet observed.
+      example: "Lighthouse/v8.1.3-66919c2/aarch64-linux"
+    score:
+      type: number
+      format: double
+      description: |
+        Client-native peer score. OPTIONAL.
+        Not comparable between clients, only between peers of the same client.
+      example: -17.4828
+    disconnect_reason:
+      description: |
+        Reason the client last disconnected from this peer. OPTIONAL.
+        MUST only be set if the connection state is `disconnecting` or `disconnected`.
+      allOf:
+        - $ref: "./p2p.yaml#/PeerDisconnectReason"
+    downscore_reasons:
+      type: array
+      description: |
+        Distinct set of reasons the peer has been downscored in its current session. OPTIONAL.
+      items:
+        $ref: "./p2p.yaml#/PeerScoreReason"
+      example: ["gossip_invalid_execution_payload_bid", "rpc_rate_limited"]
 
 PeerConnectionState:
   type: string
@@ -80,3 +106,30 @@ Multiaddr:
   type: string
   description: "[Read more](https://docs.libp2p.io/reference/glossary/#multiaddr)"
   example: "/ip4/7.7.7.7/tcp/4242/p2p/QmYyQSo1c1Ym7orWxLYvCrM2EmxFTANf8wXmmE7DWjhx5N"
+
+PeerScoreReason:
+  type: string
+  description: |
+    Reason a peer was downscored. Values are not restricted; clients MAY return any
+    string and consumers MUST tolerate unknown values. Suggested values:
+
+    - `gossip_invalid_<topic>`: a gossip message failed validation, where `<topic>` is the
+      gossip topic name without subnet suffix, e.g. `gossip_invalid_beacon_block`,
+      `gossip_invalid_beacon_attestation`, `gossip_invalid_data_column_sidecar`,
+      `gossip_invalid_execution_payload_bid`, `gossip_invalid_execution_payload`,
+      `gossip_invalid_payload_attestation_message`, `gossip_invalid_proposer_preferences`
+    - `rpc_invalid_request`, `rpc_invalid_response`, `rpc_rate_limited`, `rpc_timeout`
+    - `sync_bad_batch`
+    - `status_unviable_fork`
+    - `behaviour_penalty`
+    - `unknown`
+  example: "gossip_invalid_execution_payload_bid"
+
+PeerDisconnectReason:
+  type: string
+  description: |
+    Reason the client disconnected from a peer. Values are not restricted; clients MAY
+    return any string and consumers MUST tolerate unknown values. Suggested values:
+    `bad_score`, `irrelevant_network`, `unviable_fork`, `too_many_peers`, `rate_limited`,
+    `io_error`, `client_shutdown`, `unknown`.
+  example: "bad_score"
