@@ -64,6 +64,8 @@ tags:
       [Checkout validator flow](./validator-flow.md) to learn how to use this api.
   - name: Rewards
     description: Endpoints to query rewards and penalties for validators.
+  - name: Experimental
+    description: Endpoints that are not stable or fully implemented by each client.
 
 paths:
 
@@ -210,6 +212,8 @@ paths:
     $ref: "./apis/validator/block.v3.yaml"
   /eth/v4/validator/blocks/{slot}:
     $ref: "./apis/validator/block.v4.yaml"
+  /eth/v4/validator/blocks/{slot}/with_bids:
+    $ref: "./apis/validator/block.v4_with_bids.yaml"
   /eth/v1/validator/attestation_data:
     $ref: "./apis/validator/attestation_data.yaml"
   /eth/v1/validator/payload_attestation_data:
