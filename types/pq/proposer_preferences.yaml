@@ -1,0 +1,10 @@
+Pq:
+  SignedProposerPreferences:
+    type: object
+    description: "The [`SignedProposerPreferences`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/p2p-interface.md#modified-signedproposerpreferences) object from the CL PQ spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "../gloas/proposer_preferences.yaml#/Gloas/ProposerPreferences"
+      signature:
+        $ref: "../primitive.yaml#/XmssSignature"

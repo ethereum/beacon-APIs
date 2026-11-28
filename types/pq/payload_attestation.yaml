@@ -1,0 +1,14 @@
+Pq:
+  PayloadAttestationMessage:
+    type: object
+    description: "The [`PayloadAttestationMessage`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#payloadattestationmessage) object from the CL PQ spec."
+    required: [validator_index, data, signature]
+    properties:
+      validator_index:
+        $ref: "../primitive.yaml#/Uint64"
+        description: "Index of the validator submitting the payload attestation"
+      data:
+        $ref: "../gloas/payload_attestation.yaml#/Gloas/PayloadAttestationData"
+      signature:
+        $ref: "../primitive.yaml#/XmssSignature"
+        description: "XMSS signature of the payload attestation data"

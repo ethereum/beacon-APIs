@@ -1,0 +1,10 @@
+Pq:
+  ProposerSlashing:
+    type: object
+    description: "The `ProposerSlashing` object from the CL PQ spec, with PQ [`SignedBeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#signedbeaconblockheader)s."
+    required: [signed_header_1, signed_header_2]
+    properties:
+      signed_header_1:
+        $ref: "./block.yaml#/Pq/SignedBeaconBlockHeader"
+      signed_header_2:
+        $ref: "./block.yaml#/Pq/SignedBeaconBlockHeader"

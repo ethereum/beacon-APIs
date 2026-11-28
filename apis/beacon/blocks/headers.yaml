@@ -41,7 +41,9 @@ get:
                     canonical:
                       type: boolean
                     header:
-                      $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlockHeader"
+                      oneOf:
+                        - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Phase0.SignedBeaconBlockHeader"
+                        - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Pq.SignedBeaconBlockHeader"
     "400":
       description: "The slot or parent root supplied could not be parsed"
       content:

@@ -10,6 +10,8 @@ post:
     sync committee contribution (sync aggregation) duty in a slot. Validator clients running in a distributed validator cluster must query this endpoint
     at the start of each slot for all validators that are included in the current sync committee. Consensus
     clients need not support this endpoint and may return a 501.
+
+    Not available from the PQ fork onwards, which removes sync committees.
   tags:
     - Validator
   requestBody:

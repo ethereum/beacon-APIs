@@ -13,7 +13,7 @@ post:
       schema:
         $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Uint64"
   requestBody:
-    description: "An array of either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+    description: "An array of either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
     required: false
     content:
       application/json:
@@ -21,7 +21,7 @@ post:
           type: array
           uniqueItems: true
           items:
-            description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+            description: "Either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
             type: string
   responses:
     "200":

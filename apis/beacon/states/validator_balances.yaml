@@ -17,7 +17,7 @@ get:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: id
-      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+      description: "Either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
       in: query
       required: false
       schema:
@@ -25,7 +25,7 @@ get:
         maxItems: 64
         uniqueItems: true
         items:
-          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+          description: "Either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
           type: string
 
   responses:
@@ -100,7 +100,7 @@ post:
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
   requestBody:
     description: |
-      An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index.
+      An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or a validator index.
 
       If the supplied list is empty (i.e. the body is `[]`) or no body is supplied then balances will be returned for all validators.
     required: false
@@ -110,7 +110,7 @@ post:
           type: array
           uniqueItems: true
           items:
-            description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+            description: "Either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
             type: string
   responses:
     "200":

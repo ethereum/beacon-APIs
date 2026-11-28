@@ -49,3 +49,10 @@ CGC
 RLP
 UTF
 uri
+PQ
+XMSS
+XmssPubkey
+XmssSignature
+VRF
+VRFProof
+VrfProofSsz

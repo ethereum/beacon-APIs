@@ -70,6 +70,7 @@ post:
       application/json:
         schema:
           anyOf:
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Pq.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedBeaconBlock"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Fulu.SignedBlockContents"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Electra.SignedBlockContents"

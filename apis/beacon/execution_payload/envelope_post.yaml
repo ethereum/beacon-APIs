@@ -71,6 +71,8 @@ post:
       application/json:
         schema:
           anyOf:
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Pq.SignedExecutionPayloadEnvelopeContents"
+            - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Pq.SignedExecutionPayloadEnvelope"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelopeContents"
             - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.SignedExecutionPayloadEnvelope"
       application/octet-stream:

@@ -33,7 +33,7 @@ get:
             properties:
               version:
                 type: string
-                enum: [gloas]
+                enum: [gloas, pq]
                 example: "gloas"
               data:
                 $ref: "../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationData"

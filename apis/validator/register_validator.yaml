@@ -6,7 +6,8 @@ post:
     Deprecated from Gloas onwards. Under Gloas, proposer fee recipient and gas limit preferences
     are expressed via `POST /eth/v1/validator/proposer_preferences` instead. Beacon node support
     for this endpoint pre-Gloas is REQUIRED; post-Gloas support is OPTIONAL and the endpoint
-    MAY be removed.
+    MAY be removed. From the PQ fork onwards the validator registry holds XMSS public keys, so a
+    non-empty request MUST fail with a 400.
 
     Prepares the beacon node for engaging with external builders. The
     information must be sent by the beacon node to the builder network. It is

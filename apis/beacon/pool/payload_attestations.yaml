@@ -1,7 +1,10 @@
 get:
   operationId: getPoolPayloadAttestations
   summary: Get payload attestations from operations pool
-  description: Retrieves payload attestations known by the node but not necessarily incorporated into any block
+  description: |
+    Retrieves payload attestations known by the node but not necessarily incorporated into any block
+
+    Not available from the PQ fork onwards: blocks no longer carry `payload_attestations`, so payload attestation messages are not aggregated into a `PayloadAttestation`.
   parameters:
     - name: slot
       in: query
@@ -77,7 +80,9 @@ post:
         schema:
           type: array
           items:
-            $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+            oneOf:
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Gloas.PayloadAttestationMessage"
+              - $ref: "../../../beacon-node-oapi.yaml#/components/schemas/Pq.PayloadAttestationMessage"
       application/octet-stream:
         schema:
           description: "SSZ serialized `List[PayloadAttestationMessage, PTC_SIZE]` bytes. Use Content-Type header to indicate that SSZ data is contained in the request body."

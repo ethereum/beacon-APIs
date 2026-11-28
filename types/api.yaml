@@ -13,7 +13,9 @@ ValidatorResponse:
     status:
       $ref: "#/ValidatorStatus"
     validator:
-      $ref: "./phase0/validator.yaml#/Phase0/Validator"
+      oneOf:
+        - $ref: "./phase0/validator.yaml#/Phase0/Validator"
+        - $ref: "./pq/validator.yaml#/Pq/Validator"
 
 ValidatorBalanceResponse:
   type: object
@@ -34,8 +36,10 @@ ValidatorIdentityResponse:
       $ref: './primitive.yaml#/Uint64'
       description: "Index of validator in validator registry."
     pubkey:
-      $ref: './primitive.yaml#/Pubkey'
-      description: "Public key of validator."
+      oneOf:
+        - $ref: './primitive.yaml#/Pubkey'
+        - $ref: './primitive.yaml#/XmssPubkey'
+      description: "Public key of validator. An XMSS public key from the PQ fork onwards."
     activation_epoch:
       $ref: "./primitive.yaml#/Uint64"
       description: "Epoch when validator activated. 'FAR_FUTURE_EPOCH' if not activated"
@@ -50,7 +54,9 @@ BuilderResponse:
     status:
       $ref: "#/BuilderStatus"
     builder:
-      $ref: "./gloas/builder.yaml#/Gloas/Builder"
+      oneOf:
+        - $ref: "./gloas/builder.yaml#/Gloas/Builder"
+        - $ref: "./pq/builder.yaml#/Pq/Builder"
 
 ValidatorStatus:
   description: |

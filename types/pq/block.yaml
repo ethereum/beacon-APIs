@@ -1,0 +1,71 @@
+Pq:
+  BeaconBlockBody:
+    type: object
+    description: "The [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#beaconblockbody) object from the CL PQ spec."
+    required: [randao_reveal, eth1_data, graffiti, proposer_slashings, attester_slashings, attestations, deposits, signed_execution_payload_bid, parent_execution_requests, proof]
+    properties:
+      randao_reveal:
+        $ref: "../primitive.yaml#/VrfProof"
+        description: "The RANDAO reveal value provided by the validator."
+      eth1_data:
+        $ref: "../phase0/eth1.yaml#/Phase0/Eth1Data"
+      graffiti:
+        $ref: "../primitive.yaml#/Graffiti"
+      proposer_slashings:
+        type: array
+        maxItems: 16
+        items:
+          $ref: "./proposer_slashing.yaml#/Pq/ProposerSlashing"
+      attester_slashings:
+        type: array
+        maxItems: 1
+        items:
+          $ref: "./attester_slashing.yaml#/Pq/AttesterSlashing"
+      attestations:
+        type: array
+        maxItems: 16
+        items:
+          $ref: "./attestation.yaml#/Pq/Attestation"
+      deposits:
+        type: array
+        description: "Legacy deposits have been disabled since Fulu. This list must be empty."
+        maxItems: 0
+        items:
+          $ref: "../phase0/deposit.yaml#/Phase0/Deposit"
+      signed_execution_payload_bid:
+        $ref: "./execution_payload_bid.yaml#/Pq/SignedExecutionPayloadBid"
+      parent_execution_requests:
+        $ref: "./execution_requests.yaml#/Pq/ExecutionRequests"
+      proof:
+        $ref: "../primitive.yaml#/AttestationProof"
+        description: "STARK proof of the XMSS signatures of all attestations in the block."
+
+  BeaconBlock:
+    description: "The `BeaconBlock` object from the CL PQ spec, with a PQ [`BeaconBlockBody`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#beaconblockbody)."
+    allOf:
+      - $ref: "../altair/block.yaml#/Altair/BeaconBlockCommon"
+      - type: object
+        required: [body]
+        properties:
+          body:
+            $ref: "#/Pq/BeaconBlockBody"
+
+  SignedBeaconBlock:
+    type: object
+    description: "The [`SignedBeaconBlock`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#signedbeaconblock) object envelope from the CL PQ spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "#/Pq/BeaconBlock"
+      signature:
+        $ref: "../primitive.yaml#/XmssSignature"
+
+  SignedBeaconBlockHeader:
+    type: object
+    description: "The [`SignedBeaconBlockHeader`](https://github.com/ethereum/consensus-specs/blob/4c296784b/specs/_features/pq/beacon-chain.md#signedbeaconblockheader) object envelope from the CL PQ spec."
+    required: [message, signature]
+    properties:
+      message:
+        $ref: "../phase0/block.yaml#/Phase0/BeaconBlockHeader"
+      signature:
+        $ref: "../primitive.yaml#/XmssSignature"

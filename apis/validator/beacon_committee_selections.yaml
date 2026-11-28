@@ -9,6 +9,8 @@ post:
     Validator clients running in a distributed validator cluster must query this endpoint at the start of an epoch either for all slots of 
     the current epoch or for all slots of the current and all slots of the next epoch in two separate requests. In both cases it should be for 
     all validators that have attester duties in the respective epoch. Consensus clients need not support this endpoint and may return a 501.
+
+    Not available from the PQ fork onwards: aggregators are assigned by the beacon state (`is_aggregator` on attester duties), so there are no selection proofs.
   tags:
     - Validator
   requestBody:

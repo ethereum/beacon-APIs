@@ -13,6 +13,8 @@ get:
 
     A 404 error must be returned if no sync committee contribution is available
     for the requested `beacon_block_root`.
+
+    Not available from the PQ fork onwards, which removes sync committees.
   parameters:
     - name: slot
       in: query

@@ -15,7 +15,7 @@ get:
       in: path
       $ref: '../../../beacon-node-oapi.yaml#/components/parameters/StateId'
     - name: id
-      description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+      description: "Either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
       in: query
       required: false
       schema:
@@ -23,7 +23,7 @@ get:
         maxItems: 64
         uniqueItems: true
         items:
-          description: "Either hex encoded public key (any bytes48 with 0x prefix) or validator index"
+          description: "Either hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or validator index"
           type: string
     - name: status
       description: "[Validator status specification](https://hackmd.io/ofFJ5gOmQpu1jjHilHbdQQ)"
@@ -116,7 +116,7 @@ post:
               type: array
               uniqueItems: true
               description: |
-                An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix) or a validator index.
+                An array of values, with each value either a hex encoded public key (any bytes48 with 0x prefix, or any bytes32 XMSS public key from the PQ fork onwards) or a validator index.
 
                 If the supplied list is empty (i.e. the value is `[]`) or the property is omitted then all validators will be returned.
               items:

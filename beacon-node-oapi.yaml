@@ -377,7 +377,7 @@ components:
       $ref: './types/bellatrix/block.yaml#/Bellatrix/SignedBlindedBeaconBlock'
     ConsensusVersion:
       type: string
-      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas]
+      enum: [phase0, altair, bellatrix, capella, deneb, electra, fulu, gloas, pq]
       example: "gloas"
     SignedValidatorRegistration:
       $ref: './types/registration.yaml#/SignedValidatorRegistration'
@@ -553,6 +553,50 @@ components:
       $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingPayment"
     Gloas.BuilderPendingPayments:
       $ref: "./types/gloas/builder.yaml#/Gloas/BuilderPendingPayments"
+    Pq.BeaconBlock:
+      $ref: "./types/pq/block.yaml#/Pq/BeaconBlock"
+    Pq.SignedBeaconBlock:
+      $ref: "./types/pq/block.yaml#/Pq/SignedBeaconBlock"
+    Pq.SignedBeaconBlockHeader:
+      $ref: "./types/pq/block.yaml#/Pq/SignedBeaconBlockHeader"
+    Pq.BlockContents:
+      $ref: "./types/pq/block_contents.yaml#/Pq/BlockContents"
+    Pq.Validator:
+      $ref: "./types/pq/validator.yaml#/Pq/Validator"
+    Pq.Builder:
+      $ref: "./types/pq/builder.yaml#/Pq/Builder"
+    Pq.Attestation:
+      $ref: "./types/pq/attestation.yaml#/Pq/Attestation"
+    Pq.SingleAttestation:
+      $ref: "./types/pq/attestation.yaml#/Pq/SingleAttestation"
+    Pq.AggregatedAttestation:
+      $ref: "./types/pq/attestation.yaml#/Pq/AggregatedAttestation"
+    Pq.SignedAggregateAndProof:
+      $ref: "./types/pq/validator.yaml#/Pq/SignedAggregateAndProof"
+    Pq.AttesterSlashing:
+      $ref: "./types/pq/attester_slashing.yaml#/Pq/AttesterSlashing"
+    Pq.ProposerSlashing:
+      $ref: "./types/pq/proposer_slashing.yaml#/Pq/ProposerSlashing"
+    Pq.SignedExecutionPayloadBid:
+      $ref: "./types/pq/execution_payload_bid.yaml#/Pq/SignedExecutionPayloadBid"
+    Pq.ExecutionPayloadEnvelope:
+      $ref: "./types/pq/execution_payload_envelope.yaml#/Pq/ExecutionPayloadEnvelope"
+    Pq.SignedExecutionPayloadEnvelope:
+      $ref: "./types/pq/execution_payload_envelope.yaml#/Pq/SignedExecutionPayloadEnvelope"
+    Pq.SignedExecutionPayloadEnvelopeContents:
+      $ref: "./types/pq/execution_payload_envelope.yaml#/Pq/SignedExecutionPayloadEnvelopeContents"
+    Pq.PayloadAttestationMessage:
+      $ref: "./types/pq/payload_attestation.yaml#/Pq/PayloadAttestationMessage"
+    Pq.SignedProposerPreferences:
+      $ref: "./types/pq/proposer_preferences.yaml#/Pq/SignedProposerPreferences"
+    XmssPubkey:
+      $ref: "./types/primitive.yaml#/XmssPubkey"
+    XmssSignature:
+      $ref: "./types/primitive.yaml#/XmssSignature"
+    VrfProof:
+      $ref: "./types/primitive.yaml#/VrfProof"
+    VrfProofSsz:
+      $ref: "./types/primitive.yaml#/VrfProofSsz"
     Node:
       $ref: './types/fork_choice.yaml#/Node'
     ExtraData:
